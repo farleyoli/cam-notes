@@ -542,7 +542,7 @@ Since the order of $\mathbf{a, b, c}$ doesn't affect the volume, we know that
   A set of vectors $\{\mathbf{a, b}\}$ \emph{spans} $\R^2$ if for all vectors $\mathbf{r}\in \R^2$, there exist some $\lambda, \mu\in \R$ such that $\mathbf{r} = \lambda\mathbf{a} + \mu\mathbf{b}$.
 \end{defi}
 
-In $\R^2$, two vectors span the space if $\mathbf{a}\times \mathbf{b} \not= \mathbf{0}$.
+In $\R^2$, two vectors span the space if they are linearly independent, i.e.\ if they are not parallel.
 \begin{thm}[Uniqueness of spanning coefficients in $\R^2$]
   The coefficients $\lambda, \mu$ are unique.
 \end{thm}
@@ -1479,7 +1479,7 @@ The proof that this is well-defined can be found in IA Groups.
 \end{prop}
 
 \begin{proof}
-  Each term in the sum is multiplied by $\lambda$, so the whole sum is multiplied by $\lambda^n$.
+  When one row is multiplied by $\lambda$, each term in the determinant contains exactly one element from that row, so each term is multiplied by $\lambda$ once, giving $\det(B) = \lambda \det(A)$. For $\det(\lambda A)$, every entry is multiplied by $\lambda$, which is equivalent to multiplying each of the $n$ rows by $\lambda$, giving $\lambda^n \det(A)$.
 \end{proof}
 
 \begin{prop}[Identical rows gives zero determinant]
@@ -1736,7 +1736,7 @@ The other direction is easy to prove. If $\det A = 0$, then it has no inverse, s
   \begin{center}
     \begin{tabular}{ccc}
       $\Delta_{11} = 1$ & $\Delta_{12} = 0$ & $\Delta_{13} = 0$ \\
-      $\Delta_{21} - \lambda$ & $\Delta_{22} = 1$ & $\Delta_{23} = 0$ \\
+      $\Delta_{21} = -\lambda$ & $\Delta_{22} = 1$ & $\Delta_{23} = 0$ \\
       $\Delta_{31} = 0$ & $\Delta_{32} = 0$ & $\Delta_{33} = 1$
     \end{tabular}
   \end{center}
@@ -2222,7 +2222,7 @@ for some constants $c_0, \cdots, c_n$. From this, we see that
 The kernel of the matrix $A - \lambda I$ is the set $\{\mathbf{x}: A\mathbf{x} = \lambda\mathbf{x}\}$. This is a vector subspace because the kernel of any map is always a subspace.
 
 \begin{defi}[Eigenspace]
-  The \emph{eigenspace} denoted by $E_\lambda$ is the kernel of the matrix $A - \lambda I$, i.e.\ the set of eigenvectors with eigenvalue $\lambda$.
+  The \emph{eigenspace} denoted by $E_\lambda$ is the kernel of the matrix $A - \lambda I$, i.e.\ the set of all vectors $\mathbf{v}$ such that $A\mathbf{v} = \lambda \mathbf{v}$ (consisting of the eigenvectors with eigenvalue $\lambda$ together with the zero vector).
 \end{defi}
 
 \begin{defi}[Algebraic multiplicity of eigenvalue]
@@ -2907,7 +2907,7 @@ The actual theorem is actually stronger than this, and the Jordan normal form sa
 
 There are a few things to note.
 \begin{enumerate}
-  \item If $A^{-1}$ exists, then $A^{-1} p_A(A) = A^{-1}(c_0 + c_1A + c_2A^2 + \cdots + c_n A^n) = 0$. So $c_0 A^{-1} + c_1 + c_2A + \cdots + c_n A^{n - 1}$. Since $A^{-1}$ exists, $c_0 = \pm \det A \not= 0$. So
+  \item If $A^{-1}$ exists, then $A^{-1} p_A(A) = A^{-1}(c_0 + c_1A + c_2A^2 + \cdots + c_n A^n) = 0$. So $c_0 A^{-1} + c_1 + c_2A + \cdots + c_n A^{n - 1} = 0$. Since $A^{-1}$ exists, $c_0 = \pm \det A \not= 0$. So
     \[
       A^{-1} = \frac{-1}{c_0}(c_1 + c_2 A + \cdots + c_n A^{n -1}).
     \]
@@ -3189,7 +3189,7 @@ The eigenvectors are known as the principal axes.
     -2 & 5
   \end{pmatrix}$.
 
-  Note that we can always choose the matrix to be symmetric. This is since for any antisymmetric $A$, we have $\mathbf{x}^\dagger A\mathbf{x} = 0$. So we can just take the symmetric part.
+  Note that we can always choose the matrix to be symmetric. This is since for any antisymmetric $A$, we have $\mathbf{x}^T A\mathbf{x} = 0$. So we can just take the symmetric part.
 
   The eigenvalues are $1, 6$ with corresponding eigenvectors $
   \displaystyle \frac{1}{\sqrt{5}}\begin{pmatrix}
