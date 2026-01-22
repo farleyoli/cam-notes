@@ -1355,7 +1355,7 @@ Note that not all square matrices have inverses. For example, the zero matrix cl
 \end{defi}
 Note that an orthogonal matrix $A$ satisfies $A_{ik}(A^T_{kj}) = \delta_{ij}$, i.e.\ $A_{ik}A_{jk} = \delta_{ij}$. We can see this as saying ``the scalar product of two distinct rows is 0, and the scalar product of a row with itself is 1''. Alternatively, the rows (and columns --- by considering $A^T$) of an orthogonal matrix form an orthonormal set.
 
-Similarly, for a unitary matrix, $U_{ik}U_{kj}^\dagger = \delta_{ij}$, i.e.\ $u_{ik}u_{jk}^* = u_{ik}^*u_{jk} =\delta_{ij}$. i.e.\ the rows are orthonormal, using the definition of complex scalar product.
+Similarly, for a unitary matrix, $U_{ik}U_{jk}^\dagger = \delta_{ij}$, i.e.\ $u_{ik}u_{jk}^* = \delta_{ij}$. i.e.\ the rows are orthonormal, using the definition of complex scalar product.
 
 \begin{eg}\leavevmode
   \begin{enumerate}
@@ -2380,7 +2380,7 @@ The kernel of the matrix $A - \lambda I$ is the set $\{\mathbf{x}: A\mathbf{x} =
         \end{pmatrix}\right\}$.
 
       Hence $M(-2) = 3$ and $m(-2) = 2$. Thus the defect $\Delta_{-2} = 1$. So the eigenvectors do not form a basis of $\C^3$.
-    \item Consider the reflection $R$ in the plane with normal $\mathbf{n}$. Clearly $R\mathbf{n} = -\mathbf{n}$. The eigenvalue is $-1$ and the eigenvector is $\mathbf{n}$. Then $E_1 = \spn\{\mathbf{n}\}$. So $M(-1) = m(-1) = 1$.
+    \item Consider the reflection $R$ in the plane with normal $\mathbf{n}$. Clearly $R\mathbf{n} = -\mathbf{n}$. The eigenvalue is $-1$ and the eigenvector is $\mathbf{n}$. Then $E_{-1} = \spn\{\mathbf{n}\}$. So $M(-1) = m(-1) = 1$.
 
       If $\mathbf{p}$ is any vector in the plane, $R\mathbf{p} = \mathbf{p}$. So this has an eigenvalue of $1$ and eigenvectors being any vector in the plane. So $M(1) = m(1) = 2$.
 
@@ -2758,7 +2758,7 @@ This is similar to the proof we had for the case where the eigenvalues are disti
   $A$ is diagonalizable iff all its eigenvalues have zero defect.
 \end{prop}
 \subsection{Canonical (Jordan normal) form}
-Given a matrix $A$, if its eigenvalues all have non-zero defect, then we can find a basis in which it is diagonal. However, if some eigenvalue \emph{does} have defect, we can still put it into an almost-diagonal form. This is known as the \emph{Jordan normal form}.
+Given a matrix $A$, if its eigenvalues all have zero defect, then we can find a basis in which it is diagonal. However, if some eigenvalue \emph{does} have defect, we can still put it into an almost-diagonal form. This is known as the \emph{Jordan normal form}.
 
 \begin{thm}[Jordan normal form for $2\times 2$ matrices]
   Any $2\times 2$ complex matrix $A$ is similar to exactly one of
@@ -3136,7 +3136,7 @@ Note that a real symmetric matrix $S$ is a special case of Hermitian matrices. S
   Q = \begin{pmatrix}
     1/\sqrt{2} & 1/\sqrt{2}\\
     1/\sqrt{2} & -1/\sqrt{2}
-  \end{pmatrix}$. Then we know that $S = QDQ^T$ with $D = \mathrm{diag}(1, -1)$
+  \end{pmatrix}$. Then we know that $S = QDQ^T$ with $D = \mathrm{diag}(1+\beta, 1-\beta)$
 \end{eg}
 \subsubsection{Normal matrices}
 We have seen that the eigenvalues and eigenvectors of Hermitian matrices satisfy some nice properties. More generally, we can define the following:
