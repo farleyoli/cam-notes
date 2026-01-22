@@ -396,7 +396,7 @@ Let $(a_n)$ be a sequence, and suppose $a_n \to x$ and $a_n\to y$. Let $\varepsi
 \end{proof}
 
 We can use this to prove that the reals are uncountable:
-\begin{prop}
+\begin{prop}[Uncountability of reals]
   $\R$ is uncountable.
 \end{prop}
 
@@ -732,7 +732,7 @@ Here we'll consider two stronger conditions for convergence --- absolute converg
   A series $\sum a_n$ \emph{converges unconditionally} if the series $\sum_{n = 1}^{\infty} a_{\pi(n)}$ converges for every bijection $\pi: \N \to \N$, i.e.\ no matter how we re-order the elements of $a_n$, the sum still converges.
 \end{defi}
 
-\begin{thm}
+\begin{thm}[Absolute implies unconditional convergence]
   If $\sum a_n$ converges absolutely, then it converges unconditionally.
 \end{thm}
 
@@ -753,7 +753,7 @@ Here we'll consider two stronger conditions for convergence --- absolute converg
 \end{proof}
 
 The converse is also true.
-\begin{thm}
+\begin{thm}[Unconditional implies absolute convergence]
   If $\sum a_n$ converges unconditionally, then it converges absolutely.
 \end{thm}
 
@@ -1176,7 +1176,7 @@ We reprove intermediate value theorem here:
 \end{proof}
 
 Now we prove that continuous functions in closed intervals are bounded.
-\begin{thm}
+\begin{thm}[Boundedness on closed intervals]
   Let $[a, b]$ be a closed interval in $\R$ and let $f: [a, b] \to \R$ be continuous. Then $f$ is bounded.
 \end{thm}
 
@@ -1217,7 +1217,7 @@ Not every cover has a finite subcover. For example, the cover $\{(\frac{1}{n}, 1
 
 We can use Heine-Borel to prove that continuous functions on $[a, b]$ are bounded.
 
-\begin{thm}
+\begin{thm}[Extreme value theorem via Heine-Borel]
   Let $[a, b]$ be a closed interval in $\R$ and let $f: [a, b] \to \R$ be continuous. Then $f$ is bounded and attains it bounds, i.e.\ $f(x) = \sup f$ for some $x$, and $f(y) = \inf f$ for some $y$.
 \end{thm}
 
@@ -1278,7 +1278,7 @@ Then $f(x) \to \ell$ as $x \to a$ iff $g$ is continuous at $a$.
 Alternatively, $f$ is continuous at $a$ if $f(x) \to f(a)$ as $x \to a$. It follows also that $f(x) \to \ell$ as $x\to a$ iff $f(x_n) \to \ell$ for every sequence $(x_n)$ in $A$ with $x_n\to a$.
 
 The previous limit theorems of sequences apply here as well
-\begin{prop}
+\begin{prop}[Limit laws for functions]
   If $f(x)\to \ell$ and $g(x)\to m$ as $x\to a$, then $f(x) + g(x) \to \ell+ m$, $f(x)g(x) \to \ell m$, and $\frac{f(x)}{g(x)}\to \frac{\ell}{m}$ if $g$ and $m$ don't vanish.
 \end{prop}
 
@@ -1308,7 +1308,7 @@ where $\varepsilon(h) \to 0$ as $h \to 0$. Rearranging, we can deduce that
 Note that by the definition of the limit, we don't have to care what value $\varepsilon$ takes when $h = 0$. It can be $0$, $\pi$ or $10^{10^{10}}$. However, we usually take $\varepsilon(0) = 0$ so that $\varepsilon$ is continuous.
 
 Using the small-$o$ notation, we usually write $o(h)$ for a function that satisfies $\frac{o(h)}{h}\to 0$ as $h\to 0$. Hence we have
-\begin{prop}
+\begin{prop}[Linear approximation form]
   \[
     f(x + h) = f(x) + hf'(x) + o(h).
   \]
@@ -1320,7 +1320,7 @@ We can interpret this as an approximation of $f(x + h)$:
 And differentiability shows that this is a very good approximation with small $o(h)$ error.
 
 Conversely, we have
-\begin{prop}
+\begin{prop}[Linear approximation implies differentiability]
   If $f(x + h) = f(x) + hf'(x) + o(h)$, then $f$ is differentiable at $x$ with derivative $f'(x)$.
 \end{prop}
 \begin{proof}
@@ -1423,7 +1423,7 @@ We usually don't write out the error terms so explicitly, and just use heuristic
   As $y\to x$, $\displaystyle \frac{f(y) - f(x)}{y - x} \to f'(x)$. Since, $y - x \to 0$, $f(y) - f(x) \to 0$ by product theorem of limits. So $f(y) \to f(x)$. So $f$ is continuous at $x$.
 \end{proof}
 
-\begin{thm}
+\begin{thm}[Inverse function theorem]
   Let $f:[a, b]\to [c, d]$ be differentiable on $(a, b)$, continuous on $[a, b]$, and strictly increasing. Suppose that $f'(x)$ never vanishes. Suppose further that $f(a) = c$ and $f(b) = d$. Then $f$ has an inverse $g$ and for each $y\in (c, d)$, $g$ is differentiable at $y$ with derivative $1/f'(g(y))$.
 
   In human language, this states that if $f$ is invertible, then the derivative of $f^{-1}$ is $1/f'$.
@@ -1791,7 +1791,7 @@ A fundamental property of this function is that
   e^{z + w} = e^ze^w.
 \]
 Once we have this property, we can say that
-\begin{prop}
+\begin{prop}[Derivative of exponential]
   The derivative of $e^z$ is $e^z$.
 \end{prop}
 
@@ -1824,7 +1824,7 @@ and equate coefficients of $z^n$, you get
 \[
   c_n = a_0b_n + a_1b_{n - 1} + a_2b_{n - 2} + \cdots + a_nb_0.
 \]
-\begin{thm}
+\begin{thm}[Cauchy product]
   Let $\sum_{n = 0}^\infty a_n$ and $\sum_{n = 0}^\infty b_n$ be two absolutely convergent series, and let $(c_n)$ be the convolution of the sequences $(a_n)$ and $(b_n)$. Then $\sum_{n = 0}^\infty c_n$ converges (absolutely), and
   \[
     \sum_{n = 0}^{\infty} c_n = \left(\sum_{n = 0}^\infty a_n\right)\left(\sum_{n = 0}^\infty b_n \right).
@@ -1886,7 +1886,7 @@ Now we define $\sin z$ and $\cos z$:
 \end{defi}
 
 We now prove certain basic properties of $\sin$ and $\cos$, using known properties of $e^z$.
-\begin{prop}
+\begin{prop}[Basic properties of sine and cosine]
   \begin{align*}
     \frac{\d}{\d z}\sin z &= \frac{ie^{iz} + ie^{-iz}}{2i} = \cos z\\
     \frac{\d}{\d z}\cos z &= \frac{ie^{iz} - ie^{-iz}}{2} = -\sin z\\
@@ -1895,7 +1895,7 @@ We now prove certain basic properties of $\sin$ and $\cos$, using known properti
 \end{prop}
 It follows that if $x$ is real, then $|\cos x|$ and $|\sin x|$ are at most $1$.
 
-\begin{prop}
+\begin{prop}[Addition formulas]
   \begin{align*}
     \cos(z + w) &= \cos z\cos w - \sin z\sin w\\
     \sin(z + w) &= \sin z \cos w + \cos z \sin w
@@ -1936,7 +1936,7 @@ Since $\cos 0 = 1$, it follows by the intermediate value theorem that there exis
 Since $\sin^2 z + \cos ^2 z = 1$, it follows that $\sin \frac{\pi}{2} = \pm 1$. Since $\cos x > 0$ on $[0, \frac{\pi}{2}]$, $\sin \frac{\pi}{2} \geq 0$ by the mean value theorem. So $\sin \frac{\pi}{2} = 1$.
 
 Thus
-\begin{prop}
+\begin{prop}[Periodicity of sine and cosine]
   \begin{align*}
     \cos \left(z + \frac{\pi}{2}\right) &= -\sin z\\
     \sin \left(z + \frac{\pi}{2}\right) &= \cos z\\
@@ -2017,7 +2017,7 @@ which is actually the form we need.
   Apply Lemma above again and divide by 2.
 \end{proof}
 
-\begin{thm}
+\begin{thm}[Term-by-term differentiation of power series]
   Let $\sum a_n z^n$ be a power series with radius of convergence $R$. For $|z| < R$, let
   \[
     f(z) = \sum_{n = 0}^\infty a_n z^n\text{ and }g(z) = \sum_{n = 1}^\infty na_nz^{n - 1}.
@@ -2068,21 +2068,21 @@ In IB Analysis II, we will prove the same result using the idea of uniform conve
 \end{defi}
 
 Either from the definition or from differentiating the power series, we get that
-\begin{prop}
+\begin{prop}[Derivatives of hyperbolic functions]
   \begin{align*}
     \frac{\d}{\d z}\cosh z &= \sinh z\\
     \frac{\d }{\d z}\sinh z &= \cosh z
   \end{align*}
 \end{prop}
 Also, by definition, we have
-\begin{prop}
+\begin{prop}[Hyperbolic-trig relation]
   \begin{align*}
     \cosh iz &= \cos z\\
     \sinh iz &= i\sin z
   \end{align*}
 \end{prop}
 Also,
-\begin{prop}
+\begin{prop}[Hyperbolic identity]
   \[
     \cosh^2 z - \sinh^2 z = 1,
   \]
@@ -2317,7 +2317,7 @@ The next big result we want to prove is that integration is linear, ie
   \int_a^b (\lambda f(x) + \mu g(x))\;\d x = \lambda\int_a^b f(x)\;\d x + \mu\int_a^bg(x)\;\d x.
 \]
 We do this step by step:
-\begin{prop}
+\begin{prop}[Scalar multiplication of integrals]
   Let $f: [a, b] \to \R$ be integrable, and $\lambda \geq 0$. Then $\lambda f$ is integrable, and
   \[
     \int_a^b \lambda f(x)\;\d x = \lambda\int_a^b f(x)\;\d x.
@@ -2337,7 +2337,7 @@ We do this step by step:
   So if we choose $\mathcal{D}$ such that $U_{\mathcal{D}}f - L_\mathcal{D} f < \varepsilon/\lambda$, then $U_\mathcal{D}(\lambda f) - L_\mathcal{D}(\lambda f) < \varepsilon$. So the result follows from Riemann's integrability criterion.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Negation of integrals]
   Let $f: [a, b] \to \R$ be integrable. Then $-f$ is integrable, and
   \[
     \int_a^b -f(x)\;\d x = -\int_a^bf(x)\;\d x.
@@ -2365,7 +2365,7 @@ We do this step by step:
   Hence if $f$ is integrable, then $-f$ is integrable by the Riemann integrability criterion.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Linearity of integrals]
   Let $f, g: [a, b] \to \R$ be integrable. Then $f + g$ is integrable, and
   \[
     \int_a^b(f(x) + g(x))\;\d x = \int_a^b f(x)\;\d x + \int_a^b g(x)\;\d x.
@@ -2394,7 +2394,7 @@ So we now have that
   \int_a^b (\lambda f(x) + \mu g(x))\;\d x = \lambda\int_a^b f(x)\;\d x + \mu\int_a^bg(x)\;\d x.
 \]
 We will prove more ``obvious'' results.
-\begin{prop}
+\begin{prop}[Monotonicity of integrals]
   Let $f, g: [a, b] \to \R$ be integrable, and suppose that $f(x) \leq g(x)$ for every $x$. Then
   \[
     \int_a^b f(x)\;\d x \leq \int_a^b g(x)\;\d x.
@@ -2405,7 +2405,7 @@ We will prove more ``obvious'' results.
   Follows immediately from the definition.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Absolute value preserves integrability]
   Let $f: [a, b] \to \R$ be integrable. Then $|f|$ is integrable.
 \end{prop}
 
@@ -2483,7 +2483,7 @@ for every $x\in[a, b]$, then
   The other direction is left as an (easy) exercise.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Product of integrable functions]
   Let $f, g: [a, b] \to \R$ be integrable. Then $fg$ is integrable.
 \end{prop}
 
@@ -2506,7 +2506,7 @@ for every $x\in[a, b]$, then
   Since $C$ is fixed, and we can get $U_\mathcal{D} f - L_\mathcal{D}f$ and $U_\mathcal{D}g - L_\mathcal{D}g$ arbitrary small (since $f$ and $g$ are integrable), we can get $U_\mathcal{D}(fg) - L_\mathcal{D}(fg)$ arbitrarily small. So the result follows.
 \end{proof}
 
-\begin{thm}
+\begin{thm}[Continuous functions are integrable]
   Every continuous function $f$ on a closed bounded interval $[a, b]$ is Riemann integrable.
 \end{thm}
 
@@ -2549,7 +2549,7 @@ It is easy to show that a uniformly continuous function is integrable, since by 
 \end{proof}
 This proof is very similar to the proof that continuous functions are integrable. In fact, the proof that continuous functions are integrable is just a fuse of this proof and the (simple) proof that uniformly continuously functions are integrable.
 
-\begin{thm}
+\begin{thm}[Monotone functions are integrable]
   Let $f: [a, b] \to \R$ be monotone. Then $f$ is Riemann integrable.
 \end{thm}
 Note that monotone functions need not be ``nice''. It can even have infinitely many discontinuities. For example, if $f: [0, 1] \to \R$ maps $x$ to the $1/(\text{first non-zero digit in the binary expansion of }x)$, with $f(0) = 0$.
