@@ -105,12 +105,21 @@ It is often helpful to visualize complex numbers in a diagram:
   Clearly the pair $(r, \theta)$ uniquely describes a complex number $z$, but each complex number $z\in \C$ can be described by many different $\theta$ since $\sin (2\pi + \theta) = \sin \theta$ and $\cos(2\pi + \theta) = \cos\theta$. Often we take the \emph{principal value} $\theta \in (-\pi, \pi]$.
 \end{defi}
 
-The polar representation of complex numbers reveals a remarkable property of multiplication. Consider two complex numbers $z_1 = r_1(\cos\theta_1 + i\sin \theta_1)$ and $z_2 = r_2(\cos\theta_2 + i\sin \theta_2)$. Their product can be written as:
-\begin{align*}
-  z_1z_2 &= r_1r_2[(\cos\theta_1\cos\theta_2 - \sin\theta_1\sin\theta_2) + i(\sin\theta_1\cos\theta_2 + \sin\theta_2\cos\theta_1)]\\
-  &= r_1r_2[\cos(\theta_1 + \theta_2) + i\sin(\theta_1+\theta_2)]
-\end{align*}
-where we have used the addition formulas for cosine and sine. In other words, when multiplying two complex numbers, the moduli multiply and the arguments add. This property will be fundamental for understanding Euler's formula.
+\begin{prop}[Multiplication in polar form]
+  When multiplying two complex numbers, the moduli multiply and the arguments add. That is, if $z_1 = r_1(\cos\theta_1 + i\sin \theta_1)$ and $z_2 = r_2(\cos\theta_2 + i\sin \theta_2)$, then
+  \[
+    z_1z_2 = r_1r_2[\cos(\theta_1 + \theta_2) + i\sin(\theta_1+\theta_2)].
+  \]
+\end{prop}
+
+\begin{proof}
+  We compute
+  \begin{align*}
+    z_1z_2 &= r_1r_2[(\cos\theta_1\cos\theta_2 - \sin\theta_1\sin\theta_2) + i(\sin\theta_1\cos\theta_2 + \sin\theta_2\cos\theta_1)]\\
+    &= r_1r_2[\cos(\theta_1 + \theta_2) + i\sin(\theta_1+\theta_2)]
+  \end{align*}
+  where we have used the addition formulas for cosine and sine.
+\end{proof}
 
 \begin{prop}[Modulus squared formula]
   $z\bar{z} = a^2 + b^2 = |z|^2$.
@@ -351,14 +360,25 @@ Intuitively, this is the product of the parts of $\mathbf{a}$ and $\mathbf{b}$ t
 \end{center}
 Using the dot product, we can write the projection of $\mathbf{b}$ onto $\mathbf{a}$ as $(|\mathbf{b}|\cos\theta)\hat{\mathbf{a}} = \mathbf{(\hat{a}\cdot b)\hat{a}}$.
 
-The scalar product also allows us to recover the cosine law from trigonometry. Consider a triangle $ABC$ and let us calculate $|\overrightarrow{BC}|^2$ using vectors. By expressing $\overrightarrow{BC}$ as the difference of two vectors from $A$, and then expanding the scalar square, we obtain:
-\begin{align*}
-  |\overrightarrow{BC}|^2 &= |\overrightarrow{AC} - \overrightarrow{AB}|^2\\
-  &= (\overrightarrow{AC} - \overrightarrow{AB})\cdot (\overrightarrow{AC} - \overrightarrow{AB})\\
-  &= |\overrightarrow{AB}|^2 + |\overrightarrow{AC}|^2 - 2(\overrightarrow{AB}\cdot\overrightarrow{AC})\\
-  &= |\overrightarrow{AB}|^2 + |\overrightarrow{AC}|^2 - 2|\overrightarrow{AB}||\overrightarrow{AC}|\cos\theta
-\end{align*}
-where $\theta$ is the angle between the vectors $\overrightarrow{AB}$ and $\overrightarrow{AC}$. This is precisely the classical cosine law. We will see later a convenient algebraic method for evaluating this type of scalar product.
+\begin{prop}[Cosine law from scalar product]
+  For a triangle $ABC$, if $\theta$ is the angle at vertex $A$, then
+  \[
+    |\overrightarrow{BC}|^2 = |\overrightarrow{AB}|^2 + |\overrightarrow{AC}|^2 - 2|\overrightarrow{AB}||\overrightarrow{AC}|\cos\theta.
+  \]
+\end{prop}
+
+\begin{proof}
+  We calculate $|\overrightarrow{BC}|^2$ using vectors:
+  \begin{align*}
+    |\overrightarrow{BC}|^2 &= |\overrightarrow{AC} - \overrightarrow{AB}|^2\\
+    &= (\overrightarrow{AC} - \overrightarrow{AB})\cdot (\overrightarrow{AC} - \overrightarrow{AB})\\
+    &= |\overrightarrow{AB}|^2 + |\overrightarrow{AC}|^2 - 2(\overrightarrow{AB}\cdot\overrightarrow{AC})\\
+    &= |\overrightarrow{AB}|^2 + |\overrightarrow{AC}|^2 - 2|\overrightarrow{AB}||\overrightarrow{AC}|\cos\theta
+  \end{align*}
+  where $\theta$ is the angle between the vectors $\overrightarrow{AB}$ and $\overrightarrow{AC}$.
+\end{proof}
+
+We will see later a convenient algebraic method for evaluating this type of scalar product.
 
 \subsubsection{General algebraic definition}
 \begin{defi}[Inner/scalar product]
@@ -518,10 +538,16 @@ To explicitly calculate a vector product in Cartesian coordinates, we use the de
 \begin{proof}
   The area of the base of the parallelepiped is given by $\mathbf{|b||c|}\sin\theta = \mathbf{|b\times c|}$. Thus the volume$ = \mathbf{|b\times c||a|}\cos\phi = \mathbf{|a\cdot(b\times c)|}$, where $\phi$ is the angle between $\mathbf{a}$ and the normal to $\mathbf{b}$ and $\mathbf{c}$. However, since $\mathbf{a, b, c}$ form a right-handed system, we have $\mathbf{a\cdot (b\times c)} \geq 0$. Therefore the volume is $\mathbf{a\cdot(b\times c)}$.
 \end{proof}
-Since the order of $\mathbf{a, b, c}$ doesn't affect the volume, we know that
-\[
-  \mathbf{[a, b, c] = [b, c, a] = [c, a, b] = -[b, a, c] = -[a, c, b] = -[c, b, a]}.
-\]
+\begin{prop}[Cyclic permutation of scalar triple product]
+  The scalar triple product is invariant under cyclic permutations and changes sign under transpositions:
+  \[
+    \mathbf{[a, b, c] = [b, c, a] = [c, a, b] = -[b, a, c] = -[a, c, b] = -[c, b, a]}.
+  \]
+\end{prop}
+
+\begin{proof}
+  Since the order of $\mathbf{a, b, c}$ doesn't affect the volume of the parallelepiped, the value remains the same under cyclic permutations. Under a transposition, the handedness of the system reverses, changing the sign.
+\end{proof}
 
 \begin{thm}[Cross product distributivity]
   $\mathbf{a\times (b + c) = a\times b + a\times c}$.
@@ -637,7 +663,16 @@ Instead of linearity in the first argument, here we have $(\lambda\mathbf{u} + \
   \end{align*}
 \end{eg}
 
-We can prove the Cauchy-Schwarz inequality for complex vector spaces using the same proof as the real case, except that this time we have to first multiply $\mathbf{y}$ by some $e^{i\theta}$ so that $\mathbf{x} \cdot (e^{i\theta} \mathbf{y})$ is a real number. The factor of $e^{i\theta}$ will drop off at the end when we take the modulus signs.
+\begin{thm}[Cauchy-Schwarz inequality for $\C^n$]
+  For all $\mathbf{x, y}\in \C^n$,
+  \[
+    |\mathbf{x\cdot y}| \leq |\mathbf{x}||\mathbf{y}|.
+  \]
+\end{thm}
+
+\begin{proof}
+  The proof follows the same argument as the real case. First multiply $\mathbf{y}$ by some $e^{i\theta}$ so that $\mathbf{x} \cdot (e^{i\theta} \mathbf{y})$ is a real number. Then apply the same technique as in the real proof. The factor of $e^{i\theta}$ will drop off at the end when we take the modulus signs.
+\end{proof}
 
 \subsection{Vector subspaces}
 \begin{defi}[Vector subspace]
@@ -782,7 +817,16 @@ We have
   \]
   LHS: Summing over $i$, the only non-zero terms are when $j, k\not=i$ and $p, q\not=i$. If $j = p$ and $k = q$, LHS is $(-1)^2$ or $(+1)^2 = 1$. If $j = q$ and $k = p$, LHS is $(+1)(-1)$ or $(-1)(+1) = -1$. All other possibilities result in 0.
 \end{proof}
-Equally, we have $\varepsilon_{ijk}\varepsilon_{pqk} = \delta_{ip}\delta_{jq} - \delta_{jp}\delta_{iq}$ and $\varepsilon_{ijk}\varepsilon_{pjq} = \delta_{ip}\delta_{kq} - \delta_{iq}\delta_{kp}$.
+\begin{cor}[Alternative Levi-Civita contractions]
+  By permuting the contracted indices, we also have
+  \[
+    \varepsilon_{ijk}\varepsilon_{pqk} = \delta_{ip}\delta_{jq} - \delta_{jp}\delta_{iq}
+  \]
+  and
+  \[
+    \varepsilon_{ijk}\varepsilon_{pjq} = \delta_{ip}\delta_{kq} - \delta_{iq}\delta_{kp}.
+  \]
+\end{cor}
 
 \begin{prop}[Cyclic permutation of scalar triple product]
   \[
@@ -827,7 +871,13 @@ Similarly, $\mathbf{(a\times b)\times c = (a\cdot c)b - (b\cdot c)a}$.
   \end{align*}
 \end{proof}
 
-Consider the unit sphere, center $O$, with $\mathbf{a, b, c}$ on the surface.
+\begin{thm}[Spherical cosine rule]
+  Consider the unit sphere, center $O$, with points $A$, $B$, $C$ on the surface corresponding to unit vectors $\mathbf{a, b, c}$. Let $\delta(A, B)$ denote the arc length distance between $A$ and $B$ (i.e., $\angle AOB$), and let $\alpha$ be the angle at $A$ in the spherical triangle $ABC$. Then
+  \[
+    \cos\alpha\sin\delta(A, B)\sin\delta(A, C) = \cos\delta(B, C) - \cos\delta(A, B)\cos\delta(A, C).
+  \]
+\end{thm}
+
 \begin{center}
   \begin{tikzpicture}
     \draw circle [radius = 2.5];
@@ -848,16 +898,19 @@ Consider the unit sphere, center $O$, with $\mathbf{a, b, c}$ on the surface.
     \draw (0, 0.5) node {$\alpha$};
   \end{tikzpicture}
 \end{center}
-Suppose we are living on the surface of the sphere. So the distance from $A$ to $B$ is the arc length on the sphere. We can imagine this to be along the circumference of the circle through $A$ and $B$ with center $O$. So the distance is $\angle AOB$, which we shall denote by $\delta (A, B)$. So $\mathbf{a}\cdot \mathbf{b} = \cos \angle AOB = \cos \delta (A, B)$. We obtain similar expressions for other dot products. Similarly, we get $|\mathbf{a}\times \mathbf{b}| = \sin \delta(A, B)$.
-\begin{align*}
-  \cos \alpha &= \mathbf{\frac{(a\times b)\cdot(a\times c)}{|a\times b||a\times c|}}\\
-  &= \mathbf{\frac{b\cdot c - (a\cdot b)(a\cdot c)}{|a\times b||a\times c|}}
-\end{align*}
-Putting in our expressions for the dot and cross products, we obtain
-\[
-  \cos\alpha\sin\delta(A, B)\sin\delta(A, C) = \cos\delta(B, C) - \cos\delta(A, B)\cos\delta(A, C).
-\]
-This is the spherical cosine rule that applies when we live on the surface of a sphere. What does this spherical geometry look like?
+
+\begin{proof}
+  Since $\mathbf{a, b, c}$ are unit vectors on the surface of the sphere, we have $\mathbf{a}\cdot \mathbf{b} = \cos \angle AOB = \cos \delta (A, B)$. Similarly for other dot products. Also, $|\mathbf{a}\times \mathbf{b}| = \sin \delta(A, B)$.
+
+  The angle $\alpha$ satisfies
+  \begin{align*}
+    \cos \alpha &= \mathbf{\frac{(a\times b)\cdot(a\times c)}{|a\times b||a\times c|}}\\
+    &= \mathbf{\frac{b\cdot c - (a\cdot b)(a\cdot c)}{|a\times b||a\times c|}}
+  \end{align*}
+  by the proposition on dot products of cross products. Substituting our expressions for the dot and cross products yields the result.
+\end{proof}
+
+What does this spherical geometry look like?
 
 Consider a spherical equilateral triangle. Using the spherical cosine rule,
 \[
@@ -1840,7 +1893,9 @@ This is also be related to the determinant. Consider the case where $m = n$ and 
     \vdots & \vdots & \vdots & \vdots & \vdots & \vdots
   \end{vmatrix}
 \]
-This determinant is an \emph{upper triangular} one (all elements below diagonal are $0$) and the determinant is the product of its diagonal elements.
+\begin{lemma}[Determinant of upper triangular matrix]
+  If a matrix is \emph{upper triangular} (all elements below the diagonal are $0$), then its determinant is the product of its diagonal elements.
+\end{lemma}
 
 Hence if $r < n$ (and $d_i^{(r)} = 0$ for $i > r$), then we have case (ii) and the $\det A = 0$. If $r = n$, then $\det A = (-1)^k A_{11}A_{22}^{(2)}\cdots A_{nn}^{(n)} \not= 0$.
 
@@ -2199,27 +2254,47 @@ There is a rather easy way of finding eigenvalues:
   \]
 \end{defi}
 
-From the definition of the determinant,
-\begin{align*}
-  p_A(\lambda) &= \det(A - \lambda I)\\
-  &= \varepsilon_{j_1j_2\cdots j_n} (A_{j_1 1} - \lambda\delta_{j_11})\cdots (A_{j_n n} - \lambda\delta_{j_nn})\\
-  &= c_0 + c_1\lambda + \cdots + c_n\lambda^n
-\end{align*}
-for some constants $c_0, \cdots, c_n$. From this, we see that
-\begin{enumerate}
-  \item $p_A(\lambda)$ has degree $n$ and has $n$ roots. So an $n\times n$ matrix has $n$ eigenvalues (accounting for multiplicity).
-  \item If $A$ is real, then all $c_i\in \R$. So eigenvalues are either real or come in complex conjugate pairs.
-  \item $c_n = (-1)^n$ and $c_{n - 1} = (-1)^{n - 1}(A_{11} + A_{22} + \cdots + A_{nn}) = (-1)^{n - 1}\tr(A)$. But $c_{n -1}$ is the sum of roots, i.e.\ $c_{n - 1}= (-1)^{n - 1}(\lambda_1 + \lambda_2 + \cdots \lambda_n)$, so
-    \[
-      \tr(A) = \lambda_1 + \lambda_2 + \cdots + \lambda_n.
-    \]
-    Finally, $c_0 = p_A(0) = \det(A)$. Also $c_0$ is the product of all roots, i.e.\ $c_0 = \lambda_1\lambda_2\cdots \lambda_n$. So
-    \[
-      \det A = \lambda_1\lambda_2\cdots \lambda_n.
-    \]
-\end{enumerate}
+\begin{prop}[Properties of characteristic polynomial]
+  Let $A$ be an $n\times n$ matrix with characteristic polynomial $p_A(\lambda) = \det(A - \lambda I)$ and eigenvalues $\lambda_1, \ldots, \lambda_n$ (accounting for multiplicity). Then:
+  \begin{enumerate}
+    \item $p_A(\lambda)$ has degree $n$ and has $n$ roots. So an $n\times n$ matrix has $n$ eigenvalues (accounting for multiplicity).
+    \item If $A$ is real, then eigenvalues are either real or come in complex conjugate pairs.
+    \item The trace and determinant satisfy
+      \[
+        \tr(A) = \lambda_1 + \lambda_2 + \cdots + \lambda_n
+      \]
+      and
+      \[
+        \det A = \lambda_1\lambda_2\cdots \lambda_n.
+      \]
+  \end{enumerate}
+\end{prop}
 
-The kernel of the matrix $A - \lambda I$ is the set $\{\mathbf{x}: A\mathbf{x} = \lambda\mathbf{x}\}$. This is a vector subspace because the kernel of any map is always a subspace.
+\begin{proof}
+  From the definition of the determinant,
+  \begin{align*}
+    p_A(\lambda) &= \det(A - \lambda I)\\
+    &= \varepsilon_{j_1j_2\cdots j_n} (A_{j_1 1} - \lambda\delta_{j_11})\cdots (A_{j_n n} - \lambda\delta_{j_nn})\\
+    &= c_0 + c_1\lambda + \cdots + c_n\lambda^n
+  \end{align*}
+  for some constants $c_0, \cdots, c_n$.
+
+  (1) follows immediately from the fundamental theorem of algebra.
+
+  (2) If $A$ is real, then all $c_i\in \R$, so complex roots must come in conjugate pairs.
+
+  (3) From the expansion, $c_n = (-1)^n$ and $c_{n - 1} = (-1)^{n - 1}(A_{11} + A_{22} + \cdots + A_{nn}) = (-1)^{n - 1}\tr(A)$. But $c_{n -1}$ is also the sum of roots, i.e.\ $c_{n - 1}= (-1)^{n - 1}(\lambda_1 + \lambda_2 + \cdots \lambda_n)$. Therefore $\tr(A) = \lambda_1 + \lambda_2 + \cdots + \lambda_n$.
+
+  Finally, $c_0 = p_A(0) = \det(A)$. Also $c_0$ is the product of all roots, i.e.\ $c_0 = \lambda_1\lambda_2\cdots \lambda_n$. Therefore $\det A = \lambda_1\lambda_2\cdots \lambda_n$.
+\end{proof}
+
+\begin{prop}[Eigenspace is a subspace]
+  For any eigenvalue $\lambda$ of a matrix $A$, the kernel of $A - \lambda I$ is a vector subspace.
+\end{prop}
+
+\begin{proof}
+  The kernel of the matrix $A - \lambda I$ is the set $\{\mathbf{x}: A\mathbf{x} = \lambda\mathbf{x}\}$. This is a vector subspace because the kernel of any linear map is always a subspace.
+\end{proof}
 
 \begin{defi}[Eigenspace]
   The \emph{eigenspace} denoted by $E_\lambda$ is the kernel of the matrix $A - \lambda I$, i.e.\ the set of all vectors $\mathbf{v}$ such that $A\mathbf{v} = \lambda \mathbf{v}$ (consisting of the eigenvectors with eigenvalue $\lambda$ together with the zero vector).
@@ -2401,17 +2476,22 @@ The kernel of the matrix $A - \lambda I$ is the set $\{\mathbf{x}: A\mathbf{x} =
       \end{pmatrix}$. We have $M(1) = 2$ and $m(1) = 1$. So $\Delta_1 = 1$.
   \end{enumerate}
 \end{eg}
-If $n\times n$ matrix $A$ has $n$ distinct eigenvalues, and hence has $n$ linearly independent eigenvectors $\mathbf{v}_1, \mathbf{v}_2, \cdots \mathbf{v}_n$, then \emph{with respect to this eigenvector basis}, $A$ is diagonal.
+\begin{prop}[Diagonal form in eigenvector basis]
+  If an $n\times n$ matrix $A$ has $n$ distinct eigenvalues $\lambda_1, \ldots, \lambda_n$, and hence has $n$ linearly independent eigenvectors $\mathbf{v}_1, \mathbf{v}_2, \cdots \mathbf{v}_n$, then with respect to this eigenvector basis, $A$ is diagonal:
+  \[
+    A = \begin{pmatrix}
+      \lambda_1 & 0 & \cdots & 0\\
+      0 & \lambda_2 & \cdots & 0\\
+      \vdots & \vdots & \ddots & \vdots\\
+      0 & 0 & \cdots & \lambda_n
+    \end{pmatrix}.
+  \]
+\end{prop}
 
-In this basis, $v_1 = (1, 0, \cdots, 0)$ etc. We know that $A\mathbf{v}_i = \lambda_i\mathbf{v}_i$ (no summation). So the image of the $i$th basis vector is $\lambda_i$ times the $i$th basis. Since the columns of $A$ are simply the images of the basis,
-\[
-  \begin{pmatrix}
-    \lambda_1 & 0 & \cdots & 0\\
-    0 & \lambda_2 & \cdots & 0\\
-    \vdots & \vdots & \ddots & \vdots\\
-    0 & 0 & \cdots & \lambda_n
-  \end{pmatrix}
-\]
+\begin{proof}
+  In this eigenvector basis, $\mathbf{v}_1 = (1, 0, \cdots, 0)$ etc. We know that $A\mathbf{v}_i = \lambda_i\mathbf{v}_i$ (no summation). So the image of the $i$th basis vector is $\lambda_i$ times the $i$th basis vector. Since the columns of $A$ are simply the images of the basis vectors, the result follows.
+\end{proof}
+
 The fact that $A$ can be diagonalized by changing the basis is an important observation. We will now look at how we can change bases and see how we can make use of this.
 
 \subsection{Transformation matrices}
@@ -3148,7 +3228,6 @@ We have seen that the eigenvalues and eigenvectors of Hermitian matrices satisfy
 \end{defi}
 Hermitian, real symmetric, skew-Hermitian, real anti-symmetric, orthogonal, unitary matrices are all special cases of normal matrices.
 
-It can be shown that:
 \begin{prop}[Properties of normal matrices]\leavevmode
   \begin{enumerate}
     \item If $\lambda$ is an eigenvalue of $N$, then $\lambda^*$ is an eigenvalue of $N^\dagger$.
