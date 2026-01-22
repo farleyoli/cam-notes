@@ -47,7 +47,7 @@ Eigenvalues and eigenvectors; geometric significance.\hspace*{\fill}[2]
 
 \setcounter{section}{-1}
 \section{Introduction}
-Vectors and matrices is the language in which a lot of mathematics is written in. In physics, many variables such as position and momentum are expressed as vectors. Heisenberg also formulated quantum mechanics in terms of vectors and matrices. In statistics, one might pack all the results of all experiments into a single vector, and work with a large vector instead of many small quantities. In group theory, matrices are used to represent the symmetries of space (as well as many other groups).
+Vectors and matrices are the language in which a lot of mathematics is written in. In physics, many variables such as position and momentum are expressed as vectors. Heisenberg also formulated quantum mechanics in terms of vectors and matrices. In statistics, one might pack all the results of all experiments into a single vector, and work with a large vector instead of many small quantities. In group theory, matrices are used to represent the symmetries of space (as well as many other groups).
 
 So what is a vector? Vectors are very general objects, and can in theory represent very complex objects. However, in this course, our focus is on vectors in $\R^n$ or $\C^n$. We can think of each of these as an array of $n$ real or complex numbers. For example, $(1, 6, 4)$ is a vector in $\R^3$. These vectors are added in the obvious way. For example, $(1, 6, 4) + (3, 5, 2) = (4, 11, 6)$. We can also multiply vectors by numbers, say $2(1, 6, 4) = (2, 12, 8)$. Often, these vectors represent points in an $n$-dimensional space.
 
@@ -101,7 +101,7 @@ It is often helpful to visualize complex numbers in a diagram:
   \[
     z = r(\cos\theta + i\sin \theta)
   \]
-  Clearly the pair $(r, \theta)$ uniquely describes a complex number $z$, but each complex number $z\in \C$ can be described by many different $\theta$ since $\sin (2\pi + \theta) = \sin \theta$ and $\cos(2\pi + \theta) = \cos\theta$. Often we take the \emph{principle value} $\theta \in (-\pi, \pi]$.
+  Clearly the pair $(r, \theta)$ uniquely describes a complex number $z$, but each complex number $z\in \C$ can be described by many different $\theta$ since $\sin (2\pi + \theta) = \sin \theta$ and $\cos(2\pi + \theta) = \cos\theta$. Often we take the \emph{principal value} $\theta \in (-\pi, \pi]$.
 \end{defi}
 
 When writing $z_i = r_i(\cos\theta_i + i\sin \theta_i)$, we have
@@ -154,7 +154,7 @@ This automatically allows taking exponents of arbitrary complex numbers. Having 
     &= \sum_{r = 0}^\infty\sum_{m = 0}^r a_{r - m, m} \qedhere
   \end{align*}
 \end{proof}
-This is not exactly a rigorous proof, since we should not hand-wave about infinite sums so casually. But in fact, we did not even show that the definition of $\exp(z)$ is well defined for all numbers $z$, since the sum might diverge. All these will be done in that IA Analysis I course.
+This is not exactly a rigorous proof, since we should not hand-wave about infinite sums so casually. But in fact, we did not even show that the definition of $\exp(z)$ is well defined for all numbers $z$, since the sum might diverge. All these will be done in the IA Analysis I course.
 
 \begin{thm}
   $\exp(z_1)\exp(z_2) = \exp(z_1 + z_2)$
@@ -242,7 +242,7 @@ Thus we can write $z = r(\cos\theta + i\sin\theta) = re^{i\theta}$.
   \end{align*}
   If $n < 0$, let $m = -n$. Then $m > 0$ and
   \begin{align*}
-    (cos\theta + i\sin\theta)^{-m} &= (\cos m\theta + i\sin m\theta)^{-1}\\
+    (\cos\theta + i\sin\theta)^{-m} &= (\cos m\theta + i\sin m\theta)^{-1}\\
     &= \frac{\cos m\theta - i\sin m\theta}{(\cos m\theta + i\sin m\theta)(\cos m\theta - i\sin m\theta)}\\
     &= \frac{\cos (-m\theta) + i\sin (-m\theta)}{\cos^2 m\theta + \sin^2 m\theta}\\
     &= \cos (-m\theta) + i\sin (-m\theta)\\
@@ -328,7 +328,7 @@ In a vector space, we can define the \emph{scalar product} of two vectors, which
 
 \subsubsection{Geometric picture (\texorpdfstring{$\R^2$}{R2} and \texorpdfstring{$\R^3$}{R3} only)}
 \begin{defi}[Scalar/dot product]
-  $\mathbf{a}\cdot\mathbf{b} = \mathbf{|a||b|}\cos\theta$, where $\theta$ is the angle between $\mathbf{a}$ and $\mathbf{b}$. It satisfies the following properties:
+  $\mathbf{a}\cdot\mathbf{b} = |\mathbf{a}||\mathbf{b}|\cos\theta$, where $\theta$ is the angle between $\mathbf{a}$ and $\mathbf{b}$. It satisfies the following properties:
   \begin{enumerate}
     \item $\mathbf{a\cdot b = b\cdot a}$
     \item $\mathbf{a\cdot a = |a|}^2 \geq 0$
@@ -1144,7 +1144,7 @@ We see that the columns of the matrix are the images of the standard basis vecto
 
 \subsubsection{Examples}
 \begin{enumerate}
-  \item In $\R^2$, consider a reflection in a line with an angle $\theta$ to the $x$ axis. We know that $\mathbf{\hat{i}}\mapsto \cos 2\theta \mathbf{\hat{i}} + \sin 2\theta\mathbf{\hat j}$ , with $\mathbf{\hat{j}}\mapsto -\cos 2\theta \mathbf{\hat{j}} + \sin 2\theta\mathbf{\hat i}$. Then the matrix is
+  \item In $\R^2$, consider a reflection in a line with an angle $\theta$ to the $x$ axis. We know that $\mathbf{\hat{i}}\mapsto \cos 2\theta \mathbf{\hat{i}} + \sin 2\theta\mathbf{\hat j}$ , with $\mathbf{\hat{j}}\mapsto \sin 2\theta \mathbf{\hat{i}} - \cos 2\theta\mathbf{\hat{j}}$. Then the matrix is
   $\begin{pmatrix}
     \cos 2\theta & \sin 2\theta\\
     \sin 2\theta & -\cos 2\theta
@@ -1787,7 +1787,7 @@ Let's consider the different possibilities:
         0 - x_2 + x_3 &= -6\\
         0 &= 12
       \end{align*}
-      We have $d_3^{(3)} = 12 = 0$ and there is no solution.
+      We have $d_3^{(3)} = 12 \not= 0$ and there is no solution.
     \end{eg}
   \item If $r = n\leq m$, and all $d_{r + i}^{(r)} = 0$. Then from the $n$th equation, there is a unique solution for $x_n = d_{n}^{(n)}/A_{nn}^{(n)}$, and hence for all $x_i$ by back substitution. This system is \emph{determined}.
     \begin{eg}
@@ -1949,7 +1949,7 @@ Finally consider the general equation $A\mathbf{x} = \mathbf{d}$, where $A$ is a
   \]
   We have $\det A = 1 - a$. If $a \not= 1$, then $A^{-1}$ exists and
   \[
-    A^{-1} = \frac{1}{1 - a} = \frac{1}{1 - a}\begin{pmatrix}
+    A^{-1} = \frac{1}{1 - a}\begin{pmatrix}
       1 & -1\\
       -a & 1
     \end{pmatrix}.
@@ -2337,7 +2337,7 @@ The kernel of the matrix $A - \lambda I$ is the set $\{\mathbf{x}: A\mathbf{x} =
           -2 & -2 & 0
         \end{pmatrix}
       \]
-      Then $0 = p_A(\lambda) = -(\lambda+2)^4$. So $\lambda = -2, -2, -2$. To find the eigenvectors, we have
+      Then $0 = p_A(\lambda) = -(\lambda+2)^3$. So $\lambda = -2, -2, -2$. To find the eigenvectors, we have
       \[
         (A + 2I)\mathbf{x} =
         \begin{pmatrix}
@@ -2679,7 +2679,7 @@ We found three linear eigenvectors
 \[
   \tilde{\mathbf{e}_1} =
   \begin{pmatrix}
-    1\\2\\1
+    1\\2\\-1
   \end{pmatrix}, \tilde{\mathbf{e}_2} =
   \begin{pmatrix}
     -2\\1\\0
@@ -2991,7 +2991,7 @@ Suppose we have a set $B = \{\mathbf{w}_1, \mathbf{w}_2, \cdots, \mathbf{w}_r\}$
 Define the projection of $\mathbf{w}$ onto $\mathbf{v}$ by $\mathcal{P}_\mathbf{v}(\mathbf{w}) = \frac{\bra \mathbf{v}\mid \mathbf{w}\ket}{\bra \mathbf{v}\mid \mathbf{v}\ket} \mathbf{v}$. Now construct $\tilde{\mathbf{B}}$ iteratively:
 \begin{enumerate}
   \item $\mathbf{v}_1 = \mathbf{w}_1$
-  \item $\mathbf{v}_2 = \mathbf{w}_2 - \mathcal{P}_{\mathbf{v}_1}(\mathbf{w})$
+  \item $\mathbf{v}_2 = \mathbf{w}_2 - \mathcal{P}_{\mathbf{v}_1}(\mathbf{w}_2)$
 
     Then we get that $\bra \mathbf{v}_1\mid \mathbf{v}_2\ket = \bra \mathbf{v}_1\mid \mathbf{w}_2\ket - \left(\frac{\bra \mathbf{v}_1\mid \mathbf{w}_2\ket}{\bra \mathbf{v}_1 \mid \mathbf{v}_1\ket}\right) \bra \mathbf{v}_1\mid \mathbf{v}_1\ket = 0$
   \item $\mathbf{v}_3 = \mathbf{w}_3 - \mathcal{P}_{\mathbf{v}_1}(\mathbf{w}_3) - \mathcal{P}_{\mathbf{v}_2}(\mathbf{w}_3)$
@@ -3322,7 +3322,7 @@ Now consider the different cases of $e$:
       \end{tikzpicture}
     \end{center}
     \begin{align*}
-      \sqrt{(x - a)^2 + y^2} &= (x + 1)\\
+      \sqrt{(x - a)^2 + y^2} &= (x + a)\\
       y^2 &= 4ax
     \end{align*}
     and we have a parabola.
@@ -3400,7 +3400,7 @@ In general, we can show that any matrix in $O(2)$ is of the form
       \]
       Similarly, the left hand side is
       \[
-        |P\mathbf{x} + P\mathbf{y}|^2 = |P\mathbf{x}|^2 + |P\mathbf{y}| + 2(P\mathbf{x})^TP\mathbf{y} = |\mathbf{x}|^2 + |\mathbf{y}|^2 + 2(P\mathbf{x})^TP\mathbf{y}.
+        |P\mathbf{x} + P\mathbf{y}|^2 = |P\mathbf{x}|^2 + |P\mathbf{y}|^2 + 2(P\mathbf{x})^TP\mathbf{y} = |\mathbf{x}|^2 + |\mathbf{y}|^2 + 2(P\mathbf{x})^TP\mathbf{y}.
       \]
       So $(P\mathbf{x})^TP\mathbf{y} = \mathbf{x}^T\mathbf{y}$.
     \item $\Rightarrow$ (iv): $(P\mathbf{v}_i)^TP\mathbf{v}_j = \mathbf{v}_i^T\mathbf{v}_j = \delta_{ij}$. So $P\mathbf{v}_i$'s are also orthonormal.
