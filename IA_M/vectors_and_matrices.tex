@@ -67,7 +67,7 @@ Apart from solving equations, complex numbers have a lot of rather important app
   A \emph{complex number} is a number $z\in \C$ of the form $z = a + ib$ with $a, b\in \R$, where $i^2=-1$. We write $a = \Re(z)$ and $b = \Im(z)$.
 \end{defi}
 
-We have
+Pour effectuer des opérations sur les nombres complexes, nous utilisons les règles algébriques suivantes. Soient $z_1 = a_1 + ib_1$ et $z_2 = a_2 + ib_2$ deux nombres complexes. Alors :
 \begin{align*}
   z_1\pm z_2 &= (a_1 + ib_1)\pm (a_2 + ib_2)\\
   &= (a_1\pm a_2) + i(b_1 \pm b_2)\\
@@ -76,6 +76,7 @@ We have
   z^{-1} &= \frac{1}{a + ib}\\
   &= \frac{a - ib}{a^2 + b^2}
 \end{align*}
+L'addition et la soustraction se font composante par composante. Pour la multiplication, on développe le produit en utilisant $i^2 = -1$. Pour l'inverse, on multiplie le numérateur et le dénominateur par le conjugué complexe.
 \begin{defi}[Complex conjugate]
   The \emph{complex conjugate} of $z = a+ ib$ is $a - ib$. It is written as $\bar{z}$ or $z^*$.
 \end{defi}
@@ -104,12 +105,12 @@ It is often helpful to visualize complex numbers in a diagram:
   Clearly the pair $(r, \theta)$ uniquely describes a complex number $z$, but each complex number $z\in \C$ can be described by many different $\theta$ since $\sin (2\pi + \theta) = \sin \theta$ and $\cos(2\pi + \theta) = \cos\theta$. Often we take the \emph{principal value} $\theta \in (-\pi, \pi]$.
 \end{defi}
 
-When writing $z_i = r_i(\cos\theta_i + i\sin \theta_i)$, we have
+La représentation polaire des nombres complexes révèle une propriété remarquable de la multiplication. Considérons deux nombres complexes $z_1 = r_1(\cos\theta_1 + i\sin \theta_1)$ et $z_2 = r_2(\cos\theta_2 + i\sin \theta_2)$. Leur produit s'écrit :
 \begin{align*}
   z_1z_2 &= r_1r_2[(\cos\theta_1\cos\theta_2 - \sin\theta_1\sin\theta_2) + i(\sin\theta_1\cos\theta_2 + \sin\theta_2\cos\theta_1)]\\
   &= r_1r_2[\cos(\theta_1 + \theta_2) + i\sin(\theta_1+\theta_2)]
 \end{align*}
-In other words, when multiplying complex numbers, the moduli multiply and the arguments add.
+où l'on a utilisé les formules d'addition pour le cosinus et le sinus. Autrement dit, lorsqu'on multiplie deux nombres complexes, les modules se multiplient et les arguments s'additionnent. Cette propriété sera fondamentale pour comprendre la formule d'Euler.
 
 \begin{prop}[Modulus squared formula]
   $z\bar{z} = a^2 + b^2 = |z|^2$.
@@ -140,18 +141,20 @@ To do so, we use the Taylor series definition of the exponential function:
 This automatically allows taking exponents of arbitrary complex numbers. Having defined exponentiation this way, we want to check that it satisfies the usual properties, such as $\exp(z + w) = \exp(z)\exp(w)$. To prove this, we will first need a helpful lemma.
 
 \begin{lemma}[Double sum rearrangement]
+  Pour une famille $(a_{mn})$ de nombres complexes, on a
   \[
-    \sum_{n = 0}^\infty\sum_{m = 0}^\infty a_{mn} = \sum_{r = 0}^\infty\sum_{m = 0}^r a_{r - m, m}
+    \sum_{n = 0}^\infty\sum_{m = 0}^\infty a_{mn} = \sum_{r = 0}^\infty\sum_{m = 0}^r a_{r - m, m}.
   \]
 \end{lemma}
 
 \begin{proof}
+  L'idée est de réorganiser l'ordre de sommation. La somme de gauche parcourt les termes $a_{mn}$ ligne par ligne (pour chaque $n$ fixé, on somme sur tous les $m$). On peut visualiser cela comme la somme de tous les termes dans un tableau infini. Au lieu de sommer ligne par ligne, on va sommer le long des diagonales. La diagonale $r$ contient les termes $(a_{n,m})$ tels que $n + m = r$, c'est-à-dire les termes $a_{r,0}, a_{r-1,1}, \ldots, a_{0,r}$. Formellement :
   \begin{align*}
     \sum_{n = 0}^\infty\sum_{m = 0}^\infty a_{mn} &= a_{00} + a_{01} + a_{02} + \cdots\\
-    &+ a_{10} + a_{11} + a_{12} + \cdots\\
-    &+ a_{20} + a_{21} + a_{22} + \cdots\\
+    &\quad+ a_{10} + a_{11} + a_{12} + \cdots\\
+    &\quad+ a_{20} + a_{21} + a_{22} + \cdots\\
     &= (a_{00}) + (a_{10} + a_{01}) + (a_{20} + a_{11} + a_{02}) + \cdots\\
-    &= \sum_{r = 0}^\infty\sum_{m = 0}^r a_{r - m, m} \qedhere
+    &= \sum_{r = 0}^\infty\sum_{m = 0}^r a_{r - m, m}. \qedhere
   \end{align*}
 \end{proof}
 This is not exactly a rigorous proof, since we should not hand-wave about infinite sums so casually. But in fact, we did not even show that the definition of $\exp(z)$ is well defined for all numbers $z$, since the sum might diverge. All these will be done in the IA Analysis I course.
@@ -290,10 +293,13 @@ The equation of a circle, on the other hand, is rather straightforward. Suppose 
     z\bar z - \bar c z - c\bar z = \rho^2 - c\bar c.
   \]
 \end{thm}
-\section{Vectors}
-We might have first learned vectors as arrays of numbers, and then defined addition and multiplication in terms of the individual numbers in the vector. This however, is not what we are going to do here. The array of numbers is just a \emph{representation} of the vector, instead of the vector itself.
 
-Here, we will define vectors in terms of what they are, and then the various operations are defined axiomatically according to their properties.
+\section{Vectors}
+Après avoir étudié les nombres complexes, qui généralisent les nombres réels, nous abordons maintenant une autre structure algébrique fondamentale : les espaces vectoriels. Bien que les nombres complexes $\C$ constituent eux-mêmes un espace vectoriel de dimension 2 sur $\R$, nous allons développer la théorie générale des vecteurs dans des espaces de dimension arbitraire.
+
+On apprend souvent les vecteurs comme des tableaux de nombres, puis on définit l'addition et la multiplication en termes des composantes individuelles. Cependant, ce n'est pas l'approche que nous adopterons ici. Le tableau de nombres est simplement une \emph{représentation} du vecteur, et non le vecteur lui-même.
+
+Dans ce chapitre, nous définirons les vecteurs de manière axiomatique, c'est-à-dire en termes de leurs propriétés fondamentales. Les diverses opérations seront ensuite définies par les axiomes qu'elles doivent satisfaire.
 \subsection{Definition and basic properties}
 \begin{defi}[Vector]
   A \emph{vector space} over $\R$ or $\C$ is a collection of vectors $\mathbf{v}\in V$, together with two operations: addition of two vectors and multiplication of a vector with a scalar (i.e.\ a number from $\R$ or $\C$, respectively).
@@ -314,10 +320,7 @@ Here, we will define vectors in terms of what they are, and then the various ope
   \end{enumerate}
 \end{defi}
 
-Often, vectors have a length and direction. The length is denoted by $|\mathbf{v}|$. In this case, we can think of a vector as an ``arrow'' in space. Note that $\lambda\mathbf{a}$ is either parallel ($\lambda \ge 0$) to or anti-parallel ($\lambda \le 0$) to $\mathbf{a}$.
-\begin{defi}[Unit vector]
-  A \emph{unit vector} is a vector with length 1. We write a unit vector as $\hat{\mathbf{v}}$.
-\end{defi}
+Souvent, on peut associer aux vecteurs une notion de longueur (ou \emph{norme}) et de direction. Dans ce cas, on peut visualiser un vecteur comme une ``flèche'' dans l'espace. Notons que $\lambda\mathbf{a}$ est soit parallèle ($\lambda \ge 0$) soit antiparallèle ($\lambda \le 0$) à $\mathbf{a}$. La définition précise de la longueur nécessite l'introduction du produit scalaire, que nous étudierons dans la section suivante.
 
 \begin{eg}
   $\R^n$ is a vector space with component-wise addition and scalar multiplication. Note that the vector space $\R$ is a line, but not all lines are vector spaces. For example, $x + y = 1$ is not a vector space since it does not contain $\mathbf{0}$.
@@ -348,17 +351,18 @@ Intuitively, this is the product of the parts of $\mathbf{a}$ and $\mathbf{b}$ t
 \end{center}
 Using the dot product, we can write the projection of $\mathbf{b}$ onto $\mathbf{a}$ as $(|\mathbf{b}|\cos\theta)\hat{\mathbf{a}} = \mathbf{(\hat{a}\cdot b)\hat{a}}$.
 
-The cosine rule can be derived as follows:
+Le produit scalaire permet également de retrouver la loi des cosinus de la trigonométrie. Considérons un triangle $ABC$ et calculons $|\overrightarrow{BC}|^2$ à l'aide des vecteurs. En exprimant $\overrightarrow{BC}$ comme différence de deux vecteurs issus de $A$, puis en développant le carré scalaire, on obtient :
 \begin{align*}
   |\overrightarrow{BC}|^2 &= |\overrightarrow{AC} - \overrightarrow{AB}|^2\\
   &= (\overrightarrow{AC} - \overrightarrow{AB})\cdot (\overrightarrow{AC} - \overrightarrow{AB})\\
+  &= |\overrightarrow{AB}|^2 + |\overrightarrow{AC}|^2 - 2(\overrightarrow{AB}\cdot\overrightarrow{AC})\\
   &= |\overrightarrow{AB}|^2 + |\overrightarrow{AC}|^2 - 2|\overrightarrow{AB}||\overrightarrow{AC}|\cos\theta
 \end{align*}
-We will later come up with a convenient algebraic way to evaluate this scalar product.
+où $\theta$ est l'angle entre les vecteurs $\overrightarrow{AB}$ et $\overrightarrow{AC}$. Ceci est précisément la loi des cosinus classique. Nous verrons plus tard une méthode algébrique commode pour évaluer ce type de produit scalaire.
 
 \subsubsection{General algebraic definition}
 \begin{defi}[Inner/scalar product]
-  In a real vector space $V$, an \emph{inner product} or \emph{scalar product} is a map $V\times V\to \R$ that satisfies the following axioms. It is written as $\mathbf{x\cdot y}$ or $\bra\mathbf{x\mid y}\ket$.
+  In a real vector space $V$, an \emph{inner product} or \emph{scalar product} is a map $V\times V\to \R$ that satisfies the following axioms. On le note $\mathbf{x\cdot y}$ ou $\bra\mathbf{x\mid y}\ket$ (cette dernière notation, dite \emph{notation de Dirac} ou \emph{notation bra-ket}, est courante en mécanique quantique).
   \begin{enumerate}
     \item $\mathbf{x\cdot y = y\cdot x}$ \hfill (symmetry)
     \item $\mathbf{x}\cdot (\lambda\mathbf{y} + \mu\mathbf{z}) = \lambda\mathbf{x\cdot y} + \mu\mathbf{x\cdot z}$ \hfill (linearity in 2nd argument)
@@ -374,6 +378,12 @@ In particular, here we can use (i) and (ii) together to show linearity in 1st ar
   \[
     |\mathbf{a}| = \sqrt{\mathbf{a\cdot a}}.
   \]
+\end{defi}
+
+La norme généralise la notion de longueur aux espaces vectoriels abstraits.
+
+\begin{defi}[Unit vector]
+  A \emph{unit vector} (ou \emph{vecteur unitaire}) is a vector with norm equal to 1, i.e.\ $|\mathbf{v}| = 1$. We write a unit vector as $\hat{\mathbf{v}}$. Pour tout vecteur non nul $\mathbf{v}$, on peut construire un vecteur unitaire dans la même direction par $\hat{\mathbf{v}} = \frac{\mathbf{v}}{|\mathbf{v}|}$ (processus appelé \emph{normalisation}).
 \end{defi}
 
 \begin{eg}
@@ -392,13 +402,13 @@ In particular, here we can use (i) and (ii) together to show linearity in 1st ar
 \end{thm}
 
 \begin{proof}
-  Consider the expression $|\mathbf{x} - \lambda \mathbf{y}|^2$. We must have
+  La stratégie de cette démonstration consiste à exploiter le fait qu'une norme au carré est toujours positive ou nulle. Considérons l'expression $|\mathbf{x} - \lambda \mathbf{y}|^2$, où $\lambda$ est un paramètre réel arbitraire. Cette quantité, étant le carré d'une norme, doit être positive ou nulle :
   \begin{align*}
-    |\mathbf{x} - \lambda\mathbf{y}|^2 \geq 0\\
-    (\mathbf{x} - \lambda\mathbf{y})\cdot (\mathbf{x} - \lambda\mathbf{y}) \geq 0\\
-    \lambda^2 |\mathbf{y}|^2 - \lambda (2\mathbf{x\cdot y}) + |\mathbf{x}|^2 \geq 0.
+    |\mathbf{x} - \lambda\mathbf{y}|^2 &\geq 0\\
+    (\mathbf{x} - \lambda\mathbf{y})\cdot (\mathbf{x} - \lambda\mathbf{y}) &\geq 0\\
+    \lambda^2 |\mathbf{y}|^2 - \lambda (2\mathbf{x\cdot y}) + |\mathbf{x}|^2 &\geq 0.
   \end{align*}
-  Viewing this as a quadratic in $\lambda$, we see that the quadratic is non-negative and thus cannot have 2 real roots. Thus the discriminant $\Delta \leq 0$. So
+  Cette dernière expression est un polynôme du second degré en $\lambda$. Comme elle est positive ou nulle pour tout $\lambda \in \R$, ce polynôme ne peut pas avoir deux racines réelles distinctes. Par conséquent, son discriminant doit satisfaire $\Delta \leq 0$. On obtient ainsi :
   \begin{align*}
     4(\mathbf{x\cdot y})^2 &\leq 4|\mathbf{y}|^2|\mathbf{x}|^2\\
     (\mathbf{x\cdot y})^2 &\leq |\mathbf{x}|^2|\mathbf{y}|^2\\
@@ -460,9 +470,9 @@ Apart from the scalar product, we can also define the \emph{vector product}. How
   \end{enumerate}
 \end{defi}
 
-If we have a triangle $OAB$, its area is given by $\frac{1}{2}|\overrightarrow{OA}||\overrightarrow{OB}|\sin\theta = \frac{1}{2}|\overrightarrow{OA}\times\overrightarrow{OB}|$. We define the vector area as $\frac{1}{2}\overrightarrow{OA}\times\overrightarrow{OB}$, which is often a helpful notion when we want to do calculus with surfaces.
+Le produit vectoriel a une interprétation géométrique importante. Si l'on considère un triangle $OAB$, son aire est donnée par $\frac{1}{2}|\overrightarrow{OA}||\overrightarrow{OB}|\sin\theta = \frac{1}{2}|\overrightarrow{OA}\times\overrightarrow{OB}|$. On définit l'\emph{aire vectorielle} comme $\frac{1}{2}\overrightarrow{OA}\times\overrightarrow{OB}$, une notion particulièrement utile en calcul vectoriel pour l'étude des surfaces.
 
-There is a convenient way of calculating vector products:
+Pour calculer explicitement un produit vectoriel en coordonnées cartésiennes, on utilise la méthode du déterminant. Soient $\mathbf{a} = a_1\hat{\mathbf{i}} + a_2\hat{\mathbf{j}} + a_3\hat{\mathbf{k}}$ et $\mathbf{b} = b_1\hat{\mathbf{i}} + b_2\hat{\mathbf{j}} + b_3\hat{\mathbf{k}}$ deux vecteurs de $\R^3$ exprimés dans la base canonique $\{\hat{\mathbf{i}}, \hat{\mathbf{j}}, \hat{\mathbf{k}}\}$. Alors :
 \begin{prop}[Cross product determinant formula]
   \begin{align*}
     \mathbf{a\times b} &= (a_1\hat{\mathbf{i}} + a_2\hat{\mathbf{j}} + a_3\hat{\mathbf{k}})\times(b_1\hat{\mathbf{i}} + b_2\hat{\mathbf{j}} + b_3\hat{\mathbf{k}})\\
@@ -666,9 +676,9 @@ We can prove the Cauchy-Schwarz inequality for complex vector spaces using the s
 \end{eg}
 
 \subsection{Suffix notation}
-Here we are going to introduce a powerful notation that can help us simplify a lot of things.
+Dans les calculs vectoriels, il est souvent fastidieux de manipuler des sommes explicites. La \emph{notation indicielle} (ou \emph{suffix notation}), développée notamment par Einstein, permet de simplifier considérablement l'écriture et la manipulation d'expressions vectorielles et tensorielles. Cette notation est particulièrement utile en mécanique des fluides, en relativité générale, et en physique théorique.
 
-First of all, let $\mathbf{v}\in \R^3$. We can write $\mathbf{v} = v_1\mathbf{e}_1 + v_2\mathbf{e}_2 + v_3\mathbf{e}_3 = (v_1, v_2, v_3)$. So in general, the $i$th component of $\mathbf{v}$ is written as $v_i$. We can thus write vector equations in component form. For example, $\mathbf{a} = \mathbf{b} \rightarrow a_i = b_i$ or $\mathbf{c}=\alpha\mathbf{a} + \beta\mathbf{b} \rightarrow c_i = \alpha a_i + \beta b_i$. A vector has one \emph{free} suffix, $i$, while a scalar has none.
+Commençons par établir les conventions de base. Soit $\mathbf{v}\in \R^3$. On peut écrire $\mathbf{v} = v_1\mathbf{e}_1 + v_2\mathbf{e}_2 + v_3\mathbf{e}_3 = (v_1, v_2, v_3)$, où $\{\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3\}$ désigne la base canonique de $\R^3$. En général, la $i$-ième composante de $\mathbf{v}$ s'écrit $v_i$. On peut ainsi exprimer les équations vectorielles sous forme indicielle. Par exemple, $\mathbf{a} = \mathbf{b}$ s'écrit $a_i = b_i$ pour tout $i$, et $\mathbf{c}=\alpha\mathbf{a} + \beta\mathbf{b}$ s'écrit $c_i = \alpha a_i + \beta b_i$. On dit qu'un vecteur possède un indice \emph{libre}, noté $i$, tandis qu'un scalaire n'en possède aucun.
 
 \begin{notation}[Einstein's summation convention]
   Consider a sum $\mathbf{x}\cdot \mathbf{y} = \sum x_i y_i$. The \emph{summation convention} says that we can drop the $\sum$ symbol and simply write $\mathbf{x}\cdot \mathbf{y} = x_i y_i$. If suffixes are repeated once, summation is understood.
@@ -923,9 +933,15 @@ Alternatively, if $\mathbf{a, b, c}$ lie in the plane, then the equation of the 
 \end{eg}
 
 \section{Linear maps}
-A \emph{linear map} is a special type of function between vector spaces. In fact, most of the time, these are the only functions we actually care about. They are maps that satisfy the property $f(\lambda \mathbf{a} + \mu \mathbf{b}) = \lambda f(\mathbf{a}) + \mu f(\mathbf{b})$.
+Après avoir étudié les vecteurs et leurs propriétés algébriques et géométriques, nous nous intéressons maintenant aux fonctions qui préservent la structure vectorielle. Une \emph{application linéaire} (ou \emph{linear map}) est une fonction $f: V \to W$ entre deux espaces vectoriels qui satisfait la propriété suivante : pour tous vecteurs $\mathbf{a}, \mathbf{b} \in V$ et tous scalaires $\lambda, \mu$, on a
+\[
+f(\lambda \mathbf{a} + \mu \mathbf{b}) = \lambda f(\mathbf{a}) + \mu f(\mathbf{b}).
+\]
+Cette propriété exprime que $f$ respecte les opérations de l'espace vectoriel : elle commute avec l'addition vectorielle et la multiplication scalaire.
 
-We will first look at two important examples of linear maps --- rotations and reflections, and then study their properties formally.
+Les applications linéaires jouent un rôle fondamental en mathématiques et en physique. En effet, dans de nombreux contextes, ce sont les seules transformations qui préservent les propriétés essentielles des systèmes étudiés. Par exemple, les rotations et les réflexions dans l'espace euclidien sont des applications linéaires.
+
+Nous commencerons par étudier deux exemples importants d'applications linéaires --- les rotations et les réflexions --- avant d'étudier leurs propriétés de manière formelle.
 \subsection{Examples}
 \subsubsection{Rotation in \texorpdfstring{$\R^3$}{R3}}
 In $\R^3$, first consider the simple cases where we rotate about the $z$ axis by $\theta$. We call this rotation $R$ and write $\mathbf{x}' = R(\mathbf{x})$.
@@ -1115,17 +1131,17 @@ Suppose we want to reflect through a plane through $O$ with normal $\hat{\mathbf
 \end{eg}
 
 \subsection{Matrices}
-In the examples above, we have represented our linear maps by some object $R$ such that $x_i' = R_{ij}x_j$. We call $R$ the \emph{matrix} for the linear map. In general, let $\alpha: \R^n \to \R^m$ be a linear map, and $\mathbf{x}' = \alpha(\mathbf{x})$.
+Dans les exemples précédents, nous avons représenté nos applications linéaires par un objet $R$ tel que $x_i' = R_{ij}x_j$. On appelle $R$ la \emph{matrice} de l'application linéaire. Nous allons maintenant formaliser cette construction et montrer que toute application linéaire peut être représentée de manière unique par une matrice.
 
-Let $\{\mathbf{e}_i\}$ be a basis of $\R^n$. Then $\mathbf{x} = x_j \mathbf{e}_j$ for some $x_j$. Then we get
+Soit $\alpha: \R^n \to \R^m$ une application linéaire, et notons $\mathbf{x}' = \alpha(\mathbf{x})$. Choisissons une base $\{\mathbf{e}_i\}$ de $\R^n$. Tout vecteur $\mathbf{x} \in \R^n$ peut s'écrire $\mathbf{x} = x_j \mathbf{e}_j$ pour certains scalaires $x_j$ (où la sommation sur $j$ est sous-entendue par la convention d'Einstein). Par linéarité de $\alpha$, on obtient :
 \[
   \mathbf{x}' = \alpha(x_j \mathbf{e}_j) = x_j \alpha(\mathbf{e}_j).
 \]
-So we get that
+Ainsi, l'image $\mathbf{x}'$ est entièrement déterminée par les images des vecteurs de base $\alpha(\mathbf{e}_j)$. En notant la $i$-ième composante de $\alpha(\mathbf{e}_j)$ par $[\alpha(\mathbf{e}_j)]_i$, on a :
 \[
   x_i' = [\alpha(\mathbf{e}_j)]_i x_j.
 \]
-We now define $A_{ij} = [\alpha(\mathbf{e}_j)]_i$. Then $x_i' = A_{ij}x_j$. We write
+On définit alors les coefficients matriciels $A_{ij} = [\alpha(\mathbf{e}_j)]_i$, ce qui donne $x_i' = A_{ij}x_j$. We write
 \[
   A = \{A_{ij}\} =
   \begin{pmatrix}
@@ -2117,7 +2133,9 @@ Finally consider the general equation $A\mathbf{x} = \mathbf{d}$, where $A$ is a
 
 \section{Eigenvalues and eigenvectors}
 \label{sec:eigen}
-Given a matrix $A$, an eigenvector is a vector $\mathbf{x}$ that satisfies $A\mathbf{x} = \lambda \mathbf{x}$ for some $\lambda$. We call $\lambda$ the associated eigenvalue. In some sense, these vectors are not modified by the matrix, and are just scaled up by the matrix. We will look at the properties of eigenvectors and eigenvalues, and see their importance in diagonalizing matrices.
+L'étude des valeurs propres et vecteurs propres est l'un des sujets les plus importants de l'algèbre linéaire, avec de nombreuses applications en mathématiques, physique, et ingénierie. Intuitivement, étant donnée une matrice $A$ représentant une application linéaire, un vecteur propre (ou \emph{eigenvector}) est un vecteur $\mathbf{x} \neq \mathbf{0}$ qui satisfait $A\mathbf{x} = \lambda \mathbf{x}$ pour un certain scalaire $\lambda$ appelé valeur propre (ou \emph{eigenvalue}) associée. En d'autres termes, l'application linéaire $A$ transforme le vecteur propre $\mathbf{x}$ en un multiple de lui-même : la direction de $\mathbf{x}$ est préservée, seule sa longueur est modifiée par le facteur $\lambda$.
+
+Dans cette section, nous étudierons les propriétés des vecteurs propres et valeurs propres, et verrons leur importance fondamentale dans la diagonalisation des matrices.
 
 \subsection{Preliminaries and definitions}
 \begin{thm}[Fundamental theorem of algebra]
