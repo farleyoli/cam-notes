@@ -1,0 +1,669 @@
+\documentclass[a4paper]{article}
+
+\def\npart {IA}
+\def\nterm {Lent}
+\def\nyear {2015}
+\def\nlecturer {W.\ T.\ Gowers}
+\def\ncourse {Analysis I}
+
+\input{header}
+
+\begin{document}
+\maketitle
+\section{Convergence of infinite sums}
+In this chapter, we investigate which infinite \emph{sums}, as opposed to sequences, converge. We would like to say $1 + \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \cdots = 2$, while $1 + 1 + 1 + 1 + \cdots$ does not converge. The majority of the chapter is coming up with different tests to figure out if infinite sums converge.
+
+\subsection{Infinite sums}
+\begin{defi}[Convergence of infinite sums and partial sums]
+  Let $(a_n)$ be a real sequence. For each $N$, define
+  \[
+    S_N = \sum_{n = 1}^N a_n.
+  \]
+  If the sequence $(S_N)$ converges to some limit $s$, then we say that
+  \[
+    \sum_{n = 1}^\infty a_n = s,
+  \]
+  and we say that the series $\displaystyle\sum_{n = 1}^\infty a_n$ \emph{converges}.
+
+  We call $S_N$ the $N$th \emph{partial sum}.
+\end{defi}
+
+There is an immediate necessary condition for a series to converge.
+\begin{lemma}[Terms of convergent series vanish]
+  If $\displaystyle\sum_{n = 1}^\infty a_n$ converges. Then $a_n \to 0$.
+\end{lemma}
+
+\begin{proof}
+  Let $\displaystyle\sum_{n = 1}^{\infty} a_n = s$. Then $S_n \to s$ and $S_{n - 1} \to s$. Then $a_n = S_n - S_{n - 1} \to 0$.
+\end{proof}
+
+However, the converse is false!
+\begin{eg}[Harmonic series]
+  If $a_n = 1/n$, then $a_n \to 0$ but $\sum a_n = \infty$.
+
+  We can prove this as follows:
+  \[
+    S_{2^n} - S_{2^{n -1 }} = \frac{1}{2^{n - 1} + 1} + \cdots + \frac{1}{2^n} \geq \frac{2^{n - 1}}{2^n} = \frac{1}{2}.
+  \]
+  Therefore $S_{2^n} \geq S_1 + n/2$. So the partial sums are unbounded.
+\end{eg}
+
+\begin{eg}[Geometric series]
+  Let $|\rho| < 1$. Then
+  \[
+    \sum_{n = 0}^\infty \rho^n = \frac{1}{1 - \rho}.
+  \]
+  We can prove this by considering the partial sums:
+  \[
+    \sum_{n = 0}^N \rho^n = \frac{1 - \rho^{N + 1}}{1 - \rho}.
+  \]
+  Since $\rho^{N + 1} \to 0$, this tends to $1/(1 - \rho)$.
+\end{eg}
+
+\begin{eg}[Telescoping series]
+  $\displaystyle \sum_{n = 2}^\infty \frac{1}{n(n - 1)}$ converges. This is since
+  \[
+    \frac{1}{n(n -1 )} = \frac{1}{n - 1} - \frac{1}{n}.
+  \]
+  So
+  \[
+    \sum_{n = 2}^{N}\frac{1}{n(n - 1)} = 1 - \frac{1}{N} \to 1.
+  \]
+\end{eg}
+\begin{lemma}[Bounded partial sums for non-negative series]
+  Suppose that $a_n \geq 0$ for every $n$ and the partial sums $S_n$ are bounded above. Then $\sum_{n=1}^\infty a_n$ converges.
+\end{lemma}
+
+\begin{proof}
+  The sequence $(S_n)$ is increasing and bounded above. So the result follows form the monotone sequences property.
+\end{proof}
+
+The simplest convergence test we have is the \emph{comparison test}. Roughly speaking, it says that if $0 \leq a_n \leq b_n$ for all $n$ and $\sum b_n$ converges, then $\sum a_n$ converges. However, we will prove a much more general form here for convenience.
+\begin{lemma}[Comparison test]
+  Let $(a_n)$ and $(b_n)$ be non-negative sequences, and suppose that $\exists C, N$ such that $\forall n\geq N$, $a_n \leq Cb_n$. Then if $\sum b_n$ converges, then so does $\sum a_n$.
+\end{lemma}
+
+\begin{proof}
+  Let $M > N$. Also for each $R$, let $S_R = \sum_{n = 1}^R a_n$ and $T_R = \sum_{n = 1}^R b_n$. We want $S_R$ to be bounded above.
+  \[
+    S_M - S_N = \sum_{n = N + 1}^M a_n \leq C\sum _{n = N + 1}^M b_n \leq C\sum_{n = N + 1}^\infty b_n.
+  \]
+  So $\forall M\geq N$, $S_M \leq S_n + C\sum_{n = N + 1}^\infty b_n$. Since the $S_M$ are increasing and bounded, it must converge.
+\end{proof}
+
+\begin{eg}[Comparison test applications]\leavevmode
+  \begin{enumerate}
+    \item $\sum \frac{1}{n2^n}$ converges, since $\sum \frac{1}{2^n}$ converges.
+    \item $\sum \frac{n}{2^n}$ converges.
+
+      If $n \geq 4$, then $n \leq 2^{n/2}$. That's because $4 = 2^{4/2}$ and for $n\geq 4$, $(n + 1)/n < \sqrt{2}$, so when we increase $n$, we multiply the right side by a greater number by the left. Hence by the comparison test, it is sufficient to show that $\sum 2^{n/2}/2^n = \sum 2^{-n/2}$ converges, which it does (geometric series).
+    \item $\sum \frac{1}{\sqrt{n}}$ diverges, since $\frac{1}{\sqrt{n}} \geq \frac{1}{n}$. So if it converged, then so would $\sum \frac{1}{n}$, but $\sum \frac{1}{n}$ diverges.
+    \item $\sum \frac{1}{n^2}$ converges, since for $n \geq 2$, $\frac{1}{n^2} \leq \frac{1}{n(n - 1)}$, and we have proven that the latter converges.
+    \item Consider $\displaystyle \sum_{n = 1}^\infty \frac{n + 5}{n^3 - 7n^2/2}$. We show this converges by noting
+      \[
+        n^3 - \frac{7n^2}{2} = n^2\left(n - \frac{7}{2}\right).
+      \]
+      So if $n \geq 8$, then
+      \[
+        n^3 - \frac{7n^2}{2} \geq \frac{n^3}{2}.
+      \]
+      Also, $n + 5 \leq 2n$. So
+      \[
+        \frac{n + 5}{n^3 - 7n^2/2} \leq 4/n^2.
+      \]
+      So it converges by the comparison test.
+    \item If $\alpha > 1$, then $\sum 1/n^\alpha$ converges.
+
+      Let $S_N = \sum_{n = 1}^N 1/n^\alpha$. Then
+      \begin{align*}
+        S_{2^n} - S_{2^{n - 1}} &= \frac{1}{(2^{n - 1} + 1)^\alpha} + \cdots + \frac{1}{(2^{n})^\alpha}\\
+        &\leq \frac{2^{n - 1}}{(2^{n - 1})^\alpha}\\
+        &= (2^{n - 1})^{1 - \alpha}\\
+        &= (2^{1 - \alpha})^{n - 1}.
+      \end{align*}
+      But $2^{1 - \alpha} < 1$. So
+      \[
+        S_{2^n} = (S_{2^n} - S_{2^{n - 1}}) + (S_{2^{n - 1}} - S_{2^{n -2 }}) + \cdots (S_2 - S_1) + S_1
+      \]
+      and is bounded above by comparison with the geometric series $1 + 2^{1 - \alpha} + (2^{1 - \alpha})^2 + \cdots$
+  \end{enumerate}
+\end{eg}
+
+\subsection{Absolute convergence}
+Here we'll consider two stronger conditions for convergence --- absolute convergence and unconditional convergence. We'll prove that these two conditions are in fact equivalent.
+\begin{defi}[Absolute convergence]
+  A series $\sum a_n$ \emph{converges absolutely} if the series $\sum |a_n|$ converges.
+\end{defi}
+
+\begin{eg}[Alternating harmonic series]
+  The series $\sum \frac{(-1)^{n + 1}}{n} = 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + \cdots$ converges, but not absolutely.
+
+  To see the convergence, note that
+  \[
+    a_{2n - 1} + a_{2n} = \frac{1}{2n - 1} - \frac{1}{2n} = \frac{1}{2n(2n- 1)}.
+  \]
+  It is easy to compare with $1/n^2$ to get that the partial sums $S_{2n}$ converges. But $S_{2n + 1} - S_{2n} = 1/(2n + 1) \to 0$, so the $S_{2n + 1}$ converges to the same limit.
+
+  It does not converge absolutely, because the sum of the absolute values is the harmonic series.
+\end{eg}
+
+\begin{lemma}[Absolute convergence implies convergence]
+  Let $\sum a_n$ converge absolutely. Then $\sum a_n$ converges.
+\end{lemma}
+
+\begin{proof}
+  We know that $\sum |a_n|$ converges. Let $S_N = \sum_{n = 1}^N a_n$ and $T_N = \sum_{n = 1}^N |a_n|$.
+
+  We know two ways to show random sequences converge, without knowing what they converge to, namely monotone-sequences and Cauchy sequences. Since $S_N$ is not monotone, we shall try Cauchy sequences.
+
+  If $p > q$, then
+  \[
+    |S_p - S_q| = \left|\sum_{n = q + 1}^p a_n\right| \leq \sum_{n = q + 1}^p |a_n| = T_p - T_q.
+  \]
+  But the sequence $T_p$ converges. So $\forall \varepsilon > 0$, we can find $N$ such that for all $p > q \geq N$, we have $T_p - T_q < \varepsilon$, which implies $|S_p - S_q| < \varepsilon$.
+\end{proof}
+
+\begin{defi}[Unconditional convergence]
+  A series $\sum a_n$ \emph{converges unconditionally} if the series $\sum_{n = 1}^{\infty} a_{\pi(n)}$ converges for every bijection $\pi: \N \to \N$, i.e.\ no matter how we re-order the elements of $a_n$, the sum still converges.
+\end{defi}
+
+\begin{thm}[Absolute implies unconditional convergence]
+  If $\sum a_n$ converges absolutely, then it converges unconditionally.
+\end{thm}
+
+\begin{proof}
+  Let $S_n = \sum_{n = 1}^N a_{\pi (n)}$. Then if $p > q$,
+  \[
+    |S_p - S_q| = \left|\sum_{n = q + 1}^p a_{\pi(n)}\right| \leq \sum_{n = q + 1}^\infty|a_{\pi (n)}|.
+  \]
+  Let $\varepsilon > 0$. Since $\sum |a_n|$ converges, pick $M$ such that $\sum_{n = M + 1}^\infty|a_n| < \varepsilon$.
+
+  Pick $N$ large enough that $\{1, \cdots, M\}\subseteq \{\pi (1), \cdots, \pi(N)\}$.
+
+  Then if $n > N$, we have $\pi(n) > M$. Therefore if $p > q \geq N$, then
+  \[
+    |S_p - S_q| \leq \sum_{n = q + 1}^p |a_{\pi(n)}| \leq \sum_{n = M + 1}^\infty |a_n| < \varepsilon.
+  \]
+  Therefore the sequence of partial sums is Cauchy.
+\end{proof}
+
+The converse is also true.
+\begin{thm}[Unconditional implies absolute convergence]
+  If $\sum a_n$ converges unconditionally, then it converges absolutely.
+\end{thm}
+
+\begin{proof}
+  We will prove the contrapositive: if it doesn't converge absolutely, it doesn't converge unconditionally.
+
+  Suppose that $\sum |a_n| = \infty$. Let $(b_n)$ be the subsequence of non-negative terms of $a_n$, and $(c_n)$ be the subsequence of negative terms. Then $\sum b_n$ and $\sum c_n$ cannot both converge, or else $\sum |a_n|$ converges.
+
+  wlog, $\sum b_n = \infty$. Now construct a sequence $0 = n_0 < n_1 < n_2 < \cdots$ such that $\forall k$,
+  \[
+    b_{n_{k - 1} + 1} + b_{n_{k - 1} + 2} + \cdots + b_{n_k} + c_k \geq 1,
+  \]
+  This is possible because the $b_n$ are unbounded and we can get it as large as we want.
+
+  Let $\pi$ be the rearrangement
+  \[
+    b_1, b_2, \cdots b_{n_1}, c_1, b_{n_1 + 1}, \cdots b_{n_2}, c_2, b_{n_2 + 1}, \cdots b_{n_3}, c_3,\cdots
+  \]
+  So the sum up to $c_k$ is at least $k$. So the partial sums tend to infinity.
+\end{proof}
+
+We can prove an even stronger result:
+\begin{lemma}[Rearrangement invariance]
+ Let $\sum a_n$ be a series that converges absolutely. Then for any bijection $\pi: \N\to \N$,
+ \[
+   \sum_{n = 1}^\infty a_n = \sum_{n = 1}^\infty a_{\pi(n)}.
+ \]
+\end{lemma}
+
+\begin{proof}
+  Let $\varepsilon > 0$. We know that both $\sum |a_n|$ and $\sum|a_{\pi(n)}|$ converge. So let $M$ be such that $\sum_{n > M}|a_n| < \frac{\varepsilon}{2}$ and $\sum_{n > M}|a_{\pi(n)}| < \frac{\varepsilon}{2}$.
+
+  Now $N$ be large enough such that
+  \[
+    \{1, \cdots, M\}\subseteq \{\pi(1), \cdots, \pi(N)\},
+  \]
+  and
+  \[
+    \{\pi(1), \cdots, \pi(M)\}\subseteq \{1, \cdots, N\}.
+  \]
+  Then for every $K\geq N$,
+  \[
+    \left|\sum_{n = 1}^K a_n - \sum_{n = 1}^K a_{\pi(n)}\right| \leq \sum_{n = M + 1}^K |a_n| + \sum_{n = M + 1}^K |a_{\pi(n)}| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+  \]
+  We have the first inequality since given our choice of $M$ and $N$, the first $M$ terms of the $\sum a_n$ and $\sum a_{\pi(n)}$ sums are cancelled by some term in the huge sum.
+
+  So $\forall K \geq N$, the partial sums up to $K$ differ by at most $\varepsilon$. So $|\sum a_n - \sum a_{\pi(n)}| \leq \varepsilon$.
+
+  Since this is true for all $\varepsilon$, we must have $\sum a_n = \sum a_{\pi(n)}$.
+\end{proof}
+
+\subsection{Convergence tests}
+We'll now come up with a \emph{lot} of convergence tests.
+\begin{lemma}[Alternating sequence test]
+  Let $(a_n)$ be a decreasing sequence of non-negative reals, and suppose that $a_n \to 0$. Then $\displaystyle \sum_{n = 1}^\infty (-1)^{n + 1}a_n$ converges, i.e.\ $a_1 - a_2 + a_3 - a_4 + \cdots$ converges.
+\end{lemma}
+
+\begin{proof}
+  Let $\displaystyle S_N = \sum_{n = 1}^N(-1)^{n + 1}a_n$. Then
+  \[
+    S_{2n} = (a_1 - a_2) + (a_3 - a_4) + \cdots + (a_{2n - 1} - a_{2n}) \geq 0,
+  \]
+  and $(S_{2n})$ is an increasing sequence.
+
+  Also,
+  \[
+    S_{2n + 1} = a_1 - (a_2 - a_3) - (a_4 - a_5) - \cdots - (a_{2n} - a_{2n + 1}),
+  \]
+  and $(S_{2n + 1})$ is a decreasing sequence. Also $S_{2n + 1} - S_{2n} = a_{2n + 1} \geq 0$.
+
+  Hence we obtain the bounds $0 \leq S_{2n} \leq S_{2n + 1} \leq a_1$. It follows from the monotone sequences property that $(S_{2n})$ and $(S_{2n + 1})$ converge.
+
+  Since $S_{2n + 1} - S_{2n} = a_{2n + 1} \to 0$, they converge to the same limit.
+\end{proof}
+
+\begin{eg}[Alternating cube root series]
+  \[
+    1 - \frac{1}{\sqrt[3]{2}} + \frac{1}{\sqrt[3]{3}} - \frac{1}{\sqrt[3]{4}} + \cdots \text{converges}.
+  \]
+\end{eg}
+
+\begin{lemma}[Ratio test]
+  We have three versions:
+  \begin{enumerate}
+    \item If $\exists c < 1$ such that
+      \[
+        \frac{|a_{n + 1}|}{|a_n|} \leq c,
+      \]
+      for all $n$, then $\sum a_n$ converges.
+    \item If $\exists c < 1$ and $\exists N$ such that
+      \[
+        (\forall n \geq N)\, \frac{|a_{n + 1}|}{|a_n|} \leq c,
+      \]
+      then $\sum a_n$ converges. Note that just because the ratio is always less than $1$, it doesn't necessarily converge. It has to be always less than a fixed number $c$. Otherwise the test will say that $\sum 1/n$ converges.
+    \item If $\exists \rho \in (-1, 1)$ such that
+      \[
+        \frac{a_{n + 1}}{a_n} \to \rho,
+      \]
+      then $\sum a_n$ converges. Note that we have the \emph{open} interval $(-1, 1)$. If $\frac{|a_{n + 1}|}{|a_n|} \to 1$, then the test is inconclusive!
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+    \item $|a_n| \leq c^{n - 1}|a_1|$. Since $\sum c^n$ converges, so does $\sum |a_n|$ by comparison test. So $\sum a_n$ converges absolutely, so it converges.
+    \item For all $k\geq 0$, we have $|a_{N + k}|\leq c^k|a_N|$. So the series $\sum |a_{N + k}|$ converges, and therefore so does $\sum |a_k|$.
+    \item If $\frac{a_{n + 1}}{a_n} \to \rho$, then $\frac{|a_{n + 1}|}{|a_n|} \to |\rho|$. So (setting $\varepsilon = (1 - |\rho|)/2$) there exists $N$ such that $\forall n \geq N$, $\frac{|a_{n + 1}|}{|a_n|} \leq \frac{1 + |\rho|}{2} < 1$. So the result follows from (ii).\qedhere
+  \end{enumerate}
+\end{proof}
+
+\begin{eg}[Ratio test for $\sum nb^n$]
+  If $|b| < 1$, then $\sum nb^n$ converges, since
+  \[
+    \frac{a_{n + 1}}{a_n} = \frac{(n + 1) b^{n + 1}}{nb^n} = \left(1 + \frac{1}{n}\right) b\to b < 1.
+  \]
+  So it converges.
+
+  We can also evaluate this directly by considering $\displaystyle\sum_{i = 1}^\infty \sum_{n = i}^\infty b^n$.
+\end{eg}
+
+The following two tests were taught at the end of the course, but are included here for the sake of completeness.
+\begin{thm}[Condensation test]
+  Let $(a_n)$ be a decreasing non-negative sequence. Then $\sum_{n = 1}^\infty a_n < \infty$ if and only if
+  \[
+    \sum_{k = 1}^\infty 2^k a_{2^k} < \infty.
+  \]
+\end{thm}
+
+\begin{proof}
+  This is basically the proof that $\sum \frac{1}{n}$ diverges and $\sum \frac{1}{n^{\alpha}}$ converges for $\alpha < 1$ but written in a more general way.
+
+  We have
+  \begin{align*}
+    &a_1 + a_2 + (a_3 + a_4) + (a_5 + \cdots + a_8) + (a_9 + \cdots + a_{16}) + \cdots\\
+    \geq & a_1 + a_2 + 2a_4 + 4a_8 + 8 a_{16} + \cdots
+  \end{align*}
+  So if $\sum 2^k a_{2^k}$ diverges, $\sum a_n$ diverges.
+
+  To prove the other way round, simply group as
+  \begin{align*}
+    & a_1 + (a_2 + a_3) + (a_4 + \cdots + a_7) + \cdots\\
+    \leq & a_1 + 2a_2 + 4a_4 + \cdots .\qedhere
+  \end{align*}
+\end{proof}
+
+\begin{eg}[Condensation test on harmonic series]
+  If $a_n = \frac{1}{n}$, then $2^k a_{2^k} = 1$. So $\sum_{k = 1}^\infty 2^k a_{2^k} = \infty$. So $\sum_{n = 1}^\infty \frac{1}{n} = \infty$.
+\end{eg}
+
+After we formally define integrals, we will prove the integral test:
+\begin{thm}[Integral test]
+  Let $f: [1, \infty] \to \R$ be a decreasing non-negative function. Then $\sum_{n = 1}^\infty f(n)$ converges iff $\int_1^\infty f(x)\;\d x < \infty$.
+\end{thm}
+
+\subsection{Complex versions}
+Most definitions in the course so far carry over unchanged to the complex numbers. e.g.\ $z_n \to z$ iff $(\forall \varepsilon > 0)(\exists N)(\forall n\geq N)\, |z_n - z| < \varepsilon$.
+
+Two exceptions are least upper bound and monotone sequences, because the complex numbers do not have an ordering! (It cannot be made into an ordered field because the square of every number in an ordered field has to be positive) Fortunately, Cauchy sequences still work.
+
+We can prove the complex versions of most theorems so far by looking at the real and imaginary parts.
+
+\begin{eg}[Cauchy sequences in $\C$]
+  Let $(z_n)$ be a Cauchy sequence in $\C$. Let $z_n = x_n+ iy_n$. Then $(x_n)$ and $(y_n)$ are Cauchy. So they converge, from which it follows that $z_n = x_n + iy_n$ converges.
+\end{eg}
+
+Also, the Bolzano-Weierstrass theorem still holds: If $(z_n)$ is bounded, let $z_n = x_n + y_n$, then $(x_n)$ and $(y_n)$ are bounded. Then find a subsequence $(x_{n_k})$ that converges. Then find a subsequence of $(y_{n_k})$ that converges.
+
+Then nested-intervals property has a ``nested-box'' property as a complex analogue.
+
+Finally, the proof that absolutely convergent sequences converge still works. It follows that the ratio test still works.
+
+\begin{eg}[Complex series $\sum nz^n$]
+  If $|z| < 1$, then $\sum nz^n$ converges. Proof is the same as above.
+\end{eg}
+
+However, we do have an extra test for complex sums.
+\begin{lemma}[Abel's test]
+  Let $a_1 \geq a_2 \geq \cdots \geq 0$, and suppose that $a_n \to 0$. Let $z\in \C$ such that $|z| = 1$ and $z \not= 1$. Then $\sum a_n z^n$ converges.
+\end{lemma}
+
+\begin{proof}
+  We prove that it is Cauchy. We have
+  \begin{align*}
+    \sum_{n = M}^N a_n z^n &= \sum_{n = M}^N a_n\frac{z^{n + 1} - z^n}{z - 1}\\
+    &= \frac{1}{z - 1}\sum_{n = M}^N a_n (z^{n + 1} - z^n)\\
+    &= \frac{1}{z - 1}\left(\sum_{n = M}^N a_n z^{n + 1} - \sum_{n = M}^N a_n z^n\right)\\
+    &= \frac{1}{z - 1}\left(\sum_{n = M}^N a_n z^{n + 1} - \sum_{n = M - 1}^{N - 1} a_{n + 1} z^{n + 1}\right)\\
+    &= \frac{1}{z - 1}\left(a_N z^{N + 1} - a_M z^M + \sum_{n = M}^{N - 1} (a_n - a_{n + 1})z^{n + 1}\right)\\
+    \intertext{We now take the absolute value of everything to obtain}
+    \left|\sum_{n = M}^N a_nz^n\right| &\leq \frac{1}{|z - 1|} \left(a_N + a_M + \sum_{n = M}^{N - 1}(a_n - a_{n + 1})\right)\\
+    &= \frac{1}{|z - 1|}\left(a_N + a_M + (a_M - a_{M + 1}) + \cdots + (a_{N - 1} - a_{N})\right)\\
+    &= \frac{2a_M}{|z - 1|} \to 0.
+  \end{align*}
+  So it is Cauchy. So it converges
+\end{proof}
+Note that here we transformed the sum $\sum a_n(z^{n + 1} - z^n)$ into $a_N z^{N + 1} - a_M z^M + \sum (a_n - a_{n + 1})z^{n + 1}$. What we have effectively done is a discrete analogue of integrating by parts.
+
+\begin{eg}[Convergence of $\sum z^n/n$]
+  The series $\sum z^n/n$ converges if $|z| < 1$ or if $|z| = 1$ and $z \not= 1$, and it diverges if $z = 1$ or $|z| > 1$.
+
+  The cases $|z| < 1$ and $|z| > 1$ are trivial from the ratio test, and Abel's test is required for the $|z| = 1$ cases.
+\end{eg}
+\section{Continuous functions}
+\subsection{Continuous functions}
+\begin{defi}[Continuous function]
+  Let $A\subseteq \R$, $a\in A$, and $f: A\to \R$. Then $f$ is \emph{continuous at} $a$ if for any $\varepsilon > 0 $, there is some $\delta > 0$ such that if $y \in A$ is such that $|y - a| < \delta$, then $|f(y) - f(a)| < \varepsilon$. In symbols, we have
+  \[
+    (\forall \varepsilon > 0)(\exists \delta > 0)(\forall y\in A)\, |y - a| < \delta \Rightarrow |f(y) - f(a)| < \varepsilon.
+  \]
+  $f$ is \emph{continuous} if it is continuous at every $a\in A$. In symbols, we have
+  \[
+    (\forall a\in A)(\forall \varepsilon > 0)(\exists \delta > 0)(\forall y\in A)\, |y - a| < \delta \Rightarrow |f(y) - f(a)| < \varepsilon.
+  \]
+\end{defi}
+Intuitively, $f$ is continuous at $a$ if we can obtain $f(a)$ as accurately as we wish by using more accurate values of $a$ (the definition says that if we want to approximate $f(a)$ by $f(y)$ to within accuracy $\varepsilon$, we just have to get our $y$ to within $\delta$ of $a$ for some $\delta$).
+
+For example, suppose we have the function
+\[
+  f(x) = \begin{cases} 0 & x \leq \pi\\ 1& x > \pi\end{cases}.
+\]
+Suppose that we don't know what the function actually is, but we have a computer program that computes this function. We want to know what $f(\pi)$ is. Since we cannot input $\pi$ (it has infinitely many digits), we can try $3$, and it gives $0$. Then we try $3.14$, and it gives $0$ again. If we try $3.1416$, it gives $1$ (since $\pi = 3.1415926\cdots < 3.1416$). We keep giving more and more digits of $\pi$, but the result keeps oscillating between $0$ and $1$. We have no hope of what $f(\pi)$ might be, even approximately. So this $f$ is discontinuous at $\pi$.
+
+However, if we have the function $g(x) = x^2$, then we \emph{can} find the (approximate) value of $g(\pi)$. We can first try $g(3)$ and obtain $9$. Then we can try $g(3.14) = 9.8596$, $g(3.1416) = 9.86965056$ etc. We can keep trying and obtain more and more accurate values of $g(\pi)$. So $g$ is continuous at $\pi$.
+
+\begin{eg}[Basic continuous functions]\leavevmode
+  \begin{itemize}
+    \item Constant functions are continuous.
+    \item The function $f(x) = x$ is continuous (take $\delta = \varepsilon$).
+  \end{itemize}
+\end{eg}
+
+The definition of continuity of a function looks rather like the definition of convergence. In fact, they are related by the following lemma:
+
+\begin{lemma}[Sequential continuity]
+  The following two statements are equivalent for a function $f: A\to \R$.
+  \begin{itemize}
+    \item $f$ is continuous
+    \item If $(a_n)$ is a sequence in $A$ with $a_n \to a$, then $f(a_n) \to f(a)$.
+  \end{itemize}
+\end{lemma}
+
+\begin{proof}
+  (i)$\Rightarrow$(ii) Let $\varepsilon > 0$. Since $f$ is continuous at $a$,
+  \[
+    (\exists \delta > 0)(\forall y\in A)\, |y-a|< \delta \Rightarrow |f(y) - f(a)| < \varepsilon.
+  \]
+  We want $N$ such that $\forall n \geq N$, $|f(a_n) - f(a)| < \varepsilon$. By continuity, it is enough to find $N$ such that $\forall n\geq N$, $|a_n - a| < \delta$. Since $a_n \to a$, such an $N$ exists.
+
+  (ii)$\Rightarrow$(i) We prove the contrapositive: Suppose $f$ is not continuous at $a$. Then
+  \[
+    (\exists \varepsilon > 0)(\forall \delta > 0)(\exists y\in A)\, |y - a| < \delta \text{ and }|f(y) - f(a)| \geq \varepsilon.
+  \]
+  For each $n$, we can therefore pick $a_n \in A$ such that $|a_n - a| < \frac{1}{n}$ and $|f(a_n) - f(a)| \geq \varepsilon$. But then $a_n \to a$ (by Archimedean property), but $f(a_n) \not\to f(a)$.
+\end{proof}
+
+\begin{eg}[Continuity and discontinuity examples]\leavevmode
+  \begin{enumerate}
+    \item Let $f(x) = \begin{cases} -1 & x < 0 \\ 1 & x\geq 0\end{cases}$. Then $f$ is not continuous because $-\frac{1}{n} \to 0$ but $f(-\frac{1}{n}) \to -1 \not= f(0)$.
+    \item Let $f: \Q \to \R$ with
+      \[
+        f(x) =
+        \begin{cases}
+          1 & x^2 > 2\\
+          0 & x^2 < 2
+        \end{cases}
+      \]
+      Then $f$ is continuous. For every $a\in \Q$, we can find an interval about $a$ on which $f$ is constant. So $f$ is continuous at $a$.
+    \item Let
+      \[
+        f(x) =
+        \begin{cases}
+          \sin \frac{1}{x} & x \not= 0\\
+          0 & x = 0
+        \end{cases}
+      \]
+      Then $f(a)$ is discontinuous. For example, let $a_n = 1/[(2n + 0.5)\pi]$. Then $a_n\to 0$ and $f(a_n) \to 1 \not= f(0)$.
+  \end{enumerate}
+\end{eg}
+We can use this sequence definition as the definition for continuous functions. This has the advantage of being cleaner to write and easier to work with. In particular, we can reuse a lot of our sequence theorems to prove the analogous results for continuous functions.
+
+\begin{lemma}[Algebra of continuous functions]
+  Let $A\subseteq \R$ and $f, g: A\to \R$ be continuous functions. Then
+  \begin{enumerate}
+    \item $f + g$ is continuous
+    \item $fg$ is continuous
+    \item if $g$ never vanishes, then $f/g$ is continuous.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+    \item Let $a\in A$ and let $(a_n)$ be a sequence in $A$ with $a_n \to a$. Then
+      \[
+        (f + g)(a_n) = f(a_n) + g(a_n).
+      \]
+      But $f(a_n) \to f(a)$ and $g(a_n) \to g(a)$. So
+      \[
+        f(a_n) + g(a_n) \to f(a) + g(a) = (f + g)(a).
+      \]
+  \end{enumerate}
+  (ii) and (iii) are proved in exactly the same way.
+\end{proof}
+
+With this lemma, from the fact that constant functions and $f(x) = x$ are continuous, we know that all polynomials are continuous. Similarly, rational functions $P(x)/Q(x)$ are continuous except when $Q(x) = 0$.
+
+\begin{lemma}[Composition of continuous functions]
+  Let $A, B\subseteq \R$ and $f: A\to B$, $g: B\to \R$. Then if $f$ and $g$ are continuous, $g\circ f: A\to \R$ is continuous.
+\end{lemma}
+
+\begin{proof}
+  We offer two proofs:
+  \begin{enumerate}
+    \item Let $(a_n)$ be a sequence in $A$ with $a_n \to a\in A$. Then $f(a_n) \to f(a)$ since $f$ is continuous. Then $g(f(a_n)) \to g(f(a))$ since $g$ is continuous. So $g\circ f$ is continuous.
+    \item Let $a\in A$ and $\varepsilon > 0$. Since $g$ is continuous at $f(a)$, there exists $\eta > 0$ such that $\forall z\in B$, $|z - f(a)| < \eta \Rightarrow |g(z) - g(f(a))| < \varepsilon$.
+
+      Since $f$ is continuous at $a$, $\exists \delta > 0$ such that $\forall y\in A$, $|y - a| < \delta \Rightarrow |f(y) - f(a)| < \eta$. Therefore $|y - a| < \delta \Rightarrow |g(f(y)) - g(f(a))| < \varepsilon$.\qedhere
+  \end{enumerate}
+\end{proof}
+
+There are two important theorems regarding continuous functions --- the maximum value theorem and the intermediate value theorem.
+\begin{thm}[Maximum value theorem]
+  Let $[a, b]$ be a closed interval in $\R$ and let $f: [a, b] \to \R$ be continuous. Then $f$ is bounded and attains its bounds, i.e.\ $f(x) = \sup f$ for some $x$, and $f(y) = \inf f$ for some $y$.
+\end{thm}
+
+\begin{proof}
+  If $f$ is not bounded above, then for each $n$, we can find $x_n\in [a, b]$ such that $f(x_n) \geq n$ for all $n$.
+
+  By Bolzano-Weierstrass, since $x_n \in [a, b]$ and is bounded, the sequence $(x_n)$ has a convergent subsequence $(x_{n_k})$. Let $x$ be its limit. Then since $f$ is continuous, $f(x_{n_k}) \to f(x)$. But $f(x_{n_k}) \geq n_k \to \infty$. So this is a contradiction.
+
+  Now let $C = \sup\{f(x): x\in [a, b]\}$. Then for every $n$, we can find $x_n$ such that $f(x_n) \geq C - \frac{1}{n}$. So by Bolzano-Weierstrass, $(x_n)$ has a convergent subsequence $(x_{n_k})$. Since $C - \frac{1}{n_{k}}\leq f(x_{n_k}) \leq C$, $f(x_{n_k})\to C$. Therefore if $x = \lim x_{n_k}$, then $f(x) = C$.
+
+  A similar argument applies if $f$ is unbounded below.
+\end{proof}
+
+\begin{thm}[Intermediate value theorem]
+  Let $a < b\in \R$ and let $f: [a, b] \to \R$ be continuous. Suppose that $f(a) < 0 < f(b)$. Then there exists an $x\in (a, b)$ such that $f(x) = 0$.
+\end{thm}
+
+\begin{proof}
+  We have several proofs:
+  \begin{enumerate}
+    \item Let $A = \{x: f(x) < 0\}$ and let $s = \sup A$. We shall show that $f(s) = 0$ (this is similar to the proof that $\sqrt{2}$ exists in Numbers and Sets). If $f(s) < 0$, then setting $\varepsilon = |f(s)|$ in the definition of continuity, we can find $\delta > 0$ such that $\forall y$, $|y - s| < \delta \Rightarrow f(y) < 0$. Then $s + \delta/2 \in A$, so $s$ is not an upper bound. Contradiction.
+
+    If $f(s) > 0$, by the same argument, we can find $\delta > 0$ such that $\forall y$, $|y - s| < \delta \Rightarrow f(y) > 0$. So $s - \delta/2$ is a smaller upper bound.
+  \item Let $a_0 = a$, $b_0 = b$. By repeated bisection, construct nested intervals $[a_n, b_n]$ such that $b_n - a_n = \frac{b_0 - a_0}{2^n}$ and $f(a_n) < 0 \leq f(b_n)$. Then by the nested intervals property, we can find $x\in \cap_{n = 0}^\infty [a_n, b_n]$. Since $b_n - a_n \to 0$, $a_n, b_n \to x$.
+
+    Since $f(a_n) < 0$ for every $n$, $f(x) \leq 0$. Similarly, since $f(b_n) \geq 0$ for every $n$, $f(x) \geq 0$. So $f(x) = 0$.\qedhere
+  \end{enumerate}
+\end{proof}
+It is easy to generalize this to get that, if $f(a) < c < f(b)$, then $\exists x\in (a, b)$ such that $f(x) = c$, by applying the result to $f(x) - c$. Also, we can assume instead that $f(b) < c < f(a)$ and obtain the same result by looking at $-f(x)$.
+
+\begin{cor}
+  Let $f: [a, b]\to [c, d]$ be a continuous strictly increasing function with $f(a) = c$, $f(b) = d$. Then $f$ is invertible and its inverse is continuous.
+\end{cor}
+
+\begin{proof}
+  Since $f$ is strictly increasing, it is an injection (suppose $x \not= y$. wlog, $x < y$. Then $f(x) < f(y)$ and so $f(x) \not= f(y)$). Now let $y\in (c, d)$. By the intermediate value theorem, there exists $x\in (a, b)$ such that $f(x) = y$. So $f$ is a surjection. So it is a bijection and hence invertible.
+
+  Let $g$ be the inverse. Let $y\in [c, d]$ and let $\varepsilon > 0$. Let $x = g(y)$. So $f(x) = y$. Let $u = f(x - \varepsilon)$ and $v = f(x + \varepsilon)$ (if $y = c$ or $d$, make the obvious adjustments). Then $u < y < v$. So we can find $\delta > 0$ such that $(y - \delta , y + \delta) \subseteq (u, v)$. Then $|z - y| < \delta \Rightarrow g(z) \in (x - \varepsilon, x + \varepsilon) \Rightarrow |g(z) - g(y)| < \varepsilon$.
+\end{proof}
+With this corollary, we can create more continuous functions, e.g.\ $\sqrt{x}$.
+
+\subsection{Continuous induction*}
+Continuous induction is a generalization of induction on natural numbers. It provides an alternative mechanism to prove certain results we have shown.
+
+\begin{prop}[Continuous induction v1]
+  Let $a < b$ and let $A\subseteq [a, b]$ have the following properties:
+  \begin{enumerate}
+    \item $a\in A$
+    \item If $x\in A$ and $x\not= b$, then $\exists y\in A$ with $y > x$.
+    \item If $\forall \varepsilon > 0$, $\exists y\in A: y\in (x - \varepsilon, x]$, then $x\in A$.
+  \end{enumerate}
+  Then $b\in A$.
+\end{prop}
+
+\begin{proof}
+  Since $a\in A$, $A\not= \emptyset$. $A$ is also bounded above by $b$. So let $s = \sup A$. Then $\forall \varepsilon > 0$, $\exists y\in A$ such that $y > s - \varepsilon$. Therefore, by (iii), $s\in A$.
+
+  If $s\not= b$, then by (ii), we can find $y\in A$ such that $y > s$.
+\end{proof}
+
+It can also be formulated as follows:
+\begin{prop}[Continuous induction v2]
+  Let $A\subseteq [a, b]$ and suppose that
+  \begin{enumerate}
+    \item $a\in A$
+    \item If $[a, x]\subseteq A$ and $x\not = b$, then there exists $y > x$ such that $[a, y]\subseteq A$.
+    \item If $[a, x)\subseteq A$, then $[a, x]\subseteq A$.
+  \end{enumerate}
+  Then $A = [a, b]$
+\end{prop}
+
+\begin{proof}
+  We prove that version 1 $\Rightarrow$ version 2.
+  Suppose $A$ satisfies the conditions of v2. Let $A' = \{x\in [a, b]: [a, x]\subseteq A\}$.
+
+  Then $a\in A'$. If $x\in A'$ with $x \not= b$, then $[a, x]\subseteq A$. So $\exists y > x$ such that $[a, y] \subseteq A$. So $\exists y > x$ such that $y\in A'$.
+
+  If $\forall \varepsilon > 0, \exists y\in (x - \varepsilon, x]$ such that $[a, y]\subseteq A$, then $[a, x)\subseteq A$. So by (iii), $[a, x]\subseteq A$, so $x\in A'$. So $A'$ satisfies properties (i) to (iii) of version 1. Therefore $b\in A'$. So $[a, b]\subseteq A$. So $A = [a, b]$.
+\end{proof}
+
+We reprove intermediate value theorem here:
+
+\begin{thm}[Intermediate value theorem]
+  Let $a < b\in \R$ and let $f: [a, b] \to \R$ be continuous. Suppose that $f(a) < 0 < f(b)$. Then there exists an $x\in (a, b)$ such that $f(x) = 0$.
+\end{thm}
+
+\begin{proof}
+  Assume that $f$ is continuous. Suppose $f(a) < 0 < f(b)$. Assume that $(\forall x)\, f(x) \not =0$, and derive a contradiction.
+
+  Let $A = \{x: f(x) < 0\}$ Then $a\in A$. If $x\in A$, then $f(x) < 0$, and by continuity, we can find $\delta > 0$ such that $|y - x| < \delta\Rightarrow f(y) < 0$. So if $x\not= b$, then we can find $y\in A$ such that $y > x$.
+
+  We prove the contrapositive of the last condition, i.e.
+  \[
+    x\not\in A\Rightarrow (\exists \delta > 0)(\forall y\in A)\, y\not\in(x - \delta, x].
+  \]
+  If $x\not\in A$, then $f(x) > 0$ (we assume that $f$ is never zero. If not, we're done). Then by continuity, $\exists \delta > 0$ such that $|y - x| < \delta \Rightarrow f(y) > 0$. So $y\not\in A$.
+
+  Hence by continuous induction, $b\in A$. Contradiction.
+\end{proof}
+
+Now we prove that continuous functions in closed intervals are bounded.
+\begin{thm}[Boundedness on closed intervals]
+  Let $[a, b]$ be a closed interval in $\R$ and let $f: [a, b] \to \R$ be continuous. Then $f$ is bounded.
+\end{thm}
+
+\begin{proof}
+  Let $f: [a, b]$ be continuous. Let $A = \{x: f\text{ is bounded on }[a, x]\}$. Then $a\in A$. If $x\in A, x\not= b$, then $\exists \delta > 0$ such that $|y - x| < \delta \Rightarrow |f(y) - f(x)| < 1$. So $\exists y > x$ (e.g.\ take $\min\{x + \delta/2, b\}$) such that $f$ is bounded on $[a, y]$, which implies that $y\in A$.
+
+  Now suppose that $\forall \varepsilon > 0$, $\exists y\in (x, - \varepsilon, x]$ such that $y\in A$. Again, we can find $\delta > 0$ such that $f$ is bounded on $(x - \delta, x + \delta)$, and in particular on $(x - \delta, x]$. Pick $y$ such that $f$ is bounded on $[a, y]$ and $y > x - \delta$. Then $f$ is bounded on $[a, x]$. So $x\in A$.
+
+  So we are done by continuous induction.
+\end{proof}
+
+Finally, we can prove a theorem that we have not yet proven.
+\begin{defi}[Cover of a set]
+  Let $A\subseteq \R$. A \emph{cover} of $A$ by open intervals is a set $\{I_\gamma: \gamma\in \Gamma\}$ where each $I_\gamma$ is an open interval and $A \subseteq \bigcup_{\gamma\in \Gamma}$ $I_\gamma$.
+
+  A \emph{finite subcover} is a finite subset $\{I_{\gamma_1}, \cdots, I_{\gamma_n}\}$ of the cover that is still a cover.
+\end{defi}
+
+Not every cover has a finite subcover. For example, the cover $\{(\frac{1}{n}, 1): n\in \N\}$ of $(0, 1)$ has no finite subcover.
+
+\begin{thm}[Heine-Borel*]
+  Every cover of a closed, bounded interval $[a, b]$ by open intervals has a finite subcover. We say closed intervals are \emph{compact} (cf.\ Metric and Topological Spaces).
+\end{thm}
+
+\begin{proof}
+  Let $\{I_\gamma: \gamma\in \Gamma\}$ be a cover of $[a, b]$ by open intervals. Let $A = \{x: [a, x]$ can be covered by finitely many of the $I_\gamma\}$.
+
+  Then $a\in A$ since $a$ must belong to some $I_\gamma$.
+
+  If $x\in A$, then pick $\gamma$ such that $x\in I_\gamma$. Then if $x\not = b$, since $I_\gamma$ is an open interval, it contains $[x, y]$ for some $y > x$. Then $[a, y]$ can be covered by finitely many $I_\gamma$, by taking a finite cover for $[a, x]$ and the $I_\gamma$ that contains $x$.
+
+  Now suppose that $\forall \varepsilon > 0, \exists y\in A$ such that $y\in (x - \varepsilon, x]$.
+
+  Let $I_\gamma$ be an open interval containing $x$. Then it contains $(x - \varepsilon, x]$ for some $\varepsilon > 0$. Pick $y\in A$ such that $y\in (x - \varepsilon, x]$. Now combine $I_\gamma$ with a finite subcover of $[a, y]$ to get a finite subcover of $[a, x]$. So $x\in A$.
+
+  Then done by continuous induction.
+\end{proof}
+
+We can use Heine-Borel to prove that continuous functions on $[a, b]$ are bounded.
+
+\begin{thm}[Extreme value theorem via Heine-Borel]
+  Let $[a, b]$ be a closed interval in $\R$ and let $f: [a, b] \to \R$ be continuous. Then $f$ is bounded and attains it bounds, i.e.\ $f(x) = \sup f$ for some $x$, and $f(y) = \inf f$ for some $y$.
+\end{thm}
+
+\begin{proof}
+  Let $f: [a, b]\to \R$ be continuous. Then by continuity,
+  \[
+    (\forall x\in [a, b])(\exists \delta_x > 0)(\forall y)\, |y - x| < \delta_x\Rightarrow |f(y) - f(x)| < 1.
+  \]
+  Let $\gamma = [a, b]$ and for each $x\in \gamma$, let $I_x = (x - \delta_x, x + \delta_x)$. So by Heine-Borel, we can find $x_1, \cdots, x_n$ such that $[a, b]\subseteq \bigcup_1^n (x_i - \delta_{x_i}, x_i + \delta_{x_i})$.
+
+  But $f$ is bounded in each interval $(x_i - \delta_{x_i}, x_i + \delta_{x_i})$ by $|f(x_i)| + 1$. So it is bounded on $[a, b]$ by $\max|f(x_i)| + 1$.
+\end{proof}
+
+\end{document}

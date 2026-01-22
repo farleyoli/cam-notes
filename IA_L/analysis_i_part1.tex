@@ -1,0 +1,578 @@
+\documentclass[a4paper]{article}
+
+\def\npart {IA}
+\def\nterm {Lent}
+\def\nyear {2015}
+\def\nlecturer {W.\ T.\ Gowers}
+\def\ncourse {Analysis I}
+
+\input{header}
+
+\begin{document}
+\maketitle
+{\small
+\noindent\textbf{Limits and convergence}\\
+Sequences and series in $\R$ and $\C$. Sums, products and quotients. Absolute convergence; absolute convergence implies convergence. The Bolzano-Weierstrass theorem and applications (the General Principle of Convergence). Comparison and ratio tests, alternating series test.\hspace*{\fill} [6]
+
+\vspace{10pt}
+\noindent\textbf{Continuity}\\
+Continuity of real- and complex-valued functions defined on subsets of $\R$ and $\C$. The intermediate value theorem. A continuous function on a closed bounded interval is bounded and attains its bounds.\hspace*{\fill} [3]
+
+\vspace{10pt}
+\noindent\textbf{Differentiability}\\
+Differentiability of functions from $\R$ to $\R$. Derivative of sums and products. The chain rule. Derivative of the inverse function. Rolle's theorem; the mean value theorem. One-dimensional version of the inverse function theorem. Taylor's theorem from $\R$ to $\R$; Lagrange's form of the remainder. Complex differentiation.\hspace*{\fill} [5]
+
+\vspace{10pt}
+\noindent\textbf{Power series}\\
+Complex power series and radius of convergence. Exponential, trigonometric and hyperbolic functions, and relations between them. *Direct proof of the differentiability of a power series within its circle of convergence*.\hspace*{\fill}[4]
+
+\vspace{10pt}
+\noindent\textbf{Integration}\\
+Definition and basic properties of the Riemann integral. A non-integrable function. Integrability of monotonic functions. Integrability of piecewise-continuous functions. The fundamental theorem of calculus. Differentiation of indefinite integrals. Integration by parts. The integral form of the remainder in Taylor's theorem. Improper integrals.\hspace*{\fill} [6]}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+\section{Introduction}
+In IA Differential Equations, we studied calculus in a non-rigorous setting. While we did define differentiation (properly) as a limit, we did not define what a limit was. We didn't even have a proper definition of integral, and just mumbled something about it being an infinite sum.
+
+In Analysis, one of our main goals is to put calculus on a rigorous foundation. We will provide unambiguous definitions of what it means to take a limit, a derivative and an integral. Based on these definitions, we will prove the results we've had such as the product rule, quotient rule and chain rule. We will also rigorously prove the fundamental theorem of calculus, which states that the integral is the inverse operation to the derivative.
+
+However, this is not all Analysis is about. We will study all sorts of limiting (``infinite'') processes. We can see integration as an infinite sum, and differentiation as dividing two infinitesimal quantities. In Analysis, we will also study infinite series such as $1 + \frac{1}{4} + \frac{1}{9} + \frac{1}{16} + \cdots$, as well as limits of infinite sequences.
+
+Another important concept in Analysis is \emph{continuous functions}. In some sense, continuous functions are functions that preserve limit processes. While their role in this course is just being ``nice'' functions to work with, they will be given great importance when we study metric and topological spaces.
+
+This course is continued in IB Analysis II, where we study uniform convergence (a stronger condition for convergence), calculus of multiple variables and metric spaces.
+
+\section{The real number system}
+We are all familiar with real numbers --- they are ``decimals'' consisting of infinitely many digits. When we really want to study real numbers, while this definition is technically valid, it is not a convenient definition to work with. Instead, we take an \emph{axiomatic} approach. We define the real numbers to be a set that satisfies certain properties, and, if we really want to, show that the decimals satisfy these properties. In particular, we define real numbers to be an ordered field with the least upper bound property.
+
+We'll now define what it means to be an ``ordered field with the least upper bound property''.
+\begin{defi}[Field]
+  A \emph{field} is a set $\F$ with two binary operations $+$ and $\times$ that satisfies all the familiar properties satisfied by addition and multiplication in $\Q$, namely
+  \begin{enumerate}
+    \item $(\forall a, b, c)\,a + (b + c) = (a + b) + c$ and $a\times (b\times c) = (a\times b)\times c$ \hfill (associativity)
+    \item $(\forall a, b)\,a + b = b + a$ and $a\times b= b\times a$ \hfill (commutativity)
+    \item $\exists 0, 1$ such that $(\forall a)a + 0 = a$ and $a\times 1 = a$ \hfill (identity)
+    \item $\forall a\,\exists (-a)$ such that $a + (-a) = 0$. If $a\not= 0$, then $\exists a^{-1}$ such that $a\times a^{-1} = 1$. \hfill (inverses)
+    \item $(\forall a, b, c)\, a\times (b + c) = (a\times b) + (a\times c)$ \hfill (distributivity)
+  \end{enumerate}
+\end{defi}
+
+\begin{eg}[Examples of fields]
+  $\Q, \R, \C$, integers mod $p$, $\{a + b\sqrt{2}: a, b\in \Z\}$ are all fields.
+\end{eg}
+
+\begin{defi}[Totally ordered set]
+  An \emph{(totally) ordered set} is a set $X$ with a relation $<$ that satisfies
+  \begin{enumerate}
+    \item If $x, y, z\in X$, $x < y$ and $y < z$, then $x < z$ \hfill (transitivity)
+    \item If $x, y\in X$, exactly one of $x < y, x = y, y < x$ holds \hfill (trichotomy)
+  \end{enumerate}
+\end{defi}
+We call it a \emph{totally} ordered set, as opposed to simply an ordered set, when we want to emphasize the order is total, i.e.\ every pair of elements are related to each other, as opposed to a \emph{partial order}, where ``exactly one'' in trichotomy is replaced with ``at most one''.
+
+Now to define an ordered field, we don't simply ask for a field with an order. The order has to interact nicely with the field operations.
+\begin{defi}[Ordered field]
+  An \emph{ordered field} is a field $\F$ with a relation $<$ that makes $\F$ into an ordered set such that
+  \begin{enumerate}
+    \item if $x, y, z \in \F$ and $x < y$, then $x + z < y + z$
+    \item if $x, y, z \in \F$, $x < y$ and $z > 0$, then $xz < yz$
+  \end{enumerate}
+\end{defi}
+
+\begin{lemma}[Non-negativity of squares]
+  Let $\F$ be an ordered field and $x\in \F$. Then $x^2 \geq 0$.
+\end{lemma}
+
+\begin{proof}
+  By trichotomy, either $x < 0$, $x = 0$ or $x > 0$. If $x = 0$, then $x^2 = 0$. So $x^2 \geq 0$. If $x > 0$, then $x^2 > 0\times x = 0$. If $x < 0$, then $x - x < 0 - x$. So $0 < -x$. But then $x^2 = (-x)^2 > 0$.
+\end{proof}
+
+\begin{defi}[Least upper bound]
+  Let $X$ be an ordered set and let $A\subseteq X$. An \emph{upper bound} for $A$ is an element $x\in X$ such that $(\forall a\in A)\,a \leq x$. If $A$ has an upper bound, then we say that $A$ is \emph{bounded above}.
+
+  An upper bound $x$ for $A$ is a \emph{least upper bound} or \emph{supremum} if nothing smaller than $x$ is an upper bound. That is, we need
+  \begin{enumerate}
+    \item $(\forall a\in A)\,a \leq x$
+    \item $(\forall y < x)(\exists a\in A)\,a > y$
+  \end{enumerate}
+
+  We usually write $\sup A$ for the supremum of $A$ when it exists. If $\sup A\in A$, then we call it $\max A$, the maximum of $A$.
+\end{defi}
+
+\begin{eg}[Supremum vs maximum in $\Q$]
+  Let $X = \Q$. Then the supremum of $(0, 1)$ is $1$. The set $\{x: x^2 < 2\}$ is bounded above by $2$, but has no supremum (even though $\sqrt{2}$ seems like a supremum, we are in $\Q$ and $\sqrt{2}$ is non-existent!).
+
+  $\max [0, 1] = 1$ but $(0, 1)$ has no maximum because the supremum is not in $(0, 1)$.
+\end{eg}
+
+We can think of the supremum as a point we can get arbitrarily close to in the set but cannot pass through.
+
+\begin{defi}[Least upper bound property]
+  An ordered set $X$ has the \emph{least upper bound property} if every non-empty subset of $X$ that is bounded above has a supremum.
+\end{defi}
+
+Obvious modifications give rise to definitions of lower bound, greatest lower bound (or infimum) etc. It is simple to check that an ordered field with the least upper bound property has the greatest lower bound property.
+
+\begin{defi}[Real numbers]
+  The \emph{real numbers} is an ordered field with the least upper bound property.
+\end{defi}
+Of course, it is \emph{very} important to show that such a thing exists, or else we will be studying nothing. It is also nice to show that such a field is unique (up to isomorphism). However, we will not prove these in the course.
+
+In a field, we can define the ``natural numbers'' to be $2 = 1 + 1$, $3 = 1 + 2$ etc. Then an important property of the real numbers is
+\begin{lemma}[Archimedean property (v1)]
+  Let $\F$ be an ordered field with the least upper bound property. Then the set $\{1, 2, 3, \cdots\}$ is not bounded above.
+\end{lemma}
+
+\begin{proof}
+  If it is bounded above, then it has a supremum $x$. But then $x - 1$ is not an upper bound. So we can find $n\in \{1, 2, 3, \cdots\}$ such that $n> x - 1$. But then $n + 1 > x$, but $x$ is supposed to be an upper bound.
+\end{proof}
+
+Is the least upper bound property required to prove the Archimedean property? It seems like \emph{any} ordered field should satisfy this even if they do not have the least upper bound property. However, it turns out there are ordered fields in which the integers are bounded above.
+
+Consider the field of rational functions, i.e.\ functions in the form $\frac{P(x)}{Q(x)}$ with $P(x), Q(x)$ being polynomials, under the usual addition and multiplication. We order two functions $\frac{P(x)}{Q(x)}, \frac{R(x)}{S(x)}$ as follows: these two functions intersect only finitely many times because $P(x)S(x) = R(x)Q(x)$ has only finitely many roots. After the last intersection, the function whose value is greater counts as the greater function. It can be checked that these form an ordered field.
+
+In this field, the integers are the constant functions $1, 2, 3, \cdots$, but it is bounded above since the function $x$ is greater than all of them.
+
+\section{Convergence of sequences}
+Having defined real numbers, the first thing we will study is sequences. We will want to study what it means for a sequence to \emph{converge}. Intuitively, we would like to say that $1, \frac{1}{2}, \frac{1}{3}, \frac{1}{4},\cdots$ converges to $0$, while $1, 2, 3, 4, \cdots$ diverges. However, the actual formal definition of convergence is rather hard to get right, and historically there have been failed attempts that produced spurious results.
+\subsection{Definitions}
+\begin{defi}[Sequence]
+  A \emph{sequence} is, formally, a function $a: \N \to \R$ (or $\C$). Usually (i.e.\ always), we write $a_n$ instead of $a(n)$. Instead of $a$, we usually write it as $(a_n)$, $(a_n)_1^\infty$ or $(a_n)_{n = 1}^\infty$ to indicate it is a sequence.
+\end{defi}
+
+\begin{defi}[Convergence of sequence]
+  Let $(a_n)$ be a sequence and $\ell\in \R$. Then $a_n$ \emph{converges to} $\ell$, \emph{tends to} $\ell$, or $a_n \to \ell$ , if for all $\varepsilon > 0$, there is some $N \in \N$ such that whenever $n > N$, we have $|a_n - \ell| < \varepsilon$. In symbols, this says
+  \[
+    (\forall \varepsilon > 0)(\exists N)(\forall n\geq N)\,|a_n - \ell| < \varepsilon.
+  \]
+  We say $\ell$ is the \emph{limit} of $(a_n)$.
+\end{defi}
+One can think of $(\exists N)(\forall n\geq N)$ as saying ``eventually always'', or as ``from some point on''. So the definition means, if $a_n\to \ell$, then given any $\varepsilon$, there eventually, everything in the sequence is within $\varepsilon$ of $\ell$.
+
+We'll now provide an alternative form of the Archimedean property. This is the form that is actually useful.
+\begin{lemma}[Archimedean property v2]
+  $1/n \to 0$.
+\end{lemma}
+
+\begin{proof}
+  \textcolor{red}{Let $\varepsilon > 0$}. We want to find an $N$ such that $|1/N - 0| = 1/N < \varepsilon$. So \textcolor{red}{pick $N$} such that $N > 1/\varepsilon$. There exists such an $N$ by the Archimedean property v1. Then \textcolor{red}{for all $n \geq N$}, we have $0 < 1/n \leq 1/N < \varepsilon$. So \textcolor{red}{$|1/n - 0| < \varepsilon$}.
+\end{proof}
+Note that the red parts correspond to the \emph{definition} of convergence of a sequence. This is generally how we prove convergence from first principles.
+
+\begin{defi}[Bounded sequence]
+  A sequence $(a_n)$ is \emph{bounded} if
+  \[
+    (\exists C)(\forall n)\,|a_n| \leq C.
+  \]
+  A sequence is \emph{eventually bounded} if
+  \[
+    (\exists C)(\exists N)(\forall n\geq N)\, |a_n| \leq C.
+  \]
+\end{defi}
+The definition of an \emph{eventually bounded} sequence seems a bit daft. Clearly every eventually bounded sequence is bounded! Indeed it is:
+\begin{lemma}[Eventually bounded implies bounded]
+  Every eventually bounded sequence is bounded.
+\end{lemma}
+
+\begin{proof}
+  Let $C$ and $N$ be such that $(\forall n\geq N)\,|a_n| \leq C$. Then $\forall n \in \N$, $|a_n| \leq \max\{|a_1|, \cdots, |a_{N - 1}|, C\}$.
+\end{proof}
+
+The proof is rather trivial. However, most of the time it is simpler to prove that a sequence is eventually bounded, and this lemma saves us from writing that long line every time.
+
+\subsection{Sums, products and quotients}
+Here we prove the things that we think are obviously true, e.g.\ sums and products of convergent sequences are convergent.
+
+\begin{lemma}[Sums of sequences]
+  If $a_n \to a$ and $b_n \to b$, then $a_n + b_n \to a + b$.
+\end{lemma}
+
+\begin{proof}
+  Let $\varepsilon > 0$. We want to find a clever $N$ such that for all $n \geq N$, $|a_n + b_n - (a+b)| < \varepsilon$. Intuitively, we know that $a_n$ is very close to $a$ and $b_n$ is very close to $b$. So their sum must be very close to $a + b$.
+
+  Formally, since $a_n\to a$ and $b_n \to b$, we can find $N_1, N_2$ such that $\forall n \geq N_1$, $|a_n - a| < \varepsilon/2$ and $\forall n \geq N_2$, $|b_n - b| < \varepsilon/2$.
+
+  Now let $N = \max\{N_1, N_2\}$. Then by the triangle inequality, when $n \geq N$,
+  \[
+    |(a_n + b_n) - (a + b)| \leq |a_n - a| + |b_n - b| < \varepsilon. \qedhere
+  \]
+\end{proof}
+
+We want to prove that the product of convergent sequences is convergent. However, we will not do it in one go. Instead, we separate it into many smaller parts.
+\begin{lemma}[Scalar multiplication of sequences]
+  Let $a_n \to a$ and $\lambda \in \R$. Then $\lambda a_n \to \lambda a$.
+\end{lemma}
+
+\begin{proof}
+  If $\lambda = 0$, then the result is trivial.
+
+  Otherwise, let $\varepsilon > 0$. Then $\exists N$ such that $\forall n \geq N$, $|a_n - a| < \varepsilon/|\lambda|$. So $|\lambda a_n - \lambda a| < \varepsilon$.
+\end{proof}
+
+\begin{lemma}[Bounded times null sequence]
+  Let $(a_n)$ be bounded and $b_n \to 0$. Then $a_nb_n \to 0$.
+\end{lemma}
+
+\begin{proof}
+  Let $C\not=0$ be such that $(\forall n)\, |a_n|\leq C$. Let $\varepsilon > 0$. Then $\exists N$ such that $(\forall n\geq N)\, |b_n| < \varepsilon/C$. Then $|a_nb_n| < \varepsilon$.
+\end{proof}
+
+\begin{lemma}[Convergent implies bounded]
+  Every convergent sequence is bounded.
+\end{lemma}
+
+\begin{proof}
+  Let $a_n \to l$. Then there is an $N$ such that $\forall n \geq N$, $|a_n - l| \leq 1$. So $|a_n| \leq |l| + 1$. So $a_n$ is eventually bounded, and therefore bounded.
+\end{proof}
+
+\begin{lemma}[Product of sequences]
+  Let $a_n\to a$ and $b_n\to b$. Then $a_nb_n\to ab$.
+\end{lemma}
+
+\begin{proof}
+  Let $a_n = a + \varepsilon_n$. Then $a_nb_n = (a + \varepsilon_n)b_n = ab_n + \varepsilon_n b_n$.
+
+  Since $b_n \to b$, $ab_n \to ab$. Since $\varepsilon_n \to 0$ and $b_n$ is bounded, $\varepsilon_nb_n \to 0$. So $a_nb_n \to ab$.
+\end{proof}
+
+\begin{proof}
+  (alternative) Observe that $a_nb_n - ab = (a_n - a) b_n + (b_n - b)a$. We know that $a_n - a \to 0$ and $b_n - b\to 0$. Since $(b_n)$ is bounded, so $(a_n - a)b_n + (b_n - b)a \to 0$. So $a_nb_n \to ab$.
+\end{proof}
+
+Note that in this proof, we no longer write ``Let $\varepsilon > 0$''. In the beginning, we have no lemmas proven. So we must prove everything from first principles and use the definition. However, after we have proven the lemmas, we can simply use them instead of using first principles. This is similar to in calculus, where we use first principles to prove the product rule and chain rule, then no longer use first principles afterwards.
+
+\begin{lemma}[Quotient of sequences]
+  Let $(a_n)$ be a sequence such that $(\forall n)\, a_n \not= 0$. Suppose that $a_n \to a$ and $a\not = 0$. Then $1/a_n \to 1/a$.
+\end{lemma}
+
+\begin{proof}
+  We have
+  \[
+    \frac{1}{a_n} - \frac{1}{a} = \frac{a - a_n}{aa_n}.
+  \]
+  We want to show that this $\to 0$. Since $a - a_n \to 0$, we have to show that $1/(aa_n)$ is bounded.
+
+  Since $a_n \to a$, $\exists N$ such that $\forall n\geq N$, $|a_n - a| \leq |a|/2$. Then $\forall n\geq N$, $|a_n| \geq |a|/2$. Then $|1/(a_na)| \leq 2/|a|^2$. So $1/(a_na)$ is bounded. So $(a - a_n)/(aa_n)\to 0$ and the result follows.
+\end{proof}
+
+\begin{cor}
+  If $a_n \to a, b_n \to b$, $b_n, b\not= 0$, then $a_n/b_n \to a/b$.
+\end{cor}
+
+\begin{proof}
+  We know that $1/b_n \to 1/b$. So the result follows by the product rule.
+\end{proof}
+
+\begin{lemma}[Sandwich rule]
+  Let $(a_n)$ and $(b_n)$ be sequences that both converge to a limit $x$. Suppose that $a_n \leq c_n \leq b_n$ for every $n$. Then $c_n \to x$.
+\end{lemma}
+
+\begin{proof}
+  Let $\varepsilon > 0$. We can find $N$ such that $\forall n \geq N$, $|a_n - x| < \varepsilon$ and $|b_n - x| < \varepsilon$.
+
+  Then $\forall n\geq N$, we have $x - \varepsilon < a_n \leq c_n \leq b_n < x + \varepsilon$. So $|c_n - x| < \varepsilon$.
+\end{proof}
+
+\begin{eg}[Convergence of $1/2^n$]
+  $1/2^n \to 0$. For every $n$, $n < 2^n$. So $0 < 1/2^n < 1/n$. The result follows from the sandwich rule.
+\end{eg}
+\begin{eg}[Rational function limit]
+  We want to show that
+  \[
+    \frac{n^2 + 3}{(n + 5)(2n - 1)} \to \frac{1}{2}.
+  \]
+  We can obtain this by
+  \[
+    \frac{n^2 + 3}{(n + 5)(2n - 1)} = \frac{1 + 3/n^2}{(1 + 5/n)(2 - 1/n)} \to \frac{1}{2},
+  \]
+  by sum rule, sandwich rule, Archimedean property, product rule and quotient rule.
+\end{eg}
+
+\begin{eg}[Exponential dominates polynomial]
+  Let $k\in \N$ and let $\delta > 0$. Then
+  \[
+    \frac{n^k}{(1 + \delta)^n}\to 0.
+  \]
+  This can be summarized as ``exponential growth beats polynomial growth eventually''.
+
+  By the binomial theorem,
+  \[
+    (1 + \delta)^n \geq \binom{n}{k + 1}\delta^{k + 1}.
+  \]
+  Also, for $n\geq 2k$,
+  \[
+    \binom{n}{k + 1} = \frac{n(n - 1)\cdots(n - k)}{(k + 1)!} \geq \frac{(n/2)^{k + 1}}{(k + 1)!}.
+  \]
+  So for sufficiently large $n$,
+  \[
+    \frac{n^k}{(1 + \delta)^n} \leq \frac{n^k 2^{k + 1} (k+1)!}{n^{k + 1}\delta^{k + 1}} = \frac{2^{k + 1} (k + 1)!}{\delta^{k + 1}} \cdot \frac{1}{n} \to 0.
+  \]
+\end{eg}
+
+\subsection{Monotone-sequences property}
+Recall that we characterized the least upper bound property. It turns out that there is an alternative characterization of real number using sequences, known as the \emph{monotone-sequences property}. In this section, we will show that the two characterizations are equivalent, and use the monotone-sequences property to deduce some useful results.
+\begin{defi}[Monotone sequence]
+  A sequence $(a_n)$ is \emph{increasing} if $a_n\leq a_{n + 1}$ for all $n$.
+
+  It is \emph{strictly increasing} if $a_n < a_{n + 1}$ for all $n$. \emph{(Strictly) decreasing} sequences are defined analogously.
+
+  A sequence is \emph{(strictly) monotone} if it is (strictly) increasing or (strictly) decreasing.
+\end{defi}
+
+\begin{defi}[Monotone-sequences property]
+  An ordered field has the \emph{monotone sequences property} if every increasing sequence that is bounded above converges.
+\end{defi}
+
+We want to show that the monotone sequences property is equivalent to the least upper bound property.
+\begin{lemma}[LUB implies monotone convergence]
+  Least upper bound property $\Rightarrow$ monotone-sequences property.
+\end{lemma}
+
+\begin{proof}
+  Let $(a_n)$ be an increasing sequence and let $C$ be an upper bound for $(a_n)$. Then $C$ is an upper bound for the set $\{a_n: n \in \N\}$. By the least upper bound property, it has a supremum $s$. We want to show that this is the limit of $(a_n)$.
+
+  Let $\varepsilon > 0$. Since $s = \sup \{a_n: n\in \N\}$, there exists an $N$ such that $a_N > s - \varepsilon$. Then since $(a_n)$ is increasing, $\forall n \geq N$, we have $s - \varepsilon < a_N \leq a_n \leq s$. So $|a_n - s| < \varepsilon$.
+\end{proof}
+
+We first prove a handy lemma.
+\begin{lemma}[Limits preserve weak inequalities]
+  Let $(a_n)$ be a sequence and suppose that $a_n \to a$. If $(\forall n)\, a_n \leq x$, then $a\leq x$.
+\end{lemma}
+
+\begin{proof}
+  If $a > x$, then set $\varepsilon = a - x$. Then we can find $N$ such that $a_N > x$. Contradiction.
+\end{proof}
+
+Before showing the other way implication, we will need the following:
+\begin{lemma}[MSP implies Archimedean]
+  Monotone-sequences property $\Rightarrow$ Archimedean property.
+\end{lemma}
+
+\begin{proof}
+  We prove version 2, i.e.\ that $1/n \to 0$.
+
+  Since $1/n > 0$ and is decreasing, by MSP, it converges. Let $\delta$ be the limit. By the previous lemma, we must have $\delta \geq 0$.
+
+  If $\delta > 0$, then we can find $N$ such that $1/N < 2\delta$. But then for all $n \geq 4N$, we have $1/n \leq 1/(4N) < \delta/2$. Contradiction. Therefore $\delta = 0$.
+\end{proof}
+
+\begin{lemma}[MSP implies LUB]
+  Monotone-sequences property $\Rightarrow$ least upper bound property.
+\end{lemma}
+
+\begin{proof}
+  Let $A$ be a non-empty set that's bounded above. Pick $u_0, v_0$ such that $u_0$ is not an upper bound for $A$ and $v_0$ is an upper bound. Now do a repeated bisection: having chosen $u_n$ and $v_n$ such that $u_n$ is not an upper bound and $v_n$ is, if $(u_n + v_n)/2$ is an upper bound, then let $u_{n + 1} = u_n$, $v_{n + 1} = (u_n + v_n)/2$. Otherwise, let $u_{n + 1} = (u_n + v_n)/2$, $v_{n + 1} = v_n$.
+
+  Then $u_0 \leq u_1 \leq u_2 \leq \cdots$ and $v_0\geq v_1 \geq v_2 \geq \cdots$. We also have
+  \[
+    v_n - u_n = \frac{v_0 - u_0}{2^n} \to 0.
+  \]
+  By the monotone sequences property, $u_n\to s$ (since $(u_n)$ is bounded above by $v_0$). Since $v_n - u_n \to 0$, $v_n \to s$. We now show that $s = \sup A$.
+
+  If $s$ is not an upper bound, then there exists $a\in A$ such that $a > s$. Since $v_n \to s$, then there exists $m$ such that $v_m < a$, contradicting the fact that $v_m$ is an upper bound.
+
+  To show it is the \emph{least} upper bound, let $t < s$. Then since $u_n \to s$, we can find $m$ such that $u_m > t$. So $t$ is not an upper bound. Therefore $s$ is the least upper bound.
+\end{proof}
+Why do we need to prove the Archimedean property first? In the proof above, we secretly used it. When showing that $v_n - u_n \to 0$, we required the fact that $\frac{1}{2^n} \to 0$. To prove this, we sandwiched it with $\frac{1}{n}$. But to show $\frac{1}{n}\to 0$, we need the Archimedean property.
+
+\begin{lemma}[Uniqueness of limits]
+  A sequence can have at most 1 limit.
+\end{lemma}
+
+\begin{proof}
+Let $(a_n)$ be a sequence, and suppose $a_n \to x$ and $a_n\to y$. Let $\varepsilon > 0$ and pick $N$ such that $\forall n \geq N$, $|a_n - x| < \varepsilon/2$ and $|a_n - y| < \varepsilon/2$. Then $|x - y| \leq |x - a_N| + |a_N - y| < \varepsilon/2 + \varepsilon/2 = \varepsilon$. Since $\varepsilon$ was arbitrary, $x$ must equal $y$.
+\end{proof}
+
+\begin{lemma}[Nested intervals property]
+  Let $\F$ be an ordered field with the monotone sequences property. Let $I_1\supseteq I_2 \supseteq \cdots$ be closed bounded non-empty intervals. Then $\bigcap_{n = 1}^\infty I_n \not= \emptyset$.
+\end{lemma}
+
+\begin{proof}
+  Let $I_n = [a_n, b_n]$ for each $n$. Then $a_1 \leq a_2 \leq\cdots$ and $b_1 \geq b_2\geq \cdots$. For each $n$, $a_n \leq b_n \leq b_1$. So the sequence $a_n$ is bounded above. So by the monotone sequences property, it has a limit $a$. For each $n$, we must have $a_n\leq a$. Otherwise, say $a_n > a$. Then for all $m \geq n$, we have $a_m \geq a_n > a$. This implies that $a > a$, which is nonsense.
+
+  Also, for each fixed $n$, we have that $\forall m\geq n$, $a_m \leq b_m \leq b_n$. So $a \leq b_n$. Thus, for all $n$, $a_n \leq a \leq b_n$. So $a\in I_n$. So $a\in \bigcap_{n = 1}^\infty I_n$.
+\end{proof}
+
+We can use this to prove that the reals are uncountable:
+\begin{prop}[Uncountability of reals]
+  $\R$ is uncountable.
+\end{prop}
+
+\begin{proof}
+  Suppose the contrary. Let $x_1, x_2, \cdots$ be a list of all real numbers. Find an interval that does not contain $x_1$. Within that interval, find an interval that does not contain $x_2$. Continue \emph{ad infinitum}. Then the intersection of all these intervals is non-empty, but the elements in the intersection are not in the list. Contradiction.
+\end{proof}
+
+A powerful consequence of this is the \emph{Bolzano-Weierstrass theorem}. This is formulated in terms of subsequences:
+\begin{defi}[Subsequence]
+  Let $(a_n)$ be a sequence. A \emph{subsequence} of $(a_n)$ is a sequence of the form $a_{n_1}, a_{n_2}, \cdots$, where $n_1 < n_2 < \cdots$.
+\end{defi}
+
+\begin{eg}[Square reciprocals subsequence]
+  $1, 1/4, 1/9, 1/16, \cdots$ is a subsequence of $1, 1/2, 1/3, \cdots$.
+\end{eg}
+
+
+\begin{thm}[Bolzano-Weierstrass theorem]
+  Let $\F$ be an ordered field with the monotone sequences property (i.e.\ $\F = \mathbb{R}$).
+
+  Then every bounded sequence has a convergent subsequence.
+\end{thm}
+
+\begin{proof}
+  Let $u_0$ and $v_0$ be a lower and upper bound, respectively, for a sequence $(a_n)$. By repeated bisection, we can find a sequence of intervals $[u_0, v_0] \supseteq [u_1, v_1]\supseteq [u_2,v_2] \supseteq\cdots$ such that $v_n - u_n = (v_0 - u_0)/2^n$, and such that each $[u_n, v_n]$ contains infinitely many terms of $(a_n)$.
+
+  By the nested intervals property, $\bigcap_{n = 1}^\infty [u_n, v_n] \not= \emptyset$. Let $x$ belong to the intersection. Now pick a subsequence $a_{n_1}, a_{n_2}, \cdots$ such that $a_{n_k} \in [u_k, v_k]$. We can do this because $[u_k, v_k]$ contains infinitely many $a_n$, and we have only picked finitely many of them. We will show that $a_{n_k} \to x$.
+
+  Let $\varepsilon > 0$. By the Archimedean property, we can find $K$ such that $v_K - u_K = (v_0 - u_0)/2^K \leq \varepsilon$. This implies that $[u_K, v_K] \subseteq (x - \varepsilon, x + \varepsilon)$, since $x\in [u_K, v_K]$.
+
+  Then $\forall k \geq K$, $a_{n_k}\in [u_k, v_k] \subseteq [u_K, v_K] \subseteq (x - \varepsilon, x + \varepsilon)$. So $|a_{n_k} - x| < \varepsilon$.
+\end{proof}
+
+\subsection{Cauchy sequences}
+The third characterization of real numbers is in terms of Cauchy sequences. Cauchy convergence is an alternative way of defining convergent sequences without needing to mention the actual limit of the sequence. This allows us to say $\{3, 3.1, 3.14, 3.141, 3.1415, \cdots\}$ is \emph{Cauchy convergent} in $\Q$ even though the limit $\pi$ is not in $\Q$.
+
+\begin{defi}[Cauchy sequence]
+  A sequence $(a_n)$ is \emph{Cauchy} if for all $\varepsilon$, there is some $N \in \N$ such that whenever $p, q \geq N$, we have $|a_p - a_q| < \varepsilon$. In symbols, we have
+  \[
+    (\forall \varepsilon > 0)(\exists N)(\forall p, q\geq N)\, |a_p - a_q| < \varepsilon.
+  \]
+\end{defi}
+Roughly, a sequence is Cauchy if all terms are eventually close to each other (as opposed to close to a limit).
+
+\begin{lemma}[Convergent implies Cauchy]
+  Every convergent sequence is Cauchy.
+\end{lemma}
+
+\begin{proof}
+  Let $a_n \to a$. Let $\varepsilon > 0$. Then $\exists N$ such that $\forall n \geq N$, $|a_n - a| < \varepsilon/2$. Then $\forall p, q\geq N$, $|a_p - a_q| \leq |a_p - a| + |a - a_q| < \varepsilon/2 + \varepsilon/2 = \varepsilon$.
+\end{proof}
+
+\begin{lemma}[Cauchy with convergent subsequence]
+  Let $(a_n)$ be a Cauchy sequence with a subsequence $(a_{n_k})$ that converges to $a$. Then $a_n\to a$.
+\end{lemma}
+
+\begin{proof}
+  Let $\varepsilon > 0$. Pick $N$ such that $\forall p, q\geq N$, $|a_p - a_q| < \varepsilon/2$. Then pick $K$ such that $n_K \geq N$ and $|a_{n_K} - a| < \varepsilon/2$.
+
+  Then $\forall n \geq N$, we have
+  \[
+    |a_n - a| \leq |a_n - a_{n_K}| + |a_{n_K} - a| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.\qedhere
+  \]
+\end{proof}
+
+An important result we have is that in $\R$, Cauchy convergence and regular convergence are equivalent.
+\begin{thm}[The general principle of convergence]
+  Let $\F$ be an ordered field with the monotone-sequence property. Then every Cauchy sequence of $\F$ converges.
+\end{thm}
+
+\begin{proof}
+Let $(a_n)$ be a Cauchy sequence. Then it is eventually bounded, since $\exists N$, $\forall n \geq N$, $|a_n - a_N| \leq 1$ by the Cauchy condition. So it is bounded. Hence by Bolzano-Weierstrass, it has a convergent subsequence. Then $(a_n)$ converges to the same limit.
+\end{proof}
+
+\begin{defi}[Complete ordered field]
+  An ordered field in which every Cauchy sequence converges is called \emph{complete}.
+\end{defi}
+
+Hence we say that $\R$ is a complete ordered field.
+
+However, not every complete ordered field is (isomorphic to) $\R$. For example, we can take the rational functions as before, then take the Cauchy completion of it (i.e.\ add all the limits we need). Then it is already too large to be the reals (it still doesn't have the Archimedean property) but is a complete ordered field.
+
+To show that completeness implies the monotone-sequences property, we need an additional condition: the Archimedean property.
+
+\begin{lemma}[Archimedean completeness implies MSP]
+  Let $\F$ be an ordered field with the Archimedean property such that every Cauchy sequence converges. Then $\F$ satisfies the monotone-sequences property.
+\end{lemma}
+
+\begin{proof}
+  Instead of showing that every bounded monotone sequence converges, and is hence Cauchy, we will show the equivalent statement that every increasing non-Cauchy sequence is not bounded above.
+
+  Let $(a_n)$ be an increasing sequence. If $(a_n)$ is not Cauchy, then
+  \[
+    (\exists \varepsilon > 0)(\forall N)(\exists p, q > N)\,|a_p - a_q| \geq \varepsilon.
+  \]
+  wlog let $p > q$. Then
+  \[
+    a_p \geq a_q + \varepsilon \geq a_N + \varepsilon.
+  \]
+  So for any $N$, we can find a $p > N$ such that
+  \[
+    a_p \geq a_N + \varepsilon.
+  \]
+  Then we can construct a subsequence $a_{n_1}, a_{n_2}, \cdots$ such that
+  \[
+    a_{n_{k + 1}} \geq a_{n_k} + \varepsilon.
+  \]
+  Therefore
+  \[
+    a_{n_k} \geq a_{n_1} + (k - 1)\varepsilon.
+  \]
+  So by the Archimedean property, $(a_{n_k})$, and hence $(a_n)$, is unbounded.
+\end{proof}
+
+Note that the definition of a convergent sequence is
+\[
+  (\exists l)(\forall \varepsilon > 0)(\exists N)(\forall n\geq N)\, |a_n - l| < \varepsilon,
+\]
+while that of Cauchy convergence is
+\[
+  (\forall \varepsilon > 0)(\exists N)(\forall p, q\geq N)\, |a_p - a_q| < \varepsilon.
+\]
+In the first definition, $l$ quantifies over all real numbers, which is uncountable. However, in the second definition, we only have to quantify over natural numbers, which is countable (by the Archimedean property, we only have to consider the cases $\varepsilon = 1/n$).
+
+Since they are equivalent in $\R$, the second definition is sometimes preferred when we care about logical simplicity.
+
+\subsection{Limit supremum and infimum}
+Here we will define the limit supremum and infimum. While these are technically not part of the course, eventually some lecturers will magically assume students know this definition. So we might as well learn it here.
+
+\begin{defi}[Limit supremum/infimum]
+  Let $(a_n)$ be a bounded sequence. We define the \emph{limit supremum} as
+  \[
+    \limsup_{n\to \infty} a_n = \lim_{n\to \infty}\left(\sup_{m \geq n} a_m\right).
+  \]
+  To see that this exists, set $b_n = \sup_{m\geq n}a_m$. Then $(b_n)$ is decreasing since we are taking the supremum of fewer and fewer things, and is bounded below by any lower bound for $(a_n)$ since $b_n \geq a_n$. So it converges.
+
+  Similarly, we define the \emph{limit infimum} as
+  \[
+    \liminf_{n\to \infty}a_n = \lim_{n\to\infty}\left(\inf_{m\geq n} a_m\right).
+  \]
+\end{defi}
+
+\begin{eg}[Computing limsup and liminf]
+  Take the sequence
+  \[
+    2, -1, \frac{3}{2}, -\frac{1}{2}, \frac{4}{3}, -\frac{1}{3}, \cdots
+  \]
+  Then the limit supremum is $1$ and the limit infimum is $0$.
+\end{eg}
+
+\begin{lemma}[Convergence via limsup/liminf]
+  Let $(a_n)$ be a sequence. The following two statements are equivalent:
+  \begin{itemize}
+    \item $a_n\to a$
+    \item $\limsup a_n = \liminf a_n = a$.
+  \end{itemize}
+\end{lemma}
+
+\begin{proof}
+  If $a_n \to a$, then let $\varepsilon > 0$. Then we can find an $n$ such that
+  \[
+    a - \varepsilon \leq a_m \leq a + \varepsilon\text{ for all } m \geq n
+  \]
+  It follows that
+  \[
+    a - \varepsilon \leq \inf_{m \geq n}a_m \leq \sup_{m\geq n} a_m \leq a + \varepsilon.
+  \]
+  Since $\varepsilon$ was arbitrary, it follows that
+  \[
+    \liminf a_n = \limsup a_n = a.
+  \]
+  Conversely, if $\liminf a_n = \limsup a_n = a$, then let $\varepsilon > 0$. Then we can find $n$ such that
+  \[
+    \inf_{m\geq n} a_m > a - \varepsilon\text{ and }\sup _{m \geq n} a_m < a + \varepsilon.
+  \]
+  It follows that $\forall m\geq n$, we have $|a_m - a| < \varepsilon$.
+\end{proof}
+
+\end{document}
