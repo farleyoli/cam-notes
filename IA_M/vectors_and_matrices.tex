@@ -111,11 +111,11 @@ When writing $z_i = r_i(\cos\theta_i + i\sin \theta_i)$, we have
 \end{align*}
 In other words, when multiplying complex numbers, the moduli multiply and the arguments add.
 
-\begin{prop}
+\begin{prop}[Modulus squared formula]
   $z\bar{z} = a^2 + b^2 = |z|^2$.
 \end{prop}
 
-\begin{prop}
+\begin{prop}[Complex number inverse formula]
   $z^{-1} = \bar{z}/|z|^2$.
 \end{prop}
 
@@ -139,7 +139,7 @@ To do so, we use the Taylor series definition of the exponential function:
 \end{defi}
 This automatically allows taking exponents of arbitrary complex numbers. Having defined exponentiation this way, we want to check that it satisfies the usual properties, such as $\exp(z + w) = \exp(z)\exp(w)$. To prove this, we will first need a helpful lemma.
 
-\begin{lemma}
+\begin{lemma}[Double sum rearrangement]
   \[
     \sum_{n = 0}^\infty\sum_{m = 0}^\infty a_{mn} = \sum_{r = 0}^\infty\sum_{m = 0}^r a_{r - m, m}
   \]
@@ -156,7 +156,7 @@ This automatically allows taking exponents of arbitrary complex numbers. Having 
 \end{proof}
 This is not exactly a rigorous proof, since we should not hand-wave about infinite sums so casually. But in fact, we did not even show that the definition of $\exp(z)$ is well defined for all numbers $z$, since the sum might diverge. All these will be done in that IA Analysis I course.
 
-\begin{thm}
+\begin{thm}[Exponential addition formula]
   $\exp(z_1)\exp(z_2) = \exp(z_1 + z_2)$
 \end{thm}
 
@@ -179,7 +179,7 @@ Again, to define the sine and cosine functions, instead of referring to ``angles
 \end{defi}
 
 One very important result is the relationship between $\exp$, $\sin$ and $\cos$.
-\begin{thm}
+\begin{thm}[Euler's formula]
   $e^{iz} = \cos z + i\sin z$.
 \end{thm}
 Alternatively, since $\sin (-z) = -\sin z$ and $\cos(-z) = \cos z$, we have
@@ -203,7 +203,7 @@ Thus we can write $z = r(\cos\theta + i\sin\theta) = re^{i\theta}$.
   The $n$th \emph{roots of unity} are the roots to the equation $z^n = 1$ for $n\in \N$. Since this is a polynomial of order $n$, there are $n$ roots of unity. In fact, the $n$th roots of unity are $\exp\left(2\pi i\frac{k}{n}\right)$ for $k = 0, 1, 2, 3\cdots n - 1$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Sum of roots of unity]
   If $\omega = \exp\left(\frac{2\pi i}{n}\right)$, then $1 + \omega + \omega^2 + \cdots + \omega^{n - 1} = 0$
 \end{prop}
 
@@ -284,7 +284,7 @@ The equation of a circle, on the other hand, is rather straightforward. Suppose 
   (z - c)(\bar z - \bar c) &= \rho^2\\
   z\bar z - \bar c z - c\bar z &= \rho^2 - c\bar c
 \end{align*}
-\begin{thm}
+\begin{thm}[Equation of a circle]
   The general equation of a circle with center $c\in \C$ and radius $\rho \in \R^+$ can be given by
   \[
     z\bar z - \bar c z - c\bar z = \rho^2 - c\bar c.
@@ -369,7 +369,7 @@ Note that this is a definition only for \emph{real} vector spaces, where the sca
 
 In particular, here we can use (i) and (ii) together to show linearity in 1st argument. However, this is generally not true for complex vector spaces.
 
-\begin{defi}
+\begin{defi}[Norm of a vector]
   The \emph{norm} of a vector, written as $|\mathbf{a}|$ or $\|\mathbf{a}\|$, is defined as
   \[
     |\mathbf{a}| = \sqrt{\mathbf{a\cdot a}}.
@@ -463,7 +463,7 @@ Apart from the scalar product, we can also define the \emph{vector product}. How
 If we have a triangle $OAB$, its area is given by $\frac{1}{2}|\overrightarrow{OA}||\overrightarrow{OB}|\sin\theta = \frac{1}{2}|\overrightarrow{OA}\times\overrightarrow{OB}|$. We define the vector area as $\frac{1}{2}\overrightarrow{OA}\times\overrightarrow{OB}$, which is often a helpful notion when we want to do calculus with surfaces.
 
 There is a convenient way of calculating vector products:
-\begin{prop}
+\begin{prop}[Cross product determinant formula]
   \begin{align*}
     \mathbf{a\times b} &= (a_1\hat{\mathbf{i}} + a_2\hat{\mathbf{j}} + a_3\hat{\mathbf{k}})\times(b_1\hat{\mathbf{i}} + b_2\hat{\mathbf{j}} + b_3\hat{\mathbf{k}})\\
     &= (a_2b_3 - a_3b_2)\hat{\mathbf{i}} + \cdots\\
@@ -482,7 +482,7 @@ There is a convenient way of calculating vector products:
   \]
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Scalar triple product as volume]
   If a parallelepiped has sides represented by vectors $\mathbf{a, b, c}$ that form a right-handed system, then the volume of the parallelepiped is given by $\mathbf{[a, b, c]}$.
 \end{prop}
 \begin{center}
@@ -513,7 +513,7 @@ Since the order of $\mathbf{a, b, c}$ doesn't affect the volume, we know that
   \mathbf{[a, b, c] = [b, c, a] = [c, a, b] = -[b, a, c] = -[a, c, b] = -[c, b, a]}.
 \]
 
-\begin{thm}
+\begin{thm}[Cross product distributivity]
   $\mathbf{a\times (b + c) = a\times b + a\times c}$.
 \end{thm}
 \begin{proof}
@@ -533,7 +533,7 @@ Since the order of $\mathbf{a, b, c}$ doesn't affect the volume, we know that
 \end{defi}
 
 In $\R^2$, two vectors span the space if $\mathbf{a}\times \mathbf{b} \not= \mathbf{0}$.
-\begin{thm}
+\begin{thm}[Uniqueness of spanning coefficients in $\R^2$]
   The coefficients $\lambda, \mu$ are unique.
 \end{thm}
 
@@ -555,7 +555,7 @@ In $\R^2$, two vectors span the space if $\mathbf{a}\times \mathbf{b} \not= \mat
 
 \subsubsection{3D space}
 We can extend the above definitions of spanning set and linear independent set to $\R^3$. Here we have
-\begin{thm}
+\begin{thm}[Non-coplanar vectors form basis of $\R^3$]
   If $\mathbf{a}, \mathbf{b}, \mathbf{c}\in\R^3$ are non-coplanar, i.e.\ $\mathbf{a}\cdot(\mathbf{b}\times \mathbf{c})\not= 0$, then they form a basis of $\R^3$.
 \end{thm}
 
@@ -749,7 +749,7 @@ We have
   \item If $a_{jk} = a_{kj}$ (i.e.\ $a_{ij}$ is symmetric), then $\varepsilon_{ijk}a_{jk} = \varepsilon_{ijk}a_{kj} = -\varepsilon_{ikj}a_{kj}$. Since $\varepsilon_{ijk}a_{jk} = \varepsilon_{ikj}a_{kj}$ (we simply renamed dummy suffices), we have $\varepsilon_{ijk}a_{jk} = 0$.
 \end{enumerate}
 
-\begin{prop}
+\begin{prop}[Cross product in terms of Levi-Civita symbol]
   $(\mathbf{a} \times \mathbf{b})_i = \varepsilon_{ijk}a_jb_k$
 \end{prop}
 
@@ -757,7 +757,7 @@ We have
   By expansion of formula
 \end{proof}
 
-\begin{thm}
+\begin{thm}[Levi-Civita contraction identity]
   $\varepsilon_{ijk}\varepsilon_{ipq} = \delta_{jp}\delta_{kq} - \delta_{jq}\delta_{kp}$
 \end{thm}
 
@@ -774,7 +774,7 @@ We have
 \end{proof}
 Equally, we have $\varepsilon_{ijk}\varepsilon_{pqk} = \delta_{ip}\delta_{jq} - \delta_{jp}\delta_{iq}$ and $\varepsilon_{ijk}\varepsilon_{pjq} = \delta_{ip}\delta_{kq} - \delta_{iq}\delta_{kp}$.
 
-\begin{prop}
+\begin{prop}[Cyclic permutation of scalar triple product]
   \[
     \mathbf{a\cdot (b\times c) = b\cdot(c\times a)}
   \]
@@ -804,7 +804,7 @@ Equally, we have $\varepsilon_{ijk}\varepsilon_{pqk} = \delta_{ip}\delta_{jq} - 
 Similarly, $\mathbf{(a\times b)\times c = (a\cdot c)b - (b\cdot c)a}$.
 
 \subsubsection*{Spherical trigonometry}
-\begin{prop}
+\begin{prop}[Dot product of cross products]
   $\mathbf{(a\times b)\cdot (a\times c) = (a\cdot a)(b\cdot c) - (a\cdot b)(a\cdot c)}$.
 \end{prop}
 \begin{proof}
@@ -862,14 +862,14 @@ Any line through $\mathbf{a}$ and parallel to $\mathbf{t}$ can be written as
   \mathbf{x} = \mathbf{a} + \lambda\mathbf{t}.
 \]
 By crossing both sides of the equation with $\mathbf{t}$, we have
-\begin{thm} The equation of a straight line through $\mathbf{a}$ and parallel to $\mathbf{t}$ is
+\begin{thm}[Straight line equation using cross product] The equation of a straight line through $\mathbf{a}$ and parallel to $\mathbf{t}$ is
   \[
     \mathbf{(x - a)\times t = 0}\text{ or }\mathbf{x\times t = a\times t}.
   \]
 \end{thm}
 \subsubsection{Plane}
 To define a plane $\Pi$, we need a normal $\mathbf{n}$ to the plane and a fixed point $\mathbf{b}$. For any $\mathbf{x}\in \Pi$, the vector $\mathbf{x - b}$ is contained in the plane and is thus normal to $\mathbf{n}$, i.e.\ $\mathbf{(x - b)\cdot n} = 0$.
-\begin{thm}
+\begin{thm}[Plane equation]
   The equation of a plane through $\mathbf{b}$ with normal $\mathbf{n}$ is given by
   \[
     \mathbf{x\cdot n = b\cdot n}.
@@ -1033,7 +1033,7 @@ Suppose we want to reflect through a plane through $O$ with normal $\hat{\mathbf
   \end{enumerate}
 \end{eg}
 
-\begin{thm}
+\begin{thm}[Image and kernel are subspaces]
   Consider a linear map $f: U\to V$, where $U, V$ are vector spaces. Then $\im (f)$ is a subspace of $V$, and $\ker (f)$ is a subspace of $U$.
 \end{thm}
 
@@ -1227,7 +1227,7 @@ Also, since function composition is associative, we get $A(BC) = (AB)C$.
   If $A$ is an $m\times n$ matrix, the \emph{transpose} $A^T$ is an $n\times m$ matrix defined by $(A^T)_{ij} = A_{ji}$.
 \end{defi}
 
-\begin{prop}\leavevmode
+\begin{prop}[Matrix transpose properties]\leavevmode
   \begin{enumerate}
     \item $(A^T)^T = A$.
     \item If $\mathbf{x}$ is a column vector$\begin{pmatrix}x_1\\x_2\\\vdots\\x_n\end{pmatrix}$, $\mathbf{x}^T$ is a row vector $(x_1\; x_2\cdots x_n)$.
@@ -1263,7 +1263,7 @@ Also, since function composition is associative, we get $A(BC) = (AB)C$.
   Consider the reflection matrix $R_{ij} = \delta_{ij} - 2\hat n_i \hat n_j$. We have $\tr(A) = R_{ii} = 3 - 2\hat{n}\cdot \hat{n} = 3 - 2 = 1$.
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Trace commutativity]
   $\tr(BC) = \tr(CB)$
 \end{prop}
 
@@ -1326,7 +1326,7 @@ Note that not all square matrices have inverses. For example, the zero matrix cl
   If $A$ has an inverse, then $A$ is \emph{invertible}.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Inverse of product formula]
   $(AB)^{-1} = B^{-1}A^{-1}$
 \end{prop}
 
@@ -1398,7 +1398,7 @@ To define the determinant for square matrices of arbitrary size, we first have t
   $\begin{pmatrix} 2 & 6 \\ 6 & 2\end{pmatrix}$ is a \emph{2-cycle} or a \emph{transposition}, and we can simply write $(2\; 6)$. $\begin{pmatrix}1 & 4 & 5\\5 & 1 & 4\end{pmatrix}$ is a 3-cycle, and we can simply write $(1\; 5\; 4)$. (1 is mapped to 5; 5 is mapped to 4; 4 is mapped to 1)
 \end{defi}
 
-\begin{prop}
+\begin{prop}[q-cycle as product of 2-cycles]
   Any $q$-cycle can be written as a product of 2-cycles.
 \end{prop}
 
@@ -1433,7 +1433,7 @@ The proof that this is well-defined can be found in IA Groups.
   \]
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Determinant of $2\times 2$ matrix]
   \[
     \begin{vmatrix}
       a & b\\
@@ -1443,7 +1443,7 @@ The proof that this is well-defined can be found in IA Groups.
 \end{prop}
 
 \subsubsection{Properties of determinants}
-\begin{prop}
+\begin{prop}[Determinant of transpose]
   $\det (A) = \det (A^T)$.
 \end{prop}
 
@@ -1458,7 +1458,7 @@ The proof that this is well-defined can be found in IA Groups.
   \]
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Row scaling effect on determinant]
   If matrix $B$ is formed by multiplying every element in a single row of $A$ by a scalar $\lambda$, then $\det (B) = \lambda \det (A)$. Consequently, $\det (\lambda A) = \lambda^n \det(A)$.
 \end{prop}
 
@@ -1466,7 +1466,7 @@ The proof that this is well-defined can be found in IA Groups.
   Each term in the sum is multiplied by $\lambda$, so the whole sum is multiplied by $\lambda^n$.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Identical rows gives zero determinant]
   If 2 rows (or 2 columns) of $A$ are identical, the determinant is $0$.
 \end{prop}
 
@@ -1482,7 +1482,7 @@ The proof that this is well-defined can be found in IA Groups.
   But columns 1 and 2 are identical, so $A_{\rho(2)1} = A_{\rho(2)2}$ and $A_{\rho(1)2} = A_{\rho(1)1}$. So $\det (A) = -\det (A)$ and $\det(A) = 0$.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Linearly dependent rows gives zero determinant]
   If 2 rows or 2 columns of a matrix are linearly dependent, then the determinant is zero.
 \end{prop}
 
@@ -1499,11 +1499,11 @@ The proof that this is well-defined can be found in IA Groups.
 \end{proof}
 Even if we don't have linearly dependent rows or columns, we can still run the exact same proof as above, and still get that $\det (B) = \det (A)$. Linear dependence is only required to show that $\det (B) = 0$. So in general, we can add a linear multiple of a column (or row) onto another column (or row) without changing the determinant.
 
-\begin{prop}
+\begin{prop}[Adding row multiple preserves determinant]
   Given a matrix $A$, if $B$ is a matrix obtained by adding a multiple of a column (or row) of $A$ to another column (or row) of $A$, then $\det A = \det B$.
 \end{prop}
 
-\begin{cor}
+\begin{cor}[Row swap negates determinant]
   Swapping two rows or columns of a matrix negates the determinant.
 \end{cor}
 
@@ -1519,7 +1519,7 @@ Even if we don't have linearly dependent rows or columns, we can still run the e
   Alternatively, we can prove this from the definition directly, using the fact that the sign of a transposition is $-1$ (and that the sign is multiplicative).
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Determinant of product]
   $\det(AB) = \det(A)\det(B)$.
 \end{prop}
 
@@ -1539,7 +1539,7 @@ Even if we don't have linearly dependent rows or columns, we can still run the e
   \end{align*}
 \end{proof}
 
-\begin{cor}
+\begin{cor}[Determinant of orthogonal matrix]
   If $A$ is orthogonal, $\det A = \pm 1$.
 \end{cor}
 
@@ -1553,7 +1553,7 @@ Even if we don't have linearly dependent rows or columns, we can still run the e
   \end{align*}
 \end{proof}
 
-\begin{cor}
+\begin{cor}[Determinant of unitary matrix]
   If $U$ is unitary, $|\det U| = 1$.
 \end{cor}
 
@@ -1561,7 +1561,7 @@ Even if we don't have linearly dependent rows or columns, we can still run the e
   We have $\det U^\dagger = (\det U^T)^* = \det(U)^*$. Since $UU^\dagger = I$, we have $\det(U)\det(U)^* = 1$.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Orthogonal matrices in $\R^3$ are rotations or reflections]
   In $\R^3$, orthogonal matrices represent either a rotation ($\det = 1$) or a reflection ($\det = -1$).
 \end{prop}
 \subsubsection{Minors and Cofactors}
@@ -1688,7 +1688,7 @@ Hence, we have constructed $A^{-1}$ in the $2\times 2$ case, and shown that the 
 
 \subsection{Inverse of an \texorpdfstring{$n\times n$}{n x n} matrix}
 For larger matrices, the formula for the inverse is similar, but slightly more complicated (and costly to evaluate). The key to finding the inverse is the following:
-\begin{lemma}
+\begin{lemma}[Cofactor sum formula]
   $\sum A_{ik}\Delta_{jk} = \delta_{ij}\det A$.
 \end{lemma}
 
@@ -1700,7 +1700,7 @@ For larger matrices, the formula for the inverse is similar, but slightly more c
   If $i = j$, then the expression is $\det A$ by the Laplace expansion formula.
 \end{proof}
 
-\begin{thm}
+\begin{thm}[Matrix inverse via cofactors]
   If $\det A \not =0$, then $A^{-1}$ exists and is given by
   \[
     (A^{-1})_{ij} = \frac{\Delta_{ji}}{\det A}.
@@ -1841,7 +1841,7 @@ Further, $A\mathbf{e}_1, \cdots, A\mathbf{e}_n$ are the columns of the matrix $A
   The \emph{row rank} of a matrix is the maximum number of linearly independent rows.
 \end{defi}
 
-\begin{thm}
+\begin{thm}[Column rank equals row rank]
   The column rank and row rank are equal for any $m\times n$ matrix.
 \end{thm}
 
@@ -2148,7 +2148,7 @@ Note that we have the disclaimer ``accounting for multiplicity''. For example, $
 \end{defi}
 
 There is a rather easy way of finding eigenvalues:
-\begin{thm}
+\begin{thm}[Eigenvalue determinant condition]
   $\lambda$ is an eigenvalue of $A$ iff
   \[
     \det(A - \lambda I) = 0.
@@ -2228,7 +2228,7 @@ The kernel of the matrix $A - \lambda I$ is the set $\{\mathbf{x}: A\mathbf{x} =
 \end{defi}
 
 \subsection{Linearly independent eigenvectors}
-\begin{thm}
+\begin{thm}[Distinct eigenvalues give independent eigenvectors]
   Suppose $n\times n$ matrix $A$ has \emph{distinct} eigenvalues $\lambda_1, \lambda_2, \cdots, \lambda_n$. Then the corresponding eigenvectors $\mathbf{x}_1, \mathbf{x}_2, \cdots, \mathbf{x}_n$ are linearly independent.
 \end{thm}
 
@@ -2437,7 +2437,7 @@ By comparison, we know that
   u_i = \sum_{j = 1}^n P_{ij}\tilde{u_j}
 \]
 
-\begin{thm}
+\begin{thm}[Basis transformation of vectors]
   Denote vector as $\mathbf{u}$ with respect to $\{\mathbf{e}_i\}$ and $\tilde{\mathbf{u}}$ with respect to $\{\tilde{\mathbf{e}_i}\}$. Then
   \[
     \mathbf{u} = P\mathbf{\tilde{u}}\text{ and }\mathbf{\tilde{u}} = P^{-1}\mathbf{u}
@@ -2494,7 +2494,7 @@ Using what we've got above, we have
   &= \tilde{A}\tilde{\mathbf{u}}
 \end{align*}
 So
-\begin{thm}
+\begin{thm}[Basis transformation of matrices]
   \[
     \tilde{A} = P^{-1}AP.
   \]
@@ -2625,7 +2625,7 @@ Therefore $\tilde{A} = R^{-1}AP$.
   i.e.\ they represent the same map under different bases. Alternatively, using the language from IA Groups, we say that they are in the same conjugacy class.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Properties of similar matrices]
   Similar matrices have the following properties:
   \begin{enumerate}
     \item Similar matrices have the same determinant.
@@ -2713,7 +2713,7 @@ then
 \]
 so $A$ is diagonalizable.
 
-\begin{thm}
+\begin{thm}[Union of eigenspace bases is independent]
   Let $\lambda_1, \lambda_2, \cdots, \lambda_r$, with $r \leq n$ be the distinct eigenvalues of $A$. Let $B_1, B_2, \cdots B_r$ be the bases of the eigenspaces $E_{\lambda_1}, E_{\lambda_2}, \cdots, E_{\lambda_r}$ correspondingly. Then the set $\displaystyle B = \bigcup_{i= 1}^r B_i$ is linearly independent.
 \end{thm}
 
@@ -2736,13 +2736,13 @@ This is similar to the proof we had for the case where the eigenvalues are disti
   Since the $\mathbf{x}^{(K)}_j$ are linearly independent ($B_K$ is a basis), $\alpha_{Kj} = 0$ for all $j$. Since $K$ was arbitrary, all $\alpha_{ij}$ must be zero. So $B$ is linearly independent.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Diagonalizability and defect criterion]
   $A$ is diagonalizable iff all its eigenvalues have zero defect.
 \end{prop}
 \subsection{Canonical (Jordan normal) form}
 Given a matrix $A$, if its eigenvalues all have non-zero defect, then we can find a basis in which it is diagonal. However, if some eigenvalue \emph{does} have defect, we can still put it into an almost-diagonal form. This is known as the \emph{Jordan normal form}.
 
-\begin{thm}
+\begin{thm}[Jordan normal form for $2\times 2$ matrices]
   Any $2\times 2$ complex matrix $A$ is similar to exactly one of
   \[
     \begin{pmatrix}
@@ -2804,7 +2804,7 @@ Given a matrix $A$, if its eigenvalues all have non-zero defect, then we can fin
   \end{enumerate}
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Jordan normal form existence]
   (Without proof) The canonical form, or Jordan normal form, exists for any $n\times n$ matrix $A$. Specifically, there exists a similarity transform such that $A$ is similar to a matrix to $\tilde{A}$ that satisfies the following properties:
   \begin{enumerate}
     \item $\tilde{A}_{\alpha\alpha} = \lambda_\alpha$, i.e.\ the diagonal composes of the eigenvalues.
@@ -2931,7 +2931,7 @@ In IB Linear Algebra, we will prove the Cayley Hamilton theorem properly for all
 
 \subsection{Eigenvalues and eigenvectors of a Hermitian matrix}
 \subsubsection{Eigenvalues and eigenvectors}
-\begin{thm}
+\begin{thm}[Hermitian matrices have real eigenvalues]
   The eigenvalues of a Hermitian matrix $H$ are real.
 \end{thm}
 
@@ -2958,7 +2958,7 @@ In IB Linear Algebra, we will prove the Cayley Hamilton theorem properly for all
   From $(*)$, we know that $\lambda \mathbf{v}^\dagger \mathbf{v} = \lambda^* \mathbf{v}^\dagger \mathbf{v}$. Since $\mathbf{v} \not= 0$, we know that $\mathbf{v}^\dagger \mathbf{v} = \mathbf{v}\cdot \mathbf{v} \not =0$. So $\lambda = \lambda^*$ and $\lambda$ is real.
 \end{proof}
 
-\begin{thm}
+\begin{thm}[Hermitian eigenvectors are orthogonal]
   The eigenvectors of a Hermitian matrix $H$ corresponding to distinct eigenvalues are orthogonal.
 \end{thm}
 
@@ -3021,7 +3021,7 @@ Then
 \end{align*}
 So $U$ is a unitary matrix.
 \subsubsection{Diagonalization of \texorpdfstring{$n\times n$}{n x n} Hermitian matrices}
-\begin{thm}
+\begin{thm}[Hermitian matrix has $n$ orthogonal eigenvectors]
   An $n\times n$ Hermitian matrix has precisely $n$ orthogonal eigenvectors.
 \end{thm}
 
@@ -3131,7 +3131,7 @@ We have seen that the eigenvalues and eigenvectors of Hermitian matrices satisfy
 Hermitian, real symmetric, skew-Hermitian, real anti-symmetric, orthogonal, unitary matrices are all special cases of normal matrices.
 
 It can be shown that:
-\begin{prop}\leavevmode
+\begin{prop}[Properties of normal matrices]\leavevmode
   \begin{enumerate}
     \item If $\lambda$ is an eigenvalue of $N$, then $\lambda^*$ is an eigenvalue of $N^\dagger$.
     \item The eigenvectors of distinct eigenvalues are orthogonal.
@@ -3146,7 +3146,7 @@ We want to study quantities like $x_1^2 + x_2^2$ and $3x_1^2 + 2x_1x_2 + 4x_2^2$
   A \emph{sesquilinear form} is a quantity $F = \mathbf{x}^\dagger A\mathbf{x} = x_i^*A_{ij}x_j$. If $A$ is Hermitian, then $F$ is a \emph{Hermitian form}. If $A$ is real symmetric, then $F$ is a \emph{quadratic form}.
 \end{defi}
 
-\begin{thm}
+\begin{thm}[Hermitian forms are real]
   Hermitian forms are real.
 \end{thm}
 \begin{proof}
@@ -3345,7 +3345,7 @@ We have previously seen that orthogonal matrices are used to transform between o
 Using this as the definition of an orthogonal matrix, we see that our definition of orthogonal matrices is dependent on our choice of the notion of distance, or metric. In special relativity, we will need to use a different metric, which will lead to the \emph{Lorentz matrices}, the matrices that conserve distances in special relativity. We will have a brief look at these as well.
 
 \subsection{Groups of orthogonal matrices}
-\begin{prop}
+\begin{prop}[Orthogonal matrices form a group]
   The set of all $n\times n$ orthogonal matrices $P$ forms a group under matrix multiplication.
 \end{prop}
 
@@ -3379,7 +3379,7 @@ In general, we can show that any matrix in $O(2)$ is of the form
   \end{pmatrix}
 \]
 \subsection{Length preserving matrices}
-\begin{thm}
+\begin{thm}[Equivalent characterizations of orthogonal matrices]
   Let $P\in O(n)$. Then the following are equivalent:
   \begin{enumerate}
     \item $P$ is orthogonal
