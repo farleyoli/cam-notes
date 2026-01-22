@@ -67,7 +67,7 @@ Apart from solving equations, complex numbers have a lot of rather important app
   A \emph{complex number} is a number $z\in \C$ of the form $z = a + ib$ with $a, b\in \R$, where $i^2=-1$. We write $a = \Re(z)$ and $b = \Im(z)$.
 \end{defi}
 
-We have
+To perform operations on complex numbers, we use the following algebraic rules. Let $z_1 = a_1 + ib_1$ and $z_2 = a_2 + ib_2$ be two complex numbers. Then:
 \begin{align*}
   z_1\pm z_2 &= (a_1 + ib_1)\pm (a_2 + ib_2)\\
   &= (a_1\pm a_2) + i(b_1 \pm b_2)\\
@@ -76,6 +76,7 @@ We have
   z^{-1} &= \frac{1}{a + ib}\\
   &= \frac{a - ib}{a^2 + b^2}
 \end{align*}
+Addition and subtraction are performed component-wise. For multiplication, we expand the product using $i^2 = -1$. For the inverse, we multiply both numerator and denominator by the complex conjugate.
 \begin{defi}[Complex conjugate]
   The \emph{complex conjugate} of $z = a+ ib$ is $a - ib$. It is written as $\bar{z}$ or $z^*$.
 \end{defi}
@@ -104,12 +105,12 @@ It is often helpful to visualize complex numbers in a diagram:
   Clearly the pair $(r, \theta)$ uniquely describes a complex number $z$, but each complex number $z\in \C$ can be described by many different $\theta$ since $\sin (2\pi + \theta) = \sin \theta$ and $\cos(2\pi + \theta) = \cos\theta$. Often we take the \emph{principal value} $\theta \in (-\pi, \pi]$.
 \end{defi}
 
-When writing $z_i = r_i(\cos\theta_i + i\sin \theta_i)$, we have
+The polar representation of complex numbers reveals a remarkable property of multiplication. Consider two complex numbers $z_1 = r_1(\cos\theta_1 + i\sin \theta_1)$ and $z_2 = r_2(\cos\theta_2 + i\sin \theta_2)$. Their product can be written as:
 \begin{align*}
   z_1z_2 &= r_1r_2[(\cos\theta_1\cos\theta_2 - \sin\theta_1\sin\theta_2) + i(\sin\theta_1\cos\theta_2 + \sin\theta_2\cos\theta_1)]\\
   &= r_1r_2[\cos(\theta_1 + \theta_2) + i\sin(\theta_1+\theta_2)]
 \end{align*}
-In other words, when multiplying complex numbers, the moduli multiply and the arguments add.
+where we have used the addition formulas for cosine and sine. In other words, when multiplying two complex numbers, the moduli multiply and the arguments add. This property will be fundamental for understanding Euler's formula.
 
 \begin{prop}[Modulus squared formula]
   $z\bar{z} = a^2 + b^2 = |z|^2$.
@@ -140,18 +141,20 @@ To do so, we use the Taylor series definition of the exponential function:
 This automatically allows taking exponents of arbitrary complex numbers. Having defined exponentiation this way, we want to check that it satisfies the usual properties, such as $\exp(z + w) = \exp(z)\exp(w)$. To prove this, we will first need a helpful lemma.
 
 \begin{lemma}[Double sum rearrangement]
+  For a family $(a_{mn})$ of complex numbers, we have
   \[
-    \sum_{n = 0}^\infty\sum_{m = 0}^\infty a_{mn} = \sum_{r = 0}^\infty\sum_{m = 0}^r a_{r - m, m}
+    \sum_{n = 0}^\infty\sum_{m = 0}^\infty a_{mn} = \sum_{r = 0}^\infty\sum_{m = 0}^r a_{r - m, m}.
   \]
 \end{lemma}
 
 \begin{proof}
+  The idea is to rearrange the order of summation. The sum on the left traverses the terms $a_{mn}$ row by row (for each fixed $n$, we sum over all $m$). We can visualize this as the sum of all terms in an infinite array. Instead of summing row by row, we will sum along the diagonals. The diagonal $r$ contains the terms $(a_{n,m})$ such that $n + m = r$, that is, the terms $a_{r,0}, a_{r-1,1}, \ldots, a_{0,r}$. Formally:
   \begin{align*}
     \sum_{n = 0}^\infty\sum_{m = 0}^\infty a_{mn} &= a_{00} + a_{01} + a_{02} + \cdots\\
-    &+ a_{10} + a_{11} + a_{12} + \cdots\\
-    &+ a_{20} + a_{21} + a_{22} + \cdots\\
+    &\quad+ a_{10} + a_{11} + a_{12} + \cdots\\
+    &\quad+ a_{20} + a_{21} + a_{22} + \cdots\\
     &= (a_{00}) + (a_{10} + a_{01}) + (a_{20} + a_{11} + a_{02}) + \cdots\\
-    &= \sum_{r = 0}^\infty\sum_{m = 0}^r a_{r - m, m} \qedhere
+    &= \sum_{r = 0}^\infty\sum_{m = 0}^r a_{r - m, m}. \qedhere
   \end{align*}
 \end{proof}
 This is not exactly a rigorous proof, since we should not hand-wave about infinite sums so casually. But in fact, we did not even show that the definition of $\exp(z)$ is well defined for all numbers $z$, since the sum might diverge. All these will be done in the IA Analysis I course.
@@ -290,10 +293,13 @@ The equation of a circle, on the other hand, is rather straightforward. Suppose 
     z\bar z - \bar c z - c\bar z = \rho^2 - c\bar c.
   \]
 \end{thm}
-\section{Vectors}
-We might have first learned vectors as arrays of numbers, and then defined addition and multiplication in terms of the individual numbers in the vector. This however, is not what we are going to do here. The array of numbers is just a \emph{representation} of the vector, instead of the vector itself.
 
-Here, we will define vectors in terms of what they are, and then the various operations are defined axiomatically according to their properties.
+\section{Vectors}
+Having studied complex numbers, which generalize the real numbers, we now turn to another fundamental algebraic structure: vector spaces. Although the complex numbers $\C$ themselves form a vector space of dimension 2 over $\R$, we will develop the general theory of vectors in spaces of arbitrary dimension.
+
+One often first learns about vectors as arrays of numbers, and then defines addition and multiplication in terms of the individual components. However, this is not the approach we will take here. The array of numbers is merely a \emph{representation} of the vector, not the vector itself.
+
+In this chapter, we will define vectors axiomatically, that is, in terms of their fundamental properties. The various operations will then be defined by the axioms they must satisfy.
 \subsection{Definition and basic properties}
 \begin{defi}[Vector]
   A \emph{vector space} over $\R$ or $\C$ is a collection of vectors $\mathbf{v}\in V$, together with two operations: addition of two vectors and multiplication of a vector with a scalar (i.e.\ a number from $\R$ or $\C$, respectively).
@@ -314,10 +320,7 @@ Here, we will define vectors in terms of what they are, and then the various ope
   \end{enumerate}
 \end{defi}
 
-Often, vectors have a length and direction. The length is denoted by $|\mathbf{v}|$. In this case, we can think of a vector as an ``arrow'' in space. Note that $\lambda\mathbf{a}$ is either parallel ($\lambda \ge 0$) to or anti-parallel ($\lambda \le 0$) to $\mathbf{a}$.
-\begin{defi}[Unit vector]
-  A \emph{unit vector} is a vector with length 1. We write a unit vector as $\hat{\mathbf{v}}$.
-\end{defi}
+Often, vectors can be associated with a notion of length (or \emph{norm}) and direction. In this case, we can visualize a vector as an ``arrow'' in space. Note that $\lambda\mathbf{a}$ is either parallel ($\lambda \ge 0$) or anti-parallel ($\lambda \le 0$) to $\mathbf{a}$. The precise definition of length requires the introduction of the scalar product, which we will study in the following section.
 
 \begin{eg}
   $\R^n$ is a vector space with component-wise addition and scalar multiplication. Note that the vector space $\R$ is a line, but not all lines are vector spaces. For example, $x + y = 1$ is not a vector space since it does not contain $\mathbf{0}$.
@@ -348,17 +351,18 @@ Intuitively, this is the product of the parts of $\mathbf{a}$ and $\mathbf{b}$ t
 \end{center}
 Using the dot product, we can write the projection of $\mathbf{b}$ onto $\mathbf{a}$ as $(|\mathbf{b}|\cos\theta)\hat{\mathbf{a}} = \mathbf{(\hat{a}\cdot b)\hat{a}}$.
 
-The cosine rule can be derived as follows:
+The scalar product also allows us to recover the cosine law from trigonometry. Consider a triangle $ABC$ and let us calculate $|\overrightarrow{BC}|^2$ using vectors. By expressing $\overrightarrow{BC}$ as the difference of two vectors from $A$, and then expanding the scalar square, we obtain:
 \begin{align*}
   |\overrightarrow{BC}|^2 &= |\overrightarrow{AC} - \overrightarrow{AB}|^2\\
   &= (\overrightarrow{AC} - \overrightarrow{AB})\cdot (\overrightarrow{AC} - \overrightarrow{AB})\\
+  &= |\overrightarrow{AB}|^2 + |\overrightarrow{AC}|^2 - 2(\overrightarrow{AB}\cdot\overrightarrow{AC})\\
   &= |\overrightarrow{AB}|^2 + |\overrightarrow{AC}|^2 - 2|\overrightarrow{AB}||\overrightarrow{AC}|\cos\theta
 \end{align*}
-We will later come up with a convenient algebraic way to evaluate this scalar product.
+where $\theta$ is the angle between the vectors $\overrightarrow{AB}$ and $\overrightarrow{AC}$. This is precisely the classical cosine law. We will see later a convenient algebraic method for evaluating this type of scalar product.
 
 \subsubsection{General algebraic definition}
 \begin{defi}[Inner/scalar product]
-  In a real vector space $V$, an \emph{inner product} or \emph{scalar product} is a map $V\times V\to \R$ that satisfies the following axioms. It is written as $\mathbf{x\cdot y}$ or $\bra\mathbf{x\mid y}\ket$.
+  In a real vector space $V$, an \emph{inner product} or \emph{scalar product} is a map $V\times V\to \R$ that satisfies the following axioms. It is written as $\mathbf{x\cdot y}$ or $\bra\mathbf{x\mid y}\ket$ (the latter notation, called \emph{Dirac notation} or \emph{bra-ket notation}, is common in quantum mechanics).
   \begin{enumerate}
     \item $\mathbf{x\cdot y = y\cdot x}$ \hfill (symmetry)
     \item $\mathbf{x}\cdot (\lambda\mathbf{y} + \mu\mathbf{z}) = \lambda\mathbf{x\cdot y} + \mu\mathbf{x\cdot z}$ \hfill (linearity in 2nd argument)
@@ -374,6 +378,12 @@ In particular, here we can use (i) and (ii) together to show linearity in 1st ar
   \[
     |\mathbf{a}| = \sqrt{\mathbf{a\cdot a}}.
   \]
+\end{defi}
+
+The norm generalizes the notion of length to abstract vector spaces.
+
+\begin{defi}[Unit vector]
+  A \emph{unit vector} is a vector with norm equal to 1, i.e.\ $|\mathbf{v}| = 1$. We write a unit vector as $\hat{\mathbf{v}}$. For any nonzero vector $\mathbf{v}$, we can construct a unit vector in the same direction by $\hat{\mathbf{v}} = \frac{\mathbf{v}}{|\mathbf{v}|}$ (a process called \emph{normalization}).
 \end{defi}
 
 \begin{eg}
@@ -392,13 +402,13 @@ In particular, here we can use (i) and (ii) together to show linearity in 1st ar
 \end{thm}
 
 \begin{proof}
-  Consider the expression $|\mathbf{x} - \lambda \mathbf{y}|^2$. We must have
+  The strategy of this proof is to exploit the fact that the square of a norm is always non-negative. Consider the expression $|\mathbf{x} - \lambda \mathbf{y}|^2$, where $\lambda$ is an arbitrary real parameter. This quantity, being the square of a norm, must be non-negative:
   \begin{align*}
-    |\mathbf{x} - \lambda\mathbf{y}|^2 \geq 0\\
-    (\mathbf{x} - \lambda\mathbf{y})\cdot (\mathbf{x} - \lambda\mathbf{y}) \geq 0\\
-    \lambda^2 |\mathbf{y}|^2 - \lambda (2\mathbf{x\cdot y}) + |\mathbf{x}|^2 \geq 0.
+    |\mathbf{x} - \lambda\mathbf{y}|^2 &\geq 0\\
+    (\mathbf{x} - \lambda\mathbf{y})\cdot (\mathbf{x} - \lambda\mathbf{y}) &\geq 0\\
+    \lambda^2 |\mathbf{y}|^2 - \lambda (2\mathbf{x\cdot y}) + |\mathbf{x}|^2 &\geq 0.
   \end{align*}
-  Viewing this as a quadratic in $\lambda$, we see that the quadratic is non-negative and thus cannot have 2 real roots. Thus the discriminant $\Delta \leq 0$. So
+  This last expression is a quadratic polynomial in $\lambda$. Since it is non-negative for all $\lambda \in \R$, this polynomial cannot have two distinct real roots. Consequently, its discriminant must satisfy $\Delta \leq 0$. We thus obtain:
   \begin{align*}
     4(\mathbf{x\cdot y})^2 &\leq 4|\mathbf{y}|^2|\mathbf{x}|^2\\
     (\mathbf{x\cdot y})^2 &\leq |\mathbf{x}|^2|\mathbf{y}|^2\\
@@ -460,9 +470,9 @@ Apart from the scalar product, we can also define the \emph{vector product}. How
   \end{enumerate}
 \end{defi}
 
-If we have a triangle $OAB$, its area is given by $\frac{1}{2}|\overrightarrow{OA}||\overrightarrow{OB}|\sin\theta = \frac{1}{2}|\overrightarrow{OA}\times\overrightarrow{OB}|$. We define the vector area as $\frac{1}{2}\overrightarrow{OA}\times\overrightarrow{OB}$, which is often a helpful notion when we want to do calculus with surfaces.
+The vector product has an important geometric interpretation. If we consider a triangle $OAB$, its area is given by $\frac{1}{2}|\overrightarrow{OA}||\overrightarrow{OB}|\sin\theta = \frac{1}{2}|\overrightarrow{OA}\times\overrightarrow{OB}|$. We define the \emph{vector area} as $\frac{1}{2}\overrightarrow{OA}\times\overrightarrow{OB}$, a notion particularly useful in vector calculus for the study of surfaces.
 
-There is a convenient way of calculating vector products:
+To explicitly calculate a vector product in Cartesian coordinates, we use the determinant method. Let $\mathbf{a} = a_1\hat{\mathbf{i}} + a_2\hat{\mathbf{j}} + a_3\hat{\mathbf{k}}$ and $\mathbf{b} = b_1\hat{\mathbf{i}} + b_2\hat{\mathbf{j}} + b_3\hat{\mathbf{k}}$ be two vectors in $\R^3$ expressed in the canonical basis $\{\hat{\mathbf{i}}, \hat{\mathbf{j}}, \hat{\mathbf{k}}\}$. Then:
 \begin{prop}[Cross product determinant formula]
   \begin{align*}
     \mathbf{a\times b} &= (a_1\hat{\mathbf{i}} + a_2\hat{\mathbf{j}} + a_3\hat{\mathbf{k}})\times(b_1\hat{\mathbf{i}} + b_2\hat{\mathbf{j}} + b_3\hat{\mathbf{k}})\\
@@ -666,9 +676,9 @@ We can prove the Cauchy-Schwarz inequality for complex vector spaces using the s
 \end{eg}
 
 \subsection{Suffix notation}
-Here we are going to introduce a powerful notation that can help us simplify a lot of things.
+In vector calculations, it is often tedious to manipulate explicit sums. \emph{Suffix notation} (also called \emph{index notation}), developed notably by Einstein, allows us to greatly simplify the writing and manipulation of vector and tensor expressions. This notation is particularly useful in fluid mechanics, general relativity, and theoretical physics.
 
-First of all, let $\mathbf{v}\in \R^3$. We can write $\mathbf{v} = v_1\mathbf{e}_1 + v_2\mathbf{e}_2 + v_3\mathbf{e}_3 = (v_1, v_2, v_3)$. So in general, the $i$th component of $\mathbf{v}$ is written as $v_i$. We can thus write vector equations in component form. For example, $\mathbf{a} = \mathbf{b} \rightarrow a_i = b_i$ or $\mathbf{c}=\alpha\mathbf{a} + \beta\mathbf{b} \rightarrow c_i = \alpha a_i + \beta b_i$. A vector has one \emph{free} suffix, $i$, while a scalar has none.
+Let us begin by establishing the basic conventions. Let $\mathbf{v}\in \R^3$. We can write $\mathbf{v} = v_1\mathbf{e}_1 + v_2\mathbf{e}_2 + v_3\mathbf{e}_3 = (v_1, v_2, v_3)$, where $\{\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3\}$ denotes the canonical basis of $\R^3$. In general, the $i$-th component of $\mathbf{v}$ is written $v_i$. We can thus express vector equations in index form. For example, $\mathbf{a} = \mathbf{b}$ is written $a_i = b_i$ for all $i$, and $\mathbf{c}=\alpha\mathbf{a} + \beta\mathbf{b}$ is written $c_i = \alpha a_i + \beta b_i$. We say that a vector has one \emph{free} index, denoted $i$, while a scalar has none.
 
 \begin{notation}[Einstein's summation convention]
   Consider a sum $\mathbf{x}\cdot \mathbf{y} = \sum x_i y_i$. The \emph{summation convention} says that we can drop the $\sum$ symbol and simply write $\mathbf{x}\cdot \mathbf{y} = x_i y_i$. If suffixes are repeated once, summation is understood.
@@ -923,9 +933,15 @@ Alternatively, if $\mathbf{a, b, c}$ lie in the plane, then the equation of the 
 \end{eg}
 
 \section{Linear maps}
-A \emph{linear map} is a special type of function between vector spaces. In fact, most of the time, these are the only functions we actually care about. They are maps that satisfy the property $f(\lambda \mathbf{a} + \mu \mathbf{b}) = \lambda f(\mathbf{a}) + \mu f(\mathbf{b})$.
+Having studied vectors and their algebraic and geometric properties, we now turn our attention to functions that preserve the vector space structure. A \emph{linear map} is a function $f: V \to W$ between two vector spaces that satisfies the following property: for all vectors $\mathbf{a}, \mathbf{b} \in V$ and all scalars $\lambda, \mu$, we have
+\[
+f(\lambda \mathbf{a} + \mu \mathbf{b}) = \lambda f(\mathbf{a}) + \mu f(\mathbf{b}).
+\]
+This property expresses that $f$ respects the operations of the vector space: it commutes with vector addition and scalar multiplication.
 
-We will first look at two important examples of linear maps --- rotations and reflections, and then study their properties formally.
+Linear maps play a fundamental role in mathematics and physics. Indeed, in many contexts, these are the only transformations that preserve the essential properties of the systems being studied. For example, rotations and reflections in Euclidean space are linear maps.
+
+We will begin by studying two important examples of linear maps --- rotations and reflections --- before studying their properties in a formal manner.
 \subsection{Examples}
 \subsubsection{Rotation in \texorpdfstring{$\R^3$}{R3}}
 In $\R^3$, first consider the simple cases where we rotate about the $z$ axis by $\theta$. We call this rotation $R$ and write $\mathbf{x}' = R(\mathbf{x})$.
@@ -1115,17 +1131,17 @@ Suppose we want to reflect through a plane through $O$ with normal $\hat{\mathbf
 \end{eg}
 
 \subsection{Matrices}
-In the examples above, we have represented our linear maps by some object $R$ such that $x_i' = R_{ij}x_j$. We call $R$ the \emph{matrix} for the linear map. In general, let $\alpha: \R^n \to \R^m$ be a linear map, and $\mathbf{x}' = \alpha(\mathbf{x})$.
+In the previous examples, we have represented our linear maps by an object $R$ such that $x_i' = R_{ij}x_j$. We call $R$ the \emph{matrix} of the linear map. We will now formalize this construction and show that every linear map can be represented uniquely by a matrix.
 
-Let $\{\mathbf{e}_i\}$ be a basis of $\R^n$. Then $\mathbf{x} = x_j \mathbf{e}_j$ for some $x_j$. Then we get
+Let $\alpha: \R^n \to \R^m$ be a linear map, and denote $\mathbf{x}' = \alpha(\mathbf{x})$. Choose a basis $\{\mathbf{e}_i\}$ of $\R^n$. Every vector $\mathbf{x} \in \R^n$ can be written $\mathbf{x} = x_j \mathbf{e}_j$ for some scalars $x_j$ (where summation over $j$ is implicit by Einstein's convention). By linearity of $\alpha$, we obtain:
 \[
   \mathbf{x}' = \alpha(x_j \mathbf{e}_j) = x_j \alpha(\mathbf{e}_j).
 \]
-So we get that
+Thus, the image $\mathbf{x}'$ is entirely determined by the images of the basis vectors $\alpha(\mathbf{e}_j)$. Denoting the $i$-th component of $\alpha(\mathbf{e}_j)$ by $[\alpha(\mathbf{e}_j)]_i$, we have:
 \[
   x_i' = [\alpha(\mathbf{e}_j)]_i x_j.
 \]
-We now define $A_{ij} = [\alpha(\mathbf{e}_j)]_i$. Then $x_i' = A_{ij}x_j$. We write
+We then define the matrix coefficients $A_{ij} = [\alpha(\mathbf{e}_j)]_i$, which gives $x_i' = A_{ij}x_j$. We write
 \[
   A = \{A_{ij}\} =
   \begin{pmatrix}
@@ -2117,7 +2133,9 @@ Finally consider the general equation $A\mathbf{x} = \mathbf{d}$, where $A$ is a
 
 \section{Eigenvalues and eigenvectors}
 \label{sec:eigen}
-Given a matrix $A$, an eigenvector is a vector $\mathbf{x}$ that satisfies $A\mathbf{x} = \lambda \mathbf{x}$ for some $\lambda$. We call $\lambda$ the associated eigenvalue. In some sense, these vectors are not modified by the matrix, and are just scaled up by the matrix. We will look at the properties of eigenvectors and eigenvalues, and see their importance in diagonalizing matrices.
+The study of eigenvalues and eigenvectors is one of the most important topics in linear algebra, with numerous applications in mathematics, physics, and engineering. Intuitively, given a matrix $A$ representing a linear map, an eigenvector is a nonzero vector $\mathbf{x} \neq \mathbf{0}$ that satisfies $A\mathbf{x} = \lambda \mathbf{x}$ for some scalar $\lambda$ called the associated eigenvalue. In other words, the linear map $A$ transforms the eigenvector $\mathbf{x}$ into a multiple of itself: the direction of $\mathbf{x}$ is preserved, only its length is modified by the factor $\lambda$.
+
+In this section, we will study the properties of eigenvectors and eigenvalues, and see their fundamental importance in the diagonalization of matrices.
 
 \subsection{Preliminaries and definitions}
 \begin{thm}[Fundamental theorem of algebra]
