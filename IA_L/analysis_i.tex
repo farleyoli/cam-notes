@@ -59,7 +59,7 @@ We'll now define what it means to be an ``ordered field with the least upper bou
   \end{enumerate}
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Examples of fields]
   $\Q, \R, \C$, integers mod $p$, $\{a + b\sqrt{2}: a, b\in \Z\}$ are all fields.
 \end{eg}
 
@@ -81,7 +81,7 @@ Now to define an ordered field, we don't simply ask for a field with an order. T
   \end{enumerate}
 \end{defi}
 
-\begin{lemma}
+\begin{lemma}[Non-negativity of squares]
   Let $\F$ be an ordered field and $x\in \F$. Then $x^2 \geq 0$.
 \end{lemma}
 
@@ -101,7 +101,7 @@ Now to define an ordered field, we don't simply ask for a field with an order. T
   We usually write $\sup A$ for the supremum of $A$ when it exists. If $\sup A\in A$, then we call it $\max A$, the maximum of $A$.
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Supremum vs maximum in $\Q$]
   Let $X = \Q$. Then the supremum of $(0, 1)$ is $1$. The set $\{x: x^2 < 2\}$ is bounded above by $2$, but has no supremum (even though $\sqrt{2}$ seems like a supremum, we are in $\Q$ and $\sqrt{2}$ is non-existent!).
 
   $\max [0, 1] = 1$ but $(0, 1)$ has no maximum because the supremum is not in $(0, 1)$.
@@ -172,7 +172,7 @@ Note that the red parts correspond to the \emph{definition} of convergence of a 
   \]
 \end{defi}
 The definition of an \emph{eventually bounded} sequence seems a bit daft. Clearly every eventually bounded sequence is bounded! Indeed it is:
-\begin{lemma}
+\begin{lemma}[Eventually bounded implies bounded]
   Every eventually bounded sequence is bounded.
 \end{lemma}
 
@@ -211,7 +211,7 @@ We want to prove that the product of convergent sequences is convergent. However
   Otherwise, let $\varepsilon > 0$. Then $\exists N$ such that $\forall n \geq N$, $|a_n - a| < \varepsilon/|\lambda|$. So $|\lambda a_n - \lambda a| < \varepsilon$.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}[Bounded times null sequence]
   Let $(a_n)$ be bounded and $b_n \to 0$. Then $a_nb_n \to 0$.
 \end{lemma}
 
@@ -219,7 +219,7 @@ We want to prove that the product of convergent sequences is convergent. However
   Let $C\not=0$ be such that $(\forall n)\, |a_n|\leq C$. Let $\varepsilon > 0$. Then $\exists N$ such that $(\forall n\geq N)\, |b_n| < \varepsilon/C$. Then $|a_nb_n| < \varepsilon$.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}[Convergent implies bounded]
   Every convergent sequence is bounded.
 \end{lemma}
 
@@ -275,10 +275,10 @@ Note that in this proof, we no longer write ``Let $\varepsilon > 0$''. In the be
   Then $\forall n\geq N$, we have $x - \varepsilon < a_n \leq c_n \leq b_n < x + \varepsilon$. So $|c_n - x| < \varepsilon$.
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Convergence of $1/2^n$]
   $1/2^n \to 0$. For every $n$, $n < 2^n$. So $0 < 1/2^n < 1/n$. The result follows from the sandwich rule.
 \end{eg}
-\begin{eg}
+\begin{eg}[Rational function limit]
   We want to show that
   \[
     \frac{n^2 + 3}{(n + 5)(2n - 1)} \to \frac{1}{2}.
@@ -290,7 +290,7 @@ Note that in this proof, we no longer write ``Let $\varepsilon > 0$''. In the be
   by sum rule, sandwich rule, Archimedean property, product rule and quotient rule.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Exponential dominates polynomial]
   Let $k\in \N$ and let $\delta > 0$. Then
   \[
     \frac{n^k}{(1 + \delta)^n}\to 0.
@@ -326,7 +326,7 @@ Recall that we characterized the least upper bound property. It turns out that t
 \end{defi}
 
 We want to show that the monotone sequences property is equivalent to the least upper bound property.
-\begin{lemma}
+\begin{lemma}[LUB implies monotone convergence]
   Least upper bound property $\Rightarrow$ monotone-sequences property.
 \end{lemma}
 
@@ -337,7 +337,7 @@ We want to show that the monotone sequences property is equivalent to the least 
 \end{proof}
 
 We first prove a handy lemma.
-\begin{lemma}
+\begin{lemma}[Limits preserve weak inequalities]
   Let $(a_n)$ be a sequence and suppose that $a_n \to a$. If $(\forall n)\, a_n \leq x$, then $a\leq x$.
 \end{lemma}
 
@@ -346,7 +346,7 @@ We first prove a handy lemma.
 \end{proof}
 
 Before showing the other way implication, we will need the following:
-\begin{lemma}
+\begin{lemma}[MSP implies Archimedean]
   Monotone-sequences property $\Rightarrow$ Archimedean property.
 \end{lemma}
 
@@ -358,7 +358,7 @@ Before showing the other way implication, we will need the following:
   If $\delta > 0$, then we can find $N$ such that $1/N < 2\delta$. But then for all $n \geq 4N$, we have $1/n \leq 1/(4N) < \delta/2$. Contradiction. Therefore $\delta = 0$.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}[MSP implies LUB]
   Monotone-sequences property $\Rightarrow$ least upper bound property.
 \end{lemma}
 
@@ -377,7 +377,7 @@ Before showing the other way implication, we will need the following:
 \end{proof}
 Why do we need to prove the Archimedean property first? In the proof above, we secretly used the it. When showing that $v_n - u_n \to 0$, we required the fact that $\frac{1}{2^n} \to 0$. To prove this, we sandwiched it with $\frac{1}{n}$. But to show $\frac{1}{n}\to 0$, we need the Archimedean property.
 
-\begin{lemma}
+\begin{lemma}[Uniqueness of limits]
   A sequence can have at most 1 limit.
 \end{lemma}
 
@@ -396,7 +396,7 @@ Let $(a_n)$ be a sequence, and suppose $a_n \to x$ and $a_n\to y$. Let $\varepsi
 \end{proof}
 
 We can use this to prove that the reals are uncountable:
-\begin{prop}
+\begin{prop}[Uncountability of reals]
   $\R$ is uncountable.
 \end{prop}
 
@@ -409,7 +409,7 @@ A powerful consequence of this is the \emph{Bolzano-Weierstrass theorem}. This i
   Let $(a_n)$ be a sequence. A \emph{subsequence} of $(a_n)$ is a sequence of the form $a_{n_1}, a_{n_2}, \cdots$, where $n_1 < n_2 < \cdots$.
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Square reciprocals subsequence]
   $1, 1/4, 1/9, 1/16, \cdots$ is a subsequence of $1, 1/2, 1/3, \cdots$.
 \end{eg}
 
@@ -441,7 +441,7 @@ The third characterization of real numbers is in terms of Cauchy sequences. Cauc
 \end{defi}
 Roughly, a sequence is Cauchy if all terms are eventually close to each other (as opposed to close to a limit).
 
-\begin{lemma}
+\begin{lemma}[Convergent implies Cauchy]
   Every convergent sequence is Cauchy.
 \end{lemma}
 
@@ -449,7 +449,7 @@ Roughly, a sequence is Cauchy if all terms are eventually close to each other (a
   Let $a_n \to a$. Let $\varepsilon > 0$. Then $\exists N$ such that $\forall n \geq N$, $|a_n - a| < \varepsilon/2$. Then $\forall p, q\geq N$, $|a_p - a_q| \leq |a_p - a| + |a - a_q| < \varepsilon/2 + \varepsilon/2 = \varepsilon$.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}[Cauchy with convergent subsequence]
   Let $(a_n)$ be a Cauchy sequence with a subsequence $(a_{n_k})$ that converges to $a$. Then $a_n\to a$.
 \end{lemma}
 
@@ -481,7 +481,7 @@ However, not every complete ordered field is (isomorphic to) $\R$. For example, 
 
 To show that completeness implies the monotone-sequences property, we need an additional condition: the Archimedean property.
 
-\begin{lemma}
+\begin{lemma}[Archimedean completeness implies MSP]
   Let $\F$ be an ordered field with the Archimedean property such that every Cauchy sequence converges. The $\F$ satisfies the monotone-sequences property.
 \end{lemma}
 
@@ -539,7 +539,7 @@ Here we will define the limit supremum and infimum. While these are technically 
   \]
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Computing limsup and liminf]
   Take the sequence
   \[
     2, -1, \frac{3}{2}, -\frac{1}{2}, \frac{4}{3}, -\frac{1}{3}, \cdots
@@ -547,7 +547,7 @@ Here we will define the limit supremum and infimum. While these are technically 
   Then the limit supremum is $1$ and the limit infimum is $0$.
 \end{eg}
 
-\begin{lemma}
+\begin{lemma}[Convergence via limsup/liminf]
   Let $(a_n)$ be a sequence. The following two statements are equivalent:
   \begin{itemize}
     \item $a_n\to a$
@@ -594,7 +594,7 @@ In this chapter, we investigate which infinite \emph{sums}, as opposed to sequen
 \end{defi}
 
 There is an immediate necessary condition for a series to converge.
-\begin{lemma}
+\begin{lemma}[Terms of convergent series vanish]
   If $\displaystyle\sum_{n = 1}^\infty a_n$ converges. Then $a_n \to 0$.
 \end{lemma}
 
@@ -625,7 +625,7 @@ However, the converse is false!
   Since $\rho^{N + 1} \to 0$, this tends to $1/(1 - \rho)$.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Telescoping series]
   $\displaystyle \sum_{n = 2}^\infty \frac{1}{n(n - 1)}$ converges. This is since
   \[
     \frac{1}{n(n -1 )} = \frac{1}{n - 1} - \frac{1}{n}.
@@ -635,7 +635,7 @@ However, the converse is false!
     \sum_{n = 2}^{N}\frac{1}{n(n - 1)} = 1 - \frac{1}{N} \to 1.
   \]
 \end{eg}
-\begin{lemma}
+\begin{lemma}[Bounded partial sums for non-negative series]
   Suppose that $a_n \geq 0$ for every $n$ and the partial sums $S_n$ are bounded above. Then $\sum_{n=1}^\infty a_n$ converges.
 \end{lemma}
 
@@ -656,7 +656,7 @@ The simplest convergence test we have is the \emph{comparison test}. Roughly spe
   So $\forall M\geq N$, $S_M \leq S_n + C\sum_{n = N + 1}^\infty b_n$. Since the $S_M$ are increasing and bounded, it must converge.
 \end{proof}
 
-\begin{eg}\leavevmode
+\begin{eg}[Comparison test applications]\leavevmode
   \begin{enumerate}
     \item $\sum \frac{1}{n2^n}$ converges, since $\sum \frac{1}{2^n}$ converges.
     \item $\sum \frac{n}{2^n}$ converges.
@@ -700,7 +700,7 @@ Here we'll consider two stronger conditions for convergence --- absolute converg
   A series $\sum a_n$ \emph{converges absolutely} if the series $\sum |a_n|$ converges.
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Alternating harmonic series]
   The series $\sum \frac{(-1)^{n + 1}}{n} = 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + \cdots$ converges, but not absolutely.
 
   To see the convergence, note that
@@ -712,7 +712,7 @@ Here we'll consider two stronger conditions for convergence --- absolute converg
   It does not converge absolutely, because the sum of the absolute values is the harmonic series.
 \end{eg}
 
-\begin{lemma}
+\begin{lemma}[Absolute convergence implies convergence]
   Let $\sum a_n$ converge absolutely. Then $\sum a_n$ converges.
 \end{lemma}
 
@@ -732,7 +732,7 @@ Here we'll consider two stronger conditions for convergence --- absolute converg
   A series $\sum a_n$ \emph{converges unconditionally} if the series $\sum_{n = 1}^{\infty} a_{\pi(n)}$ converges for every bijection $\pi: \N \to \N$, i.e.\ no matter how we re-order the elements of $a_n$, the sum still converges.
 \end{defi}
 
-\begin{thm}
+\begin{thm}[Absolute implies unconditional convergence]
   If $\sum a_n$ converges absolutely, then it converges unconditionally.
 \end{thm}
 
@@ -753,7 +753,7 @@ Here we'll consider two stronger conditions for convergence --- absolute converg
 \end{proof}
 
 The converse is also true.
-\begin{thm}
+\begin{thm}[Unconditional implies absolute convergence]
   If $\sum a_n$ converges unconditionally, then it converges absolutely.
 \end{thm}
 
@@ -776,7 +776,7 @@ The converse is also true.
 \end{proof}
 
 We can prove an even stronger result:
-\begin{lemma}
+\begin{lemma}[Rearrangement invariance]
  Let $\sum a_n$ be a series that converges absolutely. Then for any bijection $\pi: \N\to \N$,
  \[
    \sum_{n = 1}^\infty a_n = \sum_{n = 1}^\infty a_{\pi(n)}.
@@ -829,7 +829,7 @@ We'll now come up with a \emph{lot} of convergence tests.
   Since $S_{2n + 1} - S_{2n} = a_{2n + 1} \to 0$, they converge to the same limit.
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Alternating cube root series]
   \[
     1 - \frac{1}{\sqrt[3]{2}} + \frac{1}{\sqrt[3]{3}} - \frac{1}{\sqrt[3]{4}} + \cdots \text{converges}.
   \]
@@ -864,7 +864,7 @@ We'll now come up with a \emph{lot} of convergence tests.
   \end{enumerate}
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Ratio test for $\sum nb^n$]
   If $|b| < 1$, then $\sum nb^n$ converges, since
   \[
     \frac{a_{n + 1}}{a_n} = \frac{(n + 1) b^{n + 1}}{nb^n} = \left(1 + \frac{1}{n}\right) b\to b < 1.
@@ -899,7 +899,7 @@ The following two tests were taught at the end of the course, but are included h
   \end{align*}
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Condensation test on harmonic series]
   If $a_n = \frac{1}{n}$, then $2^k a_{2^k} = 1$. So $\sum_{k = 1}^\infty 2^k a_{2^k} = \infty$. So $\sum_{n = 1}^\infty \frac{1}{n} = \infty$.
 \end{eg}
 
@@ -915,7 +915,7 @@ Two exceptions are least upper bound and monotone sequences, because the complex
 
 We can prove the complex versions of most theorems so far by looking at the real and imaginary parts.
 
-\begin{eg}
+\begin{eg}[Cauchy sequences in $\C$]
   Let $(z_n)$ be a Cauchy sequence in $\C$. Let $z_n = x_n+ iy_n$. Then $(x_n)$ and $(y_n)$ are Cauchy. So they converge, from which it follows that $z_n = x_n + iy_n$ converges.
 \end{eg}
 
@@ -925,7 +925,7 @@ Then nested-intervals property has a ``nested-box'' property as a complex analog
 
 Finally, the proof that absolutely convergent sequences converge still works. It follows that the ratio test still works.
 
-\begin{eg}
+\begin{eg}[Complex series $\sum nz^n$]
   If $|z| < 1$, then $\sum nz^n$ converges. Proof is the same as above.
 \end{eg}
 
@@ -951,7 +951,7 @@ However, we do have an extra test for complex sums.
 \end{proof}
 Note that here we transformed the sum $\sum a_n(z^{n + 1} - z^n)$ into $a_N z^{N + 1} - a_M z^M + \sum (a_n - a_{n + 1})z^{n + 1}$. What we have effectively done is a discrete analogue of integrating by parts.
 
-\begin{eg}
+\begin{eg}[Convergence of $\sum z^n/n$]
   The series $\sum z^n/n$ converges if $|z| < 1$ or if $|z| = 1$ and $z \not= 1$, and it diverges if $z = 1$ or $|z| > 1$.
 
   The cases $|z| < 1$ and $|z| > 1$ are trivial from the ratio test, and Abel's test is required for the $|z| = 1$ cases.
@@ -978,7 +978,7 @@ Suppose that we don't know what the function actually is, but we have a computer
 
 However, if we have the function $g(x) = x^2$, then we \emph{can} find the (approximate) value of $g(\pi)$. We can first try $g(3)$ and obtain $9$. Then we can try $g(3.14) = 9.8596$, $g(3.1416) = 9.86965056$ etc. We can keep trying and obtain more and more accurate values of $g(\pi)$. So $g$ is continuous at $\pi$.
 
-\begin{eg}\leavevmode
+\begin{eg}[Basic continuous functions]\leavevmode
   \begin{itemize}
     \item Constant functions are continuous.
     \item The function $f(x) = x$ is continuous (take $\delta = \varepsilon$).
@@ -987,7 +987,7 @@ However, if we have the function $g(x) = x^2$, then we \emph{can} find the (appr
 
 The definition of continuity of a function looks rather like the definition of convergence. In fact, they are related by the following lemma:
 
-\begin{lemma}
+\begin{lemma}[Sequential continuity]
   The following two statements are equivalent for a function $f: A\to \R$.
   \begin{itemize}
     \item $f$ is continuous
@@ -1009,7 +1009,7 @@ The definition of continuity of a function looks rather like the definition of c
   For each $n$, we can therefore pick $a_n \in A$ such that $|a_n - a| < \frac{1}{n}$ and $|f(a_n) - f(a)| \geq \varepsilon$. But then $a_n \to a$ (by Archimedean property), but $f(a_n) \not\to f(a)$.
 \end{proof}
 
-\begin{eg}\leavevmode
+\begin{eg}[Continuity and discontinuity examples]\leavevmode
   \begin{enumerate}
     \item Let $f(x) = \begin{cases} -1 & x < 0 \\ 1 & x\geq 0\end{cases}$. Then $f$ is not continuous because $-\frac{1}{n} \to 0$ but $f(-\frac{1}{n}) \to -1 \not= f(0)$.
     \item Let $f: \Q \to \R$ with
@@ -1034,7 +1034,7 @@ The definition of continuity of a function looks rather like the definition of c
 \end{eg}
 We can use this sequence definition as the definition for continuous functions. This has the advantage of being cleaner to write and easier to work with. In particular, we can reuse a lot of our sequence theorems to prove the analogous results for continuous functions.
 
-\begin{lemma}
+\begin{lemma}[Algebra of continuous functions]
   Let $A\subseteq \R$ and $f, g: A\to \R$ be continuous functions. Then
   \begin{enumerate}
     \item $f + g$ is continuous
@@ -1059,7 +1059,7 @@ We can use this sequence definition as the definition for continuous functions. 
 
 With this lemma, from the fact that constant functions and $f(x) = x$ are continuous, we know that all polynomials are continuous. Similarly, rational functions $P(x)/Q(x)$ are continuous except when $Q(x) = 0$.
 
-\begin{lemma}
+\begin{lemma}[Composition of continuous functions]
   Let $A, B\subseteq \R$ and $f: A\to B$, $g: B\to \R$. Then if $f$ and $g$ are continuous, $g\circ f: A\to \R$ is continuous.
 \end{lemma}
 
@@ -1176,7 +1176,7 @@ We reprove intermediate value theorem here:
 \end{proof}
 
 Now we prove that continuous functions in closed intervals are bounded.
-\begin{thm}
+\begin{thm}[Boundedness on closed intervals]
   Let $[a, b]$ be a closed interval in $\R$ and let $f: [a, b] \to \R$ be continuous. Then $f$ is bounded.
 \end{thm}
 
@@ -1217,7 +1217,7 @@ Not every cover has a finite subcover. For example, the cover $\{(\frac{1}{n}, 1
 
 We can use Heine-Borel to prove that continuous functions on $[a, b]$ are bounded.
 
-\begin{thm}
+\begin{thm}[Extreme value theorem via Heine-Borel]
   Let $[a, b]$ be a closed interval in $\R$ and let $f: [a, b] \to \R$ be continuous. Then $f$ is bounded and attains it bounds, i.e.\ $f(x) = \sup f$ for some $x$, and $f(y) = \inf f$ for some $y$.
 \end{thm}
 
@@ -1247,7 +1247,7 @@ First of all, we need the notion of limits. Recall that we've previously had lim
   We couldn't care less what happens when $x = a$, hence the strict inequality $0 < |x - a|$. In fact, $f$ doesn't even have to be defined at $x = a$.
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Limit vs function value]
   Let
   \[
     f(x) =
@@ -1259,7 +1259,7 @@ First of all, we need the notion of limits. Recall that we've previously had lim
   Then $\lim\limits_{x\to 2} = 2$, even though $f(2) = 3$.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Limit of $\sin x/x$]
   Let $f(x) = \frac{\sin x}{x}$. Then $f(0)$ is not defined but $\lim\limits_{x\to 0}f(x) = 1$.
 
   We will see a proof later after we define what $\sin$ means.
@@ -1278,7 +1278,7 @@ Then $f(x) \to \ell$ as $x \to a$ iff $g$ is continuous at $a$.
 Alternatively, $f$ is continuous at $a$ if $f(x) \to f(a)$ as $x \to a$. It follows also that $f(x) \to \ell$ as $x\to a$ iff $f(x_n) \to \ell$ for every sequence $(x_n)$ in $A$ with $x_n\to a$.
 
 The previous limit theorems of sequences apply here as well
-\begin{prop}
+\begin{prop}[Limit laws for functions]
   If $f(x)\to \ell$ and $g(x)\to m$ as $x\to a$, then $f(x) + g(x) \to \ell+ m$, $f(x)g(x) \to \ell m$, and $\frac{f(x)}{g(x)}\to \frac{\ell}{m}$ if $g$ and $m$ don't vanish.
 \end{prop}
 
@@ -1308,7 +1308,7 @@ where $\varepsilon(h) \to 0$ as $h \to 0$. Rearranging, we can deduce that
 Note that by the definition of the limit, we don't have to care what value $\varepsilon$ takes when $h = 0$. It can be $0$, $\pi$ or $10^{10^{10}}$. However, we usually take $\varepsilon(0) = 0$ so that $\varepsilon$ is continuous.
 
 Using the small-$o$ notation, we usually write $o(h)$ for a function that satisfies $\frac{o(h)}{h}\to 0$ as $h\to 0$. Hence we have
-\begin{prop}
+\begin{prop}[Linear approximation form]
   \[
     f(x + h) = f(x) + hf'(x) + o(h).
   \]
@@ -1320,7 +1320,7 @@ We can interpret this as an approximation of $f(x + h)$:
 And differentiability shows that this is a very good approximation with small $o(h)$ error.
 
 Conversely, we have
-\begin{prop}
+\begin{prop}[Linear approximation implies differentiability]
   If $f(x + h) = f(x) + hf'(x) + o(h)$, then $f$ is differentiable at $x$ with derivative $f'(x)$.
 \end{prop}
 \begin{proof}
@@ -1383,7 +1383,7 @@ We can prove the usual rules of differentiation using the small $o$-notation. It
 
 We usually don't write out the error terms so explicitly, and just use heuristics like $f(x + o(h)) = f(x) + o(h)$; $o(h) + o(h) = o(h)$; and $g(x) \cdot o(h) = o(h)$ for any (bounded) function $g$.
 
-\begin{eg}\leavevmode
+\begin{eg}[Basic differentiable functions]\leavevmode
   \begin{enumerate}
     \item Constant functions are differentiable with derivative $0$.
     \item $f(x) = \lambda x$ is differentiable with derivative $\lambda$.
@@ -1392,7 +1392,7 @@ We usually don't write out the error terms so explicitly, and just use heuristic
   \end{enumerate}
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Derivative of $1/x$]
   Let $f(x) = 1/x$. If $x\not = 0$, then
   \[
     \frac{f(x + h) - f(x)}{h} = \frac{\frac{1}{x + h} - \frac{1}{x}}{h} = \frac{\left(\frac{-h}{x(x + h)}\right)}{h} = \frac{-1}{x(x + h)} \to \frac{-1}{x^2}
@@ -1415,7 +1415,7 @@ We usually don't write out the error terms so explicitly, and just use heuristic
     \frac{f'(x)}{g(x)} - f(x)\frac{g'(x)}{g(x)^2} = \frac{f'(x)g(x) - f(x)g'(x)}{g(x)^2}.\qedhere
   \]
 \end{proof}
-\begin{lemma}
+\begin{lemma}[Differentiability implies continuity]
   If $f$ is differentiable at $x$, then it is continuous at $x$.
 \end{lemma}
 
@@ -1423,7 +1423,7 @@ We usually don't write out the error terms so explicitly, and just use heuristic
   As $y\to x$, $\displaystyle \frac{f(y) - f(x)}{y - x} \to f'(x)$. Since, $y - x \to 0$, $f(y) - f(x) \to 0$ by product theorem of limits. So $f(y) \to f(x)$. So $f$ is continuous at $x$.
 \end{proof}
 
-\begin{thm}
+\begin{thm}[Inverse function theorem]
   Let $f:[a, b]\to [c, d]$ be differentiable on $(a, b)$, continuous on $[a, b]$, and strictly increasing. Suppose that $f'(x)$ never vanishes. Suppose further that $f(a) = c$ and $f(b) = d$. Then $f$ has an inverse $g$ and for each $y\in (c, d)$, $g$ is differentiable at $y$ with derivative $1/f'(g(y))$.
 
   In human language, this states that if $f$ is invertible, then the derivative of $f^{-1}$ is $1/f'$.
@@ -1445,7 +1445,7 @@ Note that the conditions will (almost) always require $f$ to be differentiable o
   \]
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Derivative of rational powers]
   Let $f(x) = x^{1/2}$ for $x > 0$. Then $f$ is the inverse of $g(x) = x^2$. So
   \[
     f'(x) = \frac{1}{g'(f(x))} = \frac{1}{2x^{1/2}} = \frac{1}{2}x^{-1/2}.
@@ -1519,7 +1519,7 @@ The mean value theorem is sometimes described as ``rotate your head and apply Ro
 \end{proof}
 
 We've always assumed that if a function has a positive derivative everywhere, then the function is increasing. However, it turns out that this is really hard to prove directly. It does, however, follow quite immediately from the mean value theorem.
-\begin{eg}
+\begin{eg}[MVT implies monotonicity]
   Suppose $f'(x) > 0$ for every $x\in (a, b)$. Then for $u, v$ in $[a, b]$, we can find $w\in (u, v)$ such that
   \[
     \frac{f(v) - f(u)}{v - u} = f'(w) > 0.
@@ -1630,7 +1630,7 @@ Note that the remainder term is \emph{not} necessarily small, but this often giv
   \left|\frac{h^n}{n!}f^{(n)}(x)\right| \leq \frac{C}{n!}|h|^n = o(h^{n - 1}).
 \]
 
-\begin{eg}
+\begin{eg}[Taylor series of $e^x$]
   Let $f: \R \to \R$ be a differentiable function such that $f(0) = 1$ and $f'(x) = f(x)$ for every $x$ (intuitively, we know it is $e^x$ , but that thing doesn't exist!). Then for every $x$, we have
   \[
     f(x) = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots = \sum_{n = 0}^\infty \frac{x^n}{n!}.
@@ -1671,7 +1671,7 @@ This is exactly the same definition with real differentiation, but has very diff
 
 All the usual rules --- chain rule, product rule etc. also apply (with the same proofs). Also the derivatives of polynomials are what you expect. However, there are some more interesting cases.
 
-\begin{eg}
+\begin{eg}[Conjugate not differentiable]
   $f(z) = \bar z$ is \emph{not} differentiable.
   \[
     \frac{\overline{z + h} - \overline{z\vphantom{h}}}{h} = \frac{\bar h}{h} =
@@ -1683,7 +1683,7 @@ All the usual rules --- chain rule, product rule etc. also apply (with the same 
 \end{eg}
 If this seems weird, this is because we often think of $\C$ as $\R^2$, but they are not the same. For example, reflection is a linear map in $\R^2$, but not in $\C$. A linear map in $\C$ is something in the form $x \mapsto bx$, which can only be a dilation or rotation, not reflections or other weird things.
 
-\begin{eg}
+\begin{eg}[Modulus not differentiable]
   $f(z) = |z|$ is also not differentiable. If it were, then $|z|^2$ would be as well (by the product rule). So would $\frac{|z|^2}{z} = \bar z$ when $z \not= 0$ by the quotient rule. At $z = 0$, it is certainly not differentiable, since it is not even differentiable on $\R$.
 \end{eg}
 \section{Complex power series}
@@ -1697,7 +1697,7 @@ Before we move on to integration, we first have a look at complex power series. 
 \end{defi}
 
 When considering complex power series, a very important concept is the \emph{radius of convergence}. To make sense of this concept, we first need the following lemma:
-\begin{lemma}
+\begin{lemma}[Convergence in smaller disk]
   Suppose that $\sum a_nz^n$ converges and $|w| < |z|$, then $\sum a_n w^n$ converges (absolutely).
 \end{lemma}
 
@@ -1730,11 +1730,11 @@ Now let $R = \sup\{|z|: \sum a_nz^n$ converges $\}$ ($R$ may be infinite). If $|
   If $|z| < R$, then $\sum a_nz^n$ converges. If $|z| > R$, then $\sum a_nz^n$ diverges. When $|z| = R$, the series can converge at some points and not the others.
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Geometric series radius]
   $\displaystyle\sum_{n = 0}^\infty z^n$ has radius of convergence of $1$. When $|z| = 1$, it diverges (since the terms do not tend to $0$).
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Radius of $\sum z^n/n$]
   $\displaystyle\sum_{n = 0}^\infty \frac{z^n}{n}$ has radius of convergence $1$, since the ratio of $(n + 1)$th term to $n$th is
   \[
     \frac{z^{n + 1}/(n + 1)}{z^n /n} = z\cdot\frac{n}{n + 1} \to z.
@@ -1744,13 +1744,13 @@ Now let $R = \sup\{|z|: \sum a_nz^n$ converges $\}$ ($R$ may be infinite). If $|
   If $z = 1$, then it diverges (harmonic series). If $|z| = 1$ and $z \not= 1$, it converges by Abel's test.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Convergence of $\sum z^n/n^2$]
   The series $\displaystyle \sum_{n = 1}^\infty \frac{z^{n}}{n^2}$ converges for $|z| \leq 1$ and diverges for $|z| > 1$.
 \end{eg}
 
 As evidenced by the above examples, the ratio test can be used to find the radius of convergence. We also have an alternative test based on the $n$th root.
 
-\begin{lemma}
+\begin{lemma}[Root test for radius of convergence]
   The radius of convergence of a power series $\sum a_nz^n$ is
   \[
     R = \frac{1}{\limsup \sqrt[n]{|a_n|}}.
@@ -1772,7 +1772,7 @@ As evidenced by the above examples, the ratio test can be used to find the radiu
   On the other hand, if $|z|\limsup\sqrt[n]{|a_n|} > 1$, it follows that $|z|\sqrt[n]{|a_n|} \geq 1$ for infinitely many $n$. Therefore $|a_nz^n| \geq 1$ for infinitely many $n$. So $\sum a_nz^n$ does not converge.
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Root test application]
   The radius of convergence of $\displaystyle \frac{z^n}{2^n}$ is $2$ because $\sqrt[n]{|a_n|} = \frac{1}{2}$ for every $n$. So $\limsup \sqrt[n]{|a_n|} = \frac{1}{2}$. So $1/\limsup \sqrt[n]{|a_n|} = 2$.
 \end{eg}
 
@@ -1791,7 +1791,7 @@ A fundamental property of this function is that
   e^{z + w} = e^ze^w.
 \]
 Once we have this property, we can say that
-\begin{prop}
+\begin{prop}[Derivative of exponential]
   The derivative of $e^z$ is $e^z$.
 \end{prop}
 
@@ -1824,7 +1824,7 @@ and equate coefficients of $z^n$, you get
 \[
   c_n = a_0b_n + a_1b_{n - 1} + a_2b_{n - 2} + \cdots + a_nb_0.
 \]
-\begin{thm}
+\begin{thm}[Cauchy product]
   Let $\sum_{n = 0}^\infty a_n$ and $\sum_{n = 0}^\infty b_n$ be two absolutely convergent series, and let $(c_n)$ be the convolution of the sequences $(a_n)$ and $(b_n)$. Then $\sum_{n = 0}^\infty c_n$ converges (absolutely), and
   \[
     \sum_{n = 0}^{\infty} c_n = \left(\sum_{n = 0}^\infty a_n\right)\left(\sum_{n = 0}^\infty b_n \right).
@@ -1886,7 +1886,7 @@ Now we define $\sin z$ and $\cos z$:
 \end{defi}
 
 We now prove certain basic properties of $\sin$ and $\cos$, using known properties of $e^z$.
-\begin{prop}
+\begin{prop}[Basic properties of sine and cosine]
   \begin{align*}
     \frac{\d}{\d z}\sin z &= \frac{ie^{iz} + ie^{-iz}}{2i} = \cos z\\
     \frac{\d}{\d z}\cos z &= \frac{ie^{iz} - ie^{-iz}}{2} = -\sin z\\
@@ -1895,7 +1895,7 @@ We now prove certain basic properties of $\sin$ and $\cos$, using known properti
 \end{prop}
 It follows that if $x$ is real, then $|\cos x|$ and $|\sin x|$ are at most $1$.
 
-\begin{prop}
+\begin{prop}[Addition formulas]
   \begin{align*}
     \cos(z + w) &= \cos z\cos w - \sin z\sin w\\
     \sin(z + w) &= \sin z \cos w + \cos z \sin w
@@ -1936,7 +1936,7 @@ Since $\cos 0 = 1$, it follows by the intermediate value theorem that there exis
 Since $\sin^2 z + \cos ^2 z = 1$, it follows that $\sin \frac{\pi}{2} = \pm 1$. Since $\cos x > 0$ on $[0, \frac{\pi}{2}]$, $\sin \frac{\pi}{2} \geq 0$ by the mean value theorem. So $\sin \frac{\pi}{2} = 1$.
 
 Thus
-\begin{prop}
+\begin{prop}[Periodicity of sine and cosine]
   \begin{align*}
     \cos \left(z + \frac{\pi}{2}\right) &= -\sin z\\
     \sin \left(z + \frac{\pi}{2}\right) &= \cos z\\
@@ -1960,7 +1960,7 @@ We shall show that inside the circle of convergence, the derivative of $\sum_{n 
 
 We first prove some (seemingly arbitrary and random) lemmas to build up the proof of the above statement. They are done so that the final proof will not be full of tedious algebra.
 
-\begin{lemma}
+\begin{lemma}[Power difference identity]
   Let $a$ and $b$ be complex numbers. Then
   \[
     b^n - a^n - n(b - a)a^{n - 1} = (b - a)^2(b^{n - 2} + 2ab^{n - 3} + 3a^2 b^{n - 4} + \cdots + (n - 1)a^{n - 2}).
@@ -1993,7 +1993,7 @@ This implies that
   (z + h)^n - z^n - nhz^{n - 1} = h^2((z + h)^{n - 2} + 2z(z + h)^{n - 3} + \cdots + (n - 1)z^{n - 2}),
 \]
 which is actually the form we need.
-\begin{lemma}
+\begin{lemma}[Differentiated series converges in disk]
   Let $a_n z^n$ have radius of convergence $R$, and let $|z| < R$. Then $\sum na_n z^{n - 1}$ converges (absolutely).
 \end{lemma}
 
@@ -2017,7 +2017,7 @@ which is actually the form we need.
   Apply Lemma above again and divide by 2.
 \end{proof}
 
-\begin{thm}
+\begin{thm}[Term-by-term differentiation of power series]
   Let $\sum a_n z^n$ be a power series with radius of convergence $R$. For $|z| < R$, let
   \[
     f(z) = \sum_{n = 0}^\infty a_n z^n\text{ and }g(z) = \sum_{n = 1}^\infty na_nz^{n - 1}.
@@ -2044,7 +2044,7 @@ which is actually the form we need.
 \end{proof}
 In IB Analysis II, we will prove the same result using the idea of uniform convergence, which gives a much nicer proof.
 
-\begin{eg}
+\begin{eg}[Derivatives from power series]
   The derivative of
   \[
     e^z = 1 + z + \frac{z^2}{2!} + \frac{z^3}{3!} + \cdots
@@ -2068,21 +2068,21 @@ In IB Analysis II, we will prove the same result using the idea of uniform conve
 \end{defi}
 
 Either from the definition or from differentiating the power series, we get that
-\begin{prop}
+\begin{prop}[Derivatives of hyperbolic functions]
   \begin{align*}
     \frac{\d}{\d z}\cosh z &= \sinh z\\
     \frac{\d }{\d z}\sinh z &= \cosh z
   \end{align*}
 \end{prop}
 Also, by definition, we have
-\begin{prop}
+\begin{prop}[Hyperbolic-trig relation]
   \begin{align*}
     \cosh iz &= \cos z\\
     \sinh iz &= i\sin z
   \end{align*}
 \end{prop}
 Also,
-\begin{prop}
+\begin{prop}[Hyperbolic identity]
   \[
     \cosh^2 z - \sinh^2 z = 1,
   \]
@@ -2133,7 +2133,7 @@ The upper sum is the total area of the red rectangles, while the lower sum is th
   If $\mathcal{D}_1$ and $\mathcal{D}_2$ are dissections of $[a, b]$, we say that $\mathcal{D}_2$ refines $\mathcal{D}_1$ if every point of $\mathcal{D}_1$ is a point of $\mathcal{D}_2$.
 \end{defi}
 
-\begin{lemma}
+\begin{lemma}[Refinement improves bounds]
   If $\mathcal{D}_2$ refines $\mathcal{D}_1$, then
   \[
     U_{\mathcal{D}_2} f \leq U_{\mathcal{D}_1}f\text{ and }L_{\mathcal{D}_2 f}\geq L_{\mathcal{D}_1}f.
@@ -2216,7 +2216,7 @@ We will later prove the \emph{fundamental theorem of calculus}, which says that 
 
 There is an immediate necessary condition for Riemann integrability --- boundedness. If $f$ is unbounded above in $[a, b]$, then for any dissection $\mathcal{D}$, there must be some $i$ such that $f$ is unbounded on $[x_{i - 1}, x_i]$. So $M_i = \infty$. So $U_\mathcal{D} f = \infty$. Similarly, if $f$ is unbounded below, then $L_{\mathcal{D}} f = -\infty$. So unbounded functions are not Riemann integrable.
 
-\begin{eg}
+\begin{eg}[Integral of $x$ via definition]
   Let $f(x) = x$ on $[a, b]$. Intuitively, we know that the integral is $(b^2 - a^2)/2$, and we will show this using the definition above. Let $\mathcal{D} = x_0 < x_1 < \cdots < x_n$ be a dissection. Then
   \begin{align*}
     U_{\mathcal{D}}f &= \sum_{i = 1}^n (x_i - x_{i - 1})x_i\\
@@ -2246,7 +2246,7 @@ There is an immediate necessary condition for Riemann integrability --- boundedn
   \]
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Dirichlet function not integrable]
   Define $f: [0, 1] \to \R$ by
   \[
     f(x) =
@@ -2317,7 +2317,7 @@ The next big result we want to prove is that integration is linear, ie
   \int_a^b (\lambda f(x) + \mu g(x))\;\d x = \lambda\int_a^b f(x)\;\d x + \mu\int_a^bg(x)\;\d x.
 \]
 We do this step by step:
-\begin{prop}
+\begin{prop}[Scalar multiplication of integrals]
   Let $f: [a, b] \to \R$ be integrable, and $\lambda \geq 0$. Then $\lambda f$ is integrable, and
   \[
     \int_a^b \lambda f(x)\;\d x = \lambda\int_a^b f(x)\;\d x.
@@ -2337,7 +2337,7 @@ We do this step by step:
   So if we choose $\mathcal{D}$ such that $U_{\mathcal{D}}f - L_\mathcal{D} f < \varepsilon/\lambda$, then $U_\mathcal{D}(\lambda f) - L_\mathcal{D}(\lambda f) < \varepsilon$. So the result follows from Riemann's integrability criterion.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Negation of integrals]
   Let $f: [a, b] \to \R$ be integrable. Then $-f$ is integrable, and
   \[
     \int_a^b -f(x)\;\d x = -\int_a^bf(x)\;\d x.
@@ -2365,7 +2365,7 @@ We do this step by step:
   Hence if $f$ is integrable, then $-f$ is integrable by the Riemann integrability criterion.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Linearity of integrals]
   Let $f, g: [a, b] \to \R$ be integrable. Then $f + g$ is integrable, and
   \[
     \int_a^b(f(x) + g(x))\;\d x = \int_a^b f(x)\;\d x + \int_a^b g(x)\;\d x.
@@ -2394,7 +2394,7 @@ So we now have that
   \int_a^b (\lambda f(x) + \mu g(x))\;\d x = \lambda\int_a^b f(x)\;\d x + \mu\int_a^bg(x)\;\d x.
 \]
 We will prove more ``obvious'' results.
-\begin{prop}
+\begin{prop}[Monotonicity of integrals]
   Let $f, g: [a, b] \to \R$ be integrable, and suppose that $f(x) \leq g(x)$ for every $x$. Then
   \[
     \int_a^b f(x)\;\d x \leq \int_a^b g(x)\;\d x.
@@ -2405,7 +2405,7 @@ We will prove more ``obvious'' results.
   Follows immediately from the definition.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Absolute value preserves integrability]
   Let $f: [a, b] \to \R$ be integrable. Then $|f|$ is integrable.
 \end{prop}
 
@@ -2483,7 +2483,7 @@ for every $x\in[a, b]$, then
   The other direction is left as an (easy) exercise.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Product of integrable functions]
   Let $f, g: [a, b] \to \R$ be integrable. Then $fg$ is integrable.
 \end{prop}
 
@@ -2506,7 +2506,7 @@ for every $x\in[a, b]$, then
   Since $C$ is fixed, and we can get $U_\mathcal{D} f - L_\mathcal{D}f$ and $U_\mathcal{D}g - L_\mathcal{D}g$ arbitrary small (since $f$ and $g$ are integrable), we can get $U_\mathcal{D}(fg) - L_\mathcal{D}(fg)$ arbitrarily small. So the result follows.
 \end{proof}
 
-\begin{thm}
+\begin{thm}[Continuous functions are integrable]
   Every continuous function $f$ on a closed bounded interval $[a, b]$ is Riemann integrable.
 \end{thm}
 
@@ -2549,7 +2549,7 @@ It is easy to show that a uniformly continuous function is integrable, since by 
 \end{proof}
 This proof is very similar to the proof that continuous functions are integrable. In fact, the proof that continuous functions are integrable is just a fuse of this proof and the (simple) proof that uniformly continuously functions are integrable.
 
-\begin{thm}
+\begin{thm}[Monotone functions are integrable]
   Let $f: [a, b] \to \R$ be monotone. Then $f$ is Riemann integrable.
 \end{thm}
 Note that monotone functions need not be ``nice''. It can even have infinitely many discontinuities. For example, if $f: [0, 1] \to \R$ maps $x$ to the $1/(\text{first non-zero digit in the binary expansion of }x)$, with $f(0) = 0$.
@@ -2592,7 +2592,7 @@ Pictorially, we see that the difference between the upper and lower sums is tota
 \end{center}
 To calculate the total area, we can stack the red areas together to get something of width $\frac{\varepsilon}{f(b) - f(a)}$ and height $f(b) - f(a)$. So the total area is just $\varepsilon$.
 
-\begin{lemma}
+\begin{lemma}[Integrability on interior]
   Let $a < b$ and let $f$ be a bounded function from $[a, b] \to \R$ that is continuous on $(a, b)$. Then $f$ is integrable.
 \end{lemma}
 An example where this would apply is $\int_0^1 \sin \frac{1}{x}$. It gets nasty near $x = 0$, but its ``nastiness'' is confined to $x = 0$ only. So as long as its nastiness is sufficiently contained, it would still be integrable.
@@ -2613,7 +2613,7 @@ The idea of the proof is to integrate from a point $x_1$ very near $a$ up to a p
   So done by Riemann integrability criterion.
 \end{proof}
 
-\begin{eg}\leavevmode
+\begin{eg}[Integrable functions with discontinuities]\leavevmode
   \begin{itemize}
     \item $f(x) =
       \begin{cases}
@@ -2637,7 +2637,7 @@ The idea of the proof is to integrate from a point $x_1$ very near $a$ up to a p
 \end{proof}
 
 We defined Riemann integration in a very general way --- we allowed \emph{arbitrary} dissections, and took the extrema over all possible dissection. Is it possible to just consider some particular nice dissections instead? Perhaps unsurprisingly, yes! It's just that we opt to define it the general way so that we can easily talk about things like least common refinements.
-\begin{lemma}
+\begin{lemma}[Uniform dissections converge to integral]
   Let $f: [a, b] \to \R$ be Riemann integrable, and for each $n$, let $\mathcal{D}_n$ be the dissection $a = x_0 < x_1 < \cdots < x_n = b$, where $x_i = a + \frac{i(b - a)}{n}$ for each $i$. Then
   \[
     U_{\mathcal{D}_n}f \to \int_a^b f(x)\;\d x
@@ -2853,7 +2853,7 @@ It is sometimes sensible to talk about integrals of unbounded functions or integ
   \]
   when it exists.
 \end{defi}
-\begin{eg}
+\begin{eg}[Improper integral with power singularity]
   \[
     \int_\varepsilon^1 x^{-1/2}\;\d x = \left[2x^{-1/2}\right]^1_\varepsilon = 2 - 2\varepsilon^{1/2} \to 2.
   \]
@@ -2866,7 +2866,7 @@ It is sometimes sensible to talk about integrals of unbounded functions or integ
   Note that officially we are required to make $f(x) = x^{-1/2}$ a function with domain $[0, 1]$. So we can assign $f(0) = \pi$, or any number, since it doesn't matter.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Improper integral to infinity]
   \[
     \int_1^x \frac{1}{t^2}\;\d t = \left[-\frac{1}{t}\right]_1^x = 1 - \frac{1}{x} \to 1\text{ as }x\to \infty
   \]
@@ -2895,7 +2895,7 @@ Finally, we can prove the integral test, whose proof we omitted when we first be
   If the integral does not exist, then $\int_1^N f(x)\;\d x$ is unbounded. Then $\sum_{n = 1}^N f(n)$ is unbounded, hence does not converge.
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Integral test for $\sum 1/n^2$]
   Since $\int_1^x \frac{1}{t^2}\;\d t < \infty$, it follows that $\sum_{n = 1}^\infty \frac{1}{n^2}$ converges.
 \end{eg}
 \end{document}
