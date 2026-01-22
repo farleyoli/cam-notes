@@ -59,7 +59,7 @@ We'll now define what it means to be an ``ordered field with the least upper bou
   \end{enumerate}
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Examples of fields]
   $\Q, \R, \C$, integers mod $p$, $\{a + b\sqrt{2}: a, b\in \Z\}$ are all fields.
 \end{eg}
 
@@ -101,7 +101,7 @@ Now to define an ordered field, we don't simply ask for a field with an order. T
   We usually write $\sup A$ for the supremum of $A$ when it exists. If $\sup A\in A$, then we call it $\max A$, the maximum of $A$.
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Supremum vs maximum in $\Q$]
   Let $X = \Q$. Then the supremum of $(0, 1)$ is $1$. The set $\{x: x^2 < 2\}$ is bounded above by $2$, but has no supremum (even though $\sqrt{2}$ seems like a supremum, we are in $\Q$ and $\sqrt{2}$ is non-existent!).
 
   $\max [0, 1] = 1$ but $(0, 1)$ has no maximum because the supremum is not in $(0, 1)$.
@@ -275,10 +275,10 @@ Note that in this proof, we no longer write ``Let $\varepsilon > 0$''. In the be
   Then $\forall n\geq N$, we have $x - \varepsilon < a_n \leq c_n \leq b_n < x + \varepsilon$. So $|c_n - x| < \varepsilon$.
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Convergence of $1/2^n$]
   $1/2^n \to 0$. For every $n$, $n < 2^n$. So $0 < 1/2^n < 1/n$. The result follows from the sandwich rule.
 \end{eg}
-\begin{eg}
+\begin{eg}[Rational function limit]
   We want to show that
   \[
     \frac{n^2 + 3}{(n + 5)(2n - 1)} \to \frac{1}{2}.
@@ -290,7 +290,7 @@ Note that in this proof, we no longer write ``Let $\varepsilon > 0$''. In the be
   by sum rule, sandwich rule, Archimedean property, product rule and quotient rule.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Exponential dominates polynomial]
   Let $k\in \N$ and let $\delta > 0$. Then
   \[
     \frac{n^k}{(1 + \delta)^n}\to 0.
@@ -409,7 +409,7 @@ A powerful consequence of this is the \emph{Bolzano-Weierstrass theorem}. This i
   Let $(a_n)$ be a sequence. A \emph{subsequence} of $(a_n)$ is a sequence of the form $a_{n_1}, a_{n_2}, \cdots$, where $n_1 < n_2 < \cdots$.
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Square reciprocals subsequence]
   $1, 1/4, 1/9, 1/16, \cdots$ is a subsequence of $1, 1/2, 1/3, \cdots$.
 \end{eg}
 
@@ -539,7 +539,7 @@ Here we will define the limit supremum and infimum. While these are technically 
   \]
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Computing limsup and liminf]
   Take the sequence
   \[
     2, -1, \frac{3}{2}, -\frac{1}{2}, \frac{4}{3}, -\frac{1}{3}, \cdots
@@ -625,7 +625,7 @@ However, the converse is false!
   Since $\rho^{N + 1} \to 0$, this tends to $1/(1 - \rho)$.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Telescoping series]
   $\displaystyle \sum_{n = 2}^\infty \frac{1}{n(n - 1)}$ converges. This is since
   \[
     \frac{1}{n(n -1 )} = \frac{1}{n - 1} - \frac{1}{n}.
@@ -656,7 +656,7 @@ The simplest convergence test we have is the \emph{comparison test}. Roughly spe
   So $\forall M\geq N$, $S_M \leq S_n + C\sum_{n = N + 1}^\infty b_n$. Since the $S_M$ are increasing and bounded, it must converge.
 \end{proof}
 
-\begin{eg}\leavevmode
+\begin{eg}[Comparison test applications]\leavevmode
   \begin{enumerate}
     \item $\sum \frac{1}{n2^n}$ converges, since $\sum \frac{1}{2^n}$ converges.
     \item $\sum \frac{n}{2^n}$ converges.
@@ -700,7 +700,7 @@ Here we'll consider two stronger conditions for convergence --- absolute converg
   A series $\sum a_n$ \emph{converges absolutely} if the series $\sum |a_n|$ converges.
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Alternating harmonic series]
   The series $\sum \frac{(-1)^{n + 1}}{n} = 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + \cdots$ converges, but not absolutely.
 
   To see the convergence, note that
@@ -829,7 +829,7 @@ We'll now come up with a \emph{lot} of convergence tests.
   Since $S_{2n + 1} - S_{2n} = a_{2n + 1} \to 0$, they converge to the same limit.
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Alternating cube root series]
   \[
     1 - \frac{1}{\sqrt[3]{2}} + \frac{1}{\sqrt[3]{3}} - \frac{1}{\sqrt[3]{4}} + \cdots \text{converges}.
   \]
@@ -864,7 +864,7 @@ We'll now come up with a \emph{lot} of convergence tests.
   \end{enumerate}
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Ratio test for $\sum nb^n$]
   If $|b| < 1$, then $\sum nb^n$ converges, since
   \[
     \frac{a_{n + 1}}{a_n} = \frac{(n + 1) b^{n + 1}}{nb^n} = \left(1 + \frac{1}{n}\right) b\to b < 1.
@@ -899,7 +899,7 @@ The following two tests were taught at the end of the course, but are included h
   \end{align*}
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Condensation test on harmonic series]
   If $a_n = \frac{1}{n}$, then $2^k a_{2^k} = 1$. So $\sum_{k = 1}^\infty 2^k a_{2^k} = \infty$. So $\sum_{n = 1}^\infty \frac{1}{n} = \infty$.
 \end{eg}
 
@@ -915,7 +915,7 @@ Two exceptions are least upper bound and monotone sequences, because the complex
 
 We can prove the complex versions of most theorems so far by looking at the real and imaginary parts.
 
-\begin{eg}
+\begin{eg}[Cauchy sequences in $\C$]
   Let $(z_n)$ be a Cauchy sequence in $\C$. Let $z_n = x_n+ iy_n$. Then $(x_n)$ and $(y_n)$ are Cauchy. So they converge, from which it follows that $z_n = x_n + iy_n$ converges.
 \end{eg}
 
@@ -925,7 +925,7 @@ Then nested-intervals property has a ``nested-box'' property as a complex analog
 
 Finally, the proof that absolutely convergent sequences converge still works. It follows that the ratio test still works.
 
-\begin{eg}
+\begin{eg}[Complex series $\sum nz^n$]
   If $|z| < 1$, then $\sum nz^n$ converges. Proof is the same as above.
 \end{eg}
 
@@ -951,7 +951,7 @@ However, we do have an extra test for complex sums.
 \end{proof}
 Note that here we transformed the sum $\sum a_n(z^{n + 1} - z^n)$ into $a_N z^{N + 1} - a_M z^M + \sum (a_n - a_{n + 1})z^{n + 1}$. What we have effectively done is a discrete analogue of integrating by parts.
 
-\begin{eg}
+\begin{eg}[Convergence of $\sum z^n/n$]
   The series $\sum z^n/n$ converges if $|z| < 1$ or if $|z| = 1$ and $z \not= 1$, and it diverges if $z = 1$ or $|z| > 1$.
 
   The cases $|z| < 1$ and $|z| > 1$ are trivial from the ratio test, and Abel's test is required for the $|z| = 1$ cases.
@@ -978,7 +978,7 @@ Suppose that we don't know what the function actually is, but we have a computer
 
 However, if we have the function $g(x) = x^2$, then we \emph{can} find the (approximate) value of $g(\pi)$. We can first try $g(3)$ and obtain $9$. Then we can try $g(3.14) = 9.8596$, $g(3.1416) = 9.86965056$ etc. We can keep trying and obtain more and more accurate values of $g(\pi)$. So $g$ is continuous at $\pi$.
 
-\begin{eg}\leavevmode
+\begin{eg}[Basic continuous functions]\leavevmode
   \begin{itemize}
     \item Constant functions are continuous.
     \item The function $f(x) = x$ is continuous (take $\delta = \varepsilon$).
@@ -1009,7 +1009,7 @@ The definition of continuity of a function looks rather like the definition of c
   For each $n$, we can therefore pick $a_n \in A$ such that $|a_n - a| < \frac{1}{n}$ and $|f(a_n) - f(a)| \geq \varepsilon$. But then $a_n \to a$ (by Archimedean property), but $f(a_n) \not\to f(a)$.
 \end{proof}
 
-\begin{eg}\leavevmode
+\begin{eg}[Continuity and discontinuity examples]\leavevmode
   \begin{enumerate}
     \item Let $f(x) = \begin{cases} -1 & x < 0 \\ 1 & x\geq 0\end{cases}$. Then $f$ is not continuous because $-\frac{1}{n} \to 0$ but $f(-\frac{1}{n}) \to -1 \not= f(0)$.
     \item Let $f: \Q \to \R$ with
@@ -1247,7 +1247,7 @@ First of all, we need the notion of limits. Recall that we've previously had lim
   We couldn't care less what happens when $x = a$, hence the strict inequality $0 < |x - a|$. In fact, $f$ doesn't even have to be defined at $x = a$.
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Limit vs function value]
   Let
   \[
     f(x) =
@@ -1259,7 +1259,7 @@ First of all, we need the notion of limits. Recall that we've previously had lim
   Then $\lim\limits_{x\to 2} = 2$, even though $f(2) = 3$.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Limit of $\sin x/x$]
   Let $f(x) = \frac{\sin x}{x}$. Then $f(0)$ is not defined but $\lim\limits_{x\to 0}f(x) = 1$.
 
   We will see a proof later after we define what $\sin$ means.
@@ -1383,7 +1383,7 @@ We can prove the usual rules of differentiation using the small $o$-notation. It
 
 We usually don't write out the error terms so explicitly, and just use heuristics like $f(x + o(h)) = f(x) + o(h)$; $o(h) + o(h) = o(h)$; and $g(x) \cdot o(h) = o(h)$ for any (bounded) function $g$.
 
-\begin{eg}\leavevmode
+\begin{eg}[Basic differentiable functions]\leavevmode
   \begin{enumerate}
     \item Constant functions are differentiable with derivative $0$.
     \item $f(x) = \lambda x$ is differentiable with derivative $\lambda$.
@@ -1392,7 +1392,7 @@ We usually don't write out the error terms so explicitly, and just use heuristic
   \end{enumerate}
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Derivative of $1/x$]
   Let $f(x) = 1/x$. If $x\not = 0$, then
   \[
     \frac{f(x + h) - f(x)}{h} = \frac{\frac{1}{x + h} - \frac{1}{x}}{h} = \frac{\left(\frac{-h}{x(x + h)}\right)}{h} = \frac{-1}{x(x + h)} \to \frac{-1}{x^2}
@@ -1445,7 +1445,7 @@ Note that the conditions will (almost) always require $f$ to be differentiable o
   \]
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Derivative of rational powers]
   Let $f(x) = x^{1/2}$ for $x > 0$. Then $f$ is the inverse of $g(x) = x^2$. So
   \[
     f'(x) = \frac{1}{g'(f(x))} = \frac{1}{2x^{1/2}} = \frac{1}{2}x^{-1/2}.
@@ -1519,7 +1519,7 @@ The mean value theorem is sometimes described as ``rotate your head and apply Ro
 \end{proof}
 
 We've always assumed that if a function has a positive derivative everywhere, then the function is increasing. However, it turns out that this is really hard to prove directly. It does, however, follow quite immediately from the mean value theorem.
-\begin{eg}
+\begin{eg}[MVT implies monotonicity]
   Suppose $f'(x) > 0$ for every $x\in (a, b)$. Then for $u, v$ in $[a, b]$, we can find $w\in (u, v)$ such that
   \[
     \frac{f(v) - f(u)}{v - u} = f'(w) > 0.
@@ -1630,7 +1630,7 @@ Note that the remainder term is \emph{not} necessarily small, but this often giv
   \left|\frac{h^n}{n!}f^{(n)}(x)\right| \leq \frac{C}{n!}|h|^n = o(h^{n - 1}).
 \]
 
-\begin{eg}
+\begin{eg}[Taylor series of $e^x$]
   Let $f: \R \to \R$ be a differentiable function such that $f(0) = 1$ and $f'(x) = f(x)$ for every $x$ (intuitively, we know it is $e^x$ , but that thing doesn't exist!). Then for every $x$, we have
   \[
     f(x) = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots = \sum_{n = 0}^\infty \frac{x^n}{n!}.
@@ -1671,7 +1671,7 @@ This is exactly the same definition with real differentiation, but has very diff
 
 All the usual rules --- chain rule, product rule etc. also apply (with the same proofs). Also the derivatives of polynomials are what you expect. However, there are some more interesting cases.
 
-\begin{eg}
+\begin{eg}[Conjugate not differentiable]
   $f(z) = \bar z$ is \emph{not} differentiable.
   \[
     \frac{\overline{z + h} - \overline{z\vphantom{h}}}{h} = \frac{\bar h}{h} =
@@ -1683,7 +1683,7 @@ All the usual rules --- chain rule, product rule etc. also apply (with the same 
 \end{eg}
 If this seems weird, this is because we often think of $\C$ as $\R^2$, but they are not the same. For example, reflection is a linear map in $\R^2$, but not in $\C$. A linear map in $\C$ is something in the form $x \mapsto bx$, which can only be a dilation or rotation, not reflections or other weird things.
 
-\begin{eg}
+\begin{eg}[Modulus not differentiable]
   $f(z) = |z|$ is also not differentiable. If it were, then $|z|^2$ would be as well (by the product rule). So would $\frac{|z|^2}{z} = \bar z$ when $z \not= 0$ by the quotient rule. At $z = 0$, it is certainly not differentiable, since it is not even differentiable on $\R$.
 \end{eg}
 \section{Complex power series}
@@ -1730,11 +1730,11 @@ Now let $R = \sup\{|z|: \sum a_nz^n$ converges $\}$ ($R$ may be infinite). If $|
   If $|z| < R$, then $\sum a_nz^n$ converges. If $|z| > R$, then $\sum a_nz^n$ diverges. When $|z| = R$, the series can converge at some points and not the others.
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Geometric series radius]
   $\displaystyle\sum_{n = 0}^\infty z^n$ has radius of convergence of $1$. When $|z| = 1$, it diverges (since the terms do not tend to $0$).
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Radius of $\sum z^n/n$]
   $\displaystyle\sum_{n = 0}^\infty \frac{z^n}{n}$ has radius of convergence $1$, since the ratio of $(n + 1)$th term to $n$th is
   \[
     \frac{z^{n + 1}/(n + 1)}{z^n /n} = z\cdot\frac{n}{n + 1} \to z.
@@ -1744,7 +1744,7 @@ Now let $R = \sup\{|z|: \sum a_nz^n$ converges $\}$ ($R$ may be infinite). If $|
   If $z = 1$, then it diverges (harmonic series). If $|z| = 1$ and $z \not= 1$, it converges by Abel's test.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Convergence of $\sum z^n/n^2$]
   The series $\displaystyle \sum_{n = 1}^\infty \frac{z^{n}}{n^2}$ converges for $|z| \leq 1$ and diverges for $|z| > 1$.
 \end{eg}
 
@@ -1772,7 +1772,7 @@ As evidenced by the above examples, the ratio test can be used to find the radiu
   On the other hand, if $|z|\limsup\sqrt[n]{|a_n|} > 1$, it follows that $|z|\sqrt[n]{|a_n|} \geq 1$ for infinitely many $n$. Therefore $|a_nz^n| \geq 1$ for infinitely many $n$. So $\sum a_nz^n$ does not converge.
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Root test application]
   The radius of convergence of $\displaystyle \frac{z^n}{2^n}$ is $2$ because $\sqrt[n]{|a_n|} = \frac{1}{2}$ for every $n$. So $\limsup \sqrt[n]{|a_n|} = \frac{1}{2}$. So $1/\limsup \sqrt[n]{|a_n|} = 2$.
 \end{eg}
 
@@ -2044,7 +2044,7 @@ which is actually the form we need.
 \end{proof}
 In IB Analysis II, we will prove the same result using the idea of uniform convergence, which gives a much nicer proof.
 
-\begin{eg}
+\begin{eg}[Derivatives from power series]
   The derivative of
   \[
     e^z = 1 + z + \frac{z^2}{2!} + \frac{z^3}{3!} + \cdots
@@ -2216,7 +2216,7 @@ We will later prove the \emph{fundamental theorem of calculus}, which says that 
 
 There is an immediate necessary condition for Riemann integrability --- boundedness. If $f$ is unbounded above in $[a, b]$, then for any dissection $\mathcal{D}$, there must be some $i$ such that $f$ is unbounded on $[x_{i - 1}, x_i]$. So $M_i = \infty$. So $U_\mathcal{D} f = \infty$. Similarly, if $f$ is unbounded below, then $L_{\mathcal{D}} f = -\infty$. So unbounded functions are not Riemann integrable.
 
-\begin{eg}
+\begin{eg}[Integral of $x$ via definition]
   Let $f(x) = x$ on $[a, b]$. Intuitively, we know that the integral is $(b^2 - a^2)/2$, and we will show this using the definition above. Let $\mathcal{D} = x_0 < x_1 < \cdots < x_n$ be a dissection. Then
   \begin{align*}
     U_{\mathcal{D}}f &= \sum_{i = 1}^n (x_i - x_{i - 1})x_i\\
@@ -2246,7 +2246,7 @@ There is an immediate necessary condition for Riemann integrability --- boundedn
   \]
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Dirichlet function not integrable]
   Define $f: [0, 1] \to \R$ by
   \[
     f(x) =
@@ -2613,7 +2613,7 @@ The idea of the proof is to integrate from a point $x_1$ very near $a$ up to a p
   So done by Riemann integrability criterion.
 \end{proof}
 
-\begin{eg}\leavevmode
+\begin{eg}[Integrable functions with discontinuities]\leavevmode
   \begin{itemize}
     \item $f(x) =
       \begin{cases}
@@ -2853,7 +2853,7 @@ It is sometimes sensible to talk about integrals of unbounded functions or integ
   \]
   when it exists.
 \end{defi}
-\begin{eg}
+\begin{eg}[Improper integral with power singularity]
   \[
     \int_\varepsilon^1 x^{-1/2}\;\d x = \left[2x^{-1/2}\right]^1_\varepsilon = 2 - 2\varepsilon^{1/2} \to 2.
   \]
@@ -2866,7 +2866,7 @@ It is sometimes sensible to talk about integrals of unbounded functions or integ
   Note that officially we are required to make $f(x) = x^{-1/2}$ a function with domain $[0, 1]$. So we can assign $f(0) = \pi$, or any number, since it doesn't matter.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Improper integral to infinity]
   \[
     \int_1^x \frac{1}{t^2}\;\d t = \left[-\frac{1}{t}\right]_1^x = 1 - \frac{1}{x} \to 1\text{ as }x\to \infty
   \]
@@ -2895,7 +2895,7 @@ Finally, we can prove the integral test, whose proof we omitted when we first be
   If the integral does not exist, then $\int_1^N f(x)\;\d x$ is unbounded. Then $\sum_{n = 1}^N f(n)$ is unbounded, hence does not converge.
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Integral test for $\sum 1/n^2$]
   Since $\int_1^x \frac{1}{t^2}\;\d t < \infty$, it follows that $\sum_{n = 1}^\infty \frac{1}{n^2}$ converges.
 \end{eg}
 \end{document}
