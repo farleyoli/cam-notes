@@ -2012,7 +2012,7 @@ We write $\d\mathbf{s} = \hat{\mathbf{s}}\;\d s$, where $|\hat{\mathbf{s}}| = 1$
     \frac{\d f}{\d s} = \mathbf{\hat{s}}\cdot \nabla f.
   \]
 \end{defi}
-Officially, we take this to be the definition of $\nabla f$. Then $\nabla f = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right)$ is a theorem that can be proved from this definition.
+This is taken as the formal definition of $\nabla f$. The expression $\nabla f = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right)$ then follows as a theorem from this definition.
 
 We know that the directional derivative is given by
 \[
@@ -2115,13 +2115,13 @@ At a stationary point $\mathbf{x}_0$, we know that $\nabla f(\mathbf{x}_0) = 0$.
 \]
 where $H = \nabla\nabla f(\mathbf{x}_0)$ is the Hessian matrix.
 
-At a minimum, Every point near $\mathbf{x}_0$ has $f(\mathbf{x}) > f(\mathbf{x}_0)$, i.e.\ $\delta \mathbf{x}\cdot H\cdot \delta \mathbf{x} > 0$ for all $\delta \mathbf{x}$. We say $\delta \mathbf{x}\cdot H\cdot\delta \mathbf{x}$ is \emph{positive definite}.
+At a minimum, every point near $\mathbf{x}_0$ has $f(\mathbf{x}) > f(\mathbf{x}_0)$, i.e.\ $\delta \mathbf{x}\cdot H\cdot \delta \mathbf{x} > 0$ for all $\delta \mathbf{x}$. We say $\delta \mathbf{x}\cdot H\cdot\delta \mathbf{x}$ is \emph{positive definite}.
 
 Similarly, at a maximum, $\delta \mathbf{x}\cdot H\cdot \delta\mathbf{x} < 0$ for all $\delta \mathbf{x}$. We say $\delta \mathbf{x}\cdot H\cdot \delta \mathbf{x}$ is \emph{negative definite}.
 
 At a saddle, $\delta \mathbf{x} \cdot H\cdot \delta\mathbf{x}$ is indefinite, i.e.\ it can be positive, negative or zero depending on the direction.
 
-This, so far, is not helpful, since we do not have an easy way to know what sign $\delta \mathbf{x}\cdot H\cdot \delta \mathbf{x}$ could be. Now note that $H = \nabla\nabla f$ is symmetric (because $f_{xy} = f_{yx}$). So $H$ can be diagonalized (cf.\ Vectors and Matrices). With respect to these axes in which $H$ is diagonal (principal axes), we have
+The criterion above does not immediately indicate the sign of $\delta \mathbf{x}\cdot H\cdot \delta \mathbf{x}$. However, since $H = \nabla\nabla f$ is symmetric (because $f_{xy} = f_{yx}$), $H$ can be diagonalized (see Vectors and Matrices). With respect to these axes in which $H$ is diagonal (principal axes), we have
 \begin{align*}
   \delta\mathbf{x}\cdot H\cdot \delta\mathbf{x} &= (\delta x, \delta y, \cdots, \delta z)
   \begin{pmatrix}
@@ -2160,7 +2160,7 @@ Apart from finding eigenvalues, another way to determine the definiteness is usi
   \]
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Sylvester's criterion]
   $H$ is positive definite if and only if the signature is $+, +, \cdots, +$. $H$ is negative definite if and only if the signature is $-, +, \cdots, (-1)^n$. Otherwise, $H$ is indefinite.
 \end{prop}
 
@@ -2171,9 +2171,9 @@ Consider $H$ in 2 dimensions, and axes in which $H$ is diagonal. So $H =
   0 & \lambda_2
 \end{pmatrix}$. Write $\mathbf{x} - \mathbf{x}_0 = (X, Y)$.
 
-Then near $\mathbf{x}_0$, $f = $ constant $\Rightarrow \mathbf{x}H\mathbf{x} = $ constant, i.e.\ $\lambda_1 X^2 + \lambda_2 Y^2 = $ constant. At a maximum or minimum, $\lambda_1$ and $\lambda_2$ have the same sign. So these contours are locally ellipses. At a saddle point, they have different signs and the contours are locally hyperbolae.
+Then near $\mathbf{x}_0$, $f = $ constant $\Rightarrow \delta\mathbf{x}\cdot H\cdot \delta\mathbf{x} = $ constant, i.e.\ $\lambda_1 X^2 + \lambda_2 Y^2 = $ constant. At a maximum or minimum, $\lambda_1$ and $\lambda_2$ have the same sign. So these contours are locally ellipses. At a saddle point, they have different signs and the contours are locally hyperbolae.
 
-\begin{eg}
+\begin{eg}[Cubic polynomial stationary points]
   Find and classify the stationary points of $f(x, y) = 4x^3 - 12xy + y^2 + 10y + 6$. We have
   \begin{align*}
     f_x &= 12x^2 - 12y\\
