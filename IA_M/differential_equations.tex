@@ -442,7 +442,7 @@ This technique is useful for evaluating certain integrals that would otherwise b
 \end{eg}
 
 \section{First-order differential equations}
-A differential equation is an equation that involves derivatives, such as $x^2\frac{\d y}{\d x} + 2y = 0$. Unlike regular equations where the solution is a number, the solution to a differential equation is a function that satisfies the equation. In this chapter, we will look at \emph{first-order differential equations}, where only first derivatives are involved.
+A differential equation is an equation involving derivatives of an unknown function. For example, $x^2\frac{\d y}{\d x} + 2y = 0$ is a differential equation in the unknown function $y(x)$. Unlike algebraic equations where the solution is a number, the solution to a differential equation is a function satisfying the equation. This chapter focuses on \emph{first-order differential equations}, in which only first derivatives appear.
 
 \subsection{The exponential function}
 Often, the solutions to differential equations involve the exponential function. Consider a function $f(x) = a^x$, where $a>0$ is constant.
@@ -479,17 +479,18 @@ Using this property, we find that the value of $e$ is given by
 \]
 The importance of the exponential function lies in it being an \emph{eigenfunction} of the differential operator.
 \begin{defi}[Eigenfunction]
-  An \emph{eigenfunction} under the differential operator is a function whose functional form is unchanged by the operator. Only its magnitude is changed. i.e.
+  An \emph{eigenfunction} of the differential operator is a function whose functional form is unchanged by differentiation; only its magnitude changes. That is, $f$ is an eigenfunction if
   \[
     \frac{\d f}{\d x} = \lambda f
   \]
+  for some constant $\lambda$.
 \end{defi}
-\begin{eg}
+\begin{eg}[Exponential eigenfunction]
   $e^{mx}$ is an eigenfunction since $\frac{\d }{\d x}e^{mx} = me^{mx}$.
 \end{eg}
 
 \subsection{Homogeneous linear ordinary differential equations}
-Before we start, we will first define the terms used in the title. These are useful criteria for categorizing differential equations.
+We begin by defining the terminology used to classify differential equations.
 
 \begin{defi}[Linear differential equation]
   A differential equation is \emph{linear} if the dependent variable ($y$, $y'$, $y''$ etc.) appears only linearly.
@@ -507,11 +508,11 @@ Before we start, we will first define the terms used in the title. These are use
   A differential equation is \emph{first-order} if only first derivatives are involved.
 \end{defi}
 
-\begin{thm}
+\begin{thm}[Exponential solutions]
   Any linear, homogeneous, ordinary differential equation with constant coefficients has solutions of the form $e^{mx}$.
 \end{thm}
 This theorem is evident when we consider an example.
-\begin{eg}
+\begin{eg}[First-order constant coefficients]
   Given $5\frac{\d y}{\d x} - 3y = 0$. Try $y = e^{mx}$. Then
   \begin{align*}
     \frac{\d y}{\d x} &= me^{mx}\\
@@ -585,12 +586,12 @@ Therefore we have
 \]
 
 \subsection{Forced (inhomogeneous) equations}
-Recall that a homogeneous equation is an equation like $5y' - 3y = 0$, with no $x$ or constant terms floating around. A forced, or inhomogeneous, equation is one that is not homogeneous. For example, $5y' - 3y = 10$ or $5y' - 3y = x^2$ are forced equations. We call the ``extra'' terms $10$ and $x^2$ the \emph{forcing terms}.
+A homogeneous equation, such as $5y' - 3y = 0$, has no terms independent of $y$. A \emph{forced} (or \emph{inhomogeneous}) equation contains additional terms that do not involve the dependent variable. For example, $5y' - 3y = 10$ and $5y' - 3y = x^2$ are forced equations, with $10$ and $x^2$ called the \emph{forcing terms}.
 
 \subsubsection{Constant forcing}
 
-\begin{eg}
-  Consider $5y' - 3y = 10$. We can spot that there is a equilibrium (constant) solution $y = y_p = -\frac{10}{3}$ with $y_p' = 0$.
+\begin{eg}[Constant forcing term]
+  Consider $5y' - 3y = 10$. We can spot that there is an equilibrium (constant) solution $y = y_p = -\frac{10}{3}$ with $y_p' = 0$.
 
   The particular solution $y_p$ is a solution of the ODE. Now suppose the general solution is $y = y_p + y_c$. We see that $5y_c' - 3y_c = 0$. So $y_c$ satisfies the homogeneous equation we already solved, and
   \[
@@ -599,11 +600,11 @@ Recall that a homogeneous equation is an equation like $5y' - 3y = 0$, with no $
   Note that any boundary conditions to determine $A$ must be applied to the full solution $y$ and not the complementary function $y_c$.
 \end{eg}
 
-This is the general method of solving forced equations. We first find one particular solution to the problem, often via educated guesses. Then we solve the homogeneous equation to get a general complementary solution. Then the general solution to the full equation is the sum of the particular solution and the general complementary solution.
+This illustrates the general method for solving forced equations: first find a particular solution $y_p$ (often by inspection or an appropriate ansatz), then solve the associated homogeneous equation to obtain the complementary function $y_c$. The general solution is then $y = y_p + y_c$.
 
 \subsubsection{Eigenfunction forcing}
 This is the case when the forcing term is an eigenfunction of the differential operator.
-\begin{eg}
+\begin{eg}[Radioactive decay chain]
   In a radioactive rock, isotope A decays into isotope B at a rate proportional to the number $a$ of remaining nuclei A, and B also decays at a rate proportional to the number $b$ of remaining nuclei B. Determine $b(t)$.
 
   We have
@@ -617,7 +618,7 @@ This is the case when the forcing term is an eigenfunction of the differential o
   \]
   We usually put the variables involving $b$ on the left hand side and the others on the right. The right-hand term $k_aa_0e^{-k_at}$ is the \emph{forcing term}.
 
-  Note that the forcing term is an eigenfunction of the differential operator on the LHS. So that suggests that we can try a particular integral $b_p = Ce^{-k_at}$. Substituting it in, we obtain
+  Note that the forcing term is an eigenfunction of the differential operator on the left-hand side. This suggests trying a particular integral of the form $b_p = Ce^{-k_at}$. Substituting it in, we obtain
   \begin{align*}
     -k_aC + k_bC &= k_a a_0\\
     C &= \frac{k_a}{k_b - k_a}a_0.
@@ -645,7 +646,7 @@ This is the case when the forcing term is an eigenfunction of the differential o
   \[
     \frac{b}{a} = \frac{k_a}{k_b - k_a}\left[1 - e^{(k_a - k_b)t}\right].
   \]
-  So given the current ratio $b/a$, with laboratory determined rates $k_a$ and $k_b$, we can determine the value of $t$, i.e.\ the age of the rock.
+  Given the current ratio $b/a$ and laboratory-determined decay rates $k_a$ and $k_b$, one can determine $t$, the age of the rock.
 \end{eg}
 
 \subsection{Non-constant coefficients}
@@ -671,7 +672,7 @@ Then by construction, we have $(\mu y)' = \mu f$ and thus
 \[
   y = \frac{\int \mu f\;\d x}{\mu},\text{ where } \mu = \exp\left(\int p\; \d x\right)
 \]
-\begin{eg}
+\begin{eg}[Integrating factor method]
   Consider $xy' + (1 - x)y = 1$. To obtain it in standard form, we have $y' + \frac{1 - x}{x} y = \frac{1}{x}$.
   We have $\mu = \exp\left(\int (\frac{1}{x} - 1)\; \d x\right) = e^{\ln x - x} = xe^{-x}$. Then
   \begin{align*}
@@ -683,11 +684,11 @@ Then by construction, we have $(\mu y)' = \mu f$ and thus
 \end{eg}
 
 \subsection{Non-linear equations}
-In general, a first-order equation has the form
+A general first-order equation can be written in the form
 \[
-  Q(x, y)\frac{\d y}{\d x} + P(x, y) = 0.
+  Q(x, y)\frac{\d y}{\d x} + P(x, y) = 0,
 \]
-(this is not exactly the most general form, since theoretically we can have powers of $y'$ or even other complicated functions of $y'$, but we will not consider that case here).
+where $P$ and $Q$ are functions of $x$ and $y$. (More general forms involving powers of $y'$ exist but are not considered here.)
 \subsubsection{Separable equations}
 
 \begin{defi}[Separable equation]
@@ -700,9 +701,9 @@ In general, a first-order equation has the form
     \int q(y)\;\d y = \int p(x)\; \d x.
   \]
 \end{defi}
-This is the easy kind.
+Separable equations are often the simplest to solve.
 
-\begin{eg}
+\begin{eg}[Separable equation]
   \begin{align*}
     (x^2y - 3y)\frac{\d y}{\d x} - 2xy^2 &= 4x\\
     \frac{\d y}{\d x} &= \frac{4x + 2xy^2}{x^2y - 3y}\\
@@ -739,16 +740,17 @@ The converse is not necessarily true. Even if this equation holds, the different
   A domain $\mathcal{D}$ is simply-connected if it is connected and any closed curve in $\mathcal{D}$ can be shrunk to a point in $\mathcal{D}$ without leaving $\mathcal{D}$.
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Simply-connected examples]
   A disc in 2D is simply-connected. A disc with a ``hole'' in the middle is not simply-connected because a loop around the hole cannot be shrunk into a point. Similarly, a sphere in 3D is simply-connected but a torus is not.
 \end{eg}
 
-\begin{thm}
-  If $\frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}$ through a simply-connected domain $\mathcal{D}$, then $P\;\d x + Q\; \d y$ is an exact differential of a single-valued function in $\mathcal{D}$.
+\begin{thm}[Exactness criterion]
+  If $\frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}$ throughout a simply-connected domain $\mathcal{D}$, then $P\;\d x + Q\; \d y$ is an exact differential of a single-valued function in $\mathcal{D}$.
 \end{thm}
 If the equation is exact, then the solution is simply $f = $ constant, and we can find $f$ by integrating $\frac{\partial f}{\partial x} = P$ and $\frac{\partial f}{\partial y} = Q$.
 
-\begin{eg}
+\begin{eg}[Solving an exact equation]
+  Consider the equation
   \[
     6y(y - x)\frac{\d y}{\d x} + (2x - 3y^2) = 0.
   \]
@@ -764,7 +766,7 @@ If the equation is exact, then the solution is simply $f = $ constant, and we ca
   \[
     f = x^2 - 3xy^2 + h(y).
   \]
-  Note that since it was a partial derivative w.r.t. $x$ holding $y$ constant, the ``constant'' term can be any function of $y$. Differentiating the derived $f$ w.r.t $y$, we have
+  Since we integrated with respect to $x$ while holding $y$ constant, the ``constant'' of integration can be any function of $y$. Differentiating $f$ with respect to $y$, we have
   \[
     \frac{\partial f}{\partial y} = -6xy + h'(y).
   \]
@@ -779,7 +781,7 @@ If the equation is exact, then the solution is simply $f = $ constant, and we ca
 \end{eg}
 
 \subsection{Solution curves (trajectories)}
-\begin{eg}
+\begin{eg}[Solution family for $\dot{y} = t(1-y^2)$]
   Consider the first-order equation
   \[
     \frac{\d y}{\d t} = t(1 - y^2).
@@ -812,13 +814,13 @@ If the equation is exact, then the solution is simply $f = $ constant, and we ca
   \end{center}
 \end{eg}
 
-But can we understand the nature of the family of solutions without solving the equation? Can we sketch the graph without solving it?
+It is often possible to understand the qualitative behaviour of solutions without solving the equation explicitly.
 
-We can spot that $y = \pm 1$ are two constant solutions and we can plot them first. We also note (and mark on our graph) that $y' = 0$ at $t = 0$ for any $y$.
+First, observe that $y = \pm 1$ are constant solutions (since $\dot{y} = 0$ when $y = \pm 1$). Also note that $y' = 0$ at $t = 0$ for any value of $y$.
 
-Then notice that for $t > 0$, $y' > 0$ if $-1 < y < 1$. Otherwise, $y' < 0$.
+For $t > 0$, we have $y' > 0$ if $-1 < y < 1$, and $y' < 0$ otherwise.
 
-Now we can find \emph{isoclines}, which are curves along which $\frac{\d y}{\d t}$ (i.e.\ $f$) is constant: $t(1 - y^2) = D$ for some constant $D$. Then $y^2 = 1 - D/t$. After marking a few isoclines, can sketch the approximate form of our solution:
+To visualise the solutions, we can draw \emph{isoclines}: curves along which $\frac{\d y}{\d t}$ is constant. Setting $t(1 - y^2) = D$ for a constant $D$ gives $y^2 = 1 - D/t$. After marking several isoclines, we can sketch the approximate form of the solutions:
 \begin{center}
   \begin{tikzpicture}
     \def\arrowlength{0.3}
@@ -855,25 +857,21 @@ Now we can find \emph{isoclines}, which are curves along which $\frac{\d y}{\d t
     \draw [semithick, mred] (0, 1.66666) .. controls (1, 1.66666) and (2, 1.1) .. (4, 1.1) -- (5, 1.1);
   \end{tikzpicture}
 \end{center}
-In general, we sketch the graph of a differential equation
-\[
-  \frac{\d y}{\d t} = f(t, y)
-\]
-by locating constant solutions (and determining stability: see below) and isoclines.
+In general, the solution curves of a differential equation $\frac{\d y}{\d t} = f(t, y)$ can be sketched by first locating constant solutions (equilibria), determining their stability (as discussed in the next section), and drawing isoclines.
 
 \subsection{Fixed (equilibrium) points and stability}
 \begin{defi}[Equilibrium/fixed point]
   An \emph{equilibrium point} or a \emph{fixed point} of a differential equation is a constant solution $y = c$. This corresponds to $\frac{\d y}{\d t} = 0$ for all $t$.
 \end{defi}
-These are usually the easiest solutions to find, since we are usually given an expression for $\frac{\d y}{\d t}$ and we can simply equate it to zero.
+Equilibrium points are typically easy to find: given an expression for $\frac{\d y}{\d t}$, one simply solves $\frac{\d y}{\d t} = 0$.
 
 \begin{defi}[Stability of fixed point]
   An equilibrium is \emph{stable} if whenever $y$ is deviated slightly from the constant solution $y = c$, $y \to c$ as $t \to \infty$. An equilibrium is \emph{unstable} if the deviation grows as $t \to \infty$.
 \end{defi}
 
-The objective of this section is to study how to find equilibrium points and their stability.
-\begin{eg}
-  Referring to the differential equation above ($\dot y = t (1 - y^2)$), we see that the solutions converge towards $y = 1$, and this is a stable fixed point. They diverge from $y = -1$, and this is an unstable fixed point.
+The objective of this section is to study how to find equilibrium points and determine their stability.
+\begin{eg}[Stability of $y = \pm 1$]
+  Referring to the differential equation above ($\dot y = t (1 - y^2)$), the solutions converge towards $y = 1$, which is therefore a stable fixed point. They diverge from $y = -1$, which is an unstable fixed point.
 \end{eg}
 
 \subsubsection{Perturbation analysis}
@@ -890,7 +888,7 @@ Note that this is a Taylor expansion valid when $\varepsilon \ll 1$. Thus $O(\va
 We can use this to study how the perturbation grows with time.
 
 This approximation is called a linearization of the differential equation.
-\begin{eg}
+\begin{eg}[Perturbation of $y = \pm 1$]
   Using the example $\dot y = t(1 - y^2)$ above, we have
   \[
     \frac{\partial f}{\partial y} = -2yt =
@@ -907,7 +905,7 @@ This approximation is called a linearization of the differential equation.
 \end{eg}
 
 \subsubsection{Autonomous systems}
-Often, the mechanics of a system does not change with time. So $\dot y$ is only a function of $y$ itself. We call this an \emph{autonomous system}.
+In many physical systems, the governing laws do not change with time, so $\dot y$ depends only on $y$ itself. Such systems are called \emph{autonomous}.
 
 \begin{defi}[Autonomous system]
   An \emph{autonomous system} is a system in the form $\dot y = f(y)$, where the derivative is only (explicitly) dependent on $y$.
@@ -915,7 +913,7 @@ Often, the mechanics of a system does not change with time. So $\dot y$ is only 
 
 Near a fixed point $y = a$, where $f(a) = 0$, write $y = a + \varepsilon(t)$. Then $\dot \varepsilon = \varepsilon\frac{\d f}{\d y}(a) = k\varepsilon$ for some constant $k$. Then $\varepsilon = \varepsilon_0 e^{kt}$. The stability of the system then depends solely on sign of $k$.
 
-\begin{eg}
+\begin{eg}[Acid-base neutralisation]
   Consider a chemical reaction NaOH + HCl $\rightarrow$ H$_2$O + NaCl. We have
   \begin{center}
     \begin{tabular}{lccccccc}
@@ -933,7 +931,7 @@ Near a fixed point $y = a$, where $f(a) = 0$, write $y = a + \varepsilon(t)$. Th
     &= \lambda (a_0 - c)(b_0 - c)\\
     &= f(c)
   \end{align*}
-  We can plot $\frac{\d c}{\d t}$ as a function of $c$, and wlog $a_0 < b_0$.
+  We can plot $\frac{\d c}{\d t}$ as a function of $c$. Assume without loss of generality that $a_0 < b_0$.
   \begin{center}
     \begin{tikzpicture}
       \draw [->] (-0.5, 0) -- (5, 0) node [right] {$c$};
@@ -959,7 +957,7 @@ Near a fixed point $y = a$, where $f(a) = 0$, write $y = a + \varepsilon(t)$. Th
   \[
     c = \frac{a_0b_0[1 - e^{-(b_0 - a_0)\lambda t}]}{b_0 - a_0e^{-\lambda(b_0-a_0)t}}.
   \]
-  Of course, this example makes no sense physically whatsoever because it assumes that we can have negative values of $a$ and $b$. Clearly in reality we cannot have, say, $-1$ mol of NaOH, and only solutions for $c \leq a_0$ are physically attainable, and in this case, any solution will tend towards $c = a_0$.
+  Note that only solutions with $c \leq a_0$ are physically meaningful, since the concentrations $a$ and $b$ cannot be negative. Within this physical regime, all solutions tend towards the stable equilibrium $c = a_0$.
 \end{eg}
 
 \subsubsection{Logistic Equation}
@@ -999,9 +997,9 @@ Now when the population is small, we have
 So the population grows exponentially. Eventually, the stable equilibrium $Y$ is reached.
 
 \subsection{Discrete equations (Difference equations)}
-Since differential equations are approximated numerically by computers with discrete equations, it is important to study the behaviour of discrete equations, and their difference with continuous counterparts.
+Differential equations are often approximated numerically using discrete equations, making it important to understand the behaviour of such discrete systems and how they may differ from their continuous counterparts.
 
-In the logistic equation, the evolution of species may occur discretely (e.g.\ births in spring, deaths in winter), and we can consider the population at certain time intervals (e.g.\ consider the population at the end of each month). We might have a model in the form
+For the logistic equation, population changes may occur at discrete time intervals (for example, births in spring and deaths in winter). Measuring the population at regular intervals leads to a model of the form
 \[
   x_{n + 1} = \lambda x_n(1 - x_n).
 \]
