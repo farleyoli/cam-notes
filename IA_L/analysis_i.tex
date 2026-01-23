@@ -60,7 +60,7 @@ We'll now define what it means to be an ``ordered field with the least upper bou
 \end{defi}
 
 \begin{eg}[Examples of fields]
-  $\Q, \R, \C$, integers mod $p$, $\{a + b\sqrt{2}: a, b\in \Z\}$ are all fields.
+  $\Q, \R, \C$, integers mod $p$, $\{a + b\sqrt{2}: a, b\in \Q\}$ are all fields.
 \end{eg}
 
 \begin{defi}[Totally ordered set]
@@ -1557,7 +1557,7 @@ Finally, we are going to prove Taylor's theorem. To do so, we will first need so
 \end{thm}
 
 \begin{proof}
-  Induct on $n$. The $n = 0$ base case is just Rolle's theorem.
+  Induct on $n$. The $n = 1$ base case is just Rolle's theorem.
 
   Suppose we have $k < n$ and $x_k\in (a, b)$ such that $f^{(k)}(x_k) = 0$. Since $f^{(k)}(a) = 0$, we can find $x_{k + 1}\in (a, x_k)$ such that $f^{(k + 1)}(x_{k + 1}) = 0$ by Rolle's theorem.
 
@@ -2226,7 +2226,7 @@ There is an immediate necessary condition for Riemann integrability --- boundedn
     &= \frac{1}{2}(b^2 - a^2) + \frac{1}{2}\sum_{i = 1}^n(x_i - x_{i - 1})^2.
   \end{align*}
   \begin{defi}[Mesh]
-    The \emph{mesh} of a dissection $\mathcal{D}$ is $\max_i (x_{i+1} - x_i)$.
+    The \emph{mesh} of a dissection $\mathcal{D}$ is $\max_i (x_i - x_{i-1})$.
   \end{defi}
   Then if the mesh is $ < \delta$, then
     \[
@@ -2624,7 +2624,7 @@ The idea of the proof is to integrate from a point $x_1$ very near $a$ up to a p
       \begin{cases}
         x & x \leq 1\\
         x^2 + 1 & x > 1
-      \end{cases}$ defined on $[0, 1]$ is integrable.
+      \end{cases}$ defined on $[0, 2]$ is integrable.
   \end{itemize}
 \end{eg}
 
