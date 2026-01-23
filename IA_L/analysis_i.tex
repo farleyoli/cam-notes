@@ -1650,7 +1650,7 @@ Note that the remainder term is \emph{not} necessarily small, but this often giv
 
   But we know that $f^{(n)}(u) = f(u)$, but since $f$ is differentiable, it is continuous, and is bounded on $[0, x]$. Suppose $|f(u)| \leq C$ on $[0, x]$. Then
   \[
-    \left|\frac{f^{(n)(u)}}{n!}x^n\right| \leq \frac{C}{n!}|x|^n \to 0
+    \left|\frac{f^{(n)}(u)}{n!}x^n\right| \leq \frac{C}{n!}|x|^n \to 0
   \]
   from limit theorems. So it follows that
   \[
@@ -1719,7 +1719,7 @@ When considering complex power series, a very important concept is the \emph{rad
 \end{proof}
 It follows that if $\sum a_nz^n$ does not converge and $|w| > |z|$, then $\sum a_nw^n$ does not converge.
 
-Now let $R = \sup\{|z|: \sum a_nz^n$ converges $\}$ ($R$ may be infinite). If $|z| < R$, then we can find $z_0$ with $|z_0|\in (|z|, R]$ such that $\sum_n^\infty a_nz_0^n$ converges. So by lemma above, $\sum a_n z^n$ converges. If $|z| > R$, then $\sum a_nz^n$ diverges by definition of $R$.
+Now let $R = \sup\{|z|: \sum a_nz^n$ converges $\}$ ($R$ may be infinite). If $|z| < R$, then we can find $z_0$ with $|z_0|\in (|z|, R]$ such that $\sum_{n=0}^\infty a_nz_0^n$ converges. So by lemma above, $\sum a_n z^n$ converges. If $|z| > R$, then $\sum a_nz^n$ diverges by definition of $R$.
 
 \begin{defi}[Radius of convergence]
   The \emph{radius of convergence} of a power series $\sum a_nz^n$ is
@@ -1922,7 +1922,7 @@ It follows that if $x$ is real, then $|\cos x|$ and $|\sin x|$ are at most $1$.
 \end{proof}
 When $x$ is real, we know that $\cos x \leq 1$. Also $\sin 0 = 0$, and $\frac{\d }{\d x}\sin x = \cos x \leq 1$. So for $x \geq 0$, $\sin x \leq x$, ``by the mean value theorem''. Also, $\cos 0 = 1$, and $\frac{\d}{\d x}\cos x = -\sin x$, which, for $x \geq 0$, is greater than $-x$. From this, it follows that when $x \geq 0$, $\cos x \geq 1 - \frac{x^2}{2}$ (the $1 - \frac{x^2}{2}$ comes from ``integrating'' $-x$, (or finding a thing whose derivative is $-x$)).
 
-Continuing in this way, we get that for $x \geq 0$, if you take truncate the power series for $\sin x$ or $\cos x$, it will be $\geq \sin x, \cos x$ if you stop at a positive term, and $\leq$ if you stop at a negative term. For example,
+Continuing in this way, we get that for $x \geq 0$, if you truncate the power series for $\sin x$ or $\cos x$, it will be $\geq \sin x, \cos x$ if you stop at a positive term, and $\leq$ if you stop at a negative term. For example,
 \[
   \sin x \geq x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \frac{x^9}{9!} - \frac{x^{11}}{11!}.
 \]
@@ -2056,7 +2056,7 @@ In IB Analysis II, we will prove the same result using the idea of uniform conve
   \[
     1 + z + \frac{z^2}{2!} + \cdots = e^z.
   \]
-  So we have another proof that of this fact.
+  So we have another proof of this fact.
 
   Similarly, the derivatives of $\sin z$ and $\cos z$ work out as $\cos z$ and $-\sin z$.
 \end{eg}
