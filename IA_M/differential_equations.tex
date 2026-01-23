@@ -65,19 +65,19 @@ This specifies a relationship between terms in a sequence $(F_n)$, and we want t
 In this course, we will develop numerous techniques to solve different differential equations and difference equations. Often, this involves guessing of some sort.
 
 \section{Differentiation}
-We will first quickly go through basic notions of differentiation and integration. You should already be familiar with these from A levels or equivalent.
+This chapter provides a brief review of differentiation and integration, with particular emphasis on the asymptotic notation that will be used throughout this course.
 
 \subsection{Differentiation}
 \begin{defi}[Derivative of function]
-  The \emph{derivative} of a function $f(x)$ with respect to $x$, interpreted as the rate of change of $f(x)$ with $x$, is
+  Let $f$ be a real-valued function defined on an open interval containing the point $x$. The \emph{derivative} of $f$ with respect to $x$, interpreted as the rate of change of $f(x)$ with $x$, is
   \[
-    \frac{\d f}{\d x} = \lim_{h\to 0} \frac{f(x + h) - f(x)}{h}.
+    \frac{\d f}{\d x} = \lim_{h\to 0} \frac{f(x + h) - f(x)}{h},
   \]
-  A function $f(x)$ is differentiable at $x$ if the limit exists (i.e.\ the left-hand and right-hand limits are equal).
+  provided this limit exists. The function $f$ is said to be \emph{differentiable} at $x$ if this limit exists (equivalently, if the left-hand and right-hand limits are equal).
 \end{defi}
 
 \begin{eg}[Absolute value at origin]
-  $f(x)=|x|$ is not differentiable at $x = 0$ as $\lim\limits_{h\to 0^+} \frac{|h| - |0|}{h}= 1$ and $\lim\limits_{h\to 0^-} \frac{|h| - |0|}{h}= -1$.
+  Consider the function $f(x)=|x|}$. This function is not differentiable at $x = 0$, since $\lim\limits_{h\to 0^+} \frac{|h| - |0|}{h}= 1$ while $\lim\limits_{h\to 0^-} \frac{|h| - |0|}{h}= -1$.
 \end{eg}
 
 \begin{notation}
@@ -87,29 +87,31 @@ We will first quickly go through basic notions of differentiation and integratio
 \end{notation}
 
 \subsection{Small \texorpdfstring{$o$}{o} and big \texorpdfstring{$O$}{O} notations}
-\begin{defi}[$O$ and $o$ notations]\leavevmode
+\begin{defi}[$O$ and $o$ notations]
+  Let $f$ and $g$ be real-valued functions, and let $x_0$ be a point (possibly $\pm\infty$).
   \begin{enumerate}
-    \item ``$f(x) = o(g(x))$ as $x\to x_0$'' if $\lim\limits_{x\to x_0} \frac{f(x)}{g(x)} = 0$. Intuitively, $f(x)$ is much smaller than $g(x)$.
-    \item ``$f(x) = O(g(x))$ as $x\to x_0$'' if $\frac{f(x)}{g(x)}$ is bounded as $x\to x_0$. Intuitively, $f(x)$ is about as big as $g(x)$.
+    \item We write ``$f(x) = o(g(x))$ as $x\to x_0$'' if $\lim\limits_{x\to x_0} \frac{f(x)}{g(x)} = 0$. Intuitively, this means $f(x)$ is much smaller than $g(x)$ near $x_0$.
+    \item We write ``$f(x) = O(g(x))$ as $x\to x_0$'' if $\frac{f(x)}{g(x)}$ remains bounded as $x\to x_0$. Intuitively, this means $f(x)$ is at most comparable in size to $g(x)$ near $x_0$.
 
-      Note that for $f(x) = O(g(x))$ to be true, $\displaystyle \lim_{x\to x_0} \frac{f(x)}{g(x)}$ need not exist.
+      Note that for $f(x) = O(g(x))$ to hold, the limit $\displaystyle \lim_{x\to x_0} \frac{f(x)}{g(x)}$ need not exist.
   \end{enumerate}
-  Usually, $x_0$ is either $0$ or infinity. Clearly, we have $f(x)=o(g(x))$ implies $f(x) = O(g(x))$.
+  In practice, $x_0$ is typically either $0$ or $\infty$. Observe that $f(x)=o(g(x))$ implies $f(x) = O(g(x))$.
 \end{defi}
 Note that this is an abuse of notation. We are not really saying that $f(x)$ is ``equal'' to $o(g(x))$, since $o(g(x))$ itself is not a function. Instead, $o(g(x))$ represents a \emph{class} of functions (namely functions that satisfy the property above), and we are saying that $f$ is in this class. Technically, a better notation might be $f(x) \in o(g(x))$, but in practice, writing $f(x) = o(g(x))$ is more common and more convenient.
 
 \begin{eg}[Big-O and little-o examples]\leavevmode
   \begin{itemize}
-    \item $x=o(\sqrt{x})$ as $x\to 0$ and $\sqrt{x} = o(x)$ as $x\to \infty$.
-    \item $\sin 2x = O(x)$ as $x\to 0$ as $\sin \theta \approx \theta$ for small $\theta$.
-    \item $\sin 2x = O(1)$ as $x\to \infty$ even though the limit does not exist.
+    \item $x=o(\sqrt{x})$ as $x\to 0$, and $\sqrt{x} = o(x)$ as $x\to \infty$.
+    \item $\sin 2x = O(x)$ as $x\to 0$, since $\sin \theta \approx \theta$ for small $\theta$.
+    \item $\sin 2x = O(1)$ as $x\to \infty$, even though $\lim_{x\to\infty} \sin 2x$ does not exist.
   \end{itemize}
 \end{eg}
 
-This notation will frequently be used in calculus. For example, if we want to ignore all terms second order in $x$ in an expression, we can write out the first order terms and then append $+O(x^2)$. In particular, we can use it to characterize derivatives in a different way.
+This notation is used frequently in analysis. For example, to express that all terms of order two or higher in $h$ are being neglected, one writes $+O(h^2)$. The notation provides an alternative characterization of the derivative.
 \begin{prop}[Linear approximation characterization]
+  Let $f$ be a differentiable function and let $x_0$ be a point in its domain. Then for small $h$,
   \[
-    f(x_0 + h) = f(x_0) + f'(x_0)h + o(h)
+    f(x_0 + h) = f(x_0) + f'(x_0)h + o(h).
   \]
 \end{prop}
 
@@ -123,7 +125,7 @@ This notation will frequently be used in calculus. For example, if we want to ig
 
 \subsection{Methods of differentiation}
 \begin{thm}[Chain rule]
-  Given $f(x) = F(g(x))$, then
+  Let $g$ be a function differentiable at $x$, and let $F$ be a function differentiable at $g(x)$. If $f$ is defined by the composition $f(x) = F(g(x))$, then
   \[
     \frac{\d f}{\d x} = \frac{\d F}{\d g}\frac{\d g}{\d x}.
   \]
@@ -142,45 +144,46 @@ This notation will frequently be used in calculus. For example, if we want to ig
 \end{proof}
 
 \begin{thm}[Product Rule]
-  Given $f(x) = u(x)v(x)$. Then
+  Let $u$ and $v$ be differentiable functions, and define $f(x) = u(x)v(x)$. Then
   \[
     f'(x) = u'(x)v(x) + u(x)v'(x).
   \]
 \end{thm}
 
 \begin{thm}[Leibniz's Rule]
-  Given $f = uv$, then
+  Let $u$ and $v$ be $n$-times differentiable functions, and let $f = uv$. Then the $n$-th derivative of $f$ is given by
   \[
-    f^{(n)}(x) = \sum_{r = 0}^n \binom{n}{r}u^{(r)}v^{(n - r)},
+    f^{(n)}(x) = \sum_{r = 0}^n \binom{n}{r}u^{(r)}(x)\,v^{(n - r)}(x),
   \]
-  where $f^{(n)}$ is the n-th derivative of $f$.
+  where $u^{(r)}$ denotes the $r$-th derivative of $u$ (with $u^{(0)} = u$).
 \end{thm}
 
 \subsection{Taylor's theorem}
 \begin{thm}[Taylor's Theorem]
-  For $n$-times differentiable $f$, we have
+  Let $f$ be a function that is $n$-times differentiable at a point $x$. Then for small $h$,
   \[
     f(x + h) = f(x) + hf'(x) + \frac{h^2}{2!}f''(x) + \cdots + \frac{h^n}{n!}f^{(n)}(x) + E_n,
   \]
-  where $E_n = o(h^{n})$ as $h\to 0$. If $f^{(n+1)}$ exists, then $E_n = O(h^{n+1})$.
+  where the error term satisfies $E_n = o(h^{n})$ as $h\to 0$. If $f^{(n+1)}$ exists, then $E_n = O(h^{n+1})$.
 \end{thm}
-Note that this only gives a local approximation around $x$. This does not necessarily tell anything about values of $f$ far from $x$ (but sometimes does).
+This theorem provides only a local approximation of $f$ near $x$; it does not, in general, provide information about the behaviour of $f$ far from $x$.
 
-An alternative form of the sum above is:
+An equivalent formulation, obtained by writing $x$ in place of $x + h$ and $x_0$ in place of $x$, is:
 \[
   f(x) = f(x_0) + (x-x_0)f'(x_0) + \cdots + \frac{(x-x_0)^n}{n!}f^{(n)}(x_0) + E_n.
 \]
-When the limit as $n\to \infty$ is taken, the Taylor series of $f(x)$ about the point $x = x_0$ is obtained.
+Taking the formal limit as $n\to \infty$ yields the Taylor series of $f$ about the point $x_0$.
 
 \subsection{L'Hopital's rule}
 \begin{thm}[L'Hopital's Rule]
-  Let $f(x)$ and $g(x)$ be differentiable at $x_0$, and $\displaystyle \lim_{x\to x_0}f(x) = \lim_{x\to x_0}g(x) = 0$. Then
+  Let $f$ and $g$ be functions that are differentiable at $x_0$, with $\displaystyle \lim_{x\to x_0}f(x) = \lim_{x\to x_0}g(x) = 0$. Then
   \[
-    \lim_{x\to x_0} \frac{f(x)}{g(x)} = \lim_{x\to x_0} \frac{f'(x)}{g'(x)}.
+    \lim_{x\to x_0} \frac{f(x)}{g(x)} = \lim_{x\to x_0} \frac{f'(x)}{g'(x)},
   \]
+  provided the limit on the right-hand side exists.
 \end{thm}
 \begin{proof}
-  From the Taylor's Theorem, we have $f(x) = f(x_0) + (x - x_0)f'(x_0) + o(x - x_0)$, and similarly for $g(x)$. Thus
+  By Taylor's Theorem, $f(x) = f(x_0) + (x - x_0)f'(x_0) + o(x - x_0)$, and similarly for $g$. Thus
   \begin{align*}
     \lim_{x\to x_0} \frac{f(x)}{g(x)} &= \lim_{x\to x_0} \frac{f(x_0) + (x - x_0)f'(x_0) + o(x - x_0)}{g(x_0) + (x - x_0)g'(x_0) + o(x - x_0)}\\
     &= \lim_{x\to x_0} \frac{f'(x_0) + \frac{o(x-x_0)}{x-x_0}}{g'(x_0) + \frac{o(x-x_0)}{x-x_0}}\\
@@ -191,11 +194,11 @@ When the limit as $n\to \infty$ is taken, the Taylor series of $f(x)$ about the 
 \section{Integration}
 \subsection{Integration}
 \begin{defi}[Integral]
-  An \emph{integral} is the limit of a sum, e.g.
+  Let $f$ be a function defined on an interval $[a, b]$. The \emph{integral} of $f$ over $[a, b]$ is defined as the limit of a Riemann sum:
   \[
-    \int_a^b f(x) \;\d x = \lim_{\Delta x\to 0}\sum_{n=0}^N f(x_n)\Delta x.
+    \int_a^b f(x) \;\d x = \lim_{\Delta x\to 0}\sum_{n=0}^N f(x_n)\Delta x,
   \]
-  For example, we can take $\Delta x=\frac{b - a}{N}$ and $x_n = a + n\Delta x$. Note that an integral need not be defined with this particular $\Delta x$ and $x_n$. The term ``integral'' simply refers to any limit of a sum (The usual integrals we use are a special kind known as Riemann integral, which we will study formally in Analysis I). Pictorially, we have
+  where $\Delta x = \frac{b-a}{N}$ is the width of each subinterval and $x_n = a + n\Delta x$ are the sample points. More generally, the term ``integral'' refers to any limit of such sums (the precise definition of the Riemann integral is treated in Analysis I). Pictorially, this represents the area under the curve:
   \begin{center}
     \begin{tikzpicture}
       \draw [->] (-1, 0) -- (5, 0) node [right] {$x$};
@@ -214,12 +217,12 @@ When the limit as $n\to \infty$ is taken, the Taylor series of $f(x)$ about the 
   \end{center}
 \end{defi}
 
-The area under the graph from $x_n$ to $x_{n+1}$ is $f(x_n)\Delta x + O(\Delta x^2)$. Provided that $f$ is differentiable, the total area under the graph from $a$ to $b$ is
+The area of each rectangle from $x_n$ to $x_{n+1}$ is $f(x_n)\Delta x + O(\Delta x^2)$. For a differentiable function $f$, the total area under the graph from $a$ to $b$ is therefore
 \[
-  \lim_{N\to \infty} \sum_{n=0}^{N-1}(f(x_n)\Delta x) + N\cdot O(\Delta x^2) = \lim_{N\to \infty} \sum_{n=0}^{N-1}(f(x_n)\Delta x) + O(\Delta x) = \int_a^b f(x)\;\d x
+  \lim_{N\to \infty} \sum_{n=0}^{N-1}(f(x_n)\Delta x) + N\cdot O(\Delta x^2) = \lim_{N\to \infty} \sum_{n=0}^{N-1}(f(x_n)\Delta x) + O(\Delta x) = \int_a^b f(x)\;\d x.
 \]
 \begin{thm}[Fundamental Theorem of Calculus]
-  Let $F(x) = \int_a^x f(t)\;\d t$. Then $F'(x) = f(x)$.
+  Let $f$ be a continuous function on $[a, b]$, and define $F(x) = \int_a^x f(t)\;\d t$. Then $F$ is differentiable and $F'(x) = f(x)$.
 \end{thm}
 
 \begin{proof}
@@ -230,11 +233,11 @@ The area under the graph from $x_n$ to $x_{n+1}$ is $f(x_n)\Delta x + O(\Delta x
     &= f(x)
   \end{align*}
 \end{proof}
-Similarly, we have
+As immediate consequences, if $f$ is continuous and $g$ is differentiable, then
 \[
   \frac{\d}{\d x}\int_x^b f(t)\;\d t = -f(x)
 \]
-and
+and, by the chain rule,
 \[
   \frac{\d}{\d x}\int_a^{g(x)} f(t)\;\d t = f(g(x))g'(x).
 \]
@@ -244,7 +247,7 @@ and
 \end{notation}
 
 \subsection{Methods of integration}
-Integration is substantially harder than differentiation. Given an expression, the product rule and chain rule combined with a few standard derivatives can usually differentiate it with ease. However, many seemingly-innocent expressions can turn out to be surprisingly difficult, if not impossible, to integrate. Hence we have to come up with a lot of tricks to do integrals.
+Integration is substantially harder than differentiation. While the product rule and chain rule, combined with a table of standard derivatives, suffice to differentiate most expressions, many seemingly simple integrands can be surprisingly difficult---or even impossible---to integrate in closed form. Several techniques are available to evaluate integrals.
 
 \begin{eg}[Integration by substitution]
   Consider $\int \frac{1 - 2x}{\sqrt{x - x^2}}\;\d x$. Write $u = x - x^2$ and $\d u = (1 - 2x)\;\d x$. Then the integral becomes
@@ -277,13 +280,14 @@ Trigonometric substitution can be performed with reference to the following tabl
 \end{eg}
 
 \begin{thm}[Integration by parts]
+  Let $u$ and $v$ be differentiable functions. Then
   \[
-    \int uv'\;\d x = uv - \int vu' \;\d x.
+    \int u(x)v'(x)\;\d x = u(x)v(x) - \int v(x)u'(x) \;\d x.
   \]
 \end{thm}
 
 \begin{proof}
-  From the product rule, we have $(uv)' = uv' + u'v$. Integrating the whole expression and rearranging gives the formula above.
+  By the product rule, $(uv)' = uv' + u'v$. Integrating both sides and rearranging yields the result.
 \end{proof}
 
 \begin{eg}[$xe^{-x}$ improper integral]
@@ -305,92 +309,94 @@ Trigonometric substitution can be performed with reference to the following tabl
 
 \section{Partial differentiation}
 \subsection{Partial differentiation}
-So far, we have only considered functions of one variable. If we have a function of multiple variables, say $f(x, y)$, we can either differentiate it with respect to $x$ or with respect to $y$.
+The preceding sections dealt with functions of a single variable. We now consider functions of several variables, such as $f(x, y)$, which can be differentiated with respect to each variable independently.
 \begin{defi}[Partial derivative]
-  Given a function of several variables $f(x, y)$, the \emph{partial derivative} of $f$ with respect to $x$ is the rate of change of $f$ as $x$ varies, keeping $y$ constant. It is given by
+  Let $f(x, y)$ be a function of two variables. The \emph{partial derivative} of $f$ with respect to $x$, denoted $\left. \frac{\partial f}{\partial x}\right|_y$ or simply $\frac{\partial f}{\partial x}$, is the rate of change of $f$ as $x$ varies while $y$ is held constant:
   \[
-    \left. \frac{\partial f}{\partial x}\right|_y = \lim_{\delta x\to 0} \frac{f(x + \delta x, y) - f(x, y)}{\delta x}
+    \left. \frac{\partial f}{\partial x}\right|_y = \lim_{\delta x\to 0} \frac{f(x + \delta x, y) - f(x, y)}{\delta x}.
   \]
 \end{defi}
 
 \begin{eg}[Exponential multivariate]
-  Consider $f(x, y) = x^2 + y^3 + e^{xy^2}$. Computing the partial derivative is equivalent to computing the regular derivative with the other variables treated as constants. e.g.
+  Consider the function $f(x, y) = x^2 + y^3 + e^{xy^2}$. To compute $\frac{\partial f}{\partial x}$, treat $y$ as a constant and differentiate with respect to $x$:
   \[
-    \left.\frac{\partial f}{\partial x}\right|_y = 2x + y^2e^{xy^2}.
+    \frac{\partial f}{\partial x} = 2x + y^2e^{xy^2}.
   \]
-  Second and mixed partial derivatives can also be computed:
+  Higher-order and mixed partial derivatives can be computed similarly:
   \begin{align*}
-    \frac{\partial^2f}{\partial x^2} &= 2 + y^4e^{xy^2}\\
-    \frac{\partial^2 f}{\partial y\partial x} &= \frac{\partial}{\partial y}\left(\frac{\partial f}{\partial x}\right) = 2ye^{xy^2} + 2xy^{3}e^{xy^2}
+    \frac{\partial^2f}{\partial x^2} &= 2 + y^4e^{xy^2},\\
+    \frac{\partial^2 f}{\partial y\partial x} &= \frac{\partial}{\partial y}\left(\frac{\partial f}{\partial x}\right) = 2ye^{xy^2} + 2xy^{3}e^{xy^2}.
   \end{align*}
 \end{eg}
-It is often cumbersome to write out the variables that are kept constant. If \emph{all} other variables are being held constant, we simply don't write them out, and just say $\frac{\partial f}{\partial x}$.
+When all other variables are held constant, the subscript indicating which variables are fixed is often omitted, and one writes simply $\frac{\partial f}{\partial x}$.
 
-Another convenient notation is
+A common shorthand notation is as follows.
 \begin{notation}
   \[
     f_x = \frac{\partial f}{\partial x},\quad f_{xy} = \frac{\partial^2 f}{\partial y\partial x}.
   \]
 \end{notation}
-It is important to know how the order works in the second case. The left hand side should be interpreted as $(f_x)_y$. So we first differentiate with respect to $x$, and then $y$. However, in most cases, this is not important, since we have
+Note that $f_{xy}$ means $(f_x)_y$: first differentiate with respect to $x$, then with respect to $y$. However, under mild regularity conditions, the order of differentiation does not matter.
 \begin{thm}[Schwarz's theorem]
-  If $f$ has continuous second partial derivatives, then $f_{xy} = f_{yx}$.
+  Let $f$ be a function with continuous second partial derivatives. Then $f_{xy} = f_{yx}$.
 \end{thm}
-We will not prove this statement and just assume it to be true (since this is an applied course).
+The proof of this theorem is beyond the scope of this course; we shall take it as given.
 
 \subsection{Chain rule}
-Consider an arbitrary displacement in any direction $(x, y) \to (x+\delta x, y + \delta y)$. We have
+Let $f(x, y)$ be a differentiable function of two variables. Consider a displacement $(x, y) \to (x+\delta x, y + \delta y)$. The change in $f$ is
 \begin{align*}
   \delta f &= f(x+\delta x, y + \delta y) - f(x, y)\\
   &= f(x+\delta x, y + \delta y) - f(x + \delta x, y) + f(x+\delta x, y) - f(x, y)\\
   &= f_y(x + \delta x, y)\delta y + o(\delta y) + f_x(x, y)\delta x + o(\delta x)\\
   &= (f_y(x, y) + o(1))\delta y + o(\delta y) + f_x(x, y)\delta x + o(\delta x)\\
-  \delta f&= \frac{\partial f}{\partial x}\delta x + \frac{\partial f}{\partial y}\delta y + o(\delta x, \delta y)
+  &= \frac{\partial f}{\partial x}\delta x + \frac{\partial f}{\partial y}\delta y + o(\delta x, \delta y).
 \end{align*}
-Take the limit as $\delta x, \delta y \to 0$, we have
+Taking the limit as $\delta x, \delta y \to 0$ yields the following result.
 \begin{thm}[Chain rule for partial derivatives]
+  Let $f(x, y)$ be a differentiable function. Then
   \[
     \d f = \frac{\partial f}{\partial x}\d x + \frac{\partial f}{\partial y}\d y.
   \]
-  Given this form, we can integrate the differentials to obtain the integral form:
+  This differential form can be integrated:
   \[
-    \int \d f = \int \frac{\partial f}{\partial x}\d x + \int \frac{\partial f}{\partial y}\d y,
+    \int \d f = \int \frac{\partial f}{\partial x}\d x + \int \frac{\partial f}{\partial y}\d y.
   \]
-  or divide by another small quantity. e.g.\ to find the slope along the path $(x(t), y(t))$, we can divide by $\d t$ to obtain
+  Alternatively, if $x$ and $y$ are functions of a parameter $t$, dividing by $\d t$ gives
   \[
     \frac{\d f}{\d t} = \frac{\partial f}{\partial x}\frac{\d x}{\d t} + \frac{\partial f}{\partial y}\frac{\d y}{\d t}.
   \]
 \end{thm}
 
-If we pick the parameter $t$ to be the arclength $s$, we have
+If $t$ is taken to be the arclength $s$ along a curve, then
 \[
   \frac{\d f}{\d s} = \frac{\partial f}{\partial x}\frac{\d x}{\d s} + \frac{\partial f}{\partial y}\frac{\d y}{\d s} = \left(\frac{\d x}{\d s}, \frac{\d y}{\d s}\right)\cdot \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right) = \hat{s}\cdot \nabla f,
 \]
 which is known as the directional derivative (cf.\ Chapter~\ref{sec:directional-derivative}).
 
-Alternatively, the path may also be given by $y = y(x)$. So $f = f(x, y(x))$. Then the slope along the path is
+Alternatively, if the path is given explicitly as $y = y(x)$, then $f = f(x, y(x))$ and
 \[
   \frac{\d f}{\d x} = \left.\frac{\partial f}{\partial x}\right|_y + \frac{\partial f}{\partial y}{\frac{\d y}{\d x}}.
 \]
-The chain rule can also be used for the change of independent variables, e.g.\ change to polar coordinates $x = x(r, \theta)$, $y = y(r, \theta)$. Then
+The chain rule also applies to changes of variables. For example, under a change to polar coordinates where $x = x(r, \theta)$ and $y = y(r, \theta)$,
 \[
   \left.\frac{\partial f}{\partial \theta}\right|_r = \left. \frac{\partial f}{\partial x}\right|_y \left.\frac{\partial x}{\partial \theta}\right|_r + \left.\frac{\partial f}{\partial y}\right|_x\left.\frac{\partial y}{\partial \theta}\right|_r.
 \]
 \subsection{Implicit differentiation}
-Consider the contour surface of a function $F(x, y, z)$ given by $F(x, y, z) = $ const. This implicitly defines $z = z(x, y)$. e.g.\ If $F(x, y, z) = xy^2 + yz^2 + z^5x = 5$, then we can have $x = \frac{5 - yz^2}{y^2 + z^5}$. Even though $z(x, y)$ cannot be found explicitly (involves solving quintic equation), the derivatives of $z(x, y)$ can still be found by differentiating $F(x, y, z) =$ const w.r.t. $x$ holding $y$ constant. e.g.
+Consider a function $F(x, y, z)$ and a level surface defined by $F(x, y, z) = c$ for some constant $c$. This equation implicitly defines $z$ as a function of $x$ and $y$, written $z = z(x, y)$. For example, if $F(x, y, z) = xy^2 + yz^2 + z^5x = 5$, then $z$ cannot be expressed explicitly as a function of $x$ and $y$ (doing so would require solving a quintic equation). Nevertheless, the partial derivatives of $z(x, y)$ can be computed by differentiating the equation $F(x, y, z) = c$ with respect to $x$ while holding $y$ constant:
 \begin{align*}
   \frac{\partial }{\partial x}(xy^2 + yz^2 + z^5x) &= \frac{\partial }{\partial x}5\\
   y^2 + 2yz\frac{\partial z}{\partial x} + z^5 + 5z^4x\frac{\partial z}{\partial x} &= 0\\
   \frac{\partial z}{\partial x} &= -\frac{y^2 + z^5}{2yz + 5z^4x}
 \end{align*}
-In general, we can derive the following formula:
-\begin{thm}[Multi-variable implicit differentiation] Given an equation
+In general, the following formula holds.
+\begin{thm}[Multi-variable implicit differentiation]
+  Let $F(x, y, z)$ be a differentiable function, and suppose $z = z(x, y)$ is implicitly defined by
   \[
     F(x, y, z) = c
   \]
-  for some constant $c$, we have
+  for some constant $c$. If $\frac{\partial F}{\partial z} \neq 0$, then
   \[
-    \left.\frac{\partial z}{\partial x}\right|_y = -\frac{(\partial F)/(\partial x)}{(\partial F)/(\partial z)}
+    \left.\frac{\partial z}{\partial x}\right|_y = -\frac{\partial F/\partial x}{\partial F/\partial z}.
   \]
 \end{thm}
 
@@ -402,26 +408,27 @@ In general, we can derive the following formula:
     \left.\frac{\partial z}{\partial x}\right|_y &= -\frac{(\partial F)/(\partial x)}{(\partial F)/(\partial z)}\qedhere
   \end{align*}
 \end{proof}
-\subsection{Differentiation of an integral wrt parameter in the integrand}
-Consider a family of functions $f(x, c)$. Define $I(b, c) = \int_0^bf(x, c)\d x$. Then by the fundamental theorem of calculus, we have $\frac{\partial I}{\partial b} = f(b, c)$. On the other hand, we have
+\subsection{Differentiation of an integral with respect to a parameter}
+Consider a function $f(x, c)$ depending on a variable $x$ and a parameter $c$. Define the integral $I(b, c) = \int_0^b f(x, c)\,\d x$. By the Fundamental Theorem of Calculus, $\frac{\partial I}{\partial b} = f(b, c)$. To find $\frac{\partial I}{\partial c}$, observe that
 \begin{align*}
   \frac{\partial I}{\partial c} &= \lim_{\delta c\to 0}\frac{1}{\delta c}\left[\int_0^bf(x, c + \delta c)\d x - \int_0^b f(x, c)\;\d x\right]\\
   &= \lim_{\delta c\to 0}\int_0^b\frac{f(x, c + \delta c) - f(x, c)}{\delta c}\;\d x\\
   &= \int_0^b\lim_{\delta c\to 0}\frac{f(x, c + \delta c) - f(x, c)}{\delta c}\;\d x\\
   &= \int_0^b\frac{\partial f}{\partial c}\;\d x
 \end{align*}
-In general, if $I(b(x), c(x)) = \int_0^{b(x)} f(y, c(x))\d y$, then by the chain rule, we have
+More generally, suppose both the upper limit and a parameter in the integrand depend on $x$: let $I(x) = \int_0^{b(x)} f(y, c(x))\,\d y$, where $b$ and $c$ are differentiable functions of $x$. By the chain rule,
 \[
-  \frac{\d I}{\d x} = \frac{\partial I}{\partial b}\frac{\d b}{\d x} + \frac{\partial I}{\partial c}\frac{\d c}{\d x} = f(b, c)b'(x) + c'(x) \int_0^b\frac{\partial f}{\partial c}\;\d y.
+  \frac{\d I}{\d x} = \frac{\partial I}{\partial b}\frac{\d b}{\d x} + \frac{\partial I}{\partial c}\frac{\d c}{\d x} = f(b(x), c(x))\,b'(x) + c'(x) \int_0^{b(x)}\frac{\partial f}{\partial c}\;\d y.
 \]
-So we obtain
+This yields the following result.
 
 \begin{thm}[Differentiation under the integral sign]
+  Let $f(y, c)$ be continuously differentiable, and let $b(x)$ and $c(x)$ be differentiable functions. Then
   \[
-    \frac{\d}{\d x} \int_{0}^{b(x)} f(y, c(x))\;\d y= f(b, c)b'(x) + c'(x)\int_0^b \frac{\partial f}{\partial c}\;\d y
+    \frac{\d}{\d x} \int_{0}^{b(x)} f(y, c(x))\;\d y= f(b(x), c(x))\,b'(x) + c'(x)\int_0^{b(x)} \frac{\partial f}{\partial c}\;\d y.
   \]
 \end{thm}
-This is sometimes a useful technique that allows us to perform certain otherwise difficult integrals, as you will see in the example sheets. However, here we will only have time for a boring example.
+This technique is useful for evaluating certain integrals that would otherwise be difficult to compute.
 
 \begin{eg}[Gaussian parameter derivative]
   Let $I = \int_0^1 e^{-\lambda x^2}\d x$. Then
