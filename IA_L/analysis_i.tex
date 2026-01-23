@@ -172,7 +172,7 @@ Note that the red parts correspond to the \emph{definition} of convergence of a 
   \]
 \end{defi}
 The definition of an \emph{eventually bounded} sequence seems a bit daft. Clearly every eventually bounded sequence is bounded! Indeed it is:
-\begin{lemma}[Eventually bounded implies bounded]
+\begin{lemma}[Eventual boundedness]
   Every eventually bounded sequence is bounded.
 \end{lemma}
 
@@ -223,7 +223,7 @@ We want to prove that the product of convergent sequences is convergent. However
   Let $C\not=0$ be such that $(\forall n)\, |a_n|\leq C$. Let $\varepsilon > 0$. Then $\exists N$ such that $(\forall n\geq N)\, |b_n| < \varepsilon/C$. Then $|a_nb_n| < \varepsilon$.
 \end{proof}
 
-\begin{lemma}[Convergent implies bounded]
+\begin{lemma}[Boundedness of convergent sequences]
   Every convergent sequence is bounded.
 \end{lemma}
 
@@ -330,7 +330,7 @@ Recall that we characterized the least upper bound property. It turns out that t
 \end{defi}
 
 We want to show that the monotone sequences property is equivalent to the least upper bound property.
-\begin{lemma}[LUB implies monotone convergence]
+\begin{lemma}[Monotone convergence theorem]
   Least upper bound property $\Rightarrow$ monotone-sequences property.
 \end{lemma}
 
@@ -341,7 +341,7 @@ We want to show that the monotone sequences property is equivalent to the least 
 \end{proof}
 
 We first prove a handy lemma.
-\begin{lemma}[Limits preserve weak inequalities]
+\begin{lemma}[Limit inequality lemma]
   Let $(a_n)$ be a sequence and suppose that $a_n \to a$. If $(\forall n)\, a_n \leq x$, then $a\leq x$.
 \end{lemma}
 
@@ -350,7 +350,7 @@ We first prove a handy lemma.
 \end{proof}
 
 Before showing the other way implication, we will need the following:
-\begin{lemma}[MSP implies Archimedean]
+\begin{lemma}[Completeness and Archimedean property]
   Monotone-sequences property $\Rightarrow$ Archimedean property.
 \end{lemma}
 
@@ -362,7 +362,7 @@ Before showing the other way implication, we will need the following:
   If $\delta > 0$, then we can find $N$ such that $1/N < 2\delta$. But then for all $n \geq 4N$, we have $1/n \leq 1/(4N) < \delta/2$. Contradiction. Therefore $\delta = 0$.
 \end{proof}
 
-\begin{lemma}[MSP implies LUB]
+\begin{lemma}[Completeness equivalence]
   Monotone-sequences property $\Rightarrow$ least upper bound property.
 \end{lemma}
 
@@ -447,7 +447,7 @@ The third characterization of real numbers is in terms of Cauchy sequences. Cauc
 \end{defi}
 Roughly, a sequence is Cauchy if all terms are eventually close to each other (as opposed to close to a limit).
 
-\begin{lemma}[Convergent implies Cauchy]
+\begin{lemma}[Cauchy criterion, necessary condition]
   Every convergent sequence is Cauchy.
 \end{lemma}
 
@@ -487,7 +487,7 @@ However, not every complete ordered field is (isomorphic to) $\R$. For example, 
 
 To show that completeness implies the monotone-sequences property, we need an additional condition: the Archimedean property.
 
-\begin{lemma}[Archimedean completeness implies MSP]
+\begin{lemma}[Cauchy completeness]
   Let $\F$ be an ordered field with the Archimedean property such that every Cauchy sequence converges. The $\F$ satisfies the monotone-sequences property.
 \end{lemma}
 
@@ -598,7 +598,7 @@ In this chapter, we investigate which infinite \emph{sums}, as opposed to sequen
 \end{defi}
 
 There is an immediate necessary condition for a series to converge.
-\begin{lemma}[Terms of convergent series vanish]
+\begin{lemma}[Vanishing test]
   If $\displaystyle\sum_{n = 1}^\infty a_n$ converges. Then $a_n \to 0$.
 \end{lemma}
 
@@ -639,7 +639,7 @@ However, the converse is false!
     \sum_{n = 2}^{N}\frac{1}{n(n - 1)} = 1 - \frac{1}{N} \to 1.
   \]
 \end{eg}
-\begin{lemma}[Bounded partial sums for non-negative series]
+\begin{lemma}[Non-negative series lemma]
   Suppose that $a_n \geq 0$ for every $n$ and the partial sums $S_n$ are bounded above. Then $\sum_{n=1}^\infty a_n$ converges.
 \end{lemma}
 
@@ -716,7 +716,7 @@ Here we'll consider two stronger conditions for convergence --- absolute converg
   It does not converge absolutely, because the sum of the absolute values is the harmonic series.
 \end{eg}
 
-\begin{lemma}[Absolute convergence implies convergence]
+\begin{lemma}[Absolute convergence theorem]
   Let $\sum a_n$ converge absolutely. Then $\sum a_n$ converges.
 \end{lemma}
 
@@ -736,7 +736,7 @@ Here we'll consider two stronger conditions for convergence --- absolute converg
   A series $\sum a_n$ \emph{converges unconditionally} if the series $\sum_{n = 1}^{\infty} a_{\pi(n)}$ converges for every bijection $\pi: \N \to \N$, i.e.\ no matter how we re-order the elements of $a_n$, the sum still converges.
 \end{defi}
 
-\begin{thm}[Absolute implies unconditional convergence]
+\begin{thm}[Rearrangement theorem I]
   If $\sum a_n$ converges absolutely, then it converges unconditionally.
 \end{thm}
 
@@ -757,7 +757,7 @@ Here we'll consider two stronger conditions for convergence --- absolute converg
 \end{proof}
 
 The converse is also true.
-\begin{thm}[Unconditional implies absolute convergence]
+\begin{thm}[Rearrangement theorem II]
   If $\sum a_n$ converges unconditionally, then it converges absolutely.
 \end{thm}
 
@@ -1321,7 +1321,7 @@ We can interpret this as an approximation of $f(x + h)$:
 And differentiability shows that this is a very good approximation with small $o(h)$ error.
 
 Conversely, we have
-\begin{prop}[Linear approximation implies differentiability]
+\begin{prop}[Linear approximation criterion]
   If $f(x + h) = f(x) + hf'(x) + o(h)$, then $f$ is differentiable at $x$ with derivative $f'(x)$.
 \end{prop}
 \begin{proof}
@@ -1416,7 +1416,7 @@ We usually don't write out the error terms so explicitly, and just use heuristic
     \frac{f'(x)}{g(x)} - f(x)\frac{g'(x)}{g(x)^2} = \frac{f'(x)g(x) - f(x)g'(x)}{g(x)^2}.\qedhere
   \]
 \end{proof}
-\begin{lemma}[Differentiability implies continuity]
+\begin{lemma}[Continuity of differentiable functions]
   If $f$ is differentiable at $x$, then it is continuous at $x$.
 \end{lemma}
 
@@ -1996,7 +1996,7 @@ This implies that
   (z + h)^n - z^n - nhz^{n - 1} = h^2((z + h)^{n - 2} + 2z(z + h)^{n - 3} + \cdots + (n - 1)z^{n - 2}),
 \]
 which is actually the form we need.
-\begin{lemma}[Differentiated series converges in disk]
+\begin{lemma}[Differentiated series lemma]
   Let $\sum_{n=0}^\infty a_n z^n$ be a power series with radius of convergence $R > 0$, and let $z \in \C$ with $|z| < R$. Then the series $\sum_{n=1}^\infty na_n z^{n - 1}$ converges absolutely.
 \end{lemma}
 
@@ -2137,7 +2137,7 @@ The upper sum is the total area of the red rectangles, while the lower sum is th
   If $\mathcal{D}_1$ and $\mathcal{D}_2$ are dissections of $[a, b]$, we say that $\mathcal{D}_2$ refines $\mathcal{D}_1$ if every point of $\mathcal{D}_1$ is a point of $\mathcal{D}_2$.
 \end{defi}
 
-\begin{lemma}[Refinement improves bounds]
+\begin{lemma}[Refinement lemma]
   If $\mathcal{D}_2$ refines $\mathcal{D}_1$, then
   \[
     U_{\mathcal{D}_2} f \leq U_{\mathcal{D}_1}f\text{ and }L_{\mathcal{D}_2} f\geq L_{\mathcal{D}_1}f.
@@ -2409,7 +2409,7 @@ We will prove more ``obvious'' results.
   Follows immediately from the definition.
 \end{proof}
 
-\begin{prop}[Absolute value preserves integrability]
+\begin{prop}[Integrability of absolute value]
   Let $f: [a, b] \to \R$ be integrable. Then $|f|$ is integrable.
 \end{prop}
 
@@ -2510,7 +2510,7 @@ for every $x\in[a, b]$, then
   Since $C$ is fixed, and we can get $U_\mathcal{D} f - L_\mathcal{D}f$ and $U_\mathcal{D}g - L_\mathcal{D}g$ arbitrary small (since $f$ and $g$ are integrable), we can get $U_\mathcal{D}(fg) - L_\mathcal{D}(fg)$ arbitrarily small. So the result follows.
 \end{proof}
 
-\begin{thm}[Continuous functions are integrable]
+\begin{thm}[Integrability of continuous functions]
   Every continuous function $f$ on a closed bounded interval $[a, b]$ is Riemann integrable.
 \end{thm}
 
@@ -2553,7 +2553,7 @@ It is easy to show that a uniformly continuous function is integrable, since by 
 \end{proof}
 This proof is very similar to the proof that continuous functions are integrable. In fact, the proof that continuous functions are integrable is just a fuse of this proof and the (simple) proof that uniformly continuously functions are integrable.
 
-\begin{thm}[Monotone functions are integrable]
+\begin{thm}[Integrability of monotone functions]
   Let $f: [a, b] \to \R$ be monotone. Then $f$ is Riemann integrable.
 \end{thm}
 Note that monotone functions need not be ``nice''. It can even have infinitely many discontinuities. For example, if $f: [0, 1] \to \R$ maps $x$ to the $1/(\text{first non-zero digit in the binary expansion of }x)$, with $f(0) = 0$.
@@ -2641,7 +2641,7 @@ The idea of the proof is to integrate from a point $x_1$ very near $a$ up to a p
 \end{proof}
 
 We defined Riemann integration in a very general way --- we allowed \emph{arbitrary} dissections, and took the extrema over all possible dissection. Is it possible to just consider some particular nice dissections instead? Perhaps unsurprisingly, yes! It's just that we opt to define it the general way so that we can easily talk about things like least common refinements.
-\begin{lemma}[Uniform dissections converge to integral]
+\begin{lemma}[Uniform dissection lemma]
   Let $f: [a, b] \to \R$ be Riemann integrable, and for each $n$, let $\mathcal{D}_n$ be the dissection $a = x_0 < x_1 < \cdots < x_n = b$, where $x_i = a + \frac{i(b - a)}{n}$ for each $i$. Then
   \[
     U_{\mathcal{D}_n}f \to \int_a^b f(x)\;\d x
