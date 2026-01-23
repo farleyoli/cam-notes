@@ -1141,7 +1141,7 @@ Recall that $e^{\lambda x}$ is an eigenfunction of the differential operator $\f
 
 If the complementary function has the form $y_c = e^{\lambda x}$, then $y'_c = \lambda e^{\lambda x}$ and $y''_c = \lambda^2 e^{\lambda x}$. Substituting into the differential equation gives
 \begin{defi}[Characteristic equation]
-  The \emph{characteristic equation} of a (second-order) differential equation $ay'' + by' + c = 0$ is
+  The \emph{characteristic equation} of a (second-order) differential equation $ay'' + by' + cy = 0$ is
   \[
     a\lambda^2 + b\lambda + c = 0.
   \]
@@ -1153,7 +1153,7 @@ If $\lambda_1$ and $\lambda_2$ are distinct, then $y_1$ and $y_2$ are linearly i
 \[
   y_c = Ae^{\lambda_1 x} + Be^{\lambda_2 x}.
 \]
-\begin{eg}
+\begin{eg}[Distinct real roots]
   $y'' - 5y' + 6y = 0$. Try $y = e^{\lambda x}$. The characteristic equation is $\lambda^2 - 5\lambda + 6 = 0$. Then $\lambda = 2$ or $3$. So the general solution is $y = Ae^{2x} + Be^{3x}$.
 
   Note that $A$ and $B$ can be complex constants.
@@ -1175,7 +1175,7 @@ If $\lambda_1$ and $\lambda_2$ are distinct, then $y_1$ and $y_2$ are linearly i
 
   Try $y = e^{\lambda x}$. We have $\lambda ^2 - 4\lambda + 4 = 0$ and $(\lambda - 2)^2 = 0$. So $\lambda = 2$ or $2$. But $e^{2x}$ and $e^{2x}$ are clearly not linearly independent. We have only managed to find one basis function of the solution space, but a second order equation has a 2 dimensional solution space. We need to find a second solution.
 
-  We can perform \emph{detuning}. We can separate the two functions found above from each other by considering $y'' - 4y' + (4 - \varepsilon^2)y = 0$. This turns into the equation we want to solve as $\varepsilon \to 0$. Try $y = e^{\lambda x}$. We obtain $\lambda^2 - 4\lambda + 4 - \varepsilon^2$. The two roots are $\lambda = 2 \pm \varepsilon$. Then
+  We can perform \emph{detuning}. We can separate the two functions found above from each other by considering $y'' - 4y' + (4 - \varepsilon^2)y = 0$. This turns into the equation we want to solve as $\varepsilon \to 0$. Try $y = e^{\lambda x}$. We obtain $\lambda^2 - 4\lambda + 4 - \varepsilon^2 = 0$. The two roots are $\lambda = 2 \pm \varepsilon$. Then
   \begin{align*}
     y &= Ae^{(2 + \varepsilon)x} + Be^{(2 - \varepsilon)x}\\
     &= e^{2x}[A e^{\varepsilon x} + Be^{-\varepsilon x}]
@@ -1193,7 +1193,7 @@ If $\lambda_1$ and $\lambda_2$ are distinct, then $y_1$ and $y_2$ are linearly i
 \subsubsection{Second complementary function}
 In general (i.e.\ if we don't have constant coefficients), we can find a second complementary function associated with a degenerate solution of the homogeneous equation by looking for a solution in the form $y_2(x) = v(x) y_1(x)$, where $y_1(x)$ is the degenerate solution we found.
 
-\begin{eg}
+\begin{eg}[Reduction of order]
   Consider $y'' - 4y' + 4y = 0$. We have $y_1 = e^{2x}$. We try $y_2 = ve^{2x}$. Then
   \begin{align*}
     y_2' &= (v' + 2v)e^{2x}\\
@@ -1223,7 +1223,7 @@ Thus we are led to consider the \emph{solution vector}
 \]
 We say such a vector lies in the \emph{phase space}, which is an $n$-dimensional space. So for each $x$, we thus get a point $\mathbf{Y}(x)$ lying in the $n$-dimensional space. Moreover, given any point in the phase space, if we view it as the initial conditions for our differential equation, we get a unique trajectory in the phase space.
 
-\begin{eg}
+\begin{eg}[Phase space trajectories]
   Consider $y'' + 4y = 0$. Suppose we have an initial condition of $y_1(0) = 1, y'_1(0) = 0$. Then we can solve the equation to obtain $y_1(x) = \cos 2x$. Thus the initial solution vector is $\mathbf{Y}_1(0) = (1, 0)$, and the trajectory as $x$ varies is given by $\mathbf{Y}_1(x) = (\cos 2x, -2 \sin 2x)$. Thus as $x$ changes, we trace out an ellipse in the clockwise direction:
    \begin{center}
     \begin{tikzpicture}
@@ -1254,7 +1254,7 @@ In general, for a 2nd order equation, the phase space is a 2-dimensional space, 
 
 In our example, we have $W(x) = 2\cos^2 2x + 2\sin^2 2x = 2 \not= 0$ for all $x$.
 
-\begin{eg}
+\begin{eg}[Wronskian of degenerate solutions]
   In our earlier example, $y_1 = e^{2x}$ and $y_2 = xe^{2x}$. We have
   \[
     W = \left|\begin{matrix} e^{2x} & xe^{2x}\\ 2e^{2x} & e^{2x} + 2xe^{2x} \end{matrix}\right| = e^{4x}(1 + 2x - 2x) = e^{4x} \not= 0.
@@ -1275,8 +1275,8 @@ In both cases, the Wronskian is \emph{never} zero. Is it possible that it is zer
     \intertext{Subtracting the two equations, we have}
     y_1y_2'' - y_2y_1'' + p(y_1y_2' - y_2y_1') &= 0\\
     \intertext{Note that $W =y_1y_2' - y_2y_1'$ and $W' = y_1y_2'' + y_1'y_2' - (y_2'y_1' + y_2y_1'') = y_1y_2'' - y_2y_1''$}
-    W' + P(x)W &= 0\\
-    W(x) &= W_0 e^{-\int P\; \d x},
+    W' + p(x)W &= 0\\
+    W(x) &= W_0 e^{-\int p\; \d x},
   \end{align*}
   Where $W_0 = $ const. Since the exponential function is never zero, either $W_0 = 0$, in which case $W = 0$, or $W_0 \not= 0$ and $W \not= 0$ for any value of $x$.
 \end{proof}
@@ -1301,7 +1301,7 @@ If the forcing terms are simple, we can easily ``guess'' the form of the particu
 \end{center}
 It is important to remember that the equation is linear, so we can superpose solutions and consider each forcing term separately.
 
-\begin{eg}
+\begin{eg}[Polynomial and exponential forcing]
   Consider $y'' - 5y' + 6y = 2x + e^{4x}$. To obtain the forcing term $2x$, we need a first order polynomial $ax + b$, and to get $e^{4x}$ we need $ce^{4x}$. Thus we can guess
   \begin{align*}
     y_p &= ax + b + ce^{4x}\\
@@ -1323,7 +1323,7 @@ It is important to remember that the equation is linear, so we can superpose sol
   Note that any boundary condition to determine $A$ and $B$ must be applied to the full solution, not the complementary function
 \end{eg}
 \subsubsection{Resonance}
-Consider $\ddot y + \omega_0^2 y = \sin \omega_0 t$. The complementary solution is $y_c = A\sin \omega_0 t + B\cos w_0 t$. We notice that the forcing is itself a complementary function. So if we guess a particular integral $y_p = C\sin \omega_0 t + D\cos \omega_0 t$, we'll simply find $\ddot y_p + \omega_0 ^2 y_p = 0$, so we can't balance the forcing.
+Consider $\ddot y + \omega_0^2 y = \sin \omega_0 t$. The complementary solution is $y_c = A\sin \omega_0 t + B\cos \omega_0 t$. We notice that the forcing is itself a complementary function. So if we guess a particular integral $y_p = C\sin \omega_0 t + D\cos \omega_0 t$, we'll simply find $\ddot y_p + \omega_0 ^2 y_p = 0$, so we can't balance the forcing.
 
 This is an example of a simple harmonic oscillator being forced at its natural frequency.
 
@@ -1439,7 +1439,7 @@ Inverting the left matrix, we have
 \]
 So $u' = -\frac{y_2}{W}f$ and $v' = \frac{y_1}{W}f$.
 
-\begin{eg}
+\begin{eg}[Variation of parameters]
   $y'' + 4y = \sin 2x$. We know that $y_1 = \sin 2x$ and $y_2 = \cos 2x$. $W = -2$. We write
   \[
     y_p = u\sin 2x + v\cos 2x.
@@ -1487,7 +1487,7 @@ Alternatively, we can make a substitution $z = \ln x$. Then we can show that
 \[
   a\frac{\d ^2 y}{d z^2} + (b - a)\frac{\d y}{\d z} + cy = f(e^z).
 \]
-This turns an equidimensional equation into an equation with constant coefficients. The characteristic equation for solutions in the form $y = e^{\lambda z}$ is of form $a^2\lambda^2 + (b - a)\lambda + c = 0$, which we can rearrange to become $a\lambda(\lambda - 1) + b\lambda + c = 0$. So $\lambda = k_1, k_2$.
+This turns an equidimensional equation into an equation with constant coefficients. The characteristic equation for solutions in the form $y = e^{\lambda z}$ is $a\lambda^2 + (b - a)\lambda + c = 0$, which can be rearranged to $a\lambda(\lambda - 1) + b\lambda + c = 0$. So $\lambda = k_1, k_2$.
 
 Then the complementary function is $y_c = Ae^{k_1z} + Be^{k_2z} = Ax^{k_1} + Bx^{k_2}$.
 
@@ -1629,7 +1629,7 @@ Note that in all cases, it is possible to get a large initial increase in amplit
 In a forced system, the complementary functions typically determine the short-time transient response, while the particular integral determines the long-time (asymptotic) response.
 For example, if $f(\tau) = \sin\tau$, then we can guess $x_p = C\sin \tau + D\cos\tau$. In this case, it turns out that $x_p = -\frac{1}{2\kappa}\cos\tau$.
 
-The general solution is thus $x = Ae^{-\lambda_1\tau} + Be^{-\lambda \tau} - \frac{1}{2\kappa}\cos\tau \sim -\frac{1}{2\kappa}\cos\tau$ as $\tau\to \infty$ since $\Re (\lambda_{1, 2}) > 0$.
+The general solution is thus $x = Ae^{-\lambda_1\tau} + Be^{-\lambda_2 \tau} - \frac{1}{2\kappa}\cos\tau \sim -\frac{1}{2\kappa}\cos\tau$ as $\tau\to \infty$ since $\Re (\lambda_{1, 2}) > 0$.
 
 It is important to note that the forcing response is out of phase with the forcing.
 \subsection{Impulses and point forces}
@@ -1650,7 +1650,7 @@ Where $\Delta p$ is the change in momentum and the impulse $I = \int_{T - \varep
 \]
 Assuming that $F$ only acts on a negligible amount of time $\varepsilon$, all that matters to us is its integral $I$, i.e.\ the area under the force curve.
 
-wlog, assume $T = 0$ for easier mathematical treatment. We can consider a family of functions $D(t; \varepsilon)$ such that
+Without loss of generality, assume $T = 0$ for easier mathematical treatment. We can consider a family of functions $D(t; \varepsilon)$ such that
 \begin{gather*}
   \lim_{\varepsilon\to 0} D(t; \varepsilon) = 0 \text{ for all }t \not= 0;\\
   \lim_{\varepsilon\to 0}\int_{-\infty}^\infty D(t; \varepsilon) \;\d t = 1.
@@ -1700,7 +1700,7 @@ This gives a convenient way of representing and making calculations involving im
   m\ddot x = -mg + I\delta(t - T).
 \]
 
-\begin{eg}
+\begin{eg}[Impulsive forcing]
   $y'' - y = 3\delta(x - \frac{\pi}{2})$ with $y = 0$ at $x = 0, \pi$. Note that our function $y$ is split into two parts by $x = \frac{\pi}{2}$.
 
   First consider the region $0 \leq x < \frac{\pi}{2}$. Here the delta function is $0$, and we have $y'' - y = 0$ and $y = 0$ at $x = 0$. Then $y = Ce^x + De^{-x} = A\sinh x + B\cosh x$ and obtain $B = 0$ from the boundary condition.
