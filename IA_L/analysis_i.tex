@@ -2186,7 +2186,7 @@ Using the picture above, this is because if we cut up the dissections into small
   A very similar argument shows that $L_{\mathcal{D}_2} f \geq L_{\mathcal{D}_1}f$.
 \end{proof}
 \begin{defi}[Least common refinement]
-  If $\mathcal{D}_1$ and $\mathcal{D}_2$ be dissections of $[a, b]$. Then the least common refinement of $\mathcal{D}_1$ and $\mathcal{D}_2$ is the dissection made out of the points of $\mathcal{D}_1$ and $\mathcal{D}_2$.
+  Let $\mathcal{D}_1$ and $\mathcal{D}_2$ be dissections of $[a, b]$. Then the least common refinement of $\mathcal{D}_1$ and $\mathcal{D}_2$ is the dissection made out of the points of $\mathcal{D}_1$ and $\mathcal{D}_2$.
 \end{defi}
 
 \begin{cor}
@@ -2551,7 +2551,7 @@ It is easy to show that a uniformly continuous function is integrable, since by 
   \]
   Then by Bolzano-Weierstrass theorem, we can find a subsequence $(x_{n_k})$ converging to some $x$. Since $|x_{n_k} - y_{n_k}| \leq \frac{1}{n_k}$, $y_{n_k}\to x$ as well. But $|f(x_{n_k}) - f(y_{n_k})| \geq \varepsilon$ for every $k$. So $f(x_{n_k})$ and $f(y_{n_k})$ cannot both converge to the same limit. So $f$ is not continuous at $x$.
 \end{proof}
-This proof is very similar to the proof that continuous functions are integrable. In fact, the proof that continuous functions are integrable is just a fuse of this proof and the (simple) proof that uniformly continuously functions are integrable.
+This proof is very similar to the proof that continuous functions are integrable. In fact, the proof that continuous functions are integrable is just a fuse of this proof and the (simple) proof that uniformly continuous functions are integrable.
 
 \begin{thm}[Integrability of monotone functions]
   Let $f: [a, b] \to \R$ be monotone. Then $f$ is Riemann integrable.
@@ -2758,7 +2758,7 @@ Note that this is a stronger result than the corollary above, since it does not 
   \[
     f(b) - f(a) = \sum_{i = 1}^n (x_i - x_{i - 1})f'(u_i).
   \]
-  We know that $f'(u_i)$ is somewhere between $\sup\limits_{x\in[x_i, x_{i - 1}]}f'(x)$ and $\inf\limits_{x\in[x_i, x_{i - 1}]}f'(x)$ by definition. Therefore
+  We know that $f'(u_i)$ is somewhere between $\sup\limits_{x\in[x_{i-1}, x_i]}f'(x)$ and $\inf\limits_{x\in[x_{i-1}, x_i]}f'(x)$ by definition. Therefore
   \[
     L_\mathcal{D} f' \leq f(b) - f(a) \leq U_\mathcal{D} f'.
   \]
@@ -2810,7 +2810,7 @@ Recall that when we first had Taylor's theorem, we said it had the Lagrange form
   \end{align*}
   So the result follows by induction.
 \end{proof}
-Note that the form of the integral remainder is rather weird and unexpected. How could we have come up with it? We might start with the fundamental theorem of algebra and integrate by parts. The first attempt would be to integrate $1$ to $t$ and differentiate $f'(t)$ to $f^{(2)}(t)$. So we have
+Note that the form of the integral remainder is rather weird and unexpected. How could we have come up with it? We might start with the fundamental theorem of calculus and integrate by parts. The first attempt would be to integrate $1$ to $t$ and differentiate $f'(t)$ to $f^{(2)}(t)$. So we have
 \begin{align*}
   f(b) &= f(a) + \int_a^b f'(t)\;\d t\\
   &= f(a) + [tf'(t)]_a^b - \int_a^b tf^{(2)}(t)\;\d t\\
