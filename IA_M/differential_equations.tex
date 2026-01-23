@@ -76,7 +76,7 @@ We will first quickly go through basic notions of differentiation and integratio
   A function $f(x)$ is differentiable at $x$ if the limit exists (i.e.\ the left-hand and right-hand limits are equal).
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Absolute value at origin]
   $f(x)=|x|$ is not differentiable at $x = 0$ as $\lim\limits_{h\to 0^+} \frac{|h| - |0|}{h}= 1$ and $\lim\limits_{h\to 0^-} \frac{|h| - |0|}{h}= -1$.
 \end{eg}
 
@@ -98,7 +98,7 @@ We will first quickly go through basic notions of differentiation and integratio
 \end{defi}
 Note that this is an abuse of notation. We are not really saying that $f(x)$ is ``equal'' to $o(g(x))$, since $o(g(x))$ itself is not a function. Instead, $o(g(x))$ represents a \emph{class} of functions (namely functions that satisfy the property above), and we are saying that $f$ is in this class. Technically, a better notation might be $f(x) \in o(g(x))$, but in practice, writing $f(x) = o(g(x))$ is more common and more convenient.
 
-\begin{eg}\leavevmode
+\begin{eg}[Big-O and little-o examples]\leavevmode
   \begin{itemize}
     \item $x=o(\sqrt{x})$ as $x\to 0$ and $\sqrt{x} = o(x)$ as $x\to \infty$.
     \item $\sin 2x = O(x)$ as $x\to 0$ as $\sin \theta \approx \theta$ for small $\theta$.
@@ -107,7 +107,7 @@ Note that this is an abuse of notation. We are not really saying that $f(x)$ is 
 \end{eg}
 
 This notation will frequently be used in calculus. For example, if we want to ignore all terms second order in $x$ in an expression, we can write out the first order terms and then append $+O(x^2)$. In particular, we can use it to characterize derivatives in a different way.
-\begin{prop}
+\begin{prop}[Linear approximation characterization]
   \[
     f(x_0 + h) = f(x_0) + f'(x_0)h + o(h)
   \]
@@ -267,7 +267,7 @@ Trigonometric substitution can be performed with reference to the following tabl
     \bottomrule
   \end{tabular}
 \end{center}
-\begin{eg}
+\begin{eg}[Shifted sine substitution]
   Consider $\int \sqrt{2x - x^2}\;\d x = \int\sqrt{1 - (x - 1)^2}\;\d x$. Let $x - 1=\sin\theta$ and thus $\d x = \cos \theta\;\d\theta$. The expression becomes
   \begin{align*}
     \int \cos^2\theta \;\d \theta &= \int\frac{\cos 2\theta + 1}{2}\;\d \theta\\
@@ -286,7 +286,7 @@ Trigonometric substitution can be performed with reference to the following tabl
   From the product rule, we have $(uv)' = uv' + u'v$. Integrating the whole expression and rearranging gives the formula above.
 \end{proof}
 
-\begin{eg}
+\begin{eg}[$xe^{-x}$ improper integral]
   Consider $\int_0^\infty xe^{-x}\d x$. Let $u = x$ ad $v' = e^{-x}$. Then $u' = 1$ and $v = -e^{-x}$. We have
   \begin{align*}
     \int_0^\infty xe^{-x}\;\d x &= [-xe^{-x}]^\infty_0 + \int_0^\infty e^{-x} \;\d x\\
@@ -295,7 +295,7 @@ Trigonometric substitution can be performed with reference to the following tabl
   \end{align*}
 \end{eg}
 
-\begin{eg}[Integration by Parts]
+\begin{eg}[Logarithm integration]
   Consider $\int \log x\; \d x$. Let $u = \log x$ and $v' = 1$. Then $u' = \frac{1}{x}$ and $v = x$. So we have
   \begin{align*}
     \int \log x\; \d x &= x\log x - \int \d x\\
@@ -313,7 +313,7 @@ So far, we have only considered functions of one variable. If we have a function
   \]
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Exponential multivariate]
   Consider $f(x, y) = x^2 + y^3 + e^{xy^2}$. Computing the partial derivative is equivalent to computing the regular derivative with the other variables treated as constants. e.g.
   \[
     \left.\frac{\partial f}{\partial x}\right|_y = 2x + y^2e^{xy^2}.
@@ -333,7 +333,7 @@ Another convenient notation is
   \]
 \end{notation}
 It is important to know how the order works in the second case. The left hand side should be interpreted as $(f_x)_y$. So we first differentiate with respect to $x$, and then $y$. However, in most cases, this is not important, since we have
-\begin{thm}
+\begin{thm}[Schwarz's theorem]
   If $f$ has continuous second partial derivatives, then $f_{xy} = f_{yx}$.
 \end{thm}
 We will not prove this statement and just assume it to be true (since this is an applied course).
@@ -423,7 +423,7 @@ So we obtain
 \end{thm}
 This is sometimes a useful technique that allows us to perform certain otherwise difficult integrals, as you will see in the example sheets. However, here we will only have time for a boring example.
 
-\begin{eg}
+\begin{eg}[Gaussian parameter derivative]
   Let $I = \int_0^1 e^{-\lambda x^2}\d x$. Then
   \[
     \frac{\d I}{\d \lambda} = \int_0^1-x^2e^{-\lambda x^2}\;\d x.
