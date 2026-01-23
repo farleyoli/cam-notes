@@ -1869,7 +1869,7 @@ and equate coefficients of $z^n$, you get
   \begin{align*}
     e^z e^w &= \sum_{n = 0}^\infty \left(1\cdot \frac{w^n}{n!} + \frac{z}{1!}\frac{w^{n - 1}}{(n- 1)!} + \frac{z^2}{2!}\frac{w^{n - 2}}{(n- 2)!} + \cdots + \frac{z^{n}}{n!}\cdot 1\right)\\
     e^z e^w &= \sum_{n = 0}^\infty \frac{1}{n!}\left(w^n + \binom{n}{1} zw^{n - 1} + \binom{n}{2}z^2 w^{n - 2} + \cdots + \binom{n}{n}z^n\right)\\
-    &= \sum_{n = 0}^\infty (z + w)^n \text{ by the binomial theorem}\\
+    &= \sum_{n = 0}^\infty \frac{(z + w)^n}{n!} \text{ by the binomial theorem}\\
     &= e^{z + w}. \qedhere
   \end{align*}
 \end{proof}
@@ -2555,10 +2555,10 @@ This proof is very similar to the proof that continuous functions are integrable
 Note that monotone functions need not be ``nice''. It can even have infinitely many discontinuities. For example, if $f: [0, 1] \to \R$ maps $x$ to the $1/(\text{first non-zero digit in the binary expansion of }x)$, with $f(0) = 0$.
 
 \begin{proof}
-  let $\varepsilon > 0$. Let $\mathcal{D}$ be a dissection of mesh less than $\frac{\varepsilon}{f(b) - f(a)}$. Then
+  let $\varepsilon > 0$. Let $\mathcal{D}$ be a dissection of mesh less than $\frac{\varepsilon}{|f(b) - f(a)|}$. Then
   \begin{align*}
-    U_\mathcal{D} f - L_\mathcal{D}f &= \sum_{i = 1}^n (x_i - x_{i - 1})(f(x_i) - f(x_{i - 1}))\\
-    &\leq \frac{\varepsilon}{f(b) - f(a)} \sum_{i = 1}^n (f(x_i) - f(x_{i - 1}))\\
+    U_\mathcal{D} f - L_\mathcal{D}f &= \sum_{i = 1}^n (x_i - x_{i - 1})|f(x_i) - f(x_{i - 1})|\\
+    &\leq \frac{\varepsilon}{|f(b) - f(a)|} \sum_{i = 1}^n |f(x_i) - f(x_{i - 1})|\\
     &= \varepsilon.\qedhere
   \end{align*}
 \end{proof}
