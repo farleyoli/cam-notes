@@ -49,18 +49,18 @@ We are all familiar with real numbers --- they are ``decimals'' consisting of in
 
 We'll now define what it means to be an ``ordered field with the least upper bound property''.
 \begin{defi}[Field]
-  A \emph{field} is a set $\F$ with two binary operations $+$ and $\times$ that satisfies all the familiar properties satisfied by addition and multiplication in $\Q$, namely
+  A \emph{field} is a set $\F$ with two binary operations $+$ and $\times$ that satisfies the following properties (where all quantified variables range over elements of $\F$):
   \begin{enumerate}
-    \item $(\forall a, b, c)\,a + (b + c) = (a + b) + c$ and $a\times (b\times c) = (a\times b)\times c$ \hfill (associativity)
-    \item $(\forall a, b)\,a + b = b + a$ and $a\times b= b\times a$ \hfill (commutativity)
-    \item $\exists 0, 1$ such that $(\forall a)a + 0 = a$ and $a\times 1 = a$ \hfill (identity)
-    \item $\forall a\,\exists (-a)$ such that $a + (-a) = 0$. If $a\not= 0$, then $\exists a^{-1}$ such that $a\times a^{-1} = 1$. \hfill (inverses)
-    \item $(\forall a, b, c)\, a\times (b + c) = (a\times b) + (a\times c)$ \hfill (distributivity)
+    \item $(\forall a, b, c \in \F)\,a + (b + c) = (a + b) + c$ and $a\times (b\times c) = (a\times b)\times c$ \hfill (associativity)
+    \item $(\forall a, b \in \F)\,a + b = b + a$ and $a\times b= b\times a$ \hfill (commutativity)
+    \item $(\exists\, 0, 1 \in \F)(\forall a \in \F)\, a + 0 = a$ and $a\times 1 = a$ \hfill (identity)
+    \item $(\forall a \in \F)\,\exists (-a) \in \F$ such that $a + (-a) = 0$. If $a\not= 0$, then $\exists a^{-1} \in \F$ such that $a\times a^{-1} = 1$. \hfill (inverses)
+    \item $(\forall a, b, c \in \F)\, a\times (b + c) = (a\times b) + (a\times c)$ \hfill (distributivity)
   \end{enumerate}
 \end{defi}
 
 \begin{eg}[Examples of fields]
-  $\Q, \R, \C$, integers mod $p$, $\{a + b\sqrt{2}: a, b\in \Q\}$ are all fields.
+  The rational numbers $\Q$, real numbers $\R$, and complex numbers $\C$ are all fields. For any prime $p$, the integers modulo $p$ (denoted $\Z/p\Z$ or $\mathbb{F}_p$) form a field. The set $\Q(\sqrt{2}) = \{a + b\sqrt{2}: a, b\in \Q\}$ is also a field.
 \end{eg}
 
 \begin{defi}[Totally ordered set]
@@ -120,7 +120,7 @@ Obvious modifications give rise to definitions of lower bound, greatest lower bo
 \end{defi}
 Of course, it is \emph{very} important to show that such a thing exists, or else we will be studying nothing. It is also nice to show that such a field is unique (up to isomorphism). However, we will not prove these in the course.
 
-In a field, we can define the ``natural numbers'' to be $2 = 1 + 1$, $3 = 1 + 2$ etc. Then an important property of the real numbers is
+In any field $\F$, we can define the \emph{natural numbers} inductively: let $1$ be the multiplicative identity, and for each $n \in \N$, define $n + 1$ to be the sum of $n$ and $1$. Thus $2 = 1 + 1$, $3 = 2 + 1$, and so on. An important property of the real numbers is the following:
 \begin{lemma}[Archimedean property v1)]
   Let $\F$ be an ordered field with the least upper bound property. Then the set $\{1, 2, 3, \cdots\}$ is not bounded above.
 \end{lemma}
@@ -139,15 +139,15 @@ In this field, the integers are the constant functions $1, 2, 3, \cdots$, but it
 Having defined real numbers, the first thing we will study is sequences. We will want to study what it means for a sequence to \emph{converge}. Intuitively, we would like to say that $1, \frac{1}{2}, \frac{1}{3}, \frac{1}{4},\cdots$ converges to $0$, while $1, 2, 3, 4, \cdots$ diverges. However, the actual formal definition of convergence is rather hard to get right, and historically there have been failed attempts that produced spurious results.
 \subsection{Definitions}
 \begin{defi}[Sequence]
-  A \emph{sequence} is, formally, a function $a: \N \to \R$ (or $\C$). Usually (i.e.\ always), we write $a_n$ instead of $a(n)$. Instead of $a$, we usually write it as $(a_n)$, $(a_n)_1^\infty$ or $(a_n)_{n = 1}^\infty$ to indicate it is a sequence.
+  A \emph{sequence} (of real numbers) is a function $a: \N \to \R$, where $\N = \{1, 2, 3, \ldots\}$ denotes the set of positive integers. Similarly, a sequence of complex numbers is a function $a: \N \to \C$. We write $a_n$ instead of $a(n)$, and denote the sequence itself by $(a_n)$, $(a_n)_{n=1}^\infty$, or simply $(a_1, a_2, a_3, \ldots)$.
 \end{defi}
 
 \begin{defi}[Convergence of sequence]
-  Let $(a_n)$ be a sequence and $\ell\in \R$. Then $a_n$ \emph{converges to} $\ell$, \emph{tends to} $\ell$, or $a_n \to \ell$ , if for all $\varepsilon > 0$, there is some $N \in \N$ such that whenever $n > N$, we have $|a_n - \ell| < \varepsilon$. In symbols, this says
+  Let $(a_n)$ be a sequence of real numbers and let $\ell\in \R$. We say that $(a_n)$ \emph{converges to} $\ell$, or \emph{tends to} $\ell$, written $a_n \to \ell$ as $n \to \infty$, if for every $\varepsilon > 0$, there exists $N \in \N$ such that for all $n \geq N$, we have $|a_n - \ell| < \varepsilon$. In symbols:
   \[
-    (\forall \varepsilon > 0)(\exists N)(\forall n\geq N)\,|a_n - \ell| < \varepsilon.
+    (\forall \varepsilon > 0)(\exists N \in \N)(\forall n \geq N)\,|a_n - \ell| < \varepsilon.
   \]
-  We say $\ell$ is the \emph{limit} of $(a_n)$.
+  We call $\ell$ the \emph{limit} of $(a_n)$, and write $\lim_{n \to \infty} a_n = \ell$.
 \end{defi}
 One can think of $(\exists N)(\forall n\geq N)$ as saying ``eventually always'', or as ``from some point on''. So the definition means, if $a_n\to \ell$, then given any $\varepsilon$, eventually everything in the sequence is within $\varepsilon$ of $\ell$.
 
@@ -162,13 +162,13 @@ We'll now provide an alternative form of the Archimedean property. This is the f
 Note that the red parts correspond to the \emph{definition} of convergence of a sequence. This is generally how we prove convergence from first principles.
 
 \begin{defi}[Bounded sequence]
-  A sequence $(a_n)$ is \emph{bounded} if
+  A sequence $(a_n)$ is \emph{bounded} if there exists a constant $C \in \R$ such that $|a_n| \leq C$ for all $n \in \N$. In symbols:
   \[
-    (\exists C)(\forall n)\,|a_n| \leq C.
+    (\exists C \in \R)(\forall n \in \N)\,|a_n| \leq C.
   \]
-  A sequence is \emph{eventually bounded} if
+  A sequence is \emph{eventually bounded} if there exist $C \in \R$ and $N \in \N$ such that $|a_n| \leq C$ for all $n \geq N$:
   \[
-    (\exists C)(\exists N)(\forall n\geq N)\, |a_n| \leq C.
+    (\exists C \in \R)(\exists N \in \N)(\forall n \geq N)\, |a_n| \leq C.
   \]
 \end{defi}
 The definition of an \emph{eventually bounded} sequence seems a bit daft. Clearly every eventually bounded sequence is bounded! Indeed it is:
@@ -211,8 +211,12 @@ We want to prove that the product of convergent sequences is convergent. However
   Otherwise, let $\varepsilon > 0$. Then $\exists N$ such that $\forall n \geq N$, $|a_n - a| < \varepsilon/|\lambda|$. So $|\lambda a_n - \lambda a| < \varepsilon$.
 \end{proof}
 
+\begin{defi}[Null sequence]
+  A sequence $(b_n)$ is called a \emph{null sequence} if $b_n \to 0$ as $n \to \infty$.
+\end{defi}
+
 \begin{lemma}[Bounded times null sequence]
-  Let $(a_n)$ be bounded and $b_n \to 0$. Then $a_nb_n \to 0$.
+  Let $(a_n)$ be a bounded sequence and let $(b_n)$ be a null sequence. Then $(a_nb_n)$ is also a null sequence, i.e., $a_nb_n \to 0$.
 \end{lemma}
 
 \begin{proof}
@@ -254,7 +258,7 @@ Note that in this proof, we no longer write ``Let $\varepsilon > 0$''. In the be
   \]
   We want to show that this $\to 0$. Since $a - a_n \to 0$, we have to show that $1/(aa_n)$ is bounded.
 
-  Since $a_n \to a$, $\exists N$ such that $\forall n\geq N$, $|a_n - a| \leq a/2$. Then $\forall n\geq N$, $|a_n| \geq |a|/2$. Then $|1/(a_na)| \leq 2/|a|^2$. So $1/(a_na)$ is bounded. So $(a - a_n)/(aa_n)\to 0$ and the result follows.
+  Since $a_n \to a$ and $a \neq 0$, there exists $N \in \N$ such that for all $n \geq N$, $|a_n - a| \leq |a|/2$. By the triangle inequality, this implies $|a_n| \geq |a| - |a_n - a| \geq |a|/2$ for all $n \geq N$. Therefore $|1/(a_na)| \leq 2/|a|^2$, so the sequence $(1/(a_na))$ is eventually bounded, hence bounded. Since $(a - a_n) \to 0$ and $(1/(aa_n))$ is bounded, we have $(a - a_n)/(aa_n)\to 0$ by the bounded times null sequence lemma.
 \end{proof}
 
 \begin{cor}
@@ -266,7 +270,7 @@ Note that in this proof, we no longer write ``Let $\varepsilon > 0$''. In the be
 \end{proof}
 
 \begin{lemma}[Sandwich rule]
-  Let $(a_n)$ and $(b_n)$ be sequences that both converge to a limit $x$. Suppose that $a_n \leq c_n \leq b_n$ for every $n$. Then $c_n \to x$.
+  Let $(a_n)$, $(b_n)$, and $(c_n)$ be sequences of real numbers. Suppose that $(a_n)$ and $(b_n)$ both converge to the same limit $x \in \R$, and that $a_n \leq c_n \leq b_n$ for every $n \in \N$. Then $(c_n)$ also converges to $x$.
 \end{lemma}
 
 \begin{proof}
@@ -390,9 +394,11 @@ Let $(a_n)$ be a sequence, and suppose $a_n \to x$ and $a_n\to y$. Let $\varepsi
 \end{lemma}
 
 \begin{proof}
-  Let $T_n = [a_n, b_n]$ for each $n$. Then $a_1 \leq a_2 \leq\cdots$ and $b_1 \geq b_2\geq \cdots$. For each $n$, $a_n \leq b_n \leq b_1$. So the sequence $a_n$ is bounded above. So by the monotone sequences property, it has a limit $a$. For each $n$, we must have $a_n\leq a$. Otherwise, say $a_n > a$. Then for all $m \geq n$, we have $a_m \geq a_n > a$. This implies that $a > a$, which is nonsense.
+  Write $I_n = [a_n, b_n]$ for each $n \in \N$. Since $I_1 \supseteq I_2 \supseteq \cdots$, we have $a_1 \leq a_2 \leq \cdots$ and $b_1 \geq b_2 \geq \cdots$. For each $n$, $a_n \leq b_n \leq b_1$, so the sequence $(a_n)$ is increasing and bounded above by $b_1$. By the monotone sequences property, $(a_n)$ converges to some limit $\alpha$.
 
-  Also, for each fixed $n$, we have that $\forall m\geq n$, $a_m \leq b_m \leq b_n$. So $a \leq b_n$. Thus, for all $n$, $a_n \leq a \leq b_n$. So $a\in I_n$. So $a\in \bigcap_{n = 1}^\infty I_n$.
+  We claim that $a_n \leq \alpha$ for all $n$. Suppose for contradiction that $a_n > \alpha$ for some $n$. Then for all $m \geq n$, we have $a_m \geq a_n > \alpha$. Taking the limit as $m \to \infty$ gives $\alpha \geq a_n > \alpha$, a contradiction.
+
+  Also, for each fixed $n$, we have $a_m \leq b_m \leq b_n$ for all $m \geq n$. Taking limits, $\alpha \leq b_n$. Thus, for all $n$, we have $a_n \leq \alpha \leq b_n$, so $\alpha \in I_n$. Therefore $\alpha \in \bigcap_{n = 1}^\infty I_n$.
 \end{proof}
 
 We can use this to prove that the reals are uncountable:
@@ -579,18 +585,16 @@ Here we will define the limit supremum and infimum. While these are technically 
 In this chapter, we investigate which infinite \emph{sums}, as opposed to sequences, converge. We would like to say $1 + \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \cdots = 2$, while $1 + 1 + 1 + 1 + \cdots$ does not converge. The majority of the chapter is coming up with different tests to figure out if infinite sums converge.
 
 \subsection{Infinite sums}
-\begin{defi}[Convergence of infinite sums and partial sums]
-  Let $(a_n)$ be a real sequence. For each $N$, define
+\begin{defi}[Series and partial sums]
+  Let $(a_n)_{n=1}^\infty$ be a sequence of real numbers. For each $N \in \N$, the $N$th \emph{partial sum} is defined as
   \[
-    S_N = \sum_{n = 1}^N a_n.
+    S_N = \sum_{n = 1}^N a_n = a_1 + a_2 + \cdots + a_N.
   \]
-  If the sequence $(S_N)$ converges to some limit $s$, then we say that
+  If the sequence of partial sums $(S_N)_{N=1}^\infty$ converges to some limit $s \in \R$, then we say that the \emph{series} $\displaystyle\sum_{n = 1}^\infty a_n$ \emph{converges}, and we write
   \[
-    \sum_{n = 1}^\infty a_n = s,
+    \sum_{n = 1}^\infty a_n = s.
   \]
-  and we say that the series $\displaystyle\sum_{n = 1}^\infty a_n$ \emph{converges}.
-
-  We call $S_N$ the $N$th \emph{partial sum}.
+  If the sequence $(S_N)$ does not converge, we say the series \emph{diverges}.
 \end{defi}
 
 There is an immediate necessary condition for a series to converge.
@@ -645,15 +649,15 @@ However, the converse is false!
 
 The simplest convergence test we have is the \emph{comparison test}. Roughly speaking, it says that if $0 \leq a_n \leq b_n$ for all $n$ and $\sum b_n$ converges, then $\sum a_n$ converges. However, we will prove a much more general form here for convenience.
 \begin{lemma}[Comparison test]
-  Let $(a_n)$ and $(b_n)$ be non-negative sequences, and suppose that $\exists C, N$ such that $\forall n\geq N$, $a_n \leq Cb_n$. Then if $\sum b_n$ converges, then so does $\sum a_n$.
+  Let $(a_n)$ and $(b_n)$ be sequences of non-negative real numbers. Suppose there exist constants $C > 0$ and $N \in \N$ such that $a_n \leq Cb_n$ for all $n \geq N$. If $\sum_{n=1}^\infty b_n$ converges, then $\sum_{n=1}^\infty a_n$ also converges.
 \end{lemma}
 
 \begin{proof}
-  Let $M > N$. Also for each $R$, let $S_R = \sum_{n = 1}^R a_n$ and $T_R = \sum_{n = 1}^R b_n$. We want $S_R$ to be bounded above.
+  For each $R \in \N$, let $S_R = \sum_{n = 1}^R a_n$ and $T_R = \sum_{n = 1}^R b_n$ denote the partial sums. We want to show that $(S_R)$ is bounded above. For any $M > N$, we have
   \[
     S_M - S_N = \sum_{n = N + 1}^M a_n \leq C\sum _{n = N + 1}^M b_n \leq C\sum_{n = N + 1}^\infty b_n.
   \]
-  So $\forall M\geq N$, $S_M \leq S_n + C\sum_{n = N + 1}^\infty b_n$. Since the $S_M$ are increasing and bounded, it must converge.
+  Therefore, for all $M \geq N$, $S_M \leq S_N + C\sum_{n = N + 1}^\infty b_n$. Since $(S_M)$ is increasing and bounded above, it converges by the monotone sequences property.
 \end{proof}
 
 \begin{eg}[Comparison test applications]\leavevmode
@@ -959,14 +963,11 @@ Note that here we transformed the sum $\sum a_n(z^{n + 1} - z^n)$ into $a_N z^{N
 \section{Continuous functions}
 \subsection{Continuous functions}
 \begin{defi}[Continuous function]
-  Let $A\subseteq \R$, $a\in A$, and $f: A\to \R$. Then $f$ is \emph{continuous at} $a$ if for any $\varepsilon > 0 $, there is some $\delta > 0$ such that if $y \in A$ is such that $|y - a| < \delta$, then $|f(y) - f(a)| < \varepsilon$. In symbols, we have
+  Let $A \subseteq \R$ be a subset and let $f: A \to \R$ be a function. Let $a \in A$. We say that $f$ is \emph{continuous at} $a$ if for every $\varepsilon > 0$, there exists $\delta > 0$ such that for all $y \in A$ with $|y - a| < \delta$, we have $|f(y) - f(a)| < \varepsilon$. In symbols:
   \[
     (\forall \varepsilon > 0)(\exists \delta > 0)(\forall y\in A)\, |y - a| < \delta \Rightarrow |f(y) - f(a)| < \varepsilon.
   \]
-  $f$ is \emph{continuous} if it is continuous at every $a\in A$. In symbols, we have
-  \[
-    (\forall a\in A)(\forall \varepsilon > 0)(\exists \delta > 0)(\forall y\in A)\, |y - a| < \delta \Rightarrow |f(y) - f(a)| < \varepsilon.
-  \]
+  We say that $f$ is \emph{continuous (on $A$)} if $f$ is continuous at every point $a \in A$.
 \end{defi}
 Intuitively, $f$ is continuous at $a$ if we can obtain $f(a)$ as accurately as we wish by using more accurate values of $a$ (the definition says that if we want to approximate $f(a)$ by $f(y)$ to within accuracy $\varepsilon$, we just have to get our $y$ to within $\delta$ of $a$ for some $\delta$).
 
@@ -1236,15 +1237,15 @@ In the remainder of the course, we will properly develop calculus, and put diffe
 \subsection{Limits}
 First of all, we need the notion of limits. Recall that we've previously had limits for \emph{sequences}. Now, we will define limits for functions.
 \begin{defi}[Limit of functions]
-  Let $A\subseteq \R$ and let $f: A\to \R$. We say
+  Let $A \subseteq \R$, let $f: A \to \R$ be a function, and let $a \in \R$ be a point (which may or may not be in $A$). Let $\ell \in \R$. We say that $f(x)$ \emph{tends to} $\ell$ \emph{as} $x$ \emph{tends to} $a$, written
   \[
-    \lim_{x\to a}f(x) = \ell,
+    \lim_{x\to a}f(x) = \ell \quad \text{or} \quad f(x) \to \ell \text{ as } x \to a,
   \]
-  or ``$f(x) \to \ell$ as $x \to a$'', if
+  if for every $\varepsilon > 0$, there exists $\delta > 0$ such that for all $x \in A$ with $0 < |x - a| < \delta$, we have $|f(x) - \ell| < \varepsilon$. In symbols:
   \[
     (\forall \varepsilon > 0)(\exists \delta > 0)(\forall x\in A)\, 0 < |x - a| < \delta \Rightarrow |f(x) - \ell| < \varepsilon.
   \]
-  We couldn't care less what happens when $x = a$, hence the strict inequality $0 < |x - a|$. In fact, $f$ doesn't even have to be defined at $x = a$.
+  Note the strict inequality $0 < |x - a|$: we do not require anything about $f(a)$, and indeed $f$ need not be defined at $a$.
 \end{defi}
 
 \begin{eg}[Limit vs function value]
@@ -1285,15 +1286,15 @@ The previous limit theorems of sequences apply here as well
 \subsection{Differentiation}
 Similar to what we did in IA Differential Equations, we define the derivative as a limit.
 \begin{defi}[Differentiable function]
-  $f$ is \emph{differentiable} at $a$ with derivative $\lambda$ if
+  Let $f: A \to \R$ be a function defined on some set $A \subseteq \R$, and let $a \in A$ be an interior point of $A$. We say that $f$ is \emph{differentiable at} $a$ with \emph{derivative} $\lambda \in \R$ if
   \[
     \lim_{x\to a}\frac{f(x) - f(a)}{x - a} = \lambda.
   \]
-  Equivalently, if
+  Equivalently, $f$ is differentiable at $a$ with derivative $\lambda$ if
   \[
     \lim_{h\to 0}\frac{f(a + h) - f(a)}{h} = \lambda.
   \]
-  We write $\lambda = f'(a)$.
+  We write $f'(a) = \lambda$, and call $f'(a)$ the \emph{derivative of $f$ at $a$}.
 \end{defi}
 Here we see why, in the definition of the limit, we say that we don't care what happens when $x = a$. In our definition here, our function is 0/0 when $x = a$, and we can't make any sense out of what happens when $x = a$.
 
@@ -2097,15 +2098,16 @@ Still, the definition of the Riemann integral is not too straightforward, and re
 \end{defi}
 
 \begin{defi}[Upper and lower sums]
-  Given a dissection $\mathcal{D}$, the \emph{upper sum} and \emph{lower sum} are defined by the formulae
+  Let $f: [a,b] \to \R$ be a bounded function and let $\mathcal{D}: a = x_0 < x_1 < \cdots < x_n = b$ be a dissection of $[a,b]$. The \emph{upper sum} and \emph{lower sum} of $f$ with respect to $\mathcal{D}$ are defined by
   \begin{align*}
     U_\mathcal{D} (f) &= \sum_{i = 1}^{n}(x_i - x_{i - 1}) \sup_{x\in [x_{i - 1}, x_{i}]}f (x)\\
-    L_\mathcal{D} (f) &= \sum_{i = 1}^{n}(x_i - x_{i - 1}) \inf_{x\in [x_{i - 1}, x_{i}]}f (x)
+    L_\mathcal{D} (f) &= \sum_{i = 1}^{n}(x_i - x_{i - 1}) \inf_{x\in [x_{i - 1}, x_{i}]}f (x).
   \end{align*}
-  Sometimes we use the shorthand
+  For convenience, we often write
   \[
-    M_i = \sup_{x\in [x_{i - 1}, x_i]} f(x), \quad m_i = \inf_{x\in [x_{i - 1}, x_i]} f(x).
+    M_i = \sup_{x\in [x_{i - 1}, x_i]} f(x), \quad m_i = \inf_{x\in [x_{i - 1}, x_i]} f(x),
   \]
+  so that $U_\mathcal{D}(f) = \sum_{i=1}^n (x_i - x_{i-1}) M_i$ and $L_\mathcal{D}(f) = \sum_{i=1}^n (x_i - x_{i-1}) m_i$.
 \end{defi}
 The upper sum is the total area of the red rectangles, while the lower sum is the total area of the black rectangles:
 \begin{center}
