@@ -92,7 +92,7 @@ Now to define an ordered field, we don't simply ask for a field with an order. T
 \begin{defi}[Least upper bound]
   Let $X$ be an ordered set and let $A\subseteq X$. An \emph{upper bound} for $A$ is an element $x\in X$ such that $(\forall a\in A)\,a \leq x$. If $A$ has an upper bound, then we say that $A$ is \emph{bounded above}.
 
-  An upper bound $x$ for $A$ is a \emph{least upper bound} or \emph{supremum} if nothing smaller that $x$ is an upper bound. That is, we need
+  An upper bound $x$ for $A$ is a \emph{least upper bound} or \emph{supremum} if nothing smaller than $x$ is an upper bound. That is, we need
   \begin{enumerate}
     \item $(\forall a\in A)\,a \leq x$
     \item $(\forall y < x)(\exists a\in A)\,a > y$
@@ -149,7 +149,7 @@ Having defined real numbers, the first thing we will study is sequences. We will
   \]
   We say $\ell$ is the \emph{limit} of $(a_n)$.
 \end{defi}
-One can think of $(\exists N)(\forall n\geq N)$ as saying ``eventually always'', or as ``from some point on''. So the definition means, if $a_n\to \ell$, then given any $\varepsilon$, there eventually, everything in the sequence is within $\varepsilon$ of $\ell$.
+One can think of $(\exists N)(\forall n\geq N)$ as saying ``eventually always'', or as ``from some point on''. So the definition means, if $a_n\to \ell$, then given any $\varepsilon$, eventually everything in the sequence is within $\varepsilon$ of $\ell$.
 
 We'll now provide an alternative form of the Archimedean property. This is the form that is actually useful.
 \begin{lemma}[Archimedean property v2]
@@ -258,7 +258,7 @@ Note that in this proof, we no longer write ``Let $\varepsilon > 0$''. In the be
 \end{proof}
 
 \begin{cor}
-  If $a_n \to a, b_n \to b$, $b_n, b\not= 0$, then $a_n/b_n = a/b$.
+  If $a_n \to a, b_n \to b$, $b_n, b\not= 0$, then $a_n/b_n \to a/b$.
 \end{cor}
 
 \begin{proof}
@@ -640,7 +640,7 @@ However, the converse is false!
 \end{lemma}
 
 \begin{proof}
-  The sequence $(S_n)$ is increasing and bounded above. So the result follows form the monotone sequences property.
+  The sequence $(S_n)$ is increasing and bounded above. So the result follows from the monotone sequences property.
 \end{proof}
 
 The simplest convergence test we have is the \emph{comparison test}. Roughly speaking, it says that if $0 \leq a_n \leq b_n$ for all $n$ and $\sum b_n$ converges, then $\sum a_n$ converges. However, we will prove a much more general form here for convenience.
@@ -883,7 +883,7 @@ The following two tests were taught at the end of the course, but are included h
 \end{thm}
 
 \begin{proof}
-  This is basically the proof that $\sum \frac{1}{n}$ diverges and $\sum \frac{1}{n^{\alpha}}$ converges for $\alpha < 1$ but written in a more general way.
+  This is basically the proof that $\sum \frac{1}{n}$ diverges and $\sum \frac{1}{n^{\alpha}}$ converges for $\alpha > 1$ but written in a more general way.
 
   We have
   \begin{align*}
@@ -919,7 +919,7 @@ We can prove the complex versions of most theorems so far by looking at the real
   Let $(z_n)$ be a Cauchy sequence in $\C$. Let $z_n = x_n+ iy_n$. Then $(x_n)$ and $(y_n)$ are Cauchy. So they converge, from which it follows that $z_n = x_n + iy_n$ converges.
 \end{eg}
 
-Also, the Bolzano-Weierstrass theorem still holds: If $(z_n)$ is bounded, let $z_n = x_n + y_n$, then $(x_n)$ and $(y_n)$ are bounded. Then find a subsequence $(x_{n_k})$ that converges. Then find a subsequence of $(y_{n_k})$ that converges.
+Also, the Bolzano-Weierstrass theorem still holds: If $(z_n)$ is bounded, let $z_n = x_n + iy_n$, then $(x_n)$ and $(y_n)$ are bounded. Then find a subsequence $(x_{n_k})$ that converges. Then find a subsequence of $(y_{n_k})$ that converges.
 
 Then nested-intervals property has a ``nested-box'' property as a complex analogue.
 
@@ -1183,7 +1183,7 @@ Now we prove that continuous functions in closed intervals are bounded.
 \begin{proof}
   Let $f: [a, b]$ be continuous. Let $A = \{x: f\text{ is bounded on }[a, x]\}$. Then $a\in A$. If $x\in A, x\not= b$, then $\exists \delta > 0$ such that $|y - x| < \delta \Rightarrow |f(y) - f(x)| < 1$. So $\exists y > x$ (e.g.\ take $\min\{x + \delta/2, b\}$) such that $f$ is bounded on $[a, y]$, which implies that $y\in A$.
 
-  Now suppose that $\forall \varepsilon > 0$, $\exists y\in (x, - \varepsilon, x]$ such that $y\in A$. Again, we can find $\delta > 0$ such that $f$ is bounded on $(x - \delta, x + \delta)$, and in particular on $(x - \delta, x]$. Pick $y$ such that $f$ is bounded on $[a, y]$ and $y > x - \delta$. Then $f$ is bounded on $[a, x]$. So $x\in A$.
+  Now suppose that $\forall \varepsilon > 0$, $\exists y\in (x - \varepsilon, x]$ such that $y\in A$. Again, we can find $\delta > 0$ such that $f$ is bounded on $(x - \delta, x + \delta)$, and in particular on $(x - \delta, x]$. Pick $y$ such that $f$ is bounded on $[a, y]$ and $y > x - \delta$. Then $f$ is bounded on $[a, x]$. So $x\in A$.
 
   So we are done by continuous induction.
 \end{proof}
@@ -1256,7 +1256,7 @@ First of all, we need the notion of limits. Recall that we've previously had lim
       3 & x = 2
     \end{cases}
   \]
-  Then $\lim\limits_{x\to 2} = 2$, even though $f(2) = 3$.
+  Then $\lim\limits_{x\to 2} f(x) = 2$, even though $f(2) = 3$.
 \end{eg}
 
 \begin{eg}[Limit of $\sin x/x$]
@@ -1371,7 +1371,7 @@ We can prove the usual rules of differentiation using the small $o$-notation. It
   \begin{align*}
     (g\circ f)(x + h) ={}& g(f(x + h))\\
     ={}& g[f(x) + \underbrace{hf'(x) + h\varepsilon_1(h)}_{\text{the ``}h\text{'' term}}]\\
-    ={}& g(f(x)) + \big(fg'(x) + h\varepsilon_1(h)\big)g'(f(x))\\
+    ={}& g(f(x)) + \big(hf'(x) + h\varepsilon_1(h)\big)g'(f(x))\\
     &+ \big(hf'(x) + h\varepsilon_1(h)\big)\varepsilon_2(hf'(x) + h\varepsilon_1(h))\\
     ={}& g\circ f(x) + hg'(f(x))f'(x)\\
     &+ \underbrace{h\Big[\varepsilon_1(h)g'(f(x)) + \big(f'(x) + \varepsilon_1(h)\big)\varepsilon_2\big(hf'(x) + h\varepsilon_1(h)\big)\Big]}_{\text{error term}}.
@@ -1441,7 +1441,7 @@ Note that the conditions will (almost) always require $f$ to be differentiable o
   \]
   As $k \to 0$, since $g$ is continuous, $g(y + k) \to g(y)$. So $h \to 0$. So
   \[
-    \frac{g(y + k) - g(y)}{k} \to [f'(x)]^{-1} = [f'(g(y)]^{-1}.\qedhere
+    \frac{g(y + k) - g(y)}{k} \to [f'(x)]^{-1} = [f'(g(y))]^{-1}.\qedhere
   \]
 \end{proof}
 
@@ -1956,7 +1956,7 @@ Thus
   and similarly for others.
 \end{proof}
 \subsection{Differentiating power series}
-We shall show that inside the circle of convergence, the derivative of $\sum_{n = 0}^\infty a_z^n$ is given by the obvious formula $\sum_{n = 1}^\infty na_n z^{n - 1}$.
+We shall show that inside the circle of convergence, the derivative of $\sum_{n = 0}^\infty a_n z^n$ is given by the obvious formula $\sum_{n = 1}^\infty na_n z^{n - 1}$.
 
 We first prove some (seemingly arbitrary and random) lemmas to build up the proof of the above statement. They are done so that the final proof will not be full of tedious algebra.
 
@@ -2028,7 +2028,7 @@ which is actually the form we need.
 \begin{proof}
   We want $f(z + h) - f(z) - hg(z)$ to be $o(h)$. We have
   \[
-    f(z + h) - f(z) - hg(z) = \sum_{n = 2}^\infty a_n ((z + h)^n - z^n - hnz^n).
+    f(z + h) - f(z) - hg(z) = \sum_{n = 2}^\infty a_n ((z + h)^n - z^n - hnz^{n-1}).
   \]
   We started summing from $n = 2$ since the $n = 0$ and $n = 1$ terms are 0. Using our first lemma, we are left with
   \[
@@ -2104,7 +2104,7 @@ Still, the definition of the Riemann integral is not too straightforward, and re
   \end{align*}
   Sometimes we use the shorthand
   \[
-    M_i = \sup_{x\in [x_{i - 1}, x_i]} f(x), \quad m_i = \inf_{x\in [x_{i - 1} - x_i]} f(x).
+    M_i = \sup_{x\in [x_{i - 1}, x_i]} f(x), \quad m_i = \inf_{x\in [x_{i - 1}, x_i]} f(x).
   \]
 \end{defi}
 The upper sum is the total area of the red rectangles, while the lower sum is the total area of the black rectangles:
@@ -2136,7 +2136,7 @@ The upper sum is the total area of the red rectangles, while the lower sum is th
 \begin{lemma}[Refinement improves bounds]
   If $\mathcal{D}_2$ refines $\mathcal{D}_1$, then
   \[
-    U_{\mathcal{D}_2} f \leq U_{\mathcal{D}_1}f\text{ and }L_{\mathcal{D}_2 f}\geq L_{\mathcal{D}_1}f.
+    U_{\mathcal{D}_2} f \leq U_{\mathcal{D}_1}f\text{ and }L_{\mathcal{D}_2} f\geq L_{\mathcal{D}_1}f.
   \]
 \end{lemma}
 Using the picture above, this is because if we cut up the dissections into smaller pieces, the red rectangles can only get chopped into shorter pieces and the black rectangles can only get chopped into taller pieces.
@@ -2179,7 +2179,7 @@ Using the picture above, this is because if we cut up the dissections into small
   \]
   By induction, the result is true whenever $\mathcal{D}_2$ refines $\mathcal{D}_1$.
 
-  A very similar argument shows that $L_{\mathcal{D}_2f} \geq L_{\mathcal{D}_1}f$.
+  A very similar argument shows that $L_{\mathcal{D}_2} f \geq L_{\mathcal{D}_1}f$.
 \end{proof}
 \begin{defi}[Least common refinement]
   If $\mathcal{D}_1$ and $\mathcal{D}_2$ be dissections of $[a, b]$. Then the least common refinement of $\mathcal{D}_1$ and $\mathcal{D}_2$ is the dissection made out of the points of $\mathcal{D}_1$ and $\mathcal{D}_2$.
@@ -2750,7 +2750,7 @@ Note that this is a stronger result than the corollary above, since it does not 
   \[
     f(b) - f(a) = \sum_{i = 1}^n (f(x_i) - f(x_{i - 1})).
   \]
-  For each $i$, there exists $u_i\in (x_{i - 1}, x_i)$ such that $f(x_i) - f(x_{i - 1j}) = (x_i - x_{i - 1})f'(u_i)$ by the mean value theorem. So
+  For each $i$, there exists $u_i\in (x_{i - 1}, x_i)$ such that $f(x_i) - f(x_{i - 1}) = (x_i - x_{i - 1})f'(u_i)$ by the mean value theorem. So
   \[
     f(b) - f(a) = \sum_{i = 1}^n (x_i - x_{i - 1})f'(u_i).
   \]
@@ -2855,7 +2855,7 @@ It is sometimes sensible to talk about integrals of unbounded functions or integ
 \end{defi}
 \begin{eg}[Improper integral with power singularity]
   \[
-    \int_\varepsilon^1 x^{-1/2}\;\d x = \left[2x^{-1/2}\right]^1_\varepsilon = 2 - 2\varepsilon^{1/2} \to 2.
+    \int_\varepsilon^1 x^{-1/2}\;\d x = \left[2x^{1/2}\right]^1_\varepsilon = 2 - 2\varepsilon^{1/2} \to 2.
   \]
   So
   \[
