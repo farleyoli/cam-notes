@@ -121,7 +121,7 @@ Obvious modifications give rise to definitions of lower bound, greatest lower bo
 Of course, it is \emph{very} important to show that such a thing exists, or else we will be studying nothing. It is also nice to show that such a field is unique (up to isomorphism). However, we will not prove these in the course.
 
 In any field $\F$, we can define the \emph{natural numbers} inductively: let $1$ be the multiplicative identity, and for each $n \in \N$, define $n + 1$ to be the sum of $n$ and $1$. Thus $2 = 1 + 1$, $3 = 2 + 1$, and so on. An important property of the real numbers is the following:
-\begin{lemma}[Archimedean property v1)]
+\begin{lemma}[Archimedean property v1]
   Let $\F$ be an ordered field with the least upper bound property. Then the set $\{1, 2, 3, \cdots\}$ is not bounded above.
 \end{lemma}
 
@@ -220,7 +220,7 @@ We want to prove that the product of convergent sequences is convergent. However
 \end{lemma}
 
 \begin{proof}
-  Let $C\not=0$ be such that $(\forall n)\, |a_n|\leq C$. Let $\varepsilon > 0$. Then $\exists N$ such that $(\forall n\geq N)\, |b_n| < \varepsilon/C$. Then $|a_nb_n| < \varepsilon$.
+  Let $C > 0$ be such that $|a_n| \leq C$ for all $n$. Let $\varepsilon > 0$. Then $\exists N$ such that $(\forall n\geq N)\, |b_n| < \varepsilon/C$. Then $|a_nb_n| < \varepsilon$.
 \end{proof}
 
 \begin{lemma}[Boundedness of convergent sequences]
@@ -488,7 +488,7 @@ However, not every complete ordered field is (isomorphic to) $\R$. For example, 
 To show that completeness implies the monotone-sequences property, we need an additional condition: the Archimedean property.
 
 \begin{lemma}[Cauchy completeness]
-  Let $\F$ be an ordered field with the Archimedean property such that every Cauchy sequence converges. The $\F$ satisfies the monotone-sequences property.
+  Let $\F$ be an ordered field with the Archimedean property such that every Cauchy sequence converges. Then $\F$ satisfies the monotone-sequences property.
 \end{lemma}
 
 \begin{proof}
