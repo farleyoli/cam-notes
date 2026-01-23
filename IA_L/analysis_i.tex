@@ -909,7 +909,7 @@ The following two tests were taught at the end of the course, but are included h
 
 After we formally define integrals, we will prove the integral test:
 \begin{thm}[Integral test]
-  Let $f: [1, \infty] \to \R$ be a decreasing non-negative function. Then $\sum_{n = 1}^\infty f(n)$ converges iff $\int_1^\infty f(x)\;\d x < \infty$.
+  Let $f: [1, \infty) \to \R$ be a decreasing non-negative function. Then $\sum_{n = 1}^\infty f(n)$ converges if and only if the improper integral $\int_1^\infty f(x)\;\d x$ converges (i.e., is finite).
 \end{thm}
 
 \subsection{Complex versions}
@@ -1692,14 +1692,14 @@ Before we move on to integration, we first have a look at complex power series. 
 \begin{defi}[Complex power series]
   A \emph{complex power series} is a series of the form
   \[
-    \sum_{n = 0}^{\infty}a_n z^n.
+    \sum_{n = 0}^{\infty}a_n z^n,
   \]
-  when $z\in \C$ and $a_n\in \C$ for all $n$. When it converges, it is a function of $z$.
+  where $(a_n)_{n=0}^\infty$ is a sequence of complex numbers (the \emph{coefficients}) and $z \in \C$ is a complex variable. When the series converges, it defines a function of $z$.
 \end{defi}
 
 When considering complex power series, a very important concept is the \emph{radius of convergence}. To make sense of this concept, we first need the following lemma:
 \begin{lemma}[Convergence in smaller disk]
-  Suppose that $\sum a_nz^n$ converges and $|w| < |z|$, then $\sum a_n w^n$ converges (absolutely).
+  Let $(a_n)_{n=0}^\infty$ be a sequence of complex numbers and let $z, w \in \C$. If $\sum_{n=0}^\infty a_n z^n$ converges and $|w| < |z|$, then $\sum_{n=0}^\infty a_n w^n$ converges absolutely.
 \end{lemma}
 
 \begin{proof}
@@ -1736,7 +1736,7 @@ Now let $R = \sup\{|z|: \sum a_nz^n$ converges $\}$ ($R$ may be infinite). If $|
 \end{eg}
 
 \begin{eg}[Radius of $\sum z^n/n$]
-  $\displaystyle\sum_{n = 0}^\infty \frac{z^n}{n}$ has radius of convergence $1$, since the ratio of $(n + 1)$th term to $n$th is
+  The series $\displaystyle\sum_{n = 1}^\infty \frac{z^n}{n}$ has radius of convergence $1$. To see this, note that the ratio of the $(n + 1)$th term to the $n$th term is
   \[
     \frac{z^{n + 1}/(n + 1)}{z^n /n} = z\cdot\frac{n}{n + 1} \to z.
   \]
@@ -1774,7 +1774,7 @@ As evidenced by the above examples, the ratio test can be used to find the radiu
 \end{proof}
 
 \begin{eg}[Root test application]
-  The radius of convergence of $\displaystyle \frac{z^n}{2^n}$ is $2$ because $\sqrt[n]{|a_n|} = \frac{1}{2}$ for every $n$. So $\limsup \sqrt[n]{|a_n|} = \frac{1}{2}$. So $1/\limsup \sqrt[n]{|a_n|} = 2$.
+  The series $\displaystyle \sum_{n=0}^\infty \frac{z^n}{2^n}$ has radius of convergence $R = 2$. Here $a_n = 1/2^n$, so $\sqrt[n]{|a_n|} = 1/2$ for every $n$. Thus $\limsup_{n \to \infty} \sqrt[n]{|a_n|} = 1/2$, and therefore $R = 1/(1/2) = 2$.
 \end{eg}
 
 But often it is easier to find the radius convergence from elementary methods such as the ratio test, e.g.\ for $\sum n^2 z^n$.
@@ -1813,11 +1813,13 @@ Once we have this property, we can say that
 
 But we must still prove that $e^{z + w} = e^ze^w$.
 
-Consider two sequences $(a_n), (b_n)$. Their \emph{convolution} is the sequence $(c_n)$ defined by
-\[
-  c_n = a_0b_n + a_1b_{n - 1} + a_2b_{n - 2} + \cdots + a_nb_0.
-\]
-The relevance of this is that if you take
+\begin{defi}[Convolution of sequences]
+  Let $(a_n)_{n=0}^\infty$ and $(b_n)_{n=0}^\infty$ be sequences of complex numbers. Their \emph{convolution} is the sequence $(c_n)_{n=0}^\infty$ defined by
+  \[
+    c_n = \sum_{k=0}^{n} a_k b_{n-k} = a_0b_n + a_1b_{n - 1} + a_2b_{n - 2} + \cdots + a_nb_0.
+  \]
+\end{defi}
+The relevance of convolution is that if we take
 \[
   \left(\sum_{n = 0}^N a_nz^n\right)\left(\sum_{n = 0}^N b_nz^n\right)\text{ and }\sum_{n = 0}^N c_n z^n,
 \]
@@ -1931,7 +1933,7 @@ In particular,
 Since $\cos 0 = 1$, it follows by the intermediate value theorem that there exists some $x\in (0, 2)$ such that $\cos x = 0$. Since $\cos x \geq 1 - \frac{x^2}{2}$, we can further deduce that $x > 1$.
 
 \begin{defi}[Pi]
-  Define the smallest $x$ such that $\cos x = 0$ to be $\frac{\pi}{2}$.
+  We define $\pi$ to be twice the smallest positive real number $x$ such that $\cos x = 0$. In other words, $\pi/2$ is the smallest positive root of $\cos$.
 \end{defi}
 
 Since $\sin^2 z + \cos ^2 z = 1$, it follows that $\sin \frac{\pi}{2} = \pm 1$. Since $\cos x > 0$ on $[0, \frac{\pi}{2}]$, $\sin \frac{\pi}{2} \geq 0$ by the mean value theorem. So $\sin \frac{\pi}{2} = 1$.
@@ -1995,7 +1997,7 @@ This implies that
 \]
 which is actually the form we need.
 \begin{lemma}[Differentiated series converges in disk]
-  Let $a_n z^n$ have radius of convergence $R$, and let $|z| < R$. Then $\sum na_n z^{n - 1}$ converges (absolutely).
+  Let $\sum_{n=0}^\infty a_n z^n$ be a power series with radius of convergence $R > 0$, and let $z \in \C$ with $|z| < R$. Then the series $\sum_{n=1}^\infty na_n z^{n - 1}$ converges absolutely.
 \end{lemma}
 
 \begin{proof}
@@ -2880,7 +2882,7 @@ It is sometimes sensible to talk about integrals of unbounded functions or integ
 
 Finally, we can prove the integral test, whose proof we omitted when we first began.
 \begin{thm}[Integral test]
-  Let $f: [1, \infty] \to \R$ be a decreasing non-negative function. Then $\sum_{n = 1}^\infty f(n)$ converges iff $\int_1^\infty f(x)\;\d x < \infty$.
+  Let $f: [1, \infty) \to \R$ be a decreasing non-negative function. Then $\sum_{n = 1}^\infty f(n)$ converges if and only if the improper integral $\int_1^\infty f(x)\;\d x$ converges (i.e., is finite).
 \end{thm}
 
 \begin{proof}
