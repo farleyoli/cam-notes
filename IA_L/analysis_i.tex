@@ -121,7 +121,7 @@ Obvious modifications give rise to definitions of lower bound, greatest lower bo
 Of course, it is \emph{very} important to show that such a thing exists, or else we will be studying nothing. It is also nice to show that such a field is unique (up to isomorphism). However, we will not prove these in the course.
 
 In any field $\F$, we can define the \emph{natural numbers} inductively: let $1$ be the multiplicative identity, and for each $n \in \N$, define $n + 1$ to be the sum of $n$ and $1$. Thus $2 = 1 + 1$, $3 = 2 + 1$, and so on. An important property of the real numbers is the following:
-\begin{lemma}[Archimedean property v1)]
+\begin{lemma}[Archimedean property v1]
   Let $\F$ be an ordered field with the least upper bound property. Then the set $\{1, 2, 3, \cdots\}$ is not bounded above.
 \end{lemma}
 
@@ -220,7 +220,7 @@ We want to prove that the product of convergent sequences is convergent. However
 \end{lemma}
 
 \begin{proof}
-  Let $C\not=0$ be such that $(\forall n)\, |a_n|\leq C$. Let $\varepsilon > 0$. Then $\exists N$ such that $(\forall n\geq N)\, |b_n| < \varepsilon/C$. Then $|a_nb_n| < \varepsilon$.
+  Let $C > 0$ be such that $|a_n| \leq C$ for all $n$. Let $\varepsilon > 0$. Then $\exists N$ such that $(\forall n\geq N)\, |b_n| < \varepsilon/C$. Then $|a_nb_n| < \varepsilon$.
 \end{proof}
 
 \begin{lemma}[Boundedness of convergent sequences]
@@ -379,7 +379,7 @@ Before showing the other way implication, we will need the following:
 
   To show it is the \emph{least} upper bound, let $t < s$. Then since $u_n \to s$, we can find $m$ such that $u_m > t$. So $t$ is not an upper bound. Therefore $s$ is the least upper bound.
 \end{proof}
-Why do we need to prove the Archimedean property first? In the proof above, we secretly used the it. When showing that $v_n - u_n \to 0$, we required the fact that $\frac{1}{2^n} \to 0$. To prove this, we sandwiched it with $\frac{1}{n}$. But to show $\frac{1}{n}\to 0$, we need the Archimedean property.
+Why do we need to prove the Archimedean property first? In the proof above, we secretly used it. When showing that $v_n - u_n \to 0$, we required the fact that $\frac{1}{2^n} \to 0$. To prove this, we sandwiched it with $\frac{1}{n}$. But to show $\frac{1}{n}\to 0$, we need the Archimedean property.
 
 \begin{lemma}[Uniqueness of limits]
   A sequence can have at most 1 limit.
@@ -488,11 +488,11 @@ However, not every complete ordered field is (isomorphic to) $\R$. For example, 
 To show that completeness implies the monotone-sequences property, we need an additional condition: the Archimedean property.
 
 \begin{lemma}[Cauchy completeness]
-  Let $\F$ be an ordered field with the Archimedean property such that every Cauchy sequence converges. The $\F$ satisfies the monotone-sequences property.
+  Let $\F$ be an ordered field with the Archimedean property such that every Cauchy sequence converges. Then $\F$ satisfies the monotone-sequences property.
 \end{lemma}
 
 \begin{proof}
-  Instead of showing that every bounded monotone sequence converges, and is hence Cauchy, We will show the equivalent statement that every increasing non-Cauchy sequence is not bounded above.
+  Instead of showing that every bounded monotone sequence converges, and is hence Cauchy, we will show the equivalent statement that every increasing non-Cauchy sequence is not bounded above.
 
   Let $(a_n)$ be an increasing sequence. If $(a_n)$ is not Cauchy, then
   \[
@@ -599,7 +599,7 @@ In this chapter, we investigate which infinite \emph{sums}, as opposed to sequen
 
 There is an immediate necessary condition for a series to converge.
 \begin{lemma}[Vanishing test]
-  If $\displaystyle\sum_{n = 1}^\infty a_n$ converges. Then $a_n \to 0$.
+  If $\displaystyle\sum_{n = 1}^\infty a_n$ converges, then $a_n \to 0$.
 \end{lemma}
 
 \begin{proof}
@@ -665,7 +665,7 @@ The simplest convergence test we have is the \emph{comparison test}. Roughly spe
     \item $\sum \frac{1}{n2^n}$ converges, since $\sum \frac{1}{2^n}$ converges.
     \item $\sum \frac{n}{2^n}$ converges.
 
-      If $n \geq 4$, then $n \leq 2^{n/2}$. That's because $4 = 2^{4/2}$ and for $n\geq 4$, $(n + 1)/n < \sqrt{2}$, so when we increase $n$, we multiply the right side by a greater number by the left. Hence by the comparison test, it is sufficient to show that $\sum 2^{n/2}/2^n = \sum 2^{-n/2}$ converges, which it does (geometric series).
+      If $n \geq 4$, then $n \leq 2^{n/2}$. That's because $4 = 2^{4/2}$ and for $n\geq 4$, $(n + 1)/n < \sqrt{2}$, so when we increase $n$, we multiply the right side by a greater factor than the left. Hence by the comparison test, it is sufficient to show that $\sum 2^{n/2}/2^n = \sum 2^{-n/2}$ converges, which it does (geometric series).
     \item $\sum \frac{1}{\sqrt{n}}$ diverges, since $\frac{1}{\sqrt{n}} \geq \frac{1}{n}$. So if it converged, then so would $\sum \frac{1}{n}$, but $\sum \frac{1}{n}$ diverges.
     \item $\sum \frac{1}{n^2}$ converges, since for $n \geq 2$, $\frac{1}{n^2} \leq \frac{1}{n(n - 1)}$, and we have proven that the latter converges.
     \item Consider $\displaystyle \sum_{n = 1}^\infty \frac{n + 5}{n^3 - 7n^2/2}$. We show this converges by noting
@@ -741,7 +741,7 @@ Here we'll consider two stronger conditions for convergence --- absolute converg
 \end{thm}
 
 \begin{proof}
-  Let $S_n = \sum_{n = 1}^N a_{\pi (n)}$. Then if $p > q$,
+  Let $S_N = \sum_{n = 1}^N a_{\pi (n)}$. Then if $p > q$,
   \[
     |S_p - S_q| = \left|\sum_{n = q + 1}^p a_{\pi(n)}\right| \leq \sum_{n = q + 1}^\infty|a_{\pi (n)}|.
   \]
@@ -790,7 +790,7 @@ We can prove an even stronger result:
 \begin{proof}
   Let $\varepsilon > 0$. We know that both $\sum |a_n|$ and $\sum|a_{\pi(n)}|$ converge. So let $M$ be such that $\sum_{n > M}|a_n| < \frac{\varepsilon}{2}$ and $\sum_{n > M}|a_{\pi(n)}| < \frac{\varepsilon}{2}$.
 
-  Now $N$ be large enough such that
+  Now let $N$ be large enough such that
   \[
     \{1, \cdots, M\}\subseteq \{\pi(1), \cdots, \pi(N)\},
   \]
@@ -863,7 +863,7 @@ We'll now come up with a \emph{lot} of convergence tests.
 \begin{proof}\leavevmode
   \begin{enumerate}
     \item $|a_n| \leq c^{n - 1}|a_1|$. Since $\sum c^n$ converges, so does $\sum |a_n|$ by comparison test. So $\sum a_n$ converges absolutely, so it converges.
-    \item For all $k\geq 0$, we have $|a_{N + k}|\leq c^k|a_N|$. So the series $\sum |a_{N + k}|$ converges, and therefore so does $\sum |a_k|$.
+    \item For all $k\geq 0$, we have $|a_{N + k}|\leq c^k|a_N|$. So the series $\sum_{k=0}^\infty |a_{N + k}|$ converges, and therefore so does $\sum_{n=1}^\infty |a_n|$.
     \item If $\frac{a_{n + 1}}{a_n} \to \rho$, then $\frac{|a_{n + 1}|}{|a_n|} \to |\rho|$. So (setting $\varepsilon = (1 - |\rho|)/2$) there exists $N$ such that $\forall n \geq N$, $\frac{|a_{n + 1}|}{|a_n|} \leq \frac{1 + |\rho|}{2} < 1$. So the result follows from (ii).\qedhere
   \end{enumerate}
 \end{proof}
@@ -1030,7 +1030,7 @@ The definition of continuity of a function looks rather like the definition of c
           0 & x = 0
         \end{cases}
       \]
-      Then $f(a)$ is discontinuous. For example, let $a_n = 1/[(2n + 0.5)\pi]$. Then $a_n\to 0$ and $f(a_n) \to 1 \not= f(0)$.
+      Then $f$ is discontinuous at $0$. For example, let $a_n = 1/[(2n + 0.5)\pi]$. Then $a_n\to 0$ and $f(a_n) \to 1 \not= f(0)$.
   \end{enumerate}
 \end{eg}
 We can use this sequence definition as the definition for continuous functions. This has the advantage of being cleaner to write and easier to work with. In particular, we can reuse a lot of our sequence theorems to prove the analogous results for continuous functions.
@@ -1086,7 +1086,7 @@ There are two important theorems regarding continuous functions --- the maximum 
 
   Now let $C = \sup\{f(x): x\in [a, b]\}$. Then for every $n$, we can find $x_n$ such that $f(x_n) \geq C - \frac{1}{n}$. So by Bolzano-Weierstrass, $(x_n)$ has a convergent subsequence $(x_{n_k})$. Since $C - \frac{1}{n_{k}}\leq f(x_{n_k}) \leq C$, $f(x_{n_k})\to C$. Therefore if $x = \lim x_{n_k}$, then $f(x) = C$.
 
-  A similar argument applies if $f$ is unbounded below.
+  A similar argument shows that $f$ is bounded below and attains its infimum.
 \end{proof}
 
 \begin{thm}[Intermediate value theorem]
@@ -1182,7 +1182,7 @@ Now we prove that continuous functions in closed intervals are bounded.
 \end{thm}
 
 \begin{proof}
-  Let $f: [a, b]$ be continuous. Let $A = \{x: f\text{ is bounded on }[a, x]\}$. Then $a\in A$. If $x\in A, x\not= b$, then $\exists \delta > 0$ such that $|y - x| < \delta \Rightarrow |f(y) - f(x)| < 1$. So $\exists y > x$ (e.g.\ take $\min\{x + \delta/2, b\}$) such that $f$ is bounded on $[a, y]$, which implies that $y\in A$.
+  Let $f: [a, b] \to \R$ be continuous. Let $A = \{x: f\text{ is bounded on }[a, x]\}$. Then $a\in A$. If $x\in A, x\not= b$, then $\exists \delta > 0$ such that $|y - x| < \delta \Rightarrow |f(y) - f(x)| < 1$. So $\exists y > x$ (e.g.\ take $\min\{x + \delta/2, b\}$) such that $f$ is bounded on $[a, y]$, which implies that $y\in A$.
 
   Now suppose that $\forall \varepsilon > 0$, $\exists y\in (x - \varepsilon, x]$ such that $y\in A$. Again, we can find $\delta > 0$ such that $f$ is bounded on $(x - \delta, x + \delta)$, and in particular on $(x - \delta, x]$. Pick $y$ such that $f$ is bounded on $[a, y]$ and $y > x - \delta$. Then $f$ is bounded on $[a, x]$. So $x\in A$.
 
@@ -1219,7 +1219,7 @@ Not every cover has a finite subcover. For example, the cover $\{(\frac{1}{n}, 1
 We can use Heine-Borel to prove that continuous functions on $[a, b]$ are bounded.
 
 \begin{thm}[Extreme value theorem via Heine-Borel]
-  Let $[a, b]$ be a closed interval in $\R$ and let $f: [a, b] \to \R$ be continuous. Then $f$ is bounded and attains it bounds, i.e.\ $f(x) = \sup f$ for some $x$, and $f(y) = \inf f$ for some $y$.
+  Let $[a, b]$ be a closed interval in $\R$ and let $f: [a, b] \to \R$ be continuous. Then $f$ is bounded and attains its bounds, i.e.\ $f(x) = \sup f$ for some $x$, and $f(y) = \inf f$ for some $y$.
 \end{thm}
 
 \begin{proof}
@@ -1650,7 +1650,7 @@ Note that the remainder term is \emph{not} necessarily small, but this often giv
 
   But we know that $f^{(n)}(u) = f(u)$, but since $f$ is differentiable, it is continuous, and is bounded on $[0, x]$. Suppose $|f(u)| \leq C$ on $[0, x]$. Then
   \[
-    \left|\frac{f^{(n)(u)}}{n!}x^n\right| \leq \frac{C}{n!}|x|^n \to 0
+    \left|\frac{f^{(n)}(u)}{n!}x^n\right| \leq \frac{C}{n!}|x|^n \to 0
   \]
   from limit theorems. So it follows that
   \[
@@ -1719,7 +1719,7 @@ When considering complex power series, a very important concept is the \emph{rad
 \end{proof}
 It follows that if $\sum a_nz^n$ does not converge and $|w| > |z|$, then $\sum a_nw^n$ does not converge.
 
-Now let $R = \sup\{|z|: \sum a_nz^n$ converges $\}$ ($R$ may be infinite). If $|z| < R$, then we can find $z_0$ with $|z_0|\in (|z|, R]$ such that $\sum_n^\infty a_nz_0^n$ converges. So by lemma above, $\sum a_n z^n$ converges. If $|z| > R$, then $\sum a_nz^n$ diverges by definition of $R$.
+Now let $R = \sup\{|z|: \sum a_nz^n$ converges $\}$ ($R$ may be infinite). If $|z| < R$, then we can find $z_0$ with $|z_0|\in (|z|, R]$ such that $\sum_{n=0}^\infty a_nz_0^n$ converges. So by lemma above, $\sum a_n z^n$ converges. If $|z| > R$, then $\sum a_nz^n$ diverges by definition of $R$.
 
 \begin{defi}[Radius of convergence]
   The \emph{radius of convergence} of a power series $\sum a_nz^n$ is
@@ -1922,7 +1922,7 @@ It follows that if $x$ is real, then $|\cos x|$ and $|\sin x|$ are at most $1$.
 \end{proof}
 When $x$ is real, we know that $\cos x \leq 1$. Also $\sin 0 = 0$, and $\frac{\d }{\d x}\sin x = \cos x \leq 1$. So for $x \geq 0$, $\sin x \leq x$, ``by the mean value theorem''. Also, $\cos 0 = 1$, and $\frac{\d}{\d x}\cos x = -\sin x$, which, for $x \geq 0$, is greater than $-x$. From this, it follows that when $x \geq 0$, $\cos x \geq 1 - \frac{x^2}{2}$ (the $1 - \frac{x^2}{2}$ comes from ``integrating'' $-x$, (or finding a thing whose derivative is $-x$)).
 
-Continuing in this way, we get that for $x \geq 0$, if you take truncate the power series for $\sin x$ or $\cos x$, it will be $\geq \sin x, \cos x$ if you stop at a positive term, and $\leq$ if you stop at a negative term. For example,
+Continuing in this way, we get that for $x \geq 0$, if you truncate the power series for $\sin x$ or $\cos x$, it will be $\geq \sin x, \cos x$ if you stop at a positive term, and $\leq$ if you stop at a negative term. For example,
 \[
   \sin x \geq x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \frac{x^9}{9!} - \frac{x^{11}}{11!}.
 \]
@@ -2056,7 +2056,7 @@ In IB Analysis II, we will prove the same result using the idea of uniform conve
   \[
     1 + z + \frac{z^2}{2!} + \cdots = e^z.
   \]
-  So we have another proof that of this fact.
+  So we have another proof of this fact.
 
   Similarly, the derivatives of $\sin z$ and $\cos z$ work out as $\cos z$ and $-\sin z$.
 \end{eg}
@@ -2186,7 +2186,7 @@ Using the picture above, this is because if we cut up the dissections into small
   A very similar argument shows that $L_{\mathcal{D}_2} f \geq L_{\mathcal{D}_1}f$.
 \end{proof}
 \begin{defi}[Least common refinement]
-  If $\mathcal{D}_1$ and $\mathcal{D}_2$ be dissections of $[a, b]$. Then the least common refinement of $\mathcal{D}_1$ and $\mathcal{D}_2$ is the dissection made out of the points of $\mathcal{D}_1$ and $\mathcal{D}_2$.
+  Let $\mathcal{D}_1$ and $\mathcal{D}_2$ be dissections of $[a, b]$. Then the least common refinement of $\mathcal{D}_1$ and $\mathcal{D}_2$ is the dissection made out of the points of $\mathcal{D}_1$ and $\mathcal{D}_2$.
 \end{defi}
 
 \begin{cor}
@@ -2551,7 +2551,7 @@ It is easy to show that a uniformly continuous function is integrable, since by 
   \]
   Then by Bolzano-Weierstrass theorem, we can find a subsequence $(x_{n_k})$ converging to some $x$. Since $|x_{n_k} - y_{n_k}| \leq \frac{1}{n_k}$, $y_{n_k}\to x$ as well. But $|f(x_{n_k}) - f(y_{n_k})| \geq \varepsilon$ for every $k$. So $f(x_{n_k})$ and $f(y_{n_k})$ cannot both converge to the same limit. So $f$ is not continuous at $x$.
 \end{proof}
-This proof is very similar to the proof that continuous functions are integrable. In fact, the proof that continuous functions are integrable is just a fuse of this proof and the (simple) proof that uniformly continuously functions are integrable.
+This proof is very similar to the proof that continuous functions are integrable. In fact, the proof that continuous functions are integrable is just a fuse of this proof and the (simple) proof that uniformly continuous functions are integrable.
 
 \begin{thm}[Integrability of monotone functions]
   Let $f: [a, b] \to \R$ be monotone. Then $f$ is Riemann integrable.
@@ -2758,7 +2758,7 @@ Note that this is a stronger result than the corollary above, since it does not 
   \[
     f(b) - f(a) = \sum_{i = 1}^n (x_i - x_{i - 1})f'(u_i).
   \]
-  We know that $f'(u_i)$ is somewhere between $\sup\limits_{x\in[x_i, x_{i - 1}]}f'(x)$ and $\inf\limits_{x\in[x_i, x_{i - 1}]}f'(x)$ by definition. Therefore
+  We know that $f'(u_i)$ is somewhere between $\sup\limits_{x\in[x_{i-1}, x_i]}f'(x)$ and $\inf\limits_{x\in[x_{i-1}, x_i]}f'(x)$ by definition. Therefore
   \[
     L_\mathcal{D} f' \leq f(b) - f(a) \leq U_\mathcal{D} f'.
   \]
@@ -2810,7 +2810,7 @@ Recall that when we first had Taylor's theorem, we said it had the Lagrange form
   \end{align*}
   So the result follows by induction.
 \end{proof}
-Note that the form of the integral remainder is rather weird and unexpected. How could we have come up with it? We might start with the fundamental theorem of algebra and integrate by parts. The first attempt would be to integrate $1$ to $t$ and differentiate $f'(t)$ to $f^{(2)}(t)$. So we have
+Note that the form of the integral remainder is rather weird and unexpected. How could we have come up with it? We might start with the fundamental theorem of calculus and integrate by parts. The first attempt would be to integrate $1$ to $t$ and differentiate $f'(t)$ to $f^{(2)}(t)$. So we have
 \begin{align*}
   f(b) &= f(a) + \int_a^b f'(t)\;\d t\\
   &= f(a) + [tf'(t)]_a^b - \int_a^b tf^{(2)}(t)\;\d t\\
