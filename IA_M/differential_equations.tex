@@ -1774,7 +1774,7 @@ Hence the discontinuity is always addressed by the highest order derivative sinc
 \end{defi}
 
 \section{Series solutions}
-Often, it is difficult to solve a differential equation directly. However, we can attempt to find a Taylor series for the solution.
+When a differential equation cannot be solved in closed form, it is often possible to find a solution expressed as a Taylor series.
 
 We will consider equations of the form
 \[
@@ -1790,7 +1790,7 @@ We will consider equations of the form
   where $\frac{Q}{P}$ and $\frac{R}{P}$ have Taylor series about $x_0$, then $x_0$ is a \emph{regular singular point}.
 \end{defi}
 
-\begin{eg}\leavevmode
+\begin{eg}[Classifying singular points]\leavevmode
   \begin{enumerate}
     \item $(1 - x^2)y'' - 2cy' + 2y = 0$. $x = 0$ is an ordinary point. However, $x = \pm 1$ are (regular) singular points since $p(\pm 1) = 0$.
     \item $\sin x y'' + \cos x y' + 2y = 0$. $x = n\pi$ are regular singular points while all others are ordinary.
@@ -1810,22 +1810,22 @@ If $x_0$ is a regular singular point, then there is at least one solution of the
 \]
 with $a_0 \not= 0$ (to ensure $\sigma$ is unique). The \emph{index} $\sigma$ can be any complex number. This is called a Frobenius series.
 
-Alternatively, it can be nice to think of the Frobenius series as
+The Frobenius series can alternatively be written as
 \begin{align*}
   y &= (x - x_0)^\sigma \sum_{n = 0}^\infty a_n (x - x_0)^n\\
   &= (x-x_0)^\sigma f(x)
 \end{align*}
 where $f(x)$ is analytic and has a Taylor series.
 
-We will not prove these results, but merely apply them.
+The proofs of these results are beyond the scope of this text; the focus here is on applying them.
 
 \subsubsection*{Ordinary points}
-\begin{eg}
+\begin{eg}[Legendre-type series solution]
   Consider $(1 - x^2)y'' - 2xy' + 2y = 0$. Find a series solution about $x = 0$ (which is an ordinary point).
 
-  We try $y = \sum_{n = 0}^\infty a_nx^n$. First, we write the equation in the form of an equidimensional equation with polynomial coefficients by multiplying both sides by $x^2$. This little trick will make subsequent calculations slightly nicer. We obtain
+  We try $y = \sum_{n = 0}^\infty a_nx^n$. First, the equation is written in the form of an equidimensional equation with polynomial coefficients by multiplying both sides by $x^2$. This simplifies the subsequent calculations. We obtain
   \begin{align*}
-    (1 - x)^2 (x^2y'') - 2x^2(xy') + 2x^2 y &= 0\\
+    (1 - x^2) (x^2y'') - 2x^2(xy') + 2x^2 y &= 0\\
     \sum a_n[(1 - x^2) n(n - 1) - 2x^2n + 2x^2]x^n &= 0\\
     \sum a_n[n(n - 1) + (-n^2 - n + 2)x^2]x^n &= 0
   \end{align*}
@@ -1858,8 +1858,8 @@ We will not prove these results, but merely apply them.
 \end{eg}
 
 \subsubsection*{Regular singular points}
-\begin{eg}
-  Consider $4xy'' + 2(1 - x^2)y' - xy = 0$. Note that $x = 0$ is a singular point. However, if we multiply throughout by $x$ to obtain an equidimensional equation, we obtain
+\begin{eg}[Frobenius with half-integer index]
+  Consider $4xy'' + 2(1 - x^2)y' - xy = 0$. Note that $x = 0$ is a singular point. Multiplying the equation by $x$ yields the equidimensional form
   \[
     4(x^2 y'') + 2(1 - x^2)xy' - x^2 y = 0.
   \]
@@ -1935,15 +1935,15 @@ Note that the indicial equation has two roots $\sigma_1, \sigma_2$. Consider the
     \]
     with $\sigma_2 \geq \sigma_1$.
 
-    In this case, $\sigma = \sigma_1$ will not give a valid solution, as we will later see. Instead, the other solution is (usually) in the form
+    In this case, $\sigma = \sigma_1$ typically does not yield a valid solution, as demonstrated in the following example. Instead, the second solution is generally of the form
     \[
       y_2 = \ln(x - x_0)y_1 + \sum_{n = 0}^\infty b_n(x - x_0)^{n + \sigma_1}.
     \]
-    This form arises from resonance between the two solutions. But if the resonance somehow avoids itself, we can possibly end up with two regular Frobenius series solutions.
+    This form arises from resonance between the two solutions. However, if the resonance condition is not triggered, it is possible for two regular Frobenius series solutions to exist.
 
     We can substitute this form of solution into the differential equation to determine $b_n$.
 \end{enumerate}
-\begin{eg}
+\begin{eg}[Resonant Frobenius series]
   Consider $x^2 y'' - xy = 0$. $x = 0$ is a regular singular point. It is already in equidimensional form $(x^2y'') - x(y) = 0$. Try
   \[
     y = \sum_{n = 0}^\infty a_n x^{n + \sigma}
