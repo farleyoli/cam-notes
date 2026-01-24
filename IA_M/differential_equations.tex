@@ -222,13 +222,15 @@ L'H\^opital's rule provides a method for evaluating limits of indeterminate form
 \end{proof}
 
 \section{Integration}
-\subsection{Integration}
+This section introduces integration as the inverse operation to differentiation and presents several techniques for evaluating integrals.
+
+\subsection{Definition of the integral}
 \begin{defi}[Integral]
-  Let $f$ be a function defined on an interval $[a, b]$. The \emph{integral} of $f$ over $[a, b]$ is defined as the limit of a Riemann sum:
+  Let $f$ be a function defined on an interval $[a, b]$. To define the integral of $f$ over $[a, b]$, we partition the interval into $N$ subintervals of equal width $\Delta x = \frac{b-a}{N}$, with endpoints $x_n = a + n\Delta x$ for $n = 0, 1, \ldots, N$. The \emph{integral} of $f$ over $[a, b]$ is defined as the limit of the Riemann sum:
   \[
-    \int_a^b f(x) \;\d x = \lim_{\Delta x\to 0}\sum_{n=0}^N f(x_n)\Delta x,
+    \int_a^b f(x) \;\d x = \lim_{N\to\infty}\sum_{n=0}^{N-1} f(x_n)\Delta x.
   \]
-  where $\Delta x = \frac{b-a}{N}$ is the width of each subinterval and $x_n = a + n\Delta x$ are the sample points. More generally, the term ``integral'' refers to any limit of such sums (the precise definition of the Riemann integral is treated in Analysis I). Pictorially, this represents the area under the curve:
+  More generally, the term ``integral'' refers to any limit of such sums (the precise definition of the Riemann integral is treated in Analysis I). Pictorially, this represents the area under the curve:
   \begin{center}
     \begin{tikzpicture}
       \draw [->] (-1, 0) -- (5, 0) node [right] {$x$};
@@ -247,46 +249,58 @@ L'H\^opital's rule provides a method for evaluating limits of indeterminate form
   \end{center}
 \end{defi}
 
-The area of each rectangle from $x_n$ to $x_{n+1}$ is $f(x_n)\Delta x + O(\Delta x^2)$. For a differentiable function $f$, the total area under the graph from $a$ to $b$ is therefore
-\[
-  \lim_{N\to \infty} \sum_{n=0}^{N-1}(f(x_n)\Delta x) + N\cdot O(\Delta x^2) = \lim_{N\to \infty} \sum_{n=0}^{N-1}(f(x_n)\Delta x) + O(\Delta x) = \int_a^b f(x)\;\d x.
-\]
+Each rectangle has width $\Delta x$ and height $f(x_n)$. For a differentiable function $f$, the true area under the curve over $[x_n, x_{n+1}]$ differs from $f(x_n)\Delta x$ by $O(\Delta x^2)$, since $f$ varies by at most $O(\Delta x)$ over the subinterval. Summing over all $N$ rectangles, the total error is $N \cdot O(\Delta x^2) = O(\Delta x)$ (since $N\Delta x = b - a$ is constant), which vanishes as $N \to \infty$.
+
+The fundamental connection between differentiation and integration is given by the following theorem.
+
 \begin{thm}[Fundamental Theorem of Calculus]
-  Let $f$ be a continuous function on $[a, b]$, and define $F(x) = \int_a^x f(t)\;\d t$. Then $F$ is differentiable and $F'(x) = f(x)$.
+  Let $f$ be a continuous function on $[a, b]$, and define $F(x) = \int_a^x f(t)\;\d t$ for $x \in [a,b]$. Then $F$ is differentiable and $F'(x) = f(x)$.
 \end{thm}
 
 \begin{proof}
+  By the definition of the derivative,
   \begin{align*}
-    \frac{\d}{\d x}F(x) &= \lim_{h\to 0}\frac{1}{h}\left[\int_a^{x+h}f(t)\;\d t - \int_a^x f(t)\;\d t\right]\\
-    &= \lim_{h\to 0} \frac{1}{h}\int_x^{x+h}f(t) \;\d t\\
-    &= \lim_{h\to 0} \frac{1}{h}[f(x)h + O(h^2)]\\
-    &= f(x)
+    F'(x) &= \lim_{h\to 0}\frac{F(x+h) - F(x)}{h} = \lim_{h\to 0}\frac{1}{h}\left[\int_a^{x+h}f(t)\;\d t - \int_a^x f(t)\;\d t\right]\\
+    &= \lim_{h\to 0} \frac{1}{h}\int_x^{x+h}f(t) \;\d t.
   \end{align*}
+  Since $f$ is continuous, for small $h$ we have $f(t) = f(x) + O(h)$ for $t \in [x, x+h]$. Thus
+  \[
+    \int_x^{x+h}f(t)\;\d t = f(x) \cdot h + O(h^2),
+  \]
+  and dividing by $h$ and taking the limit gives $F'(x) = f(x)$.
 \end{proof}
-As immediate consequences, if $f$ is continuous and $g$ is differentiable, then
+The Fundamental Theorem has several useful corollaries. If $f$ is continuous and $b$ is a constant, then
 \[
-  \frac{\d}{\d x}\int_x^b f(t)\;\d t = -f(x)
+  \frac{\d}{\d x}\int_x^b f(t)\;\d t = -f(x),
 \]
-and, by the chain rule,
+since $\int_x^b f(t)\,\d t = -\int_b^x f(t)\,\d t$. More generally, if $g$ is a differentiable function, then by the chain rule,
 \[
   \frac{\d}{\d x}\int_a^{g(x)} f(t)\;\d t = f(g(x))g'(x).
 \]
 
 \begin{notation}
-  We write $\int f(x)\;\d x= \int^x f(t)\;\d t$, where the unspecified lower limit gives rise to the constant of integration.
+  The \emph{indefinite integral} $\int f(x)\;\d x$ denotes an antiderivative of $f$, i.e., any function $F$ such that $F'(x) = f(x)$. Since antiderivatives differ by a constant, we write $\int f(x)\,\d x = F(x) + C$, where $C$ is the \emph{constant of integration}.
 \end{notation}
 
 \subsection{Methods of integration}
-Integration is substantially harder than differentiation. While the product rule and chain rule, combined with a table of standard derivatives, suffice to differentiate most expressions, many seemingly simple integrands can be surprisingly difficult---or even impossible---to integrate in closed form. Several techniques are available to evaluate integrals.
+Integration is substantially harder than differentiation. While the product rule and chain rule, combined with a table of standard derivatives, suffice to differentiate most expressions, many seemingly simple integrands can be surprisingly difficult---or even impossible---to integrate in closed form. This subsection presents several techniques for evaluating integrals.
+
+\subsubsection*{Substitution}
+The method of substitution is the integration analogue of the chain rule. If $u = g(x)$ is a differentiable function, then
+\[
+  \int f(g(x))g'(x)\,\d x = \int f(u)\,\d u.
+\]
+In practice, we write $\d u = g'(x)\,\d x$ and substitute directly.
 
 \begin{eg}[Integration by substitution]
-  Consider $\int \frac{1 - 2x}{\sqrt{x - x^2}}\;\d x$. Write $u = x - x^2$ and $\d u = (1 - 2x)\;\d x$. Then the integral becomes
+  Consider $\int \frac{1 - 2x}{\sqrt{x - x^2}}\;\d x$. Let $u = x - x^2$, so that $\d u = (1 - 2x)\;\d x$. The integral becomes
   \[
-    \int \frac{\d u}{\sqrt{u}} = 2\sqrt{u} + C = 2\sqrt{x - x^2} + C.
+    \int \frac{\d u}{\sqrt{u}} = \int u^{-1/2}\,\d u = 2u^{1/2} + C = 2\sqrt{x - x^2} + C.
   \]
 \end{eg}
 
-Trigonometric substitution can be performed with reference to the following table: if the function in the 2nd column is found in the integrand, perform the substitution in the 3rd column and simplify using the identity in the first column:
+\subsubsection*{Trigonometric and hyperbolic substitution}
+When the integrand contains expressions involving square roots of quadratics, a trigonometric or hyperbolic substitution can simplify the integral. The following table summarizes common substitutions:
 \begin{center}
   \begin{tabular}{ccc}
     \toprule
@@ -301,39 +315,48 @@ Trigonometric substitution can be performed with reference to the following tabl
   \end{tabular}
 \end{center}
 \begin{eg}[Shifted sine substitution]
-  Consider $\int \sqrt{2x - x^2}\;\d x = \int\sqrt{1 - (x - 1)^2}\;\d x$. Let $x - 1=\sin\theta$ and thus $\d x = \cos \theta\;\d\theta$. The expression becomes
+  Consider $\int \sqrt{2x - x^2}\;\d x$. Completing the square gives $2x - x^2 = 1 - (x-1)^2$, so we substitute $x - 1 = \sin\theta$, whence $\d x = \cos\theta\,\d\theta$ and $\sqrt{1 - (x-1)^2} = \cos\theta$. The integral becomes
   \begin{align*}
-    \int \cos^2\theta \;\d \theta &= \int\frac{\cos 2\theta + 1}{2}\;\d \theta\\
-    &= \frac{1}{4}\sin 2\theta + \frac{1}{2}\theta + C\\
-    &= \frac{1}{2}\sin^{-1}(x - 1) + \frac{1}{2}(x - 1)\sqrt{2x - x^2} + C.
+    \int \cos^2\theta \;\d \theta &= \int\frac{1 + \cos 2\theta}{2}\;\d \theta = \frac{\theta}{2} + \frac{\sin 2\theta}{4} + C.
   \end{align*}
+  To express the answer in terms of $x$, we use $\theta = \sin^{-1}(x-1)$ and the identity $\sin 2\theta = 2\sin\theta\cos\theta = 2(x-1)\sqrt{2x-x^2}$. Thus
+  \[
+    \int \sqrt{2x - x^2}\;\d x = \frac{1}{2}\sin^{-1}(x - 1) + \frac{1}{2}(x - 1)\sqrt{2x - x^2} + C.
+  \]
 \end{eg}
 
+\subsubsection*{Integration by parts}
+Integration by parts is the integration analogue of the product rule.
+
 \begin{thm}[Integration by parts]
-  Let $u$ and $v$ be differentiable functions. Then
+  Let $u$ and $v$ be differentiable functions of $x$. Then
   \[
     \int u(x)v'(x)\;\d x = u(x)v(x) - \int v(x)u'(x) \;\d x.
+  \]
+  For definite integrals,
+  \[
+    \int_a^b u(x)v'(x)\;\d x = [u(x)v(x)]_a^b - \int_a^b v(x)u'(x) \;\d x.
   \]
 \end{thm}
 
 \begin{proof}
-  By the product rule, $(uv)' = uv' + u'v$. Integrating both sides and rearranging yields the result.
+  By the product rule, $(uv)' = uv' + u'v$. Integrating both sides gives $uv = \int uv'\,\d x + \int u'v\,\d x$, and rearranging yields the result.
 \end{proof}
 
-\begin{eg}[$xe^{-x}$ improper integral]
-  Consider $\int_0^\infty xe^{-x}\d x$. Let $u = x$ and $v' = e^{-x}$. Then $u' = 1$ and $v = -e^{-x}$. We have
+\begin{eg}[Improper integral of $xe^{-x}$]
+  Consider the improper integral $\int_0^\infty xe^{-x}\,\d x$, where the upper limit is interpreted as $\lim_{R\to\infty}\int_0^R xe^{-x}\,\d x$. Let $u = x$ and $v' = e^{-x}$, so that $u' = 1$ and $v = -e^{-x}$. By integration by parts,
   \begin{align*}
-    \int_0^\infty xe^{-x}\;\d x &= [-xe^{-x}]^\infty_0 + \int_0^\infty e^{-x} \;\d x\\
-    &= 0 + [-e^{-x}]_0^\infty\\
-    &= 1
+    \int_0^\infty xe^{-x}\;\d x &= \lim_{R\to\infty}\left([-xe^{-x}]^R_0 + \int_0^R e^{-x} \;\d x\right)\\
+    &= \lim_{R\to\infty}\left(-Re^{-R} + 0 + [-e^{-x}]_0^R\right)\\
+    &= \lim_{R\to\infty}\left(-Re^{-R} - e^{-R} + 1\right) = 1,
   \end{align*}
+  since $Re^{-R} \to 0$ and $e^{-R} \to 0$ as $R \to \infty$.
 \end{eg}
 
 \begin{eg}[Logarithm integration]
-  Consider $\int \log x\; \d x$. Let $u = \log x$ and $v' = 1$. Then $u' = \frac{1}{x}$ and $v = x$. So we have
+  Consider $\int \log x\; \d x$. This can be evaluated by parts with $u = \log x$ and $v' = 1$, giving $u' = \frac{1}{x}$ and $v = x$. Then
   \begin{align*}
-    \int \log x\; \d x &= x\log x - \int \d x\\
-    &= x \log x - x + C
+    \int \log x\; \d x &= x\log x - \int x \cdot \frac{1}{x}\,\d x = x\log x - \int 1\,\d x = x \log x - x + C.
   \end{align*}
 \end{eg}
 
