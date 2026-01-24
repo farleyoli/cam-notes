@@ -65,9 +65,9 @@ This specifies a relationship between terms in a sequence $(F_n)$, and we want t
 In this course, we will develop numerous techniques to solve different differential equations and difference equations. Often, this involves guessing of some sort.
 
 \section{Differentiation}
-This chapter provides a brief review of differentiation and integration, with particular emphasis on the asymptotic notation that will be used throughout this course.
+This section provides a brief review of differentiation, with particular emphasis on the asymptotic notation that will be used throughout this course.
 
-\subsection{Differentiation}
+\subsection{Definition of the derivative}
 \begin{defi}[Derivative of function]
   Let $f$ be a real-valued function defined on an open interval containing the point $x$. The \emph{derivative} of $f$ with respect to $x$, interpreted as the rate of change of $f(x)$ with $x$, is
   \[
@@ -77,13 +77,17 @@ This chapter provides a brief review of differentiation and integration, with pa
 \end{defi}
 
 \begin{eg}[Absolute value at origin]
-  Consider the function $f(x)=|x|}$. This function is not differentiable at $x = 0$, since $\lim\limits_{h\to 0^+} \frac{|h| - |0|}{h}= 1$ while $\lim\limits_{h\to 0^-} \frac{|h| - |0|}{h}= -1$.
+  Consider the absolute value function $f(x)=|x|$. This function is not differentiable at $x = 0$, since the left-hand and right-hand limits differ: $\lim\limits_{h\to 0^+} \frac{|h| - |0|}{h}= 1$ while $\lim\limits_{h\to 0^-} \frac{|h| - |0|}{h}= -1$.
 \end{eg}
 
 \begin{notation}
-  We write $\frac{\d f}{\d x} = f'(x) = \frac{\d}{\d x} f(x)$. Also, $\frac{\d}{\d x}\left(\frac{\d}{\d x} f(x)\right) = \frac{\d^2}{\d x^2} f(x) = f''(x)$.
+  Several notations are commonly used for derivatives. We write
+  \[
+    \frac{\d f}{\d x} = f'(x) = \frac{\d}{\d x} f(x).
+  \]
+  Higher derivatives are denoted similarly: $\frac{\d}{\d x}\left(\frac{\d f}{\d x}\right) = \frac{\d^2 f}{\d x^2} = f''(x)$.
 
-  Note that the notation $f'$ represents the derivative with respect to the argument. For example, $f'(2x) = \frac{\d f}{\d (2x)}$
+  The prime notation $f'$ always denotes the derivative with respect to the function's argument. For example, if $g(t) = f(2t)$, then $g'(t) = 2f'(2t)$ by the chain rule.
 \end{notation}
 
 \subsection{Small \texorpdfstring{$o$}{o} and big \texorpdfstring{$O$}{O} notations}
@@ -101,26 +105,30 @@ Note that this is an abuse of notation. We are not really saying that $f(x)$ is 
 
 \begin{eg}[Big-O and little-o examples]\leavevmode
   \begin{itemize}
-    \item $x=o(\sqrt{x})$ as $x\to 0$, and $\sqrt{x} = o(x)$ as $x\to \infty$.
-    \item $\sin 2x = O(x)$ as $x\to 0$, since $\sin \theta \approx \theta$ for small $\theta$.
-    \item $\sin 2x = O(1)$ as $x\to \infty$, even though $\lim_{x\to\infty} \sin 2x$ does not exist.
+    \item $x=o(\sqrt{x})$ as $x\to 0$, since $\frac{x}{\sqrt{x}} = \sqrt{x} \to 0$. Conversely, $\sqrt{x} = o(x)$ as $x\to \infty$.
+    \item $\sin 2x = O(x)$ as $x\to 0$, since $\sin 2x \approx 2x$ for small $x$.
+    \item $\sin 2x = O(1)$ as $x\to \infty$, even though $\lim_{x\to\infty} \sin 2x$ does not exist. Here, the ratio $\frac{\sin 2x}{1}$ remains bounded (between $-1$ and $1$).
   \end{itemize}
 \end{eg}
 
 This notation is used frequently in analysis. For example, to express that all terms of order two or higher in $h$ are being neglected, one writes $+O(h^2)$. The notation provides an alternative characterization of the derivative.
 \begin{prop}[Linear approximation characterization]
-  Let $f$ be a differentiable function and let $x_0$ be a point in its domain. Then for small $h$,
+  Let $f$ be a differentiable function and let $x_0$ be a point in its domain. Then as $h \to 0$,
   \[
     f(x_0 + h) = f(x_0) + f'(x_0)h + o(h).
   \]
 \end{prop}
 
 \begin{proof}
-  We have
+  By the definition of the derivative,
   \[
-    f'(x_0) = \frac{f(x_0 + h) - f(x_0)}{h} + \frac{o(h)}{h}
+    f'(x_0) = \lim_{h\to 0}\frac{f(x_0 + h) - f(x_0)}{h}.
   \]
-  by the definition of the derivative and the small $o$ notation. The result follows.
+  This means $\frac{f(x_0 + h) - f(x_0)}{h} - f'(x_0) \to 0$ as $h \to 0$, which can be written as
+  \[
+    f(x_0 + h) - f(x_0) - f'(x_0)h = o(h).
+  \]
+  Rearranging gives the result.
 \end{proof}
 
 \subsection{Methods of differentiation}
@@ -132,62 +140,84 @@ This notation is used frequently in analysis. For example, to express that all t
 \end{thm}
 
 \begin{proof}
-  Assuming that $\frac{\d g}{\d x}$ exists and is therefore finite, we have
+  Since $g$ is differentiable at $x$, by the linear approximation characterization we have $g(x + h) = g(x) + hg'(x) + o(h)$ as $h \to 0$. Similarly, since $F$ is differentiable at $g(x)$, for any increment $k$ we have $F(g(x) + k) = F(g(x)) + kF'(g(x)) + o(k)$ as $k \to 0$. Setting $k = hg'(x) + o(h)$, which tends to $0$ as $h \to 0$, we obtain
   \begin{align*}
     \frac{\d f}{\d x} &= \lim_{h\to 0}\frac{F(g(x + h)) - F(g(x))}{h}\\
-    &= \lim_{h\to 0}\frac{F[g(x) + hg'(x) + o(h)] - F(g(x))}{h}\\
-    &= \lim_{h\to 0}\frac{F(g(x)) + (hg'(x) + o(h))F'(g(x)) + o(hg'(x) + o(h)) - F(g(x))}{h}\\
-    &= \lim_{h\to 0}g'(x)F'(g(x)) + \frac{o(h)}{h}\\
-    &= g'(x)F'(g(x))\\
-    &= \frac{\d F}{\d g}\frac{\d g}{\d x}\qedhere
+    &= \lim_{h\to 0}\frac{F(g(x) + hg'(x) + o(h)) - F(g(x))}{h}\\
+    &= \lim_{h\to 0}\frac{(hg'(x) + o(h))F'(g(x)) + o(hg'(x) + o(h))}{h}\\
+    &= \lim_{h\to 0}\left(g'(x)F'(g(x)) + \frac{o(h)}{h}\right)\\
+    &= g'(x)F'(g(x)) = \frac{\d F}{\d g}\frac{\d g}{\d x}.\qedhere
   \end{align*}
 \end{proof}
 
 \begin{thm}[Product Rule]
-  Let $u$ and $v$ be differentiable functions, and define $f(x) = u(x)v(x)$. Then
+  Let $u$ and $v$ be differentiable functions of $x$, and define $f(x) = u(x)v(x)$. Then
   \[
     f'(x) = u'(x)v(x) + u(x)v'(x).
   \]
 \end{thm}
 
+\begin{proof}
+  Using the linear approximation characterization, we have $u(x+h) = u(x) + hu'(x) + o(h)$ and similarly for $v$. Then
+  \begin{align*}
+    f(x+h) &= u(x+h)v(x+h) \\
+    &= (u(x) + hu'(x) + o(h))(v(x) + hv'(x) + o(h)) \\
+    &= u(x)v(x) + h(u'(x)v(x) + u(x)v'(x)) + o(h).
+  \end{align*}
+  The result follows from the linear approximation characterization applied to $f$.
+\end{proof}
+
 \begin{thm}[Leibniz's Rule]
-  Let $u$ and $v$ be $n$-times differentiable functions, and let $f = uv$. Then the $n$-th derivative of $f$ is given by
+  Let $u$ and $v$ be $n$-times differentiable functions of $x$, where $n$ is a non-negative integer, and let $f = uv$. Then the $n$-th derivative of $f$ is given by
   \[
     f^{(n)}(x) = \sum_{r = 0}^n \binom{n}{r}u^{(r)}(x)\,v^{(n - r)}(x),
   \]
-  where $u^{(r)}$ denotes the $r$-th derivative of $u$ (with $u^{(0)} = u$).
+  where $u^{(r)}$ denotes the $r$-th derivative of $u$ (with $u^{(0)} = u$), and $\binom{n}{r} = \frac{n!}{r!(n-r)!}$ is the binomial coefficient.
 \end{thm}
 
+\begin{proof}
+  The proof proceeds by induction on $n$. The base case $n=1$ is the product rule. For the inductive step, differentiate both sides of the formula for $f^{(n)}$ and apply the product rule to each term, using the identity $\binom{n}{r} + \binom{n}{r-1} = \binom{n+1}{r}$.
+\end{proof}
+
 \subsection{Taylor's theorem}
+Taylor's theorem generalizes the linear approximation characterization to higher orders, expressing a function as a polynomial plus an error term.
+
 \begin{thm}[Taylor's Theorem]
-  Let $f$ be a function that is $n$-times differentiable at a point $x$. Then for small $h$,
+  Let $n$ be a non-negative integer, and let $f$ be a function that is $n$-times differentiable at a point $x$. Then as $h \to 0$,
   \[
     f(x + h) = f(x) + hf'(x) + \frac{h^2}{2!}f''(x) + \cdots + \frac{h^n}{n!}f^{(n)}(x) + E_n,
   \]
-  where the error term satisfies $E_n = o(h^{n})$ as $h\to 0$. If $f^{(n+1)}$ exists, then $E_n = O(h^{n+1})$.
+  where the error term $E_n$ satisfies $E_n = o(h^{n})$. If additionally $f^{(n+1)}$ exists, then $E_n = O(h^{n+1})$.
 \end{thm}
+
 This theorem provides only a local approximation of $f$ near $x$; it does not, in general, provide information about the behaviour of $f$ far from $x$.
 
-An equivalent formulation, obtained by writing $x$ in place of $x + h$ and $x_0$ in place of $x$, is:
+An equivalent formulation is obtained by substituting $x - x_0$ for $h$, where $x_0$ is a fixed point and $x$ varies:
 \[
-  f(x) = f(x_0) + (x-x_0)f'(x_0) + \cdots + \frac{(x-x_0)^n}{n!}f^{(n)}(x_0) + E_n.
+  f(x) = f(x_0) + (x-x_0)f'(x_0) + \frac{(x-x_0)^2}{2!}f''(x_0) + \cdots + \frac{(x-x_0)^n}{n!}f^{(n)}(x_0) + E_n.
 \]
-Taking the formal limit as $n\to \infty$ yields the Taylor series of $f$ about the point $x_0$.
+Taking the formal limit as $n\to \infty$ yields the \emph{Taylor series} of $f$ about the point $x_0$.
 
-\subsection{L'Hopital's rule}
-\begin{thm}[L'Hopital's Rule]
-  Let $f$ and $g$ be functions that are differentiable at $x_0$, with $\displaystyle \lim_{x\to x_0}f(x) = \lim_{x\to x_0}g(x) = 0$. Then
+\subsection{L'H\^opital's rule}
+L'H\^opital's rule provides a method for evaluating limits of indeterminate forms.
+
+\begin{thm}[L'H\^opital's Rule]
+  Let $f$ and $g$ be functions that are differentiable at $x_0$, with $f(x_0) = g(x_0) = 0$. If $g'(x_0) \neq 0$, then
   \[
-    \lim_{x\to x_0} \frac{f(x)}{g(x)} = \lim_{x\to x_0} \frac{f'(x)}{g'(x)},
+    \lim_{x\to x_0} \frac{f(x)}{g(x)} = \frac{f'(x_0)}{g'(x_0)}.
   \]
-  provided the limit on the right-hand side exists.
+  More generally, if $\displaystyle\lim_{x\to x_0} \frac{f'(x)}{g'(x)}$ exists, then $\displaystyle\lim_{x\to x_0} \frac{f(x)}{g(x)} = \lim_{x\to x_0} \frac{f'(x)}{g'(x)}$.
 \end{thm}
+
 \begin{proof}
-  By Taylor's Theorem, $f(x) = f(x_0) + (x - x_0)f'(x_0) + o(x - x_0)$, and similarly for $g$. Thus
+  Since $f$ and $g$ are differentiable at $x_0$, they are continuous there, so the hypothesis $\lim_{x\to x_0}f(x) = \lim_{x\to x_0}g(x) = 0$ implies $f(x_0) = g(x_0) = 0$. By Taylor's Theorem,
+  \[
+    f(x) = f(x_0) + (x - x_0)f'(x_0) + o(x - x_0) = (x - x_0)f'(x_0) + o(x - x_0),
+  \]
+  and similarly $g(x) = (x - x_0)g'(x_0) + o(x - x_0)$. Thus
   \begin{align*}
-    \lim_{x\to x_0} \frac{f(x)}{g(x)} &= \lim_{x\to x_0} \frac{f(x_0) + (x - x_0)f'(x_0) + o(x - x_0)}{g(x_0) + (x - x_0)g'(x_0) + o(x - x_0)}\\
-    &= \lim_{x\to x_0} \frac{f'(x_0) + \frac{o(x-x_0)}{x-x_0}}{g'(x_0) + \frac{o(x-x_0)}{x-x_0}}\\
-    &= \lim_{x\to x_0} \frac{f'(x)}{g'(x)}\qedhere
+    \lim_{x\to x_0} \frac{f(x)}{g(x)} &= \lim_{x\to x_0} \frac{(x - x_0)f'(x_0) + o(x - x_0)}{(x - x_0)g'(x_0) + o(x - x_0)}\\
+    &= \lim_{x\to x_0} \frac{f'(x_0) + \frac{o(x-x_0)}{x-x_0}}{g'(x_0) + \frac{o(x-x_0)}{x-x_0}} = \frac{f'(x_0)}{g'(x_0)}.\qedhere
   \end{align*}
 \end{proof}
 
