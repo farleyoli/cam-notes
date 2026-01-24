@@ -511,10 +511,12 @@ This technique, sometimes called ``Feynman's trick,'' is useful for evaluating c
 \end{eg}
 
 \section{First-order differential equations}
-A differential equation is an equation involving derivatives of an unknown function. For example, $x^2\frac{\d y}{\d x} + 2y = 0$ is a differential equation in the unknown function $y(x)$. Unlike algebraic equations where the solution is a number, the solution to a differential equation is a function satisfying the equation. This chapter focuses on \emph{first-order differential equations}, in which only first derivatives appear.
+A \emph{differential equation} is an equation involving derivatives of an unknown function. For example, $x^2\frac{\d y}{\d x} + 2y = 0$ is a differential equation in the unknown function $y(x)$. Unlike algebraic equations where the solution is a number, the solution to a differential equation is a \emph{function} satisfying the equation. This section focuses on \emph{first-order} differential equations, in which only first derivatives appear.
 
 \subsection{The exponential function}
-Often, the solutions to differential equations involve the exponential function. Consider a function $f(x) = a^x$, where $a>0$ is constant.
+Solutions to differential equations frequently involve the exponential function, which plays a central role in this subject. We begin by examining why this is the case.
+
+Consider the general exponential function $f(x) = a^x$, where $a > 0$ is a constant.
 \begin{center}
   \begin{tikzpicture}[yscale = 0.15]
     \draw [->] (-2, 0) -- (3.5, 0) node [right] {$x$};
@@ -526,82 +528,75 @@ Often, the solutions to differential equations involve the exponential function.
     \node [circ] at (0, 1) {};
   \end{tikzpicture}
 \end{center}
-The derivative of this function is given by
+Its derivative is
 \begin{align*}
-  \frac{\d f}{\d x} &= \lim_{h\to 0}\frac{a^{x+h}-a^x}{h}\\
-  &= a^x\lim_{h\to 0}\frac{a^h-1}{h}\\
-  &= \lambda a^x\\
-  &= \lambda f(x)
+  \frac{\d f}{\d x} &= \lim_{h\to 0}\frac{a^{x+h}-a^x}{h} = a^x\lim_{h\to 0}\frac{a^h-1}{h}.
 \end{align*}
-where $\displaystyle \lambda = \lim_{h\to 0}\frac{a^h-1}{h} = f'(0) = $ const. So the derivative of an exponential function is a multiple of the original function. In particular,
+The limit $\lambda = \lim_{h\to 0}\frac{a^h-1}{h}$ depends only on $a$, not on $x$. Thus $\frac{\d f}{\d x} = \lambda f(x)$: the derivative of an exponential function is proportional to itself.
 
 \begin{defi}[Exponential function]
-  $\exp(x) = e^x$ is the unique function $f$ satisfying $f'(x) = f(x)$ and $f(0) = 1$.
+  The \emph{natural exponential function} $\exp(x) = e^x$ is the unique function $f$ satisfying $f'(x) = f(x)$ and $f(0) = 1$. The number $e \approx 2.71828$ is called \emph{Euler's number}.
 
-  We write the inverse function as $\ln x$ or $\log x$.
+  The inverse function is called the \emph{natural logarithm}, written $\ln x$ or $\log x$.
 \end{defi}
-Then if $y = a^x = e^{x\ln a}$, then $y' = e^{x\ln a}\ln a = a^x\ln a$. So $\lambda = \ln a$.
 
-Using this property, we find that the value of $e$ is given by
-\[
-  e=\lim_{k\to \infty} \left(1 + \frac{1}{k}\right)^k \approx 2.718281828\cdots.
-\]
-The importance of the exponential function lies in it being an \emph{eigenfunction} of the differential operator.
-\begin{defi}[Eigenfunction]
-  An \emph{eigenfunction} of the differential operator is a function whose functional form is unchanged by differentiation; only its magnitude changes. That is, $f$ is an eigenfunction if
+Any exponential $a^x$ can be written in terms of the natural exponential: if $y = a^x = e^{x\ln a}$, then by the chain rule, $y' = (\ln a)\, e^{x\ln a} = (\ln a)\, a^x$. Thus $\lambda = \ln a$ for the base-$a$ exponential.
+
+\begin{defi}[Eigenfunction of the differential operator]
+  An \emph{eigenfunction} of the differential operator $\frac{\d}{\d x}$ is a non-zero function $f$ satisfying
   \[
     \frac{\d f}{\d x} = \lambda f
   \]
-  for some constant $\lambda$.
+  for some constant $\lambda$, called the \emph{eigenvalue}. The functional form of $f$ is unchanged by differentiation; only its magnitude changes.
 \end{defi}
-\begin{eg}[Exponential eigenfunction]
-  $e^{mx}$ is an eigenfunction since $\frac{\d }{\d x}e^{mx} = me^{mx}$.
+
+\begin{eg}[Exponential eigenfunctions]
+  For any constant $m$, the function $e^{mx}$ is an eigenfunction with eigenvalue $m$, since $\frac{\d}{\d x}e^{mx} = me^{mx}$.
 \end{eg}
+
+The exponential functions are the \emph{only} eigenfunctions of the differential operator, which explains their ubiquity in the theory of differential equations.
 
 \subsection{Homogeneous linear ordinary differential equations}
 We begin by defining the terminology used to classify differential equations.
 
 \begin{defi}[Linear differential equation]
-  A differential equation is \emph{linear} if the dependent variable ($y$, $y'$, $y''$ etc.) appears only linearly.
+  A differential equation is \emph{linear} if the dependent variable and its derivatives ($y$, $y'$, $y''$, etc.) appear only to the first power and are not multiplied together. A general first-order linear equation has the form $a(x)y' + b(x)y = c(x)$.
 \end{defi}
 
 \begin{defi}[Homogeneous differential equation]
-  A differential equation is \emph{homogeneous} if $y=0$ is a solution.
+  A linear differential equation is \emph{homogeneous} if the right-hand side is zero, i.e., if $y = 0$ is a solution. For example, $y' + p(x)y = 0$ is homogeneous, while $y' + p(x)y = f(x)$ with $f \neq 0$ is \emph{inhomogeneous}.
 \end{defi}
 
-\begin{defi}[Differential equation with constant coefficients]
-  A differential equation has \emph{constant coefficients} if the independent variable $x$ does not appear explicitly.
+\begin{defi}[Constant coefficients]
+  A differential equation has \emph{constant coefficients} if the coefficients of $y$ and its derivatives do not depend on the independent variable $x$.
 \end{defi}
 
-\begin{defi}[First-order differential equation]
-  A differential equation is \emph{first-order} if only first derivatives are involved.
-\end{defi}
+For a first-order linear homogeneous equation with constant coefficients, the general form is
+\[
+  ay' + by = 0,
+\]
+where $a$ and $b$ are constants. Since exponentials are eigenfunctions of $\frac{\d}{\d x}$, we expect solutions of the form $y = e^{mx}$.
 
-\begin{thm}[Exponential solutions]
-  Any linear, homogeneous, ordinary differential equation with constant coefficients has solutions of the form $e^{mx}$.
-\end{thm}
-This theorem is evident when we consider an example.
-\begin{eg}[First-order constant coefficients]
-  Given $5\frac{\d y}{\d x} - 3y = 0$. Try $y = e^{mx}$. Then
-  \begin{align*}
-    \frac{\d y}{\d x} &= me^{mx}\\
-    5me^{mx} - 3e^{mx} &= 0
-  \end{align*}
-  Since this must hold for all values of $x$, there exists some value $x$ for which $e^{mx} \not= 0$ and we can divide by $e^{mx}$ (note in this case this justification is not necessary, because $e^{mx}$ is never equal to 0. However, we should justify as above if we are dividing, say, $x^m$). Thus $5m - 3 = 0$ and $m = 3/5$. So $y = e^{3x/5}$ is a solution.
+\begin{eg}[First-order homogeneous equation with constant coefficients]
+  Consider $5\frac{\d y}{\d x} - 3y = 0$. We try the ansatz $y = e^{mx}$ for some constant $m$ to be determined. Since $\frac{\d y}{\d x} = me^{mx}$, substitution gives
+  \[
+    5me^{mx} - 3e^{mx} = (5m - 3)e^{mx} = 0.
+  \]
+  Since $e^{mx} \neq 0$ for all $x$, we must have $5m - 3 = 0$, giving $m = \frac{3}{5}$. Thus $y = e^{3x/5}$ is a solution.
 
-  Because the equation is linear and homogeneous, any multiple of a solution is also a solution. Therefore $y = Ae^{3x/5}$ is a solution for any value of $A$.
+  Because the equation is linear and homogeneous, any constant multiple of a solution is also a solution. Therefore $y = Ae^{3x/5}$ is a solution for any constant $A$.
 
-  But is this the most general form of the solution? One can show that an $n^\text{th}$-order linear differential equation has $n$ and only $n$ independent solutions. So $y = Ae^{3x/5}$ is indeed the most general solution.
+  This is in fact the \emph{general solution}: a first-order linear equation has exactly one independent solution (up to multiplicative constants), so $y = Ae^{3x/5}$ captures all solutions.
 \end{eg}
 
-We can determine $A$ by applying a given boundary condition.
+The arbitrary constant $A$ is determined by an \emph{initial condition} (or \emph{boundary condition}), such as specifying the value of $y$ at some point $x_0$.
 
-\subsubsection*{Discrete equations}
-Suppose that we are given the equation $5y' - 3y = 0$ with boundary condition $y = y_0$ at $x = 0$. This gives a unique function $y$. We can approximate this by considering discrete steps of length $h$ between $x_n$ and $x_{n+1}$. (Using the simple Euler numerical scheme,) we can approximate the equation by
+\subsubsection*{Connection to discrete equations}
+There is an illuminating connection between differential equations and discrete recurrence relations. Consider $5y' - 3y = 0$ with initial condition $y(0) = y_0$. We can approximate the derivative by a finite difference: if $x_n = nh$ for small step size $h$, then $y'(x_n) \approx \frac{y_{n+1} - y_n}{h}$. Substituting into the differential equation gives the \emph{difference equation}
 \[
   5\frac{y_{n+1} - y_n}{h} - 3y_n \approx 0.
 \]
-Rearranging the terms, we have $y_{n+1} \approx (1 + \frac{3}{5}h)y_n$. Applying the relation successively, we have
+Rearranging, $y_{n+1} = \left(1 + \frac{3h}{5}\right)y_n$. Applying this relation recursively:
 \begin{align*}
   y_n &= \left(1 + \frac{3}{5}h\right)y_{n - 1}\\
   &= \left(1 + \frac{3}{5}h\right)\left(1 + \frac{3}{5}h\right)y_{n - 2}\\
@@ -639,23 +634,28 @@ in agreement with the solution of the differential equation.
 \end{center}
 
 \subsubsection*{Series solution}
-We can also try to find a solution in the form of a Taylor Series $y = \sum\limits_{n=0}^\infty a_nx^n$. We have $y' = \sum a_nnx^{n-1}$. Substituting these into our equation
-\begin{align*}
-  5y' - 3y &= 0\\
-  5(xy') - 3x(y) &= 0\\
-  \sum a_n(5n - 3x)x^n &= 0
-\end{align*}
-Consider the coefficient of $x^n$: $5n a_n - 3 a_{n-1} = 0$. Since this holds for all values of $n$, when $n = 0$, we get $0a_0 = 0$. This tells that $a_0$ is arbitrary. If $n>0$, then
+Another approach is to seek a solution as a power series. Assume $y = \sum_{n=0}^\infty a_n x^n$, so that $y' = \sum_{n=1}^\infty n a_n x^{n-1} = \sum_{n=0}^\infty (n+1)a_{n+1}x^n$. Substituting into $5y' - 3y = 0$:
 \[
-  a_n = \frac{3}{5n}a_{n-1} = \frac{3^2}{5^2}\frac{1}{n(n-1)}a_{n-2} = \cdots = \left(\frac{3}{5}\right)^n \frac{1}{n!}a_0.
+  \sum_{n=0}^\infty \bigl[5(n+1)a_{n+1} - 3a_n\bigr]x^n = 0.
 \]
-Therefore we have
+For this to hold for all $x$, each coefficient must vanish: $5(n+1)a_{n+1} = 3a_n$, giving the recurrence relation
 \[
-  y = a_0\sum_{n = 0}^\infty \left(\frac{3x}{5}\right)^n\frac{1}{n!} \left[= a_0 e^{3x/5}\right].
+  a_{n+1} = \frac{3}{5(n+1)}a_n.
 \]
+Solving this recurrence with $a_0$ arbitrary:
+\[
+  a_n = \frac{3}{5n} \cdot \frac{3}{5(n-1)} \cdots \frac{3}{5 \cdot 1}\, a_0 = \frac{1}{n!}\left(\frac{3}{5}\right)^n a_0.
+\]
+Therefore
+\[
+  y = a_0\sum_{n = 0}^\infty \frac{1}{n!}\left(\frac{3x}{5}\right)^n = a_0 e^{3x/5},
+\]
+recovering our earlier solution.
 
 \subsection{Forced (inhomogeneous) equations}
-A homogeneous equation, such as $5y' - 3y = 0$, has no terms independent of $y$. A \emph{forced} (or \emph{inhomogeneous}) equation contains additional terms that do not involve the dependent variable. For example, $5y' - 3y = 10$ and $5y' - 3y = x^2$ are forced equations, with $10$ and $x^2$ called the \emph{forcing terms}.
+A homogeneous equation has only terms involving the unknown function $y$. An \emph{inhomogeneous} (or \emph{forced}) equation has additional terms that do not involve $y$. For example, $5y' - 3y = 10$ is inhomogeneous, with $10$ called the \emph{forcing term}.
+
+The key to solving inhomogeneous equations is the following principle: if $y_p$ is any \emph{particular solution} of the inhomogeneous equation, and $y_c$ is the general solution of the associated \emph{homogeneous} equation (called the \emph{complementary function}), then the general solution is $y = y_p + y_c$.
 
 \subsubsection{Constant forcing}
 
@@ -718,28 +718,28 @@ This is the case when the forcing term is an eigenfunction of the differential o
   Given the current ratio $b/a$ and laboratory-determined decay rates $k_a$ and $k_b$, one can determine $t$, the age of the rock.
 \end{eg}
 
-\subsection{Non-constant coefficients}
-Consider the general form of equation
+\subsection{Non-constant coefficients: integrating factors}
+When the coefficients depend on $x$, we can no longer use exponential solutions directly. Consider the general first-order linear equation
 \[
   a(x)y' + b(x)y = c(x).
 \]
-Divide by $a(x)$ to get the standard form
+Dividing by $a(x)$ puts this in \emph{standard form}:
 \[
-  y' + p(x) y = f(x).
+  y' + p(x) y = f(x),
 \]
-We solve this by multiplying an integrating factor $\mu (x)$ to obtain $(\mu)y' + (\mu p)y = \mu f$.
+where $p(x) = b(x)/a(x)$ and $f(x) = c(x)/a(x)$.
 
-We want to choose a $\mu$ such that the left hand side is equal to $(\mu y)'$. By the product rule, we want $\mu p = \mu'$, i.e.
-\begin{align*}
-  p &= \frac{1}{\mu}\frac{\d\mu }{\d x}\\
-  \int p\; \d x &= \int \frac{1}{\mu}\frac{\d \mu}{\d x} \; \d x\\
-  &= \int \frac{1}{\mu}\; \d u\\
-  &= \ln \mu (+ C)\\
-  \mu &= \exp\left(\int p\; \d x\right)
-\end{align*}
-Then by construction, we have $(\mu y)' = \mu f$ and thus
+The method of \emph{integrating factors} converts the left-hand side into an exact derivative. Multiply through by a function $\mu(x)$ (to be determined):
 \[
-  y = \frac{\int \mu f\;\d x}{\mu},\text{ where } \mu = \exp\left(\int p\; \d x\right)
+  \mu y' + \mu p\, y = \mu f.
+\]
+We want the left-hand side to equal $(\mu y)'$. By the product rule, $(\mu y)' = \mu y' + \mu' y$, so we need $\mu' = \mu p$, i.e.,
+\[
+  \frac{\d \mu}{\mu} = p\,\d x \implies \ln \mu = \int p\,\d x \implies \mu = \exp\left(\int p\,\d x\right).
+\]
+With this choice, the equation becomes $(\mu y)' = \mu f$, which integrates to give
+\[
+  y = \frac{1}{\mu}\int \mu f\,\d x = e^{-\int p\,\d x}\int f\, e^{\int p\,\d x}\,\d x.
 \]
 \begin{eg}[Integrating factor method]
   Consider $xy' + (1 - x)y = 1$. To obtain it in standard form, we have $y' + \frac{1 - x}{x} y = \frac{1}{x}$.
@@ -753,24 +753,27 @@ Then by construction, we have $(\mu y)' = \mu f$ and thus
 \end{eg}
 
 \subsection{Non-linear equations}
-A general first-order equation can be written in the form
+When the equation is not linear in $y$, the methods above do not apply directly. However, certain classes of non-linear equations can still be solved analytically.
+
+A general first-order equation can be written as
 \[
   Q(x, y)\frac{\d y}{\d x} + P(x, y) = 0,
 \]
-where $P$ and $Q$ are functions of $x$ and $y$. (More general forms involving powers of $y'$ exist but are not considered here.)
+or equivalently, $P(x,y)\,\d x + Q(x,y)\,\d y = 0$. We consider two important special cases.
+
 \subsubsection{Separable equations}
+The simplest non-linear equations are those where the variables can be separated.
 
 \begin{defi}[Separable equation]
-  A first-order differential equation is \emph{separable} if it can be manipulated into the following form:
+  A first-order differential equation is \emph{separable} if it can be written in the form
   \[
-    q(y) \;\d y = p(x) \;\d x.
+    q(y)\,\d y = p(x)\,\d x,
   \]
-  in which case the solution can be found by integration
+  where the left-hand side depends only on $y$ and the right-hand side only on $x$. The solution is then obtained by integrating both sides:
   \[
-    \int q(y)\;\d y = \int p(x)\; \d x.
+    \int q(y)\,\d y = \int p(x)\,\d x.
   \]
 \end{defi}
-Separable equations are often the simplest to solve.
 
 \begin{eg}[Separable equation]
   \begin{align*}
@@ -785,20 +788,23 @@ Separable equations are often the simplest to solve.
   \end{align*}
 \end{eg}
 \subsubsection{Exact equations}
+An equation $P\,\d x + Q\,\d y = 0$ is called \emph{exact} if the left-hand side is the total differential of some function.
+
 \begin{defi}[Exact equation]
-  $Q(x, y)\frac{\d y}{\d x} + P(x, y) = 0$ is an \emph{exact equation} iff the differential form $Q(x, y)\;\d y + P(x, y)\;\d x$ is \emph{exact}, i.e.\ there exists a function $f(x, y)$ for which
+  The equation $P(x, y)\,\d x + Q(x, y)\,\d y = 0$ is \emph{exact} if there exists a function $f(x, y)$ such that
   \[
-    \d f = Q(x, y)\;\d y + P(x, y)\;\d x
+    \d f = P\,\d x + Q\,\d y.
   \]
+  In this case, the general solution is simply $f(x, y) = C$ for an arbitrary constant $C$.
 \end{defi}
 
-If $P(x, y)\;\d x + Q(x, y)\;\d y$ is an exact differential of $f$, then $\d f = P(x, y) \;\d x + Q(x, y)\;\d y$. But by the chain rule, $\d f = \frac{\partial f}{\partial x}\d x + \frac{\partial f}{\partial y}\d y$ and this equality holds for any displacements $\d x, \d y$. So
+If the equation is exact, then comparing $\d f = P\,\d x + Q\,\d y$ with the total differential $\d f = \frac{\partial f}{\partial x}\d x + \frac{\partial f}{\partial y}\d y$ gives
 \[
   \frac{\partial f}{\partial x} = P,\quad\frac{\partial f}{\partial y} = Q.
 \]
-From this we have
+By Schwarz's theorem ($f_{xy} = f_{yx}$), a necessary condition for exactness is
 \[
-  \frac{\partial^2 f}{\partial y\partial x} = \frac{\partial P}{\partial y},\quad\frac{\partial^2 f}{\partial x \partial y} = \frac{\partial Q}{\partial x}.
+  \frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}.
 \]
 We know that the two mixed 2nd derivatives are equal. So
 \[
@@ -850,12 +856,14 @@ If the equation is exact, then the solution is simply $f = $ constant, and we ca
 \end{eg}
 
 \subsection{Solution curves (trajectories)}
+The solutions to a first-order differential equation $\frac{\d y}{\d t} = f(t, y)$ form a family of curves in the $(t, y)$-plane, called \emph{solution curves} or \emph{trajectories}. Each curve corresponds to a particular initial condition.
+
 \begin{eg}[Solution family for $\dot{y} = t(1-y^2)$]
   Consider the first-order equation
   \[
     \frac{\d y}{\d t} = t(1 - y^2).
   \]
-  We can solve it to obtain
+  This is separable. Separating variables and integrating:
   \begin{align*}
     \frac{\d y}{1 - y^2} &= t\; \d t\\
     \frac{1}{2}\ln\frac{1 + y}{1 - y} &= \frac{1}{2}t^2 + C\\
@@ -929,34 +937,31 @@ To visualise the solutions, we can draw \emph{isoclines}: curves along which $\f
 In general, the solution curves of a differential equation $\frac{\d y}{\d t} = f(t, y)$ can be sketched by first locating constant solutions (equilibria), determining their stability (as discussed in the next section), and drawing isoclines.
 
 \subsection{Fixed (equilibrium) points and stability}
-\begin{defi}[Equilibrium/fixed point]
-  An \emph{equilibrium point} or a \emph{fixed point} of a differential equation is a constant solution $y = c$. This corresponds to $\frac{\d y}{\d t} = 0$ for all $t$.
-\end{defi}
-Equilibrium points are typically easy to find: given an expression for $\frac{\d y}{\d t}$, one simply solves $\frac{\d y}{\d t} = 0$.
+A key question in the qualitative study of differential equations is: what happens to solutions in the long run? This leads to the study of equilibria and their stability.
 
-\begin{defi}[Stability of fixed point]
-  An equilibrium is \emph{stable} if whenever $y$ is deviated slightly from the constant solution $y = c$, $y \to c$ as $t \to \infty$. An equilibrium is \emph{unstable} if the deviation grows as $t \to \infty$.
+\begin{defi}[Equilibrium point]
+  An \emph{equilibrium point} (or \emph{fixed point}) of the differential equation $\frac{\d y}{\d t} = f(t, y)$ is a constant solution $y = c$, satisfying $f(t, c) = 0$ for all $t$.
 \end{defi}
 
-The objective of this section is to study how to find equilibrium points and determine their stability.
+Equilibrium points are found by solving $\frac{\d y}{\d t} = 0$. Once found, we ask whether nearby solutions approach the equilibrium or move away from it.
+
+\begin{defi}[Stability]
+  An equilibrium $y = c$ is \emph{stable} (or \emph{attracting}) if solutions starting near $c$ converge to $c$ as $t \to \infty$. It is \emph{unstable} (or \emph{repelling}) if solutions starting arbitrarily close to $c$ eventually move away from $c$.
+\end{defi}
 \begin{eg}[Stability of $y = \pm 1$]
   Referring to the differential equation above ($\dot y = t (1 - y^2)$), the solutions converge towards $y = 1$, which is therefore a stable fixed point. They diverge from $y = -1$, which is an unstable fixed point.
 \end{eg}
 
 \subsubsection{Perturbation analysis}
-Perturbation analysis is used to determine stability. Suppose $y = a$ is a fixed point of $\frac{\d y}{\d t} = f(y, t)$, so $f(a, t) = 0$. Write $y = a + \varepsilon(t)$, where $\varepsilon(t)$ is a small perturbation from $y = a$. We will later assume that $\varepsilon$ is arbitrarily small. Putting this into the differential equation, we have
+To determine stability analytically, we use \emph{linearisation}. Suppose $y = a$ is an equilibrium of $\frac{\d y}{\d t} = f(y, t)$, so $f(a, t) = 0$ for all $t$. Write $y = a + \varepsilon(t)$, where $\varepsilon(t)$ is a small perturbation. Substituting into the differential equation and Taylor expanding:
 \begin{align*}
-  \frac{\d \varepsilon}{\d t} = \frac{\d y}{\d t} &= f(a + \varepsilon, t)\\
-  &= f(a, t) + \varepsilon\frac{\partial f}{\partial y}(a, t) + O(\varepsilon^2)\\
-  &= \varepsilon\frac{\partial f}{\partial y}(a, t) + O(\varepsilon^2)
+  \frac{\d \varepsilon}{\d t} &= f(a + \varepsilon, t) = f(a, t) + \varepsilon\frac{\partial f}{\partial y}(a, t) + O(\varepsilon^2) = \varepsilon\frac{\partial f}{\partial y}(a, t) + O(\varepsilon^2).
 \end{align*}
-Note that this is a Taylor expansion valid when $\varepsilon \ll 1$. Thus $O(\varepsilon^2)$ can be neglected and
+For small $\varepsilon$, we neglect the $O(\varepsilon^2)$ term to obtain the \emph{linearised equation}
 \[
-  \frac{\d \varepsilon}{\d t} \cong \varepsilon\frac{\partial f}{\partial y}.
+  \frac{\d \varepsilon}{\d t} \approx \varepsilon\frac{\partial f}{\partial y}(a, t).
 \]
-We can use this to study how the perturbation grows with time.
-
-This approximation is called a linearization of the differential equation.
+This linear equation determines whether small perturbations grow or decay.
 \begin{eg}[Perturbation of $y = \pm 1$]
   Using the example $\dot y = t(1 - y^2)$ above, we have
   \[
@@ -974,13 +979,18 @@ This approximation is called a linearization of the differential equation.
 \end{eg}
 
 \subsubsection{Autonomous systems}
-In many physical systems, the governing laws do not change with time, so $\dot y$ depends only on $y$ itself. Such systems are called \emph{autonomous}.
+In many physical systems, the governing laws do not change with time, so $\frac{\d y}{\d t}$ depends only on $y$ itself.
 
 \begin{defi}[Autonomous system]
-  An \emph{autonomous system} is a system in the form $\dot y = f(y)$, where the derivative is only (explicitly) dependent on $y$.
+  A differential equation is \emph{autonomous} if it has the form $\frac{\d y}{\d t} = f(y)$, where $f$ does not depend explicitly on $t$.
 \end{defi}
 
-Near a fixed point $y = a$, where $f(a) = 0$, write $y = a + \varepsilon(t)$. Then $\dot \varepsilon = \varepsilon\frac{\d f}{\d y}(a) = k\varepsilon$ for some constant $k$. Then $\varepsilon = \varepsilon_0 e^{kt}$. The stability of the system then depends solely on sign of $k$.
+For autonomous systems, stability analysis simplifies considerably. Near an equilibrium $y = a$ (where $f(a) = 0$), the linearised equation is $\frac{\d \varepsilon}{\d t} = k\varepsilon$, where $k = f'(a)$ is a constant. This has solution $\varepsilon = \varepsilon_0 e^{kt}$, so:
+\begin{itemize}
+  \item If $k = f'(a) < 0$, perturbations decay exponentially: the equilibrium is \textbf{stable}.
+  \item If $k = f'(a) > 0$, perturbations grow exponentially: the equilibrium is \textbf{unstable}.
+  \item If $k = f'(a) = 0$, the linear analysis is inconclusive; higher-order terms must be considered.
+\end{itemize}
 
 \begin{eg}[Acid-base neutralisation]
   Consider a chemical reaction NaOH + HCl $\rightarrow$ H$_2$O + NaCl. We have
