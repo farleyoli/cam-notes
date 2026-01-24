@@ -65,131 +65,201 @@ This specifies a relationship between terms in a sequence $(F_n)$, and we want t
 In this course, we will develop numerous techniques to solve different differential equations and difference equations. Often, this involves guessing of some sort.
 
 \section{Differentiation}
-This chapter provides a brief review of differentiation and integration, with particular emphasis on the asymptotic notation that will be used throughout this course.
+This chapter provides a brief review of differentiation and integration, with particular emphasis on the asymptotic notation that will be used throughout this course. We assume the reader is familiar with the basic properties of limits and continuous functions; a rigorous treatment of these concepts may be found in Analysis~I.
 
-\subsection{Differentiation}
-\begin{defi}[Derivative of function]
-  Let $f$ be a real-valued function defined on an open interval containing the point $x$. The \emph{derivative} of $f$ with respect to $x$, interpreted as the rate of change of $f(x)$ with $x$, is
+\subsection{Definition and first properties}
+We begin by recalling the notion of the derivative of a function.
+
+\begin{defi}[Derivative]
+  Let $I \subset \R$ be an open interval, let $f \colon I \to \R$ be a function, and let $x \in I$. We say that $f$ is \emph{differentiable} at $x$ if the limit
   \[
-    \frac{\d f}{\d x} = \lim_{h\to 0} \frac{f(x + h) - f(x)}{h},
+    \lim_{h\to 0} \frac{f(x + h) - f(x)}{h}
   \]
-  provided this limit exists. The function $f$ is said to be \emph{differentiable} at $x$ if this limit exists (equivalently, if the left-hand and right-hand limits are equal).
+  exists. When this limit exists, its value is called the \emph{derivative} of $f$ at $x$, denoted by $f'(x)$ or $\dfrac{\d f}{\d x}(x)$. We say that $f$ is \emph{differentiable on $I$} if it is differentiable at every point of $I$.
 \end{defi}
-
-\begin{eg}[Absolute value at origin]
-  Consider the function $f(x)=|x|}$. This function is not differentiable at $x = 0$, since $\lim\limits_{h\to 0^+} \frac{|h| - |0|}{h}= 1$ while $\lim\limits_{h\to 0^-} \frac{|h| - |0|}{h}= -1$.
-\end{eg}
 
 \begin{notation}
-  We write $\frac{\d f}{\d x} = f'(x) = \frac{\d}{\d x} f(x)$. Also, $\frac{\d}{\d x}\left(\frac{\d}{\d x} f(x)\right) = \frac{\d^2}{\d x^2} f(x) = f''(x)$.
-
-  Note that the notation $f'$ represents the derivative with respect to the argument. For example, $f'(2x) = \frac{\d f}{\d (2x)}$
+  Several notations for derivatives are in common use:
+  \begin{itemize}
+    \item \emph{Lagrange's notation}: $f'(x)$ for the first derivative, $f''(x)$ for the second, and more generally $f^{(n)}(x)$ for the $n$-th derivative.
+    \item \emph{Leibniz's notation}: $\dfrac{\d f}{\d x}$ or $\dfrac{\d}{\d x}f(x)$.
+  \end{itemize}
+  Higher derivatives are written as $\dfrac{\d^2 f}{\d x^2}$, $\dfrac{\d^3 f}{\d x^3}$, and so on. Note that $f'$ denotes the derivative with respect to the argument of $f$: for instance, if $g(x) = f(2x)$, then $g'(x) = 2f'(2x)$.
 \end{notation}
 
-\subsection{Small \texorpdfstring{$o$}{o} and big \texorpdfstring{$O$}{O} notations}
-\begin{defi}[$O$ and $o$ notations]
-  Let $f$ and $g$ be real-valued functions, and let $x_0$ be a point (possibly $\pm\infty$).
-  \begin{enumerate}
-    \item We write ``$f(x) = o(g(x))$ as $x\to x_0$'' if $\lim\limits_{x\to x_0} \frac{f(x)}{g(x)} = 0$. Intuitively, this means $f(x)$ is much smaller than $g(x)$ near $x_0$.
-    \item We write ``$f(x) = O(g(x))$ as $x\to x_0$'' if $\frac{f(x)}{g(x)}$ remains bounded as $x\to x_0$. Intuitively, this means $f(x)$ is at most comparable in size to $g(x)$ near $x_0$.
-
-      Note that for $f(x) = O(g(x))$ to hold, the limit $\displaystyle \lim_{x\to x_0} \frac{f(x)}{g(x)}$ need not exist.
-  \end{enumerate}
-  In practice, $x_0$ is typically either $0$ or $\infty$. Observe that $f(x)=o(g(x))$ implies $f(x) = O(g(x))$.
-\end{defi}
-Note that this is an abuse of notation. We are not really saying that $f(x)$ is ``equal'' to $o(g(x))$, since $o(g(x))$ itself is not a function. Instead, $o(g(x))$ represents a \emph{class} of functions (namely functions that satisfy the property above), and we are saying that $f$ is in this class. Technically, a better notation might be $f(x) \in o(g(x))$, but in practice, writing $f(x) = o(g(x))$ is more common and more convenient.
-
-\begin{eg}[Big-O and little-o examples]\leavevmode
-  \begin{itemize}
-    \item $x=o(\sqrt{x})$ as $x\to 0$, and $\sqrt{x} = o(x)$ as $x\to \infty$.
-    \item $\sin 2x = O(x)$ as $x\to 0$, since $\sin \theta \approx \theta$ for small $\theta$.
-    \item $\sin 2x = O(1)$ as $x\to \infty$, even though $\lim_{x\to\infty} \sin 2x$ does not exist.
-  \end{itemize}
+\begin{eg}[Non-differentiability of the absolute value]
+  Consider the absolute value function $f \colon \R \to \R$ defined by $f(x) = |x|$. This function is not differentiable at $x = 0$. Indeed, we have
+  \[
+    \lim_{h\to 0^+} \frac{|h| - |0|}{h} = 1 \quad \text{whereas} \quad \lim_{h\to 0^-} \frac{|h| - |0|}{h} = -1,
+  \]
+  so the limit does not exist.
 \end{eg}
 
-This notation is used frequently in analysis. For example, to express that all terms of order two or higher in $h$ are being neglected, one writes $+O(h^2)$. The notation provides an alternative characterization of the derivative.
-\begin{prop}[Linear approximation characterization]
-  Let $f$ be a differentiable function and let $x_0$ be a point in its domain. Then for small $h$,
+\subsection{Asymptotic notation: little-\texorpdfstring{$o$}{o} and big-\texorpdfstring{$O$}{O}}
+When studying the behaviour of functions near a point or at infinity, it is convenient to have notation for comparing the relative sizes of functions. The following definitions introduce the \emph{Landau notation}, which is used extensively in analysis.
+
+\begin{defi}[Little-$o$ notation]
+  Let $f$ and $g$ be real-valued functions defined in a neighbourhood of a point $x_0 \in \R \cup \{-\infty, +\infty\}$, with $g(x) \neq 0$ for $x$ sufficiently close to $x_0$ (but $x \neq x_0$). We write
   \[
-    f(x_0 + h) = f(x_0) + f'(x_0)h + o(h).
+    f(x) = o(g(x)) \quad \text{as } x \to x_0
+  \]
+  if $\displaystyle \lim_{x\to x_0} \frac{f(x)}{g(x)} = 0$. Informally, this means that $f(x)$ becomes negligible compared to $g(x)$ as $x$ approaches $x_0$.
+\end{defi}
+
+\begin{defi}[Big-$O$ notation]
+  Let $f$ and $g$ be real-valued functions defined in a neighbourhood of $x_0 \in \R \cup \{-\infty, +\infty\}$, with $g(x) \neq 0$ for $x$ sufficiently close to $x_0$. We write
+  \[
+    f(x) = O(g(x)) \quad \text{as } x \to x_0
+  \]
+  if there exist constants $M > 0$ and $\delta > 0$ such that $|f(x)| \leqslant M|g(x)|$ for all $x$ with $0 < |x - x_0| < \delta$. Note that for this condition to hold, the limit $\lim_{x\to x_0} \frac{f(x)}{g(x)}$ need not exist.
+\end{defi}
+
+\begin{rem}
+  The notation $f(x) = o(g(x))$ is, strictly speaking, an abuse of notation: the symbol $o(g(x))$ does not represent a specific function, but rather a \emph{class} of functions satisfying the condition above. The statement $f(x) = o(g(x))$ should be read as ``$f$ belongs to the class $o(g)$''. Similar remarks apply to big-$O$ notation. Observe that $f(x) = o(g(x))$ implies $f(x) = O(g(x))$, but the converse is false in general.
+\end{rem}
+
+\begin{eg}[Asymptotic comparisons]\leavevmode
+  \begin{enumerate}
+    \item As $x \to 0$: we have $x = o(\sqrt{x})$, since $\lim_{x \to 0} \frac{x}{\sqrt{x}} = \lim_{x \to 0} \sqrt{x} = 0$.
+    \item As $x \to +\infty$: we have $\sqrt{x} = o(x)$, since $\lim_{x \to +\infty} \frac{\sqrt{x}}{x} = \lim_{x \to +\infty} \frac{1}{\sqrt{x}} = 0$.
+    \item As $x \to 0$: we have $\sin 2x = O(x)$. Indeed, $\lim_{x \to 0} \frac{\sin 2x}{x} = 2$.
+    \item As $x \to +\infty$: we have $\sin 2x = O(1)$, since $|\sin 2x| \leqslant 1$ for all $x$, even though $\lim_{x \to +\infty} \sin 2x$ does not exist.
+  \end{enumerate}
+\end{eg}
+
+This notation is particularly useful for expressing that certain terms are negligible in approximations. For instance, writing $f(x) = g(x) + O(h^2)$ indicates that the error in approximating $f$ by $g$ is bounded by a constant multiple of $h^2$.
+
+The following proposition provides an important characterisation of differentiability in terms of little-$o$ notation.
+\begin{prop}[Linear approximation]
+  Let $I \subset \R$ be an open interval and let $f \colon I \to \R$ be differentiable at a point $x_0 \in I$. Then
+  \[
+    f(x_0 + h) = f(x_0) + f'(x_0)\, h + o(h) \quad \text{as } h \to 0.
   \]
 \end{prop}
 
 \begin{proof}
-  We have
+  By the definition of the derivative, we have
   \[
-    f'(x_0) = \frac{f(x_0 + h) - f(x_0)}{h} + \frac{o(h)}{h}
+    \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h} = f'(x_0).
   \]
-  by the definition of the derivative and the small $o$ notation. The result follows.
+  Setting $\varepsilon(h) = \frac{f(x_0 + h) - f(x_0)}{h} - f'(x_0)$, we see that $\varepsilon(h) \to 0$ as $h \to 0$. Hence
+  \[
+    f(x_0 + h) = f(x_0) + f'(x_0)\, h + h\, \varepsilon(h),
+  \]
+  where $h\, \varepsilon(h) = o(h)$ as $h \to 0$.
 \end{proof}
 
-\subsection{Methods of differentiation}
+\subsection{Rules of differentiation}
+We now recall the principal rules for computing derivatives. These rules, combined with knowledge of the derivatives of elementary functions, allow us to differentiate a wide variety of expressions.
+
 \begin{thm}[Chain rule]
-  Let $g$ be a function differentiable at $x$, and let $F$ be a function differentiable at $g(x)$. If $f$ is defined by the composition $f(x) = F(g(x))$, then
+  Let $I, J \subset \R$ be open intervals. Let $g \colon I \to J$ be differentiable at a point $x \in I$, and let $F \colon J \to \R$ be differentiable at $g(x)$. Then the composite function $f = F \circ g$ is differentiable at $x$, and
   \[
-    \frac{\d f}{\d x} = \frac{\d F}{\d g}\frac{\d g}{\d x}.
+    f'(x) = F'(g(x)) \cdot g'(x).
+  \]
+  In Leibniz's notation, this may be written as
+  \[
+    \frac{\d f}{\d x} = \frac{\d F}{\d g} \cdot \frac{\d g}{\d x}.
   \]
 \end{thm}
 
 \begin{proof}
-  Assuming that $\frac{\d g}{\d x}$ exists and is therefore finite, we have
+  Using the linear approximation from Proposition~1.1, we have $g(x + h) = g(x) + h\, g'(x) + o(h)$ as $h \to 0$. Set $k = g(x+h) - g(x) = h\, g'(x) + o(h)$. Since $F$ is differentiable at $g(x)$, we have
+  \[
+    F(g(x) + k) = F(g(x)) + k\, F'(g(x)) + o(k) \quad \text{as } k \to 0.
+  \]
+  Note that $k \to 0$ as $h \to 0$, and $o(k) = o(h)$ since $k = O(h)$. Therefore,
   \begin{align*}
-    \frac{\d f}{\d x} &= \lim_{h\to 0}\frac{F(g(x + h)) - F(g(x))}{h}\\
-    &= \lim_{h\to 0}\frac{F[g(x) + hg'(x) + o(h)] - F(g(x))}{h}\\
-    &= \lim_{h\to 0}\frac{F(g(x)) + (hg'(x) + o(h))F'(g(x)) + o(hg'(x) + o(h)) - F(g(x))}{h}\\
-    &= \lim_{h\to 0}g'(x)F'(g(x)) + \frac{o(h)}{h}\\
-    &= g'(x)F'(g(x))\\
-    &= \frac{\d F}{\d g}\frac{\d g}{\d x}\qedhere
+    f(x + h) &= F(g(x + h)) = F(g(x) + k) \\
+    &= F(g(x)) + k\, F'(g(x)) + o(h) \\
+    &= F(g(x)) + (h\, g'(x) + o(h))\, F'(g(x)) + o(h) \\
+    &= f(x) + h\, g'(x)\, F'(g(x)) + o(h).
   \end{align*}
+  By the characterisation of differentiability, $f'(x) = g'(x)\, F'(g(x))$.
 \end{proof}
 
-\begin{thm}[Product Rule]
-  Let $u$ and $v$ be differentiable functions, and define $f(x) = u(x)v(x)$. Then
+\begin{thm}[Product rule]
+  Let $I \subset \R$ be an open interval, and let $u, v \colon I \to \R$ be functions differentiable at a point $x \in I$. Then the product $f = uv$ is differentiable at $x$, and
   \[
-    f'(x) = u'(x)v(x) + u(x)v'(x).
+    f'(x) = u'(x)\, v(x) + u(x)\, v'(x).
   \]
 \end{thm}
 
-\begin{thm}[Leibniz's Rule]
-  Let $u$ and $v$ be $n$-times differentiable functions, and let $f = uv$. Then the $n$-th derivative of $f$ is given by
+The product rule generalises to higher derivatives as follows.
+
+\begin{thm}[Leibniz's formula]
+  Let $I \subset \R$ be an open interval, and let $u, v \colon I \to \R$ be functions that are $n$ times differentiable at a point $x \in I$, where $n \in \N$. Then the product $f = uv$ is $n$ times differentiable at $x$, and
   \[
-    f^{(n)}(x) = \sum_{r = 0}^n \binom{n}{r}u^{(r)}(x)\,v^{(n - r)}(x),
+    f^{(n)}(x) = \sum_{k = 0}^{n} \binom{n}{k} u^{(k)}(x)\, v^{(n - k)}(x),
   \]
-  where $u^{(r)}$ denotes the $r$-th derivative of $u$ (with $u^{(0)} = u$).
+  where by convention $u^{(0)} = u$ and $v^{(0)} = v$.
 \end{thm}
 
 \subsection{Taylor's theorem}
-\begin{thm}[Taylor's Theorem]
-  Let $f$ be a function that is $n$-times differentiable at a point $x$. Then for small $h$,
-  \[
-    f(x + h) = f(x) + hf'(x) + \frac{h^2}{2!}f''(x) + \cdots + \frac{h^n}{n!}f^{(n)}(x) + E_n,
-  \]
-  where the error term satisfies $E_n = o(h^{n})$ as $h\to 0$. If $f^{(n+1)}$ exists, then $E_n = O(h^{n+1})$.
-\end{thm}
-This theorem provides only a local approximation of $f$ near $x$; it does not, in general, provide information about the behaviour of $f$ far from $x$.
+Taylor's theorem provides a polynomial approximation to a function in terms of its derivatives at a given point. This is one of the most fundamental results in analysis.
 
-An equivalent formulation, obtained by writing $x$ in place of $x + h$ and $x_0$ in place of $x$, is:
+\begin{thm}[Taylor's theorem]
+  Let $I \subset \R$ be an open interval, let $x_0 \in I$, and let $n \in \N$. Suppose that $f \colon I \to \R$ is $n$ times differentiable at $x_0$. Then
+  \[
+    f(x_0 + h) = \sum_{k=0}^{n} \frac{h^k}{k!} f^{(k)}(x_0) + R_n(h),
+  \]
+  where the remainder term satisfies $R_n(h) = o(h^n)$ as $h \to 0$. If, moreover, $f$ is $(n+1)$ times differentiable at $x_0$, then $R_n(h) = O(h^{n+1})$ as $h \to 0$.
+\end{thm}
+
+\begin{rem}
+  This theorem provides only a \emph{local} approximation of $f$ near $x_0$; it does not, in general, yield information about the behaviour of $f$ far from $x_0$.
+\end{rem}
+
+An equivalent formulation is obtained by substituting $x = x_0 + h$:
 \[
-  f(x) = f(x_0) + (x-x_0)f'(x_0) + \cdots + \frac{(x-x_0)^n}{n!}f^{(n)}(x_0) + E_n.
+  f(x) = \sum_{k=0}^{n} \frac{(x - x_0)^k}{k!} f^{(k)}(x_0) + R_n(x - x_0).
 \]
-Taking the formal limit as $n\to \infty$ yields the Taylor series of $f$ about the point $x_0$.
+The polynomial $\displaystyle T_n(x) = \sum_{k=0}^{n} \frac{(x - x_0)^k}{k!} f^{(k)}(x_0)$ is called the \emph{Taylor polynomial of order $n$} of $f$ at $x_0$.
 
-\subsection{L'Hopital's rule}
-\begin{thm}[L'Hopital's Rule]
-  Let $f$ and $g$ be functions that are differentiable at $x_0$, with $\displaystyle \lim_{x\to x_0}f(x) = \lim_{x\to x_0}g(x) = 0$. Then
+\begin{defi}[Taylor series]
+  Let $f$ be a function that is infinitely differentiable at a point $x_0$. The \emph{Taylor series} of $f$ at $x_0$ is the formal power series
   \[
-    \lim_{x\to x_0} \frac{f(x)}{g(x)} = \lim_{x\to x_0} \frac{f'(x)}{g'(x)},
+    \sum_{k=0}^{\infty} \frac{(x - x_0)^k}{k!} f^{(k)}(x_0).
   \]
-  provided the limit on the right-hand side exists.
+  When $x_0 = 0$, this is also called the \emph{Maclaurin series} of $f$.
+\end{defi}
+
+\begin{rem}
+  The Taylor series of $f$ need not converge for all $x$, and even when it converges, it need not converge to $f(x)$. A function whose Taylor series converges to itself on an interval is said to be \emph{analytic} on that interval.
+\end{rem}
+
+\subsection{L'H\^opital's rule}
+L'H\^opital's rule is a useful technique for evaluating limits of indeterminate forms such as $\frac{0}{0}$ or $\frac{\infty}{\infty}$.
+
+\begin{thm}[L'H\^opital's rule]
+  Let $I \subset \R$ be an open interval containing a point $x_0$, and let $f, g \colon I \setminus \{x_0\} \to \R$ be differentiable functions. Suppose that:
+  \begin{enumerate}
+    \item $\displaystyle \lim_{x \to x_0} f(x) = \lim_{x \to x_0} g(x) = 0$;
+    \item $g'(x) \neq 0$ for all $x \in I \setminus \{x_0\}$;
+    \item the limit $\displaystyle \lim_{x \to x_0} \frac{f'(x)}{g'(x)}$ exists (possibly equal to $\pm\infty$).
+  \end{enumerate}
+  Then
+  \[
+    \lim_{x \to x_0} \frac{f(x)}{g(x)} = \lim_{x \to x_0} \frac{f'(x)}{g'(x)}.
+  \]
 \end{thm}
+
 \begin{proof}
-  By Taylor's Theorem, $f(x) = f(x_0) + (x - x_0)f'(x_0) + o(x - x_0)$, and similarly for $g$. Thus
+  Assume that $f$ and $g$ extend continuously to $x_0$ with $f(x_0) = g(x_0) = 0$, and that they are differentiable at $x_0$ with $g'(x_0) \neq 0$. By the linear approximation (Proposition~1.1), we have
   \begin{align*}
-    \lim_{x\to x_0} \frac{f(x)}{g(x)} &= \lim_{x\to x_0} \frac{f(x_0) + (x - x_0)f'(x_0) + o(x - x_0)}{g(x_0) + (x - x_0)g'(x_0) + o(x - x_0)}\\
-    &= \lim_{x\to x_0} \frac{f'(x_0) + \frac{o(x-x_0)}{x-x_0}}{g'(x_0) + \frac{o(x-x_0)}{x-x_0}}\\
-    &= \lim_{x\to x_0} \frac{f'(x)}{g'(x)}\qedhere
+    f(x) &= f(x_0) + (x - x_0)\, f'(x_0) + o(x - x_0) = (x - x_0)\, f'(x_0) + o(x - x_0), \\
+    g(x) &= g(x_0) + (x - x_0)\, g'(x_0) + o(x - x_0) = (x - x_0)\, g'(x_0) + o(x - x_0).
   \end{align*}
+  Dividing and taking the limit:
+  \[
+    \lim_{x \to x_0} \frac{f(x)}{g(x)} = \lim_{x \to x_0} \frac{f'(x_0) + \frac{o(x-x_0)}{x-x_0}}{g'(x_0) + \frac{o(x-x_0)}{x-x_0}} = \frac{f'(x_0)}{g'(x_0)}.
+  \]
+  If $f'$ and $g'$ are continuous at $x_0$, then $\displaystyle \lim_{x \to x_0} \frac{f'(x)}{g'(x)} = \frac{f'(x_0)}{g'(x_0)}$, which gives the result. The general case requires a more careful argument using Cauchy's mean value theorem.
 \end{proof}
+
+\begin{rem}
+  The rule can be applied repeatedly if the resulting limit is again an indeterminate form, provided the hypotheses remain satisfied at each stage.
+\end{rem}
 
 \section{Integration}
 \subsection{Integration}
