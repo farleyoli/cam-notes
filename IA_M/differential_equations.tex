@@ -2286,7 +2286,7 @@ So $\lambda$ is the eigenvalue of $M$ and $\mathbf{v}$ is the corresponding eige
 
 We can solve this by solving the characteristic equation $\det(M - \lambda I) = 0$. Then for each $\lambda$, we find the corresponding $\mathbf{v}$.
 
-\begin{eg}
+\begin{eg}[Coupled system with exponential forcing]
   \[
     \mathbf{\dot{Y}} =
     \begin{pmatrix}
@@ -2496,8 +2496,8 @@ So if $\xi, \eta \ll 1$,
 \]
 This is a linear system, and we can determine its character from the eigensolutions.
 
-\begin{eg}
-  (Population dynamics - predator-prey system) Suppose that there are $x$ prey and $y$ predators. Then we have the following for the prey:
+\begin{eg}[Predator-prey population model]
+  Suppose that there are $x$ prey and $y$ predators. Then we have the following for the prey:
   \[
     \dot x = \underbrace{\alpha x}_{\text{births - deaths}} - \underbrace{\beta x^2}_{\text{natural competition}} - \underbrace{\gamma xy}_{\text{killed by predators}}.
   \]
@@ -2774,7 +2774,7 @@ This is known as a parabolic PDE (parabolic because it resembles $y = ax^2$).
 
 Here $T(x, t)$ is the temperature and the constant $\kappa$ is the \emph{diffusivity}.
 
-\begin{eg}
+\begin{eg}[Semi-infinite heated bar]
   Consider an infinitely long bar heated at one end ($x = 0$). Note in general the ``velocity'' $\partial T/\partial t$ is proportional to curvature $\partial^2 T/\partial x^2$, while in the wave equation, it is the ``acceleration'' that is proportional to curvature. In this case, instead of oscillatory, the diffusion equation is dissipative and all unevenness simply decays away.
 
   Suppose $T(x,0) = 0$, $T(0, t) = H(t) =
