@@ -361,13 +361,17 @@ Integration by parts is the integration analogue of the product rule.
 \end{eg}
 
 \section{Partial differentiation}
-\subsection{Partial differentiation}
-The preceding sections dealt with functions of a single variable. We now consider functions of several variables, such as $f(x, y)$, which can be differentiated with respect to each variable independently.
+This section extends the concept of differentiation to functions of several variables, introducing partial derivatives and the multivariable chain rule.
+
+\subsection{Definition and notation}
+The preceding sections dealt with functions of a single variable. We now consider functions of several variables, such as $f(x, y)$, which can be differentiated with respect to each variable independently while holding the others fixed.
+
 \begin{defi}[Partial derivative]
-  Let $f(x, y)$ be a function of two variables. The \emph{partial derivative} of $f$ with respect to $x$, denoted $\left. \frac{\partial f}{\partial x}\right|_y$ or simply $\frac{\partial f}{\partial x}$, is the rate of change of $f$ as $x$ varies while $y$ is held constant:
+  Let $f(x, y)$ be a function of two variables $x$ and $y$. The \emph{partial derivative} of $f$ with respect to $x$, denoted $\left. \frac{\partial f}{\partial x}\right|_y$ or simply $\frac{\partial f}{\partial x}$, is the rate of change of $f$ as $x$ varies while $y$ is held constant:
   \[
-    \left. \frac{\partial f}{\partial x}\right|_y = \lim_{\delta x\to 0} \frac{f(x + \delta x, y) - f(x, y)}{\delta x}.
+    \left. \frac{\partial f}{\partial x}\right|_y = \lim_{h\to 0} \frac{f(x + h, y) - f(x, y)}{h}.
   \]
+  The partial derivative with respect to $y$ is defined analogously.
 \end{defi}
 
 \begin{eg}[Exponential multivariate]
@@ -383,114 +387,126 @@ The preceding sections dealt with functions of a single variable. We now conside
 \end{eg}
 When all other variables are held constant, the subscript indicating which variables are fixed is often omitted, and one writes simply $\frac{\partial f}{\partial x}$.
 
-A common shorthand notation is as follows.
 \begin{notation}
+  A common shorthand uses subscripts to denote partial derivatives:
   \[
-    f_x = \frac{\partial f}{\partial x},\quad f_{xy} = \frac{\partial^2 f}{\partial y\partial x}.
+    f_x = \frac{\partial f}{\partial x},\quad f_y = \frac{\partial f}{\partial y}, \quad f_{xx} = \frac{\partial^2 f}{\partial x^2},\quad f_{xy} = \frac{\partial^2 f}{\partial y\partial x}.
   \]
+  Here $f_{xy}$ means $(f_x)_y$: first differentiate with respect to $x$, then with respect to $y$.
 \end{notation}
-Note that $f_{xy}$ means $(f_x)_y$: first differentiate with respect to $x$, then with respect to $y$. However, under mild regularity conditions, the order of differentiation does not matter.
+
+A natural question is whether the order of differentiation matters for mixed partial derivatives. The following theorem shows that it does not, under mild conditions.
+
 \begin{thm}[Schwarz's theorem]
-  Let $f$ be a function with continuous second partial derivatives. Then $f_{xy} = f_{yx}$.
+  Let $f$ be a function whose second partial derivatives $f_{xy}$ and $f_{yx}$ exist and are continuous. Then $f_{xy} = f_{yx}$.
 \end{thm}
-The proof of this theorem is beyond the scope of this course; we shall take it as given.
+
+The proof of this theorem is beyond the scope of this course. In practice, most functions encountered have continuous partial derivatives of all orders, and we may differentiate in any order.
 
 \subsection{Chain rule}
-Let $f(x, y)$ be a differentiable function of two variables. Consider a displacement $(x, y) \to (x+\delta x, y + \delta y)$. The change in $f$ is
+The chain rule extends to functions of several variables. Consider a differentiable function $f(x, y)$ and a small displacement from $(x, y)$ to $(x+\delta x, y + \delta y)$. The change in $f$ can be computed by moving first in the $x$-direction, then in the $y$-direction:
 \begin{align*}
   \delta f &= f(x+\delta x, y + \delta y) - f(x, y)\\
-  &= f(x+\delta x, y + \delta y) - f(x + \delta x, y) + f(x+\delta x, y) - f(x, y)\\
-  &= f_y(x + \delta x, y)\delta y + o(\delta y) + f_x(x, y)\delta x + o(\delta x)\\
-  &= (f_y(x, y) + o(1))\delta y + o(\delta y) + f_x(x, y)\delta x + o(\delta x)\\
-  &= \frac{\partial f}{\partial x}\delta x + \frac{\partial f}{\partial y}\delta y + o(\delta x, \delta y).
+  &= \bigl[f(x+\delta x, y + \delta y) - f(x + \delta x, y)\bigr] + \bigl[f(x+\delta x, y) - f(x, y)\bigr]\\
+  &= f_y(x + \delta x, y)\,\delta y + o(\delta y) + f_x(x, y)\,\delta x + o(\delta x).
 \end{align*}
-Taking the limit as $\delta x, \delta y \to 0$ yields the following result.
-\begin{thm}[Chain rule for partial derivatives]
-  Let $f(x, y)$ be a differentiable function. Then
+Since $f_y(x + \delta x, y) = f_y(x, y) + O(\delta x)$, we have
+\[
+  \delta f = f_x(x, y)\,\delta x + f_y(x, y)\,\delta y + o(|\delta x| + |\delta y|).
+\]
+This motivates the following definition and theorem.
+
+\begin{defi}[Total differential]
+  The \emph{total differential} of a function $f(x,y)$ is
   \[
     \d f = \frac{\partial f}{\partial x}\d x + \frac{\partial f}{\partial y}\d y.
   \]
-  This differential form can be integrated:
-  \[
-    \int \d f = \int \frac{\partial f}{\partial x}\d x + \int \frac{\partial f}{\partial y}\d y.
-  \]
-  Alternatively, if $x$ and $y$ are functions of a parameter $t$, dividing by $\d t$ gives
+\end{defi}
+
+\begin{thm}[Multivariable chain rule]
+  Let $f(x, y)$ be a differentiable function, and suppose $x = x(t)$ and $y = y(t)$ are differentiable functions of a parameter $t$. Then $f$ can be viewed as a function of $t$, and
   \[
     \frac{\d f}{\d t} = \frac{\partial f}{\partial x}\frac{\d x}{\d t} + \frac{\partial f}{\partial y}\frac{\d y}{\d t}.
   \]
 \end{thm}
 
-If $t$ is taken to be the arclength $s$ along a curve, then
+This formula has several important applications. If a path in the plane is given explicitly by $y = y(x)$, then $f(x, y(x))$ is a function of $x$ alone, and
 \[
-  \frac{\d f}{\d s} = \frac{\partial f}{\partial x}\frac{\d x}{\d s} + \frac{\partial f}{\partial y}\frac{\d y}{\d s} = \left(\frac{\d x}{\d s}, \frac{\d y}{\d s}\right)\cdot \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right) = \hat{s}\cdot \nabla f,
+  \frac{\d f}{\d x} = \frac{\partial f}{\partial x} + \frac{\partial f}{\partial y}\frac{\d y}{\d x}.
 \]
-which is known as the directional derivative (cf.\ Chapter~\ref{sec:directional-derivative}).
-
-Alternatively, if the path is given explicitly as $y = y(x)$, then $f = f(x, y(x))$ and
+The chain rule also applies to changes of variables. For example, suppose we change from Cartesian coordinates $(x, y)$ to polar coordinates $(r, \theta)$, where $x = r\cos\theta$ and $y = r\sin\theta$. Then for any function $f$,
 \[
-  \frac{\d f}{\d x} = \left.\frac{\partial f}{\partial x}\right|_y + \frac{\partial f}{\partial y}{\frac{\d y}{\d x}}.
-\]
-The chain rule also applies to changes of variables. For example, under a change to polar coordinates where $x = x(r, \theta)$ and $y = y(r, \theta)$,
-\[
-  \left.\frac{\partial f}{\partial \theta}\right|_r = \left. \frac{\partial f}{\partial x}\right|_y \left.\frac{\partial x}{\partial \theta}\right|_r + \left.\frac{\partial f}{\partial y}\right|_x\left.\frac{\partial y}{\partial \theta}\right|_r.
+  \frac{\partial f}{\partial \theta} = \frac{\partial f}{\partial x}\frac{\partial x}{\partial \theta} + \frac{\partial f}{\partial y}\frac{\partial y}{\partial \theta} = -r\sin\theta\,\frac{\partial f}{\partial x} + r\cos\theta\,\frac{\partial f}{\partial y}.
 \]
 \subsection{Implicit differentiation}
-Consider a function $F(x, y, z)$ and a level surface defined by $F(x, y, z) = c$ for some constant $c$. This equation implicitly defines $z$ as a function of $x$ and $y$, written $z = z(x, y)$. For example, if $F(x, y, z) = xy^2 + yz^2 + z^5x = 5$, then $z$ cannot be expressed explicitly as a function of $x$ and $y$ (doing so would require solving a quintic equation). Nevertheless, the partial derivatives of $z(x, y)$ can be computed by differentiating the equation $F(x, y, z) = c$ with respect to $x$ while holding $y$ constant:
-\begin{align*}
-  \frac{\partial }{\partial x}(xy^2 + yz^2 + z^5x) &= \frac{\partial }{\partial x}5\\
-  y^2 + 2yz\frac{\partial z}{\partial x} + z^5 + 5z^4x\frac{\partial z}{\partial x} &= 0\\
-  \frac{\partial z}{\partial x} &= -\frac{y^2 + z^5}{2yz + 5z^4x}
-\end{align*}
-In general, the following formula holds.
-\begin{thm}[Multi-variable implicit differentiation]
-  Let $F(x, y, z)$ be a differentiable function, and suppose $z = z(x, y)$ is implicitly defined by
+An equation of the form $F(x, y, z) = c$ defines a \emph{level surface} in three-dimensional space. Under suitable conditions, this equation implicitly defines $z$ as a function of $x$ and $y$, written $z = z(x, y)$, even when no explicit formula for $z$ is available.
+
+\begin{eg}[Implicit function]
+  Consider the equation $xy^2 + yz^2 + z^5x = 5$. This implicitly defines $z$ as a function of $x$ and $y$, but solving for $z$ explicitly would require solving a quintic equation, which is generally impossible in closed form. Nevertheless, we can compute the partial derivatives of $z$ by differentiating both sides with respect to $x$ while treating $y$ as constant:
+  \begin{align*}
+    \frac{\partial}{\partial x}(xy^2 + yz^2 + z^5x) &= \frac{\partial}{\partial x}(5)\\
+    y^2 + 2yz\frac{\partial z}{\partial x} + z^5 + 5z^4x\frac{\partial z}{\partial x} &= 0.
+  \end{align*}
+  Solving for $\frac{\partial z}{\partial x}$ gives
   \[
-    F(x, y, z) = c
+    \frac{\partial z}{\partial x} = -\frac{y^2 + z^5}{2yz + 5z^4x}.
   \]
-  for some constant $c$. If $\frac{\partial F}{\partial z} \neq 0$, then
+\end{eg}
+
+The following theorem gives a general formula for implicit differentiation.
+
+\begin{thm}[Implicit differentiation]
+  Let $F(x, y, z)$ be a differentiable function, and suppose $z = z(x, y)$ is implicitly defined by $F(x, y, z) = c$ for some constant $c$. If $\frac{\partial F}{\partial z} \neq 0$, then
   \[
-    \left.\frac{\partial z}{\partial x}\right|_y = -\frac{\partial F/\partial x}{\partial F/\partial z}.
+    \frac{\partial z}{\partial x} = -\frac{\partial F/\partial x}{\partial F/\partial z} \quad \text{and} \quad \frac{\partial z}{\partial y} = -\frac{\partial F/\partial y}{\partial F/\partial z}.
   \]
 \end{thm}
 
 \begin{proof}
-  \begin{align*}
-    \d F &= \frac{\partial F}{\partial x}\d x + \frac{\partial F}{\partial y}\d y + \frac{\partial F}{\partial z}\d z\\
-    \left.\frac{\partial F}{\partial x}\right|_y &= \frac{\partial F}{\partial x}\left.\frac{\partial x}{\partial x}\right|_y + \frac{\partial F}{\partial y}\left.\frac{\partial y}{\partial x}\right|_y + \frac{\partial F}{\partial z}\left.\frac{\partial z}{\partial x}\right|_y = 0\\
-    \frac{\partial F}{\partial x} + \frac{\partial F}{\partial z}\left.\frac{\partial z}{\partial x}\right|_y &= 0\\
-    \left.\frac{\partial z}{\partial x}\right|_y &= -\frac{(\partial F)/(\partial x)}{(\partial F)/(\partial z)}\qedhere
-  \end{align*}
+  Since $F(x, y, z(x,y)) = c$ is constant, its total differential is zero:
+  \[
+    \d F = \frac{\partial F}{\partial x}\d x + \frac{\partial F}{\partial y}\d y + \frac{\partial F}{\partial z}\d z = 0.
+  \]
+  To find $\frac{\partial z}{\partial x}$, we hold $y$ constant (so $\d y = 0$) and obtain
+  \[
+    \frac{\partial F}{\partial x}\d x + \frac{\partial F}{\partial z}\d z = 0 \implies \frac{\partial z}{\partial x} = \frac{\d z}{\d x} = -\frac{\partial F/\partial x}{\partial F/\partial z}.
+  \]
+  The formula for $\frac{\partial z}{\partial y}$ follows similarly.
 \end{proof}
 \subsection{Differentiation of an integral with respect to a parameter}
-Consider a function $f(x, c)$ depending on a variable $x$ and a parameter $c$. Define the integral $I(b, c) = \int_0^b f(x, c)\,\d x$. By the Fundamental Theorem of Calculus, $\frac{\partial I}{\partial b} = f(b, c)$. To find $\frac{\partial I}{\partial c}$, observe that
-\begin{align*}
-  \frac{\partial I}{\partial c} &= \lim_{\delta c\to 0}\frac{1}{\delta c}\left[\int_0^bf(x, c + \delta c)\d x - \int_0^b f(x, c)\;\d x\right]\\
-  &= \lim_{\delta c\to 0}\int_0^b\frac{f(x, c + \delta c) - f(x, c)}{\delta c}\;\d x\\
-  &= \int_0^b\lim_{\delta c\to 0}\frac{f(x, c + \delta c) - f(x, c)}{\delta c}\;\d x\\
-  &= \int_0^b\frac{\partial f}{\partial c}\;\d x
-\end{align*}
-More generally, suppose both the upper limit and a parameter in the integrand depend on $x$: let $I(x) = \int_0^{b(x)} f(y, c(x))\,\d y$, where $b$ and $c$ are differentiable functions of $x$. By the chain rule,
+It is often useful to differentiate an integral with respect to a parameter appearing in the integrand or in the limits of integration. Consider a function $f(x, c)$ depending on a variable $x$ and a parameter $c$, and define
 \[
-  \frac{\d I}{\d x} = \frac{\partial I}{\partial b}\frac{\d b}{\d x} + \frac{\partial I}{\partial c}\frac{\d c}{\d x} = f(b(x), c(x))\,b'(x) + c'(x) \int_0^{b(x)}\frac{\partial f}{\partial c}\;\d y.
+  I(b, c) = \int_0^b f(x, c)\,\d x.
 \]
-This yields the following result.
+By the Fundamental Theorem of Calculus, $\frac{\partial I}{\partial b} = f(b, c)$. To find how $I$ changes with $c$, we compute
+\begin{align*}
+  \frac{\partial I}{\partial c} &= \lim_{h\to 0}\frac{1}{h}\left[\int_0^bf(x, c + h)\,\d x - \int_0^b f(x, c)\,\d x\right]\\
+  &= \lim_{h\to 0}\int_0^b\frac{f(x, c + h) - f(x, c)}{h}\,\d x = \int_0^b\frac{\partial f}{\partial c}\,\d x,
+\end{align*}
+where the interchange of limit and integral is valid when $\frac{\partial f}{\partial c}$ is continuous.
 
-\begin{thm}[Differentiation under the integral sign]
-  Let $f(y, c)$ be continuously differentiable, and let $b(x)$ and $c(x)$ be differentiable functions. Then
+More generally, suppose both the upper limit and a parameter in the integrand depend on $x$. Let $b(x)$ and $c(x)$ be differentiable functions, and define $I(x) = \int_0^{b(x)} f(y, c(x))\,\d y$. By the multivariable chain rule,
+\[
+  \frac{\d I}{\d x} = \frac{\partial I}{\partial b}\frac{\d b}{\d x} + \frac{\partial I}{\partial c}\frac{\d c}{\d x} = f(b(x), c(x))\,b'(x) + c'(x) \int_0^{b(x)}\frac{\partial f}{\partial c}\,\d y.
+\]
+
+\begin{thm}[Leibniz integral rule]
+  Let $f(y, c)$ be continuously differentiable in both variables, and let $a(x)$, $b(x)$ be differentiable functions. Then
   \[
-    \frac{\d}{\d x} \int_{0}^{b(x)} f(y, c(x))\;\d y= f(b(x), c(x))\,b'(x) + c'(x)\int_0^{b(x)} \frac{\partial f}{\partial c}\;\d y.
+    \frac{\d}{\d x} \int_{a(x)}^{b(x)} f(y, c(x))\,\d y = f(b(x), c(x))\,b'(x) - f(a(x), c(x))\,a'(x) + c'(x)\int_{a(x)}^{b(x)} \frac{\partial f}{\partial c}\,\d y.
   \]
 \end{thm}
-This technique is useful for evaluating certain integrals that would otherwise be difficult to compute.
 
-\begin{eg}[Gaussian parameter derivative]
-  Let $I = \int_0^1 e^{-\lambda x^2}\d x$. Then
+This technique, sometimes called ``Feynman's trick,'' is useful for evaluating certain integrals that would otherwise be difficult to compute.
+
+\begin{eg}[Differentiating a Gaussian integral]
+  Let $I(\lambda) = \int_0^1 e^{-\lambda x^2}\,\d x$, where $\lambda > 0$ is a parameter. Since the limits are constant, the Leibniz rule gives
   \[
-    \frac{\d I}{\d \lambda} = \int_0^1-x^2e^{-\lambda x^2}\;\d x.
+    \frac{\d I}{\d \lambda} = \int_0^1 \frac{\partial}{\partial \lambda}e^{-\lambda x^2}\,\d x = \int_0^1 -x^2 e^{-\lambda x^2}\,\d x.
   \]
-  If $I = \int_0^\lambda e^{-\lambda x^2}\d x$, then
+  Now consider $J(\lambda) = \int_0^\lambda e^{-\lambda x^2}\,\d x$, where the upper limit also depends on $\lambda$. Applying the full Leibniz rule with $b(\lambda) = \lambda$ and $b'(\lambda) = 1$,
   \[
-    \frac{\d I}{\d \lambda} = e^{-\lambda^3} + \int_0^{\lambda}-x^2e^{-\lambda x^2}\;\d x.
+    \frac{\d J}{\d \lambda} = e^{-\lambda \cdot \lambda^2} \cdot 1 + \int_0^{\lambda} -x^2 e^{-\lambda x^2}\,\d x = e^{-\lambda^3} - \int_0^{\lambda} x^2 e^{-\lambda x^2}\,\d x.
   \]
 \end{eg}
 
