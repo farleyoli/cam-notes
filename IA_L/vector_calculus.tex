@@ -708,7 +708,7 @@ We could also do it the other way round, integrating over $y$ first, and come up
 \begin{eg}[Triangle area integral]
   We integrate over the triangle bounded by $(0, 0), (2, 0)$ and $(0, 1)$. We want to integrate the function $f(x, y) = x^2y$ over the area. So
   \begin{align*}
-    \int _D f(x y)\;\d A &= \int_0^1 \left(\int_0^{2 - 2y}x^2y \;\d x\right)\; \d y\\
+    \int _D f(x, y)\;\d A &= \int_0^1 \left(\int_0^{2 - 2y}x^2y \;\d x\right)\; \d y\\
     &= \int_0^1 y\left[\frac{x^3}{3}\right]^{2 - 2y}_0 \;\d y\\
     &= \frac{8}{3}\int_0^1 y(1 - y)^3\;\d y\\
     &= \frac{2}{15}
@@ -759,7 +759,7 @@ While this integral is tedious in general, there is a special case where it is s
 \begin{proof}
   Since we are writing $(x(u, v), y(u, v))$, we are actually transforming from $(u, v)$ to $(x, y)$ and not the other way round.
 
-  Suppose we start with an area $\delta A' = \delta u\delta v$ in the $(u, v)$ plane. Then by Taylors' theorem, we have
+  Suppose we start with an area $\delta A' = \delta u\delta v$ in the $(u, v)$ plane. Then by Taylor's theorem, we have
   \[
     \delta x = x(u + \delta u, v + \delta v) - x(u, v) \approx \frac{\partial x}{\partial u}\delta u + \frac{\partial x}{\partial v}\delta v.
   \]
@@ -807,7 +807,7 @@ While this integral is tedious in general, there is a special case where it is s
   Let the function to be integrated be $f = \exp(-(x^2 + y^2)/2) = \exp(-\rho^2/2)$. Then
   \begin{align*}
     \int f\;\d A &= \int f\rho\;\d\rho\;\d\varphi\\
-    &=\int_{\rho=0}^R\left(\int_{\varphi=0}^{\pi/2}e^{-\rho^2/2}\rho \;\d \varphi\right)\delta \rho\\
+    &=\int_{\rho=0}^R\left(\int_{\varphi=0}^{\pi/2}e^{-\rho^2/2}\rho \;\d \varphi\right)\d \rho\\
     \intertext{Note that in polar coordinates, we are integrating over a rectangle and the function is separable. So this is equal to}
     &= \left[-e^{-\rho^2/2}\right]^R_0\left[\varphi\right]_0^{\pi/2}\\
     &= \frac{\pi}{2}\left( 1 - e^{-R^2/2}\right).\tag{$*$}
@@ -940,7 +940,7 @@ We can change variables by some smooth, invertible transformation $(x, y, z)\map
   \begin{align*}
     \int_V \;\d V &= \int_b^a\d \rho\int_0^{2\pi}\d \varphi \int_{-\sqrt{a^2 - \rho^2}}^{\sqrt{a^2 - \rho^2}}\d z\; \rho\\
     &= 2\pi\int_b^a 2\rho\sqrt{a^2 - \rho^2}\;\d \rho\\
-    &= 2\pi \left[\frac{2}{3}(a^2 - \rho^2)^{3/2}\right]^a_b\\
+    &= 2\pi \left[-\frac{2}{3}(a^2 - \rho^2)^{3/2}\right]^a_b\\
     &= \frac{4}{3}\pi (a^2 - b^2)^{3/2}.
   \end{align*}
 \end{eg}
@@ -1025,7 +1025,7 @@ and its center of mass is
   Finally, we find $Z$.
   \begin{align*}
     Z &= \frac{\rho}{M}\int_0^a r^3\;\d r \int_0^{\pi/2}\sin\theta\cos\theta\;\d \theta \int_0^{2\pi}\;\d \varphi\\
-    &= \frac{r}{M}\left[\frac{a^4}{4}\right]\left[\frac{1}{2}\sin^2\theta\right]_0^{\pi/2}2\pi\\
+    &= \frac{\rho}{M}\left[\frac{a^4}{4}\right]\left[\frac{1}{2}\sin^2\theta\right]_0^{\pi/2}2\pi\\
     &= \frac{3a}{8}.
   \end{align*}
   So $\mathbf{R} = (0, 0, 3a/8)$.
