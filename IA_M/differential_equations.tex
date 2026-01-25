@@ -1204,7 +1204,8 @@ We have the following plot of the stable solutions for different values of $\lam
 Note that the fixed point still exists after $\lambda = 3$, but is no longer stable. Similarly, the 2-cycles still exist after $\lambda = 1 + \sqrt{6}$, but it is not stable.
 
 \section{Second-order differential equations}
-We now move on to second-order differential equations. While we will only look at second-order equations, most of the methods in this section apply to higher order differential equations as well.
+A \emph{second-order differential equation} involves the second derivative of the unknown function. Such equations arise naturally in physics, particularly in mechanics where Newton's second law $F = ma$ relates force to acceleration (the second derivative of position). While this section focuses on second-order equations, most of the methods presented here generalize to higher-order differential equations as well.
+
 \subsection{Constant coefficients}
 The general form of an equation with constant coefficients is
 \[
@@ -1218,7 +1219,12 @@ We solve this in two steps:
 \subsubsection{Complementary functions}
 Recall that $e^{\lambda x}$ is an eigenfunction of the differential operator $\frac{\d}{\d x}$. Hence it is also an eigenfunction of the second derivative $\frac{\d^2}{\d x^2} = \frac{\d}{\d x}\left(\frac{\d }{\d x}\right)$.
 
-If the complementary function has the form $y_c = e^{\lambda x}$, then $y'_c = \lambda e^{\lambda x}$ and $y''_c = \lambda^2 e^{\lambda x}$. Substituting into the differential equation gives
+If we seek a complementary function of the form $y_c = e^{\lambda x}$, then $y'_c = \lambda e^{\lambda x}$ and $y''_c = \lambda^2 e^{\lambda x}$. Substituting into the homogeneous equation $ay'' + by' + cy = 0$ gives
+\[
+  a\lambda^2 e^{\lambda x} + b\lambda e^{\lambda x} + c e^{\lambda x} = e^{\lambda x}(a\lambda^2 + b\lambda + c) = 0.
+\]
+Since $e^{\lambda x} \neq 0$, we require $a\lambda^2 + b\lambda + c = 0$.
+
 \begin{defi}[Characteristic equation]
   The \emph{characteristic equation} of a (second-order) differential equation $ay'' + by' + cy = 0$ is
   \[
@@ -1269,8 +1275,8 @@ If $\lambda_1$ and $\lambda_2$ are distinct, then $y_1$ and $y_2$ are linearly i
   In this way, we have derived two separate basis functions. In general, if $y_1(x)$ is a degenerate complementary function of a linear differential equation with constant coefficients, then $y_2(x) = xy_1(x)$ is an independent complementary function.
 \end{eg}
 
-\subsubsection{Second complementary function}
-In general (i.e.\ if we don't have constant coefficients), we can find a second complementary function associated with a degenerate solution of the homogeneous equation by looking for a solution in the form $y_2(x) = v(x) y_1(x)$, where $y_1(x)$ is the degenerate solution we found.
+\subsubsection{Second complementary function (reduction of order)}
+When the characteristic equation has a repeated root, the detuning method shows that $xy_1(x)$ is a second independent solution. More generally, for equations without constant coefficients, we can find a second complementary function by the method of \emph{reduction of order}: if $y_1(x)$ is one solution, we seek a second solution of the form $y_2(x) = v(x)y_1(x)$ for some unknown function $v(x)$.
 
 \begin{eg}[Reduction of order]
   Consider $y'' - 4y' + 4y = 0$. We have $y_1 = e^{2x}$. We try $y_2 = ve^{2x}$. Then
@@ -1286,15 +1292,17 @@ In general (i.e.\ if we don't have constant coefficients), we can find a second 
 \end{eg}
 
 \subsubsection{Phase space}
-If we are given a general $n$th order differential equation of the form
+To understand the structure of solutions to higher-order differential equations, it is helpful to introduce the concept of \emph{phase space}.
+
+Consider a general $n$th order differential equation of the form
 \[
-  a_n(x) y^{(n)} + a_{n - 1}y^{(n - 1)} + \cdots + a_1(x) y' + a_0 (x) y = f(x),
+  a_n(x) y^{(n)} + a_{n - 1}(x)y^{(n - 1)} + \cdots + a_1(x) y' + a_0 (x) y = f(x),
 \]
-and we have a solution $y$, then we can plot a graph of $y$ versus $x$, and see how $y$ evolves with $x$.
+where $a_n(x) \neq 0$. Given a solution $y$, we can plot $y$ versus $x$ to see how $y$ evolves with $x$.
 
-However, one problem is that for such an equation, the solution is not just determined by the initial condition $y(x_0)$, but also $y'(x_0)$, $y''(x_0)$ etc. So if we just have a snapshot of the value of $y$ at a particular point $x_0$, we have completely no idea how it would evolve in the future.
+However, for such an equation, the solution is not determined by the initial condition $y(x_0)$ alone---we also need $y'(x_0)$, $y''(x_0)$, etc. A snapshot of only the value $y(x_0)$ provides no information about future evolution.
 
-So how much information do we actually need? At any point $x_0$, if we are given the first $n - 1$ derivatives, i.e.\ $y(x_0)$, $y'(x_0)$, $\cdots$, $y^{(n - 1)}(x_0)$, we can then get the $n$th derivative and also any higher derivatives from the differential equation. This means that we know the Taylor series of $y$ about $x_0$, and it follows that the solution is uniquely determined by these conditions (note that it takes considerably more extra work to actually \emph{prove} rigorously that the solution is uniquely determined by these initial conditions, but it can be done for sufficiently sensible $f$, as will be done in IB Analysis II).
+How much information do we actually need? At any point $x_0$, if we are given the values $y(x_0)$, $y'(x_0)$, $\ldots$, $y^{(n - 1)}(x_0)$ (the first $n-1$ derivatives), we can compute the $n$th derivative from the differential equation itself, and hence all higher derivatives. This means we know the Taylor series of $y$ about $x_0$, and the solution is uniquely determined by these $n$ initial conditions. (A rigorous proof of existence and uniqueness requires more work, as covered in IB Analysis II.)
 
 Thus we are led to consider the \emph{solution vector}
 \[
@@ -1321,10 +1329,11 @@ We say such a vector lies in the \emph{phase space}, which is an $n$-dimensional
 In general, for a 2nd order equation, the phase space is a 2-dimensional space, and we can take the two complementary functions $\mathbf{Y}_1$ and $\mathbf{Y}_2$ as basis vectors for the phase space at each particular value of $x$. Of course, we need the two solutions to be linearly independent.
 
 \begin{defi}[Wronskian]
-  Given a differential equation with solutions $y_1, y_2$, the \emph{Wronskian} is the determinant
+  Given two functions $y_1(x)$ and $y_2(x)$, their \emph{Wronskian} is defined as
   \[
-    W(x) = \begin{vmatrix}y_1 & y_2 \\ y_1' & y_2'\end{vmatrix}.
+    W(x) = \begin{vmatrix}y_1 & y_2 \\ y_1' & y_2'\end{vmatrix} = y_1 y_2' - y_2 y_1'.
   \]
+  The Wronskian measures whether the two functions are linearly independent.
 \end{defi}
 
 \begin{defi}[Independent solutions]
@@ -1362,10 +1371,10 @@ In both cases, the Wronskian is \emph{never} zero. Is it possible that it is zer
 In general, any linear $n$th-order homogeneous differential equation can be written in the form $\mathbf{Y}' + A\mathbf{Y} = 0$, a system of first-order equations. It can then be shown that $W' + \tr(A)W = 0$, and $W = W_0e^{-\int \tr A\;\d x}$. So Abel's theorem holds.
 
 \subsection{Particular integrals}
-We now consider equations of the form $ay'' + by' + cy = f(x)$. We will come up with several ways to find a particular integral.
+Having found the complementary function for the homogeneous equation, we now turn to finding a \emph{particular integral} $y_p(x)$ that satisfies the full equation $ay'' + by' + cy = f(x)$. The general solution is then $y = y_c + y_p$.
 
-\subsubsection{Guessing}
-If the forcing terms are simple, we can easily ``guess'' the form of the particular integral, as we've previously done for first-order equations.
+\subsubsection{Guessing (method of undetermined coefficients)}
+For simple forcing terms $f(x)$, we can ``guess'' the form of the particular integral based on the structure of $f(x)$, then determine the unknown coefficients by substitution. This is sometimes called the \emph{method of undetermined coefficients}.
 \begin{center}
   \begin{tabular}{cc}
     \toprule
@@ -1402,9 +1411,11 @@ It is important to remember that the equation is linear, so we can superpose sol
   Note that any boundary condition to determine $A$ and $B$ must be applied to the full solution, not the complementary function
 \end{eg}
 \subsubsection{Resonance}
-Consider $\ddot y + \omega_0^2 y = \sin \omega_0 t$. The complementary solution is $y_c = A\sin \omega_0 t + B\cos \omega_0 t$. We notice that the forcing is itself a complementary function. So if we guess a particular integral $y_p = C\sin \omega_0 t + D\cos \omega_0 t$, we'll simply find $\ddot y_p + \omega_0 ^2 y_p = 0$, so we can't balance the forcing.
+\emph{Resonance} occurs when the forcing term is itself a solution to the homogeneous equation. In this case, the standard guess fails.
 
-This is an example of a simple harmonic oscillator being forced at its natural frequency.
+Consider $\ddot y + \omega_0^2 y = \sin \omega_0 t$, where $\omega_0$ is the \emph{natural frequency} of the oscillator. The complementary solution is $y_c = A\sin \omega_0 t + B\cos \omega_0 t$. Since the forcing $\sin \omega_0 t$ is itself a complementary function, if we guess $y_p = C\sin \omega_0 t + D\cos \omega_0 t$, we get $\ddot y_p + \omega_0^2 y_p = 0$, which cannot balance the forcing.
+
+This is an example of a simple harmonic oscillator being forced at its natural frequency. To find the particular integral, we use detuning.
 
 We can \emph{detune} our forcing away from the natural frequency, and consider $\ddot y + \omega_0^2 y = \sin \omega t$ with $\omega \not= \omega_0$. Try
 \[
@@ -1451,7 +1462,7 @@ Mathematically, since $\sin\theta \approx \theta$ as $\theta \to 0$, as $\Delta\
 In general, if the forcing is a linear combination of complementary functions, then the particular integral is proportional to $t$ (the independent variable) times the non-resonant guess.
 
 \subsubsection{Variation of parameters}
-So far, we have been finding particular integrals by guessing. Here we are going to come up with a method that can systematically help us find the particular integral. Of course, this is substantially more complicated than guessing. So if the form of the particular integral is obvious, we should go for guessing.
+Guessing works well for simple forcing terms, but fails for more complicated functions $f(x)$. The method of \emph{variation of parameters} provides a systematic approach that works for any forcing term, provided we know the complementary functions. Since it is more involved than guessing, we prefer guessing when the form of the particular integral is obvious.
 
 Suppose we have a second order differential equation
 \[
@@ -1541,7 +1552,7 @@ So $u' = -\frac{y_2}{W}f$ and $v' = \frac{y_1}{W}f$.
 It is generally not a good idea to remember the exact formula for the results we've obtained above. Instead, whenever faced with such questions, you should be able to re-derive the results instead.
 
 \subsection{Linear equidimensional equations}
-Equidimensional equations are often called homogeneous equations, but this is confusing as it has the same name as those with no forcing term. So we prefer this name instead.
+\emph{Equidimensional equations} (also called Euler equations or Cauchy--Euler equations) have coefficients that are powers of $x$ matching the order of the derivative. These equations arise naturally in problems with radial or scale symmetry. Note that they are sometimes called ``homogeneous equations'', but we avoid this terminology to prevent confusion with equations having no forcing term.
 
 \begin{defi}[Equidimensional equation]
   An equation is \emph{equidimensional} if it has the form
@@ -1576,13 +1587,15 @@ If the roots of the characteristic equation are equal, then $y_c = \{e^{kz}, ze^
 These results can be easily obtained by considering the substitution method of solving, and then applying our results from homogeneous linear equations with constant coefficients.
 
 \subsection{Difference equations}
-Consider an equation of the form
-\[
-  a y_{n + 2} + by_{n + 1} + cy_n = f_n.
-\]
-We can solve in a similar way to differential equations, by exploiting linearity and eigenfunctions.
+A \emph{difference equation} (or \emph{recurrence relation}) relates values of a sequence $y_n$ at different indices. The techniques for solving difference equations closely parallel those for differential equations.
 
-We can think of the difference operator $D[y_n] = y_{n + 1}$. This has an eigenfunction $y_n = k^n$. We have $D[y_n] = D[k^n] = k^{n + 1} = k\cdot k^n = ky_n$.
+Consider a second-order linear difference equation of the form
+\[
+  a y_{n + 2} + by_{n + 1} + cy_n = f_n,
+\]
+where $a$, $b$, $c$ are constants and $f_n$ is a given sequence. We solve this by exploiting linearity and finding eigenfunctions, just as for differential equations.
+
+Define the \emph{shift operator} $S[y_n] = y_{n + 1}$. The function $y_n = k^n$ is an eigenfunction of $S$ with eigenvalue $k$, since $S[k^n] = k^{n + 1} = k \cdot k^n$.
 
 To solve the difference equation, we first look for complementary functions satisfying
 \[
@@ -1636,9 +1649,9 @@ To find the particular integral, we guess.
 \end{eg}
 
 \subsection{Transients and damping}
-In many physical systems, there is some sort of restoring force and some damping, e.g.\ car suspension system.
+Many physical systems involve a restoring force (which tends to return the system to equilibrium) and a damping force (which dissipates energy). The interplay between these forces leads to different types of behaviour: oscillatory decay, exponential decay, or a combination.
 
-Consider a car of mass $M$ with a vertical force $F(t)$ acting on it (e.g.\ mouse jumping on the car). We can consider the wheels to be springs ($F = kx$) with a ``shock absorber'' ($F = l\dot x$). Then the equation of motion can be given by
+As a concrete example, consider a car of mass $M$ with a vertical force $F(t)$ acting on it (for instance, from a passenger jumping in). The wheels act as springs with spring constant $k$ (restoring force $F = -kx$), and the shock absorbers provide damping proportional to velocity (damping force $F = -l\dot{x}$). Newton's second law gives
 \[
   M\ddot x = F(t) - kx - l\dot x.
 \]
@@ -1679,7 +1692,7 @@ The period is $\frac{2\pi}{\sqrt{1 - \kappa^2}}$ and its amplitude decays in a c
   \end{tikzpicture}
 \end{center}
 
-\subsubsection*{Critically damping}
+\subsubsection*{Critical damping}
 If $\kappa = 1$, then $x = (A + B\tau)e^{-\kappa\tau}$.
 
 The rise time and decay time are both $O(\frac{1}{\kappa}) = O(1)$. So the dimensional rise and decay times are $O(\sqrt{M/k})$.
@@ -1712,6 +1725,8 @@ The general solution is thus $x = Ae^{-\lambda_1\tau} + Be^{-\lambda_2 \tau} - \
 
 It is important to note that the forcing response is out of phase with the forcing.
 \subsection{Impulses and point forces}
+In many applications, forces act over very short time intervals. Rather than model the detailed time-dependence of such forces, it is often convenient to idealize them as acting instantaneously. This leads to the concept of the \emph{Dirac delta function}.
+
 \subsubsection{Dirac delta function}
 Consider a ball bouncing on the ground. When the ball hits the ground at some time $T$, it experiences a force from the ground for some short period of time. The force on the ball exerted by the ground $F(t)$ is $0$ for most of the time, except during the short period $(T - \varepsilon, T + \varepsilon)$.
 
@@ -1825,10 +1840,11 @@ Note that at $x = \frac{\pi}{2}$, our final function has continuous $y$, discont
 
 Hence the discontinuity is always addressed by the highest order derivative since differentiation increases the discontinuity.
 
-\subsection{Heaviside step function}
+\subsubsection{Heaviside step function}
+The Dirac delta function is the derivative of the \emph{Heaviside step function}, which is useful for modelling forces or inputs that ``turn on'' at a particular time.
 
 \begin{defi}[Heaviside step function]
-  Define the Heaviside step function as:
+  The \emph{Heaviside step function} (or unit step function) is defined by
   \[
     H(x) = \int_{-\infty}^x \delta(t) \;\d t
   \]
