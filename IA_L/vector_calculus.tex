@@ -2207,7 +2207,7 @@ and $h_u, h_v, h_w$ determine the changes in length along each orthogonal direct
     \item In cartesian coordinates, $\mathbf{r}(x, y, z) = x\hat{\mathbf{i}} + y\hat{\mathbf{j}} + z\hat{\mathbf{k}}$. Then $h_x = h_y = h_z = 1$, and $\mathbf{e}_x = \hat{\mathbf{i}}, \mathbf{e}_y = \hat{\mathbf{j}}$ and $\mathbf{e}_z = \hat{\mathbf{k}}$.
     \item In cylindrical polars, $\mathbf{r}(\rho, \varphi, z) = \rho[\cos \varphi\hat{\mathbf{i}} + \sin \varphi \hat{\mathbf{j}}] + z \hat{\mathbf{k}}$. Then $h_\rho = h_z = 1$, and
       \[
-        h_\varphi = \left|\frac{\partial \mathbf{r}}{\partial \varphi}\right| = |(-\rho \sin\varphi, \rho \sin \varphi, 0)| = \rho.
+        h_\varphi = \left|\frac{\partial \mathbf{r}}{\partial \varphi}\right| = |(-\rho \sin\varphi, \rho \cos \varphi, 0)| = \rho.
       \]
       The basis vectors $\mathbf{e}_\rho, \mathbf{e}_\varphi, \mathbf{e}_z$ are as in section 1.
     \item In spherical polars,
@@ -2235,7 +2235,7 @@ Consider $f(\mathbf{r}(u, v, w))$ and compare
 \]
 with $\d f = (\nabla f)\cdot \d \mathbf{r}$. Since we know that
 \[
-  \d \mathbf{r} = \frac{\partial \mathbf{r}}{\partial u}\;\d u + \frac{\partial \mathbf{r}}{\partial v}\;\d v + \frac{\partial \mathbf{r}}{\partial w}\;\d w = h_u \mathbf{e}_u \;\d u + h_v \mathbf{e}_v \;\d v + h_w \mathbf{e}_w \;\d v,
+  \d \mathbf{r} = \frac{\partial \mathbf{r}}{\partial u}\;\d u + \frac{\partial \mathbf{r}}{\partial v}\;\d v + \frac{\partial \mathbf{r}}{\partial w}\;\d w = h_u \mathbf{e}_u \;\d u + h_v \mathbf{e}_v \;\d v + h_w \mathbf{e}_w \;\d w,
 \]
 we can compare the terms to know that
 \begin{prop}[Gradient in curvilinear coordinates]
@@ -2281,7 +2281,7 @@ There are several ways to obtain these formulae. We can
 \begin{proof}(non-examinable)
   \begin{enumerate}
     \item Apply $\nabla\cdot$ or $\nabla\times$ and differentiate the basis vectors explicitly.
-    \item First, apply $\nabla\cdot$ or $\nabla\times$, but calculate the result by writing $\mathbf{F}$ in terms of $\nabla u, \nabla v$ and $\nabla w$ in a suitable way. Then use $\nabla\times \nabla f = 0$ and $\nabla\cdot (\nabla\times f) = 0$.
+    \item First, apply $\nabla\cdot$ or $\nabla\times$, but calculate the result by writing $\mathbf{F}$ in terms of $\nabla u, \nabla v$ and $\nabla w$ in a suitable way. Then use $\nabla\times \nabla f = 0$ and $\nabla\cdot (\nabla\times \mathbf{F}) = 0$.
     \item Use the integral expressions for div and curl.
 
       Recall that
@@ -2303,7 +2303,7 @@ There are several ways to obtain these formulae. We can
       \end{center}
       We then integrate around the curve $C$. We split the curve $C$ up into 4 parts (corresponding to the four sides), and take linear approximations by assuming $F$ and $h$ are constant when moving through each horizontal/vertical segment.
       \begin{align*}
-        \int_C \mathbf{F}\cdot \d \mathbf{r} &\approx F_u(u, v) h_u(u, v)\;\delta u + F_v(u + \delta u, v) h_v(u + \delta u, v)\;\delta u \\
+        \int_C \mathbf{F}\cdot \d \mathbf{r} &\approx F_u(u, v) h_u(u, v)\;\delta u + F_v(u + \delta u, v) h_v(u + \delta u, v)\;\delta v \\
         &- F_u(u, v + \delta v)h_u (u, v + \delta v)\; \delta u - F_v(u, v)h_v(u, v)\;\delta v\\
         &\approx \left[\frac{\partial}{\partial u}h_vF_v - \frac{\partial}{\partial v}(h_uF_u)\right]\delta u\delta v.
       \end{align*}
@@ -2311,7 +2311,7 @@ There are several ways to obtain these formulae. We can
       \[
         \lim_{A \to 0} \frac{1}{A}\int_C \mathbf{F}\cdot \d \mathbf{r} = \frac{1}{h_uh_v}\left[\frac{\partial}{\partial u}h_vF_v - \frac{\partial}{\partial v}(h_u F_u)\right].
       \]
-      So, by the integral definition of divergence,
+      So, by the integral definition of curl,
       \[
         \mathbf{e}_w\cdot \nabla\times \mathbf{F} = \frac{1}{h_uh_v}\left[\frac{\partial }{\partial u}(h_vF_v) - \frac{\partial }{\partial v}(h_uF_u)\right],
       \]
