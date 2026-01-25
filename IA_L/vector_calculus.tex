@@ -400,72 +400,85 @@ In three dimensions, the most commonly used curvilinear coordinate systems are c
 
 \section{Curves and Line}
 \subsection{Parametrised curves, lengths and arc length}
-There are many ways we can described a curve. We can, say, describe it by a equation that the points on the curve satisfy. For example, a circle can be described by $x^2 + y^2 = 1$. However, this is not a good way to do so, as it is rather difficult to work with. It is also often difficult to find a closed form like this for a curve.
+A curve in $\R^n$ can be described in several ways. One approach is to specify an equation that points on the curve satisfy; for example, a circle can be described by $x^2 + y^2 = 1$. However, this implicit description is often difficult to work with computationally, and for many curves no simple closed-form equation exists.
 
-Instead, we can imagine the curve to be specified by a particle moving along the path. So it is represented by a function $\mathbf{x}: \R \to \R^n$, and the curve itself is the image of the function. This is known as a \emph{parametrisation} of a curve. In addition to simplified notation, this also has the benefit of giving the curve an \emph{orientation}.
+A more practical approach is to describe a curve parametrically, as the trajectory of a point moving through space. Formally, a curve is represented by a function $\mathbf{r}: D \to \R^n$, where $D \subseteq \R$ is an interval, and the curve itself is the image of this function. This parametric description has the additional benefit of assigning an \emph{orientation} to the curve, corresponding to the direction of increasing parameter.
 
 \begin{defi}[Parametrisation of curve]
-  Given a curve $C$ in $\R^n$, a \emph{parametrisation} of it is a continuous and invertible function $\mathbf{r}: D\to \R^n$ for some $D\subseteq \R$ whose image is $C$.
+  Let $C$ be a curve in $\R^n$. A \emph{parametrisation} of $C$ is a continuous, piecewise differentiable, and invertible function $\mathbf{r}: D \to \R^n$, where $D \subseteq \R$ is an interval, such that the image of $\mathbf{r}$ is $C$.
 
-  $\mathbf{r}'(u)$ is a vector tangent to the curve at each point. A parametrization is \emph{regular} if $\mathbf{r}'(u) \not= 0$ for all $u$.
+  At points where $\mathbf{r}$ is differentiable, the derivative $\mathbf{r}'(u)$ is a vector tangent to the curve. A parametrisation is called \emph{regular} if $\mathbf{r}'(u) \neq \mathbf{0}$ for all $u \in D$ where the derivative exists.
 \end{defi}
-Clearly, a curve can have many different parametrizations.
+
+\begin{rmk}
+  A given curve admits infinitely many parametrisations. For instance, if $\mathbf{r}(u)$ parametrises $C$, then so does $\mathbf{r}(\phi(v))$ for any smooth, invertible function $\phi$.
+\end{rmk}
 
 \begin{eg}[Ellipse parametrization]
-  The curve
+  Consider the upper half of an ellipse lying in the plane $z = 3$:
   \[
-    \frac{1}{4}x^2 + y^2 = 1, \quad y \geq 0, \quad z = 3.
+    \frac{x^2}{4} + y^2 = 1, \quad y \geq 0, \quad z = 3.
   \]
-  can be parametrised by $2\cos u\hat{\mathbf{i}} + \sin u\hat{\mathbf{j}} + 3\hat{\mathbf{k}}$
+  This curve can be parametrised by $\mathbf{r}(u) = 2\cos u\,\hat{\mathbf{i}} + \sin u\,\hat{\mathbf{j}} + 3\hat{\mathbf{k}}$ for $u \in [0, \pi]$.
 \end{eg}
-If we change $u$ (and hence $\mathbf{r}$) by a small amount, then the distance $|\delta \mathbf{r}|$ is roughly equal to the change in arclength $\delta s$. So $\delta s = |\delta \mathbf{r}| + o(\delta \mathbf{r})$. Then we have
+
+We now consider the relationship between a parametrisation and the arc length along a curve. If we change the parameter $u$ by a small amount $\delta u$, the position changes by $\delta \mathbf{r} = \mathbf{r}'(u)\delta u + o(\delta u)$. The corresponding change in arc length is approximately $\delta s \approx |\delta \mathbf{r}|$. This leads to the following result.
 
 \begin{prop}[Arclength derivative]
-  Let $s$ denote the arclength of a curve $\mathbf{r}(u)$. Then
+  Let $\mathbf{r}(u)$ be a regular parametrisation of a curve $C$, and let $s(u)$ denote the arc length measured along $C$ from some fixed reference point. Then
   \[
-    \frac{\d s}{\d u} = \pm \left|\frac{\d \mathbf{r}}{\d u}\right| = \pm |\mathbf{r}'(u)|
+    \frac{\d s}{\d u} = \pm \left|\frac{\d \mathbf{r}}{\d u}\right| = \pm |\mathbf{r}'(u)|,
   \]
-  with the sign depending on whether it is in the direction of increasing or decreasing arclength.
+  where the sign is positive if $s$ increases with $u$ (i.e., arc length is measured in the direction of the parametrisation) and negative otherwise.
 \end{prop}
 
 \begin{eg}[Helix arclength]
-  Consider a helix described by $\mathbf{r}(u) = (3\cos u, 3\sin u, 4u)$. Then
-  \begin{align*}
-    \mathbf{r}'(u) &= (-3\sin u, 3\cos u, 4)\\
-    \frac{\d s}{\d u} &= |\mathbf{r}'(u)| = \sqrt{3^2 + 4^2} = 5
-  \end{align*}
-  So $s = 5u$. i.e.\ the arclength from $\mathbf{r}(0)$ and $\mathbf{r}(u)$ is $s = 5u$.
+  Consider a helix described by $\mathbf{r}(u) = (3\cos u, 3\sin u, 4u)$ for $u \geq 0$. The tangent vector is
+  \[
+    \mathbf{r}'(u) = (-3\sin u, 3\cos u, 4),
+  \]
+  and its magnitude is
+  \[
+    |\mathbf{r}'(u)| = \sqrt{9\sin^2 u + 9\cos^2 u + 16} = \sqrt{9 + 16} = 5.
+  \]
+  Thus, $\frac{\d s}{\d u} = 5$, and the arc length from $\mathbf{r}(0)$ to $\mathbf{r}(u)$ is $s = 5u$.
 \end{eg}
 
-We can change parametrisation of $\mathbf{r}$ by taking an invertible smooth function $u\mapsto \tilde{u}$, and have a new parametrization $\mathbf{r}(\tilde{u}) = \mathbf{r}(\tilde{u}(u))$. Then by the chain rule,
-\begin{align*}
-  \frac{\d \mathbf{r}}{\d u} &= \frac{\d \mathbf{r}}{\d \tilde{u}} \frac{\d \tilde{u}}{\d u}\\
-  \frac{\d \mathbf{r}}{\d \tilde{u}} &= \frac{\d \mathbf{r}}{\d u}\bigg/ \frac{\d \tilde{u}}{\d u}
-\end{align*}
-It is often convenient to use the arclength $s$ as the parameter. Then the tangent vector will always have unit length since the proposition above yields
-\[
-  |\mathbf{r}'(s)| = \frac{\d s}{\d s} = 1.
-\]
-We call $\d s$ the scalar line element, which will be used when we consider integrals.
-\begin{defi}[Scalar line element]
-  The \emph{scalar line element} of $C$ is $\d s$.
-\end{defi}
+\begin{rmk}[Reparametrisation]
+  Given a parametrisation $\mathbf{r}(u)$ of a curve $C$, we can obtain a new parametrisation by composing with any smooth, invertible function $\tilde{u} = \phi(u)$. The new parametrisation is $\tilde{\mathbf{r}}(\tilde{u}) = \mathbf{r}(\phi^{-1}(\tilde{u}))$, and by the chain rule,
+  \[
+    \frac{\d \mathbf{r}}{\d \tilde{u}} = \frac{\d \mathbf{r}}{\d u} \cdot \frac{\d u}{\d \tilde{u}}.
+  \]
+\end{rmk}
 
-\begin{prop}[Arclength differential]
-  $\d s = \pm |\mathbf{r}'(u)| \d u$
-\end{prop}
+A particularly convenient choice is to use the arc length $s$ itself as the parameter. In this case, the tangent vector has unit length, since by the previous proposition,
+\[
+  |\mathbf{r}'(s)| = \left|\frac{\d \mathbf{r}}{\d s}\right| = 1.
+\]
+
+\begin{defi}[Scalar line element]
+  The \emph{scalar line element} of a curve $C$ is the infinitesimal arc length $\d s$. For a curve parametrised by $\mathbf{r}(u)$, we have
+  \[
+    \d s = |\mathbf{r}'(u)| \, \d u.
+  \]
+\end{defi}
 \subsection{Line integrals of vector fields}
+We now define the integral of a vector field along a curve, which measures the cumulative effect of the field along the path.
+
 \begin{defi}[Line integral]
-  The \emph{line integral} of a smooth vector field $\mathbf{F}(\mathbf{r})$ along a path $C$ parametrised by $\mathbf{r}(u)$ along the direction (orientation) $ \mathbf{r}(\alpha)\to \mathbf{r}(\beta)$ is
+  Let $\mathbf{F}: \R^n \to \R^n$ be a continuous vector field and let $C$ be a curve parametrised by $\mathbf{r}: [\alpha, \beta] \to \R^n$. The \emph{line integral} of $\mathbf{F}$ along $C$ in the direction from $\mathbf{r}(\alpha)$ to $\mathbf{r}(\beta)$ is
   \[
     \int_C \mathbf{F}(\mathbf{r})\cdot \d \mathbf{r} = \int_\alpha^\beta \mathbf{F}(\mathbf{r}(u))\cdot \mathbf{r}'(u)\; \d u.
   \]
-  We say $\d \mathbf{r} = \mathbf{r}'(u) \d u$ is the \emph{line element} on $C$. Note that the upper and lower limits of the integral are the end point and start point respectively, and $\beta$ is not necessarily larger than $\alpha$.
+  The quantity $\d \mathbf{r} = \mathbf{r}'(u) \, \d u$ is called the \emph{line element} (or \emph{vector line element}) on $C$.
 \end{defi}
-For example, we may be moving a particle from $\mathbf{a}$ to $\mathbf{b}$ along a curve $C$ under a force field $\mathbf{F}$. Then we may divide the curve into many small segments $\delta \mathbf{r}$. Then for each segment, the force experienced is $\mathbf{F}(\mathbf{r})$ and the work done is $\mathbf{F}(\mathbf{r})\cdot \delta\mathbf{r}$. Then the total work done across the curve is
-\[
-  W = \int_C \mathbf{F}(\mathbf{r})\cdot \d \mathbf{r}.
-\]
+
+\begin{rmk}[Physical interpretation]
+  Consider a particle moving from point $\mathbf{a}$ to point $\mathbf{b}$ along a curve $C$ under the influence of a force field $\mathbf{F}$. The work done by the force is the sum of contributions $\mathbf{F}(\mathbf{r}) \cdot \delta\mathbf{r}$ over infinitesimal displacements $\delta\mathbf{r}$ along the curve. In the limit, the total work done is
+  \[
+    W = \int_C \mathbf{F}(\mathbf{r})\cdot \d \mathbf{r}.
+  \]
+\end{rmk}
 
 \begin{eg}[Line integral, three paths]
   Take $\mathbf{F}(\mathbf{r}) = (xe^y, z^2, xy)$ and we want to find the line integral from $\mathbf{a}=(0, 0, 0)$ to $\mathbf{b}=(1, 1, 1)$.
@@ -496,19 +509,29 @@ For example, we may be moving a particle from $\mathbf{a}$ to $\mathbf{b}$ along
   We see that the line integral depends on the curve $C$ in general, not just $\mathbf{a}, \mathbf{b}$.
 \end{eg}
 
-We can also use the arclength $s$ as the parameter. Since $\d \mathbf{r} = \mathbf{t}\;\d s$, with $\mathbf{t}$ being the unit tangent vector, we have
-\[
-  \int_C \mathbf{F}\cdot \d \mathbf{r} = \int_C \mathbf{F}\cdot \mathbf{t}\;\d s.
-\]
-Note that we do not necessarily have to integrate $\mathbf{F}\cdot \mathbf{t}$ with respect to $s$. We can also integrate a scalar function as a function of $s$, $\int_C f(s)\;\d s$. By convention, this is calculated in the direction of increasing $s$. In particular, we have
-\[
-  \int_C 1\;\d s = \text{length of C}.
-\]
-\begin{defi}[Closed curve]
-  A \emph{closed curve} is a curve with the same start and end point. The line integral along a closed curve is (sometimes) written as $\oint$ and is (sometimes) called the \emph{circulation} of $\mathbf{F}$ around $C$.
+\begin{rmk}[Arclength parametrisation]
+  If we use the arc length $s$ as the parameter, then $\d \mathbf{r} = \mathbf{t}\,\d s$, where $\mathbf{t} = \mathbf{r}'(s)$ is the unit tangent vector. The line integral becomes
+  \[
+    \int_C \mathbf{F}\cdot \d \mathbf{r} = \int_C \mathbf{F}\cdot \mathbf{t}\;\d s.
+  \]
+\end{rmk}
+
+\begin{rmk}[Scalar line integrals]
+  More generally, we can integrate any scalar function $f$ along a curve $C$ with respect to arc length:
+  \[
+    \int_C f\;\d s.
+  \]
+  By convention, this integral is evaluated in the direction of increasing arc length. As a special case, the length of the curve $C$ is given by
+  \[
+    \int_C 1\;\d s = \text{length of } C.
+  \]
+\end{rmk}
+
+\begin{defi}[Closed curve and circulation]
+  A \emph{closed curve} is a curve whose start and end points coincide. The line integral of a vector field $\mathbf{F}$ around a closed curve $C$ is often written as $\oint_C \mathbf{F} \cdot \d\mathbf{r}$ and is called the \emph{circulation} of $\mathbf{F}$ around $C$.
 \end{defi}
 
-Sometimes we are not that lucky and our curve is not smooth. For example, the graph of an absolute value function is not smooth. However, often we can break it apart into many smaller segments, each of which is smooth. Alternatively, we can write the curve as a sum of smooth curves. We call these \emph{piecewise smooth} curves.
+Many curves arising in applications are not smooth everywhere; for example, a polygonal path has corners where the tangent vector is undefined. Such curves can often be decomposed into finitely many smooth pieces.
 
 \begin{defi}[Piecewise smooth curve]
   A \emph{piecewise smooth curve} is a curve $C = C_1 + C_2 + \cdots + C_n$ with all $C_i$ smooth with regular parametrisations. The line integral over a piecewise smooth $C$ is
@@ -537,16 +560,17 @@ Sometimes we are not that lucky and our curve is not smooth. For example, the gr
   \end{center}
 \end{eg}
 \subsection{Gradients and Differentials}
-Recall that the line integral depends on the actual curve taken, and not just the end points. However, for some nice functions, the integral \emph{does} depend on the end points only.
-\begin{thm}[Fundamental theorem for line integrals]
-  If $\mathbf{F} = \nabla f(\mathbf{r})$, then
-  \[
-    \int _C \mathbf{F}\cdot \d \mathbf{r} = f(\mathbf{b}) - f(\mathbf{a}),
-  \]
-  where $\mathbf{b}$ and $\mathbf{a}$ are the end points of the curve.
+As the previous example demonstrates, line integrals generally depend on the path taken, not just the endpoints. However, there is an important class of vector fields for which the line integral depends only on the endpoints. These are the vector fields that can be expressed as gradients of scalar functions.
 
-  In particular, the line integral does \emph{not} depend on the curve, but the end points only. This is the vector counterpart of the fundamental theorem of calculus. A special case is when $C$ is a closed curve, then $\oint_C \mathbf{F}\cdot \d \mathbf{r} = 0$.
+\begin{thm}[Fundamental theorem for line integrals]
+  Let $f: \R^n \to \R$ be a differentiable scalar function and let $C$ be a piecewise smooth curve from $\mathbf{a}$ to $\mathbf{b}$. If $\mathbf{F} = \nabla f$, then
+  \[
+    \int_C \mathbf{F}\cdot \d \mathbf{r} = f(\mathbf{b}) - f(\mathbf{a}).
+  \]
+  In particular, the line integral depends only on the endpoints and not on the path. As a special case, if $C$ is a closed curve, then $\oint_C \mathbf{F}\cdot \d \mathbf{r} = 0$.
 \end{thm}
+
+This result is the multivariable analogue of the fundamental theorem of calculus.
 
 \begin{proof}
   Let $\mathbf{r}(u)$ be any parametrization of the curve, and suppose $\mathbf{a} = \mathbf{r}(\alpha)$, $\mathbf{b} = \mathbf{r}(\beta)$. Then
@@ -560,43 +584,50 @@ Recall that the line integral depends on the actual curve taken, and not just th
 \end{proof}
 
 \begin{defi}[Conservative vector field]
-  If $\mathbf{F} = \nabla f$ for some $f$, the $\mathbf{F}$ is called a \emph{conservative vector field}.
+  A vector field $\mathbf{F}$ is called \emph{conservative} if $\mathbf{F} = \nabla f$ for some scalar function $f$. The function $f$ is called a \emph{potential} for $\mathbf{F}$.
 \end{defi}
 
-The name \emph{conservative} comes from mechanics, where conservative vector fields represent conservative forces that conserve energy. This is since if the force is conservative, then the integral (i.e.\ work done) about a closed curve is $0$, which means that we cannot gain energy after travelling around the loop.
+\begin{rmk}[Origin of the term ``conservative'']
+  The terminology comes from mechanics: if a force field $\mathbf{F}$ is conservative, then the work done around any closed loop is zero, which implies that energy is conserved. A particle cannot gain net energy by travelling around a closed path.
+\end{rmk}
 
-It is convenient to treat differentials $\mathbf{F}\cdot \d \mathbf{r} = F_i \d x_i$ as if they were objects by themselves, which we can integrate along curves if we feel like doing so.
+It is often useful to work directly with the differential form $\mathbf{F} \cdot \d\mathbf{r} = F_i \, \d x_i$, treating it as an object that can be integrated along curves.
 
-Then we can define
 \begin{defi}[Exact differential]
-  A differential $\mathbf{F}\cdot\d \mathbf{r}$ is \emph{exact} if there is an $f$ such that $\mathbf{F} = \nabla f$. Then
+  A differential form $\mathbf{F} \cdot \d\mathbf{r}$ is called \emph{exact} if there exists a scalar function $f$ such that $\mathbf{F} = \nabla f$, i.e.,
   \[
-    \d f = \nabla f\cdot \d \mathbf{r} = \frac{\partial f}{\partial x_i} \d x_i.
+    \mathbf{F} \cdot \d\mathbf{r} = \d f = \nabla f \cdot \d\mathbf{r} = \frac{\partial f}{\partial x_i} \d x_i.
   \]
 \end{defi}
 
-To test if this holds, we can use the necessary condition
-\begin{prop}[Exactness symmetry test]
-  If $\mathbf{F} = \nabla f$ for some $f$, then
+The following proposition provides a necessary condition for a differential to be exact.
+
+\begin{prop}[Exactness symmetry condition]
+  If $\mathbf{F} = \nabla f$ for some smooth function $f$, then
   \[
-    \frac{\partial F_i}{\partial x_j} = \frac{\partial F_j}{\partial x_i}.
+    \frac{\partial F_i}{\partial x_j} = \frac{\partial F_j}{\partial x_i}
   \]
-  This is because both are equal to $\partial^2 f/\partial x_i\partial x_j$.
+  for all $i, j$. This follows from the equality of mixed partial derivatives: $\frac{\partial F_i}{\partial x_j} = \frac{\partial^2 f}{\partial x_j \partial x_i} = \frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{\partial F_j}{\partial x_i}$.
 \end{prop}
 
-For an exact differential, the result from the previous section reads
-\[
-  \int_C \mathbf{F}\cdot \d \mathbf{r} = \int_C \d f = f(\mathbf{b}) - f(\mathbf{a}).
-\]
-Differentials can be manipulated using (for constant $\lambda, \mu$):
-\begin{prop}[Differential linearity and product rule]
+\begin{rmk}
+  For an exact differential, the fundamental theorem for line integrals can be written as
+  \[
+    \int_C \mathbf{F} \cdot \d\mathbf{r} = \int_C \d f = f(\mathbf{b}) - f(\mathbf{a}).
+  \]
+\end{rmk}
+
+Differentials satisfy the following algebraic properties, which can be useful for recognizing exact differentials.
+
+\begin{prop}[Properties of differentials]
+  For differentiable functions $f$ and $g$, and constants $\lambda, \mu \in \R$:
   \begin{align*}
-    \d (\lambda f + \mu g) &= \lambda \d f + \mu \d g\\
-    \d (fg) &= (\d f)g + f(\d g)
+    \d(\lambda f + \mu g) &= \lambda \, \d f + \mu \, \d g \quad \text{(linearity)}\\
+    \d(fg) &= g \, \d f + f \, \d g \quad \text{(product rule)}
   \end{align*}
 \end{prop}
 
-Using these, it may be possible to find $f$ by inspection.
+These rules can sometimes be used to recognize an exact differential and find its potential by inspection.
 
 \begin{eg}[Exact differential integration]
   Consider
@@ -610,37 +641,49 @@ Using these, it may be possible to find $f$ by inspection.
 \end{eg}
 
 \subsection{Work and potential energy}
-\begin{defi}[Work and potential energy]
-  If $\mathbf{F}(\mathbf{r})$ is a force, then $\int_C \mathbf{F}\cdot \d \mathbf{r}$ is the \emph{work done} by the force along the curve $C$. It is the limit of a sum of terms $\mathbf{F}(\mathbf{r})\cdot \delta \mathbf{r}$, i.e.\ the force along the direction of $\delta \mathbf{r}$.
+We now apply the theory of line integrals to mechanics.
+
+\begin{defi}[Work]
+  Let $\mathbf{F}(\mathbf{r})$ be a force field. The \emph{work done} by $\mathbf{F}$ on a particle moving along a curve $C$ is
+  \[
+    W = \int_C \mathbf{F} \cdot \d\mathbf{r}.
+  \]
+  This represents the accumulated effect of the force component along the direction of motion.
 \end{defi}
 
-Consider a point particle moving under $\mathbf{F}(\mathbf{r})$ according to Newton's second law: $\mathbf{F}(\mathbf{r}) = m\ddot{\mathbf{r}}$.
+\begin{prop}[Work-energy theorem]
+  Consider a particle of mass $m$ moving under the influence of a force $\mathbf{F}(\mathbf{r})$ according to Newton's second law, $\mathbf{F} = m\ddot{\mathbf{r}}$. The work done by $\mathbf{F}$ as the particle moves along a curve $C$ equals the change in kinetic energy.
+\end{prop}
 
-Since the kinetic energy is defined as
-\[
-  T(t) = \frac{1}{2}m\dot{\mathbf{r}}^2,
-\]
-the rate of change of energy is
-\[
-  \frac{\d}{\d t}T(t) = m\dot{\mathbf{r}}\cdot \ddot{\mathbf{r}} = \mathbf{F}\cdot \dot{\mathbf{r}}.
-\]
-Suppose the path of particle is a curve $C$ from $\mathbf{a} = \mathbf{r}(\alpha)$ to $\mathbf{b} = \mathbf{r}(\beta)$, Then
-\[
-  T(\beta) - T(\alpha) = \int_\alpha^\beta \frac{\d T}{\d t} \;\d t = \int_\alpha^\beta \mathbf{F}\cdot \dot{\mathbf{r}}\;\d t = \int_C \mathbf{F}\cdot \d \mathbf{r}.
-\]
-So the work done on the particle is the change in kinetic energy.
+\begin{proof}
+  The kinetic energy of the particle is $T = \frac{1}{2}m|\dot{\mathbf{r}}|^2$. Differentiating with respect to time,
+  \[
+    \frac{\d T}{\d t} = m\dot{\mathbf{r}} \cdot \ddot{\mathbf{r}} = \mathbf{F} \cdot \dot{\mathbf{r}}.
+  \]
+  If the particle travels along a curve $C$ from $\mathbf{a} = \mathbf{r}(t_1)$ to $\mathbf{b} = \mathbf{r}(t_2)$, then
+  \[
+    T(t_2) - T(t_1) = \int_{t_1}^{t_2} \frac{\d T}{\d t} \, \d t = \int_{t_1}^{t_2} \mathbf{F} \cdot \dot{\mathbf{r}} \, \d t = \int_C \mathbf{F} \cdot \d\mathbf{r}. \qedhere
+  \]
+\end{proof}
 
 \begin{defi}[Potential energy]
-  Given a conservative force $\mathbf{F} = -\nabla V$, $V(\mathbf{x})$ is the \emph{potential energy}. Then
+  If a force field $\mathbf{F}$ is conservative, so that $\mathbf{F} = -\nabla V$ for some scalar function $V$, then $V(\mathbf{r})$ is called the \emph{potential energy}. The work done by $\mathbf{F}$ along a curve $C$ from $\mathbf{a}$ to $\mathbf{b}$ is
   \[
-    \int_C \mathbf{F}\cdot \d \mathbf{r} = V(\mathbf{a}) - V(\mathbf{b}).
+    \int_C \mathbf{F} \cdot \d\mathbf{r} = -\int_C \nabla V \cdot \d\mathbf{r} = V(\mathbf{a}) - V(\mathbf{b}).
   \]
 \end{defi}
-Therefore, for a conservative force, we have $\mathbf{F} = -\nabla V$, where $V(\mathbf{r})$ is the potential energy.
 
-So the work done (gain in kinetic energy) is the loss in potential energy. So the total energy $T + V$ is conserved, i.e.\ constant during motion.
+\begin{thm}[Conservation of energy]
+  For a conservative force $\mathbf{F} = -\nabla V$, the total mechanical energy $E = T + V$ is conserved along the motion of the particle, i.e., $E$ remains constant in time.
+\end{thm}
 
-We see that energy is conserved for conservative forces. In fact, the converse is true --- the energy is conserved only for conservative forces.
+\begin{proof}
+  By the work-energy theorem, the change in kinetic energy equals the work done: $\Delta T = \int_C \mathbf{F} \cdot \d\mathbf{r}$. For a conservative force, this equals $V(\mathbf{a}) - V(\mathbf{b}) = -\Delta V$. Hence $\Delta T + \Delta V = 0$, so $T + V$ is constant.
+\end{proof}
+
+\begin{rmk}
+  The converse also holds: if energy is conserved for all motions in a force field, then the force must be conservative.
+\end{rmk}
 
 \section{Integration in \tph{$\R^2$ and $\R^3$}{R2 and R3}{&\#x211D;<sup>2</sup> and &\#x211D;<sup>2</sup>}}
 \subsection{Integrals over subsets of \tph{$\R^2$}{R2}{&\#x211D;<sup>2</sup>}}
