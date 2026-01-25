@@ -2086,8 +2086,10 @@ The indicial equation is quadratic in $\sigma$, yielding two roots $\sigma_1$ an
 \end{eg}
 \section{Directional derivative}
 \label{sec:directional-derivative}
+This section develops the calculus of functions of several variables, focusing on how such functions change in different directions. The key concepts---the gradient vector, directional derivative, and Hessian matrix---are essential for understanding optimization and the classification of stationary points.
+
 \subsection{Gradient vector}
-Consider a function $f(x, y)$ and a displacement $\d\mathbf{s} = (\d x, \d y)$. The change in $f(x, y)$ during that displacement is
+Consider a scalar function $f(x, y)$ of two variables. For an infinitesimal displacement $\d\mathbf{s} = (\d x, \d y)$, the total differential gives the change in $f$:
 \[
   \d f = \frac{\partial f}{\partial x}\d x + \frac{\partial f}{\partial y}\d y
 \]
@@ -2096,23 +2098,27 @@ We can also write this as
   \d f &= (\d x, \d y)\cdot \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right)\\
   &= \d\mathbf{s}\cdot \nabla f
 \end{align*}
-where $\nabla f = \mathrm{grad}f = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right)$ are the Cartesian components of the \emph{gradient} of $f$.
+\begin{defi}[Gradient vector]
+  The \emph{gradient} of $f$, written $\nabla f$ or $\mathrm{grad}\, f$, is the vector with Cartesian components
+  \[
+    \nabla f = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right).
+  \]
+  More generally, in $n$ dimensions, $(\nabla f)_i = \frac{\partial f}{\partial x_i}$.
+\end{defi}
 
-We write $\d\mathbf{s} = \hat{\mathbf{s}}\;\d s$, where $|\hat{\mathbf{s}}| = 1$. Then
+Thus $\d f = \d\mathbf{s} \cdot \nabla f$. Writing $\d\mathbf{s} = \hat{\mathbf{s}}\,\d s$ where $\hat{\mathbf{s}}$ is a unit vector, we obtain:
+
 \begin{defi}[Directional derivative]
-  The \emph{directional derivative} of $f$ in the direction of $\hat{\mathbf{s}}$ is
+  The \emph{directional derivative} of $f$ in the direction of the unit vector $\hat{\mathbf{s}}$ is
   \[
     \frac{\d f}{\d s} = \hat{\mathbf{s}}\cdot \nabla f.
   \]
+  This measures the rate of change of $f$ per unit distance in the direction $\hat{\mathbf{s}}$.
 \end{defi}
 
-\begin{defi}[Gradient vector]
-  The \emph{gradient vector} $\nabla f$ is defined as the vector that satisfies
-  \[
-    \frac{\d f}{\d s} = \mathbf{\hat{s}}\cdot \nabla f.
-  \]
-\end{defi}
-This is taken as the formal definition of $\nabla f$. The expression $\nabla f = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right)$ then follows as a theorem from this definition.
+\begin{remark}
+  Alternatively, one can take the directional derivative formula $\frac{\d f}{\d s} = \hat{\mathbf{s}} \cdot \nabla f$ as the \emph{definition} of $\nabla f$ (a coordinate-free definition), from which the Cartesian formula follows as a theorem.
+\end{remark}
 
 We know that the directional derivative is given by
 \[
@@ -2129,15 +2135,17 @@ where $\theta$ is the angle between the displacement and $\nabla f$. Then when $
     So $\mathbf{\hat{s}}\cdot \nabla f = 0$, i.e.\ $\nabla f$ is orthogonal to the contour.
 \end{enumerate}
 \subsection{Stationary points}
-There is always (at least) one direction in which $\frac{\d f}{\d s} = 0$, namely the direction parallel to the contour of $f$. However, local maxima and minima have
-\[
-  \frac{\d f}{\d s} = 0
-\]
-for \emph{all} directions, i.e.\ $\mathbf{\hat{s}}\cdot \nabla f = 0$ for all $\mathbf{\hat{s}}$, i.e.\ $\nabla f = \mathbf{0}$. Then we know that
-\[
-  \frac{\partial f}{\partial x} = \frac{\partial f}{\partial y} = 0.
-\]
-However, apart from maxima and minima, in 3 dimensions, we also have saddle points:
+At any point, there is at least one direction in which $\frac{\d f}{\d s} = 0$: the direction tangent to the contour (level curve) of $f$. However, at certain special points, the directional derivative vanishes in \emph{all} directions.
+
+\begin{defi}[Stationary point]
+  A \emph{stationary point} (or \emph{critical point}) of $f$ is a point $\mathbf{x}_0$ where $\nabla f(\mathbf{x}_0) = \mathbf{0}$, i.e.,
+  \[
+    \frac{\partial f}{\partial x} = \frac{\partial f}{\partial y} = 0.
+  \]
+  At such points, $\frac{\d f}{\d s} = \hat{\mathbf{s}} \cdot \nabla f = 0$ for all directions $\hat{\mathbf{s}}$.
+\end{defi}
+
+Stationary points include local maxima and local minima, but also \emph{saddle points}---points where $\nabla f = \mathbf{0}$ but which are neither maxima nor minima:
 \begin{center}
   \begin{tikzpicture}
     \begin{axis}[hide axis, xtick=\empty, ytick=\empty]
@@ -2151,11 +2159,9 @@ In general, we define a saddle point to be a point at which $\nabla f = 0$ but i
 When we plot out contours of functions, near maxima and minima, the contours are locally elliptical. Near saddle points, they are locally hyperbolic. Also, the contour lines cross at and only at saddle points.
 
 \subsection{Taylor series for multi-variable functions}
-Suppose we have a function $f(x, y)$ and a point $\mathbf{x}_0$. Now consider a finite displacement $\delta s$ along a straight line in the $x,y$ plane. Then
-\[
-  \delta s\frac{\d }{\d s} = \delta \mathbf{s}\cdot \nabla
-\]
-The Taylor series along the line is
+To classify stationary points, we need to examine the local behaviour of $f$ near such points. This requires extending Taylor series to functions of several variables.
+
+Consider a function $f(x, y)$ and a point $\mathbf{x}_0 = (x_0, y_0)$. For a finite displacement $\delta \mathbf{s} = (\delta x, \delta y)$ along a straight line from $\mathbf{x}_0$, we can expand $f$ as a Taylor series:
 \begin{align*}
   f(s) &= f(s_0 + \delta s)\\
   &=f(s_0) + \delta s\frac{\d f}{\d s} + \frac{1}{2}(\delta s)^2\frac{\d ^2 f}{\d s^2}\\
@@ -2184,14 +2190,15 @@ and
   \end{pmatrix}
 \end{align*}
 \begin{defi}[Hessian matrix]
-  The \emph{Hessian matrix} is the matrix
+  The \emph{Hessian matrix} of $f$ is the matrix of second partial derivatives:
   \[
-    \nabla \nabla f =
+    H = \nabla \nabla f =
     \begin{pmatrix}
       f_{xx}&f_{xy}\\
       f_{yx}&f_{yy}
-    \end{pmatrix}
+    \end{pmatrix}.
   \]
+  By Schwarz's theorem ($f_{xy} = f_{yx}$), the Hessian is symmetric.
 \end{defi}
 
 In conclusion, we have
@@ -2209,17 +2216,18 @@ where the dot in the second term represents a matrix product. Alternatively, in 
 \]
 
 \subsection{Classification of stationary points}
-At a stationary point $\mathbf{x}_0$, we know that $\nabla f(\mathbf{x}_0) = 0$. So at a point near the stationary point,
+At a stationary point $\mathbf{x}_0$, we have $\nabla f(\mathbf{x}_0) = \mathbf{0}$, so the linear term in the Taylor expansion vanishes. The behaviour near $\mathbf{x}_0$ is thus determined by the quadratic term:
 \[
   f(\mathbf{x})\approx f(\mathbf{x}_0) + \frac{1}{2}\delta\mathbf{x}\cdot H\cdot \delta\mathbf{x},
 \]
-where $H = \nabla\nabla f(\mathbf{x}_0)$ is the Hessian matrix.
+where $H = \nabla\nabla f(\mathbf{x}_0)$ is the Hessian matrix evaluated at $\mathbf{x}_0$, and $\delta\mathbf{x} = \mathbf{x} - \mathbf{x}_0$.
 
-At a minimum, every point near $\mathbf{x}_0$ has $f(\mathbf{x}) > f(\mathbf{x}_0)$, i.e.\ $\delta \mathbf{x}\cdot H\cdot \delta \mathbf{x} > 0$ for all $\delta \mathbf{x}$. We say $\delta \mathbf{x}\cdot H\cdot\delta \mathbf{x}$ is \emph{positive definite}.
-
-Similarly, at a maximum, $\delta \mathbf{x}\cdot H\cdot \delta\mathbf{x} < 0$ for all $\delta \mathbf{x}$. We say $\delta \mathbf{x}\cdot H\cdot \delta \mathbf{x}$ is \emph{negative definite}.
-
-At a saddle, $\delta \mathbf{x} \cdot H\cdot \delta\mathbf{x}$ is indefinite, i.e.\ it can be positive, negative or zero depending on the direction.
+The nature of the stationary point depends on the \emph{definiteness} of the quadratic form $Q(\delta\mathbf{x}) = \delta\mathbf{x} \cdot H \cdot \delta\mathbf{x}$:
+\begin{itemize}
+  \item \textbf{Local minimum:} $Q(\delta\mathbf{x}) > 0$ for all $\delta\mathbf{x} \neq \mathbf{0}$ (positive definite).
+  \item \textbf{Local maximum:} $Q(\delta\mathbf{x}) < 0$ for all $\delta\mathbf{x} \neq \mathbf{0}$ (negative definite).
+  \item \textbf{Saddle point:} $Q(\delta\mathbf{x})$ takes both positive and negative values (indefinite).
+\end{itemize}
 
 The criterion above does not immediately indicate the sign of $\delta \mathbf{x}\cdot H\cdot \delta \mathbf{x}$. However, since $H = \nabla\nabla f$ is symmetric (because $f_{xy} = f_{yx}$), $H$ can be diagonalized (see Vectors and Matrices). With respect to these axes in which $H$ is diagonal (principal axes), we have
 \begin{align*}
@@ -2241,9 +2249,10 @@ So for $\delta \mathbf{x}\cdot H\cdot \delta \mathbf{x}$ to be positive-definite
 
 Finally, if there is at least one zero eigenvalue, then we need further analysis to determine the nature of the stationary point.
 
-Apart from finding eigenvalues, another way to determine the definiteness is using the \emph{signature}.
-\begin{defi}[Signature of Hessian matrix]
-  The \emph{signature} of $H$ is the pattern of the signs of the subdeterminants:
+An alternative to computing eigenvalues is to use \emph{Sylvester's criterion}, which involves the leading principal minors of $H$.
+
+\begin{defi}[Leading principal minors]
+  The \emph{leading principal minors} of $H$ are the determinants of the upper-left $k \times k$ submatrices:
   \[
     \underbrace{f_{xx}}_{|H_1|},
     \underbrace{
@@ -2261,17 +2270,22 @@ Apart from finding eigenvalues, another way to determine the definiteness is usi
 \end{defi}
 
 \begin{prop}[Sylvester's criterion]
-  $H$ is positive definite if and only if the signature is $+, +, \cdots, +$. $H$ is negative definite if and only if the signature is $-, +, \cdots, (-1)^n$. Otherwise, $H$ is indefinite.
+  Let $|H_k|$ denote the $k$th leading principal minor. Then:
+  \begin{itemize}
+    \item $H$ is \emph{positive definite} if and only if $|H_k| > 0$ for all $k$ (all minors positive).
+    \item $H$ is \emph{negative definite} if and only if $(-1)^k |H_k| > 0$ for all $k$ (alternating signs starting with $|H_1| < 0$).
+    \item Otherwise, $H$ is \emph{indefinite} (saddle point).
+  \end{itemize}
 \end{prop}
 
 \subsection{Contours of \texorpdfstring{$f(x, y)$}{f(x, y)}}
-Consider $H$ in 2 dimensions, and axes in which $H$ is diagonal. So $H =
-\begin{pmatrix}
-  \lambda_1 & 0\\
-  0 & \lambda_2
-\end{pmatrix}$. Write $\mathbf{x} - \mathbf{x}_0 = (X, Y)$.
+The classification of stationary points can be visualized using contour plots. Near a stationary point, the contours of $f$ have characteristic shapes determined by the eigenvalues of the Hessian.
 
-Then near $\mathbf{x}_0$, $f = $ constant $\Rightarrow \delta\mathbf{x}\cdot H\cdot \delta\mathbf{x} = $ constant, i.e.\ $\lambda_1 X^2 + \lambda_2 Y^2 = $ constant. At a maximum or minimum, $\lambda_1$ and $\lambda_2$ have the same sign. So these contours are locally ellipses. At a saddle point, they have different signs and the contours are locally hyperbolae.
+In two dimensions, choose coordinates $(X, Y)$ aligned with the principal axes (eigenvectors) of $H$, so that
+\[
+  H = \begin{pmatrix} \lambda_1 & 0\\ 0 & \lambda_2 \end{pmatrix}.
+\]
+Near the stationary point, the contour $f = \text{constant}$ satisfies $\lambda_1 X^2 + \lambda_2 Y^2 = \text{constant}$. If $\lambda_1$ and $\lambda_2$ have the same sign (maximum or minimum), the contours are locally \emph{ellipses}. If they have opposite signs (saddle point), the contours are locally \emph{hyperbolae}.
 
 \begin{eg}[Cubic polynomial stationary points]
   Find and classify the stationary points of $f(x, y) = 4x^3 - 12xy + y^2 + 10y + 6$. We have
