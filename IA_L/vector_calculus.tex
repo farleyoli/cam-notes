@@ -1117,7 +1117,7 @@ The idea is that $\mathbf{r}$ has to depend on both $u$ and $v$, and in ``differ
 \[
   \delta \mathbf{r} = \frac{\partial \mathbf{r}}{\partial u}\delta u + \frac{\partial \mathbf{r}}{\partial v}\delta v + o(\delta u, \delta v).
 \]
-Then $\frac{\partial \mathbf{r}}{\delta u}$ and $\frac{\partial \mathbf{r}}{\partial v}$ are tangent vectors to curves on $S$ with $v$ and $u$ constant respectively. What we want is for them to point in different directions.
+Then $\frac{\partial \mathbf{r}}{\partial u}$ and $\frac{\partial \mathbf{r}}{\partial v}$ are tangent vectors to curves on $S$ with $v$ and $u$ constant respectively. What we want is for them to point in different directions.
 
 \begin{defi}[Regular parametrization]
   A parametrization is \emph{regular} if for all $u, v$,
@@ -1265,9 +1265,9 @@ For a given orientation, the integral $\int \mathbf{F}\cdot \d \mathbf{S}$ is in
   Therefore
   \begin{align*}
     \int_S \mathbf{u}\cdot \d \mathbf{S} &= \int_0^\alpha \int_0^{2\pi} a^3 \sin \theta[(\cos^2\theta - 1) \cos^2 \varphi + \cos^2 \theta]\;\d \varphi\;\d \theta\\
-    &= \int_0^\alpha a^3\sin \theta[\pi(cos^2\theta - 1) + 2\pi \cos^2\theta]\; \d \theta\\
-    &=\int_0^\alpha a^3\pi(3\cos^3 \theta - 1)\sin \theta\;\d \theta\\
-    &= \pi a^3[cos\theta - \cos^3 \theta]_0^\alpha\\
+    &= \int_0^\alpha a^3\sin \theta[\pi(\cos^2\theta - 1) + 2\pi \cos^2\theta]\; \d \theta\\
+    &=\int_0^\alpha a^3\pi(3\cos^2 \theta - 1)\sin \theta\;\d \theta\\
+    &= \pi a^3[\cos\theta - \cos^3 \theta]_0^\alpha\\
     &= \pi a^3 \cos \alpha\sin^2 \alpha.
   \end{align*}
 \end{eg}
