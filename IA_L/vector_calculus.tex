@@ -1975,7 +1975,7 @@ Gauss' theorem for $\mathbf{F}$ in a small volume $V$ containing $\mathbf{r}_0$ 
 We take the limit as $V\to 0$ to obtain
 \begin{prop}[Divergence limit definition]
   \[
-    (\nabla \cdot \mathbf{F})(\mathbf{r}_0) = \lim_{\mathrm{diam}(V) \to 1} \frac{1}{\vol(V)}\int_{\partial V}\mathbf{F}\cdot \d \mathbf{S},
+    (\nabla \cdot \mathbf{F})(\mathbf{r}_0) = \lim_{\mathrm{diam}(V) \to 0} \frac{1}{\vol(V)}\int_{\partial V}\mathbf{F}\cdot \d \mathbf{S},
   \]
   where the limit is taken over volumes containing the point $\mathbf{r}_0$.
 \end{prop}
@@ -2103,7 +2103,7 @@ So we want to show that (iii) $\Rightarrow $ (ii) and (ii) $\Rightarrow $ (i)
   \]
   So we have $\mathbf{F} = \nabla f$.
 \end{proof}
-Note that these results assume $\mathbf{F}$ is defined on the whole of $\R^3$. It also works of $\mathbf{F}$ is defined on a \emph{simply connected} domain $D$, ie a subspace of $\R^3$ without holes. By definition, this means that any two curves $C, \tilde{C}$ with fixed end points can be smoothly deformed into one another (alternatively, any loop can be shrunk into a point).
+Note that these results assume $\mathbf{F}$ is defined on the whole of $\R^3$. It also works if $\mathbf{F}$ is defined on a \emph{simply connected} domain $D$, ie a subspace of $\R^3$ without holes. By definition, this means that any two curves $C, \tilde{C}$ with fixed end points can be smoothly deformed into one another (alternatively, any loop can be shrunk into a point).
 
 If we have a smooth transformation from $C$ to $\tilde{C}$, the process sweeps out a surface bounded by $C$ and $\tilde{C}$. This is required by the proof that (iii) $\Rightarrow$ (ii).
 
@@ -2148,7 +2148,7 @@ In particular, let $V$ be a fixed time-independent volume with boundary $S = \pa
 \]
 Then the rate of change of amount of $Q$ in $V$ is
 \[
-  \frac{\d Q}{\d t} = \int_V \frac{\partial \rho }{\partial t}\;\d V = -\int_V \nabla \cdot \mathbf{j}\;\d V = -\int_S \mathbf{j}\cdot \d \mathbf{s}.
+  \frac{\d Q}{\d t} = \int_V \frac{\partial \rho }{\partial t}\;\d V = -\int_V \nabla \cdot \mathbf{j}\;\d V = -\int_S \mathbf{j}\cdot \d \mathbf{S}.
 \]
 by divergence theorem. So this states that the rate of change of the quantity $Q$ in $V$ is the flux of the stuff flowing out of the surface. ie $Q$ cannot just disappear but must smoothly flow out.
 
