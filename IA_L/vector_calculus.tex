@@ -687,8 +687,11 @@ We now apply the theory of line integrals to mechanics.
 
 \section{Integration in \tph{$\R^2$ and $\R^3$}{R2 and R3}{&\#x211D;<sup>2</sup> and &\#x211D;<sup>2</sup>}}
 \subsection{Integrals over subsets of \tph{$\R^2$}{R2}{&\#x211D;<sup>2</sup>}}
-\begin{defi}[Surface integral]
-  Let $D\subseteq \R^2$. Let $\mathbf{r} = (x, y)$ be in Cartesian coordinates. We can approximate $D$ by $N$ disjoint subsets of simple shapes, e.g.\ triangles, parallelograms. These shapes are labelled by $I$ and have areas $\delta A_i$. \begin{center}
+We now extend the notion of integration to functions of two variables, integrating over regions in the plane.
+
+\begin{defi}[Area integral]
+  Let $D \subseteq \R^2$ be a bounded region and let $f: D \to \R$ be a function. To define the integral of $f$ over $D$, we partition $D$ into $N$ disjoint subsets of simple shapes (e.g., rectangles or triangles), labelled by $I = 1, \ldots, N$, with areas $\delta A_I$.
+  \begin{center}
     \begin{tikzpicture}
       \draw [->] (0, 0) -- (6, 0) node [right] {$x$};
       \draw [->] (0, 0) -- (0, 4) node [above] {$y$};
@@ -704,21 +707,20 @@ We now apply the theory of line integrals to mechanics.
       \node at (4.2, 3.2) [anchor = south west] {$D$};
     \end{tikzpicture}
   \end{center}
-  To integrate a function $f$ over $D$, we would like to take the sum $\sum f(\mathbf{r}_i) \delta A_i$, and take the limit as $\delta A_i \to 0$. But we need a condition stronger than simply $\delta A_i \to 0$. We won't want the areas to grow into arbitrarily long yet thin strips whose area decreases to 0. So we say that we find an $\ell$ such that each area can be contained in a disc of diameter $\ell$.
-
-  Then we take the limit as $\ell \to 0$, $N\to \infty$, and the union of the pieces tends to $D$. For a function $f(\mathbf{r})$, we define the \emph{surface integral} as
+  To ensure a well-defined limit, we require that each subset can be contained in a disc of diameter $\ell$, preventing the subsets from becoming arbitrarily elongated. The \emph{area integral} (or \emph{double integral}) of $f$ over $D$ is defined as
   \[
-    \int_D f(\mathbf{r}) \;\d A = \lim_{\ell\to 0}\sum _I f(\mathbf{r}_i)\delta A_i.
+    \int_D f(\mathbf{r}) \;\d A = \lim_{\ell \to 0} \sum_{I} f(\mathbf{r}_I) \, \delta A_I,
   \]
-  where $\mathbf{r}_i$ is some point within each subset $A_i$. The integral \emph{exists} if the limit is well-defined (i.e.\ the same regardless of what $A_i$ and $\mathbf{r}_i$ we choose before we take the limit) and exists.
+  where $\mathbf{r}_I$ is a point chosen within each subset. The limit is taken as $\ell \to 0$, $N \to \infty$, with the union of the subsets approaching $D$. The integral \emph{exists} if this limit is independent of the choice of partition and sample points.
 \end{defi}
-If we take $f = 1$, then the surface integral is the area of $D$.
 
-On the other hand, if we put $z = f(x, y)$ and plot out the surface $z = f(x, y)$, then the area integral is the volume under the surface.
+\begin{rmk}[Geometric interpretations]
+  If $f = 1$, then $\int_D \d A$ equals the area of $D$. More generally, if $f(x, y) \geq 0$, then $\int_D f \, \d A$ represents the volume of the region bounded below by $D$ and above by the surface $z = f(x, y)$.
+\end{rmk}
 
-The definition allows us to take the $\delta A_i$ to be any weird shape we want. However, the sensible thing is clearly to take $A_i$ to be rectangles.
+While the definition permits partitions of arbitrary shape, in practice we use rectangular partitions aligned with the coordinate axes.
 
-We choose the small sets in the definition to be rectangles, each of size $\delta A_I = \delta x\delta y$. We sum over subsets in a narrow horizontal strip of height $\delta y$ with $y$ and $\delta y$ held constant. Take the limit as $\delta x\to 0$. We get a contribution $\delta y\int_{x_y} f(y, x)\;\d x$ with range $x_y\in \{x: (x, y)\in D\}$.
+To evaluate the integral, we partition $D$ into rectangles of size $\delta A_I = \delta x \, \delta y$. Consider a horizontal strip of height $\delta y$ at fixed $y$. Summing over rectangles in this strip and taking $\delta x \to 0$ yields a contribution $\delta y \int_{x_y} f(x, y) \, \d x$, where $x_y = \{x : (x, y) \in D\}$ denotes the set of $x$-values for which $(x, y) \in D$.
 \begin{center}
   \begin{tikzpicture}
     \draw [->] (0, 0) -- (6, 0) node [right] {$x$};
@@ -747,11 +749,12 @@ We sum over all such strips and take $\delta y\to 0$, giving
   with $x_y$ ranging over $\{x: (x, y) \in D\}$.
 \end{prop}
 
-Note that the range of the inner integral is given by a set $x_y$. This can be an interval, or many disconnected intervals, $x_y = [a_1, b_1]\cup [a_2, b_2]$. In this case,
-\[
-  \int_{x_y} f(x)\; \d x = \int_{a_1}^{b_1} f(x) \;\d x + \int_{a_2}^{b_2}f(x)\;\d x.
-\]
-This is useful if we want to integrate over a concave area and we have disconnected vertical strips.
+\begin{rmk}[Disconnected integration domains]
+  The set $x_y$ may consist of multiple disjoint intervals if $D$ is non-convex. For example, if $x_y = [a_1, b_1] \cup [a_2, b_2]$, then
+  \[
+    \int_{x_y} f(x) \, \d x = \int_{a_1}^{b_1} f(x) \, \d x + \int_{a_2}^{b_2} f(x) \, \d x.
+  \]
+\end{rmk}
 \begin{center}
   \begin{tikzpicture}
     \draw [->] (0, 0) -- (6, 0) node [right] {$x$};
@@ -763,17 +766,22 @@ This is useful if we want to integrate over a concave area and we have disconnec
     \draw (3.4, 2.4) -- (3.4, 3.04);
   \end{tikzpicture}
 \end{center}
-We could also do it the other way round, integrating over $y$ first, and come up with the result
+Alternatively, we may integrate in the opposite order, first over $y$ and then over $x$:
 \[
-  \int_D f(x, y)\; \d A = \int_X\left(\int_{y_x}f(x, y)\; \d y\right) \d x.
+  \int_D f(x, y) \, \d A = \int_X \left( \int_{y_x} f(x, y) \, \d y \right) \d x,
 \]
+where $y_x = \{y : (x, y) \in D\}$. The following theorem guarantees that both orders yield the same result.
+
 \begin{thm}[Fubini's theorem]
-  If $f$ is a continuous function and $D$ is a compact (i.e.\ closed and bounded) subset of $\R^2$, then
+  Let $f: D \to \R$ be a continuous function and let $D \subseteq \R^2$ be a compact (closed and bounded) region. Then the order of integration may be interchanged:
   \[
-    \iint f\;\d x\;\d y = \iint f\;\d y\;\d x.
+    \iint_D f \, \d x \, \d y = \iint_D f \, \d y \, \d x.
   \]
-  While we have rather strict conditions for this theorem, it actually holds in many more cases, but those situations have to be checked manually.
 \end{thm}
+
+\begin{rmk}
+  The hypotheses of Fubini's theorem can be relaxed significantly; the theorem holds under much weaker conditions, though verification requires care in specific cases.
+\end{rmk}
 \begin{defi}[Area element]
   The \emph{area element} is $\d A$.
 \end{defi}
@@ -799,39 +807,41 @@ We could also do it the other way round, integrating over $y$ first, and come up
   \end{align*}
 \end{eg}
 
-Since it doesn't matter whether we integrate $x$ first or $y$ first, if we find it difficult to integrate one way, we can try doing it the other way and see if it is easier.
+\begin{rmk}
+  By Fubini's theorem, if one order of integration proves difficult, we may attempt the other order, which may yield a simpler computation.
+\end{rmk}
 
-While this integral is tedious in general, there is a special case where it is substantially easier.
+A special case where double integrals simplify considerably is when the integrand factors.
+
 \begin{defi}[Separable function]
-  A function $f(x, y)$ is separable if it can be written as $f(x, y) = h(y)g(x)$.
+  A function $f: \R^2 \to \R$ is called \emph{separable} if it can be written as a product $f(x, y) = g(x) h(y)$ for some functions $g$ and $h$ of one variable each.
 \end{defi}
 
 \begin{prop}[Separable integral factorization]
-  Take separable $f(x, y) = h(y)g(x)$ and $D$ be a rectangle $\{(x, y): a\leq x\leq b, c\leq y \leq d\}$. Then
+  Let $f(x, y) = g(x) h(y)$ be a separable function and let $D = [a, b] \times [c, d]$ be a rectangle. Then
   \[
-    \int_Df(x, y)\;\d x\;\d y = \left(\int_a^b g(x)\;\d x\right)\left(\int_c^d h(y)\;\d y\right)
+    \int_D f(x, y) \, \d x \, \d y = \left( \int_a^b g(x) \, \d x \right) \left( \int_c^d h(y) \, \d y \right).
   \]
 \end{prop}
 
 \subsection{Change of variables for an integral in \tph{$\R^2$}{R2}{&\#x211D;<sup>2</sup>}}
-\begin{prop}[Change of variables, area integrals]
-  Suppose we have a change of variables $(x, y)\leftrightarrow (u, v)$ that is smooth and invertible, with regions $D, D'$ in one-to-one correspondence. Then
+Just as for single-variable integrals, a suitable change of variables can greatly simplify the evaluation of a double integral.
+
+\begin{thm}[Change of variables for area integrals]
+  Let $(x, y) = \Phi(u, v)$ be a smooth, invertible transformation mapping a region $D'$ in the $(u, v)$-plane to a region $D$ in the $(x, y)$-plane. Then
   \[
-    \int_D f(x, y)\;\d x\;\d y = \int_{D'} f(x(u, v), y(u, v))|J|\;\d u\;\d v,
+    \int_D f(x, y) \, \d x \, \d y = \int_{D'} f(x(u, v), y(u, v)) \, |J| \, \d u \, \d v,
   \]
-  where
+  where the \emph{Jacobian} $J$ of the transformation is
   \[
-    J = \frac{\partial (x, y)}{\partial (u, v)} =
+    J = \frac{\partial(x, y)}{\partial(u, v)} =
     \begin{vmatrix}
-      \dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v}\vspace{5pt}\\
-      \dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v}\\
-    \end{vmatrix}
+      \dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} \vspace{5pt}\\
+      \dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v}
+    \end{vmatrix}.
   \]
-  is the Jacobian. In other words,
-  \[
-    \;\d x\;\d y = |J|\;\d u\;\d v.
-  \]
-\end{prop}
+  Equivalently, the area elements are related by $\d x \, \d y = |J| \, \d u \, \d v$.
+\end{thm}
 
 \begin{proof}
   Since we are writing $(x(u, v), y(u, v))$, we are actually transforming from $(u, v)$ to $(x, y)$ and not the other way round.
@@ -904,29 +914,31 @@ While this integral is tedious in general, there is a special case where it is s
 
 \end{eg}
 \subsection{Generalization to \tph{$\R^3$}{R3}{&\#x211D;<sup>3</sup>}}
-We will do exactly the same thing as we just did, but with one more dimension:
+The definition of the area integral extends naturally to three dimensions.
+
 \begin{defi}[Volume integral]
-  Consider a volume $V\subseteq \R^3$ with position vector $\mathbf{r} = (x, y, z)$. We approximate $V$ by $N$ small disjoint subsets of some simple shape (e.g.\ cuboids) labelled by $I$, volume $\delta V_I$, contained within a solid sphere of diameter $\ell$.
-
-  Assume that as $\ell \to 0$ and $N\to \infty$, the union of the small subsets tend to $V$. Then
+  Let $V \subseteq \R^3$ be a bounded region and let $f: V \to \R$ be a function. We partition $V$ into $N$ disjoint subsets (e.g., cuboids) labelled by $I$, each with volume $\delta V_I$ and contained within a sphere of diameter $\ell$. The \emph{volume integral} (or \emph{triple integral}) of $f$ over $V$ is
   \[
-    \int_V f(\mathbf{r})\;\d V = \lim_{\ell \to 0} \sum_{I}f(\mathbf{r}_I^*) \delta V_I,
+    \int_V f(\mathbf{r}) \, \d V = \lim_{\ell \to 0} \sum_{I} f(\mathbf{r}_I^*) \, \delta V_I,
   \]
-  where $\mathbf{r}_I^*$ is any chosen point in each small subset.
+  where $\mathbf{r}_I^*$ is a point chosen within each subset and the limit is taken as $\ell \to 0$, $N \to \infty$, with the union of subsets approaching $V$.
 \end{defi}
-To evaluate this, we can take $\delta V_I = \delta x \delta y \delta z$, and take $\delta x\to 0$, $\delta y\to 0$ and $\delta z$ in some order. For example,
-\[
-  \int_V f(\mathbf{r})\;\d v = \int_D \left(\int_{Z_{xy}}f(x, y, z)\;\d z\right)\;\d x\;\d y.
-\]
-So we integrate $f(x, y, z)$ over $z$ at each point $(x, y)$, then take the integral of that over the area containing all required $(x, y)$.
 
-Alternatively, we can take the area integral first, and have
+To evaluate the integral, we use iterated integration. Taking $\delta V_I = \delta x \, \delta y \, \delta z$ and integrating successively, we obtain
 \[
-  \int_V f(\mathbf{r})\;\d V = \int_z\left(\int_{D_Z} f(x, y, z)\;\d x\;\d y\right)\;\d z.
+  \int_V f(\mathbf{r}) \, \d V = \int_D \left( \int_{Z_{xy}} f(x, y, z) \, \d z \right) \d x \, \d y,
 \]
-Again, if we take $f = 1$, then we obtain the volume of $V$.
+where $Z_{xy}$ denotes the range of $z$-values for each $(x, y)$ in the projection $D$ of $V$ onto the $(x, y)$-plane.
 
-Often, $f(\mathbf{r})$ is the density of some quantity, and is usually denoted by $\rho$. For example, we might have mass density, charge density, or probability density. $\rho(\mathbf{r})\delta V$ is then the amount of quantity in a small volume $\delta V$ at $\mathbf{r}$. Then $\int_V \rho(\mathbf{r}) \;\d V$ is the total amount of quantity in $V$.
+Alternatively, we may integrate over a cross-sectional area first:
+\[
+  \int_V f(\mathbf{r}) \, \d V = \int_Z \left( \int_{D_z} f(x, y, z) \, \d x \, \d y \right) \d z,
+\]
+where $D_z$ is the cross-section of $V$ at height $z$.
+
+\begin{rmk}[Physical interpretation]
+  If $f = 1$, the volume integral gives the volume of $V$. More generally, if $\rho(\mathbf{r})$ represents a density (e.g., mass density, charge density, or probability density), then $\int_V \rho(\mathbf{r}) \, \d V$ gives the total quantity contained in $V$.
+\end{rmk}
 
 \begin{defi}[Volume element]
   The \emph{volume element} is $\d V$.
@@ -936,35 +948,37 @@ Often, $f(\mathbf{r})$ is the density of some quantity, and is usually denoted b
   $\d V = \d x\; \d y\; \d z$.
 \end{prop}
 
-We can change variables by some smooth, invertible transformation $(x, y, z)\mapsto (u, v, w)$. Then
-\begin{prop}[Change of variables, volume integrals]
+As in two dimensions, a change of variables transforms the volume element by the absolute value of the Jacobian.
+
+\begin{thm}[Change of variables for volume integrals]
+  Let $(x, y, z) = \Phi(u, v, w)$ be a smooth, invertible transformation mapping a region $V'$ in $(u, v, w)$-space to a region $V$ in $(x, y, z)$-space. Then
   \[
-    \int_V f\;\d x\;\d y\;\d z = \int_V f|J|\;\d u\;\d v\;\d w,
+    \int_V f \, \d x \, \d y \, \d z = \int_{V'} f \, |J| \, \d u \, \d v \, \d w,
   \]
-  with
+  where the Jacobian is
   \[
     J = \frac{\partial(x, y, z)}{\partial(u, v, w)} =
     \begin{vmatrix}
-      \dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} & \dfrac{\partial x}{\partial w}\vspace{5pt} \\
-      \dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v} & \dfrac{\partial y}{\partial w}\vspace{5pt} \\
+      \dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} & \dfrac{\partial x}{\partial w} \vspace{5pt}\\
+      \dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v} & \dfrac{\partial y}{\partial w} \vspace{5pt}\\
       \dfrac{\partial z}{\partial u} & \dfrac{\partial z}{\partial v} & \dfrac{\partial z}{\partial w}
-    \end{vmatrix}
+    \end{vmatrix}.
   \]
-\end{prop}
+\end{thm}
 
 \begin{prop}[Cylindrical and spherical volume elements]
-  In cylindrical coordinates,
+  In cylindrical coordinates $(\rho, \varphi, z)$, the volume element is
   \[
-    \d V = \rho\;\d \rho\;\d \varphi\;\d z.
+    \d V = \rho \, \d\rho \, \d\varphi \, \d z.
   \]
-  In spherical coordinates
+  In spherical coordinates $(r, \theta, \varphi)$, the volume element is
   \[
-    \d V = r^2\sin\theta \;\d r\;\d \theta\;\d \varphi.
+    \d V = r^2 \sin\theta \, \d r \, \d\theta \, \d\varphi.
   \]
 \end{prop}
 
 \begin{proof}
-  Loads of algebra.
+  These follow from computing the Jacobians of the coordinate transformations given in Section 1.
 \end{proof}
 
 \begin{eg}[Spherical symmetry volume integral]
@@ -1042,49 +1056,54 @@ We can change variables by some smooth, invertible transformation $(x, y, z)\map
 \end{eg}
 \subsection{Further generalizations}
 \subsubsection*{Integration in \tph{$\R^n$}{Rn}{&\#x2121D;<sup>n</sup>}}
-Similar to the above, $\int_D f(x_1, x_2, \cdots x_n)\;\d x_1 \;\d x_2\cdots\;\d x_n$ is simply the integration over an $n$-dimensional volume. The change of variable formula is
-\begin{prop}[Change of variables, n-dimensional]
+The definitions and results above extend naturally to $n$ dimensions. For a region $D \subseteq \R^n$ and a function $f: D \to \R$, the $n$-dimensional integral is
+\[
+  \int_D f(x_1, \ldots, x_n) \, \d x_1 \cdots \d x_n.
+\]
+
+\begin{thm}[Change of variables in $\R^n$]
+  Let $\mathbf{x} = \Phi(\mathbf{u})$ be a smooth, invertible transformation from $D' \subseteq \R^n$ to $D \subseteq \R^n$. Then
   \[
-    \int_D f(x_1, x_2, \cdots x_n)\;\d x_1 \;\d x_2\cdots\;\d x_n = \int_{D'} f(\{x_i(\mathbf{u})\}) |J| \;\d u_1\;\d u_2\cdots\;\d u_n.
+    \int_D f(x_1, \ldots, x_n) \, \d x_1 \cdots \d x_n = \int_{D'} f(x_1(\mathbf{u}), \ldots, x_n(\mathbf{u})) \, |J| \, \d u_1 \cdots \d u_n,
   \]
-\end{prop}
+  where $J = \det\left( \frac{\partial x_i}{\partial u_j} \right)$ is the Jacobian of the transformation.
+\end{thm}
 
 \subsubsection*{Change of variables for \texorpdfstring{$n = 1$}{n = 1}}
-In the $n = 1$ case, the Jacobian is $\frac{\d x}{\d u}$. However, we use the following formula for change of variables:
+In single-variable calculus, the change of variables formula takes a slightly different form due to the convention for definite integrals. For a transformation $x = x(u)$ mapping an interval to an interval, we have
 \[
-  \int_D f(x) \;\d x = \int_{D'} f(x(u))\left|\frac{\d x}{\d u}\right| \;\d u.
+  \int_a^b f(x) \, \d x = \int_\alpha^\beta f(x(u)) \frac{\d x}{\d u} \, \d u,
 \]
-We introduce the modulus because of our natural convention about integrating over $D$ and $D'$. If $D = [a, b]$ with $a < b$, we write $\int_a^b$. But if $a\mapsto \alpha$ and $b \mapsto \beta$, but $\alpha > \beta$, we would like to write $\int_\beta ^\alpha$ instead, so we introduce the modulus in the 1D case.
+where $x(\alpha) = a$ and $x(\beta) = b$. Unlike in higher dimensions, we do not take the absolute value of the Jacobian; instead, the sign of $\frac{\d x}{\d u}$ accounts for the orientation of the integral.
 
-To show that the modulus is the right thing to do, we check case by case: If $a < b$ and $\alpha < \beta$, then $\frac{\d x}{\d u}$ is positive, and we have, as expected
-\[
-  \int_a^b f(x)\;\d x = \int_\alpha^\beta f(u)\frac{\d x}{\d u}\;\d u.
-\]
-If $\alpha > \beta$, then $\frac{\d x}{\d u}$ is negative. So
-\[
-  \int_a^b f(x)\;\d x = \int_\alpha^\beta f(u)\frac{\d x}{\d u}\;\d u = -\int_\beta^\alpha f(u)\frac{\d x}{\d u}\;\d u.
-\]
-By taking the absolute value of $\frac{\d x}{\d u}$, we ensure that we always have the numerically smaller bound as the lower bound.
-
-This is not easily generalized to higher dimensions, so we don't employ the same trick in other cases.
+\begin{rmk}
+  If we wish to write the integral with the limits in standard order (smaller limit below), we can use
+  \[
+    \int_D f(x) \, \d x = \int_{D'} f(x(u)) \left| \frac{\d x}{\d u} \right| \d u,
+  \]
+  where the absolute value compensates for a possible reversal of orientation. This form is consistent with the higher-dimensional formula but is not the standard convention in single-variable calculus.
+\end{rmk}
 
 \subsubsection*{Vector-valued integrals}
-We can define $\int_V \mathbf{F}(\mathbf{r})\;\d V$ in a similar way to $\int_V f(\mathbf{r})\;\d V$as the limit of a sum over small contributions of volume. In practice, we integrate them componentwise. If
-\[
-  \mathbf{F}(\mathbf{r}) = F_{i}(\mathbf{r})\mathbf{e}_i,
-\]
-then
-\[
-  \int_V \mathbf{F}(\mathbf{r})\;\d V = \int_V (F_i(\mathbf{r})\;\d V)\mathbf{e}_i.
-\]
-For example, if a mass has density $\rho (\mathbf{r})$, then its mass is
-\[
-  M = \int_V \rho(\mathbf{r})\;\d V
-\]
-and its center of mass is
-\[
-  \mathbf{R} = \frac{1}{M}\int_V \mathbf{r}\rho (\mathbf{r})\;\d V.
-\]
+The integral of a vector-valued function $\mathbf{F}: V \to \R^n$ over a region $V$ is defined componentwise.
+
+\begin{defi}[Vector-valued integral]
+  Let $\mathbf{F}(\mathbf{r}) = F_i(\mathbf{r}) \mathbf{e}_i$ be a vector field. The integral of $\mathbf{F}$ over a region $V$ is
+  \[
+    \int_V \mathbf{F}(\mathbf{r}) \, \d V = \left( \int_V F_i(\mathbf{r}) \, \d V \right) \mathbf{e}_i.
+  \]
+\end{defi}
+
+\begin{eg}[Center of mass]
+  For a body occupying a region $V$ with mass density $\rho(\mathbf{r})$, the total mass is
+  \[
+    M = \int_V \rho(\mathbf{r}) \, \d V,
+  \]
+  and the center of mass is
+  \[
+    \mathbf{R} = \frac{1}{M} \int_V \mathbf{r} \, \rho(\mathbf{r}) \, \d V.
+  \]
+\end{eg}
 \begin{eg}[Hemisphere center of mass]
   Consider a solid hemisphere $H$ with $r \leq a$, $z \geq 0$ with uniform density $\rho$. The mass is
   \[
