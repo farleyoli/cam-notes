@@ -3118,7 +3118,7 @@ It is trivial to check that the resulting object is indeed a tensor.
 \begin{defi}[Tensor product]
   Let $T$ be a tensor of rank $n$ and $S$ be a tensor of rank $m$. The \emph{tensor product} $T\otimes S$ is a tensor of rank $n + m$ defined by
   \[
-    (T \otimes S)_{x_1 x_2\cdots x_n y_1y_2\cdots y_m} = T_{x_1x_2\cdots x_n}S_{y_1y_2\cdots y_n}.
+    (T \otimes S)_{x_1 x_2\cdots x_n y_1y_2\cdots y_m} = T_{x_1x_2\cdots x_n}S_{y_1y_2\cdots y_m}.
   \]
   It is trivial to show that this is a tensor.
 
@@ -3140,7 +3140,7 @@ It is trivial to check that the resulting object is indeed a tensor.
   \]
   Note that we don't have to always contract on the first two indices. We can contract any pair we like.
 \end{defi}
-To check that contraction produces a tensor, we take the ranks 2 $T_{ij}$ example. Contracting, we get $T_{ii}$ ,a rank-0 scalar. We have $T_{ii}' = R_{ip}R_{iq}T_{pq} = \delta_{pq}T_{pq} = T_{pp} = T_{ii}$, since $R$ is an orthogonal matrix.
+To check that contraction produces a tensor, we take the rank 2 $T_{ij}$ example. Contracting, we get $T_{ii}$ ,a rank-0 scalar. We have $T_{ii}' = R_{ip}R_{iq}T_{pq} = \delta_{pq}T_{pq} = T_{pp} = T_{ii}$, since $R$ is an orthogonal matrix.
 
 If we view $T_{ij}$ as a matrix, then the contraction is simply the trace of the matrix. So our result above says that the trace is invariant under basis transformations --- as we already know in IA Vectors and Matrices.
 
@@ -3222,7 +3222,7 @@ Note that the above is exactly what we did with linear maps and matrices.
 \subsubsection*{The quotient rule}
 If $T_{\underbrace{i\cdots j}_n\underbrace{p\cdots q}_m}$ is a tensor of rank $n+ m$, and $u_{p\cdots q}$ is a tensor of rank $m$ then
 \[
-  v_{i, \cdots j}= T_{i\cdots j p\cdots q}u_{p\cdots q}
+  v_{i\cdots j}= T_{i\cdots j p\cdots q}u_{p\cdots q}
 \]
 is a tensor of rank $n$, since it is a tensor product of $T$ and $u$, followed by contraction.
 
@@ -3289,7 +3289,7 @@ It is also straightforward to do integrals. Since we can sum tensors and take li
 
 For example, $\int_V T_{ij\cdots k}(\mathbf{x})\;\d V$ is a tensor of the same rank as $T_{ij\cdots k}$ (think of the integral as the limit of a sum).
 
-For a physical example, recall our discussion of the flux of quantities for a fluid with velocity $\mathbf{u}(\mathbf{x})$ through a surface element --- assume a uniform density $\rho$. The flux of volume is $\mathbf{u}\cdot \mathbf{n}\delta s = u_j n_j \delta S$. So the flux of mass is $\rho u_j n_j \delta S$. Then the flux of the $i$th component of momentum is $\rho u_i u_j n_j \delta S = T_{ij}n_jk \delta S$ (mass times velocity), where $T_{ij} = \rho u_iu_j$. Then the flux through the surface $S$ is $\int_S T_{ij}n_j \;\d S$.
+For a physical example, recall our discussion of the flux of quantities for a fluid with velocity $\mathbf{u}(\mathbf{x})$ through a surface element --- assume a uniform density $\rho$. The flux of volume is $\mathbf{u}\cdot \mathbf{n}\delta s = u_j n_j \delta S$. So the flux of mass is $\rho u_j n_j \delta S$. Then the flux of the $i$th component of momentum is $\rho u_i u_j n_j \delta S = T_{ij}n_j \delta S$ (mass times velocity), where $T_{ij} = \rho u_iu_j$. Then the flux through the surface $S$ is $\int_S T_{ij}n_j \;\d S$.
 
 It is easy to generalize the divergence theorem from vectors to tensors. We can then use it to discuss conservation laws for tensor quantities.
 
