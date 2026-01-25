@@ -2677,7 +2677,7 @@ We can also specify different boundary conditions on different boundary componen
   Suppose $\varphi$ satisfies either
   \begin{enumerate}
     \item Dirichlet condition, $\varphi(\mathbf{r}) = f(\mathbf{r})$ on $S$
-    \item Neumann condition $\frac{\partial \varphi(\mathbf{r})}{\partial \mathbf{n}} = n\cdot \nabla \varphi = g(\mathbf{r})$ on $S$.
+    \item Neumann condition $\frac{\partial \varphi(\mathbf{r})}{\partial \mathbf{n}} = \mathbf{n}\cdot \nabla \varphi = g(\mathbf{r})$ on $S$.
   \end{enumerate}
   where $f, g$ are given. Then
   \begin{enumerate}
@@ -2716,7 +2716,7 @@ We've proven uniqueness. How about existence? It turns out it isn't difficult to
 
 For example, if we have $\nabla^2 \varphi = -\rho$ on $V$ with the condition $\frac{\partial \varphi}{\partial \mathbf{n}} = g$, then by the divergence theorem,
 \[
-  \int_V \nabla^2\varphi \;\d V = \int_{\partial S} \frac{\partial \varphi}{\partial \mathbf{n}}\;\d S.
+  \int_V \nabla^2\varphi \;\d V = \int_S \frac{\partial \varphi}{\partial \mathbf{n}}\;\d S.
 \]
 Using Poisson's equation and the boundary conditions, we have
 \[
@@ -2731,7 +2731,7 @@ Similar results also apply to related equations and different kinds of boundary 
 The proof uses a special case of the result
 \begin{prop}[Green's first identity]
   \[
-    \int_S (u\nabla v)\cdot \d S = \int_V (\nabla u)\cdot (\nabla v)\;\d V + \int_V u\nabla^2 v\;\d V,
+    \int_S (u\nabla v)\cdot \d \mathbf{S} = \int_V (\nabla u)\cdot (\nabla v)\;\d V + \int_V u\nabla^2 v\;\d V,
   \]
 \end{prop}
 By swapping $u$ and $v$ around and subtracting the equations, we have
@@ -2787,7 +2787,7 @@ In this section, we will talk about maxima of functions. It should be clear that
 \end{defi}
 
 \begin{prop}[Maximum principle]
-  If a function $\varphi$ is harmonic on a region $V$, then $\varphi$ cannot have a maximum at an interior point of $\mathbf{a}$ of $V$.
+  If a function $\varphi$ is harmonic on a region $V$, then $\varphi$ cannot have a maximum at an interior point $\mathbf{a}$ of $V$.
 \end{prop}
 
 \begin{proof}
@@ -2797,7 +2797,7 @@ In this section, we will talk about maxima of functions. It should be clear that
 
   Then for any $\mathbf{r}$ such that $|\mathbf{r} - \mathbf{a}| = \varepsilon$, we have $\varphi(\mathbf{r}) < \varphi(\mathbf{a})$.
   \[
-    \bar\varphi (\varepsilon) = \frac{1}{4\pi R^2}\int_{S_R}\varphi(\mathbf{r})\;\d S < \varphi(\mathbf{a}),
+    \bar\varphi (\varepsilon) = \frac{1}{4\pi \varepsilon^2}\int_{S_\varepsilon}\varphi(\mathbf{r})\;\d S < \varphi(\mathbf{a}),
   \]
   which contradicts the mean value property.
 \end{proof}
@@ -2857,8 +2857,8 @@ If we have infinitely many of them, having a distribution of $\rho(\mathbf{r})$ 
   by the cosine rule ($c^2 = a^2 + b^2 - 2ab\cos C$). So
   \begin{align*}
     \varphi(\mathbf{r}) &= \frac{1}{4\pi}\int_0^a \;\d r'\int_0^\pi \;\d \theta \int_0^{2\pi}\;\d \chi \frac{\rho_0 r'^2 \sin \theta}{\sqrt{r^2 + r'^2 - 2rr'\cos \theta}}\\
-    &= \frac{\rho_0}{2}\int_0^a \;\d r' \frac{r'^2}{rr'}\left[\sqrt{r^2 + r'^2 - rr'\cos \theta}\right]^{\theta = \pi}_{\theta = 0}\\
-    &= \frac{\rho_0}{2}\int_0^a \;\d r' \frac{r'}{r}(|\mathbf{r} + \mathbf{r}'| + |\mathbf{r} - \mathbf{r}'|)\\
+    &= \frac{\rho_0}{2}\int_0^a \;\d r' \frac{r'^2}{rr'}\left[\sqrt{r^2 + r'^2 - 2rr'\cos \theta}\right]^{\theta = \pi}_{\theta = 0}\\
+    &= \frac{\rho_0}{2}\int_0^a \;\d r' \frac{r'}{r}(|\mathbf{r} + \mathbf{r}'| - |\mathbf{r} - \mathbf{r}'|)\\
     &= \frac{\rho_0}{2}\int_0^a\left[ \;\d r' \frac{r'}{r}\left(
       \begin{cases}
         2r' & r > r'\\
@@ -2867,7 +2867,7 @@ If we have infinitely many of them, having a distribution of $\rho(\mathbf{r})$ 
   \end{align*}
   If $r > a$, then $r > r'$ always. So
   \[
-    \varphi(\mathbf{r}) = \rho_0 \int_0^a \frac{r'^2}{r}\;\d r' = \frac{r_0 a^3}{3r}.
+    \varphi(\mathbf{r}) = \rho_0 \int_0^a \frac{r'^2}{r}\;\d r' = \frac{\rho_0 a^3}{3r}.
   \]
   If $r < a$, then the integral splits into two parts:
   \[
