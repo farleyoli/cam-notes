@@ -405,8 +405,8 @@ If we change $u$ (and hence $\mathbf{r}$) by a small amount, then the distance $
 
 We can change parametrisation of $\mathbf{r}$ by taking an invertible smooth function $u\mapsto \tilde{u}$, and have a new parametrization $\mathbf{r}(\tilde{u}) = \mathbf{r}(\tilde{u}(u))$. Then by the chain rule,
 \begin{align*}
-  \frac{\d \mathbf{r}}{\d u} &= \frac{\d \mathbf{r}}{\d \tilde{u}}\times \frac{\d \tilde{u}}{\d u}\\
-  \frac{\d \mathbf{r}}{\d \tilde{u}} &= \frac{\d \mathbf{r}}{\d u}/ \frac{\d \tilde{u}}{\d u}
+  \frac{\d \mathbf{r}}{\d u} &= \frac{\d \mathbf{r}}{\d \tilde{u}} \frac{\d \tilde{u}}{\d u}\\
+  \frac{\d \mathbf{r}}{\d \tilde{u}} &= \frac{\d \mathbf{r}}{\d u}\bigg/ \frac{\d \tilde{u}}{\d u}
 \end{align*}
 It is often convenient to use the arclength $s$ as the parameter. Then the tangent vector will always have unit length since the proposition above yields
 \[
@@ -602,7 +602,7 @@ So the work done on the particle is the change in kinetic energy.
     \int_C \mathbf{F}\cdot \d \mathbf{r} = V(\mathbf{a}) - V(\mathbf{b}).
   \]
 \end{defi}
-Therefore, for a conservative force, we have $\mathbf{F} = \nabla V$, where $V(\mathbf{r})$ is the potential energy.
+Therefore, for a conservative force, we have $\mathbf{F} = -\nabla V$, where $V(\mathbf{r})$ is the potential energy.
 
 So the work done (gain in kinetic energy) is the loss in potential energy. So the total energy $T + V$ is conserved, i.e.\ constant during motion.
 
