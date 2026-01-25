@@ -93,13 +93,13 @@ Using differential notation, the differentiability condition can be written as
   \d\mathbf{F} = \mathbf{F}'(x)\;\d x.
 \]
 Given a basis $\mathbf{e}_i$ that is independent of $x$, vector differentiation is performed componentwise, i.e.
-\begin{prop}
+\begin{prop}[Componentwise derivative]
   \[
     \mathbf{F}'(x) = F'_i(x)\mathbf{e}_i.
   \]
 \end{prop}
 Leibnitz identities hold for the products of scalar and vector functions.
-\begin{prop}
+\begin{prop}[Leibniz rules for products]
   \begin{align*}
     \frac{\d}{\d t}(f\mathbf{g}) &= \frac{\d f}{\d t}\mathbf{g} + f\frac{\d \mathbf{g}}{\d t}\\
     \frac{\d}{\d t}(\mathbf{g}\cdot \mathbf{h}) &= \frac{\d \mathbf{g}}{\d t}\cdot \mathbf{h} + \mathbf{g}\cdot \frac{\d \mathbf{h}}{\d t}\\
@@ -172,7 +172,7 @@ How do we evaluate $\nabla f$? Suppose we have an orthonormal basis $\mathbf{e}_
   \mathbf{e}_i \cdot \nabla f = \lim_{h\to 0} \frac{1}{h}[f(\mathbf{r} + h\mathbf{e}_i) - f(\mathbf{r})] = \frac{\partial f}{\partial x_i}.
 \]
 Hence
-\begin{thm}
+\begin{thm}[Gradient component formula]
   The gradient is
   \[
     \nabla f = \frac{\partial f}{\partial x_i}\mathbf{e}_i
@@ -234,7 +234,7 @@ Given an arbitrary function $\mathbf{F}: \R^n \to \R^m$ that maps $\mathbf{x}\ma
   \d y_j = \frac{\partial F_j}{\partial x_i} \d x_i.
 \]
 and we can write the derivative as
-\begin{thm}
+\begin{thm}[Jacobian derivative formula]
   The derivative of $\mathbf{F}$ is given by
   \[
     M_{ji} =\frac{\partial y_j}{\partial x_i}.
@@ -386,7 +386,7 @@ Clearly, a curve can have many different parametrizations.
 \end{eg}
 If we change $u$ (and hence $\mathbf{r}$) by a small amount, then the distance $|\delta \mathbf{r}|$ is roughly equal to the change in arclength $\delta s$. So $\delta s = |\delta \mathbf{r}| + o(\delta \mathbf{r})$. Then we have
 
-\begin{prop}
+\begin{prop}[Arclength derivative]
   Let $s$ denote the arclength of a curve $\mathbf{r}(u)$. Then
   \[
     \frac{\d s}{\d u} = \pm \left|\frac{\d \mathbf{r}}{\d u}\right| = \pm |\mathbf{r}'(u)|
@@ -417,7 +417,7 @@ We call $\d s$ the scalar line element, which will be used when we consider inte
   The \emph{scalar line element} of $C$ is $\d s$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Arclength differential]
   $\d s = \pm |\mathbf{r}'(u)| \d u$
 \end{prop}
 \subsection{Line integrals of vector fields}
@@ -504,7 +504,7 @@ Sometimes we are not that lucky and our curve is not smooth. For example, the gr
 \end{eg}
 \subsection{Gradients and Differentials}
 Recall that the line integral depends on the actual curve taken, and not just the end points. However, for some nice functions, the integral \emph{does} depend on the end points only.
-\begin{thm}
+\begin{thm}[Fundamental theorem for line integrals]
   If $\mathbf{F} = \nabla f(\mathbf{r})$, then
   \[
     \int _C \mathbf{F}\cdot \d \mathbf{r} = f(\mathbf{b}) - f(\mathbf{a}),
@@ -542,7 +542,7 @@ Then we can define
 \end{defi}
 
 To test if this holds, we can use the necessary condition
-\begin{prop}
+\begin{prop}[Exactness symmetry test]
   If $\mathbf{F} = \nabla f$ for some $f$, then
   \[
     \frac{\partial F_i}{\partial x_j} = \frac{\partial F_j}{\partial x_i}.
@@ -555,7 +555,7 @@ For an exact differential, the result from the previous section reads
   \int_C \mathbf{F}\cdot \d \mathbf{r} = \int_C \d f = f(\mathbf{b}) - f(\mathbf{a}).
 \]
 Differentials can be manipulated using (for constant $\lambda, \mu$):
-\begin{prop}
+\begin{prop}[Differential linearity and product rule]
   \begin{align*}
     \d (\lambda f + \mu g) &= \lambda \d f + \mu \d g\\
     \d (fg) &= (\d f)g + f(\d g)
@@ -663,7 +663,7 @@ We choose the small sets in the definition to be rectangles, each of size $\delt
 \end{center}
 We sum over all such strips and take $\delta y\to 0$, giving
 
-\begin{prop}
+\begin{prop}[Iterated integral formula]
   \[
     \int_D f(x, y)\;\d A = \int_Y\left(\int_{x_y}f(x, y)\;\d x\right) \d y.
   \]
@@ -701,7 +701,7 @@ We could also do it the other way round, integrating over $y$ first, and come up
   The \emph{area element} is $\d A$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Cartesian area element]
   $\d A = \d x\;\d y$ in Cartesian coordinates.
 \end{prop}
 
@@ -729,7 +729,7 @@ While this integral is tedious in general, there is a special case where it is s
   A function $f(x, y)$ is separable if it can be written as $f(x, y) = h(y)g(x)$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Separable integral factorization]
   Take separable $f(x, y) = h(y)g(x)$ and $D$ be a rectangle $\{(x, y): a\leq x\leq b, c\leq y \leq d\}$. Then
   \[
     \int_Df(x, y)\;\d x\;\d y = \left(\int_a^b g(x)\;\d x\right)\left(\int_c^d h(y)\;\d y\right)
@@ -737,7 +737,7 @@ While this integral is tedious in general, there is a special case where it is s
 \end{prop}
 
 \subsection{Change of variables for an integral in \tph{$\R^2$}{R2}{&\#x211D;<sup>2</sup>}}
-\begin{prop}
+\begin{prop}[Change of variables, area integrals]
   Suppose we have a change of variables $(x, y)\leftrightarrow (u, v)$ that is smooth and invertible, with regions $D, D'$ in one-to-one correspondence. Then
   \[
     \int_D f(x, y)\;\d x\;\d y = \int_{D'} f(x(u, v), y(u, v))|J|\;\d u\;\d v,
@@ -855,12 +855,12 @@ Often, $f(\mathbf{r})$ is the density of some quantity, and is usually denoted b
   The \emph{volume element} is $\d V$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Cartesian volume element]
   $\d V = \d x\; \d y\; \d z$.
 \end{prop}
 
 We can change variables by some smooth, invertible transformation $(x, y, z)\mapsto (u, v, w)$. Then
-\begin{prop}
+\begin{prop}[Change of variables, volume integrals]
   \[
     \int_V f\;\d x\;\d y\;\d z = \int_V f|J|\;\d u\;\d v\;\d w,
   \]
@@ -875,7 +875,7 @@ We can change variables by some smooth, invertible transformation $(x, y, z)\map
   \]
 \end{prop}
 
-\begin{prop}
+\begin{prop}[Cylindrical and spherical volume elements]
   In cylindrical coordinates,
   \[
     \d V = \rho\;\d \rho\;\d \varphi\;\d z.
@@ -966,7 +966,7 @@ We can change variables by some smooth, invertible transformation $(x, y, z)\map
 \subsection{Further generalizations}
 \subsubsection*{Integration in \tph{$\R^n$}{Rn}{&\#x2121D;<sup>n</sup>}}
 Similar to the above, $\int_D f(x_1, x_2, \cdots x_n)\;\d x_1 \;\d x_2\cdots\;\d x_n$ is simply the integration over an $n$-dimensional volume. The change of variable formula is
-\begin{prop}
+\begin{prop}[Change of variables, n-dimensional]
   \[
     \int_D f(x_1, x_2, \cdots x_n)\;\d x_1 \;\d x_2\cdots\;\d x_n = \int_{D'} f(\{x_i(\mathbf{u})\}) |J| \;\d u_1\;\d u_2\cdots\;\d u_n.
   \]
@@ -1040,7 +1040,7 @@ Now consider any curve $\mathbf{r}(u)$ on $S$. Then by the chain rule, if we dif
   \frac{\d }{\d u}[f(\mathbf{r}(u))] = \nabla f\cdot \frac{\d \mathbf{r}}{\d u} = 0.
 \]
 This means that $\nabla f$ is always perpendicular to $\frac{\d \mathbf{r}}{\d u}$. Since $\frac{\d \mathbf{r}}{\d u}$ is the tangent to the curve, $\nabla f$ is perpendicular to the tangent. Since this is true for \emph{any} curve $\mathbf{r}(u)$, $\nabla f$ is perpendicular to any tangent of the surface. Therefore
-\begin{prop}
+\begin{prop}[Gradient as surface normal]
   $\nabla f$ is the normal to the surface $f(\mathbf{r}) = c$.
 \end{prop}
 
@@ -1143,7 +1143,7 @@ The actual area is then given by
   \delta S =\left|\frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial \mathbf{r}}{\partial v}\right|\;\delta u\;\delta v.
 \]
 Making these into differentials instead of deltas, we have
-\begin{prop}
+\begin{prop}[Parametrized surface area elements]
   The \emph{vector area element} is
   \[
     \d \mathbf{S} = \frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial \mathbf{r}}{\partial v}\;\d u\;\d v.
@@ -1470,7 +1470,7 @@ is a scalar differential operator, and
 \]
 is a vector differential operator.
 
-\begin{prop}
+\begin{prop}[Linearity of differential operators]
   Let $f, g$ be scalar functions, $\mathbf{F}, \mathbf{G}$ be vector functions, and $\mu, \lambda$ be constants. Then
   \begin{align*}
     \nabla(\lambda f + \mu g) &= \lambda\nabla f + \mu\nabla g\\
@@ -1504,7 +1504,7 @@ Note that Grad and Div can be analogously defined in any dimension $n$, but curl
   \]
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Leibniz rules for vector operators]
   We have the following Leibnitz properties:
   \begin{align*}
     \nabla(fg) &= (\nabla f)g + f(\nabla g)\\\
@@ -1530,7 +1530,7 @@ There is absolutely no point in memorizing these (at least the last three). They
 \end{eg}
 \subsection{Second-order derivatives}
 We have
-\begin{prop}
+\begin{prop}[Curl-grad and div-curl identities]
   \begin{align*}
     \nabla\times (\nabla f) &= 0\\
     \nabla\cdot (\nabla\times \mathbf{F}) &=0
@@ -1550,7 +1550,7 @@ We have
 \end{proof}
 
 The converse of each result holds for fields defined in all of $\R^3$:
-\begin{prop}
+\begin{prop}[Scalar potential existence]
   If $\mathbf{F}$ is defined in all of $\R^3$, then
   \[
     \nabla\times \mathbf{F} = 0 \Rightarrow \mathbf{F} = \nabla f
@@ -1562,7 +1562,7 @@ The converse of each result holds for fields defined in all of $\R^3$:
   If $\mathbf{F} = \nabla f$, then $f$ is the \emph{scalar potential}. We say $\mathbf{F}$ is \emph{conservative} or \emph{irrotational}.
 \end{defi}
 Similarly,
-\begin{prop}
+\begin{prop}[Vector potential existence]
   If $\mathbf{H}$ is defined over all of $\R^3$ and $\nabla\cdot \mathbf{H} = 0$, then $\mathbf{H} = \nabla \times \mathbf{A}$ for some $\mathbf{A}$.
 \end{prop}
 
@@ -1771,7 +1771,7 @@ We will first show the following two equivalences:
 \end{itemize}
 Then we prove the 2D version of divergence theorem directly to show that all of the above hold. A sketch of the proof of the 3D version of divergence theorem will be provided, because it is simply a generalization of the 2D version, except that the extra dimension makes the notation tedious and difficult to follow.
 
-\begin{prop}
+\begin{prop}[Stokes' implies Green's]
   Stokes' theorem $\Rightarrow $ Green's theorem
 \end{prop}
 
@@ -1800,7 +1800,7 @@ Then we prove the 2D version of divergence theorem directly to show that all of 
   \]
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Green's implies Stokes']
   Green's theorem $\Rightarrow $ Stokes' theorem.
 \end{prop}
 
@@ -1865,7 +1865,7 @@ Then we prove the 2D version of divergence theorem directly to show that all of 
 \end{proof}
 
 
-\begin{prop}
+\begin{prop}[Green's vs 2D divergence theorem]
   Greens theorem $\Leftrightarrow$ 2D divergence theorem.
 \end{prop}
 
@@ -1895,8 +1895,7 @@ Then we prove the 2D version of divergence theorem directly to show that all of 
   Now 2D version of Gauss' theorem says the two LHS are the equal, and Green's theorem says the two RHS are equal. So the result follows.
 \end{proof}
 
-\begin{prop}
-  2D divergence theorem.
+\begin{prop}[2D divergence theorem]
   \[
     \int_A (\nabla\cdot \mathbf{G})\;\d A = \int_{C = \partial A} \mathbf{G}\cdot \mathbf{n}\;\d s.
   \]
@@ -1974,7 +1973,7 @@ Gauss' theorem for $\mathbf{F}$ in a small volume $V$ containing $\mathbf{r}_0$ 
   \int_{\partial V}\mathbf{F}\cdot \d \mathbf{S} = \int_V\nabla\cdot \mathbf{F}\;\d V\approx (\nabla\cdot \mathbf{F})(\mathbf{r}_0) \vol(V).
 \]
 We take the limit as $V\to 0$ to obtain
-\begin{prop}
+\begin{prop}[Divergence limit definition]
   \[
     (\nabla \cdot \mathbf{F})(\mathbf{r}_0) = \lim_{\mathrm{diam}(V) \to 1} \frac{1}{\vol(V)}\int_{\partial V}\mathbf{F}\cdot \d \mathbf{S},
   \]
@@ -1985,7 +1984,7 @@ Similarly, Stokes' theorem gives, for $A$ a surface containing the point $\mathb
   \int _{\partial A}\mathbf{F}\cdot \d \mathbf{r} = \int_A(\nabla\times \mathbf{F})\cdot \mathbf{n}\;\d A \approx \mathbf{n}\cdot (\nabla\times \mathbf{F})(\mathbf{r}_0) \area(A).
 \]
 So
-\begin{prop}
+\begin{prop}[Curl limit definition]
   \[
     \mathbf{n}\cdot (\nabla \times \mathbf{F})(\mathbf{r}_0) = \lim_{\mathrm{diam}(A) \to 0}\frac{1}{\area(A)}\int_{\partial A}\mathbf{F}\cdot \d \mathbf{r},
   \]
@@ -2051,7 +2050,7 @@ We have also shown that (i) $\Rightarrow$ (iii) since
   \nabla \times (\nabla f) = 0.
 \]
 So we want to show that (iii) $\Rightarrow $ (ii) and (ii) $\Rightarrow $ (i)
-\begin{prop}
+\begin{prop}[Path independence, sufficient condition]
   If (iii) $\nabla\times \mathbf{F}= 0 $, then (ii) $\int_C \mathbf{F}\cdot \d \mathbf{r}$ is independent of $C$.
 \end{prop}
 
@@ -2083,7 +2082,7 @@ So we want to show that (iii) $\Rightarrow $ (ii) and (ii) $\Rightarrow $ (i)
   \]
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Path independence, necessary condition]
   If (ii) $\int_C \mathbf{F}\cdot \d \mathbf{r}$ is independent of $C$ for fixed end points and orientation, then (i) $\mathbf{F} = \nabla f$ for some scalar field $f$.
 \end{prop}
 
@@ -2239,7 +2238,7 @@ with $\d f = (\nabla f)\cdot \d \mathbf{r}$. Since we know that
   \d \mathbf{r} = \frac{\partial \mathbf{r}}{\partial u}\;\d u + \frac{\partial \mathbf{r}}{\partial v}\;\d v + \frac{\partial \mathbf{r}}{\partial w}\;\d w = h_u \mathbf{e}_u \;\d u + h_v \mathbf{e}_v \;\d v + h_w \mathbf{e}_w \;\d v,
 \]
 we can compare the terms to know that
-\begin{prop}
+\begin{prop}[Gradient in curvilinear coordinates]
   \[
     \nabla f = \frac{1}{h_u} \frac{\partial f}{\partial u} \mathbf{e}_u + \frac{1}{h_v} \frac{\partial f}{\partial v}\mathbf{e}_v + \frac{1}{h_w} \frac{\partial f}{\partial w}\mathbf{e}_w.
   \]
@@ -2253,7 +2252,7 @@ we can compare the terms to know that
 \end{eg}
 
 Then we know that the differential operator is
-\begin{prop}
+\begin{prop}[Nabla in curvilinear coordinates]
   \[
     \nabla = \frac{1}{h_u}\mathbf{e}_u \frac{\partial }{\partial u} + \frac{1}{h_v}\mathbf{e}_v\frac{\partial }{\partial v} + \frac{1}{h_w}\mathbf{e}_w \frac{\partial}{\partial w}.
   \]
@@ -2263,7 +2262,7 @@ We can apply this to a vector field
   \mathbf{F} = F_u \mathbf{e}_u + F_v \mathbf{e}_v + F_w \mathbf{e}_w
 \]
 using scalar or vector products to obtain
-\begin{prop}
+\begin{prop}[Curl and divergence in curvilinear coordinates]
   \begin{align*}
     \nabla \times \mathbf{F} &= \frac{1}{h_vh_w}\left[\frac{\partial}{\partial v}(h_wF_w) - \frac{\partial }{\partial w}(h_vF_v)\right]\mathbf{e}_u + \text{ two similar terms}\\
     &= \frac{1}{h_uh_vh_w}
@@ -2672,7 +2671,7 @@ We can also specify different boundary conditions on different boundary componen
 
 \section{Laplace's and Poisson's equations}
 \subsection{Uniqueness theorems}
-\begin{thm}
+\begin{thm}[Uniqueness theorem for Poisson's equation]
   Consider $\nabla^2 \varphi = - \rho$ for some $\rho (\mathbf{r})$ on a bounded volume $V$ with $S = \partial V$ being a closed surface, with an outward normal $\mathbf{n}$.
 
   Suppose $\varphi$ satisfies either
@@ -2824,7 +2823,7 @@ If we have many sources $\lambda_\alpha$ at positions $\mathbf{r}_\alpha$, the p
 \]
 If we have infinitely many of them, having a distribution of $\rho(\mathbf{r})$ with $\rho(\mathbf{r}')\;\d V'$ being the contribution from a small volume at position $\mathbf{r}'$. It would be reasonable to guess that the solution is what we obtain by replacing the sum with an integral:
 
-\begin{prop}
+\begin{prop}[Poisson's equation integral solution]
   The solution to Poisson's equation $\nabla^2 \varphi = -\rho$, with boundary conditions $|\varphi (\mathbf{r})| = O(1/|\mathbf{r}|)$ and $|\nabla\varphi(\mathbf{r})| = O(1/|\mathbf{r}|^2)$, is
   \[
     \varphi(\mathbf{r}) = \frac{1}{4\pi}\int_{V'} \frac{\rho(\mathbf{r}')}{|\mathbf{r} - \mathbf{r}'|}\;\d V'
@@ -3260,7 +3259,7 @@ We assume that the fields are \emph{smooth} so they can be differentiated any nu
   \frac{\partial}{\partial x_p}\cdots \frac{\partial}{\partial x_q}T_{ij\cdots k},
 \]
 except for where things obviously fail, e.g.\ for where $T$ is not defined. We now claim:
-\begin{prop}
+\begin{prop}[Tensor field derivative rank]
   \[
     \underbrace{\frac{\partial}{\partial x_p}\cdots \frac{\partial}{\partial x_q}}_{m}T_{\underbrace{ij\cdots k}_n},\tag{$*$}
   \]
@@ -3598,7 +3597,7 @@ We will provide a sketch of the proof:
 
 \subsection{Application to invariant integrals}
 We have the following very useful theorem. It might seem a bit odd and arbitrary at first sight --- if so, read the example below first (after reading the statement of the theorem), and things will make sense!
-\begin{thm}
+\begin{thm}[Invariant integrals]
   Let
   \[
     T_{ij\cdots k} = \int_V f(\mathbf{x}) x_i x_j \cdots x_k\;\d V.
