@@ -58,15 +58,19 @@ Note that throughout the course (and lecture notes), summation convention is imp
 
 \section{Derivatives and coordinates}
 \subsection{Derivative of functions}
-We used to define a derivative as the limit of a quotient and a function is differentiable if the derivative exists. However, this obviously cannot be generalized to vector-valued functions, since you cannot divide by vectors. So we want an alternative definition of differentiation, which can be easily generalized to vectors.
+In single-variable calculus, the derivative of a function $f: \R \to \R$ at a point $x \in \R$ is defined as the limit
+\[
+  f'(x) = \lim_{\delta x \to 0} \frac{f(x + \delta x) - f(x)}{\delta x},
+\]
+provided the limit exists. However, this definition cannot be directly generalized to vector-valued functions, since division by a vector is not defined. We therefore seek an alternative characterization of differentiability that extends naturally to higher dimensions.
 
-Recall, that if a function $f$ is differentiable at $x$, then for a small perturbation $\delta x$, we have
+Recall that if a function $f: \R \to \R$ is differentiable at $x$, then for a small perturbation $\delta x \in \R$, we have
 \[
   \delta f \stackrel{\text{def}}{=} f(x + \delta x) - f(x) = f'(x) \delta x + o(\delta x),
 \]
-which says that the resulting change in $f$ is approximately proportional to $\delta x$ (as opposed to $1/\delta x$ or something else). It can be easily shown that the converse is true --- if $f$ satisfies this relation, then $f$ is differentiable.
+where $o(\delta x)$ denotes a quantity such that $o(\delta x)/\delta x \to 0$ as $\delta x \to 0$. This says that the change in $f$ is, to first order, proportional to the perturbation $\delta x$. Conversely, if $f$ satisfies this relation for some constant $f'(x)$, then $f$ is differentiable at $x$.
 
-This definition is more easily extended to vector functions. We say a function $\mathbf{F}$ is differentiable if, when $x$ is perturbed by $\delta x$, then the resulting change is ``something'' times $\delta x$ plus an $o(\delta x)$ error term. In the most general case, $\delta x$ will be a vector and that ``something'' will be a matrix. Then that ``something'' will be what we call the derivative.
+This characterization extends naturally to functions involving vectors. In the most general case, where both the domain and codomain are vector spaces, the perturbation $\delta \mathbf{x}$ is a vector, and the ``proportionality constant'' relating $\delta \mathbf{F}$ to $\delta \mathbf{x}$ is a matrix. This matrix is what we call the derivative.
 
 \subsubsection*{Vector functions \tph{$\R \to \R^n$}{R to Rn}{&\#x211D; &rarr; &\#x211D;<sup>n</sup>}}
 We start with the simple case of vector functions.
@@ -151,43 +155,50 @@ Here we have a fancy name ``gradient'' for the derivative. But we will soon give
 
 Note also that here we genuinely need the new notion of derivative, since ``dividing by $\delta \mathbf{r}$'' makes no sense at all!
 
-The above definition considers the case where $\delta \mathbf{r}$ comes in all directions. What if we only care about the case where $\delta \mathbf{r}$ is in some particular direction $\mathbf{n}$? For example, maybe $f$ is the potential of a particle that is confined to move in one straight line only.
+The definition of the gradient considers perturbations $\delta \mathbf{r}$ in all directions. In many applications, however, we are interested in how $f$ changes along a particular direction. For instance, suppose $f$ represents the potential energy of a particle constrained to move along a straight line. In such cases, we restrict attention to perturbations of the form $\delta \mathbf{r} = h\mathbf{n}$, where $\mathbf{n}$ is a unit vector specifying the direction of motion and $h \in \R$ is a small scalar.
 
-Then taking $\delta \mathbf{r} = h\mathbf{n}$, with $\mathbf{n}$ a unit vector,
+Substituting into the definition of differentiability, we obtain
 \[
-  f(\mathbf{r} + h\mathbf{n}) - f(\mathbf{r}) = \nabla f \cdot (h\mathbf{n}) + o(h) = h(\nabla f\cdot \mathbf{n}) + o(h),
+  f(\mathbf{r} + h\mathbf{n}) - f(\mathbf{r}) = \nabla f \cdot (h\mathbf{n}) + o(h) = h(\nabla f\cdot \mathbf{n}) + o(h).
 \]
-which gives
-\begin{defi}[Directional derivative]
-  The \emph{directional derivative} of $f$ along $\mathbf{n}$ is
-  \[
-    \mathbf{n}\cdot \nabla f = \lim_{h \to 0} \frac{1}{h}[f(\mathbf{r} + h\mathbf{n}) - f(\mathbf{r})],
-  \]
-  It refers to how fast $f$ changes when we move in the direction of $\mathbf{n}$.
-\end{defi}
-Using this expression, the directional derivative is maximized when $\mathbf{n}$ is in the same direction as $\nabla f$ (then $\mathbf{n}\cdot \nabla f = |\nabla f|$). So $\nabla f$ points in the direction of greatest slope.
+This motivates the following definition.
 
-How do we evaluate $\nabla f$? Suppose we have an orthonormal basis $\mathbf{e}_i$. Setting $\mathbf{n} = \mathbf{e}_i$ in the above equation, we obtain
+\begin{defi}[Directional derivative]
+  Let $f: \R^n \to \R$ be a differentiable scalar function and let $\mathbf{n}$ be a unit vector. The \emph{directional derivative} of $f$ in the direction $\mathbf{n}$ at the point $\mathbf{r}$ is
+  \[
+    D_{\mathbf{n}} f(\mathbf{r}) = \mathbf{n}\cdot \nabla f = \lim_{h \to 0} \frac{1}{h}[f(\mathbf{r} + h\mathbf{n}) - f(\mathbf{r})].
+  \]
+  It measures the rate of change of $f$ with respect to displacement in the direction $\mathbf{n}$.
+\end{defi}
+
+\begin{rmk}[Geometric interpretation of the gradient]
+  Since $\mathbf{n} \cdot \nabla f = |\nabla f| \cos \theta$, where $\theta$ is the angle between $\mathbf{n}$ and $\nabla f$, the directional derivative is maximized when $\mathbf{n}$ points in the same direction as $\nabla f$, giving $D_{\mathbf{n}} f = |\nabla f|$. Thus, $\nabla f$ points in the direction of steepest increase of $f$, and $|\nabla f|$ is the rate of increase in that direction.
+\end{rmk}
+
+To compute the gradient in terms of a coordinate system, let $\{\mathbf{e}_1, \ldots, \mathbf{e}_n\}$ be an orthonormal basis for $\R^n$, and let $(x_1, \ldots, x_n)$ denote the corresponding Cartesian coordinates. Setting $\mathbf{n} = \mathbf{e}_i$ in the definition of the directional derivative, we obtain
 \[
   \mathbf{e}_i \cdot \nabla f = \lim_{h\to 0} \frac{1}{h}[f(\mathbf{r} + h\mathbf{e}_i) - f(\mathbf{r})] = \frac{\partial f}{\partial x_i}.
 \]
-Hence
+Since $\nabla f = (\mathbf{e}_i \cdot \nabla f)\mathbf{e}_i$ (with summation over $i$), we obtain the following result.
+
 \begin{thm}[Gradient component formula]
-  The gradient is
+  Let $f: \R^n \to \R$ be a differentiable scalar function. In Cartesian coordinates with orthonormal basis $\{\mathbf{e}_i\}$, the gradient is given by
   \[
-    \nabla f = \frac{\partial f}{\partial x_i}\mathbf{e}_i
+    \nabla f = \frac{\partial f}{\partial x_i}\mathbf{e}_i = \sum_{i=1}^{n} \frac{\partial f}{\partial x_i}\mathbf{e}_i.
   \]
 \end{thm}
 
-Hence we can write the condition of differentiability as
-\[
-  \delta f = \frac{\partial f}{\partial x_i}\delta x_i + o(\delta \mathbf{x}).
-\]
-In differential notation, we write
-\[
-  \d f = \nabla f\cdot \d \mathbf{r} = \frac{\partial f}{\partial x_i}\d x_i,
-\]
-which is the chain rule for partial derivatives.
+\begin{rmk}[Differential notation]
+  Using the gradient formula, the differentiability condition can be written as
+  \[
+    \delta f = \frac{\partial f}{\partial x_i}\delta x_i + o(\delta \mathbf{x}).
+  \]
+  In differential notation, this becomes
+  \[
+    \d f = \nabla f\cdot \d \mathbf{r} = \frac{\partial f}{\partial x_i}\d x_i,
+  \]
+  which expresses the chain rule for partial derivatives.
+\end{rmk}
 
 \begin{eg}[Computing a gradient]
   Take $f(x, y, z) = x + e^{xy}\sin z$. Then
@@ -198,49 +209,54 @@ which is the chain rule for partial derivatives.
   At $(x, y, z) = (0, 1, 0)$, $\nabla f = (1, 0, 1)$. So $f$ increases/decreases most rapidly for $\mathbf{n} = \pm \frac{1}{\sqrt{2}}(1, 0, 1)$ with a rate of change of $\pm \sqrt{2}$. There is no change in $f$ if $\mathbf{n}$ is perpendicular to $\pm \frac{1}{\sqrt{2}}(1, 0, 1)$.
 \end{eg}
 
-Now suppose we have a scalar function $f(\mathbf{r})$ and we want to consider the rate of change along a path $\mathbf{r}(u)$. A change $\delta u$ produces a change $\delta \mathbf{r} = \mathbf{r}' \delta u + o(\delta u)$, and
+We now consider the composition of a scalar function with a path. Let $f: \R^n \to \R$ be a differentiable scalar function and let $\mathbf{r}: \R \to \R^n$ be a differentiable path parametrized by $u$. A small change $\delta u$ produces a change $\delta \mathbf{r} = \mathbf{r}'(u) \delta u + o(\delta u)$ in the position. By the definition of differentiability of $f$,
 \[
   \delta f = \nabla f\cdot \delta \mathbf{r} + o(|\delta \mathbf{r}|) = \nabla f\cdot \mathbf{r}'(u)\delta u + o(\delta u).
 \]
-This shows that $f$ is differentiable as a function of $u$ and
-\begin{thm}[Chain rule]
-  Given a function $f(\mathbf{r}(u))$,
+This shows that the composition $f \circ \mathbf{r}$ is differentiable as a function of $u$, and we obtain the chain rule.
+
+\begin{thm}[Chain rule for scalar functions]
+  Let $f: \R^n \to \R$ be a differentiable scalar function and let $\mathbf{r}: \R \to \R^n$ be a differentiable path. Then the composition $f(\mathbf{r}(u))$ is differentiable and
   \[
     \frac{\d f}{\d u} = \nabla f\cdot \frac{\d \mathbf{r}}{\d u} = \frac{\partial f}{\partial x_i} \frac{\d x_i}{\d u}.
   \]
 \end{thm}
-Note that if we drop the $\d u$, we simply get
-\[
-  \d f = \nabla f\cdot \d \mathbf{r} = \frac{\partial f}{\partial x_i}\d x_i,
-\]
-which is what we've previously had.
+
+\begin{rmk}
+  In differential notation, dividing both sides by $\d u$ and rearranging, we recover the formula $\d f = \nabla f \cdot \d\mathbf{r} = \frac{\partial f}{\partial x_i}\d x_i$ obtained earlier.
+\end{rmk}
 \subsubsection*{Vector fields \tph{$\R^n\to \R^m$}{Rn to Rm}{&\#x211D;<sup>n</sup> &rarr; &\#x211D;<sup>m</sup>}}
-We are now ready to tackle the general case, which are given the fancy name of \emph{vector fields}.
+We now turn to the general case of functions between vector spaces.
+
 \begin{defi}[Vector field]
   A \emph{vector field} is a function $\mathbf{F}: \R^n\to \R^m$.
 \end{defi}
 
 \begin{defi}[Derivative of vector field]
-  A vector field $\mathbf{F}: \R^n \to \R^m$ is differentiable if
+  A vector field $\mathbf{F}: \R^n \to \R^m$ is \emph{differentiable} at $\mathbf{x}$ if there exists an $m\times n$ matrix $M$ such that
   \[
-    \delta \mathbf{F} \stackrel{def}{=} \mathbf{F}(\mathbf{x} + \delta\mathbf{x}) - \mathbf{F}(\mathbf{x}) = M\delta\mathbf{x} + o(\delta \mathbf{x})
+    \delta \mathbf{F} \stackrel{\text{def}}{=} \mathbf{F}(\mathbf{x} + \delta\mathbf{x}) - \mathbf{F}(\mathbf{x}) = M\delta\mathbf{x} + o(\delta \mathbf{x}).
   \]
-  for some $m\times n$ matrix $M$. $M$ is the \emph{derivative} of $\mathbf{F}$.
+  The matrix $M$ is called the \emph{derivative} of $\mathbf{F}$ at $\mathbf{x}$.
 \end{defi}
-As promised, $M$ does not have a fancy name.
 
-Given an arbitrary function $\mathbf{F}: \R^n \to \R^m$ that maps $\mathbf{x}\mapsto \mathbf{y}$ and a choice of basis, we can write $\mathbf{F}$ as a set of $m$ functions $y_j = F_j(\mathbf{x})$ such that $\mathbf{y} = (y_1, y_2, \cdots, y_m)$. Then
+To express the derivative in coordinates, suppose $\mathbf{F}: \R^n \to \R^m$ maps $\mathbf{x} = (x_1, \ldots, x_n) \mapsto \mathbf{y} = (y_1, \ldots, y_m)$. We can write $\mathbf{F}$ in terms of its component functions $y_j = F_j(\mathbf{x})$ for $j = 1, \ldots, m$. For each component,
 \[
   \d y_j = \frac{\partial F_j}{\partial x_i} \d x_i.
 \]
-and we can write the derivative as
+This leads to the following formula for the derivative matrix.
+
 \begin{thm}[Jacobian derivative formula]
-  The derivative of $\mathbf{F}$ is given by
+  Let $\mathbf{F}: \R^n \to \R^m$ be differentiable. In Cartesian coordinates, the entries of the derivative matrix $M$ are given by
   \[
-    M_{ji} =\frac{\partial y_j}{\partial x_i}.
+    M_{ji} = \frac{\partial y_j}{\partial x_i} = \frac{\partial F_j}{\partial x_i}.
   \]
+  The matrix $M$ is called the \emph{Jacobian matrix} of $\mathbf{F}$.
 \end{thm}
-Note that we could have used this as the definition of the derivative. However, the original definition is superior because it does not require a selection of coordinate system.
+
+\begin{rmk}
+  While the Jacobian formula could serve as an alternative definition of the derivative, the coordinate-free definition given above is preferable because it does not depend on the choice of coordinate system.
+\end{rmk}
 
 \begin{defi}[Smooth function]
   A function is \emph{smooth} if it can be differentiated any number of times, i.e.\ all partial derivatives of all orders exist and are continuous. By Schwarz's theorem, this implies that mixed partial derivatives are symmetric (i.e.\ the order of differentiation does not matter).
@@ -263,27 +279,33 @@ The functions we will consider will be smooth except where things obviously go w
 \end{thm}
 
 \subsection{Inverse functions}
-Suppose $g, f: \R^n \to \R^n$ are inverse functions, i.e.\ $g\circ f = f\circ g = \id$. Suppose that $f(\mathbf{x}) =\mathbf{u}$ and $g(\mathbf{u}) = \mathbf{x}$.
+We now examine the relationship between the derivatives of inverse functions.
 
-Since the derivative of the identity function is the identity matrix (if you differentiate $\mathbf{x}$ wrt to $\mathbf{x}$, you get $1$), we must have
-\[
-  M(f\circ g) = I.
-\]
-Therefore we know that
-\[
-  M(g) = M(f)^{-1}.
-\]
-We derive this result more formally by noting
-\[
-  \frac{\partial u_b}{\partial u_a} = \delta_{ab}.
-\]
-So by the chain rule,
-\[
-  \frac{\partial u_b}{\partial x_i}\frac{\partial x_i}{\partial u_a} = \delta_{ab},
-\]
-i.e.\ $M(f\circ g) = I$.
+\begin{prop}[Derivative of inverse function]
+  Let $f: \R^n \to \R^n$ and $g: \R^n \to \R^n$ be differentiable functions satisfying $g \circ f = f \circ g = \id$ (so that $g = f^{-1}$). If $f(\mathbf{x}) = \mathbf{u}$ and $g(\mathbf{u}) = \mathbf{x}$, then
+  \[
+    M(g) = M(f)^{-1},
+  \]
+  where $M(f)$ and $M(g)$ denote the Jacobian matrices of $f$ and $g$, respectively.
+\end{prop}
 
-In the $n = 1$ case, it is the familiar result that $\d u/\d x = 1/(\d x/\d u)$.
+\begin{proof}
+  The derivative of the identity function $\id: \R^n \to \R^n$ is the identity matrix $I$, since $\frac{\partial u_b}{\partial u_a} = \delta_{ab}$. By the chain rule applied to $g \circ f = \id$, we have
+  \[
+    M(g \circ f) = M(g) M(f) = I.
+  \]
+  Therefore $M(g) = M(f)^{-1}$.
+
+  In terms of partial derivatives, the chain rule gives
+  \[
+    \frac{\partial u_b}{\partial x_i}\frac{\partial x_i}{\partial u_a} = \delta_{ab},
+  \]
+  which is the component form of the matrix equation $M(f)M(g) = I$.
+\end{proof}
+
+\begin{rmk}
+  In the one-dimensional case $n = 1$, this reduces to the familiar formula $\frac{\d u}{\d x} = 1\big/\frac{\d x}{\d u}$.
+\end{rmk}
 
 \begin{eg}[Polar coordinates Jacobian]
   For $n = 2$, write $u_1 = \rho$, $u_2 =\varphi$ and let $x_1 = \rho \cos \varphi$ and $x_2 = \rho \sin \varphi$. Then the function used to convert between the coordinate systems is $g(u_1, u_2) = (u_1\cos u_2, u_1\sin u_2)$
@@ -315,18 +337,28 @@ In the $n = 1$ case, it is the familiar result that $\d u/\d x = 1/(\d x/\d u)$.
     \end{pmatrix}
     = M(g)^{-1}.
   \]
-  These matrices are known as Jacobian matrices, and their determinants are known as the Jacobians.
+  The determinants of these Jacobian matrices are called the \emph{Jacobians}.
 \end{eg}
-Note that
-\[
-  \det M(f)\det M(g) = 1.
-\]
+
+\begin{cor}[Jacobian product formula]
+  If $f$ and $g = f^{-1}$ are inverse functions, then
+  \[
+    \det M(f) \cdot \det M(g) = 1.
+  \]
+  Equivalently, the Jacobians of inverse functions are reciprocals of each other.
+\end{cor}
 \subsection{Coordinate systems}
-Now we can apply the results above the changes of coordinates on Euclidean space. Suppose $x_i$ are the coordinates are Cartesian coordinates. Then we can define an arbitrary new coordinate system $u_a$ in which each coordinate $u_a$ is a function of $\mathbf{x}$. For example, we can define the plane polar coordinates $\rho, \varphi$ by
-\[
-  x_1 = \rho\cos\varphi, \quad x_2 = \rho\sin \varphi.
-\]
-However, note that $\rho$ and $\varphi$ are not components of a position vector, i.e.\ they are not the ``coefficients'' of basis vectors like $\mathbf{r} = x_1\mathbf{e}_1 + x_2\mathbf{e}_2$ are. But we can associate related basis vectors that point to directions of increasing $\rho$ and $\varphi$, obtained by differentiating $\mathbf{r}$ with respect to the variables and then normalizing:
+We now apply the preceding results to changes of coordinates in Euclidean space. Let $(x_1, \ldots, x_n)$ denote Cartesian coordinates with respect to an orthonormal basis $\{\mathbf{e}_1, \ldots, \mathbf{e}_n\}$. A new coordinate system $(u_1, \ldots, u_n)$ is defined by specifying smooth, invertible functions relating the two sets of coordinates.
+
+\begin{eg}[Plane polar coordinates]
+  In two dimensions, \emph{plane polar coordinates} $(\rho, \varphi)$ are defined by
+  \[
+    x_1 = \rho\cos\varphi, \quad x_2 = \rho\sin \varphi,
+  \]
+  where $\rho \geq 0$ is the radial distance from the origin and $\varphi \in [0, 2\pi)$ is the angle measured from the positive $x_1$-axis.
+\end{eg}
+
+It is important to note that the coordinates $\rho$ and $\varphi$ are not the components of the position vector in any basis; that is, we do not have $\mathbf{r} = \rho\,\mathbf{e}_\rho + \varphi\,\mathbf{e}_\varphi$ in the same way that $\mathbf{r} = x_1\mathbf{e}_1 + x_2\mathbf{e}_2$. Nevertheless, we can define associated basis vectors that point in the directions of increasing $\rho$ and $\varphi$, obtained by differentiating the position vector with respect to each coordinate and normalizing:
 \[
   \mathbf{e}_\rho = \cos \varphi\, \mathbf{e}_1 + \sin \varphi\, \mathbf{e}_2,\quad \mathbf{e}_\varphi = -\sin \varphi\, \mathbf{e}_1 + \cos \varphi\, \mathbf{e}_2.
 \]
@@ -341,9 +373,11 @@ However, note that $\rho$ and $\varphi$ are not components of a position vector,
     \node at (0.9, 0.3) {$\varphi$};
   \end{tikzpicture}
 \end{center}
-These are not ``usual'' basis vectors in the sense that these basis vectors vary with position and are undefined at the origin. However, they are still very useful when dealing with systems with rotational symmetry.
+\begin{rmk}
+  Unlike the Cartesian basis vectors $\mathbf{e}_1, \mathbf{e}_2$, the polar basis vectors $\mathbf{e}_\rho, \mathbf{e}_\varphi$ vary with position and are undefined at the origin. Despite this, they are extremely useful for problems with rotational symmetry.
+\end{rmk}
 
-In three dimensions, we have cylindrical polars and spherical polars.
+In three dimensions, the most commonly used curvilinear coordinate systems are cylindrical polar coordinates and spherical polar coordinates.
 \begin{center}
   \begin{tabularx}{\textwidth}{XX}
     \toprule
