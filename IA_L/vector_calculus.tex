@@ -3350,7 +3350,7 @@ The symmetric part can be further reduced to a \emph{traceless} part plus an \em
 \]
 where $Q = S_{ii}$ is the trace of $S_{ij}$ and $P_{ij} = P_{ji} = S_{ij} -\frac{1}{3}\delta_{ij}Q$ is traceless. Then $P_{ij}$ has 5 independent components while $Q$ has 1.
 
-Since the antisymmetric part has 3 independent components, just like a usual vector, we should be able to write $A_{i}$ in terms of a single vector. In fact, we can write the antisymmetric part as
+Since the antisymmetric part has 3 independent components, just like a usual vector, we should be able to write $A_{ij}$ in terms of a single vector. In fact, we can write the antisymmetric part as
 \[
   A_{ij} = \varepsilon_{ijk}B_k
 \]
@@ -3373,7 +3373,7 @@ To summarize,
 \[
   T_{ij} = P_{ij} + \varepsilon_{ijk}B_k + \frac{1}{3}\delta_{ij}Q,
 \]
-where $B_k = \frac{1}{2}\varepsilon_{pqj} T_{pq}$, $Q = T_{kk}$ and $P_{ij} = P_{ji} = \frac{T_{ij} + T_{ji}}{2} - \frac{1}{3}\delta_{ij}Q$.
+where $B_k = \frac{1}{2}\varepsilon_{pqk} T_{pq}$, $Q = T_{kk}$ and $P_{ij} = P_{ji} = \frac{T_{ij} + T_{ji}}{2} - \frac{1}{3}\delta_{ij}Q$.
 
 \begin{eg}[Strain rate tensor decomposition]
   The derivative of a vector field $F_i (\mathbf{r})$ is a tensor $T_{ij} = \frac{\partial F_i}{\partial x_j}$, a tensor field. Our decomposition given above has the symmetric traceless piece
@@ -3440,9 +3440,9 @@ By inspection, $I$ is a symmetric tensor.
   We have
   \begin{align*}
     I_{33} &= \int_V \rho_0 (x_1^2 + x_2^2)\;\d V\\
-    &= \rho_0 \int_0^a \int_0^{2\pi} \int_{-\ell}^\ell r^2 (r\;\d r\;\d \theta \;\d x_2)\\
+    &= \rho_0 \int_0^a \int_0^{2\pi} \int_{-\ell}^\ell r^2 (r\;\d r\;\d \theta \;\d x_3)\\
     &= \rho_0 \cdot 2\pi \cdot 2\ell \left[\frac{r^4}{4}\right]_0^a\\
-    &= \varepsilon_0 \pi \ell a^4.
+    &= \rho_0 \pi \ell a^4.
   \end{align*}
   Similarly, we have
   \begin{align*}
@@ -3450,7 +3450,7 @@ By inspection, $I$ is a symmetric tensor.
     &= \rho_0 \int_0^a \int_0^{2\pi}\int_{-\ell}^\ell (r^2 \sin^2 \theta + x_3^2) r\;\d r\;\d \theta \;\d x_3\\
     &= \rho_0 \int_0^a \int_0^{2\pi} r\left(r^2 \sin^2 \theta\left[x_3\right]_{-\ell}^\ell + \left[\frac{x_3^3}{3}\right]^{\ell}_{-\ell}\right)\;\d \theta\;\d r\\
     &= \rho_0 \int_0^a \int_0^{2\pi} r\left(r^2 \sin^2 \theta 2\ell + \frac{2}{3}\ell^3\right)\;\d \theta\;\d r\\
-    &= \rho_0 \left(2\pi a \cdot \frac{2}{3}\ell^3 + 2\ell\int_0^a r^2 \;\d r\int_0^{2\pi}\sin^2 \theta\right)\\
+    &= \rho_0 \left(\pi a^2 \cdot \frac{2}{3}\ell^3 + 2\ell\int_0^a r^3 \;\d r\int_0^{2\pi}\sin^2 \theta \;\d\theta\right)\\
     &= \rho_0 \pi a^2 \ell\left(\frac{a^2}{2} + \frac{2}{3}\ell^2\right)
   \end{align*}
   By symmetry, the result for $I_{22}$ is the same.
@@ -3466,7 +3466,7 @@ By inspection, $I$ is a symmetric tensor.
     I_{33} &= \frac{1}{2}Ma^2\\
     I_{11} = I_{22} &= M\left(\frac{a^2}{4} + \frac{\ell^2}{3}\right)
   \end{align*}
-  In the particular case where $\ell = \frac{a\sqrt{3}}{2}$, we have $I_{ij} = \frac{1}{2}ma^2 \delta_{ij}$. So in this case,
+  In the particular case where $\ell = \frac{a\sqrt{3}}{2}$, we have $I_{ij} = \frac{1}{2}Ma^2 \delta_{ij}$. So in this case,
   \[
     \mathbf{L} = \frac{1}{2}Ma^2 \boldsymbol\omega
   \]
