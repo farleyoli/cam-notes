@@ -2920,7 +2920,7 @@ as required.
 \subsection{Laws of electromagnetism}
 Maxwell's equations are a set of four equations that describe the behaviours of electromagnetism. Together with the Lorentz force law, these describe \emph{all} we know about (classical) electromagnetism. All other results we know are simply mathematical consequences of these equations. It is thus important to understand the mathematical properties of these equations.
 
-To begin with, there are two fields that govern electromagnetism, known as the \emph{electric} and \emph{magnetic} field. These are denoted by $\mathbf{E}(r, t)$ and $\mathbf{B}(r, t)$ respectively.
+To begin with, there are two fields that govern electromagnetism, known as the \emph{electric} and \emph{magnetic} field. These are denoted by $\mathbf{E}(\mathbf{r}, t)$ and $\mathbf{B}(\mathbf{r}, t)$ respectively.
 
 To understand electromagnetism, we need to understand how these fields are formed, and how these fields affect charged particles. The second is rather straightforward, and is given by the Lorentz force law.
 
@@ -2976,9 +2976,9 @@ This roughly states that there are no ``magnetic charges''.
 
 The remaining Maxwell's equations also have integral forms. For example,
 \[
-  \int_{C = \partial S} \mathbf{E}\cdot \d \mathbf{r} = \int_S \nabla \times \mathbf{E}\;\d S = -\frac{\d }{\d t}\int_S \mathbf{B}\cdot \d \mathbf{S},
+  \int_{C = \partial S} \mathbf{E}\cdot \d \mathbf{r} = \int_S \nabla \times \mathbf{E}\cdot\d \mathbf{S} = -\frac{\d }{\d t}\int_S \mathbf{B}\cdot \d \mathbf{S},
 \]
-where the first equality is from Stoke's theorem. This says that a changing magnetic field produces a current.
+where the first equality is from Stokes' theorem. This says that a changing magnetic field produces a current.
 
 \subsection{Static charges and steady currents}
 If $\rho, \mathbf{j}, \mathbf{E}, \mathbf{B}$ are all independent of time, $\mathbf{E}$ and $\mathbf{B}$ are no longer linked.
@@ -2995,7 +2995,7 @@ The equations for the magnetic field are
   \nabla\cdot \mathbf{B} &= 0\\
   \nabla\times \mathbf{B} &= \mu_0 \mathbf{j}
 \end{align*}
-First equation gives $B = \nabla \times \mathbf{A}$ for some \emph{vector potential} $\mathbf{A}$. But the vector potential is not well-defined. Making the transformation $\mathbf{A}\mapsto \mathbf{A} + \nabla \chi(\mathbf{x})$ produces the same $\mathbf{B}$, since $\nabla\times (\nabla \chi) = 0$. So choose $\chi$ such that $\nabla\cdot \mathbf{A} = 0$. Then
+First equation gives $\mathbf{B} = \nabla \times \mathbf{A}$ for some \emph{vector potential} $\mathbf{A}$. But the vector potential is not well-defined. Making the transformation $\mathbf{A}\mapsto \mathbf{A} + \nabla \chi(\mathbf{x})$ produces the same $\mathbf{B}$, since $\nabla\times (\nabla \chi) = 0$. So choose $\chi$ such that $\nabla\cdot \mathbf{A} = 0$. Then
 \[
   \nabla^2 \mathbf{A} = \nabla(\underbrace{\nabla\cdot \mathbf{A}}_{=0}) - \nabla\times (\underbrace{\nabla\times \mathbf{A}}_{\mathbf{B}}) = -\mu_0 \mathbf{j}.
 \]
@@ -3016,7 +3016,7 @@ In summary, we have
 \subsection{Electromagnetic waves}
 Consider Maxwell's equations in empty space, i.e.\ $\rho = 0$, $\mathbf{j} = \mathbf{0}$. Then Maxwell's equations give
 \[
-  \nabla^2 \mathbf{E} = \nabla(\nabla\cdot \mathbf{E}) - \nabla\times (\nabla\times \mathbf{E}) = \nabla\times \frac{\partial \mathbf{B}}{\partial t} = \frac{\partial}{\partial t} (\nabla \times \mathbf{B}) = \mu_0\varepsilon_0 \frac{\partial^2 \mathbf{E}}{\partial^2 t}.
+  \nabla^2 \mathbf{E} = \nabla(\nabla\cdot \mathbf{E}) - \nabla\times (\nabla\times \mathbf{E}) = \nabla\times \frac{\partial \mathbf{B}}{\partial t} = \frac{\partial}{\partial t} (\nabla \times \mathbf{B}) = \mu_0\varepsilon_0 \frac{\partial^2 \mathbf{E}}{\partial t^2}.
 \]
 Define $c = \frac{1}{\sqrt{\mu_0\varepsilon_0}}$. Then the equation gives
 \[
