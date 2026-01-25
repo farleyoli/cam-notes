@@ -1589,7 +1589,7 @@ Note that this is true only if $\mathbf{F}$ or $\mathbf{H}$ is defined on all of
 
 \section{Integral theorems}
 \subsection{Statement and examples}
-There are three big integral theorems, known as Green's theorem, Stoke's theorem and Gauss' theorem. There are all generalizations of the fundamental theorem of calculus in some sense. In particular, they all say that an $n$ dimensional integral of a derivative is equivalent to an $n - 1$ dimensional integral of the original function.
+There are three big integral theorems, known as Green's theorem, Stoke's theorem and Gauss' theorem. These are all generalizations of the fundamental theorem of calculus in some sense. In particular, they all say that an $n$ dimensional integral of a derivative is equivalent to an $n - 1$ dimensional integral of the original function.
 
 We will first state all three theorems with some simple applications. In the next section, we will see that the three integral theorems are so closely related that it's easiest to show their equivalence first, and then prove just one of them.
 
@@ -1686,7 +1686,7 @@ It also holds if $\partial S$ is a collection of disconnected piecewise smooth c
   \[
     \int_S \nabla\times \mathbf{F}\cdot \d \mathbf{S} = \pi a^3 \cos\alpha\sin^2 \alpha.
   \]
-  Our boundary $\partial C$ is
+  Our boundary $\partial S$ is
   \[
     \mathbf{r}(\varphi) = a(\sin \alpha\cos \varphi, \sin \alpha\sin \varphi, \cos \alpha).
   \]
@@ -1767,7 +1767,7 @@ It also holds if $\partial S$ is a collection of disconnected piecewise smooth c
 We will first show the following two equivalences:
 \begin{itemize}
   \item Stokes' theorem $\Leftrightarrow $ Green's theorem
-  \item 2D divergence theorem $\Leftrightarrow$ Greens' theorem
+  \item 2D divergence theorem $\Leftrightarrow$ Green's theorem
 \end{itemize}
 Then we prove the 2D version of divergence theorem directly to show that all of the above hold. A sketch of the proof of the 3D version of divergence theorem will be provided, because it is simply a generalization of the 2D version, except that the extra dimension makes the notation tedious and difficult to follow.
 
@@ -1847,7 +1847,7 @@ Then we prove the 2D version of divergence theorem directly to show that all of 
   \]
   Similarly,
   \[
-    \frac{\partial F_u}{\partial u} = \frac{\partial}{\partial u}\left(\mathbf{F}\cdot \frac{\partial \mathbf{r}}{\partial u}\right) = \frac{\partial}{\partial u}\left(F_j\frac{\partial x_j}{\partial u}\right) = \left(\frac{\partial F_j}{\partial x_i}\frac{\partial x_i}{\partial v}\right)\frac{\partial x_j}{\partial u} + F_i\frac{\partial x_i}{\partial u\partial v}.
+    \frac{\partial F_u}{\partial v} = \frac{\partial}{\partial v}\left(\mathbf{F}\cdot \frac{\partial \mathbf{r}}{\partial u}\right) = \frac{\partial}{\partial v}\left(F_j\frac{\partial x_j}{\partial u}\right) = \left(\frac{\partial F_j}{\partial x_i}\frac{\partial x_i}{\partial v}\right)\frac{\partial x_j}{\partial u} + F_i\frac{\partial x_i}{\partial u\partial v}.
   \]
   So
   \[
@@ -1866,7 +1866,7 @@ Then we prove the 2D version of divergence theorem directly to show that all of 
 
 
 \begin{prop}[Green's vs 2D divergence theorem]
-  Greens theorem $\Leftrightarrow$ 2D divergence theorem.
+  Green's theorem $\Leftrightarrow$ 2D divergence theorem.
 \end{prop}
 
 \begin{proof}
@@ -1880,7 +1880,7 @@ Then we prove the 2D version of divergence theorem directly to show that all of 
   \[
     \nabla\cdot \mathbf{G} = \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}.
   \]
-  Around the curve $\mathbf{r}(s) = (x(s), y(s))$, $\mathbf{t}(s) = (x'(s), y'(s))$. Then the normal, being tangent to $\mathbf{t}$, is $\mathbf{n}(s) = (y'(s), -x'(s))$ (check that it points outwards!). So
+  Around the curve $\mathbf{r}(s) = (x(s), y(s))$, $\mathbf{t}(s) = (x'(s), y'(s))$. Then the normal, being perpendicular to $\mathbf{t}$, is $\mathbf{n}(s) = (y'(s), -x'(s))$ (check that it points outwards!). So
   \[
     \mathbf{G}\cdot \mathbf{n} = P\frac{\d x}{\d s} + Q\frac{\d y}{\d s}.
   \]
