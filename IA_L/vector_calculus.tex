@@ -1333,7 +1333,7 @@ We define the following:
 \end{defi}
 Note that we \emph{must} be differentiating against $s$, not any other parametrization! If the curve is given in another parametrization, we can either change the parametrization or use the chain rule.
 
-We take a curve that can Taylor expanded around $s = 0$. Then
+We take a curve that can be Taylor expanded around $s = 0$. Then
 \[
   \mathbf{r}(s) = \mathbf{r}(0) + s\mathbf{r}'(0) + \frac{1}{2}s^2 \mathbf{r}''(0) + O(s^3).
 \]
@@ -1386,7 +1386,7 @@ We can define the torsion similar to the curvature, but with the binormal instea
 \end{defi}
 Note that this makes sense, since $\mathbf{b}'$ is both perpendicular to $\mathbf{t}$ and $\mathbf{b}$, and hence must be in the same direction as $\mathbf{n}$. ($\mathbf{b}' = \mathbf{t}'\times \mathbf{n} + \mathbf{t}\times \mathbf{n}' = \mathbf{t}\times \mathbf{n}'$, so $\mathbf{b}'$ is perpendicular to $\mathbf{t}$; and $\mathbf{b} \cdot \mathbf{b} = 1\Rightarrow \mathbf{b}\cdot \mathbf{b}' = 0$. So $\mathbf{b}'$ is perpendicular to $\mathbf{b}$).
 
-The geometry of the curve is encoded in how this basis ($\mathbf{t}, \mathbf{n}, \mathbf{b}$) changes along it. This can be specified by two scalar functions of arc length --- the curvature $\kappa(s)$ and the \emph{torsion} $\tau(s)$ (which determines what the curve looks like to third order in its Taylor expansions and how the curve lifts out of the $\mathbf{t}, \mathbf{r}$ plane).
+The geometry of the curve is encoded in how this basis ($\mathbf{t}, \mathbf{n}, \mathbf{b}$) changes along it. This can be specified by two scalar functions of arc length --- the curvature $\kappa(s)$ and the \emph{torsion} $\tau(s)$ (which determines what the curve looks like to third order in its Taylor expansions and how the curve lifts out of the $\mathbf{t}, \mathbf{n}$ plane).
 
 \subsubsection*{Surfaces and intrinsic geometry*}
 We can study the geometry of surfaces through curves which lie on them. At a given point $P$ at a surface $S$ with normal $\mathbf{n}$, consider a plane containing $\mathbf{n}$. The intersection of the plane with the surface yields a curve on the surface through $P$. This curve has a curvature $\kappa$ at $P$.
@@ -1403,7 +1403,7 @@ If we choose different planes containing $\mathbf{n}$, we end up with different 
 \begin{thm}[Theorema Egregium]
   $K$ is \emph{intrinsic} to the surface $S$. It can be expressed in terms of lengths, angles etc. which are measured entirely on the surface. So $K$ can be defined on an arbitrary surface without embedding it on a higher dimension surface.
 \end{thm}
-The is the start of \emph{intrinsic geometry}: if we embed a surface in Euclidean space, we can determine lengths, angles etc on it. But we don't have to do so --- we can ``live in '' the surface and do geometry in it without an embedding.
+This is the start of \emph{intrinsic geometry}: if we embed a surface in Euclidean space, we can determine lengths, angles etc on it. But we don't have to do so --- we can ``live in '' the surface and do geometry in it without an embedding.
 
 For example, we can consider a geodesic triangle $D$ on a surface $S$. It consists of three geodesics: shortest curves between two points.
 
