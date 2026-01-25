@@ -2720,18 +2720,21 @@ The matrix $J = \begin{pmatrix} f_x & f_y \\ g_x & g_y \end{pmatrix}$ evaluated 
 \end{eg}
 
 \section{Partial differential equations (PDEs)}
-\subsection{First-order wave equation}
-Consider the equation of the form
-\[
-  \frac{\partial y}{\partial t} = c\frac{\partial y}{\partial x},
-\]
-with $c$ a constant and $y$ a function of $x$ and $t$. This is known as the \emph{(first-order) wave equation}. We will later see that solutions correspond to waves travelling in one direction.
+A \emph{partial differential equation} (PDE) involves partial derivatives of an unknown function of two or more independent variables. PDEs arise throughout physics and engineering: the wave equation describes vibrating strings and electromagnetic waves, the diffusion equation models heat conduction, and Laplace's equation governs electrostatics and fluid flow.
 
-We write this as
+This section introduces three fundamental PDEs and the key technique of \emph{characteristics} for first-order equations.
+
+\subsection{First-order wave equation}
+Consider the \emph{first-order wave equation} (also called the \emph{advection equation}):
 \[
-  \frac{\partial y}{\partial t} - c\frac{\partial y}{\partial x} = 0.
+  \frac{\partial y}{\partial t} - c\frac{\partial y}{\partial x} = 0,
 \]
-Recall that along a path $x = x(t)$ so that $y = y(x(t), t)$,
+where $c$ is a constant and $y(x, t)$ is the unknown function. We will see that solutions represent waves travelling in one direction.
+
+\subsubsection*{Method of characteristics}
+The key technique for first-order PDEs is the \emph{method of characteristics}: we find curves in the $(x, t)$ plane along which the PDE reduces to an ODE.
+
+Along any path $x = x(t)$, the chain rule gives
 \begin{align*}
   \frac{\d y}{\d t} &= \frac{\partial y}{\partial x}\frac{\d x}{\d t} + \frac{\partial y}{\partial t}\\
   &= \frac{\d x}{\d t}\frac{\partial y}{\partial x} + c\frac{\partial y}{\partial x}
@@ -2754,7 +2757,11 @@ From (2), along each of these paths, $y$ is constant. So suppose for each $x_0$,
 \]
 By differentiating this directly, we can easily check that every function of this form is a solution to the wave equation.
 
-The contours of $y$ look rather boring.
+\begin{defi}[Characteristics]
+  The \emph{characteristics} of a first-order PDE are the curves along which the PDE reduces to an ODE. For the equation $y_t - cy_x = 0$, the characteristics are the lines $x + ct = \text{constant}$.
+\end{defi}
+
+The characteristics are straight lines in the $(x, t)$ plane with slope $-c$:
 \begin{center}
   \begin{tikzpicture}
     \draw [->] (-1, 0) -- (5, 0) node [right] {$x$};
@@ -2764,12 +2771,10 @@ The contours of $y$ look rather boring.
     \foreach \x in {1, 2, 3, 4, 5} {
       \draw [red] (\x- 0.5, 0) -- (\x - 1.5, 2.5);
     }
-    \node [right] at (4, 1.5) {contours of $y$};
+    \node [right] at (4, 1.5) {characteristics};
   \end{tikzpicture}
 \end{center}
-Note that as we move up the time axis, we are simply taking the $t = 0$ solution and translating it to the left.
-
-The paths we've identified are called the ``characteristics'' of the wave equation. In this particular example, $y$ is constant along the characteristics (because the equation is unforced).
+Since $y$ is constant along each characteristic, the solution at time $t$ is simply the initial profile translated to the left by $ct$. This is why the equation describes waves travelling with speed $c$.
 
 We usually have initial conditions e.g.
 \[
@@ -2804,13 +2809,14 @@ Using the boundary conditions provided, At $t = 0$, $y = f(x_0) - 1$ and $x = x_
   y = 1 + e^{-(x - 5t)^2} - e^{-t}.
 \]
 \subsection{Second-order wave equation}
-We consider equations in the following form:
+The \emph{second-order wave equation} (or simply the \emph{wave equation}) is
 \[
   \frac{\partial ^2 y}{\partial t^2} = c^2 \frac{\partial^2 y}{\partial x^2}.
 \]
-This is the \emph{second-order wave equation}, and is often known as the ``hyperbolic equation'' because the form resembles that of a hyperbola (which has the form $x^2 - b^2 y^2 = 0$). However, the differential equation has no connections to hyperbolae whatsoever.
+This is classified as a \emph{hyperbolic PDE} (the terminology comes from the theory of characteristics, not from any connection to hyperbolas).
 
-This equation models an actual wave in one dimension. Consider a horizontal string, along the $x$ axis. We let $y(x, t)$ be the vertical displacement of the string at the point $x$ at time $t$.
+\subsubsection*{Physical motivation}
+The wave equation models vibrations of a string. Let $y(x, t)$ denote the vertical displacement of a string at position $x$ and time $t$:
 \begin{center}
   \begin{tikzpicture}
     \draw (0, 0) sin (1.5, 0.667) cos (3, 0) sin (4.5, -0.667) cos (6, 0);
@@ -2820,22 +2826,21 @@ This equation models an actual wave in one dimension. Consider a horizontal stri
 \end{center}
 Suppose that $\rho(x)$ is the mass per unit length of a string. Then the restoring force on the string $\displaystyle ma = \rho \frac{\partial ^2 y}{\partial t^2}$ is proportional to the second derivative $\displaystyle\frac{\partial^2 y}{\partial x^2}$. So we obtain this wave equation.
 
-(Why is it proportional to the second derivative? It certainly cannot be proportional to $y$, because we get no force if we just move the whole string upwards. It also cannot be proportional to $\partial y/\partial x$: if we have a straight slope, then the force pulling upwards is the same as the force pulling downwards, and we should have no force. We have a force only if the string is curved, and curvature is measured by the second derivative)
+(Why the second spatial derivative? The restoring force cannot depend on $y$ itself (translating the whole string causes no force) or on $\partial y/\partial x$ (a uniform slope has balanced forces). Only \emph{curvature}, measured by $\partial^2 y/\partial x^2$, produces a net restoring force.)
 
-To solve the equation, suppose that $c$ is constant. Then we can write
+\subsubsection*{General solution (d'Alembert)}
+Assuming $c$ is constant, we can factor the wave operator:
 \begin{align*}
   \frac{\partial ^2 y}{\partial t^2} - c^2 \frac{\partial^2 y}{\partial x^2} &= 0\\
   \left(\frac{\partial}{\partial t} + c\frac{\partial}{\partial x}\right)\left(\frac{\partial}{\partial t} - c\frac{\partial}{\partial x}\right) y &= 0
 \end{align*}
-If $y = f(x + ct)$, then the first operator differentiates it to give a constant (as in the first-order wave equation). Then applying the second operator differentiates it to $0$. So $y = f(x + ct)$ is a solution.
-
-Since the operators are commutative, $y = f(x - ct)$ is also a solution. Since the equation is linear, the general solution is
+If $y = f(x + ct)$, then $(\partial_t - c\partial_x)y = 0$, so the product of operators gives zero. Similarly, $y = g(x - ct)$ satisfies $(\partial_t + c\partial_x)y = 0$. Since the equation is linear, the general solution is
 \[
-  y = f(x + ct) + g(x - ct).
+  y = f(x + ct) + g(x - ct),
 \]
-This shows that the solution composes of superpositions of waves travelling to the left and waves travelling to the right.
+where $f$ and $g$ are arbitrary functions. This is \emph{d'Alembert's solution}: it represents a superposition of a wave travelling left (with speed $c$) and a wave travelling right (with speed $c$).
 
-We can show that this is indeed the most general solution by substituting $\xi = x + ct$ and $\eta = x - ct$. We can show, using the chain rule, that $y_{tt} - c^2 y_{xx} \equiv -4c^2 y_{\eta\xi} = 0$. Integrating twice gives $y = f(\xi) + g(\eta)$.
+To verify this is the most general solution, substitute $\xi = x + ct$ and $\eta = x - ct$. The chain rule gives $y_{tt} - c^2 y_{xx} = -4c^2 y_{\xi\eta}$. Thus the wave equation becomes $y_{\xi\eta} = 0$, which integrates to $y = f(\xi) + g(\eta)$.
 
 How many boundary conditions do we need to have a unique solution? In ODEs, we simply count the order of the equation. In PDEs, we have to count over all variables. In this case, we need 2 boundary conditions and 2 initial conditions. For example, we can have:
 \begin{itemize}
@@ -2871,24 +2876,28 @@ So, overall,
 Where we substituted $x$ for $x +ct$ and $x - ct$ in $f$ and $g$ respectively.
 
 \subsection{The diffusion equation}
-Heat conduction in a solid in one dimension is modelled by the diffusion equation
+The \emph{diffusion equation} (or \emph{heat equation}) models heat conduction in a solid:
 \[
-  \frac{\partial T}{\partial t} = \kappa \frac{\partial^2 T}{\partial x^2}
+  \frac{\partial T}{\partial t} = \kappa \frac{\partial^2 T}{\partial x^2},
 \]
-This is known as a parabolic PDE (parabolic because it resembles $y = ax^2$).
+where $T(x, t)$ is the temperature and $\kappa > 0$ is the \emph{thermal diffusivity}. This is classified as a \emph{parabolic PDE}.
 
-Here $T(x, t)$ is the temperature and the constant $\kappa$ is the \emph{diffusivity}.
+Unlike the wave equation (where acceleration $\propto$ curvature), here the rate of change $\partial T/\partial t$ is directly proportional to curvature $\partial^2 T/\partial x^2$. This makes the diffusion equation \emph{dissipative}: irregularities smooth out over time rather than propagating as waves.
 
 \begin{eg}[Semi-infinite heated bar]
-  Consider an infinitely long bar heated at one end ($x = 0$). Note in general the ``velocity'' $\partial T/\partial t$ is proportional to curvature $\partial^2 T/\partial x^2$, while in the wave equation, it is the ``acceleration'' that is proportional to curvature. In this case, instead of oscillatory, the diffusion equation is dissipative and all unevenness simply decays away.
+  Consider a semi-infinite bar ($x \geq 0$) that is initially at temperature zero, then heated at the end $x = 0$ for $t > 0$:
 
   Suppose $T(x,0) = 0$, $T(0, t) = H(t) =
   \begin{cases}
     0 & t < 0\\
     1 & t > 0
-  \end{cases}$, and $T(x, t)\to 0$ as $x\to \infty$. In words, this says that the rod is initially cool (at temperature $0$), and then the end is heated up on one end after $t = 0$.
+  \end{cases}$, and $T(x, t)\to 0$ as $x\to \infty$. In words, the bar is initially cold, then suddenly heated at one end.
 
-  There is a \emph{similarity solution} of the diffusion equation valid on an infinite domain (or our semi-infinite domain) in which $T(x, t) = \theta(\eta)$, where $\displaystyle \eta = \frac{x}{2\sqrt{\kappa t}}$.
+  We seek a \emph{similarity solution}---a solution where $T$ depends on $x$ and $t$ only through a particular combination. The natural length scale for diffusion over time $t$ is $\sqrt{\kappa t}$, suggesting we try $T(x, t) = \theta(\eta)$ where
+  \[
+    \eta = \frac{x}{2\sqrt{\kappa t}}
+  \]
+  is the \emph{similarity variable}.
 
   Applying the chain rule, we have
   \begin{align*}
@@ -2918,11 +2927,11 @@ Here $T(x, t)$ is the temperature and the constant $\kappa$ is the \emph{diffusi
 
   Also, if $x\to \infty, t\to 0^+$, then $\eta \to \infty$. So $\theta \to 0$ as $\eta \to \infty$.
 
-  So $\theta(0) = 1 \Rightarrow B = 1$. Colloquially, $\theta(\infty) = 0$ gives $\alpha = -1$. So $\theta = 1 - \erf(\eta)$. This is also sometimes written as $\erfc(\eta)$, the error function complement of $\eta$. So
+  From $\theta(0) = 1$, we get $B = 1$. From $\theta \to 0$ as $\eta \to \infty$, we need $\alpha = -1$. Thus $\theta = 1 - \erf(\eta) = \erfc(\eta)$, the \emph{complementary error function}. The solution is
   \[
-    T = \erfc\left(\frac{x}{2\sqrt{\kappa t}}\right)
+    T = \erfc\left(\frac{x}{2\sqrt{\kappa t}}\right).
   \]
-  In general, at any particular fixed time $t_0$, $T(x)$ looks like
+  At any fixed time $t$, the temperature profile looks like:
   \begin{center}
     \begin{tikzpicture}[xscale=3]
       \draw [->] (0, 0) -- (2.1, 0) node [right] {$x$};
@@ -2932,6 +2941,6 @@ Here $T(x, t)$ is the temperature and the constant $\kappa$ is the \emph{diffusi
       \draw [mblue, semithick, domain=0:2] plot (\x, {2.5 * (1 + 0.278393 * \x + 0.230389*\x*\x + 0.000972*\x*\x*\x + 0.078108 * \x*\x*\x*\x)^(-4)});
     \end{tikzpicture}
   \end{center}
-  with decay length $O(\sqrt{\kappa t})$. So if we actually have a finite bar of length $L$, we can treat it as infinite if $\sqrt{\kappa t} \ll L$, or $t\ll L^2/\kappa$
+  The heat penetrates a distance of order $\sqrt{\kappa t}$, which grows with time. For a finite bar of length $L$, we can treat it as semi-infinite provided $\sqrt{\kappa t} \ll L$, i.e., $t \ll L^2/\kappa$.
 \end{eg}
 \end{document}
