@@ -1417,7 +1417,7 @@ Let $\theta_i$ be the interior angles of the triangle (defined by using scalar p
 
 \section{Div, Grad, Curl and \tph{$\nabla$}{del}{&nabla;}}
 \subsection{Div, Grad, Curl and \tph{$\nabla$}{del}{&nabla;}}
-Recalled that $\nabla f$ is given by $(\nabla f)_i = \frac{\partial f}{\partial x_i}$. We can regard this as obtained from the scalar field $f$ by applying
+Recall that $\nabla f$ is given by $(\nabla f)_i = \frac{\partial f}{\partial x_i}$. We can regard this as obtained from the scalar field $f$ by applying
 \[
   \nabla = \mathbf{e}_i \frac{\partial}{\partial x_i}
 \]
@@ -1455,7 +1455,7 @@ $\nabla$ (\emph{nabla} or \emph{del}) is both an operator and a vector. We can a
   and
   \begin{align*}
     \nabla \times F &= \hat{\mathbf{i}} \left[\frac{\partial}{\partial y}(xyz) - \frac{\partial}{\partial z}(y^2\sin x)\right]\\
-    &+ \hat{\mathbf{j}} \left[\frac{\partial}{\partial z}(xe^z) + \frac{\partial}{\partial x}(xyz)\right]\\
+    &+ \hat{\mathbf{j}} \left[\frac{\partial}{\partial z}(xe^z) - \frac{\partial}{\partial x}(xyz)\right]\\
     &+ \hat{\mathbf{k}}\left[\frac{\partial}{\partial x}(y^2\sin x) - \frac{\partial}{\partial y} (xe^z)\right]\\
     &= (xz, xe^z - yz, y^2\cos x).
   \end{align*}
@@ -1505,7 +1505,7 @@ Note that Grad and Div can be analogously defined in any dimension $n$, but curl
 \end{eg}
 
 \begin{prop}[Leibniz rules for vector operators]
-  We have the following Leibnitz properties:
+  We have the following Leibniz properties:
   \begin{align*}
     \nabla(fg) &= (\nabla f)g + f(\nabla g)\\\
     \nabla\cdot (f\mathbf{F}) &= (\nabla f)\cdot \mathbf{F} + f(\nabla\cdot \mathbf{F})\\
@@ -1520,7 +1520,7 @@ Note that Grad and Div can be analogously defined in any dimension $n$, but curl
 There is absolutely no point in memorizing these (at least the last three). They can be derived when needed via suffix notation.
 \begin{eg}[Leibniz rules applied to $r^\alpha \mathbf{r}$]
   \begin{align*}
-    \nabla\cdot (r^\alpha \mathbf{r}) &= (\nabla r^\alpha)\mathbf{r} + r^\alpha \nabla\cdot \mathbf{r}\\
+    \nabla\cdot (r^\alpha \mathbf{r}) &= (\nabla r^\alpha)\cdot\mathbf{r} + r^\alpha \nabla\cdot \mathbf{r}\\
     &= (\alpha r^{\alpha - 2}\mathbf{r})\cdot \mathbf{r} + r^\alpha (3)\\
     &= (\alpha + 3)r^\alpha\\
     \nabla\times (r^\alpha \mathbf{r}) &= (\nabla(r^\alpha))\times \mathbf{r} + r^\alpha(\nabla\times \mathbf{r})\\
@@ -1570,12 +1570,12 @@ Similarly,
   If $\mathbf{H} = \nabla \times \mathbf{A}$, $\mathbf{A}$ is the \emph{vector potential} and $\mathbf{H}$ is said to be \emph{solenoidal}.
 \end{defi}
 
-Not that is true only if $\mathbf{F}$ or $\mathbf{H}$ is defined on all of $\R^3$.
+Note that this is true only if $\mathbf{F}$ or $\mathbf{H}$ is defined on all of $\R^3$.
 
 \begin{defi}[Laplacian operator]
   The \emph{Laplacian operator} is defined by
   \[
-    \nabla^2 = \nabla\cdot \nabla = \frac{\partial^2}{\partial x_i \partial x_i} = \left(\frac{\partial^2}{\partial x_1^2} + \frac{\partial^2}{\partial x_2^2} + \frac{\partial^2}{\partial x_3^3}\right).
+    \nabla^2 = \nabla\cdot \nabla = \frac{\partial^2}{\partial x_i \partial x_i} = \left(\frac{\partial^2}{\partial x_1^2} + \frac{\partial^2}{\partial x_2^2} + \frac{\partial^2}{\partial x_3^2}\right).
   \]
   This operation is defined on both scalar and vector fields --- on a scalar field,
   \[
