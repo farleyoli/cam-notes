@@ -93,13 +93,13 @@ Using differential notation, the differentiability condition can be written as
   \d\mathbf{F} = \mathbf{F}'(x)\;\d x.
 \]
 Given a basis $\mathbf{e}_i$ that is independent of $x$, vector differentiation is performed componentwise, i.e.
-\begin{prop}
+\begin{prop}[Componentwise derivative]
   \[
     \mathbf{F}'(x) = F'_i(x)\mathbf{e}_i.
   \]
 \end{prop}
 Leibnitz identities hold for the products of scalar and vector functions.
-\begin{prop}
+\begin{prop}[Leibniz rules for products]
   \begin{align*}
     \frac{\d}{\d t}(f\mathbf{g}) &= \frac{\d f}{\d t}\mathbf{g} + f\frac{\d \mathbf{g}}{\d t}\\
     \frac{\d}{\d t}(\mathbf{g}\cdot \mathbf{h}) &= \frac{\d \mathbf{g}}{\d t}\cdot \mathbf{h} + \mathbf{g}\cdot \frac{\d \mathbf{h}}{\d t}\\
@@ -108,7 +108,7 @@ Leibnitz identities hold for the products of scalar and vector functions.
   Note that the order of multiplication must be retained in the case of the cross product.
 \end{prop}
 
-\begin{eg}
+\begin{eg}[Particle momentum and torque]
   Consider a particle with mass $m$. It has position $\mathbf{r}(t)$, velocity $\dot{\mathbf{r}}(t)$ and acceleration $\ddot{\mathbf{r}}$. Its momentum is $\mathbf{p} = m\dot{\mathbf{r}}(t)$.
 
   Note that derivatives with respect to $t$ are usually denoted by dots instead of dashes.
@@ -130,7 +130,7 @@ Leibnitz identities hold for the products of scalar and vector functions.
 
 \subsubsection*{Scalar functions \tph{$\R^n \to \R$}{Rn to R}{&\#x211D;<sup>n</sup> &rarr; &\#x211D;}}
 We can also define derivatives for a different kind of function:
-\begin{defi}
+\begin{defi}[Scalar function]
   A \emph{scalar function} is a function $f: \R^n \to \R$.
 \end{defi}
 A scalar function takes in a position and gives you a number, e.g.\ the potential energy of a particle at different positions.
@@ -172,7 +172,7 @@ How do we evaluate $\nabla f$? Suppose we have an orthonormal basis $\mathbf{e}_
   \mathbf{e}_i \cdot \nabla f = \lim_{h\to 0} \frac{1}{h}[f(\mathbf{r} + h\mathbf{e}_i) - f(\mathbf{r})] = \frac{\partial f}{\partial x_i}.
 \]
 Hence
-\begin{thm}
+\begin{thm}[Gradient component formula]
   The gradient is
   \[
     \nabla f = \frac{\partial f}{\partial x_i}\mathbf{e}_i
@@ -189,7 +189,7 @@ In differential notation, we write
 \]
 which is the chain rule for partial derivatives.
 
-\begin{eg}
+\begin{eg}[Computing a gradient]
   Take $f(x, y, z) = x + e^{xy}\sin z$. Then
   \begin{align*}
     \nabla f &= \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, \frac{\partial f}{\partial z}\right)\\
@@ -234,7 +234,7 @@ Given an arbitrary function $\mathbf{F}: \R^n \to \R^m$ that maps $\mathbf{x}\ma
   \d y_j = \frac{\partial F_j}{\partial x_i} \d x_i.
 \]
 and we can write the derivative as
-\begin{thm}
+\begin{thm}[Jacobian derivative formula]
   The derivative of $\mathbf{F}$ is given by
   \[
     M_{ji} =\frac{\partial y_j}{\partial x_i}.
@@ -242,7 +242,7 @@ and we can write the derivative as
 \end{thm}
 Note that we could have used this as the definition of the derivative. However, the original definition is superior because it does not require a selection of coordinate system.
 
-\begin{defi}
+\begin{defi}[Smooth function]
   A function is \emph{smooth} if it can be differentiated any number of times. This requires that all partial derivatives exist and are totally symmetric in $i, j$ and $k$ (i.e.\ the differential operator is commutative).
 \end{defi}
 The functions we will consider will be smooth except where things obviously go wrong (e.g.\ $f(x) = 1/x$ at $x = 0$).
@@ -285,7 +285,7 @@ i.e.\ $M(f\circ g) = I$.
 
 In the $n = 1$ case, it is the familiar result that $\d u/\d x = 1/(\d x/\d u)$.
 
-\begin{eg}
+\begin{eg}[Polar coordinates Jacobian]
   For $n = 2$, write $u_1 = \rho$, $u_2 =\varphi$ and let $x_1 = \rho \cos \varphi$ and $x_2 = \rho \sin \varphi$. Then the function used to convert between the coordinate systems is $g(u_1, u_2) = (u_1\cos u_2, u_1\sin u_2)$
 
   Then
@@ -377,7 +377,7 @@ Instead, we can imagine the curve to be specified by a particle moving along the
 \end{defi}
 Clearly, a curve can have many different parametrizations.
 
-\begin{eg}
+\begin{eg}[Ellipse parametrization]
   The curve
   \[
     \frac{1}{4}x^2 + y^2 = 1, \quad y \geq 0, \quad z = 3.
@@ -386,7 +386,7 @@ Clearly, a curve can have many different parametrizations.
 \end{eg}
 If we change $u$ (and hence $\mathbf{r}$) by a small amount, then the distance $|\delta \mathbf{r}|$ is roughly equal to the change in arclength $\delta s$. So $\delta s = |\delta \mathbf{r}| + o(\delta \mathbf{r})$. Then we have
 
-\begin{prop}
+\begin{prop}[Arclength derivative]
   Let $s$ denote the arclength of a curve $\mathbf{r}(u)$. Then
   \[
     \frac{\d s}{\d u} = \pm \left|\frac{\d \mathbf{r}}{\d u}\right| = \pm |\mathbf{r}'(u)|
@@ -394,7 +394,7 @@ If we change $u$ (and hence $\mathbf{r}$) by a small amount, then the distance $
   with the sign depending on whether it is in the direction of increasing or decreasing arclength.
 \end{prop}
 
-\begin{eg}
+\begin{eg}[Helix arclength]
   Consider a helix described by $\mathbf{r}(u) = (3\cos u, 3\sin u, 4u)$. Then
   \begin{align*}
     \mathbf{r}'(u) &= (-3\sin u, 3\cos u, 4)\\
@@ -417,7 +417,7 @@ We call $\d s$ the scalar line element, which will be used when we consider inte
   The \emph{scalar line element} of $C$ is $\d s$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Arclength differential]
   $\d s = \pm |\mathbf{r}'(u)| \d u$
 \end{prop}
 \subsection{Line integrals of vector fields}
@@ -433,7 +433,7 @@ For example, we may be moving a particle from $\mathbf{a}$ to $\mathbf{b}$ along
   W = \int_C \mathbf{F}(\mathbf{r})\cdot \d \mathbf{r}.
 \]
 
-\begin{eg}
+\begin{eg}[Line integral, three paths]
   Take $\mathbf{F}(\mathbf{r}) = (xe^y, z^2, xy)$ and we want to find the line integral from $\mathbf{a}=(0, 0, 0)$ to $\mathbf{b}=(1, 1, 1)$.
   \begin{center}
     \begin{tikzpicture}
@@ -483,7 +483,7 @@ Sometimes we are not that lucky and our curve is not smooth. For example, the gr
   \]
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Piecewise smooth closed curve]
   Take the example above, and let $C_3 = -C_2$. Then $C = C_1 + C_3$ is piecewise smooth but not smooth. Then
   \begin{align*}
     \oint _C \mathbf{F}\cdot \d \mathbf{r} &= \int_{C_1} \mathbf{F}\cdot \d \mathbf{r} + \int_{C_3} \mathbf{F}\cdot \d \mathbf{r}\\
@@ -504,7 +504,7 @@ Sometimes we are not that lucky and our curve is not smooth. For example, the gr
 \end{eg}
 \subsection{Gradients and Differentials}
 Recall that the line integral depends on the actual curve taken, and not just the end points. However, for some nice functions, the integral \emph{does} depend on the end points only.
-\begin{thm}
+\begin{thm}[Fundamental theorem for line integrals]
   If $\mathbf{F} = \nabla f(\mathbf{r})$, then
   \[
     \int _C \mathbf{F}\cdot \d \mathbf{r} = f(\mathbf{b}) - f(\mathbf{a}),
@@ -542,7 +542,7 @@ Then we can define
 \end{defi}
 
 To test if this holds, we can use the necessary condition
-\begin{prop}
+\begin{prop}[Exactness symmetry test]
   If $\mathbf{F} = \nabla f$ for some $f$, then
   \[
     \frac{\partial F_i}{\partial x_j} = \frac{\partial F_j}{\partial x_i}.
@@ -555,7 +555,7 @@ For an exact differential, the result from the previous section reads
   \int_C \mathbf{F}\cdot \d \mathbf{r} = \int_C \d f = f(\mathbf{b}) - f(\mathbf{a}).
 \]
 Differentials can be manipulated using (for constant $\lambda, \mu$):
-\begin{prop}
+\begin{prop}[Differential linearity and product rule]
   \begin{align*}
     \d (\lambda f + \mu g) &= \lambda \d f + \mu \d g\\
     \d (fg) &= (\d f)g + f(\d g)
@@ -564,7 +564,7 @@ Differentials can be manipulated using (for constant $\lambda, \mu$):
 
 Using these, it may be possible to find $f$ by inspection.
 
-\begin{eg}
+\begin{eg}[Exact differential integration]
   Consider
   \[
     \int_C 3x^2 y\sin z\;\d x + x^3 \sin z \;\d y + x^3 y\cos z\;\d z.
@@ -663,7 +663,7 @@ We choose the small sets in the definition to be rectangles, each of size $\delt
 \end{center}
 We sum over all such strips and take $\delta y\to 0$, giving
 
-\begin{prop}
+\begin{prop}[Iterated integral formula]
   \[
     \int_D f(x, y)\;\d A = \int_Y\left(\int_{x_y}f(x, y)\;\d x\right) \d y.
   \]
@@ -701,11 +701,11 @@ We could also do it the other way round, integrating over $y$ first, and come up
   The \emph{area element} is $\d A$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Cartesian area element]
   $\d A = \d x\;\d y$ in Cartesian coordinates.
 \end{prop}
 
-\begin{eg}
+\begin{eg}[Triangle area integral]
   We integrate over the triangle bounded by $(0, 0), (2, 0)$ and $(0, 1)$. We want to integrate the function $f(x, y) = x^2y$ over the area. So
   \begin{align*}
     \int _D f(x y)\;\d A &= \int_0^1 \left(\int_0^{2 - 2y}x^2y \;\d x\right)\; \d y\\
@@ -729,7 +729,7 @@ While this integral is tedious in general, there is a special case where it is s
   A function $f(x, y)$ is separable if it can be written as $f(x, y) = h(y)g(x)$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Separable integral factorization]
   Take separable $f(x, y) = h(y)g(x)$ and $D$ be a rectangle $\{(x, y): a\leq x\leq b, c\leq y \leq d\}$. Then
   \[
     \int_Df(x, y)\;\d x\;\d y = \left(\int_a^b g(x)\;\d x\right)\left(\int_c^d h(y)\;\d y\right)
@@ -737,7 +737,7 @@ While this integral is tedious in general, there is a special case where it is s
 \end{prop}
 
 \subsection{Change of variables for an integral in \tph{$\R^2$}{R2}{&\#x211D;<sup>2</sup>}}
-\begin{prop}
+\begin{prop}[Change of variables, area integrals]
   Suppose we have a change of variables $(x, y)\leftrightarrow (u, v)$ that is smooth and invertible, with regions $D, D'$ in one-to-one correspondence. Then
   \[
     \int_D f(x, y)\;\d x\;\d y = \int_{D'} f(x(u, v), y(u, v))|J|\;\d u\;\d v,
@@ -785,7 +785,7 @@ While this integral is tedious in general, there is a special case where it is s
   \]
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Polar area element derivation]
   We transform from $(x, y)$ to $(\rho, \varphi)$ with
   \begin{align*}
     x &= \rho\cos \varphi\\
@@ -855,12 +855,12 @@ Often, $f(\mathbf{r})$ is the density of some quantity, and is usually denoted b
   The \emph{volume element} is $\d V$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Cartesian volume element]
   $\d V = \d x\; \d y\; \d z$.
 \end{prop}
 
 We can change variables by some smooth, invertible transformation $(x, y, z)\mapsto (u, v, w)$. Then
-\begin{prop}
+\begin{prop}[Change of variables, volume integrals]
   \[
     \int_V f\;\d x\;\d y\;\d z = \int_V f|J|\;\d u\;\d v\;\d w,
   \]
@@ -875,7 +875,7 @@ We can change variables by some smooth, invertible transformation $(x, y, z)\map
   \]
 \end{prop}
 
-\begin{prop}
+\begin{prop}[Cylindrical and spherical volume elements]
   In cylindrical coordinates,
   \[
     \d V = \rho\;\d \rho\;\d \varphi\;\d z.
@@ -890,7 +890,7 @@ We can change variables by some smooth, invertible transformation $(x, y, z)\map
   Loads of algebra.
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Spherical symmetry volume integral]
   Suppose $f(\mathbf{r})$ is spherically symmetric and $V$ is a sphere of radius $a$ centered on the origin. Then
   \begin{align*}
     \int_V f\;\d V &= \int_{r = 0}^a \int_{\theta = 0}^\pi \int_{\varphi = 0}^{2\pi} f(r)r^2 \sin\theta\;\d r\;\d \theta\;\d\varphi\\
@@ -907,7 +907,7 @@ We can change variables by some smooth, invertible transformation $(x, y, z)\map
   If we take $f = 1$, then we have the familiar result that the volume of a sphere is $\frac{4}{3}\pi a^3$.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Sphere with cylinder removed]
   Consider a volume within a sphere of radius $a$ with a cylinder of radius $b$ ($b < a$) removed. The region is defined as
   \begin{align*}
     x^2 + y^2 + z^2 &\leq a^2\\
@@ -944,7 +944,7 @@ We can change variables by some smooth, invertible transformation $(x, y, z)\map
     &= \frac{4}{3}\pi (a^2 - b^2)^{3/2}.
   \end{align*}
 \end{eg}
-\begin{eg}
+\begin{eg}[Hemisphere total charge]
   Suppose the density of electric charge is $\rho(\mathbf{r}) = \rho_0 \frac{z}{a}$ in a hemisphere $H$ of radius $a$, with $z \geq 0$. What is the total charge of $H$?
 
   We use spherical polars. So
@@ -966,7 +966,7 @@ We can change variables by some smooth, invertible transformation $(x, y, z)\map
 \subsection{Further generalizations}
 \subsubsection*{Integration in \tph{$\R^n$}{Rn}{&\#x2121D;<sup>n</sup>}}
 Similar to the above, $\int_D f(x_1, x_2, \cdots x_n)\;\d x_1 \;\d x_2\cdots\;\d x_n$ is simply the integration over an $n$-dimensional volume. The change of variable formula is
-\begin{prop}
+\begin{prop}[Change of variables, n-dimensional]
   \[
     \int_D f(x_1, x_2, \cdots x_n)\;\d x_1 \;\d x_2\cdots\;\d x_n = \int_{D'} f(\{x_i(\mathbf{u})\}) |J| \;\d u_1\;\d u_2\cdots\;\d u_n.
   \]
@@ -1008,7 +1008,7 @@ and its center of mass is
 \[
   \mathbf{R} = \frac{1}{M}\int_V \mathbf{r}\rho (\mathbf{r})\;\d V.
 \]
-\begin{eg}
+\begin{eg}[Hemisphere center of mass]
   Consider a solid hemisphere $H$ with $r \leq a$, $z \geq 0$ with uniform density $\rho$. The mass is
   \[
     M = \int_H \rho \;\d V = \frac{2}{3}\pi a^3\rho.
@@ -1040,11 +1040,11 @@ Now consider any curve $\mathbf{r}(u)$ on $S$. Then by the chain rule, if we dif
   \frac{\d }{\d u}[f(\mathbf{r}(u))] = \nabla f\cdot \frac{\d \mathbf{r}}{\d u} = 0.
 \]
 This means that $\nabla f$ is always perpendicular to $\frac{\d \mathbf{r}}{\d u}$. Since $\frac{\d \mathbf{r}}{\d u}$ is the tangent to the curve, $\nabla f$ is perpendicular to the tangent. Since this is true for \emph{any} curve $\mathbf{r}(u)$, $\nabla f$ is perpendicular to any tangent of the surface. Therefore
-\begin{prop}
+\begin{prop}[Gradient as surface normal]
   $\nabla f$ is the normal to the surface $f(\mathbf{r}) = c$.
 \end{prop}
 
-\begin{eg}\leavevmode
+\begin{eg}[Level surfaces: sphere and hyperboloid]\leavevmode
   \begin{enumerate}
     \item Take the sphere $f(\mathbf{r}) = x^2 + y^2 + z^2 = c$ for $c > 0$. Then $\nabla f = 2(x, y, z) = 2\mathbf{r}$, which is clearly normal to the sphere.
     \item Take $f(\mathbf{r}) = x^2 + y^2 - z^2 = c$, which is a hyperboloid. Then $\nabla f = 2(x, y, -z)$.
@@ -1058,7 +1058,7 @@ This means that $\nabla f$ is always perpendicular to $\frac{\d \mathbf{r}}{\d u
 
   A surface is \emph{bounded} if it can be contained in a solid sphere, \emph{unbounded} otherwise. A bounded surface with no boundary is called \emph{closed} (e.g.\ sphere).
 \end{defi}
-\begin{eg}\leavevmode
+\begin{eg}[Hemisphere boundary]\leavevmode
   \begin{center}
     \begin{tikzpicture}
       \draw [draw=none, fill=gray, opacity=0.6] (-2, 0) arc (180:360:2 and 0.5) arc (0:180:2);
@@ -1082,7 +1082,7 @@ For simple cases, we can describe the orientation as ``inward'' and ``outward''.
 \subsection{Parametrized surfaces and area}
 However, specifying a surface by an equation $f(\mathbf{r}) = c$ is often not too helpful. What we would like is to put some coordinate system onto the surface, so that we can label each point by a pair of numbers $(u, v)$, just like how we label points in the $x,y$-plane by $(x, y)$. We write $\mathbf{r}(u, v)$ for the point labelled by $(u, v)$.
 
-\begin{eg}
+\begin{eg}[Spherical cap parametrization]
   Let $S$ be part of a sphere of radius $a$ with $0 \leq \theta \leq \alpha$.
   \begin{center}
     \begin{tikzpicture}
@@ -1143,7 +1143,7 @@ The actual area is then given by
   \delta S =\left|\frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial \mathbf{r}}{\partial v}\right|\;\delta u\;\delta v.
 \]
 Making these into differentials instead of deltas, we have
-\begin{prop}
+\begin{prop}[Parametrized surface area elements]
   The \emph{vector area element} is
   \[
     \d \mathbf{S} = \frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial \mathbf{r}}{\partial v}\;\d u\;\d v.
@@ -1157,7 +1157,7 @@ By summing and taking limits, the area of $S$ is
 \[
   \int_S \d S = \int_D \left|\frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial \mathbf{r}}{\partial v}\right| \d u\;\d v.
 \]
-\begin{eg}
+\begin{eg}[Spherical cap scalar area]
   Consider again the part of the sphere of radius $a$ with $0 \leq \theta \leq \alpha$.
   \begin{center}
     \begin{tikzpicture}
@@ -1222,7 +1222,7 @@ However, this doesn't work. For example, if all the flow is tangential to the su
 
 For a given orientation, the integral $\int \mathbf{F}\cdot \d \mathbf{S}$ is independent of the parametrization. Changing orientation is equivalent to changing the sign of $\mathbf{n}$, which is in turn equivalent to changing the order of $u$ and $v$ in the definition of $S$, which is also equivalent to changing the sign of the flux integral.
 
-\begin{eg}
+\begin{eg}[Sphere vector area element]
   Consider a sphere of radius $a$, $\mathbf{r}(\theta, \varphi)$. Then
   \[
     \frac{\partial \mathbf{r}}{\partial \theta} = a\mathbf{e}_\theta,\quad \frac{\partial \mathbf{r}}{\partial \varphi} = a\sin \theta \mathbf{e}_\varphi.
@@ -1447,7 +1447,7 @@ $\nabla$ (\emph{nabla} or \emph{del}) is both an operator and a vector. We can a
   \]
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Divergence and curl computation]
   Let $\mathbf{F} = (xe^z, y^2\sin x, xyz)$. Then
   \[
     \nabla \cdot \mathbf{F} = \frac{\partial }{\partial x}xe^z + \frac{\partial}{\partial y}y^2 \sin x + \frac{\partial}{\partial z}xyz = e^z + 2y\sin x + xy.
@@ -1470,7 +1470,7 @@ is a scalar differential operator, and
 \]
 is a vector differential operator.
 
-\begin{prop}
+\begin{prop}[Linearity of differential operators]
   Let $f, g$ be scalar functions, $\mathbf{F}, \mathbf{G}$ be vector functions, and $\mu, \lambda$ be constants. Then
   \begin{align*}
     \nabla(\lambda f + \mu g) &= \lambda\nabla f + \mu\nabla g\\
@@ -1481,7 +1481,7 @@ is a vector differential operator.
 
 Note that Grad and Div can be analogously defined in any dimension $n$, but curl is specific to $n = 3$ because it uses the vector product.
 
-\begin{eg}
+\begin{eg}[Gradient and divergence of $r^\alpha$]
   Consider $r^\alpha$ with $r = |\mathbf{r}|$. We know that $\mathbf{r}= x_i\mathbf{e}_i$. So $r^2 = x_ix_i$. Therefore
   \[
     2r\frac{\partial r}{\partial x_j} = 2x_j,
@@ -1504,7 +1504,7 @@ Note that Grad and Div can be analogously defined in any dimension $n$, but curl
   \]
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Leibniz rules for vector operators]
   We have the following Leibnitz properties:
   \begin{align*}
     \nabla(fg) &= (\nabla f)g + f(\nabla g)\\\
@@ -1518,7 +1518,7 @@ Note that Grad and Div can be analogously defined in any dimension $n$, but curl
 \end{prop}
 
 There is absolutely no point in memorizing these (at least the last three). They can be derived when needed via suffix notation.
-\begin{eg}
+\begin{eg}[Leibniz rules applied to $r^\alpha \mathbf{r}$]
   \begin{align*}
     \nabla\cdot (r^\alpha \mathbf{r}) &= (\nabla r^\alpha)\mathbf{r} + r^\alpha \nabla\cdot \mathbf{r}\\
     &= (\alpha r^{\alpha - 2}\mathbf{r})\cdot \mathbf{r} + r^\alpha (3)\\
@@ -1530,7 +1530,7 @@ There is absolutely no point in memorizing these (at least the last three). They
 \end{eg}
 \subsection{Second-order derivatives}
 We have
-\begin{prop}
+\begin{prop}[Curl-grad and div-curl identities]
   \begin{align*}
     \nabla\times (\nabla f) &= 0\\
     \nabla\cdot (\nabla\times \mathbf{F}) &=0
@@ -1550,7 +1550,7 @@ We have
 \end{proof}
 
 The converse of each result holds for fields defined in all of $\R^3$:
-\begin{prop}
+\begin{prop}[Scalar potential existence]
   If $\mathbf{F}$ is defined in all of $\R^3$, then
   \[
     \nabla\times \mathbf{F} = 0 \Rightarrow \mathbf{F} = \nabla f
@@ -1562,7 +1562,7 @@ The converse of each result holds for fields defined in all of $\R^3$:
   If $\mathbf{F} = \nabla f$, then $f$ is the \emph{scalar potential}. We say $\mathbf{F}$ is \emph{conservative} or \emph{irrotational}.
 \end{defi}
 Similarly,
-\begin{prop}
+\begin{prop}[Vector potential existence]
   If $\mathbf{H}$ is defined over all of $\R^3$ and $\nabla\cdot \mathbf{H} = 0$, then $\mathbf{H} = \nabla \times \mathbf{A}$ for some $\mathbf{A}$.
 \end{prop}
 
@@ -1602,7 +1602,7 @@ We will first state all three theorems with some simple applications. In the nex
   Here $C$ is assumed to be piecewise smooth, non-intersecting closed curve, traversed anti-clockwise.
 \end{thm}
 
-\begin{eg}
+\begin{eg}[Green's theorem, parabola region]
   Let $Q = xy^2$ and $P = x^2y$. If $C$ is the parabola $y^2 = 4ax$ and the line $x = a$, both with $-2a \leq y \leq 2a$, then Green's theorem says
   \[
     \int_A (y^2 - x^2)\;\d A = \int_C x^2 \;\d x + xy^2\;\d y.
@@ -1610,7 +1610,7 @@ We will first state all three theorems with some simple applications. In the nex
   From example sheet 1, each side gives $\frac{104}{105} a^4$.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Green's theorem, rectangle]
   Let $A$ be a rectangle confined by $0 \leq x \leq a$ and $0 \leq y \leq b$.
   \begin{center}
     \begin{tikzpicture}
@@ -1677,7 +1677,7 @@ and take the limit as the gap shrinks to 0.
 \end{thm}
 It also holds if $\partial S$ is a collection of disconnected piecewise smooth closed curves, with the orientation determined in the same way as Green's theorem.
 
-\begin{eg}
+\begin{eg}[Stokes' theorem, spherical cap]
   Let $S$ be the section of a sphere of radius $a$ with $0 \leq \theta \leq \alpha$. In spherical coordinates,
   \[
     \d \mathbf{S} = a^2 \sin \theta \mathbf{e}_r \;\d \theta\;\d \varphi.
@@ -1708,7 +1708,7 @@ It also holds if $\partial S$ is a collection of disconnected piecewise smooth c
   where $V$ is a bounded volume with boundary $\partial V$, a piecewise smooth, closed surface, with outward normal $\mathbf{n}$.
 \end{thm}
 
-\begin{eg}
+\begin{eg}[Divergence theorem, hemisphere]
   Consider a hemisphere.
   \begin{center}
     \begin{tikzpicture}
@@ -1771,7 +1771,7 @@ We will first show the following two equivalences:
 \end{itemize}
 Then we prove the 2D version of divergence theorem directly to show that all of the above hold. A sketch of the proof of the 3D version of divergence theorem will be provided, because it is simply a generalization of the 2D version, except that the extra dimension makes the notation tedious and difficult to follow.
 
-\begin{prop}
+\begin{prop}[Stokes' implies Green's]
   Stokes' theorem $\Rightarrow $ Green's theorem
 \end{prop}
 
@@ -1800,7 +1800,7 @@ Then we prove the 2D version of divergence theorem directly to show that all of 
   \]
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Green's implies Stokes']
   Green's theorem $\Rightarrow $ Stokes' theorem.
 \end{prop}
 
@@ -1865,7 +1865,7 @@ Then we prove the 2D version of divergence theorem directly to show that all of 
 \end{proof}
 
 
-\begin{prop}
+\begin{prop}[Green's vs 2D divergence theorem]
   Greens theorem $\Leftrightarrow$ 2D divergence theorem.
 \end{prop}
 
@@ -1895,8 +1895,7 @@ Then we prove the 2D version of divergence theorem directly to show that all of 
   Now 2D version of Gauss' theorem says the two LHS are the equal, and Green's theorem says the two RHS are equal. So the result follows.
 \end{proof}
 
-\begin{prop}
-  2D divergence theorem.
+\begin{prop}[2D divergence theorem]
   \[
     \int_A (\nabla\cdot \mathbf{G})\;\d A = \int_{C = \partial A} \mathbf{G}\cdot \mathbf{n}\;\d s.
   \]
@@ -1974,7 +1973,7 @@ Gauss' theorem for $\mathbf{F}$ in a small volume $V$ containing $\mathbf{r}_0$ 
   \int_{\partial V}\mathbf{F}\cdot \d \mathbf{S} = \int_V\nabla\cdot \mathbf{F}\;\d V\approx (\nabla\cdot \mathbf{F})(\mathbf{r}_0) \vol(V).
 \]
 We take the limit as $V\to 0$ to obtain
-\begin{prop}
+\begin{prop}[Divergence limit definition]
   \[
     (\nabla \cdot \mathbf{F})(\mathbf{r}_0) = \lim_{\mathrm{diam}(V) \to 1} \frac{1}{\vol(V)}\int_{\partial V}\mathbf{F}\cdot \d \mathbf{S},
   \]
@@ -1985,7 +1984,7 @@ Similarly, Stokes' theorem gives, for $A$ a surface containing the point $\mathb
   \int _{\partial A}\mathbf{F}\cdot \d \mathbf{r} = \int_A(\nabla\times \mathbf{F})\cdot \mathbf{n}\;\d A \approx \mathbf{n}\cdot (\nabla\times \mathbf{F})(\mathbf{r}_0) \area(A).
 \]
 So
-\begin{prop}
+\begin{prop}[Curl limit definition]
   \[
     \mathbf{n}\cdot (\nabla \times \mathbf{F})(\mathbf{r}_0) = \lim_{\mathrm{diam}(A) \to 0}\frac{1}{\area(A)}\int_{\partial A}\mathbf{F}\cdot \d \mathbf{r},
   \]
@@ -1993,7 +1992,7 @@ So
 \end{prop}
 These are coordinate-independent definitions of div and curl.
 
-\begin{eg}
+\begin{eg}[Fluid flow interpretation of div and curl]
   Suppose $\mathbf{u}$ is a velocity field of fluid flow. Then
   \[
     \int_S \mathbf{u}\cdot \d \mathbf{S}
@@ -2051,7 +2050,7 @@ We have also shown that (i) $\Rightarrow$ (iii) since
   \nabla \times (\nabla f) = 0.
 \]
 So we want to show that (iii) $\Rightarrow $ (ii) and (ii) $\Rightarrow $ (i)
-\begin{prop}
+\begin{prop}[Path independence, sufficient condition]
   If (iii) $\nabla\times \mathbf{F}= 0 $, then (ii) $\int_C \mathbf{F}\cdot \d \mathbf{r}$ is independent of $C$.
 \end{prop}
 
@@ -2083,7 +2082,7 @@ So we want to show that (iii) $\Rightarrow $ (ii) and (ii) $\Rightarrow $ (i)
   \]
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Path independence, necessary condition]
   If (ii) $\int_C \mathbf{F}\cdot \d \mathbf{r}$ is independent of $C$ for fixed end points and orientation, then (i) $\mathbf{F} = \nabla f$ for some scalar field $f$.
 \end{prop}
 
@@ -2110,7 +2109,7 @@ If we have a smooth transformation from $C$ to $\tilde{C}$, the process sweeps o
 
 If $D$ is not simply connected, then we obtain a multi-valued $f(\mathbf{r})$ on $D$ in general (for the proof (ii) $\Rightarrow$ (i)). However, we can choose to restrict to a subset $D_0\subseteq D$ such that $f(\mathbf{r})$ is single-valued on $D_0$.
 
-\begin{eg}
+\begin{eg}[Multi-valued potential, non-simply-connected domain]
   Take
   \[
     \mathbf{F} = \left(\frac{- y}{x^2 + y^2}, \frac{x}{x^2 + y^2}, 0\right).
@@ -2157,11 +2156,11 @@ In particular, if $V$ is the whole universe (ie $\R^3$), and $\mathbf{j}\to 0$ s
 \[
   \frac{\d Q}{\d t} = 0,
 \]
-\begin{eg}
+\begin{eg}[Charge conservation]
   If $\rho(\mathbf{r}, t)$ is the charge density (i.e.\ $\rho\delta V$ is the amount of charge in a small volume $\delta V$), then $Q(t)$ is the total charge in $V$. $\mathbf{j}(\mathbf{r}, t)$ is the electric current density. So $\mathbf{j}\cdot \d \mathbf{S}$ is the charge flowing through $\delta S$ per unit time.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Mass conservation and incompressibility]
   Let $\mathbf{j} = \rho \mathbf{u}$ with $\mathbf{u}$ being the velocity field. Then $(\rho\mathbf{u}\; \delta t)\cdot \delta \mathbf{S}$ is equal to the mass of fluid crossing $\delta S$ in time $\delta t$. So
   \[
     \frac{\d Q}{\d t} = -\int_S \mathbf{j}\cdot \d \mathbf{S}
@@ -2203,7 +2202,7 @@ and $h_u, h_v, h_w$ determine the changes in length along each orthogonal direct
 \[
   h_u = \left|\frac{\partial \mathbf{r}}{\partial u}\right|.
 \]
-\begin{eg}\leavevmode
+\begin{eg}[Scale factors in standard coordinates]\leavevmode
   \begin{enumerate}
     \item In cartesian coordinates, $\mathbf{r}(x, y, z) = x\hat{\mathbf{i}} + y\hat{\mathbf{j}} + z\hat{\mathbf{k}}$. Then $h_x = h_y = h_z = 1$, and $\mathbf{e}_x = \hat{\mathbf{i}}, \mathbf{e}_y = \hat{\mathbf{j}}$ and $\mathbf{e}_z = \hat{\mathbf{k}}$.
     \item In cylindrical polars, $\mathbf{r}(\rho, \varphi, z) = \rho[\cos \varphi\hat{\mathbf{i}} + \sin \varphi \hat{\mathbf{j}}] + z \hat{\mathbf{k}}$. Then $h_\rho = h_z = 1$, and
@@ -2239,12 +2238,12 @@ with $\d f = (\nabla f)\cdot \d \mathbf{r}$. Since we know that
   \d \mathbf{r} = \frac{\partial \mathbf{r}}{\partial u}\;\d u + \frac{\partial \mathbf{r}}{\partial v}\;\d v + \frac{\partial \mathbf{r}}{\partial w}\;\d w = h_u \mathbf{e}_u \;\d u + h_v \mathbf{e}_v \;\d v + h_w \mathbf{e}_w \;\d v,
 \]
 we can compare the terms to know that
-\begin{prop}
+\begin{prop}[Gradient in curvilinear coordinates]
   \[
     \nabla f = \frac{1}{h_u} \frac{\partial f}{\partial u} \mathbf{e}_u + \frac{1}{h_v} \frac{\partial f}{\partial v}\mathbf{e}_v + \frac{1}{h_w} \frac{\partial f}{\partial w}\mathbf{e}_w.
   \]
 \end{prop}
-\begin{eg}
+\begin{eg}[Gradient in spherical polars]
   Take $f = r\sin \theta\cos \varphi$ in spherical polars. Then
   \begin{align*}
     \nabla f &= \sin \theta\cos \varphi\,\mathbf{e}_r + \frac{1}{r}(r\cos \theta\cos \varphi)\,\mathbf{e}_\theta + \frac{1}{r\sin \theta}(-r\sin \theta\sin \varphi)\,\mathbf{e}_\varphi\\
@@ -2253,7 +2252,7 @@ we can compare the terms to know that
 \end{eg}
 
 Then we know that the differential operator is
-\begin{prop}
+\begin{prop}[Nabla in curvilinear coordinates]
   \[
     \nabla = \frac{1}{h_u}\mathbf{e}_u \frac{\partial }{\partial u} + \frac{1}{h_v}\mathbf{e}_v\frac{\partial }{\partial v} + \frac{1}{h_w}\mathbf{e}_w \frac{\partial}{\partial w}.
   \]
@@ -2263,7 +2262,7 @@ We can apply this to a vector field
   \mathbf{F} = F_u \mathbf{e}_u + F_v \mathbf{e}_v + F_w \mathbf{e}_w
 \]
 using scalar or vector products to obtain
-\begin{prop}
+\begin{prop}[Curl and divergence in curvilinear coordinates]
   \begin{align*}
     \nabla \times \mathbf{F} &= \frac{1}{h_vh_w}\left[\frac{\partial}{\partial v}(h_wF_w) - \frac{\partial }{\partial w}(h_vF_v)\right]\mathbf{e}_u + \text{ two similar terms}\\
     &= \frac{1}{h_uh_vh_w}
@@ -2322,7 +2321,7 @@ There are several ways to obtain these formulae. We can
   \end{enumerate}
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Curl in spherical polars]
   Let $\mathbf{A} = \frac{1}{r}\tan \frac{\theta}{2} \mathbf{e}_\varphi$ in spherical polars. Then
   \[
     \nabla\times \mathbf{A} = \frac{1}{r^2\sin \theta}
@@ -2359,7 +2358,7 @@ Gauss' law tells us what this gravitational field looks like:
 \end{law}
 These equations determine $\mathbf{g}(\mathbf{r})$ from a mass distribution.
 
-\begin{eg}
+\begin{eg}[Newton's law from Gauss' law]
   We can obtain Newton's law of gravitation from Gauss' law together with an assumption about symmetry.
 
   Consider a total mass $M$ distributed with a spherical symmetry about the origin $\mathbf{O}$, with all the mass contained within some radius $r = a$. By spherical symmetry, we have $\mathbf{g}(\mathbf{r}) = g(\mathbf{r})\hat{\mathbf{r}}$.
@@ -2453,7 +2452,7 @@ So we can write $\mathbf{E} =- \nabla \varphi$.
   \]
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Coulomb's law from Gauss' law]
   Take a spherically symmetric charge distribution about $O$ with total charge $Q$. Suppose all charge is contained within a radius $r = a$. Then similar to the gravitational case, we have
   \[
     \mathbf{E}(\mathbf{r}) = \frac{Q\hat{\mathbf{r}}}{4\pi \varepsilon_0 r^2},
@@ -2564,7 +2563,7 @@ The type of boundary conditions we get depends on the physical content of the pr
 
 We can also specify different boundary conditions on different boundary components.
 
-\begin{eg}
+\begin{eg}[Spherical shell Laplace equation]
   We might have a spherically symmetric distribution with constant $\rho_0$, defined in $a \leq r \leq b$, with $\varphi(a) = 0$ and $\frac{\partial \varphi}{\partial \mathbf{n}}(b) = 0$.
 
   Then the general solution is
@@ -2585,7 +2584,7 @@ We can also specify different boundary conditions on different boundary componen
   \]
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Spherically symmetric Poisson solution]
   We might also be interested with spherically symmetric solution with
   \[
     \nabla^2 \varphi =
@@ -2672,7 +2671,7 @@ We can also specify different boundary conditions on different boundary componen
 
 \section{Laplace's and Poisson's equations}
 \subsection{Uniqueness theorems}
-\begin{thm}
+\begin{thm}[Uniqueness theorem for Poisson's equation]
   Consider $\nabla^2 \varphi = - \rho$ for some $\rho (\mathbf{r})$ on a bounded volume $V$ with $S = \partial V$ being a closed surface, with an outward normal $\mathbf{n}$.
 
   Suppose $\varphi$ satisfies either
@@ -2824,7 +2823,7 @@ If we have many sources $\lambda_\alpha$ at positions $\mathbf{r}_\alpha$, the p
 \]
 If we have infinitely many of them, having a distribution of $\rho(\mathbf{r})$ with $\rho(\mathbf{r}')\;\d V'$ being the contribution from a small volume at position $\mathbf{r}'$. It would be reasonable to guess that the solution is what we obtain by replacing the sum with an integral:
 
-\begin{prop}
+\begin{prop}[Poisson's equation integral solution]
   The solution to Poisson's equation $\nabla^2 \varphi = -\rho$, with boundary conditions $|\varphi (\mathbf{r})| = O(1/|\mathbf{r}|)$ and $|\nabla\varphi(\mathbf{r})| = O(1/|\mathbf{r}|^2)$, is
   \[
     \varphi(\mathbf{r}) = \frac{1}{4\pi}\int_{V'} \frac{\rho(\mathbf{r}')}{|\mathbf{r} - \mathbf{r}'|}\;\d V'
@@ -2832,7 +2831,7 @@ If we have infinitely many of them, having a distribution of $\rho(\mathbf{r})$ 
   For $\rho(\mathbf{r}')$ non-zero everywhere, but suitably well-behaved as $|\mathbf{r}'| \to \infty$, we can also take $V' = \R^3$.
 \end{prop}
 
-\begin{eg}
+\begin{eg}[Poisson integral, uniform ball]
   Suppose
   \[
     \nabla^2 \varphi =
@@ -3058,7 +3057,7 @@ which is an obvious generalization of the rules for vectors and matrices.
   \]
 \end{defi}
 
-\begin{eg}\leavevmode
+\begin{eg}[Tensors of rank 0, 1, 2]\leavevmode
   \begin{itemize}
     \item A tensor $T$ of rank 0 doesn't transform under change of basis, and is a scalar.
     \item A tensor $T$ of rank 1 transforms under $T'_i = R_{ip}T_p$. This is a vector.
@@ -3066,7 +3065,7 @@ which is an obvious generalization of the rules for vectors and matrices.
   \end{itemize}
 \end{eg}
 
-\begin{eg}\leavevmode
+\begin{eg}[Constructing tensors from vectors]\leavevmode
   \begin{enumerate}
     \item If $\mathbf{u}, \mathbf{v}, \cdots\mathbf{w}$ are $n$ vectors, then
       \[
@@ -3169,7 +3168,7 @@ as required.
   A tensor is \emph{totally (anti-)symmetric} if it is (anti-)symmetric in every pair of indices.
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Symmetric and antisymmetric tensors]
   $\delta_{ij} = \delta_{ji}$ is totally symmetric, while $\varepsilon_{ijk} = -\varepsilon_{jik}$ is totally antisymmetric.
 
   There are totally symmetric tensors of arbitrary rank $n$. But in $\R^3$,
@@ -3260,7 +3259,7 @@ We assume that the fields are \emph{smooth} so they can be differentiated any nu
   \frac{\partial}{\partial x_p}\cdots \frac{\partial}{\partial x_q}T_{ij\cdots k},
 \]
 except for where things obviously fail, e.g.\ for where $T$ is not defined. We now claim:
-\begin{prop}
+\begin{prop}[Tensor field derivative rank]
   \[
     \underbrace{\frac{\partial}{\partial x_p}\cdots \frac{\partial}{\partial x_q}}_{m}T_{\underbrace{ij\cdots k}_n},\tag{$*$}
   \]
@@ -3376,7 +3375,7 @@ To summarize,
 \]
 where $B_k = \frac{1}{2}\varepsilon_{pqj} T_{pq}$, $Q = T_{kk}$ and $P_{ij} = P_{ji} = \frac{T_{ij} + T_{ji}}{2} - \frac{1}{3}\delta_{ij}Q$.
 
-\begin{eg}
+\begin{eg}[Strain rate tensor decomposition]
   The derivative of a vector field $F_i (\mathbf{r})$ is a tensor $T_{ij} = \frac{\partial F_i}{\partial x_j}$, a tensor field. Our decomposition given above has the symmetric traceless piece
   \[
     P_{ij} = \frac{1}{2}\left(\frac{\partial F_i}{\partial x_j} + \frac{\partial F_j}{\partial x_i}\right) - \frac{1}{3}\delta_{ij}\frac{\partial F_k}{\partial x_k} = \frac{1}{2}\left(\frac{\partial F_i}{\partial x_j} + \frac{\partial F_j}{\partial x_i}\right) - \frac{1}{3}\delta_{ij}\nabla\cdot \mathbf{F},
@@ -3416,7 +3415,7 @@ For a rigid body occupying volume $V$ with mass density $\rho(\mathbf{r})$, we r
 \]
 By inspection, $I$ is a symmetric tensor.
 
-\begin{eg}
+\begin{eg}[Inertia tensor of cylinder]
   Consider a rotating cylinder with uniform density $\rho_0$. The total mass is $2\ell \pi a^2 \rho_0$.
   \begin{center}
     \begin{tikzpicture}
@@ -3501,7 +3500,7 @@ As exemplified in the previous example, we can often guess the correct principal
   A tensor $T$ which is invariant under every rotation is \emph{isotropic}, i.e.\ the same in every direction.
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Sphere inertia tensor is isotropic]
   The inertia tensor of a sphere is isotropic by symmetry.
 
   $\delta_{ij}$ and $\varepsilon_{ijk}$ are also isotropic tensors. This ensures that the component definitions of the scalar and vector products $\mathbf{a}\cdot \mathbf{b} = a_i b_j \delta_{ij}$ and $(\mathbf{a}\times \mathbf{b})_i = \varepsilon_{ijk} a_j b_k$ are independent of the Cartesian coordinate system.
@@ -3588,7 +3587,7 @@ We will provide a sketch of the proof:
       So $T_{123} = -T_{213}$. Along with similar results for other indices and axes of rotation, we find that $T_{ijk}$ is totally antisymmetric, and $T_{ijk} = \beta \varepsilon_{ijk}$ for some $\beta$.\qedhere
   \end{enumerate}
 \end{proof}
-\begin{eg}
+\begin{eg}[Rank 4 isotropic tensor]
   The most general isotropic tensor of rank 4 is
   \[
     T_{ijk\ell} = \alpha \delta_{ij}\delta_{k\ell} + \beta \delta_{ik}\delta_{j\ell} + \gamma \delta_{i\ell}\delta_{jk}
@@ -3598,7 +3597,7 @@ We will provide a sketch of the proof:
 
 \subsection{Application to invariant integrals}
 We have the following very useful theorem. It might seem a bit odd and arbitrary at first sight --- if so, read the example below first (after reading the statement of the theorem), and things will make sense!
-\begin{thm}
+\begin{thm}[Invariant integrals]
   Let
   \[
     T_{ij\cdots k} = \int_V f(\mathbf{x}) x_i x_j \cdots x_k\;\d V.
@@ -3630,7 +3629,7 @@ We have the following very useful theorem. It might seem a bit odd and arbitrary
 
 The result is particularly useful if (i) and (ii) hold for \emph{any} rotation $R$, in which case $T_{ij\cdots k}$ is isotropic.
 
-\begin{eg}
+\begin{eg}[Invariant integral for sphere]
   Let
   \[
     T_{ij} = \int_V x_i x_j \;\d V,
