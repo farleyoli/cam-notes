@@ -1411,25 +1411,30 @@ A small cuboid with sides $\delta u$, $\delta v$, $\delta w$ in parameter space 
 where $J = \frac{\partial(x, y, z)}{\partial(u, v, w)}$ is the Jacobian. Taking the limit yields $\d V = |J|\; \d u\; \d v\; \d w$.
 
 \section{Geometry of curves and surfaces}
-Let $\mathbf{r}(s)$ be a curve parametrized by arclength $s$. Since $\mathbf{t}(s) = \frac{\d \mathbf{r}}{\d s}$ is a unit vector, $\mathbf{t}\cdot \mathbf{t} = 1$. Differentiating yields $\mathbf{t}\cdot \mathbf{t}' = 0$. So $\mathbf{t}'$ is a normal to the curve if $\mathbf{t}' \not= 0$.
+We now study the intrinsic geometry of curves and surfaces, characterizing how they bend and twist in space.
 
-We define the following:
+\subsection{Curvature of curves}
+Let $\mathbf{r}(s)$ be a curve parametrized by arclength $s$. The unit tangent vector is $\mathbf{t}(s) = \frac{\d \mathbf{r}}{\d s}$. Since $\mathbf{t}\cdot \mathbf{t} = 1$, differentiating with respect to $s$ gives $\mathbf{t}\cdot \mathbf{t}' = 0$. Thus $\mathbf{t}'$ is perpendicular to $\mathbf{t}$, i.e., $\mathbf{t}'$ is normal to the curve whenever $\mathbf{t}' \neq \mathbf{0}$.
+
 \begin{defi}[Principal normal and curvature]
   Write $\mathbf{t}' = \kappa \mathbf{n}$, where $\mathbf{n}$ is a unit vector and $\kappa > 0$. Then $\mathbf{n}(s)$ is called the \emph{principal normal} and $\kappa(s)$ is called the \emph{curvature}.
 \end{defi}
-Note that we \emph{must} be differentiating against $s$, not any other parametrization! If the curve is given in another parametrization, we can either change the parametrization or use the chain rule.
 
-We take a curve that can be Taylor expanded around $s = 0$. Then
+\begin{rmk}
+  The curvature $\kappa$ is defined with respect to the arclength parametrization. If the curve is given in another parametrization, one must either reparametrize by arclength or use the chain rule to express derivatives with respect to $s$.
+\end{rmk}
+
+To understand the geometric meaning of curvature, we expand the curve in a Taylor series about a point. Taking $s = 0$ at the point of interest, we have
 \[
   \mathbf{r}(s) = \mathbf{r}(0) + s\mathbf{r}'(0) + \frac{1}{2}s^2 \mathbf{r}''(0) + O(s^3).
 \]
-We know that $\mathbf{r}' = \mathbf{t}$ and $\mathbf{r}'' = \mathbf{t}'$. So we have
+Since $\mathbf{r}' = \mathbf{t}$ and $\mathbf{r}'' = \mathbf{t}' = \kappa \mathbf{n}$, this becomes
 \[
-  \mathbf{r}(s) = \mathbf{r}(0) + s\mathbf{t}(0) + \frac{1}{2}\kappa(0) s^2 \mathbf{n} + O(s^3).
+  \mathbf{r}(s) = \mathbf{r}(0) + s\mathbf{t}(0) + \frac{1}{2}\kappa(0) s^2 \mathbf{n}(0) + O(s^3).
 \]
-How can we interpret $\kappa$ as the curvature? Suppose we want to approximate the curve near $\mathbf{r}(0)$ by a circle. We would expect a more ``curved'' curve would be approximated by a circle of smaller radius. So $\kappa$ should be inversely proportional to the radius of the circle. In fact, we will show that $\kappa = 1/a$, where $a$ is the radius of the best-fit circle.
+This expansion shows that the curve deviates from a straight line (the tangent) quadratically in $s$, with the coefficient $\kappa$ controlling the rate of deviation in the direction $\mathbf{n}$.
 
-Consider the vector equation for a circle passing through $\mathbf{r}(0)$ with radius $a$ in the plane defined by $\mathbf{t}$ and $\mathbf{n}$.
+To interpret $\kappa$ geometrically, we compare the curve to a circle. Intuitively, a more ``curved'' curve should be approximated by a circle of smaller radius. Consider a circle of radius $a$ passing through $\mathbf{r}(0)$, lying in the plane spanned by $\mathbf{t}$ and $\mathbf{n}$:
 \begin{center}
   \begin{tikzpicture}
     \draw circle [radius = 1];
@@ -1444,62 +1449,90 @@ Consider the vector equation for a circle passing through $\mathbf{r}(0)$ with r
     \draw (-2, 0) parabola bend (0, -1) (2, 0);
   \end{tikzpicture}
 \end{center}
-Then the equation of the circle is
+The parametric equation for this circle is
 \[
   \mathbf{r} = \mathbf{r}(0) + a(1 - \cos \theta) \mathbf{n} + a\sin \theta \mathbf{t}.
 \]
-We can expand this to obtain
+Expanding in powers of $\theta$ gives
 \[
-  \mathbf{r} = \mathbf{r}(0) + a\theta \mathbf{t} + \frac{1}{2}\theta^2 a\mathbf{n} + o(\theta^3).
+  \mathbf{r} = \mathbf{r}(0) + a\theta \mathbf{t} + \frac{1}{2}a\theta^2 \mathbf{n} + O(\theta^3).
 \]
-Since the arclength $s = a\theta$, we obtain
+Since the arclength along the circle is $s = a\theta$, we can write $\theta = s/a$, yielding
 \[
-  \mathbf{r} = \mathbf{r}(0) + s\mathbf{t} + \frac{1}{2}\frac{1}{a}s^2\mathbf{n} + O(s^3).
+  \mathbf{r} = \mathbf{r}(0) + s\mathbf{t} + \frac{1}{2a}s^2\mathbf{n} + O(s^3).
 \]
-As promised, $\kappa = 1/a$, for $a$ the radius of the circle of best fit.
+Comparing with the Taylor expansion of the curve, we see that the curve and circle agree to second order when $\kappa = 1/a$.
 
-\begin{defi}[Radius of curvature]
-  The \emph{radius of curvature} of a curve at a point $\mathbf{r}(s)$ is $1/\kappa(s)$.
+\begin{defi}[Osculating circle and radius of curvature]
+  The \emph{osculating circle} at a point on a curve is the circle that best approximates the curve at that point (agreeing to second order in arclength). The \emph{radius of curvature} is the radius of the osculating circle, given by $1/\kappa$.
 \end{defi}
-Since we are in 3D, given $\mathbf{t}(s)$ and $\mathbf{n}(s)$, there is another normal to the curve. We can add a third normal to generate an orthonormal basis.
+
+\begin{prop}[Curvature and radius of curvature]
+  The curvature $\kappa$ at a point on a curve equals the reciprocal of the radius of the osculating circle at that point: $\kappa = 1/a$.
+\end{prop}
+\subsection{The Frenet--Serret frame}
+In three dimensions, the vectors $\mathbf{t}(s)$ and $\mathbf{n}(s)$ can be completed to an orthonormal basis by adding a third vector.
+
 \begin{defi}[Binormal]
-  The \emph{binormal} of a curve is $\mathbf{b} = \mathbf{t}\times \mathbf{n}$.
+  The \emph{binormal} of a curve is the unit vector $\mathbf{b} = \mathbf{t}\times \mathbf{n}$.
 \end{defi}
 
-We can define the torsion similar to the curvature, but with the binormal instead of the tangent.\footnote{This was not taught in lectures, but there is a question on the example sheet about the torsion, so I might as well include it here.}
+The ordered triple $(\mathbf{t}, \mathbf{n}, \mathbf{b})$ forms a right-handed orthonormal basis at each point of the curve, called the \emph{Frenet--Serret frame}. This frame moves along the curve with the parameter $s$.
 
-\begin{defi}[Torsion] Let $\mathbf{b}' = -\tau \mathbf{n}$. Then $\tau$ is the \emph{torsion}.
+Just as curvature measures how $\mathbf{t}$ changes along the curve, we can measure how $\mathbf{b}$ changes.
+
+\begin{defi}[Torsion]
+  The \emph{torsion} $\tau(s)$ is defined by $\mathbf{b}' = -\tau \mathbf{n}$.
 \end{defi}
-Note that this makes sense, since $\mathbf{b}'$ is both perpendicular to $\mathbf{t}$ and $\mathbf{b}$, and hence must be in the same direction as $\mathbf{n}$. ($\mathbf{b}' = \mathbf{t}'\times \mathbf{n} + \mathbf{t}\times \mathbf{n}' = \mathbf{t}\times \mathbf{n}'$, so $\mathbf{b}'$ is perpendicular to $\mathbf{t}$; and $\mathbf{b} \cdot \mathbf{b} = 1\Rightarrow \mathbf{b}\cdot \mathbf{b}' = 0$. So $\mathbf{b}'$ is perpendicular to $\mathbf{b}$).
 
-The geometry of the curve is encoded in how this basis ($\mathbf{t}, \mathbf{n}, \mathbf{b}$) changes along it. This can be specified by two scalar functions of arc length --- the curvature $\kappa(s)$ and the \emph{torsion} $\tau(s)$ (which determines what the curve looks like to third order in its Taylor expansions and how the curve lifts out of the $\mathbf{t}, \mathbf{n}$ plane).
+\begin{rmk}
+  The definition is consistent because $\mathbf{b}'$ must be parallel to $\mathbf{n}$. To see this, note that $\mathbf{b}' = \mathbf{t}'\times \mathbf{n} + \mathbf{t}\times \mathbf{n}' = \mathbf{t}\times \mathbf{n}'$ (since $\mathbf{t}' = \kappa\mathbf{n}$ is parallel to $\mathbf{n}$), so $\mathbf{b}'$ is perpendicular to $\mathbf{t}$. Also, $\mathbf{b} \cdot \mathbf{b} = 1$ implies $\mathbf{b}\cdot \mathbf{b}' = 0$, so $\mathbf{b}'$ is perpendicular to $\mathbf{b}$. Thus $\mathbf{b}'$ must be parallel to $\mathbf{n}$.
+\end{rmk}
 
-\subsubsection*{Surfaces and intrinsic geometry*}
-We can study the geometry of surfaces through curves which lie on them. At a given point $P$ at a surface $S$ with normal $\mathbf{n}$, consider a plane containing $\mathbf{n}$. The intersection of the plane with the surface yields a curve on the surface through $P$. This curve has a curvature $\kappa$ at $P$.
+The geometry of a space curve is completely determined by how the Frenet--Serret frame $(\mathbf{t}, \mathbf{n}, \mathbf{b})$ evolves along the curve. This evolution is encoded in two scalar functions of arclength: the curvature $\kappa(s)$, which measures how the curve bends in the osculating plane, and the torsion $\tau(s)$, which measures how the curve twists out of that plane.
 
-If we choose different planes containing $\mathbf{n}$, we end up with different curves of different curvature. Then we define the following:
-\begin{defi}[Principal curvature]
-  The \emph{principal curvatures} of a surface at $P$ are the minimum and maximum possible curvature of a curve through $P$, denoted $\kappa_{\min}$ and $\kappa_{\max}$ respectively.
+\subsection{Curvature of surfaces*}
+The geometry of surfaces can be studied through curves that lie on them. At a point $P$ on a surface $S$ with unit normal $\mathbf{n}$, consider any plane containing $\mathbf{n}$. This plane intersects $S$ in a curve passing through $P$, and this curve has some curvature $\kappa$ at $P$. Different choices of plane yield curves with different curvatures.
+
+\begin{defi}[Principal curvatures]
+  The \emph{principal curvatures} of a surface $S$ at a point $P$ are the minimum and maximum curvatures among all curves obtained by intersecting $S$ with planes containing the normal at $P$. These are denoted $\kappa_{\min}$ and $\kappa_{\max}$.
 \end{defi}
 
 \begin{defi}[Gaussian curvature]
-  The \emph{Gaussian curvature} of a surface at a point $P$ is $K = \kappa_{\min}\kappa_{\max}$.
+  The \emph{Gaussian curvature} of a surface at a point $P$ is the product of the principal curvatures:
+  \[
+    K = \kappa_{\min}\kappa_{\max}.
+  \]
 \end{defi}
 
+The following remarkable theorem, due to Gauss, reveals that Gaussian curvature has a special property.
+
 \begin{thm}[Theorema Egregium]
-  $K$ is \emph{intrinsic} to the surface $S$. It can be expressed in terms of lengths, angles etc. which are measured entirely on the surface. So $K$ can be defined on an arbitrary surface without embedding it on a higher dimension surface.
+  The Gaussian curvature $K$ is \emph{intrinsic} to the surface $S$: it can be expressed entirely in terms of lengths and angles measured on the surface itself, without reference to the ambient space in which $S$ is embedded.
 \end{thm}
-This is the start of \emph{intrinsic geometry}: if we embed a surface in Euclidean space, we can determine lengths, angles etc on it. But we don't have to do so --- we can ``live in '' the surface and do geometry in it without an embedding.
 
-For example, we can consider a geodesic triangle $D$ on a surface $S$. It consists of three geodesics: shortest curves between two points.
+\begin{rmk}
+  This theorem is the foundation of \emph{intrinsic geometry}. It implies that inhabitants of a surface can determine its Gaussian curvature purely through measurements made within the surface, without knowing how (or whether) the surface is embedded in a higher-dimensional space.
+\end{rmk}
 
-Let $\theta_i$ be the interior angles of the triangle (defined by using scalar products of tangent vectors). Then
-\begin{thm}[Gauss-Bonnet theorem]
+The Gaussian curvature controls deviations from Euclidean geometry on the surface. A fundamental example is the angle sum of a triangle.
+
+\begin{defi}[Geodesic]
+  A \emph{geodesic} on a surface is a curve of shortest length between two points on the surface.
+\end{defi}
+
+Consider a geodesic triangle $D$ on a surface $S$, formed by three geodesics. Let $\theta_1, \theta_2, \theta_3$ be the interior angles of the triangle, measured using scalar products of tangent vectors.
+
+\begin{thm}[Gauss--Bonnet theorem]
+  For a geodesic triangle $D$ on a surface with Gaussian curvature $K$,
   \[
-    \theta_1 +\theta_2 + \theta_3 = \pi + \int_D K\; \d A,
+    \theta_1 + \theta_2 + \theta_3 = \pi + \int_D K\; \d A.
   \]
-  integrating over the area of the triangle.
 \end{thm}
+
+\begin{rmk}
+  In Euclidean geometry ($K = 0$), the angles of a triangle sum to $\pi$. On a sphere ($K > 0$), the sum exceeds $\pi$; on a saddle surface ($K < 0$), the sum is less than $\pi$.
+\end{rmk}
 
 \section{Div, Grad, Curl and \tph{$\nabla$}{del}{&nabla;}}
 \subsection{Div, Grad, Curl and \tph{$\nabla$}{del}{&nabla;}}
