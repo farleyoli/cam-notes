@@ -1327,7 +1327,11 @@ If $\lambda_1$ and $\lambda_2$ are distinct, then $y_1$ and $y_2$ are linearly i
     y &= e^{2x}[\alpha + \beta x + O(\varepsilon)]\\
     &\to e^{2x}(\alpha + \beta x)
   \end{align*}
-  In this way, we have derived two separate basis functions. In general, if $y_1(x)$ is a degenerate complementary function of a linear differential equation with constant coefficients, then $y_2(x) = xy_1(x)$ is an independent complementary function.
+  In this way, we have derived two separate basis functions.
+
+\begin{prop}[Degenerate complementary functions]
+  If the characteristic equation of a linear differential equation with constant coefficients has a repeated root, and $y_1(x)$ is the corresponding complementary function, then $y_2(x) = xy_1(x)$ is an independent complementary function.
+\end{prop}
 \end{eg}
 
 \subsubsection{Second complementary function (reduction of order)}
@@ -1423,7 +1427,9 @@ In both cases, the Wronskian is \emph{never} zero. Is it possible that it is zer
   \end{align*}
   Where $W_0 = $ const. Since the exponential function is never zero, either $W_0 = 0$, in which case $W = 0$, or $W_0 \not= 0$ and $W \not= 0$ for any value of $x$.
 \end{proof}
-In general, any linear $n$th-order homogeneous differential equation can be written in the form $\mathbf{Y}' + A\mathbf{Y} = 0$, a system of first-order equations. It can then be shown that $W' + \tr(A)W = 0$, and $W = W_0e^{-\int \tr A\;\d x}$. So Abel's theorem holds.
+\begin{remark}
+  Abel's theorem generalizes to higher-order equations. Any linear $n$th-order homogeneous differential equation can be written in the form $\mathbf{Y}' + A\mathbf{Y} = 0$, a system of first-order equations. It can then be shown that $W' + \tr(A)W = 0$, and $W = W_0e^{-\int \tr A\,\d x}$. Hence the Wronskian is either identically zero or never zero.
+\end{remark}
 
 \subsection{Particular integrals}
 Having found the complementary function for the homogeneous equation, we now turn to finding a \emph{particular integral} $y_p(x)$ that satisfies the full equation $ay'' + by' + cy = f(x)$. The general solution is then $y = y_c + y_p$.
@@ -1442,7 +1448,9 @@ For simple forcing terms $f(x)$, we can ``guess'' the form of the particular int
     \bottomrule
   \end{tabular}
 \end{center}
-It is important to remember that the equation is linear, so we can superpose solutions and consider each forcing term separately.
+\begin{remark}
+  Since the equation is linear, we can superpose solutions and consider each forcing term separately. If $f(x) = f_1(x) + f_2(x)$, and $y_{p,1}$ is a particular integral for forcing $f_1$, and $y_{p,2}$ for $f_2$, then $y_p = y_{p,1} + y_{p,2}$ is a particular integral for $f$.
+\end{remark}
 
 \begin{eg}[Polynomial and exponential forcing]
   Consider $y'' - 5y' + 6y = 2x + e^{4x}$. To obtain the forcing term $2x$, we need a first order polynomial $ax + b$, and to get $e^{4x}$ we need $ce^{4x}$. Thus we can guess
@@ -1514,7 +1522,9 @@ Mathematically, since $\sin\theta \approx \theta$ as $\theta \to 0$, as $\Delta\
 \[
   y_p\to \frac{-t}{2\omega_0}\cos\omega_0 t.
 \]
-In general, if the forcing is a linear combination of complementary functions, then the particular integral is proportional to $t$ (the independent variable) times the non-resonant guess.
+\begin{prop}[Resonant forcing]
+  If the forcing term of a linear differential equation is a solution of the corresponding homogeneous equation (i.e., a complementary function), then the particular integral is proportional to the independent variable times the non-resonant guess. For example, if $e^{\lambda x}$ is both a complementary function and the forcing, the particular integral has the form $Axe^{\lambda x}$.
+\end{prop}
 
 \subsubsection{Variation of parameters}
 Guessing works well for simple forcing terms, but fails for more complicated functions $f(x)$. The method of \emph{variation of parameters} provides a systematic approach that works for any forcing term, provided we know the complementary functions. Since it is more involved than guessing, we prefer guessing when the form of the particular integral is obvious.
@@ -1604,7 +1614,9 @@ So $u' = -\frac{y_2}{W}f$ and $v' = \frac{y_1}{W}f$.
   Note that $-\frac{1}{4}x\cos 2x$ is what we found previously by detuning, and $\frac{1}{16}\sin 2x$ is a complementary function, so the results agree.
 \end{eg}
 
-It is generally not a good idea to remember the exact formula for the results we've obtained above. Instead, whenever faced with such questions, you should be able to re-derive the results instead.
+\begin{remark}
+  It is generally not advisable to memorize the exact formula for the variation of parameters. Instead, one should be able to re-derive the method when needed by using the condition that the solution vector $\mathbf{Y}$ lies in the span of the complementary function vectors $\mathbf{Y}_1$ and $\mathbf{Y}_2$.
+\end{remark}
 
 \subsection{Linear equidimensional equations}
 \emph{Equidimensional equations} (also called Euler equations or Cauchy--Euler equations) have coefficients that are powers of $x$ matching the order of the derivative. These equations arise naturally in problems with radial or scale symmetry. Note that they are sometimes called ``homogeneous equations'', but we avoid this terminology to prevent confusion with equations having no forcing term.
@@ -1891,9 +1903,11 @@ Then we have
     \draw [semithick, mblue, domain=1.5708:3.14159] plot ({2 * \x}, {-1.3 * sinh (pi - \x)});
   \end{tikzpicture}
 \end{center}
-Note that at $x = \frac{\pi}{2}$, our final function has continuous $y$, discontinuous $y'$ and infinite $y''$. In general, differentiating a function makes it \emph{less} continuous. This is why we insisted at first that $y$ has to be continuous. Otherwise, $y'$ would look like a delta function, and $y''$ would be something completely unrecognizable.
+\begin{remark}
+  At $x = \frac{\pi}{2}$, the solution has continuous $y$, discontinuous $y'$, and infinite $y''$. In general, differentiating a function makes it \emph{less} continuous. This is why we insisted that $y$ be continuous: otherwise, $y'$ would look like a delta function, and $y''$ would be unrecognizable.
 
-Hence the discontinuity is always addressed by the highest order derivative since differentiation increases the discontinuity.
+  The discontinuity is always ``absorbed'' by the highest-order derivative, since differentiation increases the severity of discontinuities.
+\end{remark}
 
 \subsubsection{Heaviside step function}
 The Dirac delta function is the derivative of the \emph{Heaviside step function}, which is useful for modelling forces or inputs that ``turn on'' at a particular time.
