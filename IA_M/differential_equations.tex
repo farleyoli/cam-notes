@@ -260,7 +260,9 @@ This section introduces integration as the inverse operation to differentiation 
   \end{center}
 \end{defi}
 
-Each rectangle has width $\Delta x$ and height $f(x_n)$. For a differentiable function $f$, the true area under the curve over $[x_n, x_{n+1}]$ differs from $f(x_n)\Delta x$ by $O(\Delta x^2)$, since $f$ varies by at most $O(\Delta x)$ over the subinterval. Summing over all $N$ rectangles, the total error is $N \cdot O(\Delta x^2) = O(\Delta x)$ (since $N\Delta x = b - a$ is constant), which vanishes as $N \to \infty$.
+\begin{remark}
+  Each rectangle in the Riemann sum has width $\Delta x$ and height $f(x_n)$. For a differentiable function $f$, the true area under the curve over $[x_n, x_{n+1}]$ differs from $f(x_n)\Delta x$ by $O(\Delta x^2)$, since $f$ varies by at most $O(\Delta x)$ over the subinterval. Summing over all $N$ rectangles, the total error is $N \cdot O(\Delta x^2) = O(\Delta x)$ (since $N\Delta x = b - a$ is constant), which vanishes as $N \to \infty$.
+\end{remark}
 
 The fundamental connection between differentiation and integration is given by the following theorem.
 
@@ -280,14 +282,20 @@ The fundamental connection between differentiation and integration is given by t
   \]
   and dividing by $h$ and taking the limit gives $F'(x) = f(x)$.
 \end{proof}
-The Fundamental Theorem has several useful corollaries. If $f$ is continuous and $b$ is a constant, then
-\[
-  \frac{\d}{\d x}\int_x^b f(t)\;\d t = -f(x),
-\]
-since $\int_x^b f(t)\,\d t = -\int_b^x f(t)\,\d t$. More generally, if $g$ is a differentiable function, then by the chain rule,
-\[
-  \frac{\d}{\d x}\int_a^{g(x)} f(t)\;\d t = f(g(x))g'(x).
-\]
+\begin{cor}[Derivatives of integrals with variable limits]
+  Let $f$ be a continuous function.
+  \begin{enumerate}
+    \item If $b$ is a constant, then
+    \[
+      \frac{\d}{\d x}\int_x^b f(t)\;\d t = -f(x),
+    \]
+    since $\int_x^b f(t)\,\d t = -\int_b^x f(t)\,\d t$.
+    \item More generally, if $g$ is a differentiable function and $a$ is a constant, then by the chain rule,
+    \[
+      \frac{\d}{\d x}\int_a^{g(x)} f(t)\;\d t = f(g(x))g'(x).
+    \]
+  \end{enumerate}
+\end{cor}
 
 \begin{notation}
   The \emph{indefinite integral} $\int f(x)\;\d x$ denotes an antiderivative of $f$, i.e., any function $F$ such that $F'(x) = f(x)$. Since antiderivatives differ by a constant, we write $\int f(x)\,\d x = F(x) + C$, where $C$ is the \emph{constant of integration}.
@@ -297,10 +305,15 @@ since $\int_x^b f(t)\,\d t = -\int_b^x f(t)\,\d t$. More generally, if $g$ is a 
 Integration is substantially harder than differentiation. While the product rule and chain rule, combined with a table of standard derivatives, suffice to differentiate most expressions, many seemingly simple integrands can be surprisingly difficult---or even impossible---to integrate in closed form. This subsection presents several techniques for evaluating integrals.
 
 \subsubsection*{Substitution}
-The method of substitution is the integration analogue of the chain rule. If $u = g(x)$ is a differentiable function, then
-\[
-  \int f(g(x))g'(x)\,\d x = \int f(u)\,\d u.
-\]
+The method of substitution is the integration analogue of the chain rule.
+
+\begin{prop}[Integration by substitution]
+  Let $g$ be a differentiable function, and let $f$ be a function such that $f(g(x))$ is integrable. Setting $u = g(x)$, we have
+  \[
+    \int f(g(x))g'(x)\,\d x = \int f(u)\,\d u.
+  \]
+\end{prop}
+
 In practice, we write $\d u = g'(x)\,\d x$ and substitute directly.
 
 \begin{eg}[Integration by substitution]
