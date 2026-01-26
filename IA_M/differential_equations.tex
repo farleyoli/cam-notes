@@ -409,7 +409,9 @@ The preceding sections dealt with functions of a single variable. We now conside
     \frac{\partial^2 f}{\partial y\partial x} &= \frac{\partial}{\partial y}\left(\frac{\partial f}{\partial x}\right) = 2ye^{xy^2} + 2xy^{3}e^{xy^2}.
   \end{align*}
 \end{eg}
-When all other variables are held constant, the subscript indicating which variables are fixed is often omitted, and one writes simply $\frac{\partial f}{\partial x}$.
+\begin{remark}
+  When all other variables are held constant, the subscript indicating which variables are fixed is often omitted, and one writes simply $\frac{\partial f}{\partial x}$.
+\end{remark}
 
 \begin{notation}
   A common shorthand uses subscripts to denote partial derivatives:
@@ -425,7 +427,9 @@ A natural question is whether the order of differentiation matters for mixed par
   Let $f$ be a function whose second partial derivatives $f_{xy}$ and $f_{yx}$ exist and are continuous. Then $f_{xy} = f_{yx}$.
 \end{thm}
 
-The proof of this theorem is beyond the scope of this course. In practice, most functions encountered have continuous partial derivatives of all orders, and we may differentiate in any order.
+\begin{remark}
+  The proof of Schwarz's theorem is beyond the scope of this course. In practice, most functions encountered have continuous partial derivatives of all orders, and we may differentiate in any order.
+\end{remark}
 
 \subsection{Chain rule}
 The chain rule extends to functions of several variables. Consider a differentiable function $f(x, y)$ and a small displacement from $(x, y)$ to $(x+\delta x, y + \delta y)$. The change in $f$ can be computed by moving first in the $x$-direction, then in the $y$-direction:
@@ -454,14 +458,19 @@ This motivates the following definition and theorem.
   \]
 \end{thm}
 
-This formula has several important applications. If a path in the plane is given explicitly by $y = y(x)$, then $f(x, y(x))$ is a function of $x$ alone, and
-\[
-  \frac{\d f}{\d x} = \frac{\partial f}{\partial x} + \frac{\partial f}{\partial y}\frac{\d y}{\d x}.
-\]
-The chain rule also applies to changes of variables. For example, suppose we change from Cartesian coordinates $(x, y)$ to polar coordinates $(r, \theta)$, where $x = r\cos\theta$ and $y = r\sin\theta$. Then for any function $f$,
-\[
-  \frac{\partial f}{\partial \theta} = \frac{\partial f}{\partial x}\frac{\partial x}{\partial \theta} + \frac{\partial f}{\partial y}\frac{\partial y}{\partial \theta} = -r\sin\theta\,\frac{\partial f}{\partial x} + r\cos\theta\,\frac{\partial f}{\partial y}.
-\]
+\begin{cor}[Chain rule along a path]
+  If $f(x, y)$ is a differentiable function and a path in the plane is given explicitly by $y = y(x)$, then $f(x, y(x))$ is a function of $x$ alone, and
+  \[
+    \frac{\d f}{\d x} = \frac{\partial f}{\partial x} + \frac{\partial f}{\partial y}\frac{\d y}{\d x}.
+  \]
+\end{cor}
+
+\begin{eg}[Change of variables to polar coordinates]
+  The chain rule applies to changes of variables. Suppose we change from Cartesian coordinates $(x, y)$ to polar coordinates $(r, \theta)$, where $x = r\cos\theta$ and $y = r\sin\theta$. Then for any differentiable function $f$,
+  \[
+    \frac{\partial f}{\partial \theta} = \frac{\partial f}{\partial x}\frac{\partial x}{\partial \theta} + \frac{\partial f}{\partial y}\frac{\partial y}{\partial \theta} = -r\sin\theta\,\frac{\partial f}{\partial x} + r\cos\theta\,\frac{\partial f}{\partial y}.
+  \]
+\end{eg}
 \subsection{Implicit differentiation}
 An equation of the form $F(x, y, z) = c$ defines a \emph{level surface} in three-dimensional space. Under suitable conditions, this equation implicitly defines $z$ as a function of $x$ and $y$, written $z = z(x, y)$, even when no explicit formula for $z$ is available.
 
@@ -521,7 +530,9 @@ More generally, suppose both the upper limit and a parameter in the integrand de
   \]
 \end{thm}
 
-This technique, sometimes called ``Feynman's trick,'' is useful for evaluating certain integrals that would otherwise be difficult to compute.
+\begin{remark}
+  The Leibniz integral rule is sometimes called ``Feynman's trick'' or ``differentiation under the integral sign.'' It is useful for evaluating certain integrals that would otherwise be difficult to compute.
+\end{remark}
 
 \begin{eg}[Differentiating a Gaussian integral]
   Let $I(\lambda) = \int_0^1 e^{-\lambda x^2}\,\d x$, where $\lambda > 0$ is a parameter. Since the limits are constant, the Leibniz rule gives
