@@ -101,7 +101,9 @@ This section provides a brief review of differentiation, with particular emphasi
   \end{enumerate}
   In practice, $x_0$ is typically either $0$ or $\infty$. Observe that $f(x)=o(g(x))$ implies $f(x) = O(g(x))$.
 \end{defi}
-Note that this is an abuse of notation. We are not really saying that $f(x)$ is ``equal'' to $o(g(x))$, since $o(g(x))$ itself is not a function. Instead, $o(g(x))$ represents a \emph{class} of functions (namely functions that satisfy the property above), and we are saying that $f$ is in this class. Technically, a better notation might be $f(x) \in o(g(x))$, but in practice, writing $f(x) = o(g(x))$ is more common and more convenient.
+\begin{remark}
+  The notation $f(x) = o(g(x))$ is an abuse of notation. The symbol $o(g(x))$ does not denote a specific function; rather, it represents a \emph{class} of functions (namely, all functions satisfying the property above). The statement ``$f(x) = o(g(x))$'' means that $f$ belongs to this class. A more precise notation would be $f(x) \in o(g(x))$, but the equality notation is standard and more convenient in practice.
+\end{remark}
 
 \begin{eg}[Big-O and little-o examples]\leavevmode
   \begin{itemize}
@@ -190,13 +192,22 @@ Taylor's theorem generalizes the linear approximation characterization to higher
   where the error term $E_n$ satisfies $E_n = o(h^{n})$. If additionally $f^{(n+1)}$ exists, then $E_n = O(h^{n+1})$.
 \end{thm}
 
-This theorem provides only a local approximation of $f$ near $x$; it does not, in general, provide information about the behaviour of $f$ far from $x$.
+\begin{remark}
+  Taylor's Theorem provides only a \emph{local} approximation of $f$ near $x$; it does not, in general, provide information about the behaviour of $f$ far from $x$.
 
-An equivalent formulation is obtained by substituting $x - x_0$ for $h$, where $x_0$ is a fixed point and $x$ varies:
-\[
-  f(x) = f(x_0) + (x-x_0)f'(x_0) + \frac{(x-x_0)^2}{2!}f''(x_0) + \cdots + \frac{(x-x_0)^n}{n!}f^{(n)}(x_0) + E_n.
-\]
-Taking the formal limit as $n\to \infty$ yields the \emph{Taylor series} of $f$ about the point $x_0$.
+  An equivalent formulation is obtained by substituting $x - x_0$ for $h$, where $x_0$ is a fixed point and $x$ varies:
+  \[
+    f(x) = f(x_0) + (x-x_0)f'(x_0) + \frac{(x-x_0)^2}{2!}f''(x_0) + \cdots + \frac{(x-x_0)^n}{n!}f^{(n)}(x_0) + E_n.
+  \]
+\end{remark}
+
+\begin{defi}[Taylor series]
+  Let $f$ be an infinitely differentiable function at a point $x_0$. The \emph{Taylor series} of $f$ about $x_0$ is the formal power series
+  \[
+    \sum_{n=0}^{\infty} \frac{(x-x_0)^n}{n!}f^{(n)}(x_0) = f(x_0) + (x-x_0)f'(x_0) + \frac{(x-x_0)^2}{2!}f''(x_0) + \cdots,
+  \]
+  obtained by taking the formal limit $n \to \infty$ in Taylor's Theorem.
+\end{defi}
 
 \subsection{L'H\^opital's rule}
 L'H\^opital's rule provides a method for evaluating limits of indeterminate forms.
