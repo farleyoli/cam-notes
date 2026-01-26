@@ -1535,18 +1535,14 @@ Consider a geodesic triangle $D$ on a surface $S$, formed by three geodesics. Le
 \end{rmk}
 
 \section{Div, Grad, Curl and \tph{$\nabla$}{del}{&nabla;}}
-\subsection{Div, Grad, Curl and \tph{$\nabla$}{del}{&nabla;}}
-Recall that $\nabla f$ is given by $(\nabla f)_i = \frac{\partial f}{\partial x_i}$. We can regard this as obtained from the scalar field $f$ by applying
+\subsection{The nabla operator}
+In Cartesian coordinates with orthonormal basis $\{\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3\}$, we define the \emph{nabla} (or \emph{del}) operator as the formal vector
 \[
-  \nabla = \mathbf{e}_i \frac{\partial}{\partial x_i}
+  \nabla = \mathbf{e}_i \frac{\partial}{\partial x_i} = \left(\frac{\partial}{\partial x}, \frac{\partial }{\partial y}, \frac{\partial}{\partial z}\right).
 \]
-for cartesian coordinates $x_i$ and orthonormal basis $\mathbf{e}_i$, where $\mathbf{e}_i$ are orthonormal and right-handed, i.e.\ $\mathbf{e}_i\times \mathbf{e}_j = \varepsilon_{ijk} \mathbf{e}_k$ (it is left handed if $\mathbf{e}_i\times \mathbf{e}_j = -\varepsilon_{ijk} \mathbf{e}_k$).
+We assume the basis is right-handed, i.e., $\mathbf{e}_i\times \mathbf{e}_j = \varepsilon_{ijk} \mathbf{e}_k$.
 
-We can alternatively write this as
-\[
-  \nabla = \left(\frac{\partial}{\partial x}, \frac{\partial }{\partial y}, \frac{\partial}{\partial z}\right).
-\]
-$\nabla$ (\emph{nabla} or \emph{del}) is both an operator and a vector. We can apply it to a vector field $\mathbf{F}(\mathbf{r}) = \mathbf{F}_i(\mathbf{r})\mathbf{e}_i$ using the scalar or vector product.
+The gradient of a scalar field $f$ is then $\nabla f$, with components $(\nabla f)_i = \frac{\partial f}{\partial x_i}$. We can also apply $\nabla$ to a vector field $\mathbf{F}(\mathbf{r}) = F_i(\mathbf{r})\mathbf{e}_i$ using the scalar or vector product, giving rise to the divergence and curl.
 
 \begin{defi}[Divergence]
   The \emph{divergence} or \emph{div} of $\mathbf{F}$ is
@@ -1579,26 +1575,30 @@ $\nabla$ (\emph{nabla} or \emph{del}) is both an operator and a vector. We can a
     &= (xz, xe^z - yz, y^2\cos x).
   \end{align*}
 \end{eg}
-Note that $\nabla$ is an operator, so ordering is important. For example,
-\[
-  \mathbf{F}\cdot \nabla = F_i\frac{\partial }{\partial x_i}
-\]
-is a scalar differential operator, and
-\[
-  \mathbf{F}\times \nabla = \mathbf{e}_k\varepsilon_{ijk}F_i\frac{\partial}{\partial x_j}
-\]
-is a vector differential operator.
+\begin{rmk}[Operator ordering]
+  Since $\nabla$ is an operator, ordering matters. For example,
+  \[
+    \mathbf{F}\cdot \nabla = F_i\frac{\partial }{\partial x_i}
+  \]
+  is a scalar differential operator, while
+  \[
+    \mathbf{F}\times \nabla = \mathbf{e}_k\varepsilon_{ijk}F_i\frac{\partial}{\partial x_j}
+  \]
+  is a vector differential operator. These are distinct from $\nabla \cdot \mathbf{F}$ and $\nabla \times \mathbf{F}$.
+\end{rmk}
 
 \begin{prop}[Linearity of differential operators]
-  Let $f, g$ be scalar functions, $\mathbf{F}, \mathbf{G}$ be vector functions, and $\mu, \lambda$ be constants. Then
+  Let $f, g$ be scalar fields, $\mathbf{F}, \mathbf{G}$ be vector fields, and $\lambda, \mu$ be constants. Then
   \begin{align*}
-    \nabla(\lambda f + \mu g) &= \lambda\nabla f + \mu\nabla g\\
-    \nabla\cdot (\lambda \mathbf{F} + \mu \mathbf{G}) &= \lambda\nabla \cdot \mathbf{F} + \mu\nabla\cdot \mathbf{G}\\
+    \nabla(\lambda f + \mu g) &= \lambda\nabla f + \mu\nabla g,\\
+    \nabla\cdot (\lambda \mathbf{F} + \mu \mathbf{G}) &= \lambda\nabla \cdot \mathbf{F} + \mu\nabla\cdot \mathbf{G},\\
     \nabla\times (\lambda \mathbf{F} + \mu \mathbf{G}) &= \lambda\nabla\times \mathbf{F} + \mu\nabla\times \mathbf{G}.
   \end{align*}
 \end{prop}
 
-Note that Grad and Div can be analogously defined in any dimension $n$, but curl is specific to $n = 3$ because it uses the vector product.
+\begin{rmk}[Dimension dependence]
+  The gradient and divergence can be defined analogously in any dimension $n$, but the curl is specific to $n = 3$ because it uses the vector (cross) product.
+\end{rmk}
 
 \begin{eg}[Gradient and divergence of $r^\alpha$]
   Consider $r^\alpha$ with $r = |\mathbf{r}|$. We know that $\mathbf{r}= x_i\mathbf{e}_i$. So $r^2 = x_ix_i$. Therefore
@@ -1624,19 +1624,24 @@ Note that Grad and Div can be analogously defined in any dimension $n$, but curl
 \end{eg}
 
 \begin{prop}[Leibniz rules for vector operators]
-  We have the following Leibniz properties:
+  Let $f, g$ be scalar fields and $\mathbf{F}, \mathbf{G}$ be vector fields. Then
   \begin{align*}
-    \nabla(fg) &= (\nabla f)g + f(\nabla g)\\\
-    \nabla\cdot (f\mathbf{F}) &= (\nabla f)\cdot \mathbf{F} + f(\nabla\cdot \mathbf{F})\\
-    \nabla\times (f\mathbf{F}) &= (\nabla f)\times \mathbf{F} + f(\nabla\times \mathbf{F})\\
-    \nabla(\mathbf{F}\cdot \mathbf{G}) &= \mathbf{F}\times (\nabla \times \mathbf{G}) + \mathbf{G}\times (\nabla \times \mathbf{F}) + (\mathbf{F}\cdot \nabla)\mathbf{G} + (\mathbf{G}\cdot \nabla) \mathbf{F}\\
-    \nabla \times (\mathbf{F}\times \mathbf{G}) &= \mathbf{F}(\nabla\cdot \mathbf{G}) - \mathbf{G}(\nabla\cdot \mathbf{F}) + (\mathbf{G}\cdot \nabla)\mathbf{F} - (\mathbf{F}\cdot \nabla)\mathbf{G}\\
-    \nabla\cdot (\mathbf{F}\times \mathbf{G}) &= (\nabla\times \mathbf{F})\cdot \mathbf{G} - \mathbf{F}\cdot (\nabla\times \mathbf{G})
+    \nabla(fg) &= (\nabla f)g + f(\nabla g),\\
+    \nabla\cdot (f\mathbf{F}) &= (\nabla f)\cdot \mathbf{F} + f(\nabla\cdot \mathbf{F}),\\
+    \nabla\times (f\mathbf{F}) &= (\nabla f)\times \mathbf{F} + f(\nabla\times \mathbf{F}),\\
+    \nabla(\mathbf{F}\cdot \mathbf{G}) &= \mathbf{F}\times (\nabla \times \mathbf{G}) + \mathbf{G}\times (\nabla \times \mathbf{F}) + (\mathbf{F}\cdot \nabla)\mathbf{G} + (\mathbf{G}\cdot \nabla) \mathbf{F},\\
+    \nabla \times (\mathbf{F}\times \mathbf{G}) &= \mathbf{F}(\nabla\cdot \mathbf{G}) - \mathbf{G}(\nabla\cdot \mathbf{F}) + (\mathbf{G}\cdot \nabla)\mathbf{F} - (\mathbf{F}\cdot \nabla)\mathbf{G},\\
+    \nabla\cdot (\mathbf{F}\times \mathbf{G}) &= (\nabla\times \mathbf{F})\cdot \mathbf{G} - \mathbf{F}\cdot (\nabla\times \mathbf{G}).
   \end{align*}
-  which can be proven by brute-forcing with suffix notation and summation convention.
 \end{prop}
 
-There is absolutely no point in memorizing these (at least the last three). They can be derived when needed via suffix notation.
+\begin{proof}
+  Each identity can be verified by direct computation using suffix notation and the summation convention.
+\end{proof}
+
+\begin{rmk}
+  The first three identities are straightforward and worth remembering. The last three are more complex; in practice, they can be derived as needed using suffix notation.
+\end{rmk}
 \begin{eg}[Leibniz rules applied to $r^\alpha \mathbf{r}$]
   \begin{align*}
     \nabla\cdot (r^\alpha \mathbf{r}) &= (\nabla r^\alpha)\cdot\mathbf{r} + r^\alpha \nabla\cdot \mathbf{r}\\
@@ -1648,48 +1653,48 @@ There is absolutely no point in memorizing these (at least the last three). They
   \end{align*}
 \end{eg}
 \subsection{Second-order derivatives}
-We have
+Two fundamental identities relate the differential operators:
+
 \begin{prop}[Curl-grad and div-curl identities]
+  For any smooth scalar field $f$ and vector field $\mathbf{F}$,
   \begin{align*}
-    \nabla\times (\nabla f) &= 0\\
-    \nabla\cdot (\nabla\times \mathbf{F}) &=0
+    \nabla\times (\nabla f) &= \mathbf{0},\\
+    \nabla\cdot (\nabla\times \mathbf{F}) &= 0.
   \end{align*}
 \end{prop}
 
 \begin{proof}
-  Expand out using suffix notation, noting that
+  Both identities follow from the symmetry of mixed partial derivatives. In suffix notation, the key observation is that
   \[
-    \varepsilon_{ijk}\frac{\partial^2 f}{\partial x_i \partial x_j} = 0.
+    \varepsilon_{ijk}\frac{\partial^2 f}{\partial x_i \partial x_j} = 0,
   \]
-  since if, say, $k = 3$, then
+  since $\varepsilon_{ijk}$ is antisymmetric in $i, j$ while $\frac{\partial^2 f}{\partial x_i \partial x_j}$ is symmetric. For example, with $k = 3$,
   \[
-    \varepsilon_{ijk}\frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{\partial^2 f}{\partial x_1 \partial x_2} - \frac{\partial^2 f}{\partial x_2 \partial x_1} = 0.
+    \varepsilon_{ij3}\frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{\partial^2 f}{\partial x_1 \partial x_2} - \frac{\partial^2 f}{\partial x_2 \partial x_1} = 0.
   \]
-
 \end{proof}
 
-The converse of each result holds for fields defined in all of $\R^3$:
+The converses of these identities also hold, provided the fields are defined on all of $\R^3$.
+
 \begin{prop}[Scalar potential existence]
-  If $\mathbf{F}$ is defined in all of $\R^3$, then
-  \[
-    \nabla\times \mathbf{F} = 0 \Rightarrow \mathbf{F} = \nabla f
-  \]
-  for some $f$.
+  If $\mathbf{F}$ is a smooth vector field defined on all of $\R^3$ with $\nabla\times \mathbf{F} = \mathbf{0}$, then there exists a scalar field $f$ such that $\mathbf{F} = \nabla f$.
 \end{prop}
 
 \begin{defi}[Conservative/irrotational field and scalar potential]
-  If $\mathbf{F} = \nabla f$, then $f$ is the \emph{scalar potential}. We say $\mathbf{F}$ is \emph{conservative} or \emph{irrotational}.
+  A vector field $\mathbf{F}$ satisfying $\mathbf{F} = \nabla f$ for some scalar field $f$ is called \emph{conservative} or \emph{irrotational}. The function $f$ is called the \emph{scalar potential} of $\mathbf{F}$.
 \end{defi}
-Similarly,
+
 \begin{prop}[Vector potential existence]
-  If $\mathbf{H}$ is defined over all of $\R^3$ and $\nabla\cdot \mathbf{H} = 0$, then $\mathbf{H} = \nabla \times \mathbf{A}$ for some $\mathbf{A}$.
+  If $\mathbf{H}$ is a smooth vector field defined on all of $\R^3$ with $\nabla\cdot \mathbf{H} = 0$, then there exists a vector field $\mathbf{A}$ such that $\mathbf{H} = \nabla \times \mathbf{A}$.
 \end{prop}
 
 \begin{defi}[Solenoidal field and vector potential]
-  If $\mathbf{H} = \nabla \times \mathbf{A}$, $\mathbf{A}$ is the \emph{vector potential} and $\mathbf{H}$ is said to be \emph{solenoidal}.
+  A vector field $\mathbf{H}$ satisfying $\mathbf{H} = \nabla \times \mathbf{A}$ for some vector field $\mathbf{A}$ is called \emph{solenoidal}. The field $\mathbf{A}$ is called the \emph{vector potential} of $\mathbf{H}$.
 \end{defi}
 
-Note that this is true only if $\mathbf{F}$ or $\mathbf{H}$ is defined on all of $\R^3$.
+\begin{rmk}
+  The existence of scalar and vector potentials requires that the field be defined on all of $\R^3$ (or more generally, on a simply connected domain). For fields defined on domains with ``holes,'' the converse statements may fail.
+\end{rmk}
 
 \begin{defi}[Laplacian operator]
   The \emph{Laplacian operator} is defined by
