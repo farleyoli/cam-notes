@@ -1713,17 +1713,16 @@ The converses of these identities also hold, provided the fields are defined on 
 
 \section{Integral theorems}
 \subsection{Statement and examples}
-There are three big integral theorems, known as Green's theorem, Stoke's theorem and Gauss' theorem. These are all generalizations of the fundamental theorem of calculus in some sense. In particular, they all say that an $n$ dimensional integral of a derivative is equivalent to an $n - 1$ dimensional integral of the original function.
+There are three fundamental integral theorems in vector calculus: Green's theorem, Stokes' theorem, and the divergence theorem (also known as Gauss' theorem). These are all generalizations of the fundamental theorem of calculus: each states that an $n$-dimensional integral of a derivative equals an $(n-1)$-dimensional integral of the original function over the boundary.
 
-We will first state all three theorems with some simple applications. In the next section, we will see that the three integral theorems are so closely related that it's easiest to show their equivalence first, and then prove just one of them.
+We first state all three theorems with examples. In the following subsection, we show that the three theorems are closely related and prove them by establishing their equivalence.
 
 \subsubsection{Green's theorem (in the plane)}
 \begin{thm}[Green's theorem]
-  For smooth functions $P(x, y)$, $Q(x, y)$ and $A$ a bounded region in the $(x, y)$ plane with boundary $\partial A = C$,
+  Let $A$ be a bounded region in the $(x, y)$ plane with boundary $C = \partial A$, a piecewise smooth, non-self-intersecting closed curve traversed anticlockwise. For smooth functions $P(x, y)$ and $Q(x, y)$,
   \[
-    \int_A \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right)\;\d A = \int_C(P\;\d x + Q\;\d y).
+    \int_A \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right)\d A = \int_C P\;\d x + Q\;\d y.
   \]
-  Here $C$ is assumed to be piecewise smooth, non-intersecting closed curve, traversed anti-clockwise.
 \end{thm}
 
 \begin{eg}[Green's theorem, parabola region]
@@ -1762,44 +1761,46 @@ We will first state all three theorems with some simple applications. In the nex
   Combining them gives Green's theorem.
 \end{eg}
 
-Green's theorem also holds for a bounded region $A$, where the boundary $\partial A$ consists of \emph{disconnected} components (each piecewise smooth, non-intersecting and closed) with anti-clockwise orientation on the exterior, and clockwise on the interior boundary, e.g.
-\begin{center}
-  \begin{tikzpicture}
-    \draw [fill = gray] circle [radius = 2];
-    \draw [fill = white] (1, 0) circle [radius = 0.6];
-    \draw [fill = white] (-1, 0) circle [radius = 0.6];
-    \draw [->] (2, 0) -- (2, 0.01);
-    \draw [->] (1.6, 0) -- (1.6, -0.01);
-    \draw [->] (-0.4, 0) -- (-0.4, -0.01);
-  \end{tikzpicture}
-\end{center}
-The orientation of the curve comes from imagining the surface as:
-\begin{center}
-  \begin{tikzpicture}
-    \draw [fill = gray] circle [radius = 2];
-    \draw [fill = white] (1, 0) circle [radius = 0.6];
-    \draw [fill = white] (-1, 0) circle [radius = 0.6];
-    \draw [->] (0, -2) -- (0.01, -2);
-    \draw [->] (1, 0.6) -- (1.01, 0.6);
-    \draw [->] (-0.4, 0) -- (-0.4, -0.01);
-    \draw [fill = white, white] (1.5, 0.1) rectangle (2.1, -0.1);
-    \draw [->] (2, -0.1) -- (1.58, -0.1);
-    \draw [->] (1.58, 0.1) -- (2, 0.1);
-  \end{tikzpicture}
-\end{center}
-and take the limit as the gap shrinks to 0.
+\begin{rmk}[Regions with holes]
+  Green's theorem extends to bounded regions $A$ whose boundary $\partial A$ consists of multiple disconnected components (each piecewise smooth, non-self-intersecting, and closed). The exterior boundary is traversed anticlockwise, while interior boundaries (around holes) are traversed clockwise:
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [fill = gray] circle [radius = 2];
+      \draw [fill = white] (1, 0) circle [radius = 0.6];
+      \draw [fill = white] (-1, 0) circle [radius = 0.6];
+      \draw [->] (2, 0) -- (2, 0.01);
+      \draw [->] (1.6, 0) -- (1.6, -0.01);
+      \draw [->] (-0.4, 0) -- (-0.4, -0.01);
+    \end{tikzpicture}
+  \end{center}
+  This orientation convention can be understood by imagining thin cuts connecting the boundary components, making the region simply connected, and taking the limit as the cuts shrink to zero width:
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [fill = gray] circle [radius = 2];
+      \draw [fill = white] (1, 0) circle [radius = 0.6];
+      \draw [fill = white] (-1, 0) circle [radius = 0.6];
+      \draw [->] (0, -2) -- (0.01, -2);
+      \draw [->] (1, 0.6) -- (1.01, 0.6);
+      \draw [->] (-0.4, 0) -- (-0.4, -0.01);
+      \draw [fill = white, white] (1.5, 0.1) rectangle (2.1, -0.1);
+      \draw [->] (2, -0.1) -- (1.58, -0.1);
+      \draw [->] (1.58, 0.1) -- (2, 0.1);
+    \end{tikzpicture}
+  \end{center}
+\end{rmk}
 
 \subsubsection{Stokes' theorem}
 \begin{thm}[Stokes' theorem]
-  For a smooth vector field $\mathbf{F}(\mathbf{r})$,
+  Let $S$ be a smooth, bounded, orientable surface with piecewise smooth boundary $\partial S$, and let $\mathbf{F}$ be a smooth vector field. Then
   \[
-    \int_S \nabla\times \mathbf{F}\cdot \d \mathbf{S} = \int_{\partial S} \mathbf{F}\cdot \d \mathbf{r},
+    \int_S (\nabla\times \mathbf{F})\cdot \d \mathbf{S} = \int_{\partial S} \mathbf{F}\cdot \d \mathbf{r}.
   \]
-  where $S$ is a smooth, bounded surface and $\partial S$ is a piecewise smooth boundary of $S$.
-
-  The direction of the line integral is as follows: If we walk along $C$ with $\mathbf{n}$ facing up, then the surface is on your left.
+  The orientation of $\partial S$ is determined by the right-hand rule: if the thumb points in the direction of the surface normal $\mathbf{n}$, the fingers curl in the direction of traversal along $\partial S$.
 \end{thm}
-It also holds if $\partial S$ is a collection of disconnected piecewise smooth closed curves, with the orientation determined in the same way as Green's theorem.
+
+\begin{rmk}
+  Stokes' theorem also holds when $\partial S$ consists of multiple disconnected piecewise smooth closed curves, with orientations determined as in Green's theorem.
+\end{rmk}
 
 \begin{eg}[Stokes' theorem, spherical cap]
   Let $S$ be the section of a sphere of radius $a$ with $0 \leq \theta \leq \alpha$. In spherical coordinates,
@@ -1818,18 +1819,18 @@ It also holds if $\partial S$ is a collection of disconnected piecewise smooth c
   \begin{align*}
     \int_C \mathbf{F}\cdot \d \mathbf{r} &= \int_0^{2\pi}\underbrace{a\sin \alpha\cos \varphi}_{x}\underbrace{\vphantom{\varphi}a\cos\alpha}_z \underbrace{a\sin \alpha\cos\varphi\;\d \varphi}_{\d y}\\
     &= a^3\sin^2\alpha\cos\alpha\int_0^{2\pi}\cos^2\varphi\;\d \varphi\\
-    &= \pi a^3\sin^2\alpha\cos\alpha.
+    &= \pi a^3\sin^2\alpha\cos\alpha,
   \end{align*}
-  So they agree.
+  which agrees with the surface integral, verifying Stokes' theorem.
 \end{eg}
 
-\subsubsection{Divergence/Gauss theorem}
-\begin{thm}[Divergence/Gauss theorem]
-  For a smooth vector field $\mathbf{F}(\mathbf{r})$,
+\subsubsection{Divergence theorem (Gauss' theorem)}
+\begin{thm}[Divergence theorem]
+  Let $V$ be a bounded region in $\R^3$ with piecewise smooth boundary $\partial V$, and let $\mathbf{F}$ be a smooth vector field. Then
   \[
     \int _V \nabla\cdot \mathbf{F}\;\d V = \int_{\partial V}\mathbf{F}\cdot \d \mathbf{S},
   \]
-  where $V$ is a bounded volume with boundary $\partial V$, a piecewise smooth, closed surface, with outward normal $\mathbf{n}$.
+  where the surface integral is taken with respect to the outward-pointing normal.
 \end{thm}
 
 \begin{eg}[Divergence theorem, hemisphere]
@@ -1888,19 +1889,19 @@ It also holds if $\partial S$ is a collection of disconnected piecewise smooth c
 \end{eg}
 
 \subsection{Relating and proving integral theorems}
-We will first show the following two equivalences:
+We now establish the following equivalences:
 \begin{itemize}
-  \item Stokes' theorem $\Leftrightarrow $ Green's theorem
+  \item Stokes' theorem $\Leftrightarrow$ Green's theorem
   \item 2D divergence theorem $\Leftrightarrow$ Green's theorem
 \end{itemize}
-Then we prove the 2D version of divergence theorem directly to show that all of the above hold. A sketch of the proof of the 3D version of divergence theorem will be provided, because it is simply a generalization of the 2D version, except that the extra dimension makes the notation tedious and difficult to follow.
+We then prove the 2D divergence theorem directly, which establishes all three results. The 3D divergence theorem follows by an analogous argument, though we only sketch the proof as the additional dimension makes the notation more cumbersome.
 
-\begin{prop}[Stokes' implies Green's]
-  Stokes' theorem $\Rightarrow $ Green's theorem
+\begin{prop}[Stokes' theorem implies Green's theorem]
+  Stokes' theorem $\Rightarrow$ Green's theorem.
 \end{prop}
 
 \begin{proof}
-  Stokes' theorem talks about 3D surfaces and Green's theorem is about 2D regions. So given a region $A$ on the $(x, y)$ plane, we pretend that there is a third dimension and apply Stokes' theorem to derive Green's theorem.
+  Green's theorem concerns regions in $\R^2$, while Stokes' theorem concerns surfaces in $\R^3$. We derive Green's theorem by applying Stokes' theorem to a planar surface.
 
   Let $A$ be a region in the $(x, y)$ plane with boundary $C = \partial A$, parametrised by arc length, $(x(s), y(s), 0)$. Then the tangent to $C$ is
   \[
@@ -1914,22 +1915,22 @@ Then we prove the 2D version of divergence theorem directly to show that all of 
   \[
     \nabla \times \mathbf{F} = \left(0, 0, \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right).
   \]
-  Then the left hand side of Stokes is
+  The line integral in Stokes' theorem becomes
   \[
     \int_C \mathbf{F} \cdot \d \mathbf{r} = \int_C \mathbf{F}\cdot \mathbf{t}\;\d s = \int_C P\;\d x + Q\;\d y,
   \]
-  and the right hand side is
+  and the surface integral (with $\d\mathbf{S} = \hat{\mathbf{k}}\,\d A$ for a surface in the $xy$-plane) becomes
   \[
-    \int_A (\nabla\times \mathbf{F})\cdot \hat{\mathbf{k}}\;\d A = \int_A \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right)\;\d A.\qedhere
+    \int_A (\nabla\times \mathbf{F})\cdot \hat{\mathbf{k}}\;\d A = \int_A \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right)\d A.\qedhere
   \]
 \end{proof}
 
-\begin{prop}[Green's implies Stokes']
-  Green's theorem $\Rightarrow $ Stokes' theorem.
+\begin{prop}[Green's theorem implies Stokes' theorem]
+  Green's theorem $\Rightarrow$ Stokes' theorem.
 \end{prop}
 
 \begin{proof}
-  Green's theorem describes a 2D region, while Stokes' theorem describes a 3D surface $\mathbf{r}(u, v)$. Hence to use Green's to derive Stokes' we need find some 2D thing to act on. The natural choice is the parameter space, $u, v$.
+  Green's theorem concerns a 2D region, while Stokes' theorem concerns a 3D surface $S$ parametrized by $\mathbf{r}(u, v)$. We apply Green's theorem in the parameter space $(u, v)$.
 
   Consider a parametrised surface $S = \mathbf{r}(u, v)$ corresponding to the region $A$ in the $u, v$ plane. Write the boundary as $\partial A = (u(t), v(t))$. Then $\partial S = \mathbf{r}(u(t), v(t))$.
 
@@ -1961,11 +1962,11 @@ Then we prove the 2D version of divergence theorem directly to show that all of 
   \[
     (\nabla\times \mathbf{F}) \cdot \d \mathbf{S} = (\nabla\times \mathbf{F})\cdot \left(\frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial \mathbf{r}}{\partial v}\right)\;\d u\;\d v.
   \]
-  Therefore, for the right hand sides to match, we want
+  For the right-hand sides to match, we need
   \[
     \frac{\partial F_v}{\partial u} - \frac{\partial F_u}{\partial v} = (\nabla\times \mathbf{F})\cdot \left(\frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial \mathbf{r}}{\partial v}\right).\tag{$*$}
   \]
-  Fortunately, this is true. Unfortunately, the proof involves complicated suffix notation and summation convention:
+  We verify this using suffix notation:
   \[
     \frac{\partial F_v}{\partial u} = \frac{\partial}{\partial u}\left(\mathbf{F}\cdot \frac{\partial \mathbf{r}}{\partial v}\right) = \frac{\partial}{\partial u}\left(F_i\frac{\partial x_i}{\partial v}\right) = \left(\frac{\partial F_i}{\partial x_j}\frac{\partial x_j}{\partial u}\right)\frac{\partial x_i}{\partial v} + F_i\frac{\partial x_i}{\partial u\partial v}.
   \]
@@ -1985,22 +1986,21 @@ Then we prove the 2D version of divergence theorem directly to show that all of 
     &= (\delta_{ip}\delta_{jq} - \delta_{iq}\delta_{jp}) \frac{\partial F_j}{\partial x_i}\frac{\partial x_p}{\partial u}\frac{\partial x_q}{\partial v}\\
     &= \left(\frac{\partial F_j}{\partial x_i} - \frac{\partial F_i}{\partial x_j}\right)\frac{\partial x_i}{\partial u}\frac{\partial x_j}{\partial v}.
   \end{align*}
-  So they match. Therefore, given our choice of $F_u$ and $F_v$, Green's theorem translates to Stokes' theorem.
+  The two expressions match, so with this choice of $F_u$ and $F_v$, Green's theorem implies Stokes' theorem.
 \end{proof}
 
-
-\begin{prop}[Green's vs 2D divergence theorem]
-  Green's theorem $\Leftrightarrow$ 2D divergence theorem.
+\begin{prop}[Green's theorem $\Leftrightarrow$ 2D divergence theorem]
+  Green's theorem and the 2D divergence theorem are equivalent.
 \end{prop}
 
 \begin{proof}
   The 2D divergence theorem states that
   \[
-    \int_A (\nabla\cdot \mathbf{G})\;\d A = \int_{\partial A} \mathbf{G}\cdot \mathbf{n}\;\d s.
+    \int_A (\nabla\cdot \mathbf{G})\;\d A = \int_{\partial A} \mathbf{G}\cdot \mathbf{n}\;\d s,
   \]
-  with an outward normal $\mathbf{n}$.
+  where $\mathbf{n}$ is the outward-pointing normal.
 
-  Write $\mathbf{G}$ as $(Q, -P)$. Then
+  Given functions $P$ and $Q$, set $\mathbf{G} = (Q, -P)$. Then
   \[
     \nabla\cdot \mathbf{G} = \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}.
   \]
@@ -2016,19 +2016,21 @@ Then we prove the 2D version of divergence theorem directly to show that all of 
   \[
     \int_A(\nabla\cdot \mathbf{G})\;\d A = \int_A\left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right)\;\d A.
   \]
-  Now 2D version of Gauss' theorem says the two LHS are the equal, and Green's theorem says the two RHS are equal. So the result follows.
+  The 2D divergence theorem asserts that the two left-hand sides are equal, while Green's theorem asserts that the two right-hand sides are equal. Thus the two theorems are equivalent.
 \end{proof}
 
 \begin{prop}[2D divergence theorem]
+  Let $A$ be a bounded region in $\R^2$ with piecewise smooth boundary $C = \partial A$. For a smooth vector field $\mathbf{G}$,
   \[
-    \int_A (\nabla\cdot \mathbf{G})\;\d A = \int_{C = \partial A} \mathbf{G}\cdot \mathbf{n}\;\d s.
+    \int_A (\nabla\cdot \mathbf{G})\;\d A = \int_C \mathbf{G}\cdot \mathbf{n}\;\d s,
   \]
+  where $\mathbf{n}$ is the outward-pointing unit normal.
 \end{prop}
 
 \begin{proof}
-  For the sake of simplicity, we assume that $\mathbf{G}$ only has a vertical component, noting that the same proof works for purely horizontal $\mathbf{G}$, and an arbitrary $\mathbf{G}$ is just a linear combination of the two.
+  By linearity, it suffices to prove the result for vector fields with only a vertical component; the horizontal case is analogous, and the general case follows by superposition.
 
-  Furthermore, we assume that $A$ is a simple, convex shape. A more complicated shape can be cut into smaller simple regions, and we can apply the simple case to each of the small regions.
+  We also assume that $A$ is a simple convex region. More complicated regions can be decomposed into simple pieces, and the theorem applied to each piece.
 
   Suppose $\mathbf{G} = G(x, y)\hat{\mathbf{j}}$. Then
   \[
@@ -2038,7 +2040,7 @@ Then we prove the 2D version of divergence theorem directly to show that all of 
   \[
     \int_A \nabla\cdot \mathbf{G}\;\d A = \int_X \left(\int_{Y_x}\frac{\partial G}{\partial y}\;\d y\right)\;\d x.
   \]
-  Now we divide $A$ into an upper and lower part, with boundaries $C_+ = y_+(x)$ and $C_- = y_-(x)$ respectively. Since I cannot draw, $A$ will be pictured as a circle, but the proof is valid for any simple convex shape.
+  Divide the boundary $C$ into upper and lower parts, $C_+$ and $C_-$, described by $y = y_+(x)$ and $y = y_-(x)$ respectively:
   \begin{center}
     \begin{tikzpicture}
       \draw [red] (3, 1.5) arc (0:180:1);
@@ -2080,14 +2082,17 @@ Then we prove the 2D version of divergence theorem directly to show that all of 
   \end{align*}
 \end{proof}
 
-To prove the 3D version, we again consider $\mathbf{F} = F(x, y, z)\hat{\mathbf{k}}$, a purely vertical vector field. Then
-\[
-  \int_V \nabla\cdot \mathbf{F}\;\d V = \int_D \left(\int_{Z_{xy}} \frac{\partial F}{\partial z}\;\d z\right)\;\d A.
-\]
-Again, split $S = \partial V$ into the top and bottom parts $S_+$ and $S_-$ (ie the parts with $\hat{\mathbf{k}}\cdot \mathbf{n} \geq 0$ and $\hat{\mathbf{k}}\cdot \mathbf{n} < 0$), and parametrize by $z_+(x, y)$ and $z_-(x, y)$. Then the integral becomes
-\[
-  \int_V \nabla\cdot \mathbf{F}\;\d V = \int_D (F(x, y, z_+) - F(x, y, z_-))\;\d A = \int_S \mathbf{F}\cdot \mathbf{n}\;\d S.
-\]
+\begin{rmk}[Sketch of 3D divergence theorem proof]
+  The 3D divergence theorem is proved analogously. Consider a purely vertical vector field $\mathbf{F} = F(x, y, z)\hat{\mathbf{k}}$. Then
+  \[
+    \int_V \nabla\cdot \mathbf{F}\;\d V = \int_D \left(\int_{Z_{xy}} \frac{\partial F}{\partial z}\;\d z\right)\d A,
+  \]
+  where $D$ is the projection of $V$ onto the $xy$-plane and $Z_{xy}$ is the range of $z$ values above each point $(x, y) \in D$. Splitting $S = \partial V$ into top and bottom parts $S_+$ and $S_-$ (where $\hat{\mathbf{k}}\cdot \mathbf{n} \geq 0$ and $\hat{\mathbf{k}}\cdot \mathbf{n} < 0$ respectively), parametrized by $z = z_+(x, y)$ and $z = z_-(x, y)$, the integral becomes
+  \[
+    \int_V \nabla\cdot \mathbf{F}\;\d V = \int_D (F(x, y, z_+) - F(x, y, z_-))\;\d A = \int_S \mathbf{F}\cdot \mathbf{n}\;\d S.
+  \]
+  The general case follows by decomposing $\mathbf{F}$ into components along each coordinate axis.
+\end{rmk}
 \section{Some applications of integral theorems}
 \subsection{Integral expressions for div and curl}
 We can use these theorems to come up with alternative definitions of the div and curl. The advantage of these alternative definitions is that they do not require a choice of coordinate axes. They also better describe how we should interpret div and curl.
