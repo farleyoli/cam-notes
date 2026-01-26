@@ -589,7 +589,9 @@ Any exponential $a^x$ can be written in terms of the natural exponential: if $y 
   For any constant $m$, the function $e^{mx}$ is an eigenfunction with eigenvalue $m$, since $\frac{\d}{\d x}e^{mx} = me^{mx}$.
 \end{eg}
 
-The exponential functions are the \emph{only} eigenfunctions of the differential operator, which explains their ubiquity in the theory of differential equations.
+\begin{prop}[Exponentials are the only eigenfunctions]
+  The exponential functions $e^{\lambda x}$ (for $\lambda \in \C$) are the \emph{only} eigenfunctions of the differential operator $\frac{\d}{\d x}$. This explains their ubiquity in the theory of differential equations.
+\end{prop}
 
 \subsection{Homogeneous linear ordinary differential equations}
 We begin by defining the terminology used to classify differential equations.
@@ -624,7 +626,9 @@ where $a$ and $b$ are constants. Since exponentials are eigenfunctions of $\frac
   This is in fact the \emph{general solution}: a first-order linear equation has exactly one independent solution (up to multiplicative constants), so $y = Ae^{3x/5}$ captures all solutions.
 \end{eg}
 
-The arbitrary constant $A$ is determined by an \emph{initial condition} (or \emph{boundary condition}), such as specifying the value of $y$ at some point $x_0$.
+\begin{remark}
+  The arbitrary constant $A$ in the general solution is determined by an \emph{initial condition} (or \emph{boundary condition}), such as specifying the value of $y$ at some point $x_0$.
+\end{remark}
 
 \subsubsection*{Connection to discrete equations}
 There is an illuminating connection between differential equations and discrete recurrence relations. Consider $5y' - 3y = 0$ with initial condition $y(0) = y_0$. We can approximate the derivative by a finite difference: if $x_n = nh$ for small step size $h$, then $y'(x_n) \approx \frac{y_{n+1} - y_n}{h}$. Substituting into the differential equation gives the \emph{difference equation}
@@ -690,7 +694,12 @@ recovering our earlier solution.
 \subsection{Forced (inhomogeneous) equations}
 A homogeneous equation has only terms involving the unknown function $y$. An \emph{inhomogeneous} (or \emph{forced}) equation has additional terms that do not involve $y$. For example, $5y' - 3y = 10$ is inhomogeneous, with $10$ called the \emph{forcing term}.
 
-The key to solving inhomogeneous equations is the following principle: if $y_p$ is any \emph{particular solution} of the inhomogeneous equation, and $y_c$ is the general solution of the associated \emph{homogeneous} equation (called the \emph{complementary function}), then the general solution is $y = y_p + y_c$.
+\begin{prop}[Superposition principle]
+  Let $y_p$ be any \emph{particular solution} of the inhomogeneous equation, and let $y_c$ be the general solution of the associated \emph{homogeneous} equation (called the \emph{complementary function}). Then the general solution of the inhomogeneous equation is
+  \[
+    y = y_p + y_c.
+  \]
+\end{prop}
 
 \subsubsection{Constant forcing}
 
@@ -704,7 +713,9 @@ The key to solving inhomogeneous equations is the following principle: if $y_p$ 
   Note that any boundary conditions to determine $A$ must be applied to the full solution $y$ and not the complementary function $y_c$.
 \end{eg}
 
-This illustrates the general method for solving forced equations: first find a particular solution $y_p$ (often by inspection or an appropriate ansatz), then solve the associated homogeneous equation to obtain the complementary function $y_c$. The general solution is then $y = y_p + y_c$.
+\begin{remark}
+  This illustrates the general method for solving forced equations: first find a particular solution $y_p$ (often by inspection or an appropriate ansatz), then solve the associated homogeneous equation to obtain the complementary function $y_c$. The general solution is then $y = y_p + y_c$.
+\end{remark}
 
 \subsubsection{Eigenfunction forcing}
 This is the case when the forcing term is an eigenfunction of the differential operator.
@@ -772,10 +783,15 @@ We want the left-hand side to equal $(\mu y)'$. By the product rule, $(\mu y)' =
 \[
   \frac{\d \mu}{\mu} = p\,\d x \implies \ln \mu = \int p\,\d x \implies \mu = \exp\left(\int p\,\d x\right).
 \]
-With this choice, the equation becomes $(\mu y)' = \mu f$, which integrates to give
-\[
-  y = \frac{1}{\mu}\int \mu f\,\d x = e^{-\int p\,\d x}\int f\, e^{\int p\,\d x}\,\d x.
-\]
+With this choice, the equation becomes $(\mu y)' = \mu f$, which integrates to give the solution.
+
+\begin{prop}[Integrating factor solution]
+  The general solution to the first-order linear equation $y' + p(x)y = f(x)$ is
+  \[
+    y = e^{-\int p\,\d x}\int f\, e^{\int p\,\d x}\,\d x,
+  \]
+  where the \emph{integrating factor} is $\mu(x) = \exp\left(\int p\,\d x\right)$.
+\end{prop}
 \begin{eg}[Integrating factor method]
   Consider $xy' + (1 - x)y = 1$. To obtain it in standard form, we have $y' + \frac{1 - x}{x} y = \frac{1}{x}$.
   We have $\mu = \exp\left(\int (\frac{1}{x} - 1)\; \d x\right) = e^{\ln x - x} = xe^{-x}$. Then
@@ -969,7 +985,9 @@ To visualise the solutions, we can draw \emph{isoclines}: curves along which $\f
     \draw [semithick, mred] (0, 1.66666) .. controls (1, 1.66666) and (2, 1.1) .. (4, 1.1) -- (5, 1.1);
   \end{tikzpicture}
 \end{center}
-In general, the solution curves of a differential equation $\frac{\d y}{\d t} = f(t, y)$ can be sketched by first locating constant solutions (equilibria), determining their stability (as discussed in the next section), and drawing isoclines.
+\begin{remark}
+  In general, the solution curves of a differential equation $\frac{\d y}{\d t} = f(t, y)$ can be sketched by first locating constant solutions (equilibria), determining their stability (as discussed in the next section), and drawing isoclines.
+\end{remark}
 
 \subsection{Fixed (equilibrium) points and stability}
 A key question in the qualitative study of differential equations is: what happens to solutions in the long run? This leads to the study of equilibria and their stability.
@@ -1020,12 +1038,14 @@ In many physical systems, the governing laws do not change with time, so $\frac{
   A differential equation is \emph{autonomous} if it has the form $\frac{\d y}{\d t} = f(y)$, where $f$ does not depend explicitly on $t$.
 \end{defi}
 
-For autonomous systems, stability analysis simplifies considerably. Near an equilibrium $y = a$ (where $f(a) = 0$), the linearised equation is $\frac{\d \varepsilon}{\d t} = k\varepsilon$, where $k = f'(a)$ is a constant. This has solution $\varepsilon = \varepsilon_0 e^{kt}$, so:
-\begin{itemize}
-  \item If $k = f'(a) < 0$, perturbations decay exponentially: the equilibrium is \textbf{stable}.
-  \item If $k = f'(a) > 0$, perturbations grow exponentially: the equilibrium is \textbf{unstable}.
-  \item If $k = f'(a) = 0$, the linear analysis is inconclusive; higher-order terms must be considered.
-\end{itemize}
+\begin{prop}[Stability criterion for autonomous systems]
+  Consider an autonomous system $\frac{\d y}{\d t} = f(y)$ with an equilibrium at $y = a$ (where $f(a) = 0$). The linearised equation near the equilibrium is $\frac{\d \varepsilon}{\d t} = k\varepsilon$, where $k = f'(a)$. This has solution $\varepsilon = \varepsilon_0 e^{kt}$, so:
+  \begin{itemize}
+    \item If $k = f'(a) < 0$, perturbations decay exponentially: the equilibrium is \textbf{stable}.
+    \item If $k = f'(a) > 0$, perturbations grow exponentially: the equilibrium is \textbf{unstable}.
+    \item If $k = f'(a) = 0$, the linear analysis is inconclusive; higher-order terms must be considered.
+  \end{itemize}
+\end{prop}
 
 \begin{eg}[Acid-base neutralisation]
   Consider a chemical reaction NaOH + HCl $\rightarrow$ H$_2$O + NaCl. We have
