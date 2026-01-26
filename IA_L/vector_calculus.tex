@@ -1129,15 +1129,16 @@ The integral of a vector-valued function $\mathbf{F}: V \to \R^n$ over a region 
 
 \section{Surfaces and surface integrals}
 \subsection{Surfaces and Normal}
-So far, we have learnt how to do calculus with regions of the plane or space. What we would like to do now is to study surfaces in $\R^3$. The first thing to figure out is how to specify surfaces. One way to specify a surface is to use an equation. We let $f$ be a smooth function on $\R^3$, and $c$ be a constant. Then $f(\mathbf{r}) = c$ defines a smooth surface (e.g.\ $x^2 + y^2 + z^2 = 1$ denotes the unit sphere).
+We now turn to the study of surfaces in $\R^3$. A surface can be specified implicitly by an equation of the form $f(\mathbf{r}) = c$, where $f: \R^3 \to \R$ is a smooth function and $c$ is a constant. For example, the equation $x^2 + y^2 + z^2 = 1$ defines the unit sphere.
 
-Now consider any curve $\mathbf{r}(u)$ on $S$. Then by the chain rule, if we differentiate $f(\mathbf{r}) = c$ with respect to $u$, we obtain
+To find the normal to such a surface, consider any curve $\mathbf{r}(u)$ lying entirely on the surface $S$. Since $f(\mathbf{r}(u)) = c$ along the curve, differentiating with respect to $u$ gives
 \[
-  \frac{\d }{\d u}[f(\mathbf{r}(u))] = \nabla f\cdot \frac{\d \mathbf{r}}{\d u} = 0.
+  \frac{\d}{\d u}[f(\mathbf{r}(u))] = \nabla f \cdot \frac{\d\mathbf{r}}{\d u} = 0.
 \]
-This means that $\nabla f$ is always perpendicular to $\frac{\d \mathbf{r}}{\d u}$. Since $\frac{\d \mathbf{r}}{\d u}$ is the tangent to the curve, $\nabla f$ is perpendicular to the tangent. Since this is true for \emph{any} curve $\mathbf{r}(u)$, $\nabla f$ is perpendicular to any tangent of the surface. Therefore
+This shows that $\nabla f$ is perpendicular to the tangent vector $\frac{\d\mathbf{r}}{\d u}$. Since this holds for every curve on $S$, we conclude:
+
 \begin{prop}[Gradient as surface normal]
-  $\nabla f$ is the normal to the surface $f(\mathbf{r}) = c$.
+  Let $S$ be a surface defined by $f(\mathbf{r}) = c$, where $f$ is smooth and $\nabla f \neq \mathbf{0}$ on $S$. Then $\nabla f$ is normal to $S$ at each point.
 \end{prop}
 
 \begin{eg}[Level surfaces: sphere and hyperboloid]\leavevmode
@@ -1149,10 +1150,12 @@ This means that $\nabla f$ is always perpendicular to $\frac{\d \mathbf{r}}{\d u
   \end{enumerate}
 \end{eg}
 
-\begin{defi}[Boundary]
-  A surface $S$ can be defined to have a \emph{boundary} $\partial S$ consisting of a piecewise smooth curve. If we define $S$ as in the above examples but with the additional restriction $z \geq 0$, then $\partial S$ is the circle $x^2 + y^2 = c$, $z = 0$.
+\begin{defi}[Boundary of a surface]
+  The \emph{boundary} of a surface $S$, denoted $\partial S$, is the curve (or union of curves) forming the edge of $S$. For example, if the upper hemisphere is defined by $x^2 + y^2 + z^2 = a^2$ with $z \geq 0$, then $\partial S$ is the circle $x^2 + y^2 = a^2$ in the plane $z = 0$.
+\end{defi}
 
-  A surface is \emph{bounded} if it can be contained in a solid sphere, \emph{unbounded} otherwise. A bounded surface with no boundary is called \emph{closed} (e.g.\ sphere).
+\begin{defi}[Bounded and closed surfaces]
+  A surface is \emph{bounded} if it can be contained within a sphere of finite radius, and \emph{unbounded} otherwise. A bounded surface with no boundary (i.e., $\partial S = \varnothing$) is called \emph{closed}. For example, a sphere is closed, while a hemisphere is bounded but not closed.
 \end{defi}
 \begin{eg}[Hemisphere boundary]\leavevmode
   \begin{center}
@@ -1167,16 +1170,15 @@ This means that $\nabla f$ is always perpendicular to $\frac{\d \mathbf{r}}{\d u
 \end{eg}
 
 \begin{defi}[Orientable surface]
-  At each point, there is a unit normal $\mathbf{n}$ that's unique up to a sign.
-
-  If we can find a consistent choice of $\mathbf{n}$ that varies smoothly across $S$, then we say $S$ is \emph{orientable}, and the choice of sign of $\mathbf{n}$ is called the \emph{orientation} of the surface.
+  At each point of a smooth surface $S$, there are exactly two unit normal vectors, differing only in sign. A surface is \emph{orientable} if it is possible to choose a unit normal $\mathbf{n}$ at each point that varies continuously over the entire surface. Such a choice is called an \emph{orientation} of the surface.
 \end{defi}
-Most surfaces we encounter are orientable. For example, for a sphere, we can declare that the normal should always point outwards. A notable example of a non-orientable surface is the M\"obius strip (or Klein bottle).
 
-For simple cases, we can describe the orientation as ``inward'' and ``outward''.
+\begin{rmk}
+  Most surfaces encountered in practice are orientable. For a sphere, one can choose the outward-pointing normal everywhere; for a bounded surface with boundary, one typically speaks of ``upper'' and ``lower'' or ``inward'' and ``outward'' orientations. The M\"obius strip and Klein bottle are examples of non-orientable surfaces.
+\end{rmk}
 
 \subsection{Parametrized surfaces and area}
-However, specifying a surface by an equation $f(\mathbf{r}) = c$ is often not too helpful. What we would like is to put some coordinate system onto the surface, so that we can label each point by a pair of numbers $(u, v)$, just like how we label points in the $x,y$-plane by $(x, y)$. We write $\mathbf{r}(u, v)$ for the point labelled by $(u, v)$.
+While the implicit representation $f(\mathbf{r}) = c$ is useful for some purposes, it is often more convenient to describe a surface parametrically. A \emph{parametrization} of a surface $S$ is a smooth function $\mathbf{r}: D \to \R^3$, where $D \subseteq \R^2$ is a region in the $(u, v)$-plane, such that the image of $\mathbf{r}$ is $S$. Each point on $S$ is then labelled by coordinates $(u, v)$.
 
 \begin{eg}[Spherical cap parametrization]
   Let $S$ be part of a sphere of radius $a$ with $0 \leq \theta \leq \alpha$.
@@ -1203,42 +1205,31 @@ However, specifying a surface by an equation $f(\mathbf{r}) = c$ is often not to
   \]
   We restrict the values of $\theta, \varphi$ by $0 \leq \theta \leq \alpha$, $0 \leq \varphi \leq 2\pi$, so that each point is only covered once.
 \end{eg}
-Note that to specify a surface, in addition to the function $\mathbf{r}$, we also have to specify what values of $(u, v)$ we are allowed to take. This corresponds to a region $D$ of allowed values of $u$ and $v$. When we do integrals with these surfaces, these will become the bounds of integration.
+\begin{rmk}
+  A complete specification of a parametrized surface requires both the function $\mathbf{r}(u, v)$ and the domain $D \subseteq \R^2$ of allowed parameter values. The domain $D$ determines the bounds of integration when computing surface integrals.
+\end{rmk}
 
-When we have such a parametrization $\mathbf{r}$, we would want to make sure this indeed gives us a two-dimensional surface. For example, the following two parametrizations would both be bad:
-\[
-  \mathbf{r}(u, v) = u,\quad \mathbf{r}(u, v) = u + v.
-\]
-The idea is that $\mathbf{r}$ has to depend on both $u$ and $v$, and in ``different ways''. More precisely, when we vary the coordinates $(u, v)$, the point $\mathbf{r}$ will change accordingly. By the chain rule, this is given by
-\[
-  \delta \mathbf{r} = \frac{\partial \mathbf{r}}{\partial u}\delta u + \frac{\partial \mathbf{r}}{\partial v}\delta v + o(\delta u, \delta v).
-\]
-Then $\frac{\partial \mathbf{r}}{\partial u}$ and $\frac{\partial \mathbf{r}}{\partial v}$ are tangent vectors to curves on $S$ with $v$ and $u$ constant respectively. What we want is for them to point in different directions.
+For the parametrization to describe a genuine two-dimensional surface, we require that $\mathbf{r}$ depend non-degenerately on both parameters. The partial derivatives $\frac{\partial \mathbf{r}}{\partial u}$ and $\frac{\partial \mathbf{r}}{\partial v}$ are tangent vectors to the coordinate curves on $S$ (curves with $v$ constant and $u$ constant, respectively). For the surface to be non-degenerate, these tangent vectors must be linearly independent.
 
 \begin{defi}[Regular parametrization]
-  A parametrization is \emph{regular} if for all $u, v$,
+  A parametrization $\mathbf{r}: D \to \R^3$ is called \emph{regular} if
   \[
-    \frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial \mathbf{r}}{\partial v} \not = \mathbf{0},
+    \frac{\partial \mathbf{r}}{\partial u} \times \frac{\partial \mathbf{r}}{\partial v} \neq \mathbf{0}
   \]
-  i.e.\ there are always two independent tangent directions.
+  at every point $(u, v) \in D$, i.e., the tangent vectors are never parallel. All parametrizations in this course are assumed to be regular.
 \end{defi}
-The parametrizations we use will all be regular.
 
-Given a surface, how could we, say, find its area? We can use our parametrization. Suppose points on the surface are given by $\mathbf{r}(u, v)$ for $(u, v) \in D$. If we want to find the area of $D$ itself, we would simply integrate
+We now derive the formula for the area of a parametrized surface. Consider a small rectangle in the parameter domain $D$ with sides $\delta u$ and $\delta v$. Under the parametrization, this maps to a small parallelogram on $S$ with sides approximately $\frac{\partial \mathbf{r}}{\partial u} \delta u$ and $\frac{\partial \mathbf{r}}{\partial v} \delta v$. The area of this parallelogram is the magnitude of the cross product:
 \[
-  \int_D \;\d u\;\d v.
+  \delta S = \left| \frac{\partial \mathbf{r}}{\partial u} \times \frac{\partial \mathbf{r}}{\partial v} \right| \delta u \, \delta v.
 \]
-However, we are just using $u$ and $v$ as arbitrary labels for points in the surface, and one unit of area in $D$ does not correspond to one unit of area in $S$. Instead, suppose we produce a small rectangle in $D$ by changing $u$ and $v$ by small $\delta u, \delta v$. In $D$, this corresponds to a rectangle with vertices $(u, v), (u + \delta u, v), (u, v + \delta v), (u + \delta u, v + \delta v)$, and spans an area $\delta u \delta v$. In the surface $S$, these small changes $\delta u, \delta v$ correspond to changes $\frac{\partial \mathbf{r}}{\partial u} \delta u$ and $\frac{\partial \mathbf{r}}{\partial v} \delta v$, and these span a \emph{vector} area of
+The cross product itself gives the \emph{vector area element}, which includes information about the orientation:
 \[
-  \delta \mathbf{S} = \frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial \mathbf{r}}{\partial v} \delta u \delta v= \mathbf{n}\;\delta S.
+  \delta \mathbf{S} = \frac{\partial \mathbf{r}}{\partial u} \times \frac{\partial \mathbf{r}}{\partial v} \, \delta u \, \delta v = \mathbf{n} \, \delta S,
 \]
-Note that the order of $u, v$ gives the choice of the sign of the unit normal.
+where $\mathbf{n}$ is the unit normal. The ordering of $u$ and $v$ determines the sign (orientation) of the normal.
 
-The actual area is then given by
-\[
-  \delta S =\left|\frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial \mathbf{r}}{\partial v}\right|\;\delta u\;\delta v.
-\]
-Making these into differentials instead of deltas, we have
+Taking the limit as $\delta u, \delta v \to 0$, we obtain:
 \begin{prop}[Parametrized surface area elements]
   The \emph{vector area element} is
   \[
@@ -1300,23 +1291,21 @@ By summing and taking limits, the area of $S$ is
   \]
 \end{eg}
 \subsection{Surface integral of vector fields}
-Just computing the area of a surface would be boring. Suppose we have a surface $S$ parametrized by $\mathbf{r}(u, v)$, where $(u, v)$ takes values in $D$. We would like to ask how much ``stuff'' is passing through $S$, where the flow of stuff is given by a vector field $\mathbf{F}(\mathbf{r})$.
+Having defined the area element on a surface, we now consider integrals of vector fields over surfaces. Given a surface $S$ parametrized by $\mathbf{r}(u, v)$ and a vector field $\mathbf{F}(\mathbf{r})$, we wish to measure the total ``flow'' of $\mathbf{F}$ through $S$.
 
-We might attempt to use the integral
-\[
-  \int_D |\mathbf{F}| \;\d S.
-\]
-However, this doesn't work. For example, if all the flow is tangential to the surface, then nothing is really passing through the surface, but $|\mathbf{F}|$ is non-zero, so we get a non-zero integral. Instead, what we should do is to consider the component of $\mathbf{F}$ that is \emph{normal} to the surface $S$, i.e.\ parallel to its normal.
+A naive approach might be to integrate $|\mathbf{F}|$ over $S$, but this does not capture the physics correctly: if $\mathbf{F}$ is tangent to the surface everywhere, nothing actually passes through, yet $|\mathbf{F}|$ may be large. The correct quantity to integrate is the component of $\mathbf{F}$ normal to the surface.
 
-\begin{defi}[Surface integral]
-  The \emph{surface integral} or $\emph{flux}$ of a vector field $\mathbf{F}(\mathbf{r})$ over $S$ is defined by
+\begin{defi}[Surface integral of a vector field]
+  Let $S$ be an oriented surface parametrized by $\mathbf{r}: D \to \R^3$ and let $\mathbf{F}$ be a vector field. The \emph{surface integral} (or \emph{flux}) of $\mathbf{F}$ through $S$ is
   \[
-    \int_S \mathbf{F}(\mathbf{r})\cdot \d \mathbf{S} = \int_S \mathbf{F}(\mathbf{r})\cdot \mathbf{n}\;\d S = \int_D \mathbf{F}(\mathbf{r}(u, v))\cdot \left(\frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial \mathbf{r}}{\partial v}\right)\;\d u\;\d v.
+    \int_S \mathbf{F} \cdot \d\mathbf{S} = \int_S \mathbf{F} \cdot \mathbf{n} \, \d S = \int_D \mathbf{F}(\mathbf{r}(u, v)) \cdot \left( \frac{\partial \mathbf{r}}{\partial u} \times \frac{\partial \mathbf{r}}{\partial v} \right) \d u \, \d v.
   \]
-  Intuitively, this is the total amount of $\mathbf{F}$ passing through $S$. For example, if $\mathbf{F}$ is the electric field, the flux is the amount of electric field passing through a surface.
+  This measures the net rate at which $\mathbf{F}$ crosses the surface in the direction of the chosen normal.
 \end{defi}
 
-For a given orientation, the integral $\int \mathbf{F}\cdot \d \mathbf{S}$ is independent of the parametrization. Changing orientation is equivalent to changing the sign of $\mathbf{n}$, which is in turn equivalent to changing the order of $u$ and $v$ in the definition of $S$, which is also equivalent to changing the sign of the flux integral.
+\begin{rmk}[Parametrization independence]
+  For a given orientation, the flux integral is independent of the choice of parametrization. Reversing the orientation (i.e., reversing the direction of $\mathbf{n}$) changes the sign of the integral. This is equivalent to interchanging the order of $u$ and $v$ in the parametrization.
+\end{rmk}
 
 \begin{eg}[Sphere vector area element]
   Consider a sphere of radius $a$, $\mathbf{r}(\theta, \varphi)$. Then
@@ -1368,57 +1357,58 @@ For a given orientation, the integral $\int \mathbf{F}\cdot \d \mathbf{S}$ is in
   \end{align*}
 \end{eg}
 
-What happens when we change parametrization? Let $\mathbf{r}(u, v)$ and $\mathbf{r}(\tilde{u}, \tilde{v})$ be two regular parametrizations for the surface. By the chain rule,
+We now verify that the area element is independent of the choice of parametrization. Let $\mathbf{r}(u, v)$ and $\mathbf{r}(\tilde{u}, \tilde{v})$ be two regular parametrizations for the same surface. By the chain rule,
 \begin{align*}
-  \frac{\partial \mathbf{r}}{\partial u} &= \frac{\partial \mathbf{r}}{\partial \tilde{u}}\frac{\partial\tilde{u}}{\partial u} + \frac{\partial \mathbf{r}}{\partial \tilde{v}}\frac{\partial\tilde{v}}{\partial u}\\
-  \frac{\partial \mathbf{r}}{\partial v} &= \frac{\partial \mathbf{r}}{\partial \tilde{u}}\frac{\partial\tilde{u}}{\partial v} + \frac{\partial \mathbf{r}}{\partial \tilde{v}}\frac{\partial\tilde{v}}{\partial v}
+  \frac{\partial \mathbf{r}}{\partial u} &= \frac{\partial \mathbf{r}}{\partial \tilde{u}}\frac{\partial\tilde{u}}{\partial u} + \frac{\partial \mathbf{r}}{\partial \tilde{v}}\frac{\partial\tilde{v}}{\partial u},\\
+  \frac{\partial \mathbf{r}}{\partial v} &= \frac{\partial \mathbf{r}}{\partial \tilde{u}}\frac{\partial\tilde{u}}{\partial v} + \frac{\partial \mathbf{r}}{\partial \tilde{v}}\frac{\partial\tilde{v}}{\partial v}.
 \end{align*}
-So
+Taking the cross product yields
 \[
-  \frac{\partial \mathbf{r}}{\partial u}\times\frac{\partial\mathbf{r}}{\partial v} = \frac{\partial (\tilde{u}, \tilde{v})}{\partial (u, v)} \frac{\partial \mathbf{r}}{\partial \tilde {u}}\times\frac{\partial\mathbf{r}}{\partial \tilde{v}}
+  \frac{\partial \mathbf{r}}{\partial u}\times\frac{\partial\mathbf{r}}{\partial v} = \frac{\partial (\tilde{u}, \tilde{v})}{\partial (u, v)} \frac{\partial \mathbf{r}}{\partial \tilde {u}}\times\frac{\partial\mathbf{r}}{\partial \tilde{v}},
 \]
-where $\frac{\partial (\tilde{u}, \tilde{v})}{\partial(u, v)}$ is the Jacobian.
-
-Since
+where $\frac{\partial (\tilde{u}, \tilde{v})}{\partial(u, v)}$ is the Jacobian of the coordinate transformation. Since the area elements in parameter space are related by
 \[
   \d \tilde{u}\;\d \tilde{v} = \frac{\partial (\tilde{u}, \tilde{v})}{\partial (u, v)}\;\d u\;\d v,
 \]
-We recover the formula
-\[
-  \d S = \left|\frac{\partial \mathbf{r}}{\partial u}\times\frac{\partial\mathbf{r}}{\partial v}\right|\;\d u\;\d v = \left|\frac{\partial \mathbf{r}}{\partial \tilde {u}}\times\frac{\partial\mathbf{r}}{\partial \tilde{v}}\right| \;\d \tilde{u}\;\d \tilde{v}.
-\]
-Similarly, we have
-\[
-  \d \mathbf{S} = \frac{\partial \mathbf{r}}{\partial u}\times\frac{\partial\mathbf{r}}{\partial v}\;\d u\;\d v = \frac{\partial \mathbf{r}}{\partial \tilde {u}}\times\frac{\partial\mathbf{r}}{\partial \tilde{v}} \;\d \tilde{u}\;\d \tilde{v}.
-\]
-provided $(u, v)$ and $(\tilde{u}, \tilde{v})$ have the same orientation.
+we obtain the following result.
+
+\begin{prop}[Parametrization independence of area elements]
+  The scalar area element is independent of the choice of parametrization:
+  \[
+    \d S = \left|\frac{\partial \mathbf{r}}{\partial u}\times\frac{\partial\mathbf{r}}{\partial v}\right|\;\d u\;\d v = \left|\frac{\partial \mathbf{r}}{\partial \tilde {u}}\times\frac{\partial\mathbf{r}}{\partial \tilde{v}}\right| \;\d \tilde{u}\;\d \tilde{v}.
+  \]
+  The vector area element
+  \[
+    \d \mathbf{S} = \frac{\partial \mathbf{r}}{\partial u}\times\frac{\partial\mathbf{r}}{\partial v}\;\d u\;\d v = \frac{\partial \mathbf{r}}{\partial \tilde {u}}\times\frac{\partial\mathbf{r}}{\partial \tilde{v}} \;\d \tilde{u}\;\d \tilde{v}
+  \]
+  is independent of parametrization provided $(u, v)$ and $(\tilde{u}, \tilde{v})$ induce the same orientation on the surface.
+\end{prop}
 \subsection{Change of variables in \tph{$\R^2$ and $\R^3$}{R2 and R3}{&\#x211D;<sup>2</sup> and &\#x211D;<sup>2</sup>} revisited}
-In this section, we derive our change of variable formulae in a slightly different way.
+The change of variables formula for integrals can be derived using the geometric ideas developed above. We present an alternative derivation that unifies the two- and three-dimensional cases.
 
 \subsubsection*{Change of variable formula in \tph{$\R^2$}{R2}{&\#x211D;<sup>2</sup>}}
-We first derive the 2D change of variable formula from the 3D surface integral formula.
+The two-dimensional change of variables formula can be derived from the surface area formula by embedding $\R^2$ in $\R^3$.
 
-Consider a subset $S$ of the plane $\R^2$ parametrized by $\mathbf{r}(x(u, v), y(u, v))$. We can embed it to $\R^3$ as $\mathbf{r}(x(u, v), y(u, v), 0)$. Then
+Consider a region $S \subset \R^2$ with a parametrization $(x(u, v), y(u, v))$ for $(u, v) \in D$. We embed this in $\R^3$ by setting $\mathbf{r}(u, v) = (x(u, v), y(u, v), 0)$. Computing the cross product gives
 \[
   \frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial\mathbf{r}}{\partial v} = (0, 0, J),
 \]
-with $J$ being the Jacobian.
-Therefore
+where $J = \frac{\partial(x, y)}{\partial(u, v)}$ is the Jacobian of the coordinate transformation. Thus $\left|\frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial\mathbf{r}}{\partial v}\right| = |J|$, and from the surface integral formula we obtain
 \[
-  \int_S f(\mathbf{r})\;\d S = \int_D f(\mathbf{r}(u, v)) \left|\frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial \mathbf{r}}{\partial v}\right| \;\d u\;\d v= \int_D f(\mathbf{r}(u, v))|J|\;\d u\;\d v,
+  \int_S f(x, y)\;\d S = \int_D f(x(u, v), y(u, v)) |J|\;\d u\;\d v,
 \]
-and we recover the formula for changing variables in $\R^2$.
+which is the standard change of variables formula in $\R^2$.
 
 \subsubsection*{Change of variable formula in \tph{$\R^3$}{R3}{&\#x211D;<sup>3</sup>}}
-In $\R^3$, suppose we have a volume parametrised by $\mathbf{r}(u, v, w)$. Then
+For a volume integral in $\R^3$, we proceed similarly using the scalar triple product. Let $V$ be a region parametrized by $\mathbf{r}(u, v, w)$ for $(u, v, w) \in D$. A small displacement in parameter space gives
 \[
   \delta \mathbf{r} = \frac{\partial \mathbf{r}}{\partial u}\delta u + \frac{\partial \mathbf{r}}{\partial v}\delta v + \frac{\partial \mathbf{r}}{\partial w}\delta w + o(\delta u, \delta v, \delta w).
 \]
-Then the cuboid $\delta u, \delta v, \delta w$ in $u, v, w$ space is mapped to a parallelopiped of volume
+A small cuboid with sides $\delta u$, $\delta v$, $\delta w$ in parameter space maps to a parallelepiped with edges $\frac{\partial \mathbf{r}}{\partial u}\delta u$, $\frac{\partial \mathbf{r}}{\partial v}\delta v$, and $\frac{\partial \mathbf{r}}{\partial w}\delta w$. The volume of this parallelepiped is the absolute value of the scalar triple product:
 \[
-  \delta V = \left|\frac{\partial \mathbf{r}}{\partial u}\delta u\cdot \left( \frac{\partial \mathbf{r}}{\partial v}\delta v \times \frac{\partial \mathbf{r}}{\partial w}\delta w\right)\right| = |J|\;\delta u\; \delta v\;\delta w.
+  \delta V = \left|\frac{\partial \mathbf{r}}{\partial u}\cdot \left( \frac{\partial \mathbf{r}}{\partial v} \times \frac{\partial \mathbf{r}}{\partial w}\right)\right| \delta u\; \delta v\;\delta w = |J|\;\delta u\; \delta v\;\delta w,
 \]
-So $\d V = |J|\; \d u\; \d v\; \d w$.
+where $J = \frac{\partial(x, y, z)}{\partial(u, v, w)}$ is the Jacobian. Taking the limit yields $\d V = |J|\; \d u\; \d v\; \d w$.
 
 \section{Geometry of curves and surfaces}
 Let $\mathbf{r}(s)$ be a curve parametrized by arclength $s$. Since $\mathbf{t}(s) = \frac{\d \mathbf{r}}{\d s}$ is a unit vector, $\mathbf{t}\cdot \mathbf{t} = 1$. Differentiating yields $\mathbf{t}\cdot \mathbf{t}' = 0$. So $\mathbf{t}'$ is a normal to the curve if $\mathbf{t}' \not= 0$.
