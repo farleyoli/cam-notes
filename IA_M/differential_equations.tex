@@ -2483,10 +2483,15 @@ Consider the general linear system $\dot{\mathbf{Y}} = M\mathbf{Y} + \mathbf{F}$
 \]
 which requires $M\mathbf{v} = \lambda \mathbf{v}$. Thus $\lambda$ must be an \emph{eigenvalue} of $M$ and $\mathbf{v}$ the corresponding \emph{eigenvector}.
 
-To find the eigenvalues, solve the characteristic equation $\det(M - \lambda I) = 0$. For each eigenvalue $\lambda_i$, find the corresponding eigenvector $\mathbf{v}_i$ by solving $(M - \lambda_i I)\mathbf{v}_i = \mathbf{0}$. If $M$ is $n \times n$ with $n$ distinct eigenvalues, the general solution to the homogeneous equation is
-\[
-  \mathbf{Y}_c = A_1 \mathbf{v}_1 e^{\lambda_1 t} + A_2 \mathbf{v}_2 e^{\lambda_2 t} + \cdots + A_n \mathbf{v}_n e^{\lambda_n t}.
-\]
+To find the eigenvalues, solve the characteristic equation $\det(M - \lambda I) = 0$. For each eigenvalue $\lambda_i$, find the corresponding eigenvector $\mathbf{v}_i$ by solving $(M - \lambda_i I)\mathbf{v}_i = \mathbf{0}$.
+
+\begin{prop}[General solution for distinct eigenvalues]
+  If $M$ is an $n \times n$ matrix with $n$ distinct eigenvalues $\lambda_1, \ldots, \lambda_n$ and corresponding eigenvectors $\mathbf{v}_1, \ldots, \mathbf{v}_n$, then the general solution to the homogeneous equation $\dot{\mathbf{Y}} = M\mathbf{Y}$ is
+  \[
+    \mathbf{Y}_c = A_1 \mathbf{v}_1 e^{\lambda_1 t} + A_2 \mathbf{v}_2 e^{\lambda_2 t} + \cdots + A_n \mathbf{v}_n e^{\lambda_n t},
+  \]
+  where $A_1, \ldots, A_n$ are arbitrary constants.
+\end{prop}
 
 \begin{eg}[Coupled system with exponential forcing]
   \[
