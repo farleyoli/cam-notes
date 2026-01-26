@@ -202,6 +202,23 @@
     }
 }
 
+\tcbset{
+    examplebox/.style={
+        enhanced,
+        breakable,
+        colback=orange!6!white,
+        colframe=orange!70!black,
+        coltitle=orange!80!black,
+        fonttitle=\bfseries,
+        detach title,
+        boxrule=0.5pt,
+        leftrule=4pt,
+        sharp corners,
+        before upper={\tcbtitle\par\smallskip}
+    }
+}
+
+
 % Apply Style 1 to these environments
 \tcolorboxenvironment{nthm}{thmbox}
 \tcolorboxenvironment{nlemma}{thmbox}
@@ -210,6 +227,7 @@
 \tcolorboxenvironment{thm}{thmbox}
 \tcolorboxenvironment{prop}{thmbox}
 \tcolorboxenvironment{lemma}{thmbox}
+\tcolorboxenvironment{cor}{thmbox}
 \tcolorboxenvironment{law}{thmbox}
 
 
@@ -233,8 +251,8 @@
 
 % Apply Style 2 to these
 \tcolorboxenvironment{defi}{defbox}
-\tcolorboxenvironment{eg}{defbox}
-\tcolorboxenvironment{ex}{defbox}
+\tcolorboxenvironment{eg}{examplebox}
+\tcolorboxenvironment{ex}{examplebox}
 \tcolorboxenvironment{notation}{defbox}
 \tcolorboxenvironment{fact}{defbox}
 
