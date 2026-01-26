@@ -1968,21 +1968,25 @@ where $p$, $q$, and $r$ are given functions. The behaviour of solutions depends 
 
 The following existence theorems (stated without proof) guide our approach:
 
-\textbf{Ordinary points:} If $x_0$ is an ordinary point, the equation has two linearly independent solutions of the form
-\[
-  y = \sum_{n = 0}^\infty a_n(x - x_0)^n,
-\]
-i.e., Taylor series about $x_0$. The series converges in some neighbourhood of $x_0$.
+\begin{thm}[Series solution at ordinary points]
+  If $x_0$ is an ordinary point of the equation $p(x)y'' + q(x)y' + r(x)y = 0$, then the equation has two linearly independent solutions of the form
+  \[
+    y = \sum_{n = 0}^\infty a_n(x - x_0)^n,
+  \]
+  i.e., Taylor series about $x_0$. The series converges in some neighbourhood of $x_0$.
+\end{thm}
 
-\textbf{Regular singular points:} If $x_0$ is a regular singular point, there is at least one solution of the form
-\[
-  y = \sum_{n = 0}^\infty a_n(x - x_0)^{n + \sigma}
-\]
-with $a_0 \neq 0$. The exponent $\sigma$ (called the \emph{index}) is determined by an \emph{indicial equation}. This is called a \emph{Frobenius series}, and can be written as
-\[
-  y = (x - x_0)^\sigma f(x),
-\]
-where $f(x) = \sum_{n=0}^{\infty} a_n (x - x_0)^n$ is analytic at $x_0$.
+\begin{thm}[Frobenius series at regular singular points]
+  If $x_0$ is a regular singular point, there is at least one solution of the form
+  \[
+    y = \sum_{n = 0}^\infty a_n(x - x_0)^{n + \sigma}
+  \]
+  with $a_0 \neq 0$. The exponent $\sigma$ (called the \emph{index}) is determined by an \emph{indicial equation}. This is called a \emph{Frobenius series}, and can be written as
+  \[
+    y = (x - x_0)^\sigma f(x),
+  \]
+  where $f(x) = \sum_{n=0}^{\infty} a_n (x - x_0)^n$ is analytic at $x_0$.
+\end{thm}
 
 \subsubsection*{Ordinary points}
 At an ordinary point $x_0$, we substitute $y = \sum_{n=0}^{\infty} a_n (x - x_0)^n$ into the differential equation. This yields a recurrence relation for the coefficients $a_n$, with two of them (typically $a_0$ and $a_1$) remaining as arbitrary constants corresponding to the two linearly independent solutions.
@@ -2021,8 +2025,11 @@ At an ordinary point $x_0$, we substitute $y = \sum_{n=0}^{\infty} a_n (x - x_0)
     y &= a_0[1 - \frac{x^2}{1} - \frac{x^4}{3} - \frac{x^6}{5} - \cdots] + a_1 x\\
     &= a_0\left[1 - \frac{x}{2}\ln\left(\frac{1 + x}{1 - x}\right)\right] + a_1x
   \end{align*}
-  Notice the logarithmic behaviour near $x = \pm 1$ which are regular singular points.
 \end{eg}
+
+\begin{remark}
+  The solution exhibits logarithmic behaviour near $x = \pm 1$, which are regular singular points of the equation. This is typical: solutions often have singular behaviour (such as logarithms or non-integer powers) near singular points of the differential equation.
+\end{remark}
 
 \subsubsection*{Regular singular points}
 At a regular singular point $x_0$, we use the Frobenius method: substitute $y = \sum_{n=0}^{\infty} a_n (x - x_0)^{n + \sigma}$ with $a_0 \neq 0$. The $n = 0$ term of the recurrence relation yields the \emph{indicial equation} for $\sigma$, which is typically a quadratic with two roots $\sigma_1$ and $\sigma_2$.
@@ -2090,28 +2097,31 @@ At a regular singular point $x_0$, we use the Frobenius method: substitute $y = 
 \end{eg}
 
 \subsubsection*{Resonance of solutions}
-The indicial equation is quadratic in $\sigma$, yielding two roots $\sigma_1$ and $\sigma_2$ (with $\Re(\sigma_1) \leq \Re(\sigma_2)$). Whether both roots give independent Frobenius series solutions depends on their difference:
-\begin{enumerate}
-  \item If $\sigma_2 - \sigma_1$ is not an integer, then there are two linearly independent Frobenius solutions
-    \[
-      y = \left[(x - x_0)^{\sigma_1}\sum_{n = 0}^{\infty} a_n(x - x_0)^n\right] + \left[(x - x_0)^{\sigma_2}\sum_{n = 0}^{\infty} b_n(x - x_0)^n\right].
-    \]
-    As $x\to x_0$, $y \sim (x - x_0)^{\sigma_1}$, where $\Re(\sigma_1) \leq \Re(\sigma_2)$
+The indicial equation is quadratic in $\sigma$, yielding two roots $\sigma_1$ and $\sigma_2$ (with $\Re(\sigma_1) \leq \Re(\sigma_2)$). Whether both roots give independent Frobenius series solutions depends on their difference.
 
-  \item If $\sigma_2 - \sigma_1$ is an integer (including when they are equal), there is one solution of the form
-    \[
-      y_1 = (x - x_0)^{\sigma_2}\sum_{n = 0}^{\infty} a_n(x - x_0)^n
-    \]
-    with $\sigma_2 \geq \sigma_1$.
+\begin{prop}[Classification of Frobenius solutions]
+  Let $\sigma_1$ and $\sigma_2$ be the roots of the indicial equation with $\Re(\sigma_1) \leq \Re(\sigma_2)$.
+  \begin{enumerate}
+    \item If $\sigma_2 - \sigma_1$ is \emph{not} an integer, then there are two linearly independent Frobenius solutions
+      \[
+        y = \left[(x - x_0)^{\sigma_1}\sum_{n = 0}^{\infty} a_n(x - x_0)^n\right] + \left[(x - x_0)^{\sigma_2}\sum_{n = 0}^{\infty} b_n(x - x_0)^n\right].
+      \]
+      As $x\to x_0$, $y \sim (x - x_0)^{\sigma_1}$.
 
-    In this case, $\sigma = \sigma_1$ typically does not yield a valid solution, as demonstrated in the following example. Instead, the second solution is generally of the form
-    \[
-      y_2 = \ln(x - x_0)y_1 + \sum_{n = 0}^\infty b_n(x - x_0)^{n + \sigma_1}.
-    \]
-    This form arises from resonance between the two solutions. However, if the resonance condition is not triggered, it is possible for two regular Frobenius series solutions to exist.
+    \item If $\sigma_2 - \sigma_1$ is an integer (including when they are equal), there is one Frobenius solution
+      \[
+        y_1 = (x - x_0)^{\sigma_2}\sum_{n = 0}^{\infty} a_n(x - x_0)^n.
+      \]
+      In this case, $\sigma = \sigma_1$ typically does not yield a valid solution. The second solution is generally of the form
+      \[
+        y_2 = \ln(x - x_0)\cdot y_1 + \sum_{n = 0}^\infty b_n(x - x_0)^{n + \sigma_1}.
+      \]
+  \end{enumerate}
+\end{prop}
 
-    We can substitute this form of solution into the differential equation to determine $b_n$.
-\end{enumerate}
+\begin{remark}
+  The logarithmic term in case (ii) arises from resonance between the two solutions. However, if the resonance condition is not triggered (i.e., certain coefficients vanish), it is possible for two regular Frobenius series solutions to exist even when $\sigma_2 - \sigma_1$ is an integer. One can substitute the logarithmic form into the differential equation to determine the coefficients $b_n$.
+\end{remark}
 \begin{eg}[Resonant Frobenius series]
   Consider $x^2 y'' - xy = 0$. Here $x = 0$ is a regular singular point (the equation is already in equidimensional form). We try
   \[
