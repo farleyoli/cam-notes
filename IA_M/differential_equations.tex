@@ -101,7 +101,9 @@ This section provides a brief review of differentiation, with particular emphasi
   \end{enumerate}
   In practice, $x_0$ is typically either $0$ or $\infty$. Observe that $f(x)=o(g(x))$ implies $f(x) = O(g(x))$.
 \end{defi}
-Note that this is an abuse of notation. We are not really saying that $f(x)$ is ``equal'' to $o(g(x))$, since $o(g(x))$ itself is not a function. Instead, $o(g(x))$ represents a \emph{class} of functions (namely functions that satisfy the property above), and we are saying that $f$ is in this class. Technically, a better notation might be $f(x) \in o(g(x))$, but in practice, writing $f(x) = o(g(x))$ is more common and more convenient.
+\begin{remark}
+  The notation $f(x) = o(g(x))$ is an abuse of notation. The symbol $o(g(x))$ does not denote a specific function; rather, it represents a \emph{class} of functions (namely, all functions satisfying the property above). The statement ``$f(x) = o(g(x))$'' means that $f$ belongs to this class. A more precise notation would be $f(x) \in o(g(x))$, but the equality notation is standard and more convenient in practice.
+\end{remark}
 
 \begin{eg}[Big-O and little-o examples]\leavevmode
   \begin{itemize}
@@ -190,13 +192,22 @@ Taylor's theorem generalizes the linear approximation characterization to higher
   where the error term $E_n$ satisfies $E_n = o(h^{n})$. If additionally $f^{(n+1)}$ exists, then $E_n = O(h^{n+1})$.
 \end{thm}
 
-This theorem provides only a local approximation of $f$ near $x$; it does not, in general, provide information about the behaviour of $f$ far from $x$.
+\begin{remark}
+  Taylor's Theorem provides only a \emph{local} approximation of $f$ near $x$; it does not, in general, provide information about the behaviour of $f$ far from $x$.
 
-An equivalent formulation is obtained by substituting $x - x_0$ for $h$, where $x_0$ is a fixed point and $x$ varies:
-\[
-  f(x) = f(x_0) + (x-x_0)f'(x_0) + \frac{(x-x_0)^2}{2!}f''(x_0) + \cdots + \frac{(x-x_0)^n}{n!}f^{(n)}(x_0) + E_n.
-\]
-Taking the formal limit as $n\to \infty$ yields the \emph{Taylor series} of $f$ about the point $x_0$.
+  An equivalent formulation is obtained by substituting $x - x_0$ for $h$, where $x_0$ is a fixed point and $x$ varies:
+  \[
+    f(x) = f(x_0) + (x-x_0)f'(x_0) + \frac{(x-x_0)^2}{2!}f''(x_0) + \cdots + \frac{(x-x_0)^n}{n!}f^{(n)}(x_0) + E_n.
+  \]
+\end{remark}
+
+\begin{defi}[Taylor series]
+  Let $f$ be an infinitely differentiable function at a point $x_0$. The \emph{Taylor series} of $f$ about $x_0$ is the formal power series
+  \[
+    \sum_{n=0}^{\infty} \frac{(x-x_0)^n}{n!}f^{(n)}(x_0) = f(x_0) + (x-x_0)f'(x_0) + \frac{(x-x_0)^2}{2!}f''(x_0) + \cdots,
+  \]
+  obtained by taking the formal limit $n \to \infty$ in Taylor's Theorem.
+\end{defi}
 
 \subsection{L'H\^opital's rule}
 L'H\^opital's rule provides a method for evaluating limits of indeterminate forms.
@@ -249,7 +260,9 @@ This section introduces integration as the inverse operation to differentiation 
   \end{center}
 \end{defi}
 
-Each rectangle has width $\Delta x$ and height $f(x_n)$. For a differentiable function $f$, the true area under the curve over $[x_n, x_{n+1}]$ differs from $f(x_n)\Delta x$ by $O(\Delta x^2)$, since $f$ varies by at most $O(\Delta x)$ over the subinterval. Summing over all $N$ rectangles, the total error is $N \cdot O(\Delta x^2) = O(\Delta x)$ (since $N\Delta x = b - a$ is constant), which vanishes as $N \to \infty$.
+\begin{remark}
+  Each rectangle in the Riemann sum has width $\Delta x$ and height $f(x_n)$. For a differentiable function $f$, the true area under the curve over $[x_n, x_{n+1}]$ differs from $f(x_n)\Delta x$ by $O(\Delta x^2)$, since $f$ varies by at most $O(\Delta x)$ over the subinterval. Summing over all $N$ rectangles, the total error is $N \cdot O(\Delta x^2) = O(\Delta x)$ (since $N\Delta x = b - a$ is constant), which vanishes as $N \to \infty$.
+\end{remark}
 
 The fundamental connection between differentiation and integration is given by the following theorem.
 
@@ -269,14 +282,20 @@ The fundamental connection between differentiation and integration is given by t
   \]
   and dividing by $h$ and taking the limit gives $F'(x) = f(x)$.
 \end{proof}
-The Fundamental Theorem has several useful corollaries. If $f$ is continuous and $b$ is a constant, then
-\[
-  \frac{\d}{\d x}\int_x^b f(t)\;\d t = -f(x),
-\]
-since $\int_x^b f(t)\,\d t = -\int_b^x f(t)\,\d t$. More generally, if $g$ is a differentiable function, then by the chain rule,
-\[
-  \frac{\d}{\d x}\int_a^{g(x)} f(t)\;\d t = f(g(x))g'(x).
-\]
+\begin{cor}[Derivatives of integrals with variable limits]
+  Let $f$ be a continuous function.
+  \begin{enumerate}
+    \item If $b$ is a constant, then
+    \[
+      \frac{\d}{\d x}\int_x^b f(t)\;\d t = -f(x),
+    \]
+    since $\int_x^b f(t)\,\d t = -\int_b^x f(t)\,\d t$.
+    \item More generally, if $g$ is a differentiable function and $a$ is a constant, then by the chain rule,
+    \[
+      \frac{\d}{\d x}\int_a^{g(x)} f(t)\;\d t = f(g(x))g'(x).
+    \]
+  \end{enumerate}
+\end{cor}
 
 \begin{notation}
   The \emph{indefinite integral} $\int f(x)\;\d x$ denotes an antiderivative of $f$, i.e., any function $F$ such that $F'(x) = f(x)$. Since antiderivatives differ by a constant, we write $\int f(x)\,\d x = F(x) + C$, where $C$ is the \emph{constant of integration}.
@@ -286,10 +305,15 @@ since $\int_x^b f(t)\,\d t = -\int_b^x f(t)\,\d t$. More generally, if $g$ is a 
 Integration is substantially harder than differentiation. While the product rule and chain rule, combined with a table of standard derivatives, suffice to differentiate most expressions, many seemingly simple integrands can be surprisingly difficult---or even impossible---to integrate in closed form. This subsection presents several techniques for evaluating integrals.
 
 \subsubsection*{Substitution}
-The method of substitution is the integration analogue of the chain rule. If $u = g(x)$ is a differentiable function, then
-\[
-  \int f(g(x))g'(x)\,\d x = \int f(u)\,\d u.
-\]
+The method of substitution is the integration analogue of the chain rule.
+
+\begin{prop}[Integration by substitution]
+  Let $g$ be a differentiable function, and let $f$ be a function such that $f(g(x))$ is integrable. Setting $u = g(x)$, we have
+  \[
+    \int f(g(x))g'(x)\,\d x = \int f(u)\,\d u.
+  \]
+\end{prop}
+
 In practice, we write $\d u = g'(x)\,\d x$ and substitute directly.
 
 \begin{eg}[Integration by substitution]
@@ -385,7 +409,9 @@ The preceding sections dealt with functions of a single variable. We now conside
     \frac{\partial^2 f}{\partial y\partial x} &= \frac{\partial}{\partial y}\left(\frac{\partial f}{\partial x}\right) = 2ye^{xy^2} + 2xy^{3}e^{xy^2}.
   \end{align*}
 \end{eg}
-When all other variables are held constant, the subscript indicating which variables are fixed is often omitted, and one writes simply $\frac{\partial f}{\partial x}$.
+\begin{remark}
+  When all other variables are held constant, the subscript indicating which variables are fixed is often omitted, and one writes simply $\frac{\partial f}{\partial x}$.
+\end{remark}
 
 \begin{notation}
   A common shorthand uses subscripts to denote partial derivatives:
@@ -401,7 +427,9 @@ A natural question is whether the order of differentiation matters for mixed par
   Let $f$ be a function whose second partial derivatives $f_{xy}$ and $f_{yx}$ exist and are continuous. Then $f_{xy} = f_{yx}$.
 \end{thm}
 
-The proof of this theorem is beyond the scope of this course. In practice, most functions encountered have continuous partial derivatives of all orders, and we may differentiate in any order.
+\begin{remark}
+  The proof of Schwarz's theorem is beyond the scope of this course. In practice, most functions encountered have continuous partial derivatives of all orders, and we may differentiate in any order.
+\end{remark}
 
 \subsection{Chain rule}
 The chain rule extends to functions of several variables. Consider a differentiable function $f(x, y)$ and a small displacement from $(x, y)$ to $(x+\delta x, y + \delta y)$. The change in $f$ can be computed by moving first in the $x$-direction, then in the $y$-direction:
@@ -430,14 +458,19 @@ This motivates the following definition and theorem.
   \]
 \end{thm}
 
-This formula has several important applications. If a path in the plane is given explicitly by $y = y(x)$, then $f(x, y(x))$ is a function of $x$ alone, and
-\[
-  \frac{\d f}{\d x} = \frac{\partial f}{\partial x} + \frac{\partial f}{\partial y}\frac{\d y}{\d x}.
-\]
-The chain rule also applies to changes of variables. For example, suppose we change from Cartesian coordinates $(x, y)$ to polar coordinates $(r, \theta)$, where $x = r\cos\theta$ and $y = r\sin\theta$. Then for any function $f$,
-\[
-  \frac{\partial f}{\partial \theta} = \frac{\partial f}{\partial x}\frac{\partial x}{\partial \theta} + \frac{\partial f}{\partial y}\frac{\partial y}{\partial \theta} = -r\sin\theta\,\frac{\partial f}{\partial x} + r\cos\theta\,\frac{\partial f}{\partial y}.
-\]
+\begin{cor}[Chain rule along a path]
+  If $f(x, y)$ is a differentiable function and a path in the plane is given explicitly by $y = y(x)$, then $f(x, y(x))$ is a function of $x$ alone, and
+  \[
+    \frac{\d f}{\d x} = \frac{\partial f}{\partial x} + \frac{\partial f}{\partial y}\frac{\d y}{\d x}.
+  \]
+\end{cor}
+
+\begin{eg}[Change of variables to polar coordinates]
+  The chain rule applies to changes of variables. Suppose we change from Cartesian coordinates $(x, y)$ to polar coordinates $(r, \theta)$, where $x = r\cos\theta$ and $y = r\sin\theta$. Then for any differentiable function $f$,
+  \[
+    \frac{\partial f}{\partial \theta} = \frac{\partial f}{\partial x}\frac{\partial x}{\partial \theta} + \frac{\partial f}{\partial y}\frac{\partial y}{\partial \theta} = -r\sin\theta\,\frac{\partial f}{\partial x} + r\cos\theta\,\frac{\partial f}{\partial y}.
+  \]
+\end{eg}
 \subsection{Implicit differentiation}
 An equation of the form $F(x, y, z) = c$ defines a \emph{level surface} in three-dimensional space. Under suitable conditions, this equation implicitly defines $z$ as a function of $x$ and $y$, written $z = z(x, y)$, even when no explicit formula for $z$ is available.
 
@@ -497,7 +530,9 @@ More generally, suppose both the upper limit and a parameter in the integrand de
   \]
 \end{thm}
 
-This technique, sometimes called ``Feynman's trick,'' is useful for evaluating certain integrals that would otherwise be difficult to compute.
+\begin{remark}
+  The Leibniz integral rule is sometimes called ``Feynman's trick'' or ``differentiation under the integral sign.'' It is useful for evaluating certain integrals that would otherwise be difficult to compute.
+\end{remark}
 
 \begin{eg}[Differentiating a Gaussian integral]
   Let $I(\lambda) = \int_0^1 e^{-\lambda x^2}\,\d x$, where $\lambda > 0$ is a parameter. Since the limits are constant, the Leibniz rule gives
@@ -554,7 +589,9 @@ Any exponential $a^x$ can be written in terms of the natural exponential: if $y 
   For any constant $m$, the function $e^{mx}$ is an eigenfunction with eigenvalue $m$, since $\frac{\d}{\d x}e^{mx} = me^{mx}$.
 \end{eg}
 
-The exponential functions are the \emph{only} eigenfunctions of the differential operator, which explains their ubiquity in the theory of differential equations.
+\begin{prop}[Exponentials are the only eigenfunctions]
+  The exponential functions $e^{\lambda x}$ (for $\lambda \in \C$) are the \emph{only} eigenfunctions of the differential operator $\frac{\d}{\d x}$. This explains their ubiquity in the theory of differential equations.
+\end{prop}
 
 \subsection{Homogeneous linear ordinary differential equations}
 We begin by defining the terminology used to classify differential equations.
@@ -589,7 +626,9 @@ where $a$ and $b$ are constants. Since exponentials are eigenfunctions of $\frac
   This is in fact the \emph{general solution}: a first-order linear equation has exactly one independent solution (up to multiplicative constants), so $y = Ae^{3x/5}$ captures all solutions.
 \end{eg}
 
-The arbitrary constant $A$ is determined by an \emph{initial condition} (or \emph{boundary condition}), such as specifying the value of $y$ at some point $x_0$.
+\begin{remark}
+  The arbitrary constant $A$ in the general solution is determined by an \emph{initial condition} (or \emph{boundary condition}), such as specifying the value of $y$ at some point $x_0$.
+\end{remark}
 
 \subsubsection*{Connection to discrete equations}
 There is an illuminating connection between differential equations and discrete recurrence relations. Consider $5y' - 3y = 0$ with initial condition $y(0) = y_0$. We can approximate the derivative by a finite difference: if $x_n = nh$ for small step size $h$, then $y'(x_n) \approx \frac{y_{n+1} - y_n}{h}$. Substituting into the differential equation gives the \emph{difference equation}
@@ -655,7 +694,12 @@ recovering our earlier solution.
 \subsection{Forced (inhomogeneous) equations}
 A homogeneous equation has only terms involving the unknown function $y$. An \emph{inhomogeneous} (or \emph{forced}) equation has additional terms that do not involve $y$. For example, $5y' - 3y = 10$ is inhomogeneous, with $10$ called the \emph{forcing term}.
 
-The key to solving inhomogeneous equations is the following principle: if $y_p$ is any \emph{particular solution} of the inhomogeneous equation, and $y_c$ is the general solution of the associated \emph{homogeneous} equation (called the \emph{complementary function}), then the general solution is $y = y_p + y_c$.
+\begin{prop}[Superposition principle]
+  Let $y_p$ be any \emph{particular solution} of the inhomogeneous equation, and let $y_c$ be the general solution of the associated \emph{homogeneous} equation (called the \emph{complementary function}). Then the general solution of the inhomogeneous equation is
+  \[
+    y = y_p + y_c.
+  \]
+\end{prop}
 
 \subsubsection{Constant forcing}
 
@@ -669,7 +713,9 @@ The key to solving inhomogeneous equations is the following principle: if $y_p$ 
   Note that any boundary conditions to determine $A$ must be applied to the full solution $y$ and not the complementary function $y_c$.
 \end{eg}
 
-This illustrates the general method for solving forced equations: first find a particular solution $y_p$ (often by inspection or an appropriate ansatz), then solve the associated homogeneous equation to obtain the complementary function $y_c$. The general solution is then $y = y_p + y_c$.
+\begin{remark}
+  This illustrates the general method for solving forced equations: first find a particular solution $y_p$ (often by inspection or an appropriate ansatz), then solve the associated homogeneous equation to obtain the complementary function $y_c$. The general solution is then $y = y_p + y_c$.
+\end{remark}
 
 \subsubsection{Eigenfunction forcing}
 This is the case when the forcing term is an eigenfunction of the differential operator.
@@ -737,10 +783,15 @@ We want the left-hand side to equal $(\mu y)'$. By the product rule, $(\mu y)' =
 \[
   \frac{\d \mu}{\mu} = p\,\d x \implies \ln \mu = \int p\,\d x \implies \mu = \exp\left(\int p\,\d x\right).
 \]
-With this choice, the equation becomes $(\mu y)' = \mu f$, which integrates to give
-\[
-  y = \frac{1}{\mu}\int \mu f\,\d x = e^{-\int p\,\d x}\int f\, e^{\int p\,\d x}\,\d x.
-\]
+With this choice, the equation becomes $(\mu y)' = \mu f$, which integrates to give the solution.
+
+\begin{prop}[Integrating factor solution]
+  The general solution to the first-order linear equation $y' + p(x)y = f(x)$ is
+  \[
+    y = e^{-\int p\,\d x}\int f\, e^{\int p\,\d x}\,\d x,
+  \]
+  where the \emph{integrating factor} is $\mu(x) = \exp\left(\int p\,\d x\right)$.
+\end{prop}
 \begin{eg}[Integrating factor method]
   Consider $xy' + (1 - x)y = 1$. To obtain it in standard form, we have $y' + \frac{1 - x}{x} y = \frac{1}{x}$.
   We have $\mu = \exp\left(\int (\frac{1}{x} - 1)\; \d x\right) = e^{\ln x - x} = xe^{-x}$. Then
@@ -934,7 +985,9 @@ To visualise the solutions, we can draw \emph{isoclines}: curves along which $\f
     \draw [semithick, mred] (0, 1.66666) .. controls (1, 1.66666) and (2, 1.1) .. (4, 1.1) -- (5, 1.1);
   \end{tikzpicture}
 \end{center}
-In general, the solution curves of a differential equation $\frac{\d y}{\d t} = f(t, y)$ can be sketched by first locating constant solutions (equilibria), determining their stability (as discussed in the next section), and drawing isoclines.
+\begin{remark}
+  In general, the solution curves of a differential equation $\frac{\d y}{\d t} = f(t, y)$ can be sketched by first locating constant solutions (equilibria), determining their stability (as discussed in the next section), and drawing isoclines.
+\end{remark}
 
 \subsection{Fixed (equilibrium) points and stability}
 A key question in the qualitative study of differential equations is: what happens to solutions in the long run? This leads to the study of equilibria and their stability.
@@ -985,12 +1038,14 @@ In many physical systems, the governing laws do not change with time, so $\frac{
   A differential equation is \emph{autonomous} if it has the form $\frac{\d y}{\d t} = f(y)$, where $f$ does not depend explicitly on $t$.
 \end{defi}
 
-For autonomous systems, stability analysis simplifies considerably. Near an equilibrium $y = a$ (where $f(a) = 0$), the linearised equation is $\frac{\d \varepsilon}{\d t} = k\varepsilon$, where $k = f'(a)$ is a constant. This has solution $\varepsilon = \varepsilon_0 e^{kt}$, so:
-\begin{itemize}
-  \item If $k = f'(a) < 0$, perturbations decay exponentially: the equilibrium is \textbf{stable}.
-  \item If $k = f'(a) > 0$, perturbations grow exponentially: the equilibrium is \textbf{unstable}.
-  \item If $k = f'(a) = 0$, the linear analysis is inconclusive; higher-order terms must be considered.
-\end{itemize}
+\begin{prop}[Stability criterion for autonomous systems]
+  Consider an autonomous system $\frac{\d y}{\d t} = f(y)$ with an equilibrium at $y = a$ (where $f(a) = 0$). The linearised equation near the equilibrium is $\frac{\d \varepsilon}{\d t} = k\varepsilon$, where $k = f'(a)$. This has solution $\varepsilon = \varepsilon_0 e^{kt}$, so:
+  \begin{itemize}
+    \item If $k = f'(a) < 0$, perturbations decay exponentially: the equilibrium is \textbf{stable}.
+    \item If $k = f'(a) > 0$, perturbations grow exponentially: the equilibrium is \textbf{unstable}.
+    \item If $k = f'(a) = 0$, the linear analysis is inconclusive; higher-order terms must be considered.
+  \end{itemize}
+\end{prop}
 
 \begin{eg}[Acid-base neutralisation]
   Consider a chemical reaction NaOH + HCl $\rightarrow$ H$_2$O + NaCl. We have
@@ -1272,7 +1327,11 @@ If $\lambda_1$ and $\lambda_2$ are distinct, then $y_1$ and $y_2$ are linearly i
     y &= e^{2x}[\alpha + \beta x + O(\varepsilon)]\\
     &\to e^{2x}(\alpha + \beta x)
   \end{align*}
-  In this way, we have derived two separate basis functions. In general, if $y_1(x)$ is a degenerate complementary function of a linear differential equation with constant coefficients, then $y_2(x) = xy_1(x)$ is an independent complementary function.
+  In this way, we have derived two separate basis functions.
+
+\begin{prop}[Degenerate complementary functions]
+  If the characteristic equation of a linear differential equation with constant coefficients has a repeated root, and $y_1(x)$ is the corresponding complementary function, then $y_2(x) = xy_1(x)$ is an independent complementary function.
+\end{prop}
 \end{eg}
 
 \subsubsection{Second complementary function (reduction of order)}
@@ -1368,7 +1427,9 @@ In both cases, the Wronskian is \emph{never} zero. Is it possible that it is zer
   \end{align*}
   Where $W_0 = $ const. Since the exponential function is never zero, either $W_0 = 0$, in which case $W = 0$, or $W_0 \not= 0$ and $W \not= 0$ for any value of $x$.
 \end{proof}
-In general, any linear $n$th-order homogeneous differential equation can be written in the form $\mathbf{Y}' + A\mathbf{Y} = 0$, a system of first-order equations. It can then be shown that $W' + \tr(A)W = 0$, and $W = W_0e^{-\int \tr A\;\d x}$. So Abel's theorem holds.
+\begin{remark}
+  Abel's theorem generalizes to higher-order equations. Any linear $n$th-order homogeneous differential equation can be written in the form $\mathbf{Y}' + A\mathbf{Y} = 0$, a system of first-order equations. It can then be shown that $W' + \tr(A)W = 0$, and $W = W_0e^{-\int \tr A\,\d x}$. Hence the Wronskian is either identically zero or never zero.
+\end{remark}
 
 \subsection{Particular integrals}
 Having found the complementary function for the homogeneous equation, we now turn to finding a \emph{particular integral} $y_p(x)$ that satisfies the full equation $ay'' + by' + cy = f(x)$. The general solution is then $y = y_c + y_p$.
@@ -1387,7 +1448,9 @@ For simple forcing terms $f(x)$, we can ``guess'' the form of the particular int
     \bottomrule
   \end{tabular}
 \end{center}
-It is important to remember that the equation is linear, so we can superpose solutions and consider each forcing term separately.
+\begin{remark}
+  Since the equation is linear, we can superpose solutions and consider each forcing term separately. If $f(x) = f_1(x) + f_2(x)$, and $y_{p,1}$ is a particular integral for forcing $f_1$, and $y_{p,2}$ for $f_2$, then $y_p = y_{p,1} + y_{p,2}$ is a particular integral for $f$.
+\end{remark}
 
 \begin{eg}[Polynomial and exponential forcing]
   Consider $y'' - 5y' + 6y = 2x + e^{4x}$. To obtain the forcing term $2x$, we need a first order polynomial $ax + b$, and to get $e^{4x}$ we need $ce^{4x}$. Thus we can guess
@@ -1459,7 +1522,9 @@ Mathematically, since $\sin\theta \approx \theta$ as $\theta \to 0$, as $\Delta\
 \[
   y_p\to \frac{-t}{2\omega_0}\cos\omega_0 t.
 \]
-In general, if the forcing is a linear combination of complementary functions, then the particular integral is proportional to $t$ (the independent variable) times the non-resonant guess.
+\begin{prop}[Resonant forcing]
+  If the forcing term of a linear differential equation is a solution of the corresponding homogeneous equation (i.e., a complementary function), then the particular integral is proportional to the independent variable times the non-resonant guess. For example, if $e^{\lambda x}$ is both a complementary function and the forcing, the particular integral has the form $Axe^{\lambda x}$.
+\end{prop}
 
 \subsubsection{Variation of parameters}
 Guessing works well for simple forcing terms, but fails for more complicated functions $f(x)$. The method of \emph{variation of parameters} provides a systematic approach that works for any forcing term, provided we know the complementary functions. Since it is more involved than guessing, we prefer guessing when the form of the particular integral is obvious.
@@ -1549,7 +1614,9 @@ So $u' = -\frac{y_2}{W}f$ and $v' = \frac{y_1}{W}f$.
   Note that $-\frac{1}{4}x\cos 2x$ is what we found previously by detuning, and $\frac{1}{16}\sin 2x$ is a complementary function, so the results agree.
 \end{eg}
 
-It is generally not a good idea to remember the exact formula for the results we've obtained above. Instead, whenever faced with such questions, you should be able to re-derive the results instead.
+\begin{remark}
+  It is generally not advisable to memorize the exact formula for the variation of parameters. Instead, one should be able to re-derive the method when needed by using the condition that the solution vector $\mathbf{Y}$ lies in the span of the complementary function vectors $\mathbf{Y}_1$ and $\mathbf{Y}_2$.
+\end{remark}
 
 \subsection{Linear equidimensional equations}
 \emph{Equidimensional equations} (also called Euler equations or Cauchy--Euler equations) have coefficients that are powers of $x$ matching the order of the derivative. These equations arise naturally in problems with radial or scale symmetry. Note that they are sometimes called ``homogeneous equations'', but we avoid this terminology to prevent confusion with equations having no forcing term.
@@ -1836,9 +1903,11 @@ Then we have
     \draw [semithick, mblue, domain=1.5708:3.14159] plot ({2 * \x}, {-1.3 * sinh (pi - \x)});
   \end{tikzpicture}
 \end{center}
-Note that at $x = \frac{\pi}{2}$, our final function has continuous $y$, discontinuous $y'$ and infinite $y''$. In general, differentiating a function makes it \emph{less} continuous. This is why we insisted at first that $y$ has to be continuous. Otherwise, $y'$ would look like a delta function, and $y''$ would be something completely unrecognizable.
+\begin{remark}
+  At $x = \frac{\pi}{2}$, the solution has continuous $y$, discontinuous $y'$, and infinite $y''$. In general, differentiating a function makes it \emph{less} continuous. This is why we insisted that $y$ be continuous: otherwise, $y'$ would look like a delta function, and $y''$ would be unrecognizable.
 
-Hence the discontinuity is always addressed by the highest order derivative since differentiation increases the discontinuity.
+  The discontinuity is always ``absorbed'' by the highest-order derivative, since differentiation increases the severity of discontinuities.
+\end{remark}
 
 \subsubsection{Heaviside step function}
 The Dirac delta function is the derivative of the \emph{Heaviside step function}, which is useful for modelling forces or inputs that ``turn on'' at a particular time.
@@ -1899,21 +1968,25 @@ where $p$, $q$, and $r$ are given functions. The behaviour of solutions depends 
 
 The following existence theorems (stated without proof) guide our approach:
 
-\textbf{Ordinary points:} If $x_0$ is an ordinary point, the equation has two linearly independent solutions of the form
-\[
-  y = \sum_{n = 0}^\infty a_n(x - x_0)^n,
-\]
-i.e., Taylor series about $x_0$. The series converges in some neighbourhood of $x_0$.
+\begin{thm}[Series solution at ordinary points]
+  If $x_0$ is an ordinary point of the equation $p(x)y'' + q(x)y' + r(x)y = 0$, then the equation has two linearly independent solutions of the form
+  \[
+    y = \sum_{n = 0}^\infty a_n(x - x_0)^n,
+  \]
+  i.e., Taylor series about $x_0$. The series converges in some neighbourhood of $x_0$.
+\end{thm}
 
-\textbf{Regular singular points:} If $x_0$ is a regular singular point, there is at least one solution of the form
-\[
-  y = \sum_{n = 0}^\infty a_n(x - x_0)^{n + \sigma}
-\]
-with $a_0 \neq 0$. The exponent $\sigma$ (called the \emph{index}) is determined by an \emph{indicial equation}. This is called a \emph{Frobenius series}, and can be written as
-\[
-  y = (x - x_0)^\sigma f(x),
-\]
-where $f(x) = \sum_{n=0}^{\infty} a_n (x - x_0)^n$ is analytic at $x_0$.
+\begin{thm}[Frobenius series at regular singular points]
+  If $x_0$ is a regular singular point, there is at least one solution of the form
+  \[
+    y = \sum_{n = 0}^\infty a_n(x - x_0)^{n + \sigma}
+  \]
+  with $a_0 \neq 0$. The exponent $\sigma$ (called the \emph{index}) is determined by an \emph{indicial equation}. This is called a \emph{Frobenius series}, and can be written as
+  \[
+    y = (x - x_0)^\sigma f(x),
+  \]
+  where $f(x) = \sum_{n=0}^{\infty} a_n (x - x_0)^n$ is analytic at $x_0$.
+\end{thm}
 
 \subsubsection*{Ordinary points}
 At an ordinary point $x_0$, we substitute $y = \sum_{n=0}^{\infty} a_n (x - x_0)^n$ into the differential equation. This yields a recurrence relation for the coefficients $a_n$, with two of them (typically $a_0$ and $a_1$) remaining as arbitrary constants corresponding to the two linearly independent solutions.
@@ -1952,8 +2025,11 @@ At an ordinary point $x_0$, we substitute $y = \sum_{n=0}^{\infty} a_n (x - x_0)
     y &= a_0[1 - \frac{x^2}{1} - \frac{x^4}{3} - \frac{x^6}{5} - \cdots] + a_1 x\\
     &= a_0\left[1 - \frac{x}{2}\ln\left(\frac{1 + x}{1 - x}\right)\right] + a_1x
   \end{align*}
-  Notice the logarithmic behaviour near $x = \pm 1$ which are regular singular points.
 \end{eg}
+
+\begin{remark}
+  The solution exhibits logarithmic behaviour near $x = \pm 1$, which are regular singular points of the equation. This is typical: solutions often have singular behaviour (such as logarithms or non-integer powers) near singular points of the differential equation.
+\end{remark}
 
 \subsubsection*{Regular singular points}
 At a regular singular point $x_0$, we use the Frobenius method: substitute $y = \sum_{n=0}^{\infty} a_n (x - x_0)^{n + \sigma}$ with $a_0 \neq 0$. The $n = 0$ term of the recurrence relation yields the \emph{indicial equation} for $\sigma$, which is typically a quadratic with two roots $\sigma_1$ and $\sigma_2$.
@@ -2021,28 +2097,31 @@ At a regular singular point $x_0$, we use the Frobenius method: substitute $y = 
 \end{eg}
 
 \subsubsection*{Resonance of solutions}
-The indicial equation is quadratic in $\sigma$, yielding two roots $\sigma_1$ and $\sigma_2$ (with $\Re(\sigma_1) \leq \Re(\sigma_2)$). Whether both roots give independent Frobenius series solutions depends on their difference:
-\begin{enumerate}
-  \item If $\sigma_2 - \sigma_1$ is not an integer, then there are two linearly independent Frobenius solutions
-    \[
-      y = \left[(x - x_0)^{\sigma_1}\sum_{n = 0}^{\infty} a_n(x - x_0)^n\right] + \left[(x - x_0)^{\sigma_2}\sum_{n = 0}^{\infty} b_n(x - x_0)^n\right].
-    \]
-    As $x\to x_0$, $y \sim (x - x_0)^{\sigma_1}$, where $\Re(\sigma_1) \leq \Re(\sigma_2)$
+The indicial equation is quadratic in $\sigma$, yielding two roots $\sigma_1$ and $\sigma_2$ (with $\Re(\sigma_1) \leq \Re(\sigma_2)$). Whether both roots give independent Frobenius series solutions depends on their difference.
 
-  \item If $\sigma_2 - \sigma_1$ is an integer (including when they are equal), there is one solution of the form
-    \[
-      y_1 = (x - x_0)^{\sigma_2}\sum_{n = 0}^{\infty} a_n(x - x_0)^n
-    \]
-    with $\sigma_2 \geq \sigma_1$.
+\begin{prop}[Classification of Frobenius solutions]
+  Let $\sigma_1$ and $\sigma_2$ be the roots of the indicial equation with $\Re(\sigma_1) \leq \Re(\sigma_2)$.
+  \begin{enumerate}
+    \item If $\sigma_2 - \sigma_1$ is \emph{not} an integer, then there are two linearly independent Frobenius solutions
+      \[
+        y = \left[(x - x_0)^{\sigma_1}\sum_{n = 0}^{\infty} a_n(x - x_0)^n\right] + \left[(x - x_0)^{\sigma_2}\sum_{n = 0}^{\infty} b_n(x - x_0)^n\right].
+      \]
+      As $x\to x_0$, $y \sim (x - x_0)^{\sigma_1}$.
 
-    In this case, $\sigma = \sigma_1$ typically does not yield a valid solution, as demonstrated in the following example. Instead, the second solution is generally of the form
-    \[
-      y_2 = \ln(x - x_0)y_1 + \sum_{n = 0}^\infty b_n(x - x_0)^{n + \sigma_1}.
-    \]
-    This form arises from resonance between the two solutions. However, if the resonance condition is not triggered, it is possible for two regular Frobenius series solutions to exist.
+    \item If $\sigma_2 - \sigma_1$ is an integer (including when they are equal), there is one Frobenius solution
+      \[
+        y_1 = (x - x_0)^{\sigma_2}\sum_{n = 0}^{\infty} a_n(x - x_0)^n.
+      \]
+      In this case, $\sigma = \sigma_1$ typically does not yield a valid solution. The second solution is generally of the form
+      \[
+        y_2 = \ln(x - x_0)\cdot y_1 + \sum_{n = 0}^\infty b_n(x - x_0)^{n + \sigma_1}.
+      \]
+  \end{enumerate}
+\end{prop}
 
-    We can substitute this form of solution into the differential equation to determine $b_n$.
-\end{enumerate}
+\begin{remark}
+  The logarithmic term in case (ii) arises from resonance between the two solutions. However, if the resonance condition is not triggered (i.e., certain coefficients vanish), it is possible for two regular Frobenius series solutions to exist even when $\sigma_2 - \sigma_1$ is an integer. One can substitute the logarithmic form into the differential equation to determine the coefficients $b_n$.
+\end{remark}
 \begin{eg}[Resonant Frobenius series]
   Consider $x^2 y'' - xy = 0$. Here $x = 0$ is a regular singular point (the equation is already in equidimensional form). We try
   \[
@@ -2124,16 +2203,16 @@ We know that the directional derivative is given by
 \[
   \frac{\d f}{\d s} = \mathbf{\hat{s}}\cdot \nabla f = |\nabla f| \cos \theta
 \]
-where $\theta$ is the angle between the displacement and $\nabla f$. Then when $\cos\theta$ is maximized, $\frac{\d f}{\d s} = |\nabla f|$. So we know that
-\begin{enumerate}
-  \item $\nabla f$ has magnitude equal to the maximum rate of change of $f(x, y)$ in the $xy$ plane.
-  \item It has direction in which $f$ increases most rapidly.
-  \item If $\d\mathbf{s}$ is a displacement along a contour of $f$ (i.e.\ along a line in which $f$ is constant), then
-    \[
-      \frac{\d f}{\d s} = 0.
-    \]
-    So $\mathbf{\hat{s}}\cdot \nabla f = 0$, i.e.\ $\nabla f$ is orthogonal to the contour.
-\end{enumerate}
+where $\theta$ is the angle between the displacement and $\nabla f$.
+
+\begin{prop}[Properties of the gradient]
+  Let $f$ be a differentiable scalar function. Then:
+  \begin{enumerate}
+    \item The magnitude $|\nabla f|$ equals the maximum rate of change of $f$.
+    \item The direction of $\nabla f$ is the direction in which $f$ increases most rapidly.
+    \item The gradient $\nabla f$ is orthogonal to the contours (level curves) of $f$. That is, if $\d\mathbf{s}$ is a displacement along a contour, then $\frac{\d f}{\d s} = \mathbf{\hat{s}}\cdot \nabla f = 0$.
+  \end{enumerate}
+\end{prop}
 \subsection{Stationary points}
 At any point, there is at least one direction in which $\frac{\d f}{\d s} = 0$: the direction tangent to the contour (level curve) of $f$. However, at certain special points, the directional derivative vanishes in \emph{all} directions.
 
@@ -2145,7 +2224,7 @@ At any point, there is at least one direction in which $\frac{\d f}{\d s} = 0$: 
   At such points, $\frac{\d f}{\d s} = \hat{\mathbf{s}} \cdot \nabla f = 0$ for all directions $\hat{\mathbf{s}}$.
 \end{defi}
 
-Stationary points include local maxima and local minima, but also \emph{saddle points}---points where $\nabla f = \mathbf{0}$ but which are neither maxima nor minima:
+Stationary points include local maxima and local minima, but also \emph{saddle points}:
 \begin{center}
   \begin{tikzpicture}
     \begin{axis}[hide axis, xtick=\empty, ytick=\empty]
@@ -2154,9 +2233,14 @@ Stationary points include local maxima and local minima, but also \emph{saddle p
     \end{axis}
   \end{tikzpicture}
 \end{center}
-In general, we define a saddle point to be a point at which $\nabla f = 0$ but is not a maximum or minimum.
 
-When we plot out contours of functions, near maxima and minima, the contours are locally elliptical. Near saddle points, they are locally hyperbolic. Also, the contour lines cross at and only at saddle points.
+\begin{defi}[Saddle point]
+  A \emph{saddle point} is a stationary point (where $\nabla f = \mathbf{0}$) that is neither a local maximum nor a local minimum. At a saddle point, $f$ increases in some directions and decreases in others.
+\end{defi}
+
+\begin{remark}
+  When plotting contours of functions: near maxima and minima, the contours are locally elliptical; near saddle points, they are locally hyperbolic. Furthermore, contour lines cross at and only at saddle points.
+\end{remark}
 
 \subsection{Taylor series for multi-variable functions}
 To classify stationary points, we need to examine the local behaviour of $f$ near such points. This requires extending Taylor series to functions of several variables.
@@ -2245,9 +2329,15 @@ The criterion above does not immediately indicate the sign of $\delta \mathbf{x}
 \end{align*}
 where $\lambda_1, \lambda_2, \cdots \lambda_n$ are the eigenvalues of $H$.
 
-So for $\delta \mathbf{x}\cdot H\cdot \delta \mathbf{x}$ to be positive-definite, we need $\lambda_i > 0$ for all $i$. Similarly, it is negative-definite iff $\lambda_i < 0$ for all $i$. If eigenvalues have mixed sign, then it is a saddle point.
-
-Finally, if there is at least one zero eigenvalue, then we need further analysis to determine the nature of the stationary point.
+\begin{prop}[Eigenvalue criterion for stationary points]
+  Let $\lambda_1, \lambda_2, \ldots, \lambda_n$ be the eigenvalues of the Hessian matrix $H$ at a stationary point. Then:
+  \begin{itemize}
+    \item The stationary point is a \textbf{local minimum} if and only if $\lambda_i > 0$ for all $i$.
+    \item The stationary point is a \textbf{local maximum} if and only if $\lambda_i < 0$ for all $i$.
+    \item The stationary point is a \textbf{saddle point} if the eigenvalues have mixed signs.
+    \item If at least one eigenvalue is zero, further analysis (higher-order terms) is required.
+  \end{itemize}
+\end{prop}
 
 An alternative to computing eigenvalues is to use \emph{Sylvester's criterion}, which involves the leading principal minors of $H$.
 
@@ -2285,7 +2375,15 @@ In two dimensions, choose coordinates $(X, Y)$ aligned with the principal axes (
 \[
   H = \begin{pmatrix} \lambda_1 & 0\\ 0 & \lambda_2 \end{pmatrix}.
 \]
-Near the stationary point, the contour $f = \text{constant}$ satisfies $\lambda_1 X^2 + \lambda_2 Y^2 = \text{constant}$. If $\lambda_1$ and $\lambda_2$ have the same sign (maximum or minimum), the contours are locally \emph{ellipses}. If they have opposite signs (saddle point), the contours are locally \emph{hyperbolae}.
+Near the stationary point, the contour $f = \text{constant}$ satisfies $\lambda_1 X^2 + \lambda_2 Y^2 = \text{constant}$.
+
+\begin{prop}[Contour shapes near stationary points]
+  In two dimensions, near a stationary point with Hessian eigenvalues $\lambda_1$ and $\lambda_2$:
+  \begin{itemize}
+    \item If $\lambda_1$ and $\lambda_2$ have the \emph{same sign} (local maximum or minimum), the contours are locally \emph{ellipses}.
+    \item If $\lambda_1$ and $\lambda_2$ have \emph{opposite signs} (saddle point), the contours are locally \emph{hyperbolae}.
+  \end{itemize}
+\end{prop}
 
 \begin{eg}[Cubic polynomial stationary points]
   Find and classify the stationary points of $f(x, y) = 4x^3 - 12xy + y^2 + 10y + 6$. We have
@@ -2357,9 +2455,13 @@ so
 \[
   \ddot y_1 - (a + d)\dot y_1 + (ad - bc) y_1 = bf_2 - df_1 + \dot f_1
 \]
-and we know how to solve this. However, eliminating variables typically makes the equation more complicated.
+and we know how to solve this.
 
-The more useful direction is to convert a higher-order equation into a first-order system. Given $\ddot{y} + a\dot{y} + by = f$, introduce $y_1 = y$ and $y_2 = \dot{y}$, so that $\mathbf{Y} = \begin{pmatrix} y_1 \\ y_2 \end{pmatrix} = \begin{pmatrix} y \\ \dot{y} \end{pmatrix}$. The second-order equation becomes the first-order system
+\begin{remark}
+  While converting a system to a higher-order equation is always possible, eliminating variables typically makes the equation more complicated. The more useful direction is usually to convert a higher-order equation into a first-order system.
+\end{remark}
+
+Given $\ddot{y} + a\dot{y} + by = f$, we convert to a first-order system as follows. Given $\ddot{y} + a\dot{y} + by = f$, introduce $y_1 = y$ and $y_2 = \dot{y}$, so that $\mathbf{Y} = \begin{pmatrix} y_1 \\ y_2 \end{pmatrix} = \begin{pmatrix} y \\ \dot{y} \end{pmatrix}$. The second-order equation becomes the first-order system
 \begin{align*}
   \dot y_1 &= y_2\\
   \dot y_2 &= f - a y_2 - by_1
@@ -2385,10 +2487,15 @@ Consider the general linear system $\dot{\mathbf{Y}} = M\mathbf{Y} + \mathbf{F}$
 \]
 which requires $M\mathbf{v} = \lambda \mathbf{v}$. Thus $\lambda$ must be an \emph{eigenvalue} of $M$ and $\mathbf{v}$ the corresponding \emph{eigenvector}.
 
-To find the eigenvalues, solve the characteristic equation $\det(M - \lambda I) = 0$. For each eigenvalue $\lambda_i$, find the corresponding eigenvector $\mathbf{v}_i$ by solving $(M - \lambda_i I)\mathbf{v}_i = \mathbf{0}$. If $M$ is $n \times n$ with $n$ distinct eigenvalues, the general solution to the homogeneous equation is
-\[
-  \mathbf{Y}_c = A_1 \mathbf{v}_1 e^{\lambda_1 t} + A_2 \mathbf{v}_2 e^{\lambda_2 t} + \cdots + A_n \mathbf{v}_n e^{\lambda_n t}.
-\]
+To find the eigenvalues, solve the characteristic equation $\det(M - \lambda I) = 0$. For each eigenvalue $\lambda_i$, find the corresponding eigenvector $\mathbf{v}_i$ by solving $(M - \lambda_i I)\mathbf{v}_i = \mathbf{0}$.
+
+\begin{prop}[General solution for distinct eigenvalues]
+  If $M$ is an $n \times n$ matrix with $n$ distinct eigenvalues $\lambda_1, \ldots, \lambda_n$ and corresponding eigenvectors $\mathbf{v}_1, \ldots, \mathbf{v}_n$, then the general solution to the homogeneous equation $\dot{\mathbf{Y}} = M\mathbf{Y}$ is
+  \[
+    \mathbf{Y}_c = A_1 \mathbf{v}_1 e^{\lambda_1 t} + A_2 \mathbf{v}_2 e^{\lambda_2 t} + \cdots + A_n \mathbf{v}_n e^{\lambda_n t},
+  \]
+  where $A_1, \ldots, A_n$ are arbitrary constants.
+\end{prop}
 
 \begin{eg}[Coupled system with exponential forcing]
   \[
@@ -2528,44 +2635,50 @@ To find the eigenvalues, solve the characteristic equation $\det(M - \lambda I) 
 \end{eg}
 
 \subsubsection*{Classification of phase portraits}
-For a $2 \times 2$ system $\dot{\mathbf{Y}} = M\mathbf{Y}$, the qualitative behaviour of solutions is determined by the eigenvalues $\lambda_1, \lambda_2$ of $M$. There are three main cases:
-\begin{enumerate}
-  \item \textbf{Saddle point} ($\lambda_1, \lambda_2$ real with opposite signs): Without loss of generality, assume $\lambda_1 > 0 > \lambda_2$. Trajectories approach the origin along the eigenvector $\mathbf{v}_2$ (corresponding to $\lambda_2 < 0$) and recede along $\mathbf{v}_1$:
-  \begin{center}
-    \begin{tikzpicture}
-      \draw [->-=0.785, -<-=0.215, mblue, semithick] (-4, -1) -- (4, 1) node [right] {$v_1 = (4, 1)$};
-      \draw [->-=0.25, -<-=0.75, mblue, semithick] (-4, 0.667) -- (4, -0.667) node [right] {$v_2 = (-6, 1)$};
-
-      \draw [mblue, semithick, ->- = 0.3, ->- = 0.7] (-4, 1) .. controls (0, 0.333) and (0, 0.35) .. (4, 1.3);
-      \draw [mblue, semithick, -<- = 0.3, -<- = 0.7] (-4, -1.3) .. controls (0, -0.3) and (0, -0.333) .. (4, -1);
-
-      \draw [mblue, semithick, ->- = 0.3, ->- = 0.7] (-4, 0.333) .. controls (-2, 0) and (-2, -0.3) .. (-4, -0.6);
-      \draw [mblue, semithick, ->- = 0.3, ->- = 0.7] (4, -0.333) .. controls (2, 0) and (2, 0.3) .. (4, 0.6);
-    \end{tikzpicture}
-  \end{center}
-
-  \item \textbf{Node} ($\lambda_1, \lambda_2$ real with the same sign): Without loss of generality, assume $|\lambda_1| \geq |\lambda_2|$. Trajectories are tangent to the eigenvector $\mathbf{v}_1$ (the ``dominant'' direction) far from the origin:
-    \begin{center}
-      \begin{tikzpicture}[rotate=-20]
-        \draw [mblue, semithick] (-3, 0) -- (3, 0) node [right] {$v_1$};
-        \draw [mblue, semithick] (0, -2) -- (0, 2) node [above] {$v_2$};
-
-        \draw [mblue, semithick] (-2, 2) parabola bend (0, 0) (2, 2);
-        \draw [mblue, semithick] (-1, 2) parabola bend (0, 0) (1, 2);
-        \draw [mblue, semithick] (-2, -2) parabola bend (0, 0) (2, -2);
-        \draw [mblue, semithick] (-1, -2) parabola bend (0, 0) (1, -2);
-      \end{tikzpicture}
-    \end{center}
-    If both $\lambda_1, \lambda_2 < 0$, arrows point towards the origin (\emph{stable node}). If both $\lambda_1, \lambda_2 > 0$, arrows point outwards (\emph{unstable node}).
-
-  \item \textbf{Spiral/Centre} ($\lambda_1, \lambda_2$ complex conjugates): Write $\lambda = \alpha \pm i\beta$. The trajectories spiral around the origin:
+\begin{prop}[Classification of phase portraits]
+  For a $2 \times 2$ system $\dot{\mathbf{Y}} = M\mathbf{Y}$, the qualitative behaviour of solutions is determined by the eigenvalues $\lambda_1, \lambda_2$ of $M$. There are three main cases:
+  \begin{enumerate}
+    \item \textbf{Saddle point} ($\lambda_1, \lambda_2$ real with opposite signs): Without loss of generality, assume $\lambda_1 > 0 > \lambda_2$. Trajectories approach the origin along the eigenvector $\mathbf{v}_2$ (corresponding to $\lambda_2 < 0$) and recede along $\mathbf{v}_1$:
     \begin{center}
       \begin{tikzpicture}
-        \draw [mblue, semithick, domain = 0:40,samples=300] plot ({2*exp(-\x/10)*cos(50*\x)}, {2*exp(-\x/10)*sin(50*\x)});
+        \draw [->-=0.785, -<-=0.215, mblue, semithick] (-4, -1) -- (4, 1) node [right] {$v_1 = (4, 1)$};
+        \draw [->-=0.25, -<-=0.75, mblue, semithick] (-4, 0.667) -- (4, -0.667) node [right] {$v_2 = (-6, 1)$};
+
+        \draw [mblue, semithick, ->- = 0.3, ->- = 0.7] (-4, 1) .. controls (0, 0.333) and (0, 0.35) .. (4, 1.3);
+        \draw [mblue, semithick, -<- = 0.3, -<- = 0.7] (-4, -1.3) .. controls (0, -0.3) and (0, -0.333) .. (4, -1);
+
+        \draw [mblue, semithick, ->- = 0.3, ->- = 0.7] (-4, 0.333) .. controls (-2, 0) and (-2, -0.3) .. (-4, -0.6);
+        \draw [mblue, semithick, ->- = 0.3, ->- = 0.7] (4, -0.333) .. controls (2, 0) and (2, 0.3) .. (4, 0.6);
       \end{tikzpicture}
     \end{center}
-    If $\Re (\lambda_{1, 2}) < 0$, then it spirals inwards. If $\Re (\lambda_{1, 2}) > 0$, then it spirals outwards. If $\Re (\lambda_{1, 2}) = 0$, then we have ellipses with common centers instead of spirals. We can determine whether the spiral is positive (as shown above), or negative (mirror image of the spiral above) by considering the eigenvectors. An example of this is given below.
-\end{enumerate}
+
+    \item \textbf{Node} ($\lambda_1, \lambda_2$ real with the same sign): Without loss of generality, assume $|\lambda_1| \geq |\lambda_2|$. Trajectories are tangent to the eigenvector $\mathbf{v}_1$ (the ``dominant'' direction) far from the origin:
+      \begin{center}
+        \begin{tikzpicture}[rotate=-20]
+          \draw [mblue, semithick] (-3, 0) -- (3, 0) node [right] {$v_1$};
+          \draw [mblue, semithick] (0, -2) -- (0, 2) node [above] {$v_2$};
+
+          \draw [mblue, semithick] (-2, 2) parabola bend (0, 0) (2, 2);
+          \draw [mblue, semithick] (-1, 2) parabola bend (0, 0) (1, 2);
+          \draw [mblue, semithick] (-2, -2) parabola bend (0, 0) (2, -2);
+          \draw [mblue, semithick] (-1, -2) parabola bend (0, 0) (1, -2);
+        \end{tikzpicture}
+      \end{center}
+      If both $\lambda_1, \lambda_2 < 0$, arrows point towards the origin (\emph{stable node}). If both $\lambda_1, \lambda_2 > 0$, arrows point outwards (\emph{unstable node}).
+
+    \item \textbf{Spiral/Centre} ($\lambda_1, \lambda_2$ complex conjugates): Write $\lambda = \alpha \pm i\beta$. The trajectories spiral around the origin:
+      \begin{center}
+        \begin{tikzpicture}
+          \draw [mblue, semithick, domain = 0:40,samples=300] plot ({2*exp(-\x/10)*cos(50*\x)}, {2*exp(-\x/10)*sin(50*\x)});
+        \end{tikzpicture}
+      \end{center}
+      If $\Re (\lambda_{1, 2}) < 0$, then it spirals inwards (\emph{stable spiral}). If $\Re (\lambda_{1, 2}) > 0$, then it spirals outwards (\emph{unstable spiral}). If $\Re (\lambda_{1, 2}) = 0$, then we have ellipses with common centers instead of spirals (\emph{centre}).
+  \end{enumerate}
+\end{prop}
+
+\begin{remark}
+  We can determine whether a spiral is positive (counter-clockwise) or negative (clockwise) by considering the eigenvectors. An example of this is given below.
+\end{remark}
 
 \subsection{Nonlinear dynamical systems}
 For nonlinear systems, exact solutions are often impossible to find. However, we can understand the qualitative behaviour by analyzing equilibrium points and their stability.
@@ -2599,7 +2712,16 @@ So if $\xi, \eta \ll 1$,
     \xi\\\eta
   \end{pmatrix}
 \]
-The matrix $J = \begin{pmatrix} f_x & f_y \\ g_x & g_y \end{pmatrix}$ evaluated at $(x_0, y_0)$ is called the \emph{Jacobian matrix}. The eigenvalues of $J$ determine the local stability: the equilibrium has the same character (saddle, node, spiral) as the corresponding linear system, provided no eigenvalue has zero real part.
+\begin{defi}[Jacobian matrix]
+  The \emph{Jacobian matrix} of the system $\dot{x} = f(x,y)$, $\dot{y} = g(x,y)$ at a point $(x_0, y_0)$ is
+  \[
+    J = \begin{pmatrix} f_x & f_y \\ g_x & g_y \end{pmatrix}\bigg|_{(x_0, y_0)}.
+  \]
+\end{defi}
+
+\begin{prop}[Linearization principle]
+  The eigenvalues of the Jacobian matrix $J$ at an equilibrium point determine the local stability: the equilibrium has the same character (saddle, node, spiral) as the corresponding linear system $\dot{\boldsymbol{\xi}} = J\boldsymbol{\xi}$, provided no eigenvalue has zero real part.
+\end{prop}
 
 \begin{eg}[Predator-prey population model]
   Consider a population model with $x$ prey and $y$ predators:
@@ -2751,11 +2873,15 @@ So we have replaced the original partial differential equations with a pair of o
 
 Each path that satisfies (1) can be described by $x = x_0 - ct$, where $x_0$ is a constant. We can write this as $x_0 = x + ct$.
 
-From (2), along each of these paths, $y$ is constant. So suppose for each $x_0$, the value of $y$ along the path $x_0 = x + ct$ is given by $f(x_0)$, where $f$ is an arbitrary function. Then the solution to the wave equation is
-\[
-  y = f(x + ct),
-\]
-By differentiating this directly, we can easily check that every function of this form is a solution to the wave equation.
+From (2), along each of these paths, $y$ is constant. So suppose for each $x_0$, the value of $y$ along the path $x_0 = x + ct$ is given by $f(x_0)$, where $f$ is an arbitrary function.
+
+\begin{prop}[General solution of first-order wave equation]
+  The general solution to $y_t - cy_x = 0$ is
+  \[
+    y = f(x + ct),
+  \]
+  where $f$ is an arbitrary differentiable function. Every such function is a solution (verified by direct differentiation), and every solution has this form.
+\end{prop}
 
 \begin{defi}[Characteristics]
   The \emph{characteristics} of a first-order PDE are the curves along which the PDE reduces to an ODE. For the equation $y_t - cy_x = 0$, the characteristics are the lines $x + ct = \text{constant}$.
@@ -2826,7 +2952,9 @@ The wave equation models vibrations of a string. Let $y(x, t)$ denote the vertic
 \end{center}
 Suppose that $\rho(x)$ is the mass per unit length of a string. Then the restoring force on the string $\displaystyle ma = \rho \frac{\partial ^2 y}{\partial t^2}$ is proportional to the second derivative $\displaystyle\frac{\partial^2 y}{\partial x^2}$. So we obtain this wave equation.
 
-(Why the second spatial derivative? The restoring force cannot depend on $y$ itself (translating the whole string causes no force) or on $\partial y/\partial x$ (a uniform slope has balanced forces). Only \emph{curvature}, measured by $\partial^2 y/\partial x^2$, produces a net restoring force.)
+\begin{remark}
+  Why the second spatial derivative? The restoring force cannot depend on $y$ itself (translating the whole string causes no force) or on $\partial y/\partial x$ (a uniform slope has balanced forces). Only \emph{curvature}, measured by $\partial^2 y/\partial x^2$, produces a net restoring force.
+\end{remark}
 
 \subsubsection*{General solution (d'Alembert)}
 Assuming $c$ is constant, we can factor the wave operator:
@@ -2834,15 +2962,23 @@ Assuming $c$ is constant, we can factor the wave operator:
   \frac{\partial ^2 y}{\partial t^2} - c^2 \frac{\partial^2 y}{\partial x^2} &= 0\\
   \left(\frac{\partial}{\partial t} + c\frac{\partial}{\partial x}\right)\left(\frac{\partial}{\partial t} - c\frac{\partial}{\partial x}\right) y &= 0
 \end{align*}
-If $y = f(x + ct)$, then $(\partial_t - c\partial_x)y = 0$, so the product of operators gives zero. Similarly, $y = g(x - ct)$ satisfies $(\partial_t + c\partial_x)y = 0$. Since the equation is linear, the general solution is
-\[
-  y = f(x + ct) + g(x - ct),
-\]
-where $f$ and $g$ are arbitrary functions. This is \emph{d'Alembert's solution}: it represents a superposition of a wave travelling left (with speed $c$) and a wave travelling right (with speed $c$).
+If $y = f(x + ct)$, then $(\partial_t - c\partial_x)y = 0$, so the product of operators gives zero. Similarly, $y = g(x - ct)$ satisfies $(\partial_t + c\partial_x)y = 0$. Since the equation is linear:
+
+\begin{prop}[d'Alembert's solution]
+  The general solution to the wave equation $y_{tt} = c^2 y_{xx}$ is
+  \[
+    y = f(x + ct) + g(x - ct),
+  \]
+  where $f$ and $g$ are arbitrary twice-differentiable functions. This represents a superposition of a wave travelling left (with speed $c$) and a wave travelling right (with speed $c$).
+\end{prop}
 
 To verify this is the most general solution, substitute $\xi = x + ct$ and $\eta = x - ct$. The chain rule gives $y_{tt} - c^2 y_{xx} = -4c^2 y_{\xi\eta}$. Thus the wave equation becomes $y_{\xi\eta} = 0$, which integrates to $y = f(\xi) + g(\eta)$.
 
-How many boundary conditions do we need to have a unique solution? In ODEs, we simply count the order of the equation. In PDEs, we have to count over all variables. In this case, we need 2 boundary conditions and 2 initial conditions. For example, we can have:
+\begin{remark}
+  How many conditions do we need for a unique solution? In ODEs, we simply count the order of the equation. In PDEs, we must count over all variables. For the wave equation (second-order in both $x$ and $t$), we need 2 boundary conditions and 2 initial conditions.
+\end{remark}
+
+For example, we can have:
 \begin{itemize}
   \item Initial conditions: at $t = 0$,
     \begin{gather*}
@@ -2882,7 +3018,9 @@ The \emph{diffusion equation} (or \emph{heat equation}) models heat conduction i
 \]
 where $T(x, t)$ is the temperature and $\kappa > 0$ is the \emph{thermal diffusivity}. This is classified as a \emph{parabolic PDE}.
 
-Unlike the wave equation (where acceleration $\propto$ curvature), here the rate of change $\partial T/\partial t$ is directly proportional to curvature $\partial^2 T/\partial x^2$. This makes the diffusion equation \emph{dissipative}: irregularities smooth out over time rather than propagating as waves.
+\begin{remark}
+  Unlike the wave equation (where acceleration $\propto$ curvature), here the rate of change $\partial T/\partial t$ is directly proportional to curvature $\partial^2 T/\partial x^2$. This makes the diffusion equation \emph{dissipative}: irregularities smooth out over time rather than propagating as waves.
+\end{remark}
 
 \begin{eg}[Semi-infinite heated bar]
   Consider a semi-infinite bar ($x \geq 0$) that is initially at temperature zero, then heated at the end $x = 0$ for $t > 0$:
