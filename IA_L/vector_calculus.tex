@@ -2095,90 +2095,84 @@ We then prove the 2D divergence theorem directly, which establishes all three re
 \end{rmk}
 \section{Some applications of integral theorems}
 \subsection{Integral expressions for div and curl}
-We can use these theorems to come up with alternative definitions of the div and curl. The advantage of these alternative definitions is that they do not require a choice of coordinate axes. They also better describe how we should interpret div and curl.
+The integral theorems provide coordinate-free definitions of divergence and curl that clarify their geometric meaning.
 
-Gauss' theorem for $\mathbf{F}$ in a small volume $V$ containing $\mathbf{r}_0$ gives
+Applying the divergence theorem to a small volume $V$ containing a point $\mathbf{r}_0$,
 \[
   \int_{\partial V}\mathbf{F}\cdot \d \mathbf{S} = \int_V\nabla\cdot \mathbf{F}\;\d V\approx (\nabla\cdot \mathbf{F})(\mathbf{r}_0) \vol(V).
 \]
-We take the limit as $V\to 0$ to obtain
-\begin{prop}[Divergence limit definition]
+Taking the limit as $V$ shrinks to $\mathbf{r}_0$ yields:
+
+\begin{prop}[Integral definition of divergence]
   \[
     (\nabla \cdot \mathbf{F})(\mathbf{r}_0) = \lim_{\mathrm{diam}(V) \to 0} \frac{1}{\vol(V)}\int_{\partial V}\mathbf{F}\cdot \d \mathbf{S},
   \]
-  where the limit is taken over volumes containing the point $\mathbf{r}_0$.
+  where the limit is taken over volumes $V$ containing $\mathbf{r}_0$.
 \end{prop}
-Similarly, Stokes' theorem gives, for $A$ a surface containing the point $\mathbf{r}_0$,
+
+Similarly, applying Stokes' theorem to a small surface $A$ containing $\mathbf{r}_0$ with unit normal $\mathbf{n}$,
 \[
   \int _{\partial A}\mathbf{F}\cdot \d \mathbf{r} = \int_A(\nabla\times \mathbf{F})\cdot \mathbf{n}\;\d A \approx \mathbf{n}\cdot (\nabla\times \mathbf{F})(\mathbf{r}_0) \area(A).
 \]
-So
-\begin{prop}[Curl limit definition]
+
+\begin{prop}[Integral definition of curl]
   \[
     \mathbf{n}\cdot (\nabla \times \mathbf{F})(\mathbf{r}_0) = \lim_{\mathrm{diam}(A) \to 0}\frac{1}{\area(A)}\int_{\partial A}\mathbf{F}\cdot \d \mathbf{r},
   \]
-  where the limit is taken over all surfaces $A$ containing $\mathbf{r}_0$ with normal $\mathbf{n}$.
+  where the limit is taken over surfaces $A$ containing $\mathbf{r}_0$ with normal $\mathbf{n}$.
 \end{prop}
-These are coordinate-independent definitions of div and curl.
 
-\begin{eg}[Fluid flow interpretation of div and curl]
-  Suppose $\mathbf{u}$ is a velocity field of fluid flow. Then
+\begin{rmk}
+  These definitions are independent of the choice of coordinate system and provide the basis for physical interpretations of divergence and curl.
+\end{rmk}
+
+\begin{eg}[Fluid flow interpretation of divergence and curl]
+  Let $\mathbf{u}$ be the velocity field of a fluid flow. The flux integral $\int_S \mathbf{u}\cdot \d \mathbf{S}$ gives the rate at which fluid crosses the surface $S$.
+
+  \emph{Divergence as expansion rate:} Consider a small volume $V$ of fluid. The rate of change of its volume is
   \[
-    \int_S \mathbf{u}\cdot \d \mathbf{S}
+    \dot{V} = \int_{\partial V}\mathbf{u}\cdot \d \mathbf{S}.
   \]
-  is the rate of which fluid crosses $S$. Taking $V$ to be the volume occupied by a fixed quantity of fluid material, we have
-  \[
-    \dot{V} = \int_{\partial V}\mathbf{u}\cdot \d \mathbf{S}
-  \]
-  Then, at $\mathbf{r}_0$,
+  By the integral definition of divergence,
   \[
     \nabla\cdot \mathbf{u} = \lim_{V\to 0}\frac{\dot{V}}{V},
   \]
-  the relative rate of change of volume. For example, if $\mathbf{u}(\mathbf{r}) = \alpha\mathbf{r}$ (ie fluid flowing out of origin), then $\nabla\cdot \mathbf{u} = 3\alpha$, which increases at a constant rate everywhere.
+  which is the relative rate of volume expansion. For example, if $\mathbf{u}(\mathbf{r}) = \alpha\mathbf{r}$ (radial outflow from the origin), then $\nabla\cdot \mathbf{u} = 3\alpha$, indicating uniform expansion throughout space.
 
-  Alternatively, take a planar area $A$ to be a disc of radius $a$. Then
+  \emph{Curl as rotation rate:} Consider a disc $A$ of radius $a$ with unit normal $\mathbf{n}$. The circulation around its boundary is
   \[
-    \int_{\partial A}\mathbf{u}\cdot \d \mathbf{r} = \int_{\partial A}\mathbf{u}\cdot \mathbf{t} \;\d s = 2\pi a \times \text{average of $\mathbf{u}\cdot \mathbf{t}$ around the circumference}.
+    \int_{\partial A}\mathbf{u}\cdot \d \mathbf{r} = \int_{\partial A}\mathbf{u}\cdot \mathbf{t} \;\d s = 2\pi a \times (\text{average tangential velocity}).
   \]
-  ($\mathbf{u}\cdot \mathbf{t}$ is the component of $\mathbf{u}$ which is tangential to the boundary) We define the quantity
+  Define the local angular velocity as
   \[
     \omega = \frac{1}{a} \times (\text{average of }\mathbf{u}\cdot \mathbf{t}).
   \]
-  This is the local angular velocity of the current. As $a \to 0$, $\frac{1}{a} \to \infty$, but the average of $\mathbf{u}\cdot \mathbf{t}$ will also decrease since a smooth field is less ``twirly'' if you look closer. So $\omega$ tends to some finite value as $a\to 0$. We have
+  As $a \to 0$, the average tangential velocity decreases (a smooth field varies less on smaller scales), but the ratio $\omega$ approaches a finite limit. Since $\int_{\partial A} \mathbf{u}\cdot \d \mathbf{r} = 2\pi a^2 \omega$, the integral definition gives
   \[
-    \int_{\partial A} \mathbf{u}\cdot \d \mathbf{r} = 2\pi a^2 \omega.
+    \mathbf{n}\cdot (\nabla \times \mathbf{u}) = \lim_{a \to 0}\frac{1}{\pi a^2}\int_{\partial A}\mathbf{u}\cdot \d \mathbf{r} = 2\omega.
   \]
-  Recall that
+  Thus the curl measures twice the local angular velocity of the fluid. For rigid body rotation with angular velocity $\boldsymbol\omega$, the velocity field is $\mathbf{u} = \boldsymbol\omega\times \mathbf{r}$, and
   \[
-    \mathbf{n}\cdot \nabla \times \mathbf{u} = \lim_{A \to 0}\frac{1}{\pi a^2}\int_{\partial A}\mathbf{u}\cdot \d \mathbf{r} = 2\omega,
+    \nabla\times (\boldsymbol\omega\times \mathbf{r}) = 2\boldsymbol\omega.
   \]
-  ie twice the local angular velocity. For example, if you have a washing machine rotating at a rate of $\boldsymbol\omega$, Then the velocity $\mathbf{u} = \boldsymbol\omega\times \mathbf{r}$. Then the curl is
-  \[
-    \nabla\times (\boldsymbol\omega\times \mathbf{r}) = 2\boldsymbol\omega,
-  \]
-  which is twice the angular velocity.
 \end{eg}
 
-\subsection{Conservative fields and scalar products}
+\subsection{Conservative fields and scalar potentials}
 \begin{defi}[Conservative field]
-  A vector field $\mathbf{F}$ is \emph{conservative} if
+  A vector field $\mathbf{F}$ is \emph{conservative} if any of the following equivalent conditions holds:
   \begin{enumerate}
-    \item $\mathbf{F} = \nabla f$ for some scalar field $f$; or
-    \item $\int_C \mathbf{F}\cdot \d \mathbf{r}$ is independent of $C$, for fixed end points and orientation; or
-    \item $\nabla \times \mathbf{F} = 0$.
+    \item $\mathbf{F} = \nabla f$ for some scalar field $f$ (called the \emph{scalar potential});
+    \item $\int_C \mathbf{F}\cdot \d \mathbf{r}$ depends only on the endpoints of $C$, not on the path;
+    \item $\nabla \times \mathbf{F} = \mathbf{0}$.
   \end{enumerate}
-  In $\R^3$, all three formulations are equivalent.
 \end{defi}
 
-We have previously shown (i) $\Rightarrow$ (ii) since
+We now prove these conditions are equivalent. The implications (i) $\Rightarrow$ (ii) and (i) $\Rightarrow$ (iii) were established earlier:
 \[
-  \int_C \mathbf{F}\cdot \d \mathbf{r} = f(\mathbf{b}) - f(\mathbf{a}).
+  \text{(i) } \Rightarrow \text{ (ii):} \quad \int_C \mathbf{F}\cdot \d \mathbf{r} = f(\mathbf{b}) - f(\mathbf{a}), \qquad
+  \text{(i) } \Rightarrow \text{ (iii):} \quad \nabla \times (\nabla f) = \mathbf{0}.
 \]
-We have also shown that (i) $\Rightarrow$ (iii) since
-\[
-  \nabla \times (\nabla f) = 0.
-\]
-So we want to show that (iii) $\Rightarrow $ (ii) and (ii) $\Rightarrow $ (i)
+It remains to show (iii) $\Rightarrow$ (ii) and (ii) $\Rightarrow$ (i).
 \begin{prop}[Path independence, sufficient condition]
   If (iii) $\nabla\times \mathbf{F}= 0 $, then (ii) $\int_C \mathbf{F}\cdot \d \mathbf{r}$ is independent of $C$.
 \end{prop}
@@ -2232,73 +2226,88 @@ So we want to show that (iii) $\Rightarrow $ (ii) and (ii) $\Rightarrow $ (i)
   \]
   So we have $\mathbf{F} = \nabla f$.
 \end{proof}
-Note that these results assume $\mathbf{F}$ is defined on the whole of $\R^3$. It also works if $\mathbf{F}$ is defined on a \emph{simply connected} domain $D$, ie a subspace of $\R^3$ without holes. By definition, this means that any two curves $C, \tilde{C}$ with fixed end points can be smoothly deformed into one another (alternatively, any loop can be shrunk into a point).
 
-If we have a smooth transformation from $C$ to $\tilde{C}$, the process sweeps out a surface bounded by $C$ and $\tilde{C}$. This is required by the proof that (iii) $\Rightarrow$ (ii).
+\begin{rmk}[Simply connected domains]
+  The above results assume $\mathbf{F}$ is defined on all of $\R^3$, but they also hold on any \emph{simply connected} domain $D$. A domain is simply connected if any closed loop can be continuously shrunk to a point, or equivalently, if any two curves with the same endpoints can be smoothly deformed into one another.
 
-If $D$ is not simply connected, then we obtain a multi-valued $f(\mathbf{r})$ on $D$ in general (for the proof (ii) $\Rightarrow$ (i)). However, we can choose to restrict to a subset $D_0\subseteq D$ such that $f(\mathbf{r})$ is single-valued on $D_0$.
+  The proof that (iii) $\Rightarrow$ (ii) requires the existence of a surface $S$ bounded by $C - \tilde{C}$. Such a surface exists precisely when $C$ and $\tilde{C}$ can be deformed into each other.
 
-\begin{eg}[Multi-valued potential, non-simply-connected domain]
-  Take
-  \[
-    \mathbf{F} = \left(\frac{- y}{x^2 + y^2}, \frac{x}{x^2 + y^2}, 0\right).
-  \]
-  This obeys $\nabla\times \mathbf{F} = 0$, and is defined on $D = \R^3 \setminus \{z\text{-axis}\}$, which is not simply-connected. We can also write
-  \[
-    \mathbf{F} = \nabla f,
-  \]
-  where
-  \[
-    f = \tan^{-1}\frac{y}{x}.
-  \]
-  which is multi-valued. If we integrate it about the closed loop $x^2 + y^2 = 1, z = 0$, i.e.\ a circle about the $z$ axis, the integral gives $2\pi$, as opposed to the expected $0$ for a conservative force. This shows that the simply-connected-domain criterion is important!
+  If $D$ is not simply connected, a scalar potential $f$ may be multi-valued. However, one can often restrict to a simply connected subset $D_0 \subseteq D$ on which $f$ is single-valued.
+\end{rmk}
 
-  However $f$ can be single-valued if we restrict it to
+\begin{eg}[Multi-valued potential on a non-simply-connected domain]
+  Consider the vector field
   \[
-    D_0 = \R^3 - \{\text{half-plane }x \geq 0,\, y = 0\},
+    \mathbf{F} = \left(\frac{-y}{x^2 + y^2}, \frac{x}{x^2 + y^2}, 0\right),
   \]
-  which is simply-connected. (Draw and check!) Any closed curve we can draw in this area will have an integral of $0$ (the circle mentioned above will no longer be closed!).
+  defined on $D = \R^3 \setminus \{z\text{-axis}\}$, which is not simply connected. One can verify that $\nabla\times \mathbf{F} = \mathbf{0}$ on $D$. Formally, $\mathbf{F} = \nabla f$ where
+  \[
+    f = \arctan\frac{y}{x},
+  \]
+  but this potential is multi-valued (the arctangent has multiple branches).
+
+  The non-trivial topology manifests when we integrate around the unit circle $x^2 + y^2 = 1$ in the $z = 0$ plane:
+  \[
+    \oint_C \mathbf{F}\cdot \d\mathbf{r} = 2\pi \neq 0.
+  \]
+  For a truly conservative field, all closed loop integrals would vanish.
+
+  To obtain a single-valued potential, we can restrict to the simply connected domain
+  \[
+    D_0 = \R^3 \setminus \{(x, y, z) : x \leq 0,\, y = 0\},
+  \]
+  obtained by removing a half-plane. On $D_0$, no closed curve can encircle the $z$-axis, and the potential becomes single-valued.
 \end{eg}
 
 \subsection{Conservation laws}
-\begin{defi}[Conservation equation]
-  Suppose we are interested in a quantity $Q$. Let $\rho(\mathbf{r}, t)$ be the amount of stuff per unit volume and $\mathbf{j}(\mathbf{r}, t)$ be the flow rate of the quantity (eg if $Q$ is charge, $j$ is the current density).
-
-  The conservation equation is
+\begin{defi}[Continuity equation]
+  Let $\rho(\mathbf{r}, t)$ be the density (amount per unit volume) of some conserved quantity, and let $\mathbf{j}(\mathbf{r}, t)$ be the corresponding flux density (flow rate per unit area). The \emph{continuity equation} (or \emph{conservation equation}) is
   \[
     \frac{\partial \rho}{\partial t} + \nabla\cdot \mathbf{j} = 0.
   \]
 \end{defi}
-This is stronger than the claim that the total amount of $Q$ in the universe is fixed. It says that $Q$ cannot just disappear here and appear elsewhere. It must continuously flow out.
 
-In particular, let $V$ be a fixed time-independent volume with boundary $S = \partial V$. Then
-\[
-  Q(t) = \int_V \rho (\mathbf{r}, t)\; \d V
-\]
-Then the rate of change of amount of $Q$ in $V$ is
-\[
-  \frac{\d Q}{\d t} = \int_V \frac{\partial \rho }{\partial t}\;\d V = -\int_V \nabla \cdot \mathbf{j}\;\d V = -\int_S \mathbf{j}\cdot \d \mathbf{S}.
-\]
-by divergence theorem. So this states that the rate of change of the quantity $Q$ in $V$ is the flux of the stuff flowing out of the surface. ie $Q$ cannot just disappear but must smoothly flow out.
+This equation expresses \emph{local} conservation: the quantity cannot appear or disappear, but must flow continuously from place to place.
 
-In particular, if $V$ is the whole universe (ie $\R^3$), and $\mathbf{j}\to 0$ sufficiently rapidly as $|\mathbf{r}| \to \infty$, then we calculate the total amount of $Q$ in the universe by taking $V$ to be a solid sphere of radius $R$, and take the limit as $R\to \infty$. Then the surface integral $\to 0$, and the equation states that
-\[
-  \frac{\d Q}{\d t} = 0,
-\]
+\begin{prop}[Integral form of conservation]
+  Let $V$ be a fixed region with boundary $S = \partial V$, and let $Q(t) = \int_V \rho(\mathbf{r}, t)\, \d V$ be the total amount of the conserved quantity in $V$. Then
+  \[
+    \frac{\d Q}{\d t} = -\int_S \mathbf{j}\cdot \d \mathbf{S}.
+  \]
+\end{prop}
+
+\begin{proof}
+  By the continuity equation and the divergence theorem,
+  \[
+    \frac{\d Q}{\d t} = \int_V \frac{\partial \rho}{\partial t}\,\d V = -\int_V \nabla \cdot \mathbf{j}\,\d V = -\int_S \mathbf{j}\cdot \d \mathbf{S}.\qedhere
+  \]
+\end{proof}
+
+This states that the rate of change of $Q$ in $V$ equals the net inward flux through the boundary: the quantity cannot disappear from $V$ except by flowing out through $\partial V$.
+
+\begin{rmk}[Global conservation]
+  If $\mathbf{j} \to \mathbf{0}$ sufficiently rapidly as $|\mathbf{r}| \to \infty$, then taking $V$ to be all of $\R^3$ (as a limit of large spheres) gives $\frac{\d Q_{\text{total}}}{\d t} = 0$: the total amount of the quantity in the universe is constant.
+\end{rmk}
 \begin{eg}[Charge conservation]
-  If $\rho(\mathbf{r}, t)$ is the charge density (i.e.\ $\rho\delta V$ is the amount of charge in a small volume $\delta V$), then $Q(t)$ is the total charge in $V$. $\mathbf{j}(\mathbf{r}, t)$ is the electric current density. So $\mathbf{j}\cdot \d \mathbf{S}$ is the charge flowing through $\delta S$ per unit time.
+  Let $\rho(\mathbf{r}, t)$ be the electric charge density and $\mathbf{j}(\mathbf{r}, t)$ be the current density. The continuity equation
+  \[
+    \frac{\partial \rho}{\partial t} + \nabla\cdot \mathbf{j} = 0
+  \]
+  expresses conservation of electric charge: charge can only change in a region by flowing in or out as current.
 \end{eg}
 
 \begin{eg}[Mass conservation and incompressibility]
-  Let $\mathbf{j} = \rho \mathbf{u}$ with $\mathbf{u}$ being the velocity field. Then $(\rho\mathbf{u}\; \delta t)\cdot \delta \mathbf{S}$ is equal to the mass of fluid crossing $\delta S$ in time $\delta t$. So
+  For a fluid with mass density $\rho(\mathbf{r}, t)$ and velocity field $\mathbf{u}(\mathbf{r}, t)$, the mass flux is $\mathbf{j} = \rho \mathbf{u}$. The continuity equation becomes
   \[
-    \frac{\d Q}{\d t} = -\int_S \mathbf{j}\cdot \d \mathbf{S}
+    \frac{\partial \rho}{\partial t} + \nabla\cdot (\rho \mathbf{u}) = 0,
   \]
-  does indeed imply the conservation of mass. The conservation equation in this case is
+  which is the equation of mass conservation for a fluid.
+
+  For an \emph{incompressible} fluid, the density $\rho$ is constant (independent of $\mathbf{r}$ and $t$). The continuity equation then reduces to
   \[
-    \frac{\partial \rho}{\partial t} + \nabla\cdot (\rho \mathbf{u}) = 0
+    \nabla\cdot \mathbf{u} = 0,
   \]
-  For the case where $\rho$ is constant and uniform (i.e.\ independent of $\mathbf{r}$ and $t$), we get that $\nabla\cdot \mathbf{u} = 0$. We say that the fluid is \emph{incompressible}.
+  stating that the velocity field is divergence-free.
 \end{eg}
 
 \section{Orthogonal curvilinear coordinates}
