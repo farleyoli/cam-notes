@@ -535,129 +535,169 @@ Parseval's theorem has surprising applications in number theory.
 \section{Sturm-Liouville Theory}
 \label{sec:sturm-liouville}
 \subsection{Sturm-Liouville operators}
-In finite dimensions, we often consider \emph{linear maps} $M: V\to W$. If $\{\mathbf{v}_i\}$ is a basis for $V$ and $\{\mathbf{w}_i\}$ is a basis for $W$, then we can represent the map by a matrix with entries
-\[
-  M_{ai} = (\mathbf{w}_a, M\mathbf{v}_i).
-\]
-A map $M: V\to V$ is called \emph{self-adjoint} if $M^\dagger = M$ as matrices. However, it is not obvious how we can extend this notion to arbitrary maps between arbitrary vector spaces (with an inner product) when they cannot be represented by a matrix.
+In finite dimensions, a linear map $M: V \to W$ between inner product spaces with bases $\{\mathbf{v}_i\}$ and $\{\mathbf{w}_a\}$ can be represented by a matrix with entries $M_{ai} = (\mathbf{w}_a, M\mathbf{v}_i)$. A map $M: V \to V$ is called \emph{self-adjoint} if $M^\dagger = M$ as matrices. To extend this notion to infinite-dimensional spaces where matrix representations may not exist, we use the following definition.
 
-Instead, we make the following definitions:
-\begin{defi}[Adjoint and self-adjoint]
-  The \emph{adjoint} $B$ of a map $A: V\to V$ is a map such that
+\begin{defi}[Adjoint and self-adjoint operator]
+  Let $V$ be an inner product space and $A: V \to V$ a linear map. The \emph{adjoint} of $A$ is a map $A^\dagger: V \to V$ such that
   \[
-    (B\mathbf{u}, \mathbf{v}) = (\mathbf{u}, A\mathbf{v})
+    (A^\dagger\mathbf{u}, \mathbf{v}) = (\mathbf{u}, A\mathbf{v})
   \]
-  for all vectors $\mathbf{u}, \mathbf{v}\in V$. A map is then \emph{self-adjoint} if
+  for all $\mathbf{u}, \mathbf{v} \in V$. The map $A$ is \emph{self-adjoint} (or \emph{Hermitian}) if $A = A^\dagger$, i.e.,
   \[
-    (M\mathbf{u}, \mathbf{v}) = (\mathbf{u}, M\mathbf{v}).
+    (A\mathbf{u}, \mathbf{v}) = (\mathbf{u}, A\mathbf{v})
   \]
+  for all $\mathbf{u}, \mathbf{v} \in V$.
 \end{defi}
-Self-adjoint matrices come with a natural basis. Recall that the \emph{eigenvalues} of a matrix are the roots of $\det(M - \lambda I) = 0$. The \emph{eigenvector} corresponding to an eigenvalue $\lambda$ is defined by $M\mathbf{v}_i = \lambda_i \mathbf{v}_i$.
 
-In general, eigenvalues can be any complex number. However, self-adjoint maps have \emph{real} eigenvalues. Suppose
-\[
-  M\mathbf{v}_i = \lambda_i \mathbf{v}_i.
-\]
-Then we have
-\[
-  \lambda_i (\mathbf{v}_i, \mathbf{v}_i) = (\mathbf{v}_i, M\mathbf{v}_i) = (M\mathbf{v}_i, \mathbf{v}_i) = \lambda_i^* (\mathbf{v}_i, \mathbf{v}_i).
-\]
-So $\lambda_i = \lambda_i^*$.
+Self-adjoint operators have special spectral properties. Recall that an \emph{eigenvalue} $\lambda$ of $M$ is a root of $\det(M - \lambda I) = 0$, and a corresponding \emph{eigenvector} $\mathbf{v}$ satisfies $M\mathbf{v} = \lambda \mathbf{v}$.
 
-Furthermore, eigenvectors with distinct eigenvalues are orthogonal with respect to the inner product. Suppose that
-\[
-  M \mathbf{v}_i = \lambda_i \mathbf{v}_i,\quad M \mathbf{v}_j = \lambda_j \mathbf{v}_j.
-\]
-Then
-\[
-  \lambda_i (\mathbf{v}_j, \mathbf{v}_i) = (\mathbf{v}_j, M\mathbf{v}_i) = (M\mathbf{v}_j, \mathbf{v}_i) = \lambda_j(\mathbf{v}_j, \mathbf{v}_i).
-\]
-Since $\lambda_i \not= \lambda_j$, we must have $(\mathbf{v}_j, \mathbf{v}_i) = 0$.
+\begin{prop}[Self-adjoint operators have real eigenvalues]
+  \label{prop:self-adjoint-real-eigenvalues}
+  Let $M: V \to V$ be a self-adjoint operator. Then all eigenvalues of $M$ are real.
+\end{prop}
 
-Knowing eigenvalues and eigenvalues gives a neat way so solve linear equations of the form
-\[
-  M \mathbf{u} = \mathbf{f}.
-\]
-Here we are given $M$ and $\mathbf{f}$, and want to find $\mathbf{u}$. Of course, the answer is $\mathbf{u} = M^{-1}\mathbf{f}$. However, if we expand in terms of eigenvectors, we obtain
-\[
-  M\mathbf{u} = M\sum u_i \mathbf{v}_i = \sum u_i \lambda_i \mathbf{v}_i.
-\]
-Hence we have
-\[
-  \sum u_i \lambda_i \mathbf{v}_i = \sum f_i \mathbf{v}_i.
-\]
-Taking the inner product with $\mathbf{v}_j$, we know that
-\[
-  u_j = \frac{f_j}{\lambda_j}.
-\]
-So far, these are all things from IA Vectors and Matrices. Sturm-Liouville theory is the infinite-dimensional analogue.
-
-In our vector space of differentiable functions, our ``matrices'' would be linear differential operators $\mathcal{L}$. For example, we could have
-\[
-  \mathcal{L} = A_p(x) \frac{\d^p}{\d x^p} + A_{p - 1}(x) \frac{\d^{p - 1}}{\d x^{p - 1}} + \cdots + A_1(x)\frac{\d}{\d x} + A_0(x).
-\]
-It is an easy check that this is in fact linear.
-
-We say $\mathcal{L}$ has order $p$ if the highest derivative that appears is $\frac{\d^p}{\d x^p}$.
-
-In most applications, we will be interested in the case $p = 2$. When will our $\mathcal{L}$ be self-adjoint?
-
-In the $p = 2$ case, we have
-\begin{align*}
-  \mathcal{L} y &= P \frac{\d^2 y}{\d x^2} + R \frac{\d y}{\d x} - Q y \\
-  &= P\left[\frac{\d^2 y}{\d x^2} + \frac{R}{P}\frac{\d y}{\d x} - \frac{Q}{P}y\right] \\
-  &= P\left[e^{-\int \frac{R}{P}\;\d x}\frac{\d}{\d x}\left(e^{\int \frac{R}{P}\;\d x}\frac{\d y}{\d x}\right)- \frac{Q}{P}y\right]\\
-  \intertext{Let $p = \exp\left(\int \frac{R}{P}\;\d x\right)$. Then we can write this as}
-  &= P p^{-1}\left[\frac{\d}{\d x}\left(p\frac{\d y}{\d x}\right) - \frac{Q}{P}p y\right].
-\end{align*}
-We further define $q = \frac{Q}{P}p$. We also drop a factor of $Pp^{-1}$. Then we are left with
-\[
-  \mathcal{L} = \frac{\d}{\d x}\left(p(x)\frac{\d}{\d x}\right) - q(x).
-\]
-This is the \emph{Sturm-Liouville form} of the operator. Now let's compute $(f, \mathcal{L}g)$. We integrate by parts numerous times to obtain
-\begin{align*}
-  (f, \mathcal{L}g) &= \int_a^b f^*\left(\frac{\d}{\d x}\left(p \frac{\d g}{\d x}\right) - qg\right)\;\d x \\
-  &= [f^* pg']_a^b - \int_a^b \left(\frac{\d f^*}{\d x}p\frac{\d g}{\d x} + f^* qg\right)\;\d x\\
-  &= [f^*pg' - f'^*pg]_a^b + \int_a^b \left(\frac{\d}{\d x}\left(p\frac{\d f^*}{\d x}\right) - qf^*\right)g\;\d x\\
-  &= [(f^*g' - f'^*g)p]_a^b + (\mathcal{L}f, g),
-\end{align*}
-assuming that $p, q$ are real.
-
-So 2nd order linear differential operators are self-adjoint with respect to this norm if $p, q$ are real and the boundary terms vanish. When do the boundary terms vanish? One possibility is when $p$ is periodic (with the right period), or if we constrain $f$ and $g$ to be periodic.
-
-\begin{eg}[Second derivative, self-adjointness]
-  We can consider a simple case, where
+\begin{proof}
+  Suppose $M\mathbf{v} = \lambda \mathbf{v}$ for some nonzero eigenvector $\mathbf{v}$. Then
   \[
-    \mathcal{L} = \frac{\d^2}{\d x^2}.
+    \lambda (\mathbf{v}, \mathbf{v}) = (\mathbf{v}, M\mathbf{v}) = (M\mathbf{v}, \mathbf{v}) = \lambda^* (\mathbf{v}, \mathbf{v}).
   \]
-  Here we have $p = 1, q = 0$. If we ask for functions to be periodic on $[a, b]$, then
+  Since $(\mathbf{v}, \mathbf{v}) \neq 0$, we have $\lambda = \lambda^*$, so $\lambda \in \R$.
+\end{proof}
+
+\begin{prop}[Eigenvectors of self-adjoint operators are orthogonal]
+  \label{prop:self-adjoint-orthogonal}
+  Let $M: V \to V$ be a self-adjoint operator. Eigenvectors corresponding to distinct eigenvalues are orthogonal.
+\end{prop}
+
+\begin{proof}
+  Suppose $M\mathbf{v}_i = \lambda_i \mathbf{v}_i$ and $M\mathbf{v}_j = \lambda_j \mathbf{v}_j$ with $\lambda_i \neq \lambda_j$. Then
+  \[
+    \lambda_i (\mathbf{v}_j, \mathbf{v}_i) = (\mathbf{v}_j, M\mathbf{v}_i) = (M\mathbf{v}_j, \mathbf{v}_i) = \lambda_j (\mathbf{v}_j, \mathbf{v}_i).
+  \]
+  Since $\lambda_i \neq \lambda_j$, we must have $(\mathbf{v}_j, \mathbf{v}_i) = 0$.
+\end{proof}
+
+Eigenvector expansions provide a systematic method for solving linear equations.
+
+\begin{eg}[Solving linear equations via eigenvector expansion]
+  \label{eg:eigenvector-solve}
+  Consider the equation $M\mathbf{u} = \mathbf{f}$, where $M$ is self-adjoint with eigenvectors $\{\mathbf{v}_i\}$ forming a basis. We can expand $\mathbf{u} = \sum_i u_i \mathbf{v}_i$ and $\mathbf{f} = \sum_i f_i \mathbf{v}_i$. Then
+  \[
+    M\mathbf{u} = \sum_i u_i M\mathbf{v}_i = \sum_i u_i \lambda_i \mathbf{v}_i = \sum_i f_i \mathbf{v}_i.
+  \]
+  By orthogonality, $u_i \lambda_i = f_i$, so
+  \[
+    u_i = \frac{f_i}{\lambda_i},
+  \]
+  provided all $\lambda_i \neq 0$.
+\end{eg}
+
+Sturm--Liouville theory extends these ideas to infinite-dimensional function spaces, where ``matrices'' become differential operators.
+
+\begin{defi}[Linear differential operator]
+  A \emph{linear differential operator} of order $p$ on an interval $[a, b]$ is an operator of the form
+  \[
+    \mathcal{L} = A_p(x) \frac{\d^p}{\d x^p} + A_{p - 1}(x) \frac{\d^{p - 1}}{\d x^{p - 1}} + \cdots + A_1(x)\frac{\d}{\d x} + A_0(x),
+  \]
+  where $A_0, A_1, \ldots, A_p: [a,b] \to \C$ are coefficient functions and $A_p(x) \neq 0$. Linearity means $\mathcal{L}(\alpha f + \beta g) = \alpha \mathcal{L}f + \beta \mathcal{L}g$ for all scalars $\alpha, \beta$ and functions $f, g$.
+\end{defi}
+
+In most applications, we consider second-order operators ($p = 2$). The key question is: when is such an operator self-adjoint?
+
+\begin{prop}[Reduction to Sturm--Liouville form]
+  \label{prop:sturm-liouville-reduction}
+  Any second-order linear differential operator
+  \[
+    \mathcal{L} y = P(x) \frac{\d^2 y}{\d x^2} + R(x) \frac{\d y}{\d x} + Q(x) y
+  \]
+  with $P(x) \neq 0$ can be written (up to multiplication by a nonzero function) in \emph{Sturm--Liouville form}.
+\end{prop}
+
+\begin{proof}
+  Factor out $P$ and complete the derivative:
+  \begin{align*}
+    \mathcal{L} y &= P \frac{\d^2 y}{\d x^2} + R \frac{\d y}{\d x} + Q y \\
+    &= P\left[\frac{\d^2 y}{\d x^2} + \frac{R}{P}\frac{\d y}{\d x} + \frac{Q}{P}y\right] \\
+    &= P\left[e^{-\int \frac{R}{P}\;\d x}\frac{\d}{\d x}\left(e^{\int \frac{R}{P}\;\d x}\frac{\d y}{\d x}\right) + \frac{Q}{P}y\right].
+  \end{align*}
+  Setting $p(x) = \exp\left(\int \frac{R}{P}\;\d x\right)$ and $q(x) = -\frac{Q}{P}p(x)$, and absorbing the factor $Pp^{-1}$, we obtain
+  \[
+    \mathcal{L} = \frac{\d}{\d x}\left(p(x)\frac{\d}{\d x}\right) - q(x).\qedhere
+  \]
+\end{proof}
+
+\begin{defi}[Sturm--Liouville operator]
+  \label{def:sturm-liouville-operator}
+  A \emph{Sturm--Liouville operator} on $[a, b]$ is a second-order differential operator of the form
+  \[
+    \mathcal{L} = \frac{\d}{\d x}\left(p(x)\frac{\d}{\d x}\right) - q(x),
+  \]
+  where $p, q: [a, b] \to \R$ are real-valued functions with $p(x) > 0$ on $(a, b)$.
+\end{defi}
+
+\begin{prop}[Self-adjointness of Sturm--Liouville operators]
+  \label{prop:sturm-liouville-self-adjoint}
+  A Sturm--Liouville operator $\mathcal{L}$ satisfies
+  \[
+    (f, \mathcal{L}g) = [(f^*g' - f'^*g)p]_a^b + (\mathcal{L}f, g)
+  \]
+  for all sufficiently differentiable functions $f, g$. In particular, $\mathcal{L}$ is self-adjoint if the boundary term vanishes.
+\end{prop}
+
+\begin{proof}
+  Integrating by parts twice:
+  \begin{align*}
+    (f, \mathcal{L}g) &= \int_a^b f^*\left(\frac{\d}{\d x}\left(p \frac{\d g}{\d x}\right) - qg\right)\;\d x \\
+    &= [f^* pg']_a^b - \int_a^b \left(\frac{\d f^*}{\d x}p\frac{\d g}{\d x} + f^* qg\right)\;\d x\\
+    &= [f^*pg' - f'^*pg]_a^b + \int_a^b \left(\frac{\d}{\d x}\left(p\frac{\d f^*}{\d x}\right) - qf^*\right)g\;\d x\\
+    &= [(f^*g' - f'^*g)p]_a^b + (\mathcal{L}f, g).\qedhere
+  \end{align*}
+\end{proof}
+
+\begin{remark}
+  The boundary term $[(f^*g' - f'^*g)p]_a^b$ vanishes in several important cases:
+  \begin{enumerate}
+    \item periodic boundary conditions: $f(a) = f(b)$ and $f'(a) = f'(b)$;
+    \item Dirichlet conditions: $f(a) = f(b) = 0$;
+    \item singular endpoints: $p(a) = 0$ or $p(b) = 0$.
+  \end{enumerate}
+\end{remark}
+
+\begin{eg}[Second derivative operator]
+  \label{eg:second-derivative-self-adjoint}
+  The operator $\mathcal{L} = \frac{\d^2}{\d x^2}$ corresponds to $p = 1$ and $q = 0$. For periodic functions on $[a, b]$, the boundary terms cancel, giving
   \[
     \int_a^b f^*\frac{\d^2 g}{\d x^2}\;\d x = \int_a^b \frac{\d^2 f^*}{\d x^2}g\;\d x.
   \]
-  Note that it is important that we have a \emph{second-order} differential operator. If it is first-order, then we would have a negative sign, since we integrated by parts once.
+  Self-adjointness requires a \emph{second-order} operator; a first-order operator would acquire a sign change from a single integration by parts.
 \end{eg}
 
-Just as in finite dimensions, self-adjoint operators have eigenfunctions and eigenvalues with special properties. First, we define a more sophisticated inner product.
-\begin{defi}[Inner product with weight]
-  An \emph{inner product with weight} $w$, written $(\ph, \ph)_w$, is defined by
-  \[
-    (f, g)_w = \int_a^b f^*(x) g(x) w(x)\;\d x,
-  \]
-  where $w$ is real, non-negative, and has only finitely many zeroes.
-\end{defi}
-Why do we want a weight $w(x)$? In the future, we might want to work with the unit disk, instead of a square in $\R^2$. When we want to use polar coordinates, we will have to integrate with $r\;\d r\;\d \theta$, instead of just $\d r\;\d \theta$. Hence we need the weight of $r$. Also, we allow it to have finitely many zeroes, so that the radius can be $0$ at the origin.
+Just as in finite dimensions, self-adjoint operators have eigenfunctions and eigenvalues with special properties. To state these results, we introduce a weighted inner product.
 
-Why can't we have more zeroes? We want the inner product to keep the property that $(f, f)_w = 0$ iff $f = 0$ (for continuous $f$). If $w$ is zero at too many places, then the inner product could be zero without $f$ being zero.
-
-We now define what it means to be an eigenfunction.
-\begin{defi}[Eigenfunction with weight]
-  An \emph{eigenfunction with weight} $w$ of $\mathcal{L}$ is a function $y: [a, b] \to \C$ obeying the differential equation
+\begin{defi}[Weighted inner product]
+  \label{def:weighted-inner-product}
+  Let $w: [a, b] \to \R$ be a \emph{weight function}: a real, non-negative function with at most finitely many zeros. The \emph{weighted inner product} is
   \[
-    \mathcal{L} y = \lambda w y,
+    (f, g)_w = \int_a^b f^*(x) g(x) w(x)\;\d x.
   \]
-  where $\lambda\in \C$ is the eigenvalue.
 \end{defi}
-This might be strange at first sight. It seems like we can take any nonsense $y$, apply $\mathcal{L}$, to get some nonsense $\mathcal{L} y$. But then it is fine, since we can write it as some nonsense $w$ times our original $y$. So any function is an eigenfunction? No! There are many constraints $w$ has to satisfy, like being positive, real and having finitely many zeroes. It turns out this severely restraints what values $y$ can take, so not everything will be an eigenfunction. In fact we can develop this theory without the weight function $w$. However, weight functions are much more convenient when, say, dealing with the unit disk.
+
+\begin{remark}
+  Weight functions arise naturally in curvilinear coordinates. For instance, in polar coordinates on a disk, the area element is $r\,\d r\,\d\theta$, giving weight $w(r) = r$ that vanishes at the origin. We allow finitely many zeros so that $(f, f)_w = 0$ still implies $f = 0$ for continuous $f$.
+\end{remark}
+
+\begin{defi}[Eigenfunction of a Sturm--Liouville operator]
+  \label{def:sturm-liouville-eigenfunction}
+  Let $\mathcal{L}$ be a Sturm--Liouville operator on $[a, b]$ and $w$ a weight function. An \emph{eigenfunction} of $\mathcal{L}$ with weight $w$ is a nonzero function $y: [a, b] \to \C$ satisfying
+  \[
+    \mathcal{L} y = \lambda w y
+  \]
+  for some $\lambda \in \C$, called the \emph{eigenvalue}. The eigenfunction must also satisfy appropriate boundary conditions.
+\end{defi}
+
+\begin{remark}
+  The eigenvalue equation $\mathcal{L} y = \lambda w y$ is not satisfied by arbitrary functions. The combination of the differential equation, boundary conditions, and constraints on $w$ (positive, real, finitely many zeros) severely restricts which $y$ are eigenfunctions. The weight function $w$ is particularly convenient for problems in curvilinear coordinates.
+\end{remark}
 
 \begin{prop}[Sturm-Liouville eigenvalues, reality]
   The eigenvalues of a Sturm-Liouville operator are real.
@@ -705,154 +745,147 @@ Note here the word \emph{compact}. In quantum mechanics, if we restrict a partic
 \end{thm}
 
 \begin{eg}[Fourier series as eigenfunction expansion]
-  Let $[a, b] = [-L, L]$, $\mathcal{L} = \frac{\d^2}{\d x^2}$, $w = 1$, restricting to periodic functions Then our eigenfunction obeys
+  \label{eg:fourier-sturm-liouville}
+  Consider $[a, b] = [-L, L]$ with $\mathcal{L} = \frac{\d^2}{\d x^2}$, $w = 1$, and periodic boundary conditions. The eigenvalue equation
   \[
-    \frac{\d^2 y_n}{\d x^2} = \lambda_n y_n(x),
+    \frac{\d^2 y_n}{\d x^2} = \lambda_n y_n(x)
   \]
-  Then our eigenfunctions are
+  has eigenfunctions
   \[
-    y_n(x) = \exp\left(\frac{in\pi x}{L}\right)
+    y_n(x) = \exp\left(\frac{in\pi x}{L}\right), \quad n \in \Z,
   \]
   with eigenvalues
   \[
-    \lambda_n = - \frac{n^2 \pi^2}{L^2}
+    \lambda_n = -\frac{n^2 \pi^2}{L^2}.
   \]
-  for $n \in \Z$. This is just the Fourier series!
+  This recovers the Fourier series as a special case of Sturm--Liouville theory.
 \end{eg}
 
 \begin{eg}[Hermite polynomials]
-  We are going to cheat a little bit and pick our domain to be $\R$. We want to study the differential equation
+  \label{eg:hermite-polynomials}
+  Consider the differential equation on $\R$:
   \[
-    \frac{1}{2}H'' - xH' = \lambda H,
+    \frac{1}{2}H'' - xH' = \lambda H.
   \]
-  with $H: \R \to \C$. We want to put this in Sturm-Liouville form. We have
-  \[
-    p(x) = \exp\left(-\int_0^x 2t \;\d t\right) = e^{-x^2},
-  \]
-  ignoring constant factors. Then $q(x) = 0$. We can rewrite this as
+  To put this in Sturm--Liouville form, we compute $p(x) = \exp\left(-\int_0^x 2t \;\d t\right) = e^{-x^2}$ and $q(x) = 0$, giving
   \[
     \frac{\d}{\d x}\left(e^{-x^2}\frac{\d H}{\d x}\right) = -2\lambda e^{-x^2} H(x).
   \]
-  So we take our weight function to be $w(x) = e^{-x^2}$.
+  The weight function is $w(x) = e^{-x^2}$.
 
-  We now ask that $H(x)$ grows at most polynomially as $|x| \to \infty$. In particular, we want $e^{-x^2}H(x)^2 \to 0$. This ensures that the boundary terms from integration by parts vanish at the infinite boundary, so that our Sturm-Liouville operator is self-adjoint.
+  For self-adjointness on the unbounded domain, we require $e^{-x^2}H(x)^2 \to 0$ as $|x| \to \infty$, which ensures the boundary terms vanish.
 
-  The eigenfunctions turn out to be
+  The eigenfunctions are the \emph{Hermite polynomials}:
   \[
-    H_n(x) = (-1)^n e^{x^2}\frac{\d^n}{\d x^n}\left(e^{-x^2}\right).
+    H_n(x) = (-1)^n e^{x^2}\frac{\d^n}{\d x^n}\left(e^{-x^2}\right), \quad n = 0, 1, 2, \ldots
   \]
-  These are known as the \emph{Hermite polynomials}. Note that these are indeed polynomials. When we differentiate the $e^{-x^2}$ term many times, we get a lot of things from the product rule, but they will always keep an $e^{-x^2}$, which will ultimately cancel with $e^{x^2}$.
+  These are indeed polynomials: each differentiation of $e^{-x^2}$ produces terms containing $e^{-x^2}$, which cancels with the prefactor $e^{x^2}$.
 \end{eg}
 
-Just as for matrices, we can use the eigenfunction expansion to solve forced differential equations. For example, if might want to solve
-\[
-  \mathcal{L} g = f(x),
-\]
-where $f(x)$ is a forcing term. We can write this as
-\[
-  \mathcal{L} g = w(x) F(x).
-\]
-We expand our $g$ as
-\[
-  g(x) = \sum_{n \in \Z}\hat{g}_n y_n(x).
-\]
-Then by linearity,
-\[
-  \mathcal{L}g = \sum_{n \in \Z}\hat{g}_n \mathcal{L} y_n(x) = \sum_{n \in \Z}\hat{g}_n \lambda_n w(x)y_n(x).
-\]
-We can also expand our forcing function as
-\[
-  w(x) F(x) = w(x) \left(\sum_{n \in \Z}\hat{F}_n y_n(x)\right).
-\]
-Taking the (regular) inner product with $y_m(x)$ (and noting orthogonality of eigenfunctions), we obtain
-\[
-  w(x) \hat{g}_m \lambda_m = w(x) \hat{F}_m
-\]
-This tells us that
-\[
-  \hat{g}_m = \frac{\hat{F}_m}{\lambda_m}.
-\]
-So we have
-\[
-  g(x) = \sum_{n \in \Z}\frac{\hat{F}_n}{\lambda_n}y_n(x),
-\]
-provided all $\lambda_n$ are non-zero.
+Just as for matrices, eigenfunction expansions provide a systematic method for solving forced differential equations.
 
-This is a systematic way of solving forced differential equations. We used to solve these by ``being smart''. We just looked at the forcing term and tried to guess what would work. Unsurprisingly, this approach does not succeed all the time. Thus it is helpful to have a systematic way of solving the equations.
-
-It is often helpful to rewrite this into another form, using the fact that $\hat{F}_n = (y_n, F)_w$. So we have
-\[
-  g(x) = \sum_{n \in \Z}\frac{1}{\lambda_n}(y_n, F)_w y_n(x) = \int_a^b \sum_{n \in \Z}\frac{1}{\lambda_n} y_n^*(t) y_n(x) w(t) F(t)\;\d t.
-\]
-Note that we swapped the sum and the integral, which is in general a dangerous thing to do, but we don't really care because this is an applied course. We can further write the above as
-\[
-  g(x) = \int_a^b G(x, t) F(t) w(t)\;\d t,
-\]
-where $G(x, t)$ is the infinite sum
-\[
-  G(x, t) = \sum_{n \in \Z}\frac{1}{\lambda_n}y_n^*(t) y_n(x).
-\]
-We call this the Green's function. Note that this depends on $\lambda_n$ and $y_n$ only. It depends on the differential operator $\mathcal{L}$, but not the forcing term $F$. We can think of this as something like the ``inverse matrix'', which we can use to solve the forced differential equation for any forcing term.
-
-Recall that for a matrix, the inverse exists if the determinant is non-zero, which is true if the eigenvalues are all non-zero. Similarly, here a necessary condition for the Green's function to exist is that all the eigenvalues are non-zero.
-
-We now have a second version of Parseval's theorem.
-\begin{thm}[Parseval's theorem II]
+\begin{prop}[Solving forced equations via eigenfunction expansion]
+  \label{prop:forced-equation-eigenfunctions}
+  Consider the equation $\mathcal{L} g = w(x) F(x)$, where $\mathcal{L}$ is a Sturm--Liouville operator with eigenfunctions $\{y_n\}$ and eigenvalues $\{\lambda_n\}$. If all $\lambda_n \neq 0$, then
   \[
-    (f, f)_w = \sum_{n \in \Z}|\hat{f}_n|^2.
+    g(x) = \sum_{n}\frac{\hat{F}_n}{\lambda_n}y_n(x),
+  \]
+  where $\hat{F}_n = (y_n, F)_w$ are the expansion coefficients of $F$.
+\end{prop}
+
+\begin{proof}
+  Expand $g(x) = \sum_n \hat{g}_n y_n(x)$ and $F(x) = \sum_n \hat{F}_n y_n(x)$. By linearity of $\mathcal{L}$:
+  \[
+    \mathcal{L}g = \sum_n \hat{g}_n \mathcal{L} y_n = \sum_n \hat{g}_n \lambda_n w(x) y_n(x).
+  \]
+  Comparing with $w(x) F(x) = w(x) \sum_n \hat{F}_n y_n(x)$ and using orthogonality, we get $\hat{g}_n \lambda_n = \hat{F}_n$, so $\hat{g}_n = \hat{F}_n / \lambda_n$.
+\end{proof}
+
+This can be reformulated using a Green's function.
+
+\begin{defi}[Green's function]
+  \label{def:greens-function}
+  Let $\mathcal{L}$ be a Sturm--Liouville operator with eigenfunctions $\{y_n\}$, eigenvalues $\{\lambda_n\}$, and weight $w$. The \emph{Green's function} for $\mathcal{L}$ is
+  \[
+    G(x, t) = \sum_{n}\frac{1}{\lambda_n}y_n^*(t) y_n(x),
+  \]
+  provided all $\lambda_n \neq 0$.
+\end{defi}
+
+\begin{prop}[Solution via Green's function]
+  \label{prop:greens-function-solution}
+  The solution to $\mathcal{L} g = w(x) F(x)$ can be written as
+  \[
+    g(x) = \int_a^b G(x, t) F(t) w(t)\;\d t.
+  \]
+\end{prop}
+
+\begin{proof}
+  Using $\hat{F}_n = (y_n, F)_w = \int_a^b y_n^*(t) F(t) w(t)\,\d t$:
+  \[
+    g(x) = \sum_{n}\frac{\hat{F}_n}{\lambda_n} y_n(x) = \int_a^b \left(\sum_{n}\frac{1}{\lambda_n} y_n^*(t) y_n(x)\right) F(t) w(t)\;\d t = \int_a^b G(x, t) F(t) w(t)\;\d t,
+  \]
+  where we have interchanged sum and integral (justified under appropriate convergence conditions).
+\end{proof}
+
+\begin{remark}
+  The Green's function $G(x, t)$ depends only on the operator $\mathcal{L}$ (through its eigenfunctions and eigenvalues), not on the forcing term $F$. It acts as the ``inverse'' of $\mathcal{L}$, analogous to the inverse matrix. Just as a matrix inverse exists when all eigenvalues are nonzero, the Green's function requires $\lambda_n \neq 0$ for all $n$.
+\end{remark}
+
+The weighted generalization of Parseval's theorem holds for Sturm--Liouville eigenfunctions.
+
+\begin{thm}[Parseval's theorem for weighted inner products]
+  \label{thm:parseval-weighted}
+  Let $\{y_n\}$ be orthonormal eigenfunctions of a Sturm--Liouville operator with weight $w$. For any function $f$ with expansion $f = \sum_n \hat{f}_n y_n$, we have
+  \[
+    (f, f)_w = \sum_{n}|\hat{f}_n|^2.
   \]
 \end{thm}
 
 \begin{proof}
-  We have
+  Substituting the eigenfunction expansion:
   \begin{align*}
-    (f, f)_w &= \int_\Omega f^*(x) f(x) w(x) \;\d x\\
-    &= \sum_{n, m \in \Z}\int_\Omega \hat{f}^*_n y_n^*(x) \hat{f}_m y_m(x)w(x)\;\d x\\
-    &= \sum_{n, m\in \Z}\hat{f}^*_n \hat{f}_m (y_n, y_m)_w \\
-    &= \sum_{n \in \Z}|\hat{f}_n|^2.\qedhere
+    (f, f)_w &= \int_a^b f^*(x) f(x) w(x) \;\d x\\
+    &= \sum_{n, m}\hat{f}^*_n \hat{f}_m \int_a^b y_n^*(x) y_m(x)w(x)\;\d x\\
+    &= \sum_{n, m}\hat{f}^*_n \hat{f}_m (y_n, y_m)_w \\
+    &= \sum_{n}|\hat{f}_n|^2,
   \end{align*}
+  using orthonormality $(y_n, y_m)_w = \delta_{nm}$.
 \end{proof}
 
 \subsection{Least squares approximation}
-So far, we have expanded functions in terms of infinite series. However, in real life, when we ask a computer to do this for us, it is incapable of storing and calculating an infinite series. So we need to truncate it at some point.
+In practice, we must truncate infinite eigenfunction expansions. The following theorem shows that the standard expansion coefficients give the optimal truncation.
 
-Suppose we approximate some function $f: \Omega \to \C$ by a \emph{finite} set of eigenfunctions $y_n(x)$. Suppose we write the approximation $g$ as
-\[
-  g(x) = \sum_{k = 1}^n c_k y_k(x).
-\]
-The objective here is to figure out what values of the coefficients $c_k$ are ``the best'', i.e.\ can make $g$ represent $f$ as closely as possible.
+\begin{thm}[Least squares approximation]
+  \label{thm:least-squares}
+  Let $f: [a, b] \to \C$ and let $\{y_1, y_2, \ldots, y_N\}$ be orthonormal eigenfunctions with respect to weight $w$. Among all approximations of the form
+  \[
+    g(x) = \sum_{k = 1}^N c_k y_k(x),
+  \]
+  the weighted mean-square error $\|f - g\|_w^2 = (f - g, f - g)_w$ is minimized when
+  \[
+    c_k = \hat{f}_k = (y_k, f)_w,
+  \]
+  i.e., when the coefficients are the usual expansion coefficients.
+\end{thm}
 
-Firstly, we have to make it explicit what we mean by ``as closely as possible''. Here we take this to mean that we want to minimize the $w$-norm $(f - g, f - g)_w$. By linearity of the norm, we know that
-\[
-  (f - g, f - g)_w = (f, f)_w + (g, g)_w - (f, g)_w - (g, f)_w.
-\]
-To minimize this norm, we want
-\[
-  0 = \frac{\partial}{\partial c_j} (f - g, f - g)_w = \frac{\partial}{\partial c_j}[(f, f)_w + (g, g)_w - (f, g)_w - (g, f)_w].
-\]
-We know that the $(f, f)_w$ term vanishes since it does not depend on $c_k$. Expanding our definitions of $g$, we can get
-\[
-  0 = \frac{\partial}{\partial c_j}\left(\sum_{i = 1}^\infty |c_k|^n - \sum_{k = 1}^n \hat{f}_k^* c_k - \sum_{k = 1}^n c_k^* \hat{f}_k\right) = c^*_j - \hat{f}_j^*.
-\]
-Note that here we are treating $c_j^*$ and $c_j$ as distinct quantities. So when we vary $c_j$, $c_j^*$ is unchanged. To formally justify this treatment, we can vary the real and imaginary parts separately.
+\begin{proof}
+  Expanding the error:
+  \[
+    (f - g, f - g)_w = (f, f)_w + (g, g)_w - (f, g)_w - (g, f)_w.
+  \]
+  Using orthonormality and $g = \sum_k c_k y_k$, we have $(g, g)_w = \sum_k |c_k|^2$, $(f, g)_w = \sum_k \hat{f}_k^* c_k$, and $(g, f)_w = \sum_k c_k^* \hat{f}_k$.
 
-Hence, the extremum is achieved at $c_j^* = \hat{f}_j^*$. Similarly, varying with respect to $c_j^*$, we get that $c_j = \hat{f}_j$.
+  To minimize, we differentiate with respect to $c_j$ (treating $c_j$ and $c_j^*$ as independent, which can be justified by varying real and imaginary parts separately):
+  \[
+    \frac{\partial}{\partial c_j}(f - g, f - g)_w = c^*_j - \hat{f}_j^* = 0.
+  \]
+  Thus $c_j = \hat{f}_j$ at the critical point. The second derivative $\frac{\partial^2}{\partial c_i^* \partial c_j}(f-g,f-g)_w = \delta_{ij} > 0$ confirms this is a minimum.
+\end{proof}
 
-To check that this is indeed an minimum, we can look at the second-derivatives
-\[
-  \frac{\partial^2}{\partial c_i \partial c_j} (f - g, f - g)_w = \frac{\partial^2}{\partial c_i^* c_j^*} (f - g, f - g)_w = 0,
-\]
-while
-\[
-  \frac{\partial^2}{\partial c_i^* \partial c_j} (f - g, f - g)_w = \delta_{ij} \geq 0.
-\]
-Hence this is indeed a minimum.
-
-Thus we know that $(f - g, f - g)_w$ is minimized over all $g(x)$ when
-\[
-  c_k = \hat{f}_k = (y_k, f)_w.
-\]
-These are exactly the coefficients in our infinite expansion. Hence if we truncate our series at an arbitrary point, it is still the best approximation we can get.
+\begin{remark}
+  This result shows that truncating the eigenfunction expansion at any point gives the best possible approximation using that many terms. There is no better choice of coefficients.
+\end{remark}
 
 \section{Partial differential equations}
 So far, we have come up with a lot of general theory about functions and stuff. We are going to look into some applications of these. In this section, we will develop the general technique of \emph{separation of variables}, and apply this to many many problems.
