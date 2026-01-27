@@ -3448,9 +3448,7 @@ The divergence theorem generalizes to tensor fields. Let $V$ be a volume bounded
 \end{proof}
 \section{Tensors of rank 2}
 \subsection{Decomposition of a second-rank tensor}
-This decomposition might look arbitrary at first sight, but as time goes on, you will find that it is actually very useful in your future career (at least, the lecturer claims so).
-
-Any second rank tensor can be written as a sum of its symmetric and anti-symmetric parts
+Any rank-2 tensor can be decomposed into symmetric and antisymmetric parts:
 \[
   T_{ij} = S_{ij} + A_{ij},
 \]
@@ -3480,15 +3478,15 @@ The symmetric part can be further reduced to a \emph{traceless} part plus an \em
 \]
 where $Q = S_{ii}$ is the trace of $S_{ij}$ and $P_{ij} = P_{ji} = S_{ij} -\frac{1}{3}\delta_{ij}Q$ is traceless. Then $P_{ij}$ has 5 independent components while $Q$ has 1.
 
-Since the antisymmetric part has 3 independent components, just like a usual vector, we should be able to write $A_{ij}$ in terms of a single vector. In fact, we can write the antisymmetric part as
+Since the antisymmetric part has 3 independent components, it can be written in terms of a vector. Indeed,
 \[
   A_{ij} = \varepsilon_{ijk}B_k
 \]
-for some vector $B$. To figure out what this $B$ is, we multiply by $\varepsilon_{ij\ell}$ on both sides and use some magic algebra to obtain
+for some vector $\mathbf{B}$. Contracting both sides with $\varepsilon_{ij\ell}$ and using $\varepsilon_{ijk}\varepsilon_{ij\ell} = 2\delta_{k\ell}$ gives
 \[
   B_k = \frac{1}{2}\varepsilon_{ijk}A_{ij} = \frac{1}{2}\varepsilon_{ijk}T_{ij},
 \]
-where the last equality is from the fact that only antisymmetric parts contribute to the sum.
+where the last equality holds because the symmetric part of $T_{ij}$ does not contribute to the contraction with $\varepsilon_{ijk}$.
 
 Then
 \[
@@ -3522,13 +3520,12 @@ where $B_k = \frac{1}{2}\varepsilon_{pqk} T_{pq}$, $Q = T_{kk}$ and $P_{ij} = P_
 \end{eg}
 
 \subsection{The inertia tensor}
-Consider masses $m_\alpha$ with positions $\mathbf{r}_\alpha$, all rotating with angular velocity $\boldsymbol\omega$ about $\mathbf{0}$. So the velocities are $\mathbf{v}_\alpha = \boldsymbol\omega\times \mathbf{r}_\alpha$. The total angular momentum is
+Consider point masses $m_\alpha$ at positions $\mathbf{r}_\alpha$, rotating with angular velocity $\boldsymbol\omega$ about the origin. The velocities are $\mathbf{v}_\alpha = \boldsymbol\omega\times \mathbf{r}_\alpha$, and the total angular momentum is
 \begin{align*}
-  \mathbf{L} &= \sum_{\alpha} \mathbf{r}_\alpha \times m_\alpha \mathbf{v}_\alpha \\
-  &= \sum_\alpha m_\alpha \mathbf{r}_\alpha \times (\boldsymbol\omega\times \mathbf{r}_\alpha)\\
-  &= \sum_\alpha m_\alpha( |\mathbf{r}_\alpha|^2\boldsymbol\omega - (\mathbf{r}_\alpha \cdot \boldsymbol\omega)\mathbf{r}_\alpha).
+  \mathbf{L} &= \sum_{\alpha} m_\alpha \mathbf{r}_\alpha \times \mathbf{v}_\alpha = \sum_\alpha m_\alpha \mathbf{r}_\alpha \times (\boldsymbol\omega\times \mathbf{r}_\alpha)\\
+  &= \sum_\alpha m_\alpha( |\mathbf{r}_\alpha|^2\boldsymbol\omega - (\mathbf{r}_\alpha \cdot \boldsymbol\omega)\mathbf{r}_\alpha),
 \end{align*}
-by vector identities. In components, we have
+using the vector identity $\mathbf{a}\times(\mathbf{b}\times\mathbf{a}) = |\mathbf{a}|^2\mathbf{b} - (\mathbf{a}\cdot\mathbf{b})\mathbf{a}$. In components,
 \[
   L_i = I_{ij}\omega_j,
 \]
@@ -3583,9 +3580,9 @@ By inspection, $I$ is a symmetric tensor.
     &= \rho_0 \left(\pi a^2 \cdot \frac{2}{3}\ell^3 + 2\ell\int_0^a r^3 \;\d r\int_0^{2\pi}\sin^2 \theta \;\d\theta\right)\\
     &= \rho_0 \pi a^2 \ell\left(\frac{a^2}{2} + \frac{2}{3}\ell^2\right)
   \end{align*}
-  By symmetry, the result for $I_{22}$ is the same.
+  By symmetry, $I_{22} = I_{11}$.
 
-  How about the off-diagonal elements?
+  For the off-diagonal elements:
   \begin{align*}
     I_{13} &= -\int_V \rho_0 x_1 x_3 \;\d V\\
     &= -\rho_0 \int_0^a \int_{-\ell}^\ell \int_0^{2\pi} r^2 \cos \theta x_3 \;\d r\;\d x_3 \;\d \theta\\
@@ -3604,19 +3601,15 @@ By inspection, $I$ is a symmetric tensor.
 \end{eg}
 
 \subsection{Diagonalization of a symmetric second rank tensor}
-Recall that using matrix notation,
-\[
-  T = (T_{ij}),\quad T' = (T_{ij}'),\quad R = (R_{ij}),
-\]
-and the tensor transformation rule $T'_{ij} = R_{ip}R_{jq}T_{pq}$ becomes
-\[
-  T' = RTR^T = RTR^{-1}.
-\]
-If $T$ is symmetric, it can be diagonalized by such an orthogonal transformation. This means that there exists a basis of orthonormal eigenvectors $\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3$ for $T$ with real eigenvalues $\lambda_1, \lambda_2, \lambda_3$ respectively. The directions defined by $\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3$ are the \emph{principal axes} for $T$, and the tensor is diagonal in Cartesian coordinates along these axes.
+In matrix notation, the tensor transformation rule $T'_{ij} = R_{ip}R_{jq}T_{pq}$ becomes $T' = RTR^T = RTR^{-1}$.
 
-This applies to any symmetric rank-2 tensor. For the special case of the inertia tensor, the eigenvalues are called the \emph{principal moments of inertia}.
+\begin{prop}[Diagonalization of symmetric tensors]
+  A symmetric rank-2 tensor $T_{ij}$ can be diagonalized by an orthogonal transformation. There exists an orthonormal basis $\{\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3\}$ of eigenvectors with real eigenvalues $\lambda_1, \lambda_2, \lambda_3$. The directions $\mathbf{e}_i$ are called the \emph{principal axes}, and in Cartesian coordinates along these axes, $T_{ij} = \lambda_i \delta_{ij}$ (no sum).
+\end{prop}
 
-As exemplified in the previous example, we can often guess the correct principal axes for $I_{ij}$ based on the symmetries of the body. With the axes we chose, $I_{ij}$ was found to be diagonal by direct calculation.
+\begin{rmk}
+  For the inertia tensor, the eigenvalues are called the \emph{principal moments of inertia}. The principal axes can often be identified from symmetries of the body, as in the cylinder example where the chosen axes yielded a diagonal tensor directly.
+\end{rmk}
 
 \section{Invariant and isotropic tensors}
 \subsection{Definitions and classification results}
