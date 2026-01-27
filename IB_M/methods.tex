@@ -223,13 +223,17 @@ When $\Omega$ has a boundary $\partial\Omega$, we often restrict attention to fu
 \end{eg}
 
 \section{Fourier series}
-The first type of functions we will consider is periodic functions.
-\begin{defi}[Periodic function]
-  A function $f$ is \emph{periodic} if there is some fixed $R$ such that $f(x + R) = f(x)$ for all $x$.
+In this section, we develop the theory of Fourier series for periodic functions.
 
-  However, it is often much more convenient to think of this as a function $f: S^1 \to \C$ from unit circle to $\C$, and parametrize our function by an angle $\theta$ ranging from $0$ to $2\pi$.
+\begin{defi}[Periodic function]
+  A function $f: \R \to \C$ is \emph{periodic} with \emph{period} $R > 0$ if $f(x + R) = f(x)$ for all $x \in \R$. We call $R$ the \emph{fundamental period} if it is the smallest such positive number.
 \end{defi}
-Now why do we care about periodic functions? Apart from the fact that genuine periodic functions exist, we can also use them to model functions on a compact domain. For example, if we have a function defined on $[0, 1]$, we can pretend it is a periodic function on $\R$ by making infinitely many copies of the function to the intervals $[1, 2]$, $[2, 3]$ etc.
+
+\begin{remark}
+  It is often convenient to view a periodic function with period $2\pi$ as a function $f: S^1 \to \C$ from the unit circle to $\C$, parametrized by an angle $\theta \in [0, 2\pi)$.
+\end{remark}
+
+Periodic functions arise naturally in many applications. Moreover, they can be used to model functions on a bounded interval: given any $f: [0, 1] \to \C$, we can extend it periodically to all of $\R$ by defining $f(x + n) = f(x)$ for all $n \in \Z$.
 \begin{center}
   \begin{tikzpicture}
     \draw [->] (-0.3, 0) -- (2.3, 0) node [right] {$x$};
@@ -243,76 +247,119 @@ Now why do we care about periodic functions? Apart from the fact that genuine pe
   \end{tikzpicture}
 \end{center}
 \subsection{Fourier series}
-So. As mentioned in the previous chapter, we want to find a set of ``basis functions'' for periodic functions. We could go with the simplest case of periodic functions we know of --- the exponential function $e^{in\theta}$. These functions have a period of $2\pi$, and are rather easy to work with. We all know how to integrate and differentiate the exponential function.
+As mentioned in the previous chapter, we want to find a set of ``basis functions'' for periodic functions. A natural choice is the exponential function $e^{in\theta}$, where $n \in \Z$. These functions have period $2\pi$ and are straightforward to integrate and differentiate.
 
-More importantly, this set of basis functions is orthogonal. We have
-\[
-  (e^{im \theta}, e^{in\theta}) = \int_{-\pi}^{\pi} e^{-im\theta} e^{in\theta}\;\d \theta = \int_{-\pi}^\pi e^{i(n - m)\theta}\;\d \theta =
-  \begin{cases}
-    2\pi & n = m\\
-    0 & n\not= m
-  \end{cases} = 2\pi \delta_{nm}
-\]
-We can normalize these to get a set of orthonormal functions $\left\{\frac{1}{\sqrt{2\pi}} e^{in\theta}: n\in \Z\right\}$.
+\begin{prop}[Orthogonality of complex exponentials]
+  The set of functions $\{e^{in\theta} : n \in \Z\}$ forms an orthogonal set with respect to the inner product on $[-\pi, \pi]$. Specifically, for any $m, n \in \Z$,
+  \[
+    (e^{im \theta}, e^{in\theta}) = \int_{-\pi}^{\pi} e^{-im\theta} e^{in\theta}\;\d \theta = \int_{-\pi}^\pi e^{i(n - m)\theta}\;\d \theta =
+    \begin{cases}
+      2\pi & n = m\\
+      0 & n\not= m
+    \end{cases} = 2\pi \delta_{nm}.
+  \]
+  Consequently, the set $\left\{\frac{1}{\sqrt{2\pi}} e^{in\theta}: n\in \Z\right\}$ is orthonormal.
+\end{prop}
 
-Fourier's idea was to use this as a basis for \emph{any} periodic function. Fourier claimed that any $f: S^1 \to \C$ can be expanded in this basis:
-\[
-  f(\theta) = \sum_{n \in \Z}\hat{f}_n e^{in\theta},
-\]
-where
-\[
-  \hat{f}_n = \frac{1}{2\pi} (e^{in\theta}, f) = \frac{1}{2\pi}\int_{-\pi}^\pi e^{-in\theta} f(\theta)\;\d \theta.
-\]
-These really should be defined as $f(\theta) = \sum \hat{f}_n \frac{e^{in\theta}}{\sqrt{2\pi}}$ with $\hat{f}_n = \left(\frac{e^{in\theta}}{\sqrt{2\pi}}, f\right)$, but for convenience reasons, we move all the constant factors to the $\hat{f}_n$ coefficients.
+\begin{proof}
+  For $n = m$, the integrand is $e^{i \cdot 0 \cdot \theta} = 1$, so the integral evaluates to $2\pi$. For $n \neq m$, we have
+  \[
+    \int_{-\pi}^\pi e^{i(n-m)\theta}\;\d\theta = \left[\frac{e^{i(n-m)\theta}}{i(n-m)}\right]_{-\pi}^{\pi} = \frac{e^{i(n-m)\pi} - e^{-i(n-m)\pi}}{i(n-m)} = 0,
+  \]
+  since $e^{i(n-m)\pi} = e^{-i(n-m)\pi}$ when $n - m$ is an integer.
+\end{proof}
 
-We can consider the special case where $f: S^1 \to \R$ is a real function. We might want to make our expansion look a bit more ``real''. We get
-\[
-  (\hat{f}_n)^* = \left(\frac{1}{2\pi}\int_{-\pi}^\pi e^{-in\theta}f(\theta)\;\d \theta\right)^* = \frac{1}{2\pi}\int_{-\pi}^{\pi}e^{in\theta}f(\theta)\;\d \theta = \hat{f}_{-n}.
-\]
-So we can replace our Fourier series by
-\[
-  f(\theta) = \hat{f}_0 + \sum_{n = 1}^\infty\left(\hat{f}_n e^{in\theta} + \hat{f}_{-n}e^{-in\theta}\right) = \hat{f}_0 + \sum_{n = 1}^\infty \left(\hat{f}_n e^{in\theta} + \hat{f}_n^* e^{-in\theta}\right).
-\]
-Setting $\displaystyle \hat{f}_n = \frac{a_n + ib_n}{2}$, we can write this as
-\begin{align*}
-  f(\theta) &= \hat{f}_0 + \sum_{n = 1}^\infty (a_n \cos n\theta + b_n \sin n\theta)\\
-  &= \frac{a_0}{2} + \sum_{n = 1}^\infty (a_n \cos n\theta + b_n \sin n\theta).
-\end{align*}
-Here the coefficients are
-\[
-  a_n = \frac{1}{\pi}\int_{-\pi}^\pi \cos n\theta f(\theta) \;\d \theta,\quad b_n = \frac{1}{\pi}\int_{-\pi}^\pi \sin n\theta f(\theta) \;\d \theta.
-\]
-This is an alternative formulation of the Fourier series in terms of $\sin$ and $\cos$.
+Fourier's idea was to use this orthogonal set as a basis for \emph{any} periodic function.
 
-So when given a real function, which expansion should we use? It depends. If our function is odd (or even), it would be useful to pick the sine/cosine expansion, since the cosine (or sine) terms will simply disappear. On the other hand, if we want to stick our function into a differential equation, exponential functions are usually more helpful.
+\begin{defi}[Fourier series and Fourier coefficients]
+  Let $f: S^1 \to \C$ be a periodic function. The \emph{Fourier series} of $f$ is the formal series
+  \[
+    f(\theta) = \sum_{n \in \Z}\hat{f}_n e^{in\theta},
+  \]
+  where the \emph{Fourier coefficients} $\hat{f}_n$ are defined by
+  \[
+    \hat{f}_n = \frac{1}{2\pi} (e^{in\theta}, f) = \frac{1}{2\pi}\int_{-\pi}^\pi e^{-in\theta} f(\theta)\;\d \theta.
+  \]
+\end{defi}
+
+\begin{remark}
+  Strictly speaking, one should write $f(\theta) = \sum \hat{f}_n \frac{e^{in\theta}}{\sqrt{2\pi}}$ with $\hat{f}_n = \left(\frac{e^{in\theta}}{\sqrt{2\pi}}, f\right)$ to use the orthonormal basis. However, for convenience, we absorb all constant factors into the $\hat{f}_n$ coefficients.
+\end{remark}
+
+For real-valued functions, there is an alternative formulation in terms of sines and cosines.
+
+\begin{prop}[Real Fourier series]
+  \label{prop:real-fourier}
+  Let $f: S^1 \to \R$ be a real-valued periodic function. Then the Fourier coefficients satisfy $\hat{f}_{-n} = \hat{f}_n^*$ (complex conjugate), and the Fourier series can be written as
+  \[
+    f(\theta) = \frac{a_0}{2} + \sum_{n = 1}^\infty (a_n \cos n\theta + b_n \sin n\theta),
+  \]
+  where the real coefficients $a_n$ and $b_n$ are given by
+  \[
+    a_n = \frac{1}{\pi}\int_{-\pi}^\pi \cos n\theta \cdot f(\theta) \;\d \theta,\quad b_n = \frac{1}{\pi}\int_{-\pi}^\pi \sin n\theta \cdot f(\theta) \;\d \theta.
+  \]
+\end{prop}
+
+\begin{proof}
+  Since $f$ is real-valued, we have
+  \[
+    (\hat{f}_n)^* = \left(\frac{1}{2\pi}\int_{-\pi}^\pi e^{-in\theta}f(\theta)\;\d \theta\right)^* = \frac{1}{2\pi}\int_{-\pi}^{\pi}e^{in\theta}f(\theta)\;\d \theta = \hat{f}_{-n}.
+  \]
+  Thus we can rewrite the Fourier series as
+  \[
+    f(\theta) = \hat{f}_0 + \sum_{n = 1}^\infty\left(\hat{f}_n e^{in\theta} + \hat{f}_{-n}e^{-in\theta}\right) = \hat{f}_0 + \sum_{n = 1}^\infty \left(\hat{f}_n e^{in\theta} + \hat{f}_n^* e^{-in\theta}\right).
+  \]
+  Setting $\hat{f}_n = \frac{a_n - ib_n}{2}$ for $n \geq 1$ and using $e^{in\theta} + e^{-in\theta} = 2\cos n\theta$ and $e^{in\theta} - e^{-in\theta} = 2i\sin n\theta$, we obtain the stated form.
+\end{proof}
+
+\begin{remark}
+  When working with a real function, the choice between the complex exponential form and the sine/cosine form depends on the application. If $f$ is odd (or even), the sine/cosine expansion is useful since the cosine (or sine) terms vanish. On the other hand, for differential equations, the exponential form is often more convenient.
+\end{remark}
 
 \subsection{Convergence of Fourier series}
-When Fourier first proposed the idea of a Fourier series, people didn't really believe in him. How can we be sure that the infinite series actually converges? It turns out that in many cases, they don't.
+When Fourier first proposed the idea of a Fourier series, mathematicians were skeptical. How can we be sure that the infinite series actually converges? It turns out that in many cases, it does not. To make this question precise, we first introduce some definitions.
 
-To investigate the convergence of the series, we define the \emph{partial Fourier sum} as
-\[
-  S_n f = \sum_{m = -n}^n \hat{f}_m e^{im\theta}.
-\]
-The question we want to answer is whether $S_n f$ ``converges'' to $f$. Here we have to be careful with what we mean by convergence. As we (might) have seen in Analysis, there are many ways of defining convergence of functions. If we have a ``norm'' on the space of functions, we can define convergence to mean $\lim\limits_{n\to \infty}\|S_n f - f\| = 0$. Our ``norm'' can be defined as
-\[
-  \|S_n f - f\| = \frac{1}{2\pi}\int_{-\pi}^\pi |S_n f(\theta) - f(\theta)|^2 \;\d \theta.
-\]
-However, this doesn't really work if $S_n f$ and $f$ can be arbitrary functions, as in this does not necessarily have to be a norm. Indeed, if $\lim\limits_{n \to \infty}S_n f$ differs from $f$ on finitely or countably many points, the integral will still be zero. In particular, $\lim S_n f$ and $f$ can differ at all rational points, but this definition will say that $S_n f$ converges to $f$.
+\begin{defi}[Partial Fourier sum]
+  Let $f$ be a periodic function with Fourier coefficients $\hat{f}_m$. The \emph{$n$-th partial Fourier sum} of $f$ is
+  \[
+    S_n f(\theta) = \sum_{m = -n}^n \hat{f}_m e^{im\theta}.
+  \]
+\end{defi}
 
-Hence another possible definition of convergence is to require
-\[
-  \lim_{n \to \infty}S_n f(\theta) - f(\theta) = 0
-\]
-for all $\theta$. This is known as \emph{pointwise convergence}. However, this is often too weak a notion. We can ask for more, and require that the \emph{rate} of convergent is independent of $\theta$. This is known as uniform convergence, and is defined by
-\[
-  \lim_{n \to \infty}\sup_{\theta} |S_n f(\theta) - f(\theta)| = 0.
-\]
-Of course, with different definitions of convergence, we can get different answers to whether it converges. Unfortunately, even if we manage to get our definition of convergence right, it is still difficult to come up with a criterion to decide if a function has a convergent Fourier Series.
+The central question is whether $S_n f$ ``converges'' to $f$ as $n \to \infty$. There are several notions of convergence for functions, and we now define the most important ones.
 
-It is not difficult to prove a general criterion for convergence in norm, but we will not do that, since that is analysis. If interested, one should take the IID Analysis of Functions course. In this course, instead of trying to come up with something general, let's look at an example instead.
+\begin{defi}[Convergence in mean square]
+  A sequence of functions $(g_n)$ \emph{converges in mean square} (or \emph{in norm}) to a function $g$ on $[-\pi, \pi]$ if
+  \[
+    \lim_{n\to \infty}\|g_n - g\|^2 = \lim_{n \to \infty} \frac{1}{2\pi}\int_{-\pi}^\pi |g_n(\theta) - g(\theta)|^2 \;\d \theta = 0.
+  \]
+\end{defi}
+
+\begin{remark}
+  Mean square convergence does not distinguish between functions that differ only on a set of measure zero. For instance, if $\lim_{n \to \infty}S_n f$ differs from $f$ at countably many points (such as all rational points), mean square convergence still holds.
+\end{remark}
+
+\begin{defi}[Pointwise convergence]
+  A sequence of functions $(g_n)$ \emph{converges pointwise} to a function $g$ if
+  \[
+    \lim_{n \to \infty} g_n(\theta) = g(\theta)
+  \]
+  for every $\theta$ in the domain.
+\end{defi}
+
+\begin{defi}[Uniform convergence]
+  A sequence of functions $(g_n)$ \emph{converges uniformly} to a function $g$ if
+  \[
+    \lim_{n \to \infty}\sup_{\theta} |g_n(\theta) - g(\theta)| = 0.
+  \]
+  This requires that the rate of convergence is independent of $\theta$.
+\end{defi}
+
+Different notions of convergence can yield different answers. A general criterion for convergence in norm requires more analysis (see the Part II Analysis of Functions course). Instead, we illustrate the behaviour with an example.
 
 \begin{eg}[Sawtooth function]
-  Consider the sawtooth function $f(\theta) = \theta$.
+  \label{eg:sawtooth}
+  Consider the \emph{sawtooth function} $f(\theta) = \theta$ on $[-\pi, \pi]$, extended periodically to all of $\R$.
   \begin{center}
     \begin{tikzpicture}
       \draw (-3.2, 0) -- (3.2, 0);
@@ -329,122 +376,161 @@ It is not difficult to prove a general criterion for convergence in norm, but we
       \node at (3, 0) [below] {$3\pi$};
     \end{tikzpicture}
   \end{center}
-  Note that this function is discontinuous at odd multiples of $\pi$.
+  This function has jump discontinuities at odd multiples of $\pi$.
 
-  The Fourier coefficients (for $n \not= 0$) are
+  We compute the Fourier coefficients. For $n = 0$:
   \[
-    \hat{f}_n = \frac{1}{2\pi}\int_{-\pi}^\pi e^{-in\theta}\theta\;\d \theta = \left[-\frac{1}{2\pi i n}e^{-in\theta}\theta\right]_{-\pi}^\pi + \frac{1}{2\pi i n}\int_{-\pi}^\pi e^{in\theta}\;\d \theta = \frac{(-1)^{n + 1}}{in}.
+    \hat{f}_0 = \frac{1}{2\pi}\int_{-\pi}^\pi \theta\;\d\theta = 0.
   \]
-  We also have $\hat{f}_0 = 0$.
-
-  Hence we have
+  For $n \neq 0$, integrating by parts:
   \[
-    \theta = \sum_{n \not= 0}\frac{(-1)^{n + 1}}{in}e^{in\theta}.
+    \hat{f}_n = \frac{1}{2\pi}\int_{-\pi}^\pi e^{-in\theta}\theta\;\d \theta = \left[-\frac{1}{2\pi i n}e^{-in\theta}\theta\right]_{-\pi}^\pi + \frac{1}{2\pi i n}\int_{-\pi}^\pi e^{-in\theta}\;\d \theta = \frac{(-1)^{n + 1}}{in}.
   \]
-  It turns out that this series converges to the sawtooth for all $\theta \not= (2m + 1)\pi$, i.e.\ everywhere that the sawtooth is continuous.
-
-  Let's look explicitly at the case where $\theta = \pi$. Each term of the partial Fourier series is zero. So we can say that the Fourier series converges to 0. This is the \emph{average} value of $\lim\limits_{\varepsilon \to 0} f(\pi \pm \varepsilon)$.
-
-  This is typical. At an isolated discontinuity, the Fourier series is the average of the limiting values of the original function as we approach from either side.
+  Thus the Fourier series is
+  \[
+    f(\theta) = \sum_{n \not= 0}\frac{(-1)^{n + 1}}{in}e^{in\theta}.
+  \]
+  This series converges to $f(\theta)$ for all $\theta \neq (2m+1)\pi$, i.e., at every point where $f$ is continuous.
 \end{eg}
-\subsection{Differentiability and Fourier series}
-Integration is a smoothening operator. If we take, say, the step function
-\[
-  \Theta(x) =
-  \begin{cases}
-    1 & x > 0\\
-    0 & x < 0
-  \end{cases}.
-\]
-Then the integral is given by
-\[
-  \int \Theta(x)\;\d x =
-  \begin{cases}
-    x & x > 0\\
-    0 & x < 0
-  \end{cases}.
-\]
-This is now a continuous function. If we integrate it again, we make the positive side look like a quadratic curve, and it is now differentiable.
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (-2, 0) -- (2, 0) node [right] {$x$};
-    \draw [->] (0, -0.5) -- (0, 2.5) node [above] {$y$};
-    \draw [mblue, thick] (-2, 0) -- (0, 0);
-    \draw [mblue, thick] (0, 2) -- (2, 2);
 
-    \draw [->] (2.5, 1) -- (3.5, 1) node [above, pos=0.5] {$\int\d x$};
-
-    \draw [->] (4, 0) -- (8, 0) node [right] {$x$};
-    \draw [->] (6, -0.5) -- (6, 2.5) node [above] {$y$};
-    \draw [mred, thick] (4, 0) -- (6, 0);
-    \draw [mred, thick] (6, 0) -- (8, 2);
-  \end{tikzpicture}
-\end{center}
-On the other hand, when we differentiate a function, we generally make it worse. For example, when we differentiate the continuous function $\int \Theta (x)\;\d x$, we obtain the discontinuous function $\Theta(x)$. If we attempt to differentiate this again, we get the $\delta$-(non)-function.
-
-Hence, it is often helpful to characterize the ``smoothness'' of a function by how many times we can differentiate it. It turns out this is rather relevant to the behaviour of the Fourier series.
-
-Suppose that we have a function that is itself continuous and whose first $m - 1$ derivatives are also continuous, but $f^{(m)}$ has isolated discontinuities at $\{\theta_1, \theta_2, \theta_3, \cdots, \theta_r\}$.
-
-We can look at the $k$th Fourier coefficient:
-\begin{align*}
-  \hat{f}_k &= \frac{1}{2\pi}\int_{-\pi}^\pi e^{-ik\theta}f(\theta) \;\d \theta\\
-  &= \left[-\frac{1}{2\pi i k}e^{-ik\theta}f(\theta)\right]^{\pi}_{-\pi} + \frac{1}{2\pi i k}\int_{-\pi}^\pi e^{-ik\theta}f'(\theta)\;\d \theta\\
-  \intertext{The first term vanishes since $f(\theta)$ is continuous and takes the same value at $\pi$ and $-\pi$. So we are left with}
-  &= \frac{1}{2\pi i k}\int_{-\pi}^\pi e^{-ik\theta}f'(\theta)\;\d \theta\\
-  &= \cdots\\
-  &= \frac{1}{(ik)^m}\frac{1}{2\pi} \int_{-\pi}^\pi e^{ik\theta} f^{(m)}(\theta)\;\d \theta.
-  \intertext{Now we have to be careful, since $f^{(m)}$ is no longer continuous. However provided that $f^{(m)}$ is everywhere finite, we can approximate this by removing small strips $(\theta_i - \varepsilon, \theta_i + \varepsilon)$ from our domain of integration, and take the limit $\varepsilon \to 0$. We can write this as}
-  &= \lim_{\varepsilon \to 0}\frac{1}{(ik)^m}\frac{1}{2\pi}\int_{-\pi}^{\theta_1 - \varepsilon} + \int_{\theta_1 + \varepsilon}^{\theta_2 - \varepsilon} + \cdots + \int_{\theta_r + \varepsilon}^{\pi} e^{ik\theta} f^{(m)}(\theta)\;\d \theta\\
-  &= \frac{1}{(ik)^{m + 1}} \frac{1}{2\pi}\left[\sum_{s = 1}^r (f^{(m)}(\theta_s^+) - f^{(m)}(\theta_s^-)) + \int_{(-\pi, \pi)\setminus \theta} e^{-ik\theta} f^{(m + 1)}(\theta) \;\d \theta\right].
-\end{align*}
-We now have to stop. So $\hat{f}_k$ decays like $\left(\frac{1}{k}\right)^{m + 1}$ if our function and its $(m - 1)$ derivatives are continuous. This means that if a function is more differentiable, then the coefficients decay more quickly.
-
-This makes sense. If we have a rather smooth function, then we would expect the first few Fourier terms (with low frequency) to account for most of the variation of $f$. Hence the coefficients decay really quickly.
-
-However, if the function is jiggly and bumps around all the time, we would expect to need some higher frequency terms to account for the minute variation. Hence the terms would not decay away that quickly. So in general, if we can differentiate it more times, then the terms should decay quicker.
-
-An important result, which is in some sense a Linear Algebra result, is \emph{Parseval's theorem}.
-\begin{thm}[Parseval's theorem]
+\begin{remark}[Behaviour at discontinuities]
+  At a discontinuity $\theta = \pi$, each term of the Fourier series vanishes (since $e^{-in\pi} = (-1)^n$), so the series converges to $0$. This equals the average of the left and right limits:
   \[
-    (f, f) = \int_{-\pi}^\pi |f(\theta)|^2 \;\d \theta = 2\pi \sum_{n\in \Z}|\hat{f}_n|^2
+    \frac{1}{2}\left(\lim_{\varepsilon \to 0^+} f(\pi - \varepsilon) + \lim_{\varepsilon \to 0^+} f(-\pi + \varepsilon)\right) = \frac{1}{2}(\pi + (-\pi)) = 0.
+  \]
+  This is a general phenomenon: at an isolated jump discontinuity, the Fourier series converges to the average of the one-sided limits.
+\end{remark}
+\subsection{Differentiability and Fourier series}
+The smoothness of a function is closely related to the decay of its Fourier coefficients. We begin with a motivating observation.
+
+\begin{eg}[Smoothing effect of integration]
+  Consider the Heaviside step function
+  \[
+    \Theta(x) =
+    \begin{cases}
+      1 & x > 0\\
+      0 & x < 0
+    \end{cases}.
+  \]
+  Its integral is
+  \[
+    \int \Theta(x)\;\d x =
+    \begin{cases}
+      x & x > 0\\
+      0 & x < 0
+    \end{cases},
+  \]
+  which is now continuous. A further integration produces a function that is also differentiable.
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (-2, 0) -- (2, 0) node [right] {$x$};
+      \draw [->] (0, -0.5) -- (0, 2.5) node [above] {$y$};
+      \draw [mblue, thick] (-2, 0) -- (0, 0);
+      \draw [mblue, thick] (0, 2) -- (2, 2);
+
+      \draw [->] (2.5, 1) -- (3.5, 1) node [above, pos=0.5] {$\int\d x$};
+
+      \draw [->] (4, 0) -- (8, 0) node [right] {$x$};
+      \draw [->] (6, -0.5) -- (6, 2.5) node [above] {$y$};
+      \draw [mred, thick] (4, 0) -- (6, 0);
+      \draw [mred, thick] (6, 0) -- (8, 2);
+    \end{tikzpicture}
+  \end{center}
+  Conversely, differentiation makes functions ``rougher'': differentiating $\int \Theta(x)\;\d x$ yields the discontinuous $\Theta(x)$, and differentiating again produces the Dirac $\delta$-function.
+\end{eg}
+
+This observation motivates characterizing the ``smoothness'' of a function by how many times it can be differentiated. The following theorem makes precise how smoothness affects Fourier coefficients.
+
+\begin{thm}[Decay of Fourier coefficients]
+  \label{thm:fourier-decay}
+  Let $f: S^1 \to \C$ be a periodic function such that $f, f', \ldots, f^{(m-1)}$ are all continuous, but $f^{(m)}$ has isolated discontinuities at points $\theta_1, \theta_2, \ldots, \theta_r \in (-\pi, \pi)$. Then the Fourier coefficients satisfy
+  \[
+    \hat{f}_k = O\left(\frac{1}{|k|^{m+1}}\right) \quad \text{as } |k| \to \infty.
+  \]
+  In particular, smoother functions have faster-decaying Fourier coefficients.
+\end{thm}
+
+\begin{proof}
+  For $k \neq 0$, we integrate by parts:
+  \begin{align*}
+    \hat{f}_k &= \frac{1}{2\pi}\int_{-\pi}^\pi e^{-ik\theta}f(\theta) \;\d \theta\\
+    &= \left[-\frac{1}{2\pi i k}e^{-ik\theta}f(\theta)\right]^{\pi}_{-\pi} + \frac{1}{2\pi i k}\int_{-\pi}^\pi e^{-ik\theta}f'(\theta)\;\d \theta.
+  \end{align*}
+  The boundary term vanishes since $f$ is continuous and periodic ($f(\pi) = f(-\pi)$). Repeating this process $m$ times yields
+  \[
+    \hat{f}_k = \frac{1}{(ik)^m}\frac{1}{2\pi} \int_{-\pi}^\pi e^{-ik\theta} f^{(m)}(\theta)\;\d \theta.
+  \]
+  Since $f^{(m)}$ has discontinuities, we split the integral around them. Writing $-\pi = \theta_0$ and $\pi = \theta_{r+1}$, and integrating by parts once more on each subinterval, we obtain boundary contributions from the jumps in $f^{(m)}$. The result is
+  \[
+    \hat{f}_k = \frac{1}{(ik)^{m + 1}} \frac{1}{2\pi}\left[\sum_{s = 1}^r \left(f^{(m)}(\theta_s^+) - f^{(m)}(\theta_s^-)\right)e^{-ik\theta_s} + \int_{(-\pi, \pi)\setminus \{\theta_s\}} e^{-ik\theta} f^{(m + 1)}(\theta) \;\d \theta\right].
+  \]
+  The sum is $O(1)$ and the integral is bounded, so $\hat{f}_k = O(k^{-(m+1)})$.
+\end{proof}
+
+\begin{remark}
+  The intuition is clear: a smooth function varies slowly, so it is well-approximated by low-frequency Fourier modes, and higher-frequency coefficients decay rapidly. A rough function with rapid oscillations requires higher-frequency terms, so the coefficients decay more slowly.
+\end{remark}
+
+An important result relating the inner product of a function to its Fourier coefficients is Parseval's theorem.
+
+\begin{thm}[Parseval's theorem]
+  \label{thm:parseval}
+  Let $f: S^1 \to \C$ be a periodic function with Fourier coefficients $\hat{f}_n$. Then
+  \[
+    (f, f) = \int_{-\pi}^\pi |f(\theta)|^2 \;\d \theta = 2\pi \sum_{n\in \Z}|\hat{f}_n|^2.
   \]
 \end{thm}
 
 \begin{proof}
+  Substituting the Fourier expansion and using orthogonality:
   \begin{align*}
     (f, f) &= \int_{-\pi}^\pi |f(\theta)|^2 \;\d \theta\\
     &= \int_{-\pi}^{\pi} \left(\sum_{m \in \Z} \hat{f}_m^* e^{-im\theta}\right)\left(\sum_{n \in \Z} \hat{f}_n e^{in\theta}\right)\;\d \theta\\
     &= \sum_{m, n\in \Z}\hat{f}_m^* \hat{f}_n \int_{-\pi}^\pi e^{i(n - m)\theta}\;\d \theta\\
     &= 2\pi \sum_{m, n\in \Z}\hat{f}_m^* \hat{f}_n \delta_{mn}\\
-    &= 2\pi \sum_{n\in \Z}|\hat{f}_n|^2\qedhere
+    &= 2\pi \sum_{n\in \Z}|\hat{f}_n|^2.\qedhere
   \end{align*}
 \end{proof}
-Note that this is not a fully rigorous proof, since we assumed not only that the Fourier series converges to the function, but also that we could commute the infinite sums. However, for the purposes of an applied course, this is sufficient.
 
-Last time, we computed that the sawtooth function $f(\theta) = \theta$ has Fourier coefficients
-\[
-  \hat{f}_0 = 0,\quad \hat{f}_n = \frac{i(-1)^{n}}{n}\text{ for }n\not= 0.
-\]
-But why do we care? It turns out this has some applications in number theory. You might have heard of the Riemann $\zeta$-function, defined by
-\[
-  \zeta(s) = \sum_{n = 1}^\infty \frac{1}{n^s}.
-\]
-We will show that this obeys the property that for any $m$, $\zeta(2m) = \pi^{2m}q$ for some $q\in \Q$. This may not be obvious at first sight. So let's apply Parseval's theorem for the sawtooth defined by $f(\theta) = \theta$. By direct computation, we know that
-\[
-  (f, f) = \int_{-\pi}^\pi \theta^2 \;\d \theta = \frac{2\pi^3}{3}.
-\]
-However, by Parseval's theorem, we know that
-\[
-  (f, f) = 2\pi \sum_{n \in \Z}|\hat{f}_n|^2 = 4\pi \sum_{n = 1}^\infty \frac{1}{n^2}.
-\]
-Putting these together, we learn that
-\[
-  \sum_{n = 1}^\infty \frac{1}{n^2} = \zeta(2) = \frac{\pi^2}{6}.
-\]
-We have just done it for the case where $m = 1$. But if we integrate the sawtooth function repeatedly, then we can get the general result for all $m$.
+\begin{remark}
+  This proof assumes that the Fourier series converges to $f$ and that the sums can be interchanged with the integral. A rigorous treatment requires analysis beyond the scope of this course.
+\end{remark}
 
-At this point, we might ask, why are we choosing these $e^{im\theta}$ as our basis? Surely there are a lot of different sets of basis we can use. For example, in finite dimensions, we can just arbitrary choose random vectors (that are not linearly dependent) to get a set of basis vectors. However, in practice, we don't pick them randomly. We often choose a basis that can reveal the symmetry of a system. For example, if we have a rotationally symmetric system, we would like to use polar coordinates. Similarly, if we have periodic functions, then $e^{im\theta}$ is often a good choice of basis.
+Parseval's theorem has surprising applications in number theory.
+
+\begin{defi}[Riemann zeta function]
+  The \emph{Riemann zeta function} is defined for $s > 1$ by
+  \[
+    \zeta(s) = \sum_{n = 1}^\infty \frac{1}{n^s}.
+  \]
+\end{defi}
+
+\begin{eg}[Computing $\zeta(2)$ via Parseval]
+  \label{eg:zeta-two}
+  We show that $\zeta(2) = \frac{\pi^2}{6}$.
+
+  From the sawtooth example, the function $f(\theta) = \theta$ on $[-\pi, \pi]$ has Fourier coefficients
+  \[
+    \hat{f}_0 = 0,\quad \hat{f}_n = \frac{i(-1)^{n}}{n}\text{ for }n\not= 0.
+  \]
+  By direct computation,
+  \[
+    (f, f) = \int_{-\pi}^\pi \theta^2 \;\d \theta = \frac{2\pi^3}{3}.
+  \]
+  On the other hand, Parseval's theorem gives
+  \[
+    (f, f) = 2\pi \sum_{n \in \Z}|\hat{f}_n|^2 = 2\pi \cdot 2 \sum_{n = 1}^\infty \frac{1}{n^2} = 4\pi \sum_{n = 1}^\infty \frac{1}{n^2}.
+  \]
+  Equating these expressions yields
+  \[
+    \sum_{n = 1}^\infty \frac{1}{n^2} = \zeta(2) = \frac{\pi^2}{6}.
+  \]
+  By integrating the sawtooth function repeatedly and applying the same argument, one can show that $\zeta(2m) = \pi^{2m} q$ for some $q \in \Q$ for all positive integers $m$.
+\end{eg}
+
+\begin{remark}
+  One may ask: why use $\{e^{in\theta}\}$ as a basis? In finite dimensions, any linearly independent set forms a basis, but in practice we choose bases that respect the symmetries of the problem. For periodic functions, the complex exponentials $e^{in\theta}$ are natural because they are eigenfunctions of the differentiation operator and capture the periodicity of the domain.
+\end{remark}
 
 \section{Sturm-Liouville Theory}
 \label{sec:sturm-liouville}
