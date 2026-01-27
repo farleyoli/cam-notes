@@ -147,7 +147,7 @@ where $\mu$ is some measure. For example, we could integrate $\d x$, or $\d x^2$
 
 Why does this definition make sense? Recall that the usual inner product on finite-dimensional vector spaces is $\sum v_i^* w_i$. Here we are just summing the different components of $v$ and $w$. We just said we can think of the function $f$ as a list of all its values, and this integral is just the sum of all components of $f$ and $g$.
 
-\begin{eg}
+\begin{eg}[Inner product on interval and disk]
   Let $\Sigma = [a, b]$. Then we could take
   \[
     (f, g) = \int_a^b f(x)^* g(x)\;\d x.
@@ -164,7 +164,7 @@ If $\Sigma$ has a boundary, we will often want to restrict our functions to take
 \begin{defi}[Homogeneous boundary conditions]
   A boundary condition is \emph{homogeneous} if whenever $f$ and $g$ satisfy the boundary conditions, then so does $\lambda f + \mu g$ for any $\lambda, \mu \in \C$ (or $\R$).
 \end{defi}
-\begin{eg}
+\begin{eg}[Homogeneous vs non-homogeneous boundary conditions]
   Let $\Sigma = [a, b]$. We could require that $f(a) + 7 f'(b) = 0$, or maybe $f(a) + 3 f''(a) = 0$. These are examples of homogeneous boundary conditions. On the other hand, the requirement $f(a) = 1$ is \emph{not} homogeneous.
 \end{eg}
 
@@ -257,7 +257,7 @@ Of course, with different definitions of convergence, we can get different answe
 
 It is not difficult to prove a general criterion for convergence in norm, but we will not do that, since that is analysis. If interested, one should take the IID Analysis of Functions course. In this course, instead of trying to come up with something general, let's look at an example instead.
 
-\begin{eg}
+\begin{eg}[Sawtooth function]
   Consider the sawtooth function $f(\theta) = \theta$.
   \begin{center}
     \begin{tikzpicture}
@@ -484,7 +484,7 @@ assuming that $p, q$ are real.
 
 So 2nd order linear differential operators are self-adjoint with respect to this norm if $p, q$ are real and the boundary terms vanish. When do the boundary terms vanish? One possibility is when $p$ is periodic (with the right period), or if we constrain $f$ and $g$ to be periodic.
 
-\begin{eg}
+\begin{eg}[Second derivative, self-adjointness]
   We can consider a simple case, where
   \[
     \mathcal{L} = \frac{\d^2}{\d x^2}.
@@ -563,7 +563,7 @@ Note here the word \emph{compact}. In quantum mechanics, if we restrict a partic
   \]
 \end{thm}
 
-\begin{eg}
+\begin{eg}[Fourier series as eigenfunction expansion]
   Let $[a, b] = [-L, L]$, $\mathcal{L} = \frac{\d^2}{\d x^2}$, $w = 1$, restricting to periodic functions Then our eigenfunction obeys
   \[
     \frac{\d^2 y_n}{\d x^2} = \lambda_n y_n(x),
@@ -871,7 +871,7 @@ where $A_{m, n}$ is given by $(*)$. Since we have shown that there is a unique s
 Note that if we imposed a boundary condition at finite $z$, say $0 \leq z \leq c$, then both sets of exponential $\exp (\pm \sqrt{\lambda + \mu} z)$ would have contributed. Similarly, if $\psi$ does not vanish at the other boundaries, then the $\cos$ terms would also contribute.
 
 In general, to actually find our $\psi$, we have to do the horrible integral for $A_{m, n}$, and this is not always easy (since integrals are \emph{hard}). We will just look at a simple example.
-\begin{eg}
+\begin{eg}[Rectangular prism, constant boundary]
   Suppose $f(x, y) = 1$. Then
   \[
     A_{m, n} = \frac{4}{ab} \int_0^a \sin \left(\frac{n\pi x}{a}\right)\;\d x \int_0^ b \sin \left(\frac{m\pi y}{b}\right)\;\d y =
@@ -1682,7 +1682,7 @@ The energy also allows us to prove a uniqueness theorem. First we show that ener
   Hence we must have $\frac{\partial \psi}{\partial t} = 0$. So $\psi$ is constant. Since it is $0$ at the beginning, it is always $0$.
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Circular drum]
   Consider $\Omega = \{(x, y) \in \R^2, x^2 + y^2 \leq 1\}$, and let $\phi(r, \theta, t)$ solve
   \[
     \frac{1}{c^2}\frac{\partial^2 \phi}{\partial t^2} = \nabla^2 \phi = \frac{1}{r} \left(r \frac{\partial \phi}{\partial r}\right) + \frac{1}{r^2}\frac{\partial^2\phi}{\partial \theta^2},
@@ -1763,7 +1763,7 @@ To define a distribution, we first pick a class of ``nice'' test functions, wher
 \end{center}
 We now define a distribution $T$ to be a linear map $T:D(\Omega) \to \R$. For those who are doing IB Linear Algebra, this is the dual space of the space of (``nice'') real-valued functions. For $\phi \in D(\Omega)$, we often write its image under $T$ as $T[\phi]$.
 
-\begin{eg}
+\begin{eg}[Function as distribution]
   The simplest example is just an ordinary function that is integrable over any compact region. Then we define the distribution $T_f$ as
   \[
     T_f[\phi] = \int_\Omega f(x) \phi(x) \;\d x.
@@ -1964,7 +1964,7 @@ So our general solution is
   &= \int_x^b \frac{f(\xi)}{\alpha(\xi)W(\xi)} y_2(\xi) y_1(x)\;\d \xi + \int_a^x \frac{f(\xi)}{\alpha(\xi)W(\xi)}y_1(\xi) y_2(x)\;\d \xi.
 \end{align*}
 
-\begin{eg}
+\begin{eg}[Second-order ODE, Dirichlet Green's function]
   Consider
   \[
     \mathcal{L}y= -y'' - y = f
@@ -1983,7 +1983,7 @@ So our general solution is
   \]
 \end{eg}
 
-\begin{eg}
+\begin{eg}[String under gravity]
   Suppose we have a string with mass per unit length $\mu(x)$ and held under a tension $T$. In the presence of gravity, Newton's second law gives
   \[
     \mu\frac{\partial^2 y}{\partial t^2} = T \frac{\partial^2 y}{\partial x^2} + \mu g.
@@ -2093,7 +2093,7 @@ We can solve this to get $C(\tau)$ and $D(\tau)$. Then we get
 \]
 since we know that when $\tau > t$, the Green's function $G(t, \tau) = 0$. Thus the solution $y(t)$ depends on the forcing term $f$ only for times $ < t$. This expresses causality!
 
-\begin{eg}
+\begin{eg}[Simple harmonic oscillator, Green's function]
   For example, suppose we have $\ddot{y} + y = f(t)$ with $f(0) = \dot{y}(0) = 0$. Then we have
   \[
     G(t, \tau) = \Theta(t - \tau) [C(\tau) \cos(t - \tau) + D(\tau) \sin (t - \tau)]
@@ -2213,7 +2213,7 @@ Since $\mathcal{L}(ik)$ is just multiplication by a polynomial, we can immediate
 \[
   \tilde{y}(k) = \frac{\tilde{f}(k)}{\mathcal{L}(ik)}.
 \]
-\begin{eg}
+\begin{eg}[Screened Poisson equation]
   For $\phi: \R^n \to \C$, suppose we have the equation
   \[
     \nabla^2 \phi - m^2 \phi = \rho(x),
@@ -2295,7 +2295,7 @@ This is useful because it means we can use our knowledge of Fourier transforms t
 
 Note that this does not occur in the case of the Fourier \emph{series}. In the Fourier series, we obtain the coefficients by evaluating an integral, and restore the original function by taking a discrete sum. These operations are not symmetric.
 
-\begin{eg}
+\begin{eg}[Convolution theorem, inverse]
   Recall that we defined the convolution as
   \[
     f * g(x) = \int_{-\infty}^\infty f(x - y) g(y)\;\d y.
@@ -2314,7 +2314,7 @@ Note that this does not occur in the case of the Fourier \emph{series}. In the F
   \]
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Screened Poisson, Fourier inversion]
   Last time we saw that if $\nabla^2 \phi - m^2 \phi = \rho(x)$, then
   \[
     \tilde{\phi}(\mathbf{k}) = -\frac{\tilde{\rho}(\mathbf{k})}{|\mathbf{k}|^2 + m^2}.
@@ -2860,7 +2860,7 @@ We do a few examples to make this clear.
   \]
 \end{eg}
 
-\begin{eg}
+\begin{eg}[First-order PDE, exponential coefficient]
   Consider the equation
   \[
     e^x \frac{\partial \phi}{\partial x} + \frac{\partial \phi}{\partial y} = 0.
@@ -2896,7 +2896,7 @@ We do a few examples to make this clear.
   So done.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[First-order PDE, inhomogeneous]
   Let $\phi: \R^2 \to \R$ solve the inhomogeneous partial differential equation
   \[
     \partial_x \phi + 2 \partial_y \phi = y e^x
@@ -2973,7 +2973,7 @@ To classify these differential equations, we need to define
   \]
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Symbol of Laplacian and heat operator]
   If $\mathcal{L} = \nabla^2$, then
   \[
     \sigma(\mathbf{k}, x) = \sigma^p(\mathbf{k}, x) = \sum_{i = 1}^n (k_i)^2.
@@ -3011,7 +3011,7 @@ where $A(x)$ has elements $a^{ij}(x)$. Recall that a real symmetric matrix (such
 \end{defi}
 These names are supposed to remind us of conic sections, and indeed if we think of $\mathbf{k}^T A\mathbf{k}$ as an equation in $\mathbf{k}$, then we get a conic section.
 
-\begin{eg}
+\begin{eg}[PDE classification in two dimensions]
   Let
   \[
     \mathcal{L} = a(x, y) \frac{\partial^2}{\partial x^2} + 2b(x, y) \frac{\partial^2}{\partial x \partial y} + c(x, y) \frac{\partial^2}{\partial y^2} + d(x, y) \frac{\partial}{\partial x} + e(x, y) \frac{\partial}{\partial y} + f(x, y).
@@ -3094,7 +3094,7 @@ Hence, we can compute
 \]
 We now see explicitly how the type of the differential equation influences the number of characteristics --- if $b^2 - ac > 0$, then we obtain two distinct differential equations and obtain two solutions; if $b^2 - ac = 0$, then we only have one equation; if $b^2 - ac < 0$, then there are no real characteristics.
 
-\begin{eg}
+\begin{eg}[Variable type PDE]
   Consider
   \[
     \partial_y^2 \phi - xy \partial_x^2 \phi = 0
@@ -3124,7 +3124,7 @@ We now see explicitly how the type of the differential equation influences the n
   \]
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Wave equation, d'Alembert]
   Consider the wave equation
   \[
     \frac{\partial^2 \phi}{\partial t^2} - c^2 \frac{\partial^2 \phi}{\partial x^2} = 0
@@ -3218,7 +3218,7 @@ We shall call this $S_1(x, t)$, where the subscript $1$ tells us we are in $1 + 
 \[
   \phi(x, t) = \int_{-\infty}^\infty f(y) S_1(x - y, t) \;\d y
 \]
-\begin{eg}
+\begin{eg}[Heat equation, delta initial data]
   Suppose our initial data is
   \[
     f(x) = \phi_0\delta(x).
@@ -3542,7 +3542,7 @@ In general, finding a harmonic $\nabla^2 H = 0$ with
 \]
 is a difficult problem. However, the \emph{method of images} allows us to solve this in some special cases with lots of symmetry.
 
-\begin{eg}
+\begin{eg}[Method of images, half-space Poisson]
   Suppose
   \[
     \Omega = \{(x, y, z) \in \R^3: z \geq 0\}.
@@ -3592,7 +3592,7 @@ is a difficult problem. However, the \emph{method of images} allows us to solve 
   Our solution for $\phi(\mathbf{x}_0)$ is valid if we extend it to $\mathbf{x}_0 \in \R^3$ where $\phi(\mathbf{x}_0)$ is solved by choosing two mirror charge distributions. But this is irrelevant for our present purposes. We are only concerned with finding a solution in the region $z \geq 0$. This is just an artificial device we have in order to solve the problem.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Chimney smoke]
   Suppose a chimney produces smoke such that the density $\phi(\mathbf{x}, t)$ of smoke obeys
   \[
     \partial_t \phi - D \nabla^2 \phi = F(\mathbf{x}, t).
@@ -3634,7 +3634,7 @@ is a difficult problem. However, the \emph{method of images} allows us to solve 
   We can think of the second term as the contribution from a ``mirror chimney''. Without a mirror chimney, we will have smoke flowing into the ground. With a mirror chimney, we will have equal amounts of mirror smoke flowing up from the ground, so there is no net flow. Of course, there are no mirror chimneys in reality. These are just artifacts we use to find the solution we want.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Method of images, wave reflection]
   Suppose we want to solve the wave equation in the region $(x, t)$ such that $x > 0$ with boundary conditions
   \[
     \phi(x, 0) = b(x),\quad \partial_t(x, 0) = 0,\quad \partial_x \phi(0, t) = 0.
