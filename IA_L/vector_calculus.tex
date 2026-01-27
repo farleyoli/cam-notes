@@ -3629,8 +3629,7 @@ In matrix notation, the tensor transformation rule $T'_{ij} = R_{ip}R_{jq}T_{pq}
   $\delta_{ij}$ and $\varepsilon_{ijk}$ are also isotropic tensors. This ensures that the component definitions of the scalar and vector products $\mathbf{a}\cdot \mathbf{b} = a_i b_j \delta_{ij}$ and $(\mathbf{a}\times \mathbf{b})_i = \varepsilon_{ijk} a_j b_k$ are independent of the Cartesian coordinate system.
 \end{eg}
 
-Isotropic tensors in $\R^3$ can be classified:
-\begin{thm}\leavevmode
+\begin{thm}[Classification of isotropic tensors in $\R^3$]\leavevmode
   \begin{enumerate}
     \item There are no isotropic tensors of rank 1, except the zero tensor.
     \item The most general rank 2 isotropic tensor is $T_{ij} = \alpha \delta_{ij}$ for some scalar $\alpha$.
@@ -3638,8 +3637,8 @@ Isotropic tensors in $\R^3$ can be classified:
     \item All isotropic tensors of higher rank are obtained by combining $\delta_{ij}$ and $\varepsilon_{ijk}$ using tensor products, contractions, and linear combinations.
   \end{enumerate}
 \end{thm}
-We will provide a sketch of the proof:
-\begin{proof}
+
+\begin{proof}[Proof (sketch)]
   We analyze conditions for invariance under specific rotations through $\pi$ or $\pi/2$ about coordinate axes.
 
   \begin{enumerate}
@@ -3652,7 +3651,7 @@ We will provide a sketch of the proof:
           0 & 0 & 1
         \end{pmatrix}.
       \]
-      We want $T_1 = R_{ip}T_p = R_{11} T_1 = -T_1$. So $T_1 = 0$. Similarly, $T_2 = 0$. By considering a rotation about, say $x_1$, we have $T_3 = 0$.
+      Invariance requires $T_1 = R_{1p}T_p = R_{11} T_1 = -T_1$, hence $T_1 = 0$. Similarly, $T_2 = 0$. A rotation about $x_1$ gives $T_3 = 0$.
     \item Suppose $T_{ij}$ is rank-2 isotropic. Consider
       \[
         (R_{ij}) =
@@ -3678,7 +3677,7 @@ We will provide a sketch of the proof:
       \]
       So $T_{11} = T_{22}$.
 
-      By picking a rotation about a different axis, we have $T_{21} = T_{12}$ and $T_{22} = T_{33}$.
+      Rotations about other axes yield $T_{12} = T_{21}$ and $T_{22} = T_{33}$.
 
       Hence $T_{ij} = \alpha \delta_{ij}$.
 
@@ -3715,11 +3714,14 @@ We will provide a sketch of the proof:
   \[
     T_{ijk\ell} = \alpha \delta_{ij}\delta_{k\ell} + \beta \delta_{ik}\delta_{j\ell} + \gamma \delta_{i\ell}\delta_{jk}
   \]
-  for some scalars $\alpha, \beta, \gamma$. There are no other independent combinations. (we might think we can write a rank-4 isotropic tensor in terms of $\varepsilon_{ijk}$, like $\varepsilon_{ijp}\varepsilon_{k\ell p}$, but this is just $\delta_{ik}\delta_{j\ell} - \delta_{i\ell}\delta_{jk}$. It turns out that anything you write with $\varepsilon_{ijk}$ can be written in terms of $\delta_{ij}$ instead)
+  for some scalars $\alpha, \beta, \gamma$.
 \end{eg}
 
+\begin{rmk}
+  Products involving $\varepsilon_{ijk}$ reduce to expressions in $\delta_{ij}$: for example, $\varepsilon_{ijp}\varepsilon_{k\ell p} = \delta_{ik}\delta_{j\ell} - \delta_{i\ell}\delta_{jk}$.
+\end{rmk}
+
 \subsection{Application to invariant integrals}
-We have the following very useful theorem. It might seem a bit odd and arbitrary at first sight --- if so, read the example below first (after reading the statement of the theorem), and things will make sense!
 \begin{thm}[Invariant integrals]
   Let
   \[
@@ -3750,7 +3752,9 @@ We have the following very useful theorem. It might seem a bit odd and arbitrary
   \end{align*}
 \end{proof}
 
-The result is particularly useful if (i) and (ii) hold for \emph{any} rotation $R$, in which case $T_{ij\cdots k}$ is isotropic.
+\begin{rmk}
+  If conditions (i) and (ii) hold for \emph{every} rotation $R$, then $T_{ij\cdots k}$ is isotropic, which severely restricts its form.
+\end{rmk}
 
 \begin{eg}[Invariant integral for sphere]
   Let
@@ -3771,9 +3775,9 @@ The result is particularly useful if (i) and (ii) hold for \emph{any} rotation $
   \[
     T_{ij} = \frac{4}{15}\pi a^5 \delta_{ij}.
   \]
-  Normally if we are only interested in the $i \not= j$ case, we just claim that $T_{ij} = 0$ by saying ``by symmetry, it is $0$''. But now we can do it (more) rigorously!
+  This provides a rigorous justification for the common assertion that $T_{ij} = 0$ for $i \neq j$ ``by symmetry.''
 
-  There is a closely related result for the inertia tensor of a solid sphere of constant density $\rho_0$, or of mass $M = \frac{4}{3}\pi a^3 \rho_0$.
+  A closely related calculation gives the inertia tensor of a solid sphere of constant density $\rho_0$, or of mass $M = \frac{4}{3}\pi a^3 \rho_0$.
 
   Recall that
   \[
