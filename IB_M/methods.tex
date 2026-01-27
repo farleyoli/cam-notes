@@ -61,105 +61,159 @@ The only exception to this seems to be Schr\"odinger's equation. While there are
 Due to the prevalence of linear equations, it is rather important that we understand these equations well, and this is our primary objective of the course.
 
 \section{Vector spaces}
-When dealing with functions and differential equations, we will often think of the space of functions as a vector space. In many cases, we will try to find a ``basis'' for our space of functions, and expand our functions in terms of the basis. Under different situations, we would want to use a different basis for our space. For example, when dealing with periodic functions, we will want to pick basis elements that are themselves periodic. In other situations, these basis elements would not be that helpful.
-
-A familiar example would be the Taylor series, where we try to approximate a function $f$ by
+In studying differential equations, we frequently encounter spaces of functions that possess a natural vector space structure. Given a set of basis functions $\{y_n\}$, we seek to expand an arbitrary function $f$ as
 \[
-  f(x) = \sum_{n = 0}^\infty \frac{f^{(n)}(0)}{n!} x^n.
+  f(x) = \sum_n c_n y_n(x)
 \]
-Here we are thinking of $\{x^n: n \in \N\}$ as the basis of our space, and trying to approximate an arbitrary function as a sum of the basis elements. When writing the function $f$ as a sum like this, it is of course important to consider whether the sum converges, and when it does, whether it actually converges back to $f$.
+for some coefficients $c_n$. A familiar example is the Taylor series expansion
+\[
+  f(x) = \sum_{n = 0}^\infty \frac{f^{(n)}(0)}{n!} x^n,
+\]
+where the monomials $\{x^n : n \in \N\}$ serve as basis functions. The choice of basis depends on the problem at hand: for periodic functions, we will use periodic basis elements (Fourier series); for other problems, different bases prove more natural.
 
-Another issue of concern is if we have a general set of basis functions $\{y_n\}$, how can we find the coefficients $c_n$ such that $f(x) = \sum c_n y_n(x)$? This is the bit where linear algebra comes in. Finding these coefficients is something we understand well in linear algebra, and we will attempt to borrow the results and apply them to our space of functions.
+Two fundamental questions arise in this context:
+\begin{enumerate}
+  \item Given a basis $\{y_n\}$, how do we compute the expansion coefficients $c_n$?
+  \item When does the series $\sum_n c_n y_n(x)$ converge, and does it converge to $f$?
+\end{enumerate}
+Linear algebra provides the framework for addressing the first question. Although classical linear algebra deals with finite-dimensional spaces, the techniques extend to infinite-dimensional function spaces under appropriate conditions.
 
-Another concept we would want to borrow is eigenvalues and eigenfunctions, as well as self-adjoint (``Hermitian'') operators. As we go along the course, we will see some close connections between functions and vector spaces, and we can often get inspirations from linear algebra.
-
-Of course, there is no guarantee that the results from linear algebra would apply directly, since most of our linear algebra results was about finite basis and finite linear sums. However, it is often a good starting point, and usually works when dealing with sufficiently nice functions.
-
-We start with some preliminary definitions, which should be familiar from IA Vectors and Matrices and/or IB Linear Algebra.
+We begin with the basic definitions.
 \begin{defi}[Vector space]
-  A \emph{vector space} over $\C$ (or $\R$) is a set $V$ with an operation $+$ which obeys
+  A \emph{vector space} over $\C$ (or $\R$) is a set $V$ equipped with an addition operation $+: V \times V \to V$ and a scalar multiplication $\cdot: \C \times V \to V$ satisfying the following axioms for all $\mathbf{u}, \mathbf{v}, \mathbf{w} \in V$ and all $\lambda, \mu \in \C$:
   \begin{enumerate}
     \item $\mathbf{u} + \mathbf{v} = \mathbf{v} + \mathbf{u}$\hfill (commutativity)
-    \item $(\mathbf{u} + \mathbf{v}) + \mathbf{w} = \mathbf{u} + (\mathbf{v} + \mathbf{w})$\hfill (associativity)
-    \item There is some $\mathbf{0}\in V$ such that $\mathbf{0} + \mathbf{u} = \mathbf{u}$ for all $\mathbf{u}$\hfill (identity)
-  \end{enumerate}
-  We can also multiply vectors by a scalars $\lambda\in \C$, which satisfies
-  \begin{enumerate}
-    \item $\lambda(\mu \mathbf{v}) = (\lambda \mu) \mathbf{v}$ \hfill (associativity)
-    \item $\lambda(\mathbf{u} + \mathbf{v}) = \lambda \mathbf{u} + \lambda \mathbf{v}$ \hfill (distributivity in $V$)
-    \item $(\lambda + \mu)\mathbf{u} = \lambda \mathbf{u} + \lambda \mathbf{v}$ \hfill (distributivity in $\C$)
-    \item $1\mathbf{v} = \mathbf{v}$ \hfill (identity)
+    \item $(\mathbf{u} + \mathbf{v}) + \mathbf{w} = \mathbf{u} + (\mathbf{v} + \mathbf{w})$\hfill (associativity of addition)
+    \item There exists $\mathbf{0}\in V$ such that $\mathbf{0} + \mathbf{u} = \mathbf{u}$\hfill (additive identity)
+    \item For each $\mathbf{u} \in V$, there exists $-\mathbf{u} \in V$ such that $\mathbf{u} + (-\mathbf{u}) = \mathbf{0}$\hfill (additive inverse)
+    \item $\lambda(\mu \mathbf{v}) = (\lambda \mu) \mathbf{v}$ \hfill (associativity of scalar multiplication)
+    \item $\lambda(\mathbf{u} + \mathbf{v}) = \lambda \mathbf{u} + \lambda \mathbf{v}$ \hfill (distributivity over vector addition)
+    \item $(\lambda + \mu)\mathbf{u} = \lambda \mathbf{u} + \mu \mathbf{u}$ \hfill (distributivity over scalar addition)
+    \item $1\mathbf{v} = \mathbf{v}$ \hfill (multiplicative identity)
   \end{enumerate}
 \end{defi}
-Often, we wouldn't have \emph{just} a vector space. We usually give them some additional structure, such as an inner product.
+
+A vector space equipped with additional structure becomes more useful for analysis. The most important such structure is an inner product.
 \begin{defi}[Inner product]
-  An \emph{inner product} on $V$ is a map $(\ph, \ph): V\times V \to \C$ that satisfies
+  An \emph{inner product} on a vector space $V$ over $\C$ is a map $(\ph, \ph): V\times V \to \C$ satisfying, for all $\mathbf{u}, \mathbf{v}, \mathbf{w} \in V$ and $\lambda \in \C$:
   \begin{enumerate}
     \item $(\mathbf{u}, \lambda \mathbf{v}) = \lambda (\mathbf{u}, \mathbf{v})$ \hfill(linearity in second argument)
-    \item $(\mathbf{u}, \mathbf{v} + \mathbf{w}) = (\mathbf{u}, \mathbf{v}) + (\mathbf{u}, \mathbf{w})$ \hfill (additivity)
+    \item $(\mathbf{u}, \mathbf{v} + \mathbf{w}) = (\mathbf{u}, \mathbf{v}) + (\mathbf{u}, \mathbf{w})$ \hfill (additivity in second argument)
     \item $(\mathbf{u}, \mathbf{v}) = (\mathbf{v}, \mathbf{u})^*$ \hfill (conjugate symmetry)
-    \item $(\mathbf{u}, \mathbf{u}) \geq 0$, with equality iff $\mathbf{u} = \mathbf{0}$ \hfill (positivity)
+    \item $(\mathbf{u}, \mathbf{u}) \geq 0$, with equality if and only if $\mathbf{u} = \mathbf{0}$ \hfill (positive definiteness)
   \end{enumerate}
-  Note that the positivity condition makes sense since conjugate symmetry entails that $(\mathbf{u}, \mathbf{u}) \in \R$.
-
-  The inner product in turn defines a norm $\|\mathbf{u}\| = \sqrt{(\mathbf{u}, \mathbf{u})}$ that provides the notion of length and distance.
+  A vector space equipped with an inner product is called an \emph{inner product space}.
 \end{defi}
-It is important to note that we only have linearity in the \emph{second argument}. For the first argument, we have $(\lambda \mathbf{u}, \mathbf{v}) = (\mathbf{v}, \lambda \mathbf{u})^* = \lambda^* (\mathbf{v}, \mathbf{u})^* = \lambda^* (\mathbf{u}, \mathbf{v})$.
+
+\begin{defi}[Norm]
+  The \emph{norm} induced by an inner product is defined by $\|\mathbf{u}\| = \sqrt{(\mathbf{u}, \mathbf{u})}$. This provides the notions of length and distance in the vector space.
+\end{defi}
+
+Note that positive definiteness is well-defined: conjugate symmetry implies $(\mathbf{u}, \mathbf{u}) = (\mathbf{u}, \mathbf{u})^*$, so $(\mathbf{u}, \mathbf{u}) \in \R$.
+
+\begin{prop}[Anti-linearity in first argument]
+  For any inner product, we have
+  \[
+    (\lambda \mathbf{u}, \mathbf{v}) = \lambda^* (\mathbf{u}, \mathbf{v})
+  \]
+  for all $\mathbf{u}, \mathbf{v} \in V$ and $\lambda \in \C$.
+\end{prop}
+\begin{proof}
+  Using conjugate symmetry and linearity in the second argument:
+  \[
+    (\lambda \mathbf{u}, \mathbf{v}) = (\mathbf{v}, \lambda \mathbf{u})^* = (\lambda(\mathbf{v}, \mathbf{u}))^* = \lambda^* (\mathbf{v}, \mathbf{u})^* = \lambda^* (\mathbf{u}, \mathbf{v}). \qedhere
+  \]
+\end{proof}
 
 \begin{defi}[Basis]
-  A set of vectors $\{\mathbf{v}_1, \mathbf{v}_2, \cdots, \mathbf{v}_n\}$ form a \emph{basis} of $V$ iff any $\mathbf{u}\in V$ can be uniquely written as a linear combination
+  A set of vectors $\{\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_n\}$ forms a \emph{basis} of $V$ if every $\mathbf{u}\in V$ can be uniquely written as a linear combination
   \[
     \mathbf{u} = \sum_{i = 1}^n \lambda_i \mathbf{v}_i
   \]
-  for some scalars $\lambda_i$. The \emph{dimension} of a vector space is the number of basis vectors in its basis.
-
-  A basis is \emph{orthogonal} (with respect to the inner product) if $(\mathbf{v}_i, \mathbf{v}_j) = 0$ whenever $i\not = j$.
-
-  A basis is \emph{orthonormal} (with respect to the inner product) if it is orthogonal and $(\mathbf{v}_i, \mathbf{v}_i) = 1$ for all $i$.
+  for some scalars $\lambda_i \in \C$. The \emph{dimension} of a vector space is the number of elements in any basis.
 \end{defi}
-Orthonormal bases are the nice bases, and these are what we want to work with.
 
-Given an orthonormal basis, we can use the inner product to find the expansion of any $\mathbf{u}\in V$ in terms of the basis, for if
-\[
-  \mathbf{u} = \sum_i \lambda_i \mathbf{v}_i,
-\]
-taking the inner product with $\mathbf{v}_j$ gives
-\[
-  (\mathbf{v}_j, \mathbf{u}) = \left(\mathbf{v}_j, \sum_i \lambda_i \mathbf{v}_i\right) = \sum_i \lambda_i (\mathbf{v}_j, \mathbf{v}_i) = \lambda_j,
-\]
-using additivity and linearity. Hence we get the general formula
-\[
-  \lambda_i = (\mathbf{v}_i, \mathbf{u}).
-\]
-We have seen all these so far in IA Vectors and Matrices, where a vector is a list of finitely many numbers. However, \emph{functions} can also be thought of as elements of an (infinite dimensional) vector space.
+\begin{defi}[Orthogonal and orthonormal bases]
+  Let $V$ be an inner product space with basis $\{\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_n\}$.
+  \begin{itemize}
+    \item The basis is \emph{orthogonal} if $(\mathbf{v}_i, \mathbf{v}_j) = 0$ for all $i \neq j$.
+    \item The basis is \emph{orthonormal} if it is orthogonal and $(\mathbf{v}_i, \mathbf{v}_i) = 1$ for all $i$.
+  \end{itemize}
+  Equivalently, an orthonormal basis satisfies $(\mathbf{v}_i, \mathbf{v}_j) = \delta_{ij}$, where $\delta_{ij}$ is the Kronecker delta.
+\end{defi}
 
-Suppose we have $f, g: \Omega \to \C$. Then we can define the sum $f + g$ by $(f + g)(x) = f(x) + g(x)$. Given scalar $\lambda$, we can also define $(\lambda f)(x) = \lambda f(x)$.
+Orthonormal bases are particularly convenient because they allow explicit computation of expansion coefficients.
 
-This also makes intuitive sense. We can simply view a functions as a list of numbers, where we list out the values of $f$ at each point. The list could be infinite, but a list nonetheless.
+\begin{prop}[Expansion coefficients in orthonormal basis]
+  Let $\{\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_n\}$ be an orthonormal basis of an inner product space $V$. For any $\mathbf{u} \in V$, the expansion
+  \[
+    \mathbf{u} = \sum_{i=1}^n \lambda_i \mathbf{v}_i
+  \]
+  has coefficients given by
+  \[
+    \lambda_i = (\mathbf{v}_i, \mathbf{u}).
+  \]
+\end{prop}
+\begin{proof}
+  Taking the inner product of both sides with $\mathbf{v}_j$:
+  \[
+    (\mathbf{v}_j, \mathbf{u}) = \left(\mathbf{v}_j, \sum_{i=1}^n \lambda_i \mathbf{v}_i\right) = \sum_{i=1}^n \lambda_i (\mathbf{v}_j, \mathbf{v}_i) = \sum_{i=1}^n \lambda_i \delta_{ji} = \lambda_j,
+  \]
+  where we used linearity and additivity in the second argument, together with orthonormality.
+\end{proof}
+\subsection{Function spaces}
+The preceding definitions apply to finite-dimensional spaces such as $\R^n$ or $\C^n$. However, \emph{functions} can also form vector spaces, typically of infinite dimension.
 
-Most of the time, we don't want to look at the set of \emph{all} functions. That would be too huge and uninteresting. A natural class of functions to consider would be the set of solutions to some particular differential solution. However, this doesn't always work. For this class to actually be a vector space, the sum of two solutions and the scalar multiple of a solution must also be a solution. This is exactly the requirement that the differential equation is linear. Hence, the set of solutions to a linear differential equation would form a vector space. Linearity pops up again.
+\begin{defi}[Function space]
+  Let $\Omega \subseteq \R^n$ be a domain. The set of complex-valued functions $f: \Omega \to \C$ forms a vector space under pointwise operations:
+  \begin{itemize}
+    \item Addition: $(f + g)(x) = f(x) + g(x)$
+    \item Scalar multiplication: $(\lambda f)(x) = \lambda f(x)$
+  \end{itemize}
+  for all $x \in \Omega$, $\lambda \in \C$.
+\end{defi}
 
-Now what about the inner product? A natural definition is
-\[
-  (f, g) = \int_{\Sigma} f(x)^* g(x) \;\d \mu,
-\]
-where $\mu$ is some measure. For example, we could integrate $\d x$, or $\d x^2$. This measure specifies how much weighting we give to each point $x$.
+\begin{prop}[Solution spaces of linear equations]
+  The set of solutions to a linear differential equation forms a vector space.
+\end{prop}
+\begin{proof}
+  Let $\mathcal{L}$ be a linear differential operator. If $f$ and $g$ satisfy $\mathcal{L}f = 0$ and $\mathcal{L}g = 0$, then for any scalars $\alpha, \beta$:
+  \[
+    \mathcal{L}(\alpha f + \beta g) = \alpha \mathcal{L}f + \beta \mathcal{L}g = 0.
+  \]
+  Hence $\alpha f + \beta g$ is also a solution, and the solution set is closed under linear combinations.
+\end{proof}
 
-Why does this definition make sense? Recall that the usual inner product on finite-dimensional vector spaces is $\sum v_i^* w_i$. Here we are just summing the different components of $v$ and $w$. We just said we can think of the function $f$ as a list of all its values, and this integral is just the sum of all components of $f$ and $g$.
+To apply the techniques of inner product spaces to functions, we need an appropriate inner product.
+
+\begin{defi}[Inner product on function spaces]
+  Let $\Omega \subseteq \R^n$ be a domain with measure $\d\mu$. For functions $f, g: \Omega \to \C$, define
+  \[
+    (f, g) = \int_{\Omega} f(x)^* g(x) \;\d \mu.
+  \]
+  This defines an inner product on the space of functions for which the integral converges.
+\end{defi}
+
+This definition is the natural analogue of the finite-dimensional inner product $(\mathbf{u}, \mathbf{v}) = \sum_i u_i^* v_i$: viewing a function as a ``continuous list'' of its values, the integral replaces the sum over components.
 
 \begin{eg}[Inner product on interval and disk]
-  Let $\Sigma = [a, b]$. Then we could take
-  \[
-    (f, g) = \int_a^b f(x)^* g(x)\;\d x.
-  \]
-  Alternatively, let $\Sigma = D^2 \subseteq \R^2$ be the unit disk. Then we could have
-  \[
-    (f, g) = \int_0^1 \int_0^{2\pi}f(r, \theta)^* g(r, \theta)\;\d \theta\; r\;\d r
-  \]
+  \leavevmode
+  \begin{enumerate}
+    \item Let $\Omega = [a, b] \subseteq \R$. With the standard Lebesgue measure $\d\mu = \d x$:
+    \[
+      (f, g) = \int_a^b f(x)^* g(x)\;\d x.
+    \]
+    \item Let $\Omega = D^2 = \{(x,y) \in \R^2 : x^2 + y^2 \leq 1\}$ be the unit disk. In polar coordinates $(r, \theta)$, the measure is $\d\mu = r\,\d r\,\d\theta$, giving:
+    \[
+      (f, g) = \int_0^1 \int_0^{2\pi}f(r, \theta)^* g(r, \theta)\; r\,\d r\,\d \theta.
+    \]
+  \end{enumerate}
 \end{eg}
-Note that we were careful and said that $\d \mu$ is ``some measure''. Here we are integrating against $\d\theta\;r\;\d r$. We will later see cases where this can be even more complicated.
 
-If $\Sigma$ has a boundary, we will often want to restrict our functions to take particular values on the boundary, known as boundary conditions. Often, we want the boundary conditions to preserve linearity. We call these nice boundary conditions \emph{homogeneous} conditions.
+Note that the measure $\d\mu$ depends on the domain and coordinate system. In polar coordinates, the factor of $r$ arises from the Jacobian of the coordinate transformation. More general weighted measures will appear in Section~\ref{sec:sturm-liouville}.
+
+\subsection{Boundary conditions}
+When $\Omega$ has a boundary $\partial\Omega$, we often restrict attention to functions satisfying prescribed conditions on $\partial\Omega$. For the solution space to remain a vector space, these boundary conditions must be compatible with linear combinations.
 
 \begin{defi}[Homogeneous boundary conditions]
   A boundary condition is \emph{homogeneous} if whenever $f$ and $g$ satisfy the boundary conditions, then so does $\lambda f + \mu g$ for any $\lambda, \mu \in \C$ (or $\R$).
@@ -393,6 +447,7 @@ We have just done it for the case where $m = 1$. But if we integrate the sawtoot
 At this point, we might ask, why are we choosing these $e^{im\theta}$ as our basis? Surely there are a lot of different sets of basis we can use. For example, in finite dimensions, we can just arbitrary choose random vectors (that are not linearly dependent) to get a set of basis vectors. However, in practice, we don't pick them randomly. We often choose a basis that can reveal the symmetry of a system. For example, if we have a rotationally symmetric system, we would like to use polar coordinates. Similarly, if we have periodic functions, then $e^{im\theta}$ is often a good choice of basis.
 
 \section{Sturm-Liouville Theory}
+\label{sec:sturm-liouville}
 \subsection{Sturm-Liouville operators}
 In finite dimensions, we often consider \emph{linear maps} $M: V\to W$. If $\{\mathbf{v}_i\}$ is a basis for $V$ and $\{\mathbf{w}_i\}$ is a basis for $W$, then we can represent the map by a matrix with entries
 \[
