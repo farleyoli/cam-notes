@@ -2477,13 +2477,13 @@ Consider a distribution of mass producing a gravitational force $\mathbf{F}$ on 
 \begin{defi}[Gravitational field]
   $\mathbf{g}(\mathbf{r})$ is the \emph{gravitational field}, \emph{acceleration due to gravity}, or \emph{force per unit mass}.
 \end{defi}
-The gravitational field is conservative, ie
+The gravitational field is conservative, i.e.,
 \[
-  \oint_C \mathbf{g}\cdot \d \mathbf{r} = 0.
+  \oint_C \mathbf{g}\cdot \d \mathbf{r} = 0
 \]
-This means that if you walk around the place and return to the same position, the total work done is $0$ and you did not gain energy, i.e.\ gravitational potential energy is conserved.
+for any closed curve $C$. Physically, this means the work done by gravity around any closed path is zero, reflecting conservation of gravitational potential energy.
 
-Gauss' law tells us what this gravitational field looks like:
+The gravitational field satisfies the following fundamental law:
 \begin{law}[Gauss' law for gravitation]
   Given any volume $V$ bounded by closed surface $S$,
   \[
@@ -2519,17 +2519,22 @@ These equations determine $\mathbf{g}(\mathbf{r})$ from a mass distribution.
   If we take the limit as $a\to 0$, we get a point mass $M$ at the origin. Then we recover Newton's law of gravitation for point masses.
 \end{eg}
 
-The condition $\int_C \mathbf{g}\cdot \d \mathbf{r} = 0$ for any closed $C$ can be re-written by Stokes' theorem as
-\[
-  \int_S \nabla\times \mathbf{g}\cdot \d \mathbf{S} = 0,
-\]
-where $S$ is bounded by the closed curve $C$. This is true for arbitrary $S$. So
-\[
-  \nabla\times \mathbf{g} = 0.
-\]
-In our example above, $\nabla\times \mathbf{g} = 0$ due to spherical symmetry. But here we showed that it is true for all cases.
+\begin{prop}
+  The gravitational field is irrotational: $\nabla\times \mathbf{g} = \mathbf{0}$.
+\end{prop}
+\begin{proof}
+  Since $\oint_C \mathbf{g}\cdot \d \mathbf{r} = 0$ for any closed curve $C$, Stokes' theorem gives
+  \[
+    \int_S \nabla\times \mathbf{g}\cdot \d \mathbf{S} = 0
+  \]
+  for any surface $S$ bounded by $C$. Since this holds for arbitrary surfaces, we conclude $\nabla\times \mathbf{g} = \mathbf{0}$.
+\end{proof}
 
-Note that we exploited symmetry to solve Gauss' law. However, if the mass distribution is not sufficiently symmetrical, Gauss' law in integral form can be difficult to use. But we can rewrite it in differential form. Suppose
+\begin{rmk}
+  While Gauss' law in integral form is useful when the mass distribution has sufficient symmetry, it can be difficult to apply in general. For arbitrary distributions, the differential form is often more convenient.
+\end{rmk}
+
+To derive the differential form, suppose
 \[
   M = \int_V \rho(\mathbf{r})\;\d V,
 \]
@@ -2543,25 +2548,31 @@ Since this is true for all $V$, we must have
     \nabla\cdot \mathbf{g} = -4\pi G\rho.
   \]
 \end{law}
-Since $\nabla\times \mathbf{g} = 0$, we can introduce a gravitational potential $\varphi(\mathbf{r})$ with $\mathbf{g} = -\nabla \varphi$. Then Gauss' Law becomes
+\begin{defi}[Gravitational potential]
+  Since $\nabla\times \mathbf{g} = \mathbf{0}$, there exists a scalar field $\varphi(\mathbf{r})$ such that $\mathbf{g} = -\nabla \varphi$. This $\varphi$ is called the \emph{gravitational potential}.
+\end{defi}
+
+Substituting into Gauss' law in differential form gives
 \[
   \nabla^2 \varphi = 4\pi G\rho.
 \]
-In the example with spherical symmetry, we can solve that
+For the spherically symmetric example, we find
 \[
   \varphi(r) = -\frac{GM}{r}
 \]
 for $r > a$.
 \subsection{Laws of electrostatics}
-Consider a distribution of electric charge at rest. They produce a force on a charge $q$, at rest at $\mathbf{r}$, which is proportional to $q$.
+Consider a distribution of electric charge at rest. The charges produce a force on a test charge $q$ at position $\mathbf{r}$, proportional to $q$.
+
 \begin{defi}[Electric field]
-  The force produced by electric charges on another charge $q$ is $\mathbf{F} = q\mathbf{E}(\mathbf{r})$, where $\mathbf{E}(\mathbf{r})$ is the \emph{electric field}, or force per unit charge.
+  The \emph{electric field} $\mathbf{E}(\mathbf{r})$ is defined by $\mathbf{F} = q\mathbf{E}(\mathbf{r})$, where $\mathbf{F}$ is the force on a test charge $q$ at $\mathbf{r}$. Equivalently, $\mathbf{E}$ is the force per unit charge.
 \end{defi}
-Again, this is conservative. So
+
+The electrostatic field is conservative:
 \[
   \oint_C \mathbf{E}\cdot \d \mathbf{r} = 0
 \]
-for any closed curve $C$. It also obeys
+for any closed curve $C$. It also satisfies
 \begin{law}[Gauss' law for electrostatic forces]
   \[
     \int_S \mathbf{E}\cdot \d \mathbf{S} = \frac{Q}{\varepsilon_0},
@@ -2569,17 +2580,18 @@ for any closed curve $C$. It also obeys
   where $\varepsilon_0$ is the \emph{permittivity of free space}, or \emph{electric constant}.
 \end{law}
 
-Then we can write it in differential form, as in the gravitational case.
+Applying the divergence theorem as in the gravitational case yields the differential form:
 \begin{law}[Gauss' law for electrostatic forces in differential form]
   \[
     \nabla \cdot \mathbf{E} = \frac{\rho}{\varepsilon_0}.
   \]
 \end{law}
-Assuming constant (or no) magnetic field, we have
-\[
-  \nabla\times \mathbf{E} = 0.
-\]
-So we can write $\mathbf{E} =- \nabla \varphi$.
+
+\begin{rmk}
+  In electrostatics (no time-varying magnetic fields), the electric field is irrotational: $\nabla\times \mathbf{E} = \mathbf{0}$. This follows from the conservative property and Stokes' theorem, just as for the gravitational field.
+\end{rmk}
+
+Since $\nabla\times \mathbf{E} = \mathbf{0}$, we can write $\mathbf{E} = -\nabla \varphi$.
 \begin{defi}[Electrostatic potential]
   If we write $\mathbf{E} = -\nabla \varphi$, then $\varphi$ is the \emph{electrostatic potential}, and
   \[
@@ -2632,7 +2644,7 @@ So we can write $\mathbf{E} =- \nabla \varphi$.
   \[
     \mathbf{E}(r) = \frac{\sigma}{2\pi \varepsilon_0 r} \hat{\mathbf{r}}.
   \]
-  Note that the field varies as $1/r$, not $1/r^2$. Intuitively, this is because we have one more dimension of ``stuff'' compared to the point charge, so the field does not drop as fast.
+  Note that the field varies as $1/r$, not $1/r^2$. This slower decay compared to a point charge reflects the fact that the line charge extends infinitely in one direction.
 \end{eg}
 
 \subsection{Poisson's Equation and Laplace's equation}
@@ -2643,7 +2655,9 @@ So we can write $\mathbf{E} =- \nabla \varphi$.
   \]
   where $\rho$ is given and $\varphi(\mathbf{r})$ is to be solved.
 \end{defi}
-This is the form of the equations for gravity and electrostatics, with $-4\pi G \rho$ and $\rho/\varepsilon_0$ in place of $\rho$ respectively.
+\begin{rmk}
+  The gravitational and electrostatic potentials satisfy Poisson's equation with $\rho$ replaced by $-4\pi G\rho_{\mathrm{mass}}$ and $\rho_{\mathrm{charge}}/\varepsilon_0$ respectively.
+\end{rmk}
 
 When $\rho = 0$, we get
 \begin{defi}[Laplace's equation]
@@ -2652,34 +2666,33 @@ When $\rho = 0$, we get
     \nabla^2 \varphi = 0.
   \]
 \end{defi}
-One example is irrotational and incompressible fluid flow: if the velocity is $\mathbf{u}(\mathbf{r})$, then irrotationality gives $\mathbf{u} = \nabla \varphi$ for some \emph{velocity potential} $\varphi$. Since it is incompressible, $\nabla\cdot \mathbf{u} = 0$ (cf.\ previous chapters). So $\nabla^2 \varphi = 0$.
+\begin{eg}[Irrotational incompressible flow]
+  For irrotational and incompressible fluid flow with velocity field $\mathbf{u}(\mathbf{r})$, irrotationality implies $\mathbf{u} = \nabla \varphi$ for some \emph{velocity potential} $\varphi$. Incompressibility gives $\nabla\cdot \mathbf{u} = 0$ (cf.\ Section~\ref{sec:applications-integral-theorems}). Combining these, $\nabla^2 \varphi = 0$.
+\end{eg}
 
-The expressions for $\nabla^2$ can be found in non-Cartesian coordinates, but are a bit complicated.
+\begin{rmk}
+  Expressions for $\nabla^2$ in non-Cartesian coordinates can be derived from the curvilinear coordinate formulas, but are somewhat complicated in general.
+\end{rmk}
 
-We're concerned here mainly with cases exhibiting spherical or cylindrical symmetry (use $r$ for radial coordinate here). i.e.\ when $\varphi(\mathbf{r})$ has spherical or cylindrical symmetry. Write $\varphi = \varphi(r)$. Then
-\[
-  \nabla \varphi = \varphi'(r)\hat{\mathbf{r}}.
-\]
-Then Laplace's equation $\nabla^2 \varphi = 0$ becomes an ordinary differential equation.
-\begin{itemize}
-  \item For spherical symmetry, using the chain rule, we have
-    \[
-      \nabla^2 \varphi = \varphi'' + \frac{2}{r}\varphi' = \frac{1}{r^2}(r^2\varphi')' = 0.
-    \]
-    Then the general solution is
-    \[
-      \varphi = \frac{A}{r} + B.
-    \]
-  \item For cylindrical symmetry, with $r^2 = x_1^2 + x_2^2$, we have
-    \[
-      \nabla^2 \varphi = \varphi'' + \frac{1}{r}\varphi' = \frac{1}{r}(r\varphi')' = 0.
-    \]
-    Then
-    \[
-      \varphi = A\ln r + B.
-    \]
-\end{itemize}
-Then solutions to Poisson's equations can be obtained in a similar way, i.e.\ by integrating the differential equations directly, or by adding particular integrals to the solutions above.
+We focus on cases with spherical or cylindrical symmetry. If $\varphi = \varphi(r)$ depends only on the radial coordinate $r$, then $\nabla \varphi = \varphi'(r)\hat{\mathbf{r}}$ and Laplace's equation reduces to an ordinary differential equation.
+
+\begin{prop}[Laplace's equation with radial symmetry]
+  \leavevmode
+  \begin{enumerate}
+    \item For spherical symmetry ($r^2 = x^2 + y^2 + z^2$),
+      \[
+        \nabla^2 \varphi = \varphi'' + \frac{2}{r}\varphi' = \frac{1}{r^2}(r^2\varphi')' = 0,
+      \]
+      with general solution $\varphi = \frac{A}{r} + B$.
+    \item For cylindrical symmetry ($r^2 = x^2 + y^2$),
+      \[
+        \nabla^2 \varphi = \varphi'' + \frac{1}{r}\varphi' = \frac{1}{r}(r\varphi')' = 0,
+      \]
+      with general solution $\varphi = A\ln r + B$.
+  \end{enumerate}
+\end{prop}
+
+Solutions to Poisson's equation with the same symmetries can be obtained by finding particular integrals and adding them to the homogeneous solutions above.
 
 For example, for a spherically symmetric solution of $\nabla^2 \varphi = -\rho_0$, with $\rho_0$ constant, recall that $\nabla^2 r^\alpha = \alpha(\alpha + 1)r^{\alpha - 2}$. Taking $\alpha = 2$, we find the particular integral
 \[
@@ -2689,14 +2702,19 @@ So the general solution with spherical symmetry and constant $\rho_0$ is
 \[
   \varphi(r) = \frac{A}{r} + B - \frac{1}{6}\rho_0 r^2.
 \]
-To determine $A, B$, we must specify boundary conditions. If $\varphi$ is defined on all of $\R^3$, we often require $\varphi \to 0$ as $|\mathbf{r}| \to \infty$. If $\varphi$ is defined on a bounded volume $V$, then there are two kinds of common boundary conditions on $\partial V$:
-\begin{itemize}
-  \item Specify $\varphi$ on $\partial V$ --- a \emph{Dirichlet} condition
-  \item Specify $\mathbf{n}\cdot \nabla \varphi$ (sometimes written as $\frac{\partial \varphi}{\partial \mathbf{n}}$): a \emph{Neumann} condition. ($\mathbf{n}$ is the outward normal on $\partial V$).
-\end{itemize}
-The type of boundary conditions we get depends on the physical content of the problem. For example, specifying $\frac{\partial \varphi}{\partial \mathbf{n}}$ corresponds to specifying the normal component of $\mathbf{g}$ or $\mathbf{E}$.
+To determine the constants $A$ and $B$, we must specify boundary conditions. If $\varphi$ is defined on all of $\R^3$, we often require $\varphi \to 0$ as $|\mathbf{r}| \to \infty$. For $\varphi$ defined on a bounded volume $V$, there are two standard types of boundary conditions on $\partial V$:
 
-We can also specify different boundary conditions on different boundary components.
+\begin{defi}[Boundary conditions]
+  Let $\mathbf{n}$ denote the outward unit normal on $\partial V$.
+  \begin{enumerate}
+    \item A \emph{Dirichlet condition} specifies the value of $\varphi$ on $\partial V$.
+    \item A \emph{Neumann condition} specifies the normal derivative $\mathbf{n}\cdot \nabla \varphi$ (also written $\frac{\partial \varphi}{\partial n}$) on $\partial V$.
+  \end{enumerate}
+\end{defi}
+
+\begin{rmk}
+  The appropriate boundary condition depends on the physical problem. For example, specifying $\frac{\partial \varphi}{\partial n}$ corresponds to prescribing the normal component of $\mathbf{g}$ or $\mathbf{E}$. Different boundary conditions may be imposed on different components of $\partial V$.
+\end{rmk}
 
 \begin{eg}[Spherical shell Laplace equation]
   We might have a spherically symmetric distribution with constant $\rho_0$, defined in $a \leq r \leq b$, with $\varphi(a) = 0$ and $\frac{\partial \varphi}{\partial \mathbf{n}}(b) = 0$.
@@ -2797,12 +2815,15 @@ We can also specify different boundary conditions on different boundary componen
   \]
   For $R \geq a$, we can simply apply Newton's law of gravitation.
 
-  In general, even if the problem has nothing to do with gravitation or electrostatics, if we want to solve $\nabla^2 \varphi = -\rho$ with $\rho$ and $\varphi$ sufficiently symmetric, we can consider the flux of $\nabla \varphi$ out of a surface $S = \partial V$:
+  \end{eg}
+
+\begin{rmk}[Gauss flux method]
+  For any Poisson equation $\nabla^2 \varphi = -\rho$ with sufficient symmetry (not necessarily gravitational or electrostatic), one can exploit the divergence theorem:
   \[
-    \int_S \nabla \varphi \cdot \d \mathbf{S} = -\int_V \rho \;\d V,
+    \int_S \nabla \varphi \cdot \d \mathbf{S} = -\int_V \rho \;\d V.
   \]
-  by divergence theorem. This is called the Gauss Flux method.
-\end{eg}
+  Choosing $S$ to respect the symmetry of the problem often simplifies the computation. This approach is known as the \emph{Gauss flux method}.
+\end{rmk}
 
 \section{Laplace's and Poisson's equations}
 \subsection{Uniqueness theorems}
