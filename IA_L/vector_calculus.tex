@@ -2342,7 +2342,7 @@ The line element can then be written as
 \[
   \d \mathbf{r} = h_u \mathbf{e}_u \,\d u + h_v \mathbf{e}_v\,\d v + h_w\mathbf{e}_w \,\d w.
 \]
-The scale factors $h_u$, $h_v$, $h_w$ relate changes in the coordinates to physical distances along each orthogonal direction.
+
 \begin{eg}[Scale factors in standard coordinates]\leavevmode
   \begin{enumerate}
     \item In cartesian coordinates, $\mathbf{r}(x, y, z) = x\hat{\mathbf{i}} + y\hat{\mathbf{j}} + z\hat{\mathbf{k}}$. Then $h_x = h_y = h_z = 1$, and $\mathbf{e}_x = \hat{\mathbf{i}}, \mathbf{e}_y = \hat{\mathbf{j}}$ and $\mathbf{e}_z = \hat{\mathbf{k}}$.
@@ -2427,32 +2427,34 @@ For a vector field $\mathbf{F} = F_u \mathbf{e}_u + F_v \mathbf{e}_v + F_w \math
   \end{enumerate}
 \end{rmk}
 
-We illustrate the third approach for the curl. Recall that
-\[
-  \mathbf{n}\cdot (\nabla \times \mathbf{F}) = \lim_{A \to 0}\frac{1}{A}\int_{\partial A}\mathbf{F}\cdot \d \mathbf{r}.
-\]
-To find the $\mathbf{e}_w$ component, consider a small coordinate rectangle in the surface $w = \text{const}$, with sides $\delta u$ and $\delta v$:
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (-0.5, 0) -- (2, 0) node [right] {$u$} node [pos = 0.5, below] {$\delta u$};
-    \draw [->] (0, -0.5) -- (0, 2) node [above] {$v$} node [pos = 0.5, left] {$\delta v$};
-    \draw [->-=0.6] (1.5, 0) -- (1.5, 1.5) node [pos = 0.5, right] {$C$};
-    \draw [->-=0.6] (1.5, 1.5) -- (0, 1.5);
-    \draw [->-=0.6] (0, 1.5) -- (0, 0);
-    \draw [->-=0.6] (0, 0) -- (1.5, 0);
-  \end{tikzpicture}
-\end{center}
-This rectangle has area $h_u h_v \,\delta u\,\delta v$ and normal $\mathbf{e}_w$. Integrating around the boundary $C$ and using linear approximations,
-\begin{align*}
-  \int_C \mathbf{F}\cdot \d \mathbf{r} &\approx F_u(u, v) h_u(u, v)\,\delta u + F_v(u + \delta u, v) h_v(u + \delta u, v)\,\delta v \\
-  &\quad - F_u(u, v + \delta v)h_u (u, v + \delta v)\, \delta u - F_v(u, v)h_v(u, v)\,\delta v\\
-  &\approx \left[\frac{\partial}{\partial u}(h_vF_v) - \frac{\partial}{\partial v}(h_uF_u)\right]\delta u\,\delta v.
-\end{align*}
-Dividing by the area and taking the limit gives
-\[
-  \mathbf{e}_w\cdot (\nabla\times \mathbf{F}) = \frac{1}{h_uh_v}\left[\frac{\partial }{\partial u}(h_vF_v) - \frac{\partial }{\partial v}(h_uF_u)\right].
-\]
-The other components follow by cyclic permutation. The divergence formula can be derived similarly using the integral definition.
+\begin{eg}[Derivation of curl using integral definition]
+  We illustrate the third approach. Recall that
+  \[
+    \mathbf{n}\cdot (\nabla \times \mathbf{F}) = \lim_{A \to 0}\frac{1}{A}\int_{\partial A}\mathbf{F}\cdot \d \mathbf{r}.
+  \]
+  To find the $\mathbf{e}_w$ component, consider a small coordinate rectangle in the surface $w = \text{const}$, with sides $\delta u$ and $\delta v$:
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (-0.5, 0) -- (2, 0) node [right] {$u$} node [pos = 0.5, below] {$\delta u$};
+      \draw [->] (0, -0.5) -- (0, 2) node [above] {$v$} node [pos = 0.5, left] {$\delta v$};
+      \draw [->-=0.6] (1.5, 0) -- (1.5, 1.5) node [pos = 0.5, right] {$C$};
+      \draw [->-=0.6] (1.5, 1.5) -- (0, 1.5);
+      \draw [->-=0.6] (0, 1.5) -- (0, 0);
+      \draw [->-=0.6] (0, 0) -- (1.5, 0);
+    \end{tikzpicture}
+  \end{center}
+  This rectangle has area $h_u h_v \,\delta u\,\delta v$ and normal $\mathbf{e}_w$. Integrating around the boundary $C$ and using linear approximations,
+  \begin{align*}
+    \int_C \mathbf{F}\cdot \d \mathbf{r} &\approx F_u(u, v) h_u(u, v)\,\delta u + F_v(u + \delta u, v) h_v(u + \delta u, v)\,\delta v \\
+    &\quad - F_u(u, v + \delta v)h_u (u, v + \delta v)\, \delta u - F_v(u, v)h_v(u, v)\,\delta v\\
+    &\approx \left[\frac{\partial}{\partial u}(h_vF_v) - \frac{\partial}{\partial v}(h_uF_u)\right]\delta u\,\delta v.
+  \end{align*}
+  Dividing by the area and taking the limit gives
+  \[
+    \mathbf{e}_w\cdot (\nabla\times \mathbf{F}) = \frac{1}{h_uh_v}\left[\frac{\partial }{\partial u}(h_vF_v) - \frac{\partial }{\partial v}(h_uF_u)\right].
+  \]
+  The other components follow by cyclic permutation. The divergence formula can be derived similarly.
+\end{eg}
 
 \begin{eg}[Curl in spherical polars]
   Let $\mathbf{A} = \frac{1}{r}\tan \frac{\theta}{2} \mathbf{e}_\varphi$ in spherical polars. Then
