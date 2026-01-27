@@ -3202,25 +3202,21 @@ Consider Maxwell's equations in free space, where $\rho = 0$ and $\mathbf{j} = \
 
 \section{Tensors and tensor fields}
 \subsection{Definition}
-There are two ways we can think of a vector in $\R^3$. We can either interpret it as a ``point'' in space, or we can view it simply as a list of three numbers. However, the list of three numbers is simply a \emph{representation} of the vector with respect to some particular basis. When we change basis, in order to represent the same point, we will need to use a different list of three numbers. In particular, when we perform a rotation by $R_{ip}$, the new components of the vector is given by
+A vector in $\R^3$ can be viewed geometrically as a point in space, or algebraically as a list of three numbers. The latter is a \emph{representation} with respect to a chosen basis. Under a change of basis described by a rotation matrix $R$, the components transform as
 \[
   v_i' = R_{ip}v_p.
 \]
-Similarly, we can imagine a matrix as either a linear transformation or an array of 9 numbers. Again, when we change basis, in order to represent the same transformation, we will need a different array of numbers. This time, the transformation is given by
+Similarly, a matrix representing a linear transformation has components that transform as
 \[
   A_{ij}' = R_{ip}R_{jq}A_{pq}.
 \]
-We can think about this from another angle. To define an arbitrary quantity $A_{ij}$, we can always just write down 9 numbers and be done with it. Moreover, we can write down a different set of numbers in a different basis. For example, we can define $A_{ij} = \delta_{ij}$ in our favorite basis, but $A_{ij} = 0$ in all other bases. We can do so because we have the power of the pen.
 
-However, for this $A_{ij}$ to represent something physically meaningful, i.e.\ an actual linear transformation, we have to make sure that the components of $A_{ij}$ transform sensibly under a basis transformation. By ``sensibly'', we mean that it has to follow the transformation rule $A_{ij}' = R_{ip}R_{jq}A_{pq}$. For example, the $A_{ij}$ we defined in the previous paragraph does \emph{not} transform sensibly. While it is something we can define and write down, it does not correspond to anything meaningful.
+For an array of numbers $A_{ij}$ to represent a geometrically meaningful object (such as a linear transformation), its components in different bases must be related by the appropriate transformation law. An arbitrary assignment of numbers in each basis---say $A_{ij} = \delta_{ij}$ in one basis and $A_{ij} = 0$ in another---would not correspond to any geometric object.
 
-The things that transform sensibly are known as \emph{tensors}. For example, vectors and matrices (that transform according to the usual change-of-basis rules) are tensors, but that $A_{ij}$ is not.
-
-In general, tensors are allowed to have an arbitrary number of indices. In order for a quantity $T_{ij\cdots k}$ to be a tensor, we require it to transform according to
+Objects whose components transform according to specific rules under change of basis are called \emph{tensors}. The transformation rule generalizes naturally to objects with any number of indices:
 \[
-  T_{ij\cdots k}' = R_{ip}R_{jq}\cdots R_{kr}T_{pq\cdots r},
+  T_{ij\cdots k}' = R_{ip}R_{jq}\cdots R_{kr}T_{pq\cdots r}.
 \]
-which is an obvious generalization of the rules for vectors and matrices.
 
 \begin{defi}[Tensor]
   A \emph{tensor} of rank $n$ has components $T_{ij\cdots k}$ (with $n$ indices) with respect to each basis $\{\mathbf{e}_i\}$ or coordinate system $\{x_i\}$, and satisfies the following rule of change of basis:
@@ -3231,92 +3227,68 @@ which is an obvious generalization of the rules for vectors and matrices.
 
 \begin{eg}[Tensors of rank 0, 1, 2]\leavevmode
   \begin{itemize}
-    \item A tensor $T$ of rank 0 doesn't transform under change of basis, and is a scalar.
-    \item A tensor $T$ of rank 1 transforms under $T'_i = R_{ip}T_p$. This is a vector.
-    \item A tensor $T$ of rank 2 transforms under $T_{ij}' = R_{ip} R_{jq} T_{pq}$. This is a matrix.
+    \item A tensor of rank 0 has no indices and is invariant under change of basis: a \emph{scalar}.
+    \item A tensor of rank 1 transforms as $T'_i = R_{ip}T_p$: a \emph{vector}.
+    \item A tensor of rank 2 transforms as $T_{ij}' = R_{ip} R_{jq} T_{pq}$: a \emph{matrix}.
   \end{itemize}
 \end{eg}
 
 \begin{eg}[Constructing tensors from vectors]\leavevmode
   \begin{enumerate}
-    \item If $\mathbf{u}, \mathbf{v}, \cdots\mathbf{w}$ are $n$ vectors, then
-      \[
-        T_{ij\cdots k} =u_i v_j \cdots w_k
-      \]
-      defines a tensor of rank $n$. To check this, we check the tensor transformation rule. We do the case for $n = 2$ for simplicity of expression, and it should be clear that this can be trivially extended to arbitrary $n$:
+    \item If $\mathbf{u}, \mathbf{v}, \ldots, \mathbf{w}$ are $n$ vectors, then $T_{ij\cdots k} = u_i v_j \cdots w_k$ defines a tensor of rank $n$. For example, with $n = 2$:
       \begin{align*}
-        T_{ij}' &= u_i'v_j' = (R_{ip} u_p)(R_{jq}v_q)\\
-        &= R_{ip}R_{jq}(u_p v_q)\\
-        &= R_{ip}R_{jq}T_{pq}
+        T_{ij}' &= u_i'v_j' = (R_{ip} u_p)(R_{jq}v_q) = R_{ip}R_{jq}T_{pq}.
       \end{align*}
-      Then linear combinations of such expressions are also tensors, e.g.\ $T_{ij} = u_i v_j + a_ib_j$ for any $\mathbf{u}, \mathbf{v}, \mathbf{a},\mathbf{b}$.
-    \item $\delta_{ij}$ and $\varepsilon_{ijk}$ are tensors of rank 2 and 3 respectively --- with the special property that their components are unchanged with respect to the basis coordinate:
+      Linear combinations of such products are also tensors, e.g., $T_{ij} = u_i v_j + a_ib_j$.
+    \item The Kronecker delta $\delta_{ij}$ and Levi-Civita symbol $\varepsilon_{ijk}$ are tensors of rank 2 and 3 whose components are the same in every basis:
       \[
-        \delta_{ij}' = R_{ip}R_{jq}\delta_{pq} = R_{ip}R_{jp} = \delta_{ij},
+        \delta_{ij}' = R_{ip}R_{jq}\delta_{pq} = R_{ip}R_{jp} = (RR^T)_{ij} = \delta_{ij},
       \]
-      since $R_{ip}R_{jp} = (RR^T)_{ij} = I_{ij}$. Also
+      and
       \[
-        \varepsilon_{ijk}' = R_{ip}R_{jq}R_{kr}\varepsilon_{pqr} = (\det R)\varepsilon_{ijk} = \varepsilon_{ijk},
+        \varepsilon_{ijk}' = R_{ip}R_{jq}R_{kr}\varepsilon_{pqr} = (\det R)\varepsilon_{ijk} = \varepsilon_{ijk}.
       \]
-      using results from Vectors and Matrices.
-    \item (Physical example) In some substances, an applied electric field $\mathbf{E}$ gives rise to a current density $\mathbf{j}$, according to the linear relation $j_i = \varepsilon_{ij} E_j$, where $\varepsilon_{ij}$ is the \emph{conductivity tensor}.
-
-      Note that this relation entails that the resulting current need not be in the same direction as the electric field. This might happen if the substance has special crystallographic directions that favours electric currents.
-
-      However, if the substance is \emph{isotropic}, we have $\varepsilon_{ij} = \sigma\delta_{ij}$ for some $\sigma$. In this case, the current \emph{is} parallel to the field.
+    \item In anisotropic materials, an applied electric field $\mathbf{E}$ produces a current density $\mathbf{j}$ via the linear relation $j_i = \sigma_{ij} E_j$, where $\sigma_{ij}$ is the \emph{conductivity tensor}. The current need not be parallel to the field due to preferential crystallographic directions. For \emph{isotropic} materials, $\sigma_{ij} = \sigma\delta_{ij}$ and the current is parallel to the field.
   \end{enumerate}
 \end{eg}
 
 \subsection{Tensor algebra}
 \begin{defi}[Tensor addition]
-  Tensors $T$ and $S$ of the same rank can be \emph{added}; $T + S$ is also a tensor of the same rank, defined as
-  \[
-    (T + S)_{ij\cdots k} = T_{ij \cdots k} + S_{ij\cdots k}.
-  \]
-  in any coordinate system.
+  Tensors $T$ and $S$ of the same rank can be \emph{added}: $(T + S)_{ij\cdots k} = T_{ij \cdots k} + S_{ij\cdots k}$.
 \end{defi}
-To check that this is a tensor, we check the transformation rule. Again, we only show for $n = 2$:
-\[
-  (T + S)_{ij}' = T_{ij}' + S_{ij}' = R_{ip}R_{jq}T_{pq} + R_{ip}R_{jq}S_{pq} = (R_{ip}R_{jq})(T_{pq} + S_{pq}).
-\]
+
+The sum is again a tensor, since $(T + S)_{ij}' = R_{ip}R_{jq}(T_{pq} + S_{pq})$.
+
 \begin{defi}[Scalar multiplication]
-  A tensor $T$ of rank $n$ can be multiplied by a scalar $\alpha$. $\alpha T$ is a tensor of the same rank, defined by
-  \[
-    (\alpha T)_{ij} = \alpha T_{ij}.
-  \]
+  A tensor $T$ of rank $n$ multiplied by a scalar $\alpha$ gives a tensor of the same rank: $(\alpha T)_{ij\cdots k} = \alpha T_{ij\cdots k}$.
 \end{defi}
-It is trivial to check that the resulting object is indeed a tensor.
 
 \begin{defi}[Tensor product]
   Let $T$ be a tensor of rank $n$ and $S$ be a tensor of rank $m$. The \emph{tensor product} $T\otimes S$ is a tensor of rank $n + m$ defined by
   \[
     (T \otimes S)_{x_1 x_2\cdots x_n y_1y_2\cdots y_m} = T_{x_1x_2\cdots x_n}S_{y_1y_2\cdots y_m}.
   \]
-  It is trivial to show that this is a tensor.
-
-  We can similarly define tensor products for any (positive integer) number of tensors, e.g.\ for $n$ vectors $\mathbf{u}, \mathbf{v} \cdots, \mathbf{w}$, we can define
-  \[
-    T = \mathbf{u}\otimes \mathbf{v}\otimes \cdots \otimes \mathbf{w}
-  \]
-  by
-  \[
-    T_{ij\cdots k} = u_i v_j \cdots w_k,
-  \]
-  as defined in the example in the beginning of the chapter.
 \end{defi}
+
+\begin{rmk}
+  In particular, for vectors $\mathbf{u}, \mathbf{v}, \ldots, \mathbf{w}$, the tensor product $\mathbf{u}\otimes \mathbf{v}\otimes \cdots \otimes \mathbf{w}$ has components $u_i v_j \cdots w_k$.
+\end{rmk}
 
 \begin{defi}[Tensor contraction]
-  For a tensor $T$ of rank $n$ with components $T_{ijp\cdots q}$, we can \emph{contract on} the indices $i, j$ to obtain a new tensor of rank $n - 2$:
+  For a tensor $T$ of rank $n$ with components $T_{ijp\cdots q}$, \emph{contraction} on indices $i$ and $j$ produces a tensor of rank $n - 2$:
   \[
-    S_{p\cdots q} = \delta_{ij}T_{ij p\cdots q} = T_{iip\cdots q}
+    S_{p\cdots q} = \delta_{ij}T_{ij p\cdots q} = T_{iip\cdots q}.
   \]
-  Note that we don't have to always contract on the first two indices. We can contract any pair we like.
+  Contraction can be performed on any pair of indices.
 \end{defi}
-To check that contraction produces a tensor, we take the rank 2 $T_{ij}$ example. Contracting, we get $T_{ii}$ ,a rank-0 scalar. We have $T_{ii}' = R_{ip}R_{iq}T_{pq} = \delta_{pq}T_{pq} = T_{pp} = T_{ii}$, since $R$ is an orthogonal matrix.
 
-If we view $T_{ij}$ as a matrix, then the contraction is simply the trace of the matrix. So our result above says that the trace is invariant under basis transformations --- as we already know in IA Vectors and Matrices.
+\begin{rmk}
+  Contraction preserves tensor character. For a rank-2 tensor $T_{ij}$, contracting gives the scalar $T_{ii}' = R_{ip}R_{iq}T_{pq} = \delta_{pq}T_{pq} = T_{ii}$, using orthogonality of $R$. Viewing $T_{ij}$ as a matrix, contraction is the trace, confirming that the trace is basis-independent.
+\end{rmk}
 
-Note that our usual matrix product can be formed by first applying a tensor product to obtain $M_{ij}N_{pq}$, then contract with $\delta_{jp}$ to obtain $M_{ij}N_{jq}$.
+\begin{rmk}
+  Matrix multiplication can be expressed as a tensor product followed by contraction: $(MN)_{iq} = M_{ij}N_{jq}$.
+\end{rmk}
 \subsection{Symmetric and antisymmetric tensors}
 \begin{defi}[Symmetric and anti-symmetric tensors]
   A tensor $T$ of rank $n$ is \emph{symmetric} in the indices $i,j$ if it obeys
@@ -3330,11 +3302,12 @@ Note that our usual matrix product can be formed by first applying a tensor prod
   Again, a tensor can be symmetric or anti-symmetric in any pair of indices, not just the first two.
 \end{defi}
 
-This is a property that holds in any coordinate systems, if it holds in one, since
-\[
-  T_{k\ell r\ldots s}' = R_{ki}R_{\ell j}R_{rp}\cdots R_{sq}T_{ijp\cdots q} = \pm R_{ki} R_{\ell j} R_{rp}\cdots R_{sq}T_{jip\cdots q} = \pm T_{\ell kr\cdots s}'
-\]
-as required.
+\begin{rmk}
+  Symmetry properties are preserved under change of basis:
+  \[
+    T_{k\ell r\ldots s}' = R_{ki}R_{\ell j}R_{rp}\cdots R_{sq}T_{ijp\cdots q} = \pm R_{ki} R_{\ell j} R_{rp}\cdots R_{sq}T_{jip\cdots q} = \pm T_{\ell kr\cdots s}'.
+  \]
+\end{rmk}
 
 \begin{defi}[Totally symmetric and anti-symmetric tensors]
   A tensor is \emph{totally (anti-)symmetric} if it is (anti-)symmetric in every pair of indices.
@@ -3342,19 +3315,22 @@ as required.
 
 \begin{eg}[Symmetric and antisymmetric tensors]
   $\delta_{ij} = \delta_{ji}$ is totally symmetric, while $\varepsilon_{ijk} = -\varepsilon_{jik}$ is totally antisymmetric.
-
-  There are totally symmetric tensors of arbitrary rank $n$. But in $\R^3$,
-  \begin{itemize}
-    \item Any totally antisymmetric tensor of rank 3 is $\lambda \varepsilon_{ijk}$ for some scalar $\lambda$.
-    \item There are no totally antisymmetric tensors of rank greater than $3$, except for the trivial tensor with all components $0$.
-
-      Proof: exercise (hint: pigeonhole principle)
-  \end{itemize}
 \end{eg}
+
+\begin{prop}[Totally antisymmetric tensors in $\R^3$]
+  \leavevmode
+  \begin{enumerate}
+    \item Any totally antisymmetric rank-3 tensor is a scalar multiple of $\varepsilon_{ijk}$.
+    \item There are no non-zero totally antisymmetric tensors of rank greater than 3.
+  \end{enumerate}
+\end{prop}
+\begin{proof}
+  For (ii): a totally antisymmetric tensor with more than 3 indices in $\R^3$ must have a repeated index value (by the pigeonhole principle), forcing the component to vanish.
+\end{proof}
 
 \subsection{Tensors, multi-linear maps and the quotient rule}
 \subsubsection*{Tensors as multi-linear maps}
-In Vectors and Matrices, we know that matrices are linear maps. We will prove an analogous fact for tensors.
+Just as matrices correspond to linear maps, tensors correspond to multi-linear maps.
 
 \begin{defi}[Multilinear map]
   A map $T$ that maps $n$ vectors $\mathbf{a}, \mathbf{b}, \cdots, \mathbf{c}$ to $\R$ is multi-linear if it is linear in each of the vectors $\mathbf{a}, \mathbf{b}, \cdots, \mathbf{c}$ individually.
@@ -3386,11 +3362,9 @@ Since this is true for all $\mathbf{a}, \mathbf{b}, \cdots \mathbf{c}$, we must 
 \]
 Hence $T_{ij\cdots k}$ obeys the tensor transformation rule, and is a tensor.
 
-This shows that there is a one-to-one correspondence between tensors of rank $n$ and multi-linear maps.
-
-This gives a way of thinking about tensors independent of any coordinate system or choice of basis, and the tensor transformation rule emerges naturally.
-
-Note that the above is exactly what we did with linear maps and matrices.
+\begin{rmk}
+  This establishes a one-to-one correspondence between rank-$n$ tensors and multi-linear maps from $n$ vectors to $\R$. This viewpoint defines tensors independently of any coordinate system; the transformation rule then emerges as a consequence. The same approach relates matrices to linear maps.
+\end{rmk}
 \subsubsection*{The quotient rule}
 If $T_{\underbrace{i\cdots j}_n\underbrace{p\cdots q}_m}$ is a tensor of rank $n+ m$, and $u_{p\cdots q}$ is a tensor of rank $m$ then
 \[
@@ -3421,16 +3395,11 @@ Note that we have previously seen the special case of $n = m = 1$, which says th
 
 \subsection{Tensor calculus}
 \subsubsection*{Tensor fields and derivatives}
-Just as with scalars or vectors, we can define tensor fields:
 \begin{defi}[Tensor field]
-  A \emph{tensor field} is a tensor at each point in space $T_{ij\cdots k}(\mathbf{x})$, which can also be written as $T_{ij\cdots k}(x_\ell)$.
+  A \emph{tensor field} assigns a tensor $T_{ij\cdots k}(\mathbf{x})$ to each point $\mathbf{x}$ in space.
 \end{defi}
 
-We assume that the fields are \emph{smooth} so they can be differentiated any number of times
-\[
-  \frac{\partial}{\partial x_p}\cdots \frac{\partial}{\partial x_q}T_{ij\cdots k},
-\]
-except for where things obviously fail, e.g.\ for where $T$ is not defined. We now claim:
+Assuming sufficient smoothness, tensor fields can be differentiated:
 \begin{prop}[Tensor field derivative rank]
   \[
     \underbrace{\frac{\partial}{\partial x_p}\cdots \frac{\partial}{\partial x_q}}_{m}T_{\underbrace{ij\cdots k}_n},\tag{$*$}
@@ -3438,42 +3407,31 @@ except for where things obviously fail, e.g.\ for where $T$ is not defined. We n
   is a tensor of rank $n + m$.
 \end{prop}
 \begin{proof}
-  To show this, it suffices to show that $\frac{\partial}{\partial x_p}$ satisfies the tensor transformation rules for rank 1 tensors (i.e.\ it is something like a rank 1 tensor). Then by the exact same argument we used to show that tensor products preserve tensorness, we can show that the $(*)$ is a tensor. (we cannot use the result of tensor products directly, since this is not exactly a product. But the exact same proof works!)
-
-  Since $x_i' = R_{iq}x_q$, we have
+  It suffices to show that $\frac{\partial}{\partial x_p}$ transforms as a rank-1 tensor. Since $x_i' = R_{iq}x_q$, we have $\frac{\partial x_q}{\partial x_i'} = R_{iq}$. By the chain rule,
   \[
-    \frac{\partial x_i'}{\partial x_p} = R_{ip}.
+    \frac{\partial}{\partial x_i'} = \frac{\partial x_q}{\partial x_i'}\frac{\partial}{\partial x_q} = R_{iq} \frac{\partial}{\partial x_q}.
   \]
-  (noting that $\frac{\partial x_p}{\partial x_q} = \delta_{pq}$). Similarly,
-  \[
-    \frac{\partial x_q}{\partial x_i'} = R_{iq}.
-  \]
-  Note that $R_{ip}, R_{iq}$ are constant matrices.
-
-  Hence by the chain rule,
-  \[
-    \frac{\partial}{\partial x_i'} = \left(\frac{\partial x_q}{\partial x_i'}\right)\frac{\partial}{\partial x_q} = R_{iq} \frac{\partial}{\partial x_q}.
-  \]
-  So $\frac{\partial}{\partial x_p}$ obeys the vector transformation rule. So done.
+  Thus $\frac{\partial}{\partial x_p}$ obeys the vector transformation rule, and the result follows by the same argument as for tensor products.
 \end{proof}
 \subsubsection*{Integrals and the tensor divergence theorem}
-It is also straightforward to do integrals. Since we can sum tensors and take limits, the definition of a tensor-valued integral is straightforward.
+Tensor-valued integrals are defined component-wise. For a tensor field $T_{ij\cdots k}(\mathbf{x})$, the integral $\int_V T_{ij\cdots k}\,\d V$ is a tensor of the same rank.
 
-For example, $\int_V T_{ij\cdots k}(\mathbf{x})\;\d V$ is a tensor of the same rank as $T_{ij\cdots k}$ (think of the integral as the limit of a sum).
+\begin{eg}[Momentum flux tensor]
+  For a fluid with velocity $\mathbf{u}(\mathbf{x})$ and density $\rho$, the flux of the $i$th component of momentum through a surface element is $\rho u_i u_j n_j \,\delta S = T_{ij}n_j \,\delta S$, where $T_{ij} = \rho u_iu_j$ is the momentum flux tensor.
+\end{eg}
 
-For a physical example, recall our discussion of the flux of quantities for a fluid with velocity $\mathbf{u}(\mathbf{x})$ through a surface element --- assume a uniform density $\rho$. The flux of volume is $\mathbf{u}\cdot \mathbf{n}\delta s = u_j n_j \delta S$. So the flux of mass is $\rho u_j n_j \delta S$. Then the flux of the $i$th component of momentum is $\rho u_i u_j n_j \delta S = T_{ij}n_j \delta S$ (mass times velocity), where $T_{ij} = \rho u_iu_j$. Then the flux through the surface $S$ is $\int_S T_{ij}n_j \;\d S$.
-
-It is easy to generalize the divergence theorem from vectors to tensors. We can then use it to discuss conservation laws for tensor quantities.
-
-Let $V$ be a volume bounded by a surface $S=\partial V$ and $T_{ij\cdots k\ell}$ be a smooth tensor field. Then
+The divergence theorem generalizes to tensor fields. Let $V$ be a volume bounded by surface $S = \partial V$, and let $T_{ij\cdots k\ell}$ be a smooth tensor field.
 
 \begin{thm}[Divergence theorem for tensors]
   \[
     \int_S T_{ij\cdots k\ell}n_\ell\;\d S = \int_V \frac{\partial}{\partial x_\ell}(T_{ij\cdots k\ell})\;\d V,
   \]
-  with $\mathbf{n}$ being an outward pointing normal.
+  where $\mathbf{n}$ is the outward unit normal.
 \end{thm}
-The regular divergence theorem is the case where $T$ has one index and is a vector field.
+
+\begin{rmk}
+  The standard divergence theorem is the special case where $T$ is a vector field (rank 1).
+\end{rmk}
 
 \begin{proof}
   Apply the usual divergence theorem to the vector field $\mathbf{v}$ defined by $v_\ell = a_i b_j \cdots c_k T_{ij\cdots k\ell}$, where $\mathbf{a}, \mathbf{b}, \cdots, \mathbf{c}$ are fixed constant vectors.
