@@ -61,110 +61,164 @@ The only exception to this seems to be Schr\"odinger's equation. While there are
 Due to the prevalence of linear equations, it is rather important that we understand these equations well, and this is our primary objective of the course.
 
 \section{Vector spaces}
-When dealing with functions and differential equations, we will often think of the space of functions as a vector space. In many cases, we will try to find a ``basis'' for our space of functions, and expand our functions in terms of the basis. Under different situations, we would want to use a different basis for our space. For example, when dealing with periodic functions, we will want to pick basis elements that are themselves periodic. In other situations, these basis elements would not be that helpful.
-
-A familiar example would be the Taylor series, where we try to approximate a function $f$ by
+In studying differential equations, we frequently encounter spaces of functions that possess a natural vector space structure. Given a set of basis functions $\{y_n\}$, we seek to expand an arbitrary function $f$ as
 \[
-  f(x) = \sum_{n = 0}^\infty \frac{f^{(n)}(0)}{n!} x^n.
+  f(x) = \sum_n c_n y_n(x)
 \]
-Here we are thinking of $\{x^n: n \in \N\}$ as the basis of our space, and trying to approximate an arbitrary function as a sum of the basis elements. When writing the function $f$ as a sum like this, it is of course important to consider whether the sum converges, and when it does, whether it actually converges back to $f$.
+for some coefficients $c_n$. A familiar example is the Taylor series expansion
+\[
+  f(x) = \sum_{n = 0}^\infty \frac{f^{(n)}(0)}{n!} x^n,
+\]
+where the monomials $\{x^n : n \in \N\}$ serve as basis functions. The choice of basis depends on the problem at hand: for periodic functions, we will use periodic basis elements (Fourier series); for other problems, different bases prove more natural.
 
-Another issue of concern is if we have a general set of basis functions $\{y_n\}$, how can we find the coefficients $c_n$ such that $f(x) = \sum c_n y_n(x)$? This is the bit where linear algebra comes in. Finding these coefficients is something we understand well in linear algebra, and we will attempt to borrow the results and apply them to our space of functions.
+Two fundamental questions arise in this context:
+\begin{enumerate}
+  \item Given a basis $\{y_n\}$, how do we compute the expansion coefficients $c_n$?
+  \item When does the series $\sum_n c_n y_n(x)$ converge, and does it converge to $f$?
+\end{enumerate}
+Linear algebra provides the framework for addressing the first question. Although classical linear algebra deals with finite-dimensional spaces, the techniques extend to infinite-dimensional function spaces under appropriate conditions.
 
-Another concept we would want to borrow is eigenvalues and eigenfunctions, as well as self-adjoint (``Hermitian'') operators. As we go along the course, we will see some close connections between functions and vector spaces, and we can often get inspirations from linear algebra.
-
-Of course, there is no guarantee that the results from linear algebra would apply directly, since most of our linear algebra results was about finite basis and finite linear sums. However, it is often a good starting point, and usually works when dealing with sufficiently nice functions.
-
-We start with some preliminary definitions, which should be familiar from IA Vectors and Matrices and/or IB Linear Algebra.
+We begin with the basic definitions.
 \begin{defi}[Vector space]
-  A \emph{vector space} over $\C$ (or $\R$) is a set $V$ with an operation $+$ which obeys
+  A \emph{vector space} over $\C$ (or $\R$) is a set $V$ equipped with an addition operation $+: V \times V \to V$ and a scalar multiplication $\cdot: \C \times V \to V$ satisfying the following axioms for all $\mathbf{u}, \mathbf{v}, \mathbf{w} \in V$ and all $\lambda, \mu \in \C$:
   \begin{enumerate}
     \item $\mathbf{u} + \mathbf{v} = \mathbf{v} + \mathbf{u}$\hfill (commutativity)
-    \item $(\mathbf{u} + \mathbf{v}) + \mathbf{w} = \mathbf{u} + (\mathbf{v} + \mathbf{w})$\hfill (associativity)
-    \item There is some $\mathbf{0}\in V$ such that $\mathbf{0} + \mathbf{u} = \mathbf{u}$ for all $\mathbf{u}$\hfill (identity)
-  \end{enumerate}
-  We can also multiply vectors by a scalars $\lambda\in \C$, which satisfies
-  \begin{enumerate}
-    \item $\lambda(\mu \mathbf{v}) = (\lambda \mu) \mathbf{v}$ \hfill (associativity)
-    \item $\lambda(\mathbf{u} + \mathbf{v}) = \lambda \mathbf{u} + \lambda \mathbf{v}$ \hfill (distributivity in $V$)
-    \item $(\lambda + \mu)\mathbf{u} = \lambda \mathbf{u} + \lambda \mathbf{v}$ \hfill (distributivity in $\C$)
-    \item $1\mathbf{v} = \mathbf{v}$ \hfill (identity)
+    \item $(\mathbf{u} + \mathbf{v}) + \mathbf{w} = \mathbf{u} + (\mathbf{v} + \mathbf{w})$\hfill (associativity of addition)
+    \item There exists $\mathbf{0}\in V$ such that $\mathbf{0} + \mathbf{u} = \mathbf{u}$\hfill (additive identity)
+    \item For each $\mathbf{u} \in V$, there exists $-\mathbf{u} \in V$ such that $\mathbf{u} + (-\mathbf{u}) = \mathbf{0}$\hfill (additive inverse)
+    \item $\lambda(\mu \mathbf{v}) = (\lambda \mu) \mathbf{v}$ \hfill (associativity of scalar multiplication)
+    \item $\lambda(\mathbf{u} + \mathbf{v}) = \lambda \mathbf{u} + \lambda \mathbf{v}$ \hfill (distributivity over vector addition)
+    \item $(\lambda + \mu)\mathbf{u} = \lambda \mathbf{u} + \mu \mathbf{u}$ \hfill (distributivity over scalar addition)
+    \item $1\mathbf{v} = \mathbf{v}$ \hfill (multiplicative identity)
   \end{enumerate}
 \end{defi}
-Often, we wouldn't have \emph{just} a vector space. We usually give them some additional structure, such as an inner product.
+
+A vector space equipped with additional structure becomes more useful for analysis. The most important such structure is an inner product.
 \begin{defi}[Inner product]
-  An \emph{inner product} on $V$ is a map $(\ph, \ph): V\times V \to \C$ that satisfies
+  An \emph{inner product} on a vector space $V$ over $\C$ is a map $(\ph, \ph): V\times V \to \C$ satisfying, for all $\mathbf{u}, \mathbf{v}, \mathbf{w} \in V$ and $\lambda \in \C$:
   \begin{enumerate}
     \item $(\mathbf{u}, \lambda \mathbf{v}) = \lambda (\mathbf{u}, \mathbf{v})$ \hfill(linearity in second argument)
-    \item $(\mathbf{u}, \mathbf{v} + \mathbf{w}) = (\mathbf{u}, \mathbf{v}) + (\mathbf{u}, \mathbf{w})$ \hfill (additivity)
+    \item $(\mathbf{u}, \mathbf{v} + \mathbf{w}) = (\mathbf{u}, \mathbf{v}) + (\mathbf{u}, \mathbf{w})$ \hfill (additivity in second argument)
     \item $(\mathbf{u}, \mathbf{v}) = (\mathbf{v}, \mathbf{u})^*$ \hfill (conjugate symmetry)
-    \item $(\mathbf{u}, \mathbf{u}) \geq 0$, with equality iff $\mathbf{u} = \mathbf{0}$ \hfill (positivity)
+    \item $(\mathbf{u}, \mathbf{u}) \geq 0$, with equality if and only if $\mathbf{u} = \mathbf{0}$ \hfill (positive definiteness)
   \end{enumerate}
-  Note that the positivity condition makes sense since conjugate symmetry entails that $(\mathbf{u}, \mathbf{u}) \in \R$.
-
-  The inner product in turn defines a norm $\|\mathbf{u}\| = \sqrt{(\mathbf{u}, \mathbf{u})}$ that provides the notion of length and distance.
+  A vector space equipped with an inner product is called an \emph{inner product space}.
 \end{defi}
-It is important to note that we only have linearity in the \emph{second argument}. For the first argument, we have $(\lambda \mathbf{u}, \mathbf{v}) = (\mathbf{v}, \lambda \mathbf{u})^* = \lambda^* (\mathbf{v}, \mathbf{u})^* = \lambda^* (\mathbf{u}, \mathbf{v})$.
+
+\begin{defi}[Norm]
+  The \emph{norm} induced by an inner product is defined by $\|\mathbf{u}\| = \sqrt{(\mathbf{u}, \mathbf{u})}$. This provides the notions of length and distance in the vector space.
+\end{defi}
+
+Note that positive definiteness is well-defined: conjugate symmetry implies $(\mathbf{u}, \mathbf{u}) = (\mathbf{u}, \mathbf{u})^*$, so $(\mathbf{u}, \mathbf{u}) \in \R$.
+
+\begin{prop}[Anti-linearity in first argument]
+  For any inner product, we have
+  \[
+    (\lambda \mathbf{u}, \mathbf{v}) = \lambda^* (\mathbf{u}, \mathbf{v})
+  \]
+  for all $\mathbf{u}, \mathbf{v} \in V$ and $\lambda \in \C$.
+\end{prop}
+\begin{proof}
+  Using conjugate symmetry and linearity in the second argument:
+  \[
+    (\lambda \mathbf{u}, \mathbf{v}) = (\mathbf{v}, \lambda \mathbf{u})^* = (\lambda(\mathbf{v}, \mathbf{u}))^* = \lambda^* (\mathbf{v}, \mathbf{u})^* = \lambda^* (\mathbf{u}, \mathbf{v}). \qedhere
+  \]
+\end{proof}
 
 \begin{defi}[Basis]
-  A set of vectors $\{\mathbf{v}_1, \mathbf{v}_2, \cdots, \mathbf{v}_n\}$ form a \emph{basis} of $V$ iff any $\mathbf{u}\in V$ can be uniquely written as a linear combination
+  A set of vectors $\{\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_n\}$ forms a \emph{basis} of $V$ if every $\mathbf{u}\in V$ can be uniquely written as a linear combination
   \[
     \mathbf{u} = \sum_{i = 1}^n \lambda_i \mathbf{v}_i
   \]
-  for some scalars $\lambda_i$. The \emph{dimension} of a vector space is the number of basis vectors in its basis.
-
-  A basis is \emph{orthogonal} (with respect to the inner product) if $(\mathbf{v}_i, \mathbf{v}_j) = 0$ whenever $i\not = j$.
-
-  A basis is \emph{orthonormal} (with respect to the inner product) if it is orthogonal and $(\mathbf{v}_i, \mathbf{v}_i) = 1$ for all $i$.
+  for some scalars $\lambda_i \in \C$. The \emph{dimension} of a vector space is the number of elements in any basis.
 \end{defi}
-Orthonormal bases are the nice bases, and these are what we want to work with.
 
-Given an orthonormal basis, we can use the inner product to find the expansion of any $\mathbf{u}\in V$ in terms of the basis, for if
-\[
-  \mathbf{u} = \sum_i \lambda_i \mathbf{v}_i,
-\]
-taking the inner product with $\mathbf{v}_j$ gives
-\[
-  (\mathbf{v}_j, \mathbf{u}) = \left(\mathbf{v}_j, \sum_i \lambda_i \mathbf{v}_i\right) = \sum_i \lambda_i (\mathbf{v}_j, \mathbf{v}_i) = \lambda_j,
-\]
-using additivity and linearity. Hence we get the general formula
-\[
-  \lambda_i = (\mathbf{v}_i, \mathbf{u}).
-\]
-We have seen all these so far in IA Vectors and Matrices, where a vector is a list of finitely many numbers. However, \emph{functions} can also be thought of as elements of an (infinite dimensional) vector space.
+\begin{defi}[Orthogonal and orthonormal bases]
+  Let $V$ be an inner product space with basis $\{\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_n\}$.
+  \begin{itemize}
+    \item The basis is \emph{orthogonal} if $(\mathbf{v}_i, \mathbf{v}_j) = 0$ for all $i \neq j$.
+    \item The basis is \emph{orthonormal} if it is orthogonal and $(\mathbf{v}_i, \mathbf{v}_i) = 1$ for all $i$.
+  \end{itemize}
+  Equivalently, an orthonormal basis satisfies $(\mathbf{v}_i, \mathbf{v}_j) = \delta_{ij}$, where $\delta_{ij}$ is the Kronecker delta.
+\end{defi}
 
-Suppose we have $f, g: \Omega \to \C$. Then we can define the sum $f + g$ by $(f + g)(x) = f(x) + g(x)$. Given scalar $\lambda$, we can also define $(\lambda f)(x) = \lambda f(x)$.
+Orthonormal bases are particularly convenient because they allow explicit computation of expansion coefficients.
 
-This also makes intuitive sense. We can simply view a functions as a list of numbers, where we list out the values of $f$ at each point. The list could be infinite, but a list nonetheless.
-
-Most of the time, we don't want to look at the set of \emph{all} functions. That would be too huge and uninteresting. A natural class of functions to consider would be the set of solutions to some particular differential solution. However, this doesn't always work. For this class to actually be a vector space, the sum of two solutions and the scalar multiple of a solution must also be a solution. This is exactly the requirement that the differential equation is linear. Hence, the set of solutions to a linear differential equation would form a vector space. Linearity pops up again.
-
-Now what about the inner product? A natural definition is
-\[
-  (f, g) = \int_{\Sigma} f(x)^* g(x) \;\d \mu,
-\]
-where $\mu$ is some measure. For example, we could integrate $\d x$, or $\d x^2$. This measure specifies how much weighting we give to each point $x$.
-
-Why does this definition make sense? Recall that the usual inner product on finite-dimensional vector spaces is $\sum v_i^* w_i$. Here we are just summing the different components of $v$ and $w$. We just said we can think of the function $f$ as a list of all its values, and this integral is just the sum of all components of $f$ and $g$.
-
-\begin{eg}
-  Let $\Sigma = [a, b]$. Then we could take
+\begin{prop}[Expansion coefficients in orthonormal basis]
+  Let $\{\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_n\}$ be an orthonormal basis of an inner product space $V$. For any $\mathbf{u} \in V$, the expansion
   \[
-    (f, g) = \int_a^b f(x)^* g(x)\;\d x.
+    \mathbf{u} = \sum_{i=1}^n \lambda_i \mathbf{v}_i
   \]
-  Alternatively, let $\Sigma = D^2 \subseteq \R^2$ be the unit disk. Then we could have
+  has coefficients given by
   \[
-    (f, g) = \int_0^1 \int_0^{2\pi}f(r, \theta)^* g(r, \theta)\;\d \theta\; r\;\d r
+    \lambda_i = (\mathbf{v}_i, \mathbf{u}).
   \]
+\end{prop}
+\begin{proof}
+  Taking the inner product of both sides with $\mathbf{v}_j$:
+  \[
+    (\mathbf{v}_j, \mathbf{u}) = \left(\mathbf{v}_j, \sum_{i=1}^n \lambda_i \mathbf{v}_i\right) = \sum_{i=1}^n \lambda_i (\mathbf{v}_j, \mathbf{v}_i) = \sum_{i=1}^n \lambda_i \delta_{ji} = \lambda_j,
+  \]
+  where we used linearity and additivity in the second argument, together with orthonormality.
+\end{proof}
+\subsection{Function spaces}
+The preceding definitions apply to finite-dimensional spaces such as $\R^n$ or $\C^n$. However, \emph{functions} can also form vector spaces, typically of infinite dimension.
+
+\begin{defi}[Function space]
+  Let $\Omega \subseteq \R^n$ be a domain. The set of complex-valued functions $f: \Omega \to \C$ forms a vector space under pointwise operations:
+  \begin{itemize}
+    \item Addition: $(f + g)(x) = f(x) + g(x)$
+    \item Scalar multiplication: $(\lambda f)(x) = \lambda f(x)$
+  \end{itemize}
+  for all $x \in \Omega$, $\lambda \in \C$.
+\end{defi}
+
+\begin{prop}[Solution spaces of linear equations]
+  The set of solutions to a linear differential equation forms a vector space.
+\end{prop}
+\begin{proof}
+  Let $\mathcal{L}$ be a linear differential operator. If $f$ and $g$ satisfy $\mathcal{L}f = 0$ and $\mathcal{L}g = 0$, then for any scalars $\alpha, \beta$:
+  \[
+    \mathcal{L}(\alpha f + \beta g) = \alpha \mathcal{L}f + \beta \mathcal{L}g = 0.
+  \]
+  Hence $\alpha f + \beta g$ is also a solution, and the solution set is closed under linear combinations.
+\end{proof}
+
+To apply the techniques of inner product spaces to functions, we need an appropriate inner product.
+
+\begin{defi}[Inner product on function spaces]
+  Let $\Omega \subseteq \R^n$ be a domain with measure $\d\mu$. For functions $f, g: \Omega \to \C$, define
+  \[
+    (f, g) = \int_{\Omega} f(x)^* g(x) \;\d \mu.
+  \]
+  This defines an inner product on the space of functions for which the integral converges.
+\end{defi}
+
+This definition is the natural analogue of the finite-dimensional inner product $(\mathbf{u}, \mathbf{v}) = \sum_i u_i^* v_i$: viewing a function as a ``continuous list'' of its values, the integral replaces the sum over components.
+
+\begin{eg}[Inner product on interval and disk]
+  \leavevmode
+  \begin{enumerate}
+    \item Let $\Omega = [a, b] \subseteq \R$. With the standard Lebesgue measure $\d\mu = \d x$:
+    \[
+      (f, g) = \int_a^b f(x)^* g(x)\;\d x.
+    \]
+    \item Let $\Omega = D^2 = \{(x,y) \in \R^2 : x^2 + y^2 \leq 1\}$ be the unit disk. In polar coordinates $(r, \theta)$, the measure is $\d\mu = r\,\d r\,\d\theta$, giving:
+    \[
+      (f, g) = \int_0^1 \int_0^{2\pi}f(r, \theta)^* g(r, \theta)\; r\,\d r\,\d \theta.
+    \]
+  \end{enumerate}
 \end{eg}
-Note that we were careful and said that $\d \mu$ is ``some measure''. Here we are integrating against $\d\theta\;r\;\d r$. We will later see cases where this can be even more complicated.
 
-If $\Sigma$ has a boundary, we will often want to restrict our functions to take particular values on the boundary, known as boundary conditions. Often, we want the boundary conditions to preserve linearity. We call these nice boundary conditions \emph{homogeneous} conditions.
+Note that the measure $\d\mu$ depends on the domain and coordinate system. In polar coordinates, the factor of $r$ arises from the Jacobian of the coordinate transformation. More general weighted measures will appear in Section~\ref{sec:sturm-liouville}.
+
+\subsection{Boundary conditions}
+When $\Omega$ has a boundary $\partial\Omega$, we often restrict attention to functions satisfying prescribed conditions on $\partial\Omega$. For the solution space to remain a vector space, these boundary conditions must be compatible with linear combinations.
 
 \begin{defi}[Homogeneous boundary conditions]
   A boundary condition is \emph{homogeneous} if whenever $f$ and $g$ satisfy the boundary conditions, then so does $\lambda f + \mu g$ for any $\lambda, \mu \in \C$ (or $\R$).
 \end{defi}
-\begin{eg}
+\begin{eg}[Homogeneous vs non-homogeneous boundary conditions]
   Let $\Sigma = [a, b]$. We could require that $f(a) + 7 f'(b) = 0$, or maybe $f(a) + 3 f''(a) = 0$. These are examples of homogeneous boundary conditions. On the other hand, the requirement $f(a) = 1$ is \emph{not} homogeneous.
 \end{eg}
 
@@ -257,7 +311,7 @@ Of course, with different definitions of convergence, we can get different answe
 
 It is not difficult to prove a general criterion for convergence in norm, but we will not do that, since that is analysis. If interested, one should take the IID Analysis of Functions course. In this course, instead of trying to come up with something general, let's look at an example instead.
 
-\begin{eg}
+\begin{eg}[Sawtooth function]
   Consider the sawtooth function $f(\theta) = \theta$.
   \begin{center}
     \begin{tikzpicture}
@@ -393,6 +447,7 @@ We have just done it for the case where $m = 1$. But if we integrate the sawtoot
 At this point, we might ask, why are we choosing these $e^{im\theta}$ as our basis? Surely there are a lot of different sets of basis we can use. For example, in finite dimensions, we can just arbitrary choose random vectors (that are not linearly dependent) to get a set of basis vectors. However, in practice, we don't pick them randomly. We often choose a basis that can reveal the symmetry of a system. For example, if we have a rotationally symmetric system, we would like to use polar coordinates. Similarly, if we have periodic functions, then $e^{im\theta}$ is often a good choice of basis.
 
 \section{Sturm-Liouville Theory}
+\label{sec:sturm-liouville}
 \subsection{Sturm-Liouville operators}
 In finite dimensions, we often consider \emph{linear maps} $M: V\to W$. If $\{\mathbf{v}_i\}$ is a basis for $V$ and $\{\mathbf{w}_i\}$ is a basis for $W$, then we can represent the map by a matrix with entries
 \[
@@ -484,7 +539,7 @@ assuming that $p, q$ are real.
 
 So 2nd order linear differential operators are self-adjoint with respect to this norm if $p, q$ are real and the boundary terms vanish. When do the boundary terms vanish? One possibility is when $p$ is periodic (with the right period), or if we constrain $f$ and $g$ to be periodic.
 
-\begin{eg}
+\begin{eg}[Second derivative, self-adjointness]
   We can consider a simple case, where
   \[
     \mathcal{L} = \frac{\d^2}{\d x^2}.
@@ -518,7 +573,7 @@ We now define what it means to be an eigenfunction.
 \end{defi}
 This might be strange at first sight. It seems like we can take any nonsense $y$, apply $\mathcal{L}$, to get some nonsense $\mathcal{L} y$. But then it is fine, since we can write it as some nonsense $w$ times our original $y$. So any function is an eigenfunction? No! There are many constraints $w$ has to satisfy, like being positive, real and having finitely many zeroes. It turns out this severely restraints what values $y$ can take, so not everything will be an eigenfunction. In fact we can develop this theory without the weight function $w$. However, weight functions are much more convenient when, say, dealing with the unit disk.
 
-\begin{prop}
+\begin{prop}[Sturm-Liouville eigenvalues, reality]
   The eigenvalues of a Sturm-Liouville operator are real.
 \end{prop}
 
@@ -531,7 +586,7 @@ This might be strange at first sight. It seems like we can take any nonsense $y$
 \end{proof}
 Note that the first and last terms use the weighted inner product, but the middle terms use the unweighted inner product.
 
-\begin{prop}
+\begin{prop}[Sturm-Liouville eigenfunctions, orthogonality]
   Eigenfunctions with different eigenvalues (but same weight) are orthogonal.
 \end{prop}
 
@@ -544,7 +599,7 @@ Note that the first and last terms use the weighted inner product, but the middl
 \end{proof}
 
 Those were pretty straightforward manipulations. However, the main results of Sturm--Liouville theory are significantly harder, and we will not prove them. We shall just state them and explore some examples.
-\begin{thm}
+\begin{thm}[Sturm-Liouville spectrum, compact domain]
   On a \emph{compact} domain, the eigenvalues $\lambda_1, \lambda_2, \cdots$ form a countably infinite sequence and are discrete.
 \end{thm}
 
@@ -552,7 +607,7 @@ This will be a rather helpful result in quantum mechanics, since in quantum mech
 
 Note here the word \emph{compact}. In quantum mechanics, if we restrict a particle in a well $[0, 1]$, then it will have quantized energy level since the domain is compact. However, if the particle is free, then it can have any energy at all since we no longer have a compact domain. Similarly, angular momentum is quantized, since it describe rotations, which takes values in $S^1$, which is compact.
 
-\begin{thm}
+\begin{thm}[Sturm-Liouville completeness]
   The eigenfunctions are complete: any function $f: [a, b] \to \C$ (obeying appropriate boundary conditions) can be expanded as
   \[
     f(x) = \sum_n \hat{f}_n y_n(x),
@@ -563,7 +618,7 @@ Note here the word \emph{compact}. In quantum mechanics, if we restrict a partic
   \]
 \end{thm}
 
-\begin{eg}
+\begin{eg}[Fourier series as eigenfunction expansion]
   Let $[a, b] = [-L, L]$, $\mathcal{L} = \frac{\d^2}{\d x^2}$, $w = 1$, restricting to periodic functions Then our eigenfunction obeys
   \[
     \frac{\d^2 y_n}{\d x^2} = \lambda_n y_n(x),
@@ -735,7 +790,7 @@ It also arises as a special case of the heat equation $\frac{\partial \phi}{\par
   Functions that obey Laplace's equation are often called \emph{harmonic functions}.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Dirichlet problem, uniqueness]
   Let $\Omega$ be a compact domain, and $\partial \Omega$ be its boundary. Let $ f: \partial \Omega\to \R$. Then there is a unique solution to $\nabla^2 \phi = 0$ on $\Omega$ with $\phi|_{\partial \Omega} = f$.
 \end{prop}
 
@@ -871,7 +926,7 @@ where $A_{m, n}$ is given by $(*)$. Since we have shown that there is a unique s
 Note that if we imposed a boundary condition at finite $z$, say $0 \leq z \leq c$, then both sets of exponential $\exp (\pm \sqrt{\lambda + \mu} z)$ would have contributed. Similarly, if $\psi$ does not vanish at the other boundaries, then the $\cos$ terms would also contribute.
 
 In general, to actually find our $\psi$, we have to do the horrible integral for $A_{m, n}$, and this is not always easy (since integrals are \emph{hard}). We will just look at a simple example.
-\begin{eg}
+\begin{eg}[Rectangular prism, constant boundary]
   Suppose $f(x, y) = 1$. Then
   \[
     A_{m, n} = \frac{4}{ab} \int_0^a \sin \left(\frac{n\pi x}{a}\right)\;\d x \int_0^ b \sin \left(\frac{m\pi y}{b}\right)\;\d y =
@@ -1342,7 +1397,7 @@ Suppose that as we take the limit $\Delta t \to 0$, we get $\frac{\bra y^2\ket }
 \[
   \frac{\partial P}{\partial t} = \kappa \frac{\partial^2 P}{\partial x^2}.
 \]
-\begin{prop}
+\begin{prop}[Heat equation, uniqueness]
   Suppose $\phi: \Omega\times [0, \infty) \to \R$ satisfies the heat equation $\frac{\partial \phi}{\partial t} = \kappa \nabla^2 \phi$, and obeys
   \begin{itemize}
     \item Initial conditions $\phi(\mathbf{x}, 0) = f(x)$ for all $x \in \Omega$
@@ -1632,7 +1687,7 @@ Hence we have an equipartition of the energy between the kinetic and potential e
 
 The energy also allows us to prove a uniqueness theorem. First we show that energy is conserved in general.
 
-\begin{prop}
+\begin{prop}[Wave equation, energy conservation]
   Suppose $\phi: \Omega \times [0, \infty) \to \R$ obeys the wave equation $\frac{\partial^2 \phi}{\partial t^2} = c^2 \nabla^2 \phi$ inside $\Omega \times (0, \infty)$, and is fixed at the boundary. Then $E$ is constant.
 \end{prop}
 
@@ -1651,7 +1706,7 @@ The energy also allows us to prove a uniqueness theorem. First we show that ener
   \]
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Wave equation, uniqueness]
   Suppose $\phi: \Omega \times [0, \infty) \to \R$ obeys the wave equation $\frac{\partial^2 \phi}{\partial t^2} = c^2 \nabla^2 \phi$ inside $\Omega \times (0, \infty)$, and obeys, for some $f, g, h$,
   \begin{enumerate}
     \item $\phi(x, 0) = f(x)$;
@@ -1682,7 +1737,7 @@ The energy also allows us to prove a uniqueness theorem. First we show that ener
   Hence we must have $\frac{\partial \psi}{\partial t} = 0$. So $\psi$ is constant. Since it is $0$ at the beginning, it is always $0$.
 \end{proof}
 
-\begin{eg}
+\begin{eg}[Circular drum]
   Consider $\Omega = \{(x, y) \in \R^2, x^2 + y^2 \leq 1\}$, and let $\phi(r, \theta, t)$ solve
   \[
     \frac{1}{c^2}\frac{\partial^2 \phi}{\partial t^2} = \nabla^2 \phi = \frac{1}{r} \left(r \frac{\partial \phi}{\partial r}\right) + \frac{1}{r^2}\frac{\partial^2\phi}{\partial \theta^2},
@@ -1763,7 +1818,7 @@ To define a distribution, we first pick a class of ``nice'' test functions, wher
 \end{center}
 We now define a distribution $T$ to be a linear map $T:D(\Omega) \to \R$. For those who are doing IB Linear Algebra, this is the dual space of the space of (``nice'') real-valued functions. For $\phi \in D(\Omega)$, we often write its image under $T$ as $T[\phi]$.
 
-\begin{eg}
+\begin{eg}[Function as distribution]
   The simplest example is just an ordinary function that is integrable over any compact region. Then we define the distribution $T_f$ as
   \[
     T_f[\phi] = \int_\Omega f(x) \phi(x) \;\d x.
@@ -1964,7 +2019,7 @@ So our general solution is
   &= \int_x^b \frac{f(\xi)}{\alpha(\xi)W(\xi)} y_2(\xi) y_1(x)\;\d \xi + \int_a^x \frac{f(\xi)}{\alpha(\xi)W(\xi)}y_1(\xi) y_2(x)\;\d \xi.
 \end{align*}
 
-\begin{eg}
+\begin{eg}[Second-order ODE, Dirichlet Green's function]
   Consider
   \[
     \mathcal{L}y= -y'' - y = f
@@ -1983,7 +2038,7 @@ So our general solution is
   \]
 \end{eg}
 
-\begin{eg}
+\begin{eg}[String under gravity]
   Suppose we have a string with mass per unit length $\mu(x)$ and held under a tension $T$. In the presence of gravity, Newton's second law gives
   \[
     \mu\frac{\partial^2 y}{\partial t^2} = T \frac{\partial^2 y}{\partial x^2} + \mu g.
@@ -2093,7 +2148,7 @@ We can solve this to get $C(\tau)$ and $D(\tau)$. Then we get
 \]
 since we know that when $\tau > t$, the Green's function $G(t, \tau) = 0$. Thus the solution $y(t)$ depends on the forcing term $f$ only for times $ < t$. This expresses causality!
 
-\begin{eg}
+\begin{eg}[Simple harmonic oscillator, Green's function]
   For example, suppose we have $\ddot{y} + y = f(t)$ with $f(0) = \dot{y}(0) = 0$. Then we have
   \[
     G(t, \tau) = \Theta(t - \tau) [C(\tau) \cos(t - \tau) + D(\tau) \sin (t - \tau)]
@@ -2213,7 +2268,7 @@ Since $\mathcal{L}(ik)$ is just multiplication by a polynomial, we can immediate
 \[
   \tilde{y}(k) = \frac{\tilde{f}(k)}{\mathcal{L}(ik)}.
 \]
-\begin{eg}
+\begin{eg}[Screened Poisson equation]
   For $\phi: \R^n \to \C$, suppose we have the equation
   \[
     \nabla^2 \phi - m^2 \phi = \rho(x),
@@ -2295,7 +2350,7 @@ This is useful because it means we can use our knowledge of Fourier transforms t
 
 Note that this does not occur in the case of the Fourier \emph{series}. In the Fourier series, we obtain the coefficients by evaluating an integral, and restore the original function by taking a discrete sum. These operations are not symmetric.
 
-\begin{eg}
+\begin{eg}[Convolution theorem, inverse]
   Recall that we defined the convolution as
   \[
     f * g(x) = \int_{-\infty}^\infty f(x - y) g(y)\;\d y.
@@ -2314,7 +2369,7 @@ Note that this does not occur in the case of the Fourier \emph{series}. In the F
   \]
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Screened Poisson, Fourier inversion]
   Last time we saw that if $\nabla^2 \phi - m^2 \phi = \rho(x)$, then
   \[
     \tilde{\phi}(\mathbf{k}) = -\frac{\tilde{\rho}(\mathbf{k})}{|\mathbf{k}|^2 + m^2}.
@@ -2860,7 +2915,7 @@ We do a few examples to make this clear.
   \]
 \end{eg}
 
-\begin{eg}
+\begin{eg}[First-order PDE, exponential coefficient]
   Consider the equation
   \[
     e^x \frac{\partial \phi}{\partial x} + \frac{\partial \phi}{\partial y} = 0.
@@ -2896,7 +2951,7 @@ We do a few examples to make this clear.
   So done.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[First-order PDE, inhomogeneous]
   Let $\phi: \R^2 \to \R$ solve the inhomogeneous partial differential equation
   \[
     \partial_x \phi + 2 \partial_y \phi = y e^x
@@ -2973,7 +3028,7 @@ To classify these differential equations, we need to define
   \]
 \end{defi}
 
-\begin{eg}
+\begin{eg}[Symbol of Laplacian and heat operator]
   If $\mathcal{L} = \nabla^2$, then
   \[
     \sigma(\mathbf{k}, x) = \sigma^p(\mathbf{k}, x) = \sum_{i = 1}^n (k_i)^2.
@@ -3011,7 +3066,7 @@ where $A(x)$ has elements $a^{ij}(x)$. Recall that a real symmetric matrix (such
 \end{defi}
 These names are supposed to remind us of conic sections, and indeed if we think of $\mathbf{k}^T A\mathbf{k}$ as an equation in $\mathbf{k}$, then we get a conic section.
 
-\begin{eg}
+\begin{eg}[PDE classification in two dimensions]
   Let
   \[
     \mathcal{L} = a(x, y) \frac{\partial^2}{\partial x^2} + 2b(x, y) \frac{\partial^2}{\partial x \partial y} + c(x, y) \frac{\partial^2}{\partial y^2} + d(x, y) \frac{\partial}{\partial x} + e(x, y) \frac{\partial}{\partial y} + f(x, y).
@@ -3094,7 +3149,7 @@ Hence, we can compute
 \]
 We now see explicitly how the type of the differential equation influences the number of characteristics --- if $b^2 - ac > 0$, then we obtain two distinct differential equations and obtain two solutions; if $b^2 - ac = 0$, then we only have one equation; if $b^2 - ac < 0$, then there are no real characteristics.
 
-\begin{eg}
+\begin{eg}[Variable type PDE]
   Consider
   \[
     \partial_y^2 \phi - xy \partial_x^2 \phi = 0
@@ -3124,7 +3179,7 @@ We now see explicitly how the type of the differential equation influences the n
   \]
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Wave equation, d'Alembert]
   Consider the wave equation
   \[
     \frac{\partial^2 \phi}{\partial t^2} - c^2 \frac{\partial^2 \phi}{\partial x^2} = 0
@@ -3218,7 +3273,7 @@ We shall call this $S_1(x, t)$, where the subscript $1$ tells us we are in $1 + 
 \[
   \phi(x, t) = \int_{-\infty}^\infty f(y) S_1(x - y, t) \;\d y
 \]
-\begin{eg}
+\begin{eg}[Heat equation, delta initial data]
   Suppose our initial data is
   \[
     f(x) = \phi_0\delta(x).
@@ -3542,7 +3597,7 @@ In general, finding a harmonic $\nabla^2 H = 0$ with
 \]
 is a difficult problem. However, the \emph{method of images} allows us to solve this in some special cases with lots of symmetry.
 
-\begin{eg}
+\begin{eg}[Method of images, half-space Poisson]
   Suppose
   \[
     \Omega = \{(x, y, z) \in \R^3: z \geq 0\}.
@@ -3592,7 +3647,7 @@ is a difficult problem. However, the \emph{method of images} allows us to solve 
   Our solution for $\phi(\mathbf{x}_0)$ is valid if we extend it to $\mathbf{x}_0 \in \R^3$ where $\phi(\mathbf{x}_0)$ is solved by choosing two mirror charge distributions. But this is irrelevant for our present purposes. We are only concerned with finding a solution in the region $z \geq 0$. This is just an artificial device we have in order to solve the problem.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Chimney smoke]
   Suppose a chimney produces smoke such that the density $\phi(\mathbf{x}, t)$ of smoke obeys
   \[
     \partial_t \phi - D \nabla^2 \phi = F(\mathbf{x}, t).
@@ -3634,7 +3689,7 @@ is a difficult problem. However, the \emph{method of images} allows us to solve 
   We can think of the second term as the contribution from a ``mirror chimney''. Without a mirror chimney, we will have smoke flowing into the ground. With a mirror chimney, we will have equal amounts of mirror smoke flowing up from the ground, so there is no net flow. Of course, there are no mirror chimneys in reality. These are just artifacts we use to find the solution we want.
 \end{eg}
 
-\begin{eg}
+\begin{eg}[Method of images, wave reflection]
   Suppose we want to solve the wave equation in the region $(x, t)$ such that $x > 0$ with boundary conditions
   \[
     \phi(x, 0) = b(x),\quad \partial_t(x, 0) = 0,\quad \partial_x \phi(0, t) = 0.
