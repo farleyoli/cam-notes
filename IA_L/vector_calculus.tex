@@ -3081,11 +3081,9 @@ Using these, we can verify that the integral solution of Poisson's equation we o
 as required.
 \section{Maxwell's equations}
 \subsection{Laws of electromagnetism}
-Maxwell's equations are a set of four equations that describe the behaviours of electromagnetism. Together with the Lorentz force law, these describe \emph{all} we know about (classical) electromagnetism. All other results we know are simply mathematical consequences of these equations. It is thus important to understand the mathematical properties of these equations.
+Maxwell's equations are four partial differential equations that govern classical electromagnetism. Together with the Lorentz force law, they form a complete description of electromagnetic phenomena; all other results in classical electromagnetism are mathematical consequences of these equations.
 
-To begin with, there are two fields that govern electromagnetism, known as the \emph{electric} and \emph{magnetic} field. These are denoted by $\mathbf{E}(\mathbf{r}, t)$ and $\mathbf{B}(\mathbf{r}, t)$ respectively.
-
-To understand electromagnetism, we need to understand how these fields are formed, and how these fields affect charged particles. The second is rather straightforward, and is given by the Lorentz force law.
+Electromagnetism is described by two vector fields: the \emph{electric field} $\mathbf{E}(\mathbf{r}, t)$ and the \emph{magnetic field} $\mathbf{B}(\mathbf{r}, t)$. The effect of these fields on charged particles is given by the Lorentz force law.
 
 \begin{law}[Lorentz force law]
   A point charge $q$ experiences a force of
@@ -3113,56 +3111,60 @@ Then Maxwell's equations say
   where $\varepsilon_0$ is the electric constant (permittivity of free space) and $\mu_0$ is the magnetic constant (permeability of free space), which are constants determined experimentally.
 \end{law}
 
-We can quickly derive some properties we know from these four equations. The conservation of electric charge comes from taking the divergence of the last equation.
-\[
-  \underbrace{\nabla\cdot (\nabla\times \mathbf{B})}_{=0} - \mu_0\varepsilon_0\frac{\partial}{\partial t} \underbrace{(\nabla\cdot \mathbf{E})}_{=\rho/\varepsilon_0} = \mu_0 \nabla\cdot \mathbf{j}.
-\]
-So
-\[
-  \frac{\partial \rho}{\partial t} + \nabla\cdot \mathbf{j} = 0.
-\]
-We can also take the volume integral of the first equation to obtain
-\[
-  \int_V\nabla\cdot \mathbf{E}\;\d V = \frac{1}{\varepsilon_0} \int_V \rho\;\d V = \frac{Q}{\varepsilon_0}.
-\]
-By the divergence theorem, we have
-\[
-  \int_S \mathbf{E}\cdot \d \mathbf{S} = \frac{Q}{\varepsilon_0},
-\]
-which is Gauss' law for electric fields
+Several fundamental results follow directly from Maxwell's equations.
 
-We can integrate the second equation to obtain
-\[
-  \int_S \mathbf{B}\cdot \d \mathbf{S} = 0.
-\]
-This roughly states that there are no ``magnetic charges''.
+\begin{prop}[Conservation of charge]
+  Taking the divergence of the fourth Maxwell equation yields the continuity equation:
+  \[
+    \frac{\partial \rho}{\partial t} + \nabla\cdot \mathbf{j} = 0.
+  \]
+\end{prop}
+\begin{proof}
+  We have
+  \[
+    \underbrace{\nabla\cdot (\nabla\times \mathbf{B})}_{=0} - \mu_0\varepsilon_0\frac{\partial}{\partial t} \underbrace{(\nabla\cdot \mathbf{E})}_{=\rho/\varepsilon_0} = \mu_0 \nabla\cdot \mathbf{j}.
+  \]
+  Rearranging gives the result.
+\end{proof}
 
-The remaining Maxwell's equations also have integral forms. For example,
-\[
-  \int_{C = \partial S} \mathbf{E}\cdot \d \mathbf{r} = \int_S \nabla \times \mathbf{E}\cdot\d \mathbf{S} = -\frac{\d }{\d t}\int_S \mathbf{B}\cdot \d \mathbf{S},
-\]
-where the first equality is from Stokes' theorem. This says that a changing magnetic field produces a current.
+\begin{prop}[Integral forms of Maxwell's equations]
+  Integrating the differential forms and applying the divergence and Stokes' theorems yields:
+  \begin{enumerate}
+    \item $\displaystyle\int_S \mathbf{E}\cdot \d \mathbf{S} = \frac{Q}{\varepsilon_0}$ \quad (Gauss' law for electric fields)
+    \item $\displaystyle\int_S \mathbf{B}\cdot \d \mathbf{S} = 0$ \quad (no magnetic monopoles)
+    \item $\displaystyle\oint_C \mathbf{E}\cdot \d \mathbf{r} = -\frac{\d }{\d t}\int_S \mathbf{B}\cdot \d \mathbf{S}$ \quad (Faraday's law)
+  \end{enumerate}
+\end{prop}
+
+\begin{rmk}
+  Faraday's law states that a time-varying magnetic flux through a surface induces an electromotive force around its boundary.
+\end{rmk}
 
 \subsection{Static charges and steady currents}
-If $\rho, \mathbf{j}, \mathbf{E}, \mathbf{B}$ are all independent of time, $\mathbf{E}$ and $\mathbf{B}$ are no longer linked.
+When $\rho$, $\mathbf{j}$, $\mathbf{E}$, and $\mathbf{B}$ are all independent of time, Maxwell's equations decouple into separate equations for the electric and magnetic fields.
 
-We can solve the equations for electric fields:
+For the electric field, we have
 \begin{align*}
   \nabla\cdot \mathbf{E} &= \rho/\varepsilon_0\\
-  \nabla\times \mathbf{E} &= \mathbf{0}
+  \nabla\times \mathbf{E} &= \mathbf{0}.
 \end{align*}
-Second equation gives $\mathbf{E} = -\nabla \varphi$. Substituting into first gives $\nabla^2 \varphi = -\rho/\varepsilon_0$.
+The second equation implies $\mathbf{E} = -\nabla \varphi$ for some scalar potential $\varphi$. Substituting into the first gives Poisson's equation: $\nabla^2 \varphi = -\rho/\varepsilon_0$.
 
-The equations for the magnetic field are
+For the magnetic field, we have
 \begin{align*}
   \nabla\cdot \mathbf{B} &= 0\\
-  \nabla\times \mathbf{B} &= \mu_0 \mathbf{j}
+  \nabla\times \mathbf{B} &= \mu_0 \mathbf{j}.
 \end{align*}
-First equation gives $\mathbf{B} = \nabla \times \mathbf{A}$ for some \emph{vector potential} $\mathbf{A}$. But the vector potential is not well-defined. Making the transformation $\mathbf{A}\mapsto \mathbf{A} + \nabla \chi(\mathbf{x})$ produces the same $\mathbf{B}$, since $\nabla\times (\nabla \chi) = 0$. So choose $\chi$ such that $\nabla\cdot \mathbf{A} = 0$. Then
-\[
-  \nabla^2 \mathbf{A} = \nabla(\underbrace{\nabla\cdot \mathbf{A}}_{=0}) - \nabla\times (\underbrace{\nabla\times \mathbf{A}}_{\mathbf{B}}) = -\mu_0 \mathbf{j}.
-\]
-In summary, we have
+The first equation implies $\mathbf{B} = \nabla \times \mathbf{A}$ for some \emph{vector potential} $\mathbf{A}$.
+
+\begin{rmk}[Gauge freedom]
+  The vector potential is not unique: the transformation $\mathbf{A} \mapsto \mathbf{A} + \nabla \chi$ for any scalar field $\chi$ leaves $\mathbf{B}$ unchanged, since $\nabla\times(\nabla \chi) = \mathbf{0}$. Choosing $\chi$ such that $\nabla\cdot \mathbf{A} = 0$ (the \emph{Coulomb gauge}) yields
+  \[
+    \nabla^2 \mathbf{A} = \nabla(\underbrace{\nabla\cdot \mathbf{A}}_{=0}) - \nabla\times (\underbrace{\nabla\times \mathbf{A}}_{=\mathbf{B}}) = -\mu_0 \mathbf{j}.
+  \]
+\end{rmk}
+
+The following table summarizes electrostatics and magnetostatics:
 \begin{center}
   \begin{tabularx}{\textwidth}{XX}
     \toprule
@@ -3177,19 +3179,26 @@ In summary, we have
 \end{center}
 
 \subsection{Electromagnetic waves}
-Consider Maxwell's equations in empty space, i.e.\ $\rho = 0$, $\mathbf{j} = \mathbf{0}$. Then Maxwell's equations give
-\[
-  \nabla^2 \mathbf{E} = \nabla(\nabla\cdot \mathbf{E}) - \nabla\times (\nabla\times \mathbf{E}) = \nabla\times \frac{\partial \mathbf{B}}{\partial t} = \frac{\partial}{\partial t} (\nabla \times \mathbf{B}) = \mu_0\varepsilon_0 \frac{\partial^2 \mathbf{E}}{\partial t^2}.
-\]
-Define $c = \frac{1}{\sqrt{\mu_0\varepsilon_0}}$. Then the equation gives
-\[
-  \left(\nabla^2 - \frac{1}{c^2}\frac{\partial^2}{\partial t^2}\right)\mathbf{E} = 0.
-\]
-This is the wave equation describing propagation with speed $c$. Similarly, we can obtain
-\[
-  \left(\nabla^2 - \frac{1}{c^2}\frac{\partial^2}{\partial t^2}\right)\mathbf{B} = 0.
-\]
-So Maxwell's equations predict that there exists electromagnetic waves in free space, which move with speed $c = \frac{1}{\sqrt{\varepsilon_0 \mu_0}} \approx \SI{3.00e8}{\meter\per\second}$, which is the speed of light! Maxwell then concluded that light is electromagnetic waves!
+Consider Maxwell's equations in free space, where $\rho = 0$ and $\mathbf{j} = \mathbf{0}$.
+
+\begin{prop}[Wave equations for electromagnetic fields]
+  In free space, both $\mathbf{E}$ and $\mathbf{B}$ satisfy the wave equation
+  \[
+    \left(\nabla^2 - \frac{1}{c^2}\frac{\partial^2}{\partial t^2}\right)\mathbf{E} = \mathbf{0}, \qquad \left(\nabla^2 - \frac{1}{c^2}\frac{\partial^2}{\partial t^2}\right)\mathbf{B} = \mathbf{0},
+  \]
+  where $c = \frac{1}{\sqrt{\mu_0\varepsilon_0}}$.
+\end{prop}
+\begin{proof}
+  Using the vector identity $\nabla^2 \mathbf{E} = \nabla(\nabla\cdot \mathbf{E}) - \nabla\times(\nabla\times \mathbf{E})$ and Maxwell's equations:
+  \[
+    \nabla^2 \mathbf{E} = \nabla(\underbrace{\nabla\cdot \mathbf{E}}_{=0}) - \nabla\times (\nabla\times \mathbf{E}) = \nabla\times \frac{\partial \mathbf{B}}{\partial t} = \frac{\partial}{\partial t} (\nabla \times \mathbf{B}) = \mu_0\varepsilon_0 \frac{\partial^2 \mathbf{E}}{\partial t^2}.
+  \]
+  The equation for $\mathbf{B}$ follows similarly.
+\end{proof}
+
+\begin{rmk}
+  Maxwell's equations thus predict the existence of electromagnetic waves propagating at speed $c = 1/\sqrt{\varepsilon_0 \mu_0} \approx \SI{3.00e8}{\meter\per\second}$. This value coincides with the measured speed of light, leading Maxwell to conclude that light is an electromagnetic wave.
+\end{rmk}
 
 \section{Tensors and tensor fields}
 \subsection{Definition}
