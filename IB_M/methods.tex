@@ -518,7 +518,7 @@ We now define what it means to be an eigenfunction.
 \end{defi}
 This might be strange at first sight. It seems like we can take any nonsense $y$, apply $\mathcal{L}$, to get some nonsense $\mathcal{L} y$. But then it is fine, since we can write it as some nonsense $w$ times our original $y$. So any function is an eigenfunction? No! There are many constraints $w$ has to satisfy, like being positive, real and having finitely many zeroes. It turns out this severely restraints what values $y$ can take, so not everything will be an eigenfunction. In fact we can develop this theory without the weight function $w$. However, weight functions are much more convenient when, say, dealing with the unit disk.
 
-\begin{prop}
+\begin{prop}[Sturm-Liouville eigenvalues, reality]
   The eigenvalues of a Sturm-Liouville operator are real.
 \end{prop}
 
@@ -531,7 +531,7 @@ This might be strange at first sight. It seems like we can take any nonsense $y$
 \end{proof}
 Note that the first and last terms use the weighted inner product, but the middle terms use the unweighted inner product.
 
-\begin{prop}
+\begin{prop}[Sturm-Liouville eigenfunctions, orthogonality]
   Eigenfunctions with different eigenvalues (but same weight) are orthogonal.
 \end{prop}
 
@@ -544,7 +544,7 @@ Note that the first and last terms use the weighted inner product, but the middl
 \end{proof}
 
 Those were pretty straightforward manipulations. However, the main results of Sturm--Liouville theory are significantly harder, and we will not prove them. We shall just state them and explore some examples.
-\begin{thm}
+\begin{thm}[Sturm-Liouville spectrum, compact domain]
   On a \emph{compact} domain, the eigenvalues $\lambda_1, \lambda_2, \cdots$ form a countably infinite sequence and are discrete.
 \end{thm}
 
@@ -552,7 +552,7 @@ This will be a rather helpful result in quantum mechanics, since in quantum mech
 
 Note here the word \emph{compact}. In quantum mechanics, if we restrict a particle in a well $[0, 1]$, then it will have quantized energy level since the domain is compact. However, if the particle is free, then it can have any energy at all since we no longer have a compact domain. Similarly, angular momentum is quantized, since it describe rotations, which takes values in $S^1$, which is compact.
 
-\begin{thm}
+\begin{thm}[Sturm-Liouville completeness]
   The eigenfunctions are complete: any function $f: [a, b] \to \C$ (obeying appropriate boundary conditions) can be expanded as
   \[
     f(x) = \sum_n \hat{f}_n y_n(x),
@@ -735,7 +735,7 @@ It also arises as a special case of the heat equation $\frac{\partial \phi}{\par
   Functions that obey Laplace's equation are often called \emph{harmonic functions}.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Dirichlet problem, uniqueness]
   Let $\Omega$ be a compact domain, and $\partial \Omega$ be its boundary. Let $ f: \partial \Omega\to \R$. Then there is a unique solution to $\nabla^2 \phi = 0$ on $\Omega$ with $\phi|_{\partial \Omega} = f$.
 \end{prop}
 
@@ -1342,7 +1342,7 @@ Suppose that as we take the limit $\Delta t \to 0$, we get $\frac{\bra y^2\ket }
 \[
   \frac{\partial P}{\partial t} = \kappa \frac{\partial^2 P}{\partial x^2}.
 \]
-\begin{prop}
+\begin{prop}[Heat equation, uniqueness]
   Suppose $\phi: \Omega\times [0, \infty) \to \R$ satisfies the heat equation $\frac{\partial \phi}{\partial t} = \kappa \nabla^2 \phi$, and obeys
   \begin{itemize}
     \item Initial conditions $\phi(\mathbf{x}, 0) = f(x)$ for all $x \in \Omega$
@@ -1632,7 +1632,7 @@ Hence we have an equipartition of the energy between the kinetic and potential e
 
 The energy also allows us to prove a uniqueness theorem. First we show that energy is conserved in general.
 
-\begin{prop}
+\begin{prop}[Wave equation, energy conservation]
   Suppose $\phi: \Omega \times [0, \infty) \to \R$ obeys the wave equation $\frac{\partial^2 \phi}{\partial t^2} = c^2 \nabla^2 \phi$ inside $\Omega \times (0, \infty)$, and is fixed at the boundary. Then $E$ is constant.
 \end{prop}
 
@@ -1651,7 +1651,7 @@ The energy also allows us to prove a uniqueness theorem. First we show that ener
   \]
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Wave equation, uniqueness]
   Suppose $\phi: \Omega \times [0, \infty) \to \R$ obeys the wave equation $\frac{\partial^2 \phi}{\partial t^2} = c^2 \nabla^2 \phi$ inside $\Omega \times (0, \infty)$, and obeys, for some $f, g, h$,
   \begin{enumerate}
     \item $\phi(x, 0) = f(x)$;
