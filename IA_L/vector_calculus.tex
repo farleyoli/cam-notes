@@ -2841,10 +2841,13 @@ To determine the constants $A$ and $B$, we must specify boundary conditions. If 
     \item $\varphi(\mathbf{r})$ is unique up to a constant.
   \end{enumerate}
 \end{thm}
-This theorem is practically important - if you find a solution by any magical means, you know it is the \emph{only} solution (up to a constant).
 
-Since the proof of the cases of the two different boundary conditions are very similar, they will be proved together. When the proof is broken down into (i) and (ii), it refers to the specific cases of each boundary condition.
+\begin{rmk}
+  This theorem has significant practical value: if a solution is found by any method (symmetry arguments, guessing, numerical computation), uniqueness guarantees it is the only solution (up to a constant in the Neumann case).
+\end{rmk}
+
 \begin{proof}
+  The proofs for both boundary conditions follow the same structure.
   Let $\varphi_1(\mathbf{r})$ and $\varphi_2(\mathbf{r})$ satisfy Poisson's equation, each obeying the boundary conditions (N) or (D). Then $\Psi(\mathbf{r}) = \varphi_2(\mathbf{r}) - \varphi_1(\mathbf{r})$ satisfies $\nabla^2\Psi = 0$ on $V$ by linearity, and
   \begin{enumerate}
     \item $\Psi = 0$ on $S$; or
@@ -2868,49 +2871,52 @@ Since the proof of the cases of the two different boundary conditions are very s
     \item $\varphi_2(\mathbf{r}) = \varphi_1(\mathbf{r}) + C$, as claimed.\qedhere
   \end{enumerate}
 \end{proof}
-We've proven uniqueness. How about existence? It turns out it isn't difficult to craft a boundary condition in which there are no solutions.
 
-For example, if we have $\nabla^2 \varphi = -\rho$ on $V$ with the condition $\frac{\partial \varphi}{\partial \mathbf{n}} = g$, then by the divergence theorem,
-\[
-  \int_V \nabla^2\varphi \;\d V = \int_S \frac{\partial \varphi}{\partial \mathbf{n}}\;\d S.
-\]
-Using Poisson's equation and the boundary conditions, we have
-\[
-  \int_V \rho \;\d V + \int_{\partial V} g\;\d S = 0
-\]
-So if $\rho$ and $g$ don't satisfy this equation, then we can't have any solutions.
-
-The theorem can be similarly proved and stated for regions in $\R^2, \R^3, \cdots$, by using the definitions of grad, div and the divergence theorem. The result also extends to unbounded domains. To prove it, we can take a sphere of radius $R$ and impose the boundary conditions $|\Psi(\mathbf{r})| = O(1/R)$ or $|\frac{\partial \Psi}{\partial \mathbf{n}}(\mathbf{r})| = O(1/R^2)$ as $R\to \infty$. Then we just take the relevant limits to complete the proof.
-
-Similar results also apply to related equations and different kinds of boundary conditions, eg $D$ or $N$ on different parts of the boundary. But we have to analyse these case by case and see if the proof still applies.
-
-The proof uses a special case of the result
-\begin{prop}[Green's first identity]
+\begin{rmk}[Existence and compatibility conditions]
+  Uniqueness does not guarantee existence. For Neumann boundary conditions, integrating Poisson's equation over $V$ and applying the divergence theorem yields the \emph{compatibility condition}
   \[
-    \int_S (u\nabla v)\cdot \d \mathbf{S} = \int_V (\nabla u)\cdot (\nabla v)\;\d V + \int_V u\nabla^2 v\;\d V,
+    \int_V \rho \;\d V + \int_{\partial V} g\;\d S = 0.
+  \]
+  If $\rho$ and $g$ do not satisfy this condition, no solution exists.
+\end{rmk}
+
+\begin{rmk}[Extensions]
+  The uniqueness theorem generalizes to regions in $\R^n$ and to unbounded domains. For unbounded domains, one imposes decay conditions such as $|\Psi(\mathbf{r})| = O(1/R)$ or $|\frac{\partial \Psi}{\partial n}(\mathbf{r})| = O(1/R^2)$ as $R \to \infty$. Similar results hold for mixed boundary conditions (Dirichlet on part of $\partial V$, Neumann on the rest), though each case requires separate verification.
+\end{rmk}
+
+The proof uses a special case of Green's first identity.
+
+\begin{prop}[Green's first identity]
+  For scalar fields $u$ and $v$ on a region $V$ with boundary $S$,
+  \[
+    \int_S (u\nabla v)\cdot \d \mathbf{S} = \int_V (\nabla u)\cdot (\nabla v)\;\d V + \int_V u\nabla^2 v\;\d V.
   \]
 \end{prop}
-By swapping $u$ and $v$ around and subtracting the equations, we have
+
 \begin{prop}[Green's second identity]
+  By interchanging $u$ and $v$ in Green's first identity and subtracting,
   \[
     \int_S (u\nabla v - v\nabla u)\cdot\d \mathbf{S} = \int_V (u\nabla^2 v - v\nabla^2 u)\;\d V.
   \]
 \end{prop}
-These are sometimes useful, but can be easily deduced from the divergence theorem when needed.
+
+\begin{rmk}
+  Both identities follow directly from the divergence theorem applied to $u\nabla v$ and $v\nabla u$.
+\end{rmk}
 \subsection{Laplace's equation and harmonic functions}
 \begin{defi}[Harmonic function]
   A \emph{harmonic function} is a solution to Laplace's equation $\nabla^2\varphi = 0$.
 \end{defi}
-These have some very special properties.
+
+Harmonic functions possess several remarkable properties.
 \subsubsection{The mean value property}
 \begin{prop}[Mean value property]
   Suppose $\varphi(\mathbf{r})$ is harmonic on region $V$ containing a solid sphere defined by $|\mathbf{r} - \mathbf{a}| \leq R$, with boundary $S_R = |\mathbf{r} - \mathbf{a}| = R$, for some $R$. Define
   \[
     \bar\varphi (R) = \frac{1}{4\pi R^2}\int_{S_R}\varphi(\mathbf{r})\;\d S.
   \]
-  Then $\varphi(\mathbf{a}) = \bar\varphi (R)$.
+  Then $\varphi(\mathbf{a}) = \bar\varphi (R)$. That is, the value of a harmonic function at any point equals its average over any sphere centered at that point.
 \end{prop}
-In words, this says that the value at the center of a sphere is the average of the values on the surface on the sphere.
 
 \begin{proof}
   Note that $\bar\varphi (R) \to \varphi(\mathbf{a})$ as $R \to 0$. We take spherical coordinates $(u, \theta, \chi)$ centered on $\mathbf{r} = \mathbf{a}$. The scalar element (when $u = R$) on $S_R$ is
@@ -2936,7 +2942,7 @@ In words, this says that the value at the center of a sphere is the average of t
   by divergence theorem. So $\bar \varphi(R)$ does not depend on $R$, and the result follows.
 \end{proof}
 \subsubsection{The maximum (or minimum) principle}
-In this section, we will talk about maxima of functions. It should be clear that the results also hold for minima.
+The following results are stated for maxima; analogous statements hold for minima.
 
 \begin{defi}[Local maximum]
   We say that $\varphi(\mathbf{r})$ has a \emph{local maximum} at $\mathbf{a}$ if for some $\varepsilon > 0$, $\varphi(\mathbf{r}) < \varphi(\mathbf{a})$ when $0 < |\mathbf{r} - \mathbf{a}| < \varepsilon$.
@@ -2958,26 +2964,27 @@ In this section, we will talk about maxima of functions. It should be clear that
   which contradicts the mean value property.
 \end{proof}
 
-We can understand this by performing a local analysis of stationary points by differentiation. Suppose at $\mathbf{r} = \mathbf{a}$, we have $\nabla\varphi = 0$. Let the eigenvalues of the Hessian matrix $H_{ij} = \frac{\partial^2}{\partial x_i \partial x_j}$ be $\lambda_i$. But since $\varphi$ is harmonic, we have $\nabla^2 \varphi = 0$, i.e.\ $\frac{\partial^2\varphi}{\partial x_i\partial x_i} = H_{ii} = 0$. But $H_{ii}$ is the trace of the Hessian matrix, which is the sum of eigenvalues. So $\sum \lambda_i = 0$.
+\begin{rmk}[Local analysis of stationary points]
+  The maximum principle can also be understood via the Hessian. At a stationary point $\mathbf{a}$ where $\nabla\varphi = \mathbf{0}$, let $\lambda_i$ denote the eigenvalues of the Hessian matrix $H_{ij} = \frac{\partial^2 \varphi}{\partial x_i \partial x_j}$. Since $\varphi$ is harmonic, $\nabla^2 \varphi = \operatorname{tr}(H) = \sum_i \lambda_i = 0$. A local maximum or minimum requires all eigenvalues to have the same sign, which is impossible if their sum vanishes. Thus stationary points of harmonic functions can only be saddle points (assuming at least one $\lambda_i \neq 0$).
+\end{rmk}
+\subsection{Integral solutions of Poisson's equation}
+\subsubsection{Statement and heuristic derivation}
+We seek explicit solutions to Poisson's equation by generalizing from discrete to continuous sources.
 
-Recall that a maximum or minimum occurs when all eigenvalues have the same sign. This clearly cannot happen if the sum is 0. Therefore we can only have saddle points.
-
-(note we ignored the case where all $\lambda_i = 0$, where this analysis is inconclusive)
-\subsection{Integral solutions of Poisson's equations}
-\subsubsection{Statement and informal derivation}
-We want to find a solution to Poisson's equations. We start with a discrete case, and try to generalize it to a continuous case.
-
-If there is a single point source of strength $\lambda$ at $\mathbf{a}$, the potential $\varphi$ is
+For a single point source of strength $\lambda$ at $\mathbf{a}$, the potential is
 \[
   \varphi = \frac{\lambda}{4\pi} \frac{1}{|\mathbf{r} - \mathbf{a}|}.
 \]
-(we have $\lambda = -4\pi GM$ for gravitation and $Q/\varepsilon_0$ for electrostatics)
 
-If we have many sources $\lambda_\alpha$ at positions $\mathbf{r}_\alpha$, the potential is a sum of terms
+\begin{rmk}
+  For gravitation, $\lambda = -4\pi GM$; for electrostatics, $\lambda = Q/\varepsilon_0$.
+\end{rmk}
+
+For multiple point sources $\lambda_\alpha$ at positions $\mathbf{r}_\alpha$, linearity gives
 \[
   \varphi(\mathbf{r}) = \sum_{\alpha} \frac{1}{4\pi}\frac{\lambda_\alpha}{|\mathbf{r} - \mathbf{r}_\alpha|}.
 \]
-If we have infinitely many of them, having a distribution of $\rho(\mathbf{r})$ with $\rho(\mathbf{r}')\;\d V'$ being the contribution from a small volume at position $\mathbf{r}'$. It would be reasonable to guess that the solution is what we obtain by replacing the sum with an integral:
+For a continuous source distribution $\rho(\mathbf{r})$, replacing the sum by an integral suggests:
 
 \begin{prop}[Poisson's equation integral solution]
   The solution to Poisson's equation $\nabla^2 \varphi = -\rho$, with boundary conditions $|\varphi (\mathbf{r})| = O(1/|\mathbf{r}|)$ and $|\nabla\varphi(\mathbf{r})| = O(1/|\mathbf{r}|^2)$, is
@@ -3032,15 +3039,15 @@ If we have infinitely many of them, having a distribution of $\rho(\mathbf{r})$ 
 \end{eg}
 
 \subsubsection{Point sources and \tph{$\delta$}{delta}{&delta;}-functions*}
-Recall that
+Consider the point source potential
 \[
-  \Psi = \frac{\lambda}{4\pi |\mathbf{r} - \mathbf{a}|}
+  \Psi = \frac{\lambda}{4\pi |\mathbf{r} - \mathbf{a}|}.
 \]
-is our potential for a point source. When $\mathbf{r}\not = \mathbf{a}$, we have
+For $\mathbf{r} \neq \mathbf{a}$, direct computation gives
 \[
   \nabla \Psi = -\frac{\lambda}{4\pi}\frac{\mathbf{r} - \mathbf{a}}{|\mathbf{r} - \mathbf{a}|^3},\quad\nabla^2\Psi = 0.
 \]
-What about when $\mathbf{r} = \mathbf{a}$? $\Psi$ is singular at this point, but can we say anything about $\nabla^2 \Psi$?
+At $\mathbf{r} = \mathbf{a}$, the potential $\Psi$ is singular. To characterize $\nabla^2 \Psi$ at this point, we use the divergence theorem.
 
 For any sphere with center $\mathbf{a}$, we have
 \[
