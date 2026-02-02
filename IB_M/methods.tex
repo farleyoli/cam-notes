@@ -888,164 +888,185 @@ In practice, we must truncate infinite eigenfunction expansions. The following t
 \end{remark}
 
 \section{Partial differential equations}
-So far, we have come up with a lot of general theory about functions and stuff. We are going to look into some applications of these. In this section, we will develop the general technique of \emph{separation of variables}, and apply this to many many problems.
+In this section, we apply the theory developed so far to solve partial differential equations (PDEs). The primary technique is \emph{separation of variables}, which reduces a PDE to a system of ordinary differential equations.
 
 \subsection{Laplace's equation}
-\begin{defi}[Laplace's equation]
-  \emph{Laplace's equation} on $\R^n$ says that a (twice-differentiable) equation $\phi: \R^n \to \C$ obeys
-  \[
-    \nabla^2 \phi = 0,
-  \]
-  where
+\begin{defi}[Laplacian and Laplace's equation]
+  \label{def:laplacian}
+  The \emph{Laplacian} (or \emph{Laplace operator}) on $\R^n$ is the differential operator
   \[
     \nabla^2 = \sum_{i = 1}^n \frac{\partial^2}{\partial x_i^2}.
   \]
-\end{defi}
-This equation arises in many situations. For example, if we have a conservative force $\mathbf{F} = -\nabla \phi$, and we are in a region where the force obeys the source-free Gauss' law $\nabla\cdot \mathbf{F} = 0$ (e.g.\ when there is no electric charge in an electromagnetic field), then we get Laplace's equation.
-
-It also arises as a special case of the heat equation $\frac{\partial \phi}{\partial t} = \kappa \nabla^2 \phi$, and wave equation $\frac{\partial^2 \phi}{\partial t^2} = c^2 \nabla^2 \phi$, when there is no time dependence.
-
-\begin{defi}[Harmonic functions]
-  Functions that obey Laplace's equation are often called \emph{harmonic functions}.
+  \emph{Laplace's equation} for a function $\phi: \Omega \subseteq \R^n \to \C$ is
+  \[
+    \nabla^2 \phi = 0.
+  \]
 \end{defi}
 
-\begin{prop}[Dirichlet problem, uniqueness]
-  Let $\Omega$ be a compact domain, and $\partial \Omega$ be its boundary. Let $ f: \partial \Omega\to \R$. Then there is a unique solution to $\nabla^2 \phi = 0$ on $\Omega$ with $\phi|_{\partial \Omega} = f$.
-\end{prop}
+\begin{defi}[Harmonic function]
+  \label{def:harmonic}
+  A function satisfying Laplace's equation is called \emph{harmonic}.
+\end{defi}
+
+\begin{remark}
+  Laplace's equation arises in many physical contexts:
+  \begin{itemize}
+    \item For a conservative force $\mathbf{F} = -\nabla \phi$ in a source-free region where $\nabla \cdot \mathbf{F} = 0$ (e.g., electrostatics without charges).
+    \item As the steady-state limit of the heat equation $\frac{\partial \phi}{\partial t} = \kappa \nabla^2 \phi$ when $\frac{\partial \phi}{\partial t} = 0$.
+    \item As the time-independent case of the wave equation $\frac{\partial^2 \phi}{\partial t^2} = c^2 \nabla^2 \phi$.
+  \end{itemize}
+\end{remark}
+
+\begin{defi}[Dirichlet and Neumann boundary conditions]
+  \label{def:dirichlet-neumann}
+  Let $\Omega$ be a domain with boundary $\partial\Omega$. A \emph{Dirichlet boundary condition} specifies the value of $\phi$ on $\partial\Omega$:
+  \[
+    \phi|_{\partial\Omega} = f.
+  \]
+  A \emph{Neumann boundary condition} specifies the normal derivative:
+  \[
+    \mathbf{n} \cdot \nabla\phi|_{\partial\Omega} = g.
+  \]
+\end{defi}
+
+\begin{thm}[Uniqueness for the Dirichlet problem]
+  \label{thm:laplace-uniqueness}
+  Let $\Omega \subseteq \R^n$ be a compact domain with boundary $\partial \Omega$, and let $f: \partial \Omega\to \R$. Then there is at most one solution to Laplace's equation $\nabla^2 \phi = 0$ on $\Omega$ with $\phi|_{\partial \Omega} = f$.
+\end{thm}
 
 \begin{proof}
-  Suppose $\phi_1$ and $\phi_2$ are both solutions such that $\phi_1|_{\partial \Omega} = \phi_2|_{\partial \Omega} = f$. Then let $\Phi = \phi_1 - \phi_2$. So $\Phi = 0$ on the boundary. So we have
+  Suppose $\phi_1$ and $\phi_2$ are both solutions with $\phi_1|_{\partial \Omega} = \phi_2|_{\partial \Omega} = f$. Let $\Phi = \phi_1 - \phi_2$, so $\Phi = 0$ on $\partial\Omega$ and $\nabla^2\Phi = 0$ in $\Omega$. Then
   \[
-    0 = \int_\Omega \Phi \nabla^2 \Phi \;\d^n x = -\int_\Omega (\nabla \Phi) \cdot (\nabla \Phi)\;\d x + \int_{\partial \Omega} \Phi \nabla \Phi\cdot \mathbf{n} \;\d^{n -1 }x.
+    0 = \int_\Omega \Phi \nabla^2 \Phi \;\d^n x = -\int_\Omega |\nabla \Phi|^2\;\d^n x + \int_{\partial \Omega} \Phi (\nabla \Phi \cdot \mathbf{n}) \;\d^{n -1 }x.
   \]
-  We note that the second term vanishes since $\Phi = 0$ on the boundary. So we have
+  The boundary term vanishes since $\Phi = 0$ on $\partial\Omega$, leaving
   \[
-    0 = -\int_\Omega (\nabla \Phi) \cdot (\nabla \Phi)\;\d x.
+    \int_\Omega |\nabla \Phi|^2\;\d^n x = 0.
   \]
-  However, we know that $(\nabla \Phi) \cdot (\nabla \Phi) \geq 0$ with equality iff $\nabla \Phi = 0$. Hence $\Phi$ is constant throughout $\Omega$. Since at the boundary, $\Phi = 0$, we have $\Phi = 0$ throughout, i.e.\ $\phi_1 = \phi_2$.
+  Since $|\nabla \Phi|^2 \geq 0$ with equality if and only if $\nabla \Phi = 0$, we conclude $\Phi$ is constant. Since $\Phi = 0$ on $\partial\Omega$, we have $\Phi = 0$ throughout, i.e., $\phi_1 = \phi_2$.
 \end{proof}
 
-Asking that $\phi|_{\partial \Omega} = f(x)$ is a \emph{Dirichlet} boundary condition. We can instead ask $\mathbf{n}\cdot \nabla \phi|_{\partial \Omega} = g$, a \emph{Neumann} condition. In this case, we have a unique solution up to a constant factor.
-
-These we've all seen in IA Vector Calculus, but this time in arbitrary dimensions.
+\begin{remark}
+  For Neumann boundary conditions, uniqueness holds up to an additive constant.
+\end{remark}
 
 \subsection{Laplace's equation in the unit disk in \texorpdfstring{$\R^2$}{R2}}
-Let $\Omega = \{(x, y) \in \R^2: x^2 + y^2 \leq 1\}$. Then Laplace's equation becomes
-\[
-  0 = \nabla^2 \phi = \frac{\partial^2 \phi}{\partial x^2} + \frac{\partial^2 \phi}{\partial y^2} = \frac{\partial^2 \phi}{\partial z \partial \bar{z}},
-\]
-where we define $z = x + iy, \bar z = x - iy$. Then the general solution is
-\[
-  \phi(z, \bar z) = \psi(z) + \chi(\bar z)
-\]
-for some $\psi, \chi$.
+\begin{eg}[Laplace's equation on the unit disk]
+  \label{eg:laplace-unit-disk}
+  Let $\Omega = \{(x, y) \in \R^2: x^2 + y^2 \leq 1\}$ be the closed unit disk. In two dimensions, Laplace's equation can be written using complex coordinates $z = x + iy$ and $\bar{z} = x - iy$ as
+  \[
+    \nabla^2 \phi = \frac{\partial^2 \phi}{\partial x^2} + \frac{\partial^2 \phi}{\partial y^2} = 4\frac{\partial^2 \phi}{\partial z \partial \bar{z}} = 0.
+  \]
+  The general solution is therefore $\phi(z, \bar z) = \psi(z) + \chi(\bar z)$ for holomorphic functions $\psi$ and $\chi$.
 
-Suppose we want a solution obeying the Dirichlet boundary condition $\phi(z, \bar z) |_{\partial \Omega} = f(\theta)$, where the boundary $\partial \Omega$ is the unit circle. Since the domain is the unit circle $S^1$, we can Fourier-expand it! We can write
-\[
-  f(\theta) = \sum_{n \in \Z}\hat{f}_n e^{in\theta} = \hat{f}_0 + \sum_{n = 1}^\infty \hat{f}_n e^{in\theta} + \sum_{n = 1}^\infty \hat{f}_{-n} e^{-in\theta}.
-\]
-However, we know that $z = re^{i\theta}$ and $\bar{z} = re^{i\theta}$. So on the boundary, we know that $z = e^{i\theta}$ and $\bar z = e^{-i\theta}$. So we can write
-\[
-  f(\theta) = \hat{f}_0 + \sum_{n = 1}^\infty (\hat{f}_n z^n + \hat{f}_{-n}\bar{z}^n)
-\]
-This is defined for $|z| = 1$. Now we can define $\phi$ on the unit disk by
-\[
-  \phi(z, \bar z) = \hat{f}_0 + \sum_{n = 1}^\infty \hat{f}_n z^n + \sum_{n = 1}^\infty \hat{f}_{-n}\bar{z}^n.
-\]
-It is clear that this obeys the boundary conditions by construction. Also, $\phi(z, \bar{z})$ certainly converges when $|z| < 1$ if the series for $f(\theta)$ converged on $\partial \Omega$. Also, $\phi(z, \bar z)$ is of the form $\psi(z) + \chi(\bar z)$. So it is a solution to Laplace's equation on the unit disk. Since the solution is unique, we're done!
+  Suppose we seek a solution satisfying the Dirichlet condition $\phi|_{\partial \Omega} = f(\theta)$, where $\theta$ parametrizes the boundary circle. We expand $f$ as a Fourier series:
+  \[
+    f(\theta) = \sum_{n \in \Z}\hat{f}_n e^{in\theta} = \hat{f}_0 + \sum_{n = 1}^\infty \hat{f}_n e^{in\theta} + \sum_{n = 1}^\infty \hat{f}_{-n} e^{-in\theta}.
+  \]
+  On the boundary, $z = e^{i\theta}$ and $\bar{z} = e^{-i\theta}$, so we can write
+  \[
+    f(\theta) = \hat{f}_0 + \sum_{n = 1}^\infty \hat{f}_n z^n + \sum_{n = 1}^\infty \hat{f}_{-n}\bar{z}^n.
+  \]
+  This suggests defining the solution on the entire disk by
+  \[
+    \phi(z, \bar z) = \hat{f}_0 + \sum_{n = 1}^\infty \hat{f}_n z^n + \sum_{n = 1}^\infty \hat{f}_{-n}\bar{z}^n.
+  \]
+  This function:
+  \begin{enumerate}
+    \item satisfies the boundary condition by construction;
+    \item converges for $|z| < 1$ whenever the Fourier series for $f$ converges;
+    \item has the form $\psi(z) + \chi(\bar{z})$, hence solves Laplace's equation.
+  \end{enumerate}
+  By uniqueness, this is the solution.
+\end{eg}
 
 \subsection{Separation of variables}
-Unfortunately, the use of complex variables is very special to the case where $\Omega \subseteq \R^2$. In higher dimensions, we proceed differently.
+The complex variable method is specific to $\R^2$. In higher dimensions, we use \emph{separation of variables}: we seek solutions of the form $\phi = X_1(x_1) X_2(x_2) \cdots X_n(x_n)$, where each factor depends on only one variable.
 
-We let $\Omega = \{(x, y, z) \in \R^3: 0 \leq x \leq a, 0 \leq y \leq b, z \geq 0\}$. We want the following boundary conditions:
-\begin{align*}
-  \psi(0, y, z) &= \psi(a, y, z) = 0\\
-  \psi(x, 0, z) &= \psi(x, b, z) = 0\\
-  \lim_{z\to \infty} \psi(x, y, z) &= 0\\
-  \psi(x, y, 0) &= f(x, y),
-\end{align*}
-where $f$ is a given function. In other words, we want our function to be $f$ when $z = 0$ and vanish at the boundaries.
+\begin{eg}[Laplace's equation on a half-infinite rectangular prism]
+  \label{eg:laplace-rectangular}
+  Let $\Omega = \{(x, y, z) \in \R^3: 0 \leq x \leq a, 0 \leq y \leq b, z \geq 0\}$. We seek a solution $\psi$ to $\nabla^2\psi = 0$ with boundary conditions:
+  \begin{align*}
+    \psi(0, y, z) &= \psi(a, y, z) = 0, & &\text{(homogeneous in $x$)}\\
+    \psi(x, 0, z) &= \psi(x, b, z) = 0, & &\text{(homogeneous in $y$)}\\
+    \lim_{z\to \infty} \psi(x, y, z) &= 0, & &\text{(decay at infinity)}\\
+    \psi(x, y, 0) &= f(x, y), & &\text{(inhomogeneous at $z=0$)}
+  \end{align*}
+  where $f$ is a given function.
 
-The first step is to look for a solution of $\nabla^2 \psi(x, y, z) = 0$ of the form
-\[
-  \psi(x, y, z) = X(x)Y(y)Z(z).
-\]
-Then we have
-\[
-  0 = \nabla^2 \psi = YZX'' + XZY'' + XYZ'' = XYZ \left(\frac{X''}{X} + \frac{Y''}{Y} + \frac{Z''}{Z}\right).
-\]
-As long as $\psi \not= 0$, we can divide through by $\psi$ and obtain
-\[
-  \frac{X''}{X} + \frac{Y''}{Y} + \frac{Z''}{Z} = 0.
-\]
-The key point is each term depends on only \emph{one} of the variables $(x, y, z)$. If we vary, say, $x$, then $\frac{Y''}{Y} + \frac{Z''}{Z}$ does not change. For the total sum to be $0$, $\frac{X''}{X}$ must be constant. So each term has to be separately constant. We can thus write
-\[
-  X'' = -\lambda X,\quad Y'' = -\mu Y,\quad Z'' = (\lambda + \mu) Z.
-\]
-The signs before $\lambda$ and $\mu$ are there just to make our life easier later on.
+  \textbf{Step 1: Separation ansatz.} We try $\psi(x, y, z) = X(x)Y(y)Z(z)$. Substituting into $\nabla^2 \psi = 0$:
+  \[
+    YZX'' + XZY'' + XYZ'' = 0 \implies \frac{X''}{X} + \frac{Y''}{Y} + \frac{Z''}{Z} = 0.
+  \]
+  Since each term depends on only one variable, and the sum is constant (zero), each term must be separately constant:
+  \[
+    X'' = -\lambda X,\quad Y'' = -\mu Y,\quad Z'' = (\lambda + \mu) Z.
+  \]
+  The signs are chosen for convenience.
 
-We can solve these to obtain
-\begin{align*}
-  X &= a\sin \sqrt{\lambda} x + b \cos \sqrt{\lambda} x,\\
-  Y &= c\sin \sqrt{\mu} y + d \cos \sqrt{\mu} y,\\
-  Z &= g\exp(\sqrt{\lambda + \mu} z) + h\exp(-\sqrt{\lambda + \mu} z).
-\end{align*}
-We now impose the homogeneous boundary conditions, i.e.\ the conditions that $\psi$ vanishes at the walls and at infinity.
-\begin{itemize}
-  \item At $x = 0$, we need $\psi(0, y, z) = 0$. So $b = 0$.
-  \item At $x = a$, we need $\psi(a, y, z) = 0$. So $\lambda = \left(\frac{n\pi}{a}\right)^2$.
-  \item At $y = 0$, we need $\psi(x, 0, z) = 0$. So $d = 0$.
-  \item At $y = b$, we need $\psi(x, b, z) = 0$. So $\mu = \left(\frac{m\pi}{b}\right)^2$.
-  \item As $z \to \infty$, $\psi(x, y, z) \to 0$. So $g = 0$.
-\end{itemize}
-Here we have $n, m \in \N$.
+  \textbf{Step 2: Solve the ODEs.} The general solutions are
+  \begin{align*}
+    X &= a\sin \sqrt{\lambda} x + b \cos \sqrt{\lambda} x,\\
+    Y &= c\sin \sqrt{\mu} y + d \cos \sqrt{\mu} y,\\
+    Z &= g\exp(\sqrt{\lambda + \mu} z) + h\exp(-\sqrt{\lambda + \mu} z).
+  \end{align*}
 
-So we found a solution
-\[
-  \psi(x, y, z) = A_{n, m}\sin \left(\frac{n\pi x}{a}\right) \sin \left(\frac{m\pi y}{b}\right) \exp(-s_{n, m} z),
-\]
-where $A_{n, m}$ is an arbitrary constant, and
-\[
-  s_{n, m}^2 = \left(\frac{n^2}{a^2} + \frac{m^2}{b^2}\right)\pi^2.
-\]
-This obeys the homogeneous boundary conditions for any $n, m \in \N$ but not the inhomogeneous condition at $z = 0$.
+  \textbf{Step 3: Apply homogeneous boundary conditions.} We impose the conditions that $\psi$ vanishes at the walls and at infinity:
+  \begin{itemize}
+    \item At $x = 0$: $\psi(0, y, z) = 0$ requires $b = 0$.
+    \item At $x = a$: $\psi(a, y, z) = 0$ requires $\lambda = \left(\frac{n\pi}{a}\right)^2$ for $n \in \N$.
+    \item At $y = 0$: $\psi(x, 0, z) = 0$ requires $d = 0$.
+    \item At $y = b$: $\psi(x, b, z) = 0$ requires $\mu = \left(\frac{m\pi}{b}\right)^2$ for $m \in \N$.
+    \item As $z \to \infty$: $\psi(x, y, z) \to 0$ requires $g = 0$.
+  \end{itemize}
+  Thus, for each $n, m \in \N$, we have a separated solution
+  \[
+    \psi_{n,m}(x, y, z) = A_{n, m}\sin \left(\frac{n\pi x}{a}\right) \sin \left(\frac{m\pi y}{b}\right) \exp(-s_{n, m} z),
+  \]
+  where $A_{n, m}$ is an arbitrary constant and
+  \[
+    s_{n, m}^2 = \left(\frac{n^2}{a^2} + \frac{m^2}{b^2}\right)\pi^2.
+  \]
+  This satisfies the homogeneous boundary conditions but not yet the inhomogeneous condition at $z = 0$.
 
-By linearity, the general solution obeying the homogeneous boundary conditions is
-\[
-  \psi(x, y, z) = \sum_{n, m = 1}^{\infty} A_{n, m} \sin\left(\frac{n\pi x}{a}\right) \sin \left(\frac{m\pi y}{b}\right) \exp(-s_{n, m} z)
-\]
-The final step is to impose the inhomogeneous boundary condition $\psi(x, y, 0) = f(x, y)$. In other words, we need
-\[
-  \sum_{n, m = 1}^{\infty} A_{n, m} \sin\left(\frac{n\pi x}{a}\right) \sin \left(\frac{m\pi y}{b}\right) = f(x, y). \tag{$\dagger$}
-\]
-The objective is thus to find the $A_{n, m}$ coefficients.
+  \textbf{Step 4: Form general solution and determine coefficients.} By linearity, the general solution satisfying all homogeneous boundary conditions is
+  \[
+    \psi(x, y, z) = \sum_{n, m = 1}^{\infty} A_{n, m} \sin\left(\frac{n\pi x}{a}\right) \sin \left(\frac{m\pi y}{b}\right) \exp(-s_{n, m} z).
+  \]
+  To satisfy the inhomogeneous condition $\psi(x, y, 0) = f(x, y)$, we need
+  \[
+    \sum_{n, m = 1}^{\infty} A_{n, m} \sin\left(\frac{n\pi x}{a}\right) \sin \left(\frac{m\pi y}{b}\right) = f(x, y). \tag{$\dagger$}
+  \]
+  We use the orthogonality relation
+  \[
+    \int_0^a \sin\left(\frac{k\pi x}{a}\right) \sin \left(\frac{n\pi x}{a}\right)\;\d x = \delta_{k, n} \frac{a}{2}.
+  \]
+  Multiplying $(\dagger)$ by $\sin \left(\frac{k\pi x}{a}\right)$ and integrating over $[0,a]$:
+  \[
+    \sum_{n, m = 1}^\infty A_{n, m}\int_0^a \sin \left(\frac{k\pi x}{a}\right) \sin \left(\frac{n\pi x}{a}\right)\;\d x \sin\left(\frac{m\pi y}{b}\right) = \int_0^a \sin\left(\frac{k \pi x}{a}\right)f(x, y) \;\d x.
+  \]
+  Applying orthogonality:
+  \[
+    \frac{a}{2}\sum_{m = 1}^\infty A_{k, m} \sin\left(\frac{m\pi y}{b}\right) = \int_0^a \sin\left(\frac{k\pi x}{a}\right) f(x, y)\;\d x.
+  \]
+  Repeating with the $y$ variable:
+  \[
+    \frac{ab}{4}A_{k, j} = \int_{[0, a]\times [0, b]}\sin \left(\frac{k\pi x}{a}\right) \sin\left(\frac{j\pi y}{b}\right) f(x, y)\;\d x\;\d y.\tag{$*$}
+  \]
+  Thus the solution is
+  \[
+    \psi(x, y, z) = \sum_{n, m = 1}^{\infty} A_{n, m} \sin\left(\frac{n\pi x}{a}\right) \sin \left(\frac{m\pi y}{b}\right) \exp(-s_{n, m} z)
+  \]
+  where $A_{m, n}$ is given by $(*)$. Uniqueness of the Dirichlet problem guarantees this is the solution.
+\end{eg}
 
-We can use the orthogonality relation we've previously had:
-\[
-  \int_0^a \sin\left(\frac{k\pi x}{a}\right) \sin \left(\frac{n\pi x}{a}\right)\;\d x = \delta_{k, n} \frac{a}{2}.
-\]
-So we multiply $(\dagger)$ by $\sin \left(\frac{k\pi x}{a}\right)$ and integrate:
-\[
-  \sum_{n, m = 1}^\infty A_{n, m}\int_0^a \sin \left(\frac{k\pi x}{a}\right) \sin \left(\frac{n\pi x}{a}\right)\;\d x \sin\left(\frac{m\pi y}{b}\right) = \int_0^a \sin\left(\frac{k \pi x}{a}\right)f(x, y) \;\d x.
-\]
-Using the orthogonality relation, we have
-\[
-  \frac{a}{2}\sum_{m = 1}^\infty A_{k, m} \sin\left(\frac{m\pi y}{b}\right) = \int_0^a \sin\left(\frac{k\pi x}{a}\right) f(x, y)\;\d x.
-\]
-We can perform the same trick again, and obtain
-\[
-  \frac{ab}{4}A_{k, j} = \int_{[0, a]\times [0, b]}\sin \left(\frac{k\pi x}{a}\right) \sin\left(\frac{j\pi y}{b}\right) f(x, y)\;\d x\;\d y.\tag{$*$}
-\]
-So we found the solution
-\[
-  \psi(x, y, z) = \sum_{n, m = 1}^{\infty} A_{n, m} \sin\left(\frac{n\pi x}{a}\right) \sin \left(\frac{m\pi y}{b}\right) \exp(-s_{n, m} z)
-\]
-where $A_{m, n}$ is given by $(*)$. Since we have shown that there is a unique solution to Laplace's equation obeying Dirichlet boundary conditions, we're done.
+\begin{remark}
+  If we had a boundary condition at finite $z$ (say $0 \leq z \leq c$), both exponentials $\exp (\pm \sqrt{\lambda + \mu} z)$ would contribute. Similarly, if $\psi$ does not vanish at the other boundaries, the $\cos$ terms would also contribute.
+\end{remark}
 
-Note that if we imposed a boundary condition at finite $z$, say $0 \leq z \leq c$, then both sets of exponential $\exp (\pm \sqrt{\lambda + \mu} z)$ would have contributed. Similarly, if $\psi$ does not vanish at the other boundaries, then the $\cos$ terms would also contribute.
-
-In general, to actually find our $\psi$, we have to do the horrible integral for $A_{m, n}$, and this is not always easy (since integrals are \emph{hard}). We will just look at a simple example.
-\begin{eg}[Rectangular prism, constant boundary]
+In general, computing the coefficients $A_{m, n}$ requires evaluating the integral in $(*)$, which may be difficult.
+\begin{eg}[Rectangular prism with constant boundary]
+  \label{eg:rectangular-constant}
   Suppose $f(x, y) = 1$. Then
   \[
     A_{m, n} = \frac{4}{ab} \int_0^a \sin \left(\frac{n\pi x}{a}\right)\;\d x \int_0^ b \sin \left(\frac{m\pi y}{b}\right)\;\d y =
@@ -1061,469 +1082,423 @@ In general, to actually find our $\psi$, we have to do the horrible integral for
 \end{eg}
 
 \subsection{Laplace's equation in spherical polar coordinates}
-\subsubsection{Laplace's equation in spherical polar coordinates}
+For spherically symmetric domains, we use spherical coordinates.
 
-We'll often also be interested in taking
-\[
-  \Omega = \{(s, y, z)\in \R^3: \sqrt{x^2 + y^2 + z^2} \leq a\}.
-\]
-Since our domain is spherical, it makes sense to use some coordinate system with spherical symmetry. We use spherical coordinates $(r, \theta, \phi)$, where
-\[
-  x = r\sin \theta \cos \phi,\quad y = r\sin \theta \sin \phi,\quad z = r\cos \theta.
-\]
-The Laplacian is
-\[
-  \nabla^2 = \frac{1}{r^2}\frac{\partial}{\partial r}\left(r^2 \frac{\partial}{\partial r}\right) + \frac{1}{r^2 \sin \theta} \frac{\partial}{\partial \theta}\left(\sin \theta \frac{\partial}{\partial \theta}\right) + \frac{1}{r^2 \sin^2 \theta}\frac{\partial^2}{\partial\phi^2}.
-\]
-Similarly, the volume element is
-\[
-  \d V = \d x\;\d y\;\d z = r^2 \sin \theta \;\d r\;\d \theta \;\d \phi.
-\]
-In this course, we'll only look at \emph{axisymmetric solutions}, where $\psi(r, \theta, \phi) = \psi(r, \theta)$ does not depend on $\phi$.
+\begin{defi}[Spherical coordinates]
+  \label{def:spherical-coordinates}
+  \emph{Spherical coordinates} $(r, \theta, \phi)$ on $\R^3$ are defined by
+  \[
+    x = r\sin \theta \cos \phi,\quad y = r\sin \theta \sin \phi,\quad z = r\cos \theta,
+  \]
+  where $r \geq 0$, $0 \leq \theta \leq \pi$ (polar angle), and $0 \leq \phi < 2\pi$ (azimuthal angle). The Laplacian in these coordinates is
+  \[
+    \nabla^2 = \frac{1}{r^2}\frac{\partial}{\partial r}\left(r^2 \frac{\partial}{\partial r}\right) + \frac{1}{r^2 \sin \theta} \frac{\partial}{\partial \theta}\left(\sin \theta \frac{\partial}{\partial \theta}\right) + \frac{1}{r^2 \sin^2 \theta}\frac{\partial^2}{\partial\phi^2},
+  \]
+  and the volume element is $\d V = r^2 \sin \theta \;\d r\;\d \theta \;\d \phi$.
+\end{defi}
 
-We perform separation of variables, where we look for any set of solution of $\nabla^2 \psi = 0$ inside $\Omega$ where $\psi(r, \theta) = R(r) \Theta(\theta)$.
+Consider the domain $\Omega = \{(x, y, z)\in \R^3: \sqrt{x^2 + y^2 + z^2} \leq a\}$. We restrict to \emph{axisymmetric solutions} where $\psi(r, \theta, \phi) = \psi(r, \theta)$ does not depend on $\phi$.
 
-Laplace's equation then becomes
+Applying separation of variables with $\psi(r, \theta) = R(r) \Theta(\theta)$, Laplace's equation becomes
 \[
   \frac{\psi}{r^2}\left[\frac{1}{R}\frac{\d}{\d r}(r^2 R') + \frac{1}{\Theta \sin \theta}\frac{\d}{\d \theta}\left(\sin \theta \frac{\d \Theta}{\d \theta}\right)\right] = 0.
 \]
-Similarly, since each term depends only on one variable, each must separately be constant. So we have
+Since each term depends on only one variable and the sum is constant (zero), each must be separately constant:
 \[
   \frac{\d}{\d r}\left(r^2 \frac{\d R}{\d r}\right) = \lambda R,\quad \frac{\d}{\d \theta}\left(\sin \theta \frac{\d \Theta}{\d \theta}\right) = -\lambda \sin \theta \Theta.
 \]
-Note that both these equations are eigenfunction equations for some Sturm-Liouville operator and the $\Theta(\theta)$ equation has a non-trivial weight function $w(\theta) = \sin \theta$.
-\subsubsection{Legendre Polynomials}
-The angular equation is known as the \emph{Legendre's equation}. It's standard to set $x = \cos \theta$ (which is \emph{not} the Cartesian coordinate, but just a new variable). Then we have
-\[
-  \frac{\d}{\d \theta} = -\sin \theta \frac{\d}{\d x}.
-\]
-So the Legendre's equation becomes
-\[
-  -\sin \theta \frac{\d}{\d x}\left[\sin \theta (-\sin \theta) \frac{\d \Theta}{\d x}\right]+ \lambda \sin \theta \Theta = 0.
-\]
-Equivalently, in terms of $x$, we have
-\[
-  \frac{\d}{\d x}\left[(1 - x^2) \frac{\d \Theta}{\d x}\right] = -\lambda \Theta.
-\]
-Note that since $0 \leq \theta \leq \pi$, the domain of $x$ is $-1 \leq x \leq 1$.
+Both equations are eigenfunction equations for Sturm-Liouville operators. The angular equation has weight function $w(\theta) = \sin \theta$.
+\subsubsection{Legendre polynomials}
 
-This operator is a Sturm--Liouville operator with
-\[
-  p(x) = 1 - x^2,\quad q(x) = 0.
-\]
-For the Sturm--Liouville operator to be self-adjoint, we had
-\[
-  (g, \mathcal{L} f) = (\mathcal{L}g, f) + [p(x) (g^* f' - g'^* f)]^{1}_{-1}.
-\]
-We want the boundary term to vanish. Since $p(x) = 1- x^2$ vanishes at our boundary $x = \pm 1$, the Sturm-Liouville operator is self-adjoint provided our function $\Theta(x)$ is regular at $x = \pm 1$. Hence we look for a set of Legendre's equations inside $(-1, 1)$ that remains regular including at $x = \pm 1$. We can try a power series
-\[
-  \Theta(x) = \sum_{n = 0}^\infty a_n x^n.
-\]
-The Legendre's equation becomes
+\begin{defi}[Legendre's equation]
+  \label{def:legendre-equation}
+  The angular equation from separation of variables is \emph{Legendre's equation}. Using the substitution $x = \cos \theta$ (where $x \in [-1, 1]$), it takes the form
+  \[
+    \frac{\d}{\d x}\left[(1 - x^2) \frac{\d \Theta}{\d x}\right] = -\lambda \Theta.
+  \]
+  This is a Sturm-Liouville equation with $p(x) = 1 - x^2$ and $q(x) = 0$.
+\end{defi}
+
+\begin{remark}
+  Since $p(x) = 1 - x^2$ vanishes at the boundary points $x = \pm 1$, the boundary terms in the self-adjointness condition vanish automatically. The operator is self-adjoint provided solutions remain regular (finite) at $x = \pm 1$.
+\end{remark}
+
+We seek power series solutions $\Theta(x) = \sum_{n = 0}^\infty a_n x^n$. Substituting into Legendre's equation:
 \[
   (1 - x^2) \sum_{n = 0}^\infty a_n n(n - 1)x^{n - 2} - 2\sum_{n = 0}^\infty a_n nx^n + \lambda \sum_{n = 0}^\infty a_n x^n = 0.
 \]
-For this to hold for all $x\in (-1, 1)$, the equation must hold for each coefficient of $x$ separately. So
-\[
-  a_n(\lambda - n(n + 1)) + a_{n - 2}(n + 2)(n + 1) = 0.
-\]
-This requires that
+Matching coefficients yields the recurrence relation
 \[
   a_{n + 2} = \frac{n(n + 1) - \lambda}{(n + 2)(n + 1)} a_n.
 \]
-This equation relates $a_{n + 2}$ to $a_n$. So we can choose $a_0$ and $a_1$ freely. So we get two linearly independents solutions $\Theta_0(x)$ and $\Theta_1(x)$, where they satisfy
-\[
-  \Theta_0(-x) = \Theta_0(x), \quad \Theta_1(-x) = -\Theta_1(x).
-\]
-In particular, we can expand our recurrence formula to obtain
+This relates even coefficients to even and odd to odd, giving two linearly independent solutions:
 \begin{align*}
-  \Theta_0(x) &= a_0 \left[1 - \frac{\lambda}{2} x^2 - \frac{(6 - \lambda)\lambda}{4!}x^4 + \cdots\right]\\
-  \Theta_1(x) &= a_1 \left[x + \frac{(2 - \lambda)}{3!}x^2 + \frac{(12 - \lambda)(2 - \lambda)}{5!}x^5 + \cdots\right].
+  \Theta_0(x) &= a_0 \left[1 - \frac{\lambda}{2} x^2 - \frac{(6 - \lambda)\lambda}{4!}x^4 + \cdots\right] \quad \text{(even)}\\
+  \Theta_1(x) &= a_1 \left[x + \frac{(2 - \lambda)}{3!}x^3 + \frac{(12 - \lambda)(2 - \lambda)}{5!}x^5 + \cdots\right] \quad \text{(odd)}.
 \end{align*}
-We now consider the boundary conditions. We know that $\Theta(x)$ must be regular (i.e.\ finite) at $x = \pm 1$. This seems innocent, However, we have
-\[
-  \lim_{n \to \infty}\frac{a_{n + 2}}{a_n} = 1.
-\]
-This is fine if we are inside $(-1, 1)$, since the power series will still converge. However, \emph{at} $\pm 1$, the ratio test is not conclusive and does not guarantee convergence. In fact, more sophisticated convergence tests show that the infinite series would diverge on the boundary! To avoid this problem, we need to choose $\lambda$ such that the series truncates. That is, if we set $\lambda = \ell(\ell + 1)$ for some $\ell \in \N$, then our power series will truncate. Then since we are left with a finite polynomial, it of course converges.
 
-In this case, the finiteness boundary condition fixes our possible values of eigenvalues. This is how quantization occurs in quantum mechanics. In this case, this process is why angular momentum is quantized.
+\begin{prop}[Eigenvalue quantization]
+  \label{prop:legendre-eigenvalues}
+  For solutions to remain regular at $x = \pm 1$, we must have $\lambda = \ell(\ell + 1)$ for some $\ell \in \N_0$.
+\end{prop}
+\begin{proof}
+  Since $\lim_{n \to \infty}\frac{a_{n + 2}}{a_n} = 1$, the ratio test is inconclusive at $x = \pm 1$, and more refined tests show the infinite series diverges there. For regularity, the series must truncate. Setting $\lambda = \ell(\ell + 1)$ makes $a_{\ell+2} = 0$, truncating to a polynomial.
+\end{proof}
 
-The resulting polynomial solutions $P_\ell(x)$ are called \emph{Legendre polynomials}. For example, we have
-\begin{align*}
-  P_0(x) &= 1\\
-  P_1(x) &= x\\
-  P_2(x) &= \frac{1}{2}(3x^2 - 1)\\
-  P_3(x) &= \frac{1}{2}(5x^3 - 3x),
-\end{align*}
-where the overall normalization is chosen to fix $P_\ell(1) = 1$.
+\begin{remark}
+  This eigenvalue quantization is the mathematical origin of angular momentum quantization in quantum mechanics.
+\end{remark}
 
-It turns out that
-\[
-  P_\ell(x) = \frac{1}{2^\ell \ell!} \frac{\d^\ell}{\d x^\ell} (x^2 - 1)^\ell.
-\]
-The constants in front are just to ensure normalization. We now check that this indeed gives the desired normalization:
-\begin{align*}
-  P_\ell(1) &= \left.\frac{1}{2^\ell} \frac{\d^\ell}{\d x^\ell}[(x - 1)^\ell (x + 1)^\ell]\right|_{x = 1}\\
-  &= \frac{1}{2^\ell \ell!} \left[\ell!(x + 1)^\ell + (x - 1)(\text{stuff})\right]_{x = 1}\\
-  &= 1
-\end{align*}
-We have previously shown that the eigenfunctions of Sturm-Liouville operators are orthogonal. Let's see that directly now for this operator. The weight function is $w(x) = 1$.
+\begin{defi}[Legendre polynomials]
+  \label{def:legendre-polynomials}
+  The \emph{Legendre polynomials} $P_\ell(x)$ for $\ell \in \N_0$ are the polynomial solutions to Legendre's equation with $\lambda = \ell(\ell+1)$, normalized so that $P_\ell(1) = 1$. The first few are:
+  \begin{align*}
+    P_0(x) &= 1, & P_1(x) &= x, & P_2(x) &= \frac{1}{2}(3x^2 - 1), & P_3(x) &= \frac{1}{2}(5x^3 - 3x).
+  \end{align*}
+\end{defi}
 
-We first prove a short lemma: for $0 \leq k \leq \ell$, we have
-\[
-  \frac{\d^k}{\d x^k}(x^2 - 1)^\ell = Q_{\ell, k}(x^2 - 1)^{\ell - k}
-\]
-for some degree $k$ polynomial $Q_{\ell, k}(x)$.
+\begin{prop}[Rodrigues formula]
+  \label{prop:rodrigues}
+  The Legendre polynomials satisfy
+  \[
+    P_\ell(x) = \frac{1}{2^\ell \ell!} \frac{\d^\ell}{\d x^\ell} (x^2 - 1)^\ell.
+  \]
+\end{prop}
+\begin{proof}
+  One can verify this formula satisfies Legendre's equation. To check normalization:
+  \begin{align*}
+    P_\ell(1) &= \left.\frac{1}{2^\ell \ell!} \frac{\d^\ell}{\d x^\ell}[(x - 1)^\ell (x + 1)^\ell]\right|_{x = 1}
+    = \frac{1}{2^\ell \ell!} \left[\ell!(x + 1)^\ell + (x - 1)(\cdots)\right]_{x = 1}
+    = 1. \qedhere
+  \end{align*}
+\end{proof}
 
-We show this by induction. This is trivially true when $k = 0$. We have
-\begin{align*}
-  \frac{\d^{k + 1}}{\d x^{k + 1}} (x^2 + 1)^\ell &= \frac{\d}{\d x}\left[Q_{\ell, k}(x) (x^2 - 1)^{\ell - k}\right] \\
-  &= Q_{\ell, k}' (x^2 - 1)^{\ell - k} + 2(\ell - k)Q_{\ell, k} x(x^2 - 1)^{\ell - k - 1}\\
-  &= (x^2 - 1)^{\ell - k - 1}\Big[Q_{\ell, k}'(x^2 - 1) - 2(\ell - k)Q_{\ell, k} x\Big].
-\end{align*}
-Since $Q_{\ell, k}$ has degree $k$, $Q_{\ell, k}'$ has degree $k - 1$. So the right bunch of stuff has degree $k + 1$.
+\begin{lemma}
+  \label{lem:derivative-factor}
+  For $0 \leq k \leq \ell$, we have $\frac{\d^k}{\d x^k}(x^2 - 1)^\ell = Q_{\ell, k}(x)(x^2 - 1)^{\ell - k}$ for some polynomial $Q_{\ell, k}$ of degree $k$.
+\end{lemma}
+\begin{proof}
+  By induction on $k$. The base case $k=0$ is trivial. For the inductive step:
+  \begin{align*}
+    \frac{\d^{k + 1}}{\d x^{k + 1}} (x^2 - 1)^\ell &= \frac{\d}{\d x}\left[Q_{\ell, k}(x) (x^2 - 1)^{\ell - k}\right] \\
+    &= (x^2 - 1)^{\ell - k - 1}\Big[Q_{\ell, k}'(x^2 - 1) + 2(\ell - k)Q_{\ell, k} x\Big].
+  \end{align*}
+  Since $\deg Q_{\ell, k} = k$, the bracketed expression has degree $k + 1$.
+\end{proof}
 
-Now we can show orthogonality. We have
-\begin{align*}
-  (P_\ell, P_{\ell'}) &= \int_{-1}^1 P_\ell(x) P_{\ell'}(x) \;\d x\\
-  &= \frac{1}{2^\ell \ell!}\int_{-1}^1 \frac{\d^\ell}{\d x^\ell} (x^2 - 1)^\ell P_{\ell'}(x)\;\d x\\
-  &= \frac{1}{2^\ell \ell!}\left[\frac{\d^{\ell - 1}}{\d x^{\ell - 1}} (x^2 - 1)^2 P_{\ell'}(x)\right] - \frac{1}{2^\ell \ell!} \int_{-1}^1 \frac{\d^{\ell - 1}}{\d x^{\ell - 1}}(x^2 - 1)^\ell \frac{\d P_{\ell'}}{\d x}\;\d x\\
-  &= - \frac{1}{2^\ell \ell!} \int_{-1}^1 \frac{\d^{\ell - 1}}{\d x^{\ell - 1}}(x^2 - 1)^\ell \frac{\d P_{\ell'}}{\d x}\;\d x.
-\end{align*}
-Note that the first term disappears since the $(\ell - 1)$\textsuperscript{th} derivative of $(x^2 - 1)^\ell$ still has a factor of $x^2 - 1$. So integration by parts allows us to transfer the derivative from $x^2 - 1$ to $P_{\ell'}$.
+\begin{thm}[Orthogonality of Legendre polynomials]
+  \label{thm:legendre-orthogonality}
+  The Legendre polynomials satisfy
+  \[
+    (P_\ell, P_{\ell'}) = \int_{-1}^1 P_\ell(x) P_{\ell'}(x) \;\d x = \frac{2\delta_{\ell\ell'}}{2\ell + 1}.
+  \]
+\end{thm}
+\begin{proof}
+  Using the Rodrigues formula:
+  \[
+    (P_\ell, P_{\ell'}) = \frac{1}{2^\ell \ell!}\int_{-1}^1 \frac{\d^\ell}{\d x^\ell} (x^2 - 1)^\ell P_{\ell'}(x)\;\d x.
+  \]
+  Integrating by parts, the boundary terms vanish by Lemma~\ref{lem:derivative-factor} since each derivative of $(x^2-1)^\ell$ retains a factor of $(x^2-1)$ until the $\ell$-th derivative. Thus we can transfer derivatives to $P_{\ell'}$.
 
-Now if $\ell \not= \ell'$, we can wlog assume $\ell' < \ell$. Then we can integrate by parts $\ell'$ times until we get the $\ell'$\textsuperscript{th} derivative of $P_{\ell'}$, which is zero.
+  If $\ell' < \ell$, integrating by parts $\ell'$ times gives the $\ell'$-th derivative of $P_{\ell'}$, which is a constant times $\ell'!$. But we need $\ell$ derivatives total, and the remaining $(\ell - \ell')$ derivatives annihilate the constant. Hence $(P_\ell, P_{\ell'}) = 0$ for $\ell \neq \ell'$.
 
-In fact, we can show that
-\[
-  (P_\ell, P_{\ell'}) = \frac{2\delta_{\ell\ell'}}{2\ell + 1}.
-\]
-hence the $P_\ell(x)$ are orthogonal polynomials.
+  The normalization $2/(2\ell+1)$ follows from direct calculation.
+\end{proof}
 
-By the fundamental theorem of algebra, we know that $P_\ell(x)$ has $\ell$ roots. In fact, they are always real, and lie in $(-1, 1)$.
-
-Suppose not. Suppose only $m < \ell$ roots lie in $(-1, 1)$. Then let $Q_m(x) = \prod_{r = 1}^m (x - x_r)$, where $\{x_1, x_2, \cdots, x_m\}$ are these $m$ roots. Consider the polynomial $P_{\ell}(x)Q_m(x)$. If we factorize this, we get $\prod_{r = m + 1}^\ell (x - r)\prod_{r = 1}^m (x - x_r)^2$. The first few terms have roots outside $(-1, 1)$, and hence do not change sign in $(-1, 1)$. The latter terms are always non-negative. Hence for some appropriate sign, we have
-\[
-  \pm\int_{-1}^1 P_\ell(x) Q_m(x) \;\d x > 0.
-\]
-However, we can expand
-\[
-  Q_m(x) = \sum_{r = 1}^m q_r P_r(x),
-\]
-but $(P_\ell, P_r) = 0$ for all $r < \ell$. This is a contradiction.
+\begin{prop}[Roots of Legendre polynomials]
+  \label{prop:legendre-roots}
+  All $\ell$ roots of $P_\ell(x)$ are real and lie in $(-1, 1)$.
+\end{prop}
+\begin{proof}
+  Suppose only $m < \ell$ roots lie in $(-1, 1)$. Let $Q_m(x) = \prod_{r = 1}^m (x - x_r)$ where $\{x_1, \ldots, x_m\}$ are these roots. Then $P_{\ell}(x)Q_m(x)$ does not change sign on $(-1, 1)$: the roots outside $(-1,1)$ contribute no sign changes there, and the roots inside appear squared. Hence
+  \[
+    \pm\int_{-1}^1 P_\ell(x) Q_m(x) \;\d x > 0.
+  \]
+  But expanding $Q_m(x) = \sum_{r = 0}^m q_r P_r(x)$ and using orthogonality, $(P_\ell, Q_m) = 0$ since $m < \ell$. Contradiction.
+\end{proof}
 
 \subsubsection{Solution to radial part}
-In our original equation $\nabla^2 \phi = 0$, we now set $\Theta(\theta) = P_\ell(\cos \theta)$. The radial equation becomes
+With $\Theta(\theta) = P_\ell(\cos \theta)$, the radial equation becomes
 \[
   (r^2 R')' = \ell(\ell + 1)R.
 \]
-Trying a solution of the form $R(r) = r^\alpha$, we find that $\alpha(\alpha + 1) = \ell(\ell + 1)$. So the solution is $\alpha = \ell$ or $-(\ell + 1)$. Hence
-\[
-  \phi(r, \theta) = \sum \left(a_\ell r^\ell + \frac{b_\ell}{r^{\ell + 1}}\right) P_\ell(\cos \theta)
-\]
-is the general solution to the Laplace equation $\nabla^2 \phi = 0$ on the domain. In we want regularity at $r = 0$, then we need $b_\ell = 0$ for all $\ell$.
 
-The $a_\ell$ are fixed if we require $\phi(a, \theta) = f(\theta)$ on $\partial \Omega$, i.e.\ when $r = 1$.
+\begin{prop}[Radial solutions]
+  \label{prop:radial-solutions}
+  Trying $R(r) = r^\alpha$ gives $\alpha(\alpha + 1) = \ell(\ell + 1)$, so $\alpha = \ell$ or $\alpha = -(\ell + 1)$.
+\end{prop}
 
-We expand
-\[
-  f(\theta) = \sum_{\ell = 0}^\infty F_\ell P_\ell(\cos \theta),
-\]
-where
-\[
-  F_\ell = (P_\ell, f) = \int_0^\pi P_{\ell}(\cos \theta) f(\theta) \;\d (\cos \theta).
-\]
-So
-\[
-  \phi(r, \theta) = \sum_{\ell = 0}^\infty F_\ell \left(\frac{r}{a}\right)^\alpha P_\ell(\cos \theta).
-\]
+\begin{thm}[General solution in spherical coordinates]
+  \label{thm:laplace-spherical}
+  The general axisymmetric solution to Laplace's equation is
+  \[
+    \phi(r, \theta) = \sum_{\ell=0}^\infty \left(a_\ell r^\ell + \frac{b_\ell}{r^{\ell + 1}}\right) P_\ell(\cos \theta).
+  \]
+  For regularity at $r = 0$, we require $b_\ell = 0$ for all $\ell$.
+\end{thm}
+
+\begin{eg}[Dirichlet problem on a ball]
+  \label{eg:dirichlet-ball}
+  To solve $\nabla^2\phi = 0$ on $\{r \leq a\}$ with $\phi(a, \theta) = f(\theta)$: expand $f$ in Legendre polynomials,
+  \[
+    f(\theta) = \sum_{\ell = 0}^\infty F_\ell P_\ell(\cos \theta), \quad F_\ell = \frac{2\ell+1}{2}\int_{-1}^1 P_{\ell}(x) f(\arccos x) \;\d x.
+  \]
+  Then the solution is
+  \[
+    \phi(r, \theta) = \sum_{\ell = 0}^\infty F_\ell \left(\frac{r}{a}\right)^\ell P_\ell(\cos \theta).
+  \]
+\end{eg}
 \subsection{Multipole expansions for Laplace's equation}
-One can quickly check that
-\[
-  \phi(\mathbf{r}) = \frac{1}{|\mathbf{r} - \mathbf{r}'|}
-\]
-solves Laplace's equation $\nabla^2 \phi = 0$ for all $\mathbf{r}\in \R^3 \setminus \mathbf{r}'$. For example, if $\mathbf{r}' = \hat{\mathbf{k}}$, where $\hat{\mathbf{k}}$ is the unit vector in the $z$ direction, then
-\[
-  \frac{1}{|\mathbf{r} - \hat{\mathbf{k}}|} = \frac{1}{\sqrt{r^2 + 1 - 2r \cos \theta}} = \sum_{\ell = 0}^\infty c_\ell r^\ell P_\ell(\cos \theta).
-\]
-To find these coefficients, we can employ a little trick. Since $P_\ell(1) = 0$, at $\theta = 0$, we have
-\[
-  \sum_{\ell = 0}^\infty c_\ell r^\ell = \frac{1}{1 - r} = \sum_{\ell = 0}^\infty r^\ell.
-\]
-So all the coefficients must be $1$. This is valid for $r < 1$.
 
-More generally, we have
-\[
-  \frac{1}{|\mathbf{r} - \mathbf{r}'|} = \frac{1}{r'} \sum_{\ell = 0}^\infty \left(\frac{r}{r'}\right)^\ell P_\ell(\hat{\mathbf{r}}\cdot \hat{\mathbf{r}}').
-\]
-This is called the \emph{multiple expansion}, and is valid when $r < r'$. Thus
-\[
-  \frac{1}{|\mathbf{r} - \mathbf{r}'|} = \frac{1}{r'} + \frac{r}{r'^2}\hat{\mathbf{r}}\cdot \hat{\mathbf{r}}' + \cdots.
-\]
-The first term $\frac{1}{r'}$ is known as the \emph{monopole}, and the second term is known as the \emph{dipole}, in analogy to charges in electromagnetism. The monopole term is what we get due to a single charge, and the second term is the result of the interaction of two charges.
+\begin{prop}[Fundamental solution]
+  \label{prop:fundamental-solution}
+  The function $\phi(\mathbf{r}) = \frac{1}{|\mathbf{r} - \mathbf{r}'|}$ solves Laplace's equation $\nabla^2 \phi = 0$ for all $\mathbf{r}\in \R^3 \setminus \{\mathbf{r}'\}$.
+\end{prop}
+
+\begin{thm}[Multipole expansion]
+  \label{thm:multipole}
+  For $|\mathbf{r}| < |\mathbf{r}'|$,
+  \[
+    \frac{1}{|\mathbf{r} - \mathbf{r}'|}= \frac{1}{r'} \sum_{\ell = 0}^\infty \left(\frac{r}{r'}\right)^\ell P_\ell(\hat{\mathbf{r}}\cdot \hat{\mathbf{r}}'),
+  \]
+  where $r = |\mathbf{r}|$, $r' = |\mathbf{r}'|$, and $\hat{\mathbf{r}} = \mathbf{r}/r$.
+\end{thm}
+\begin{proof}
+  For $\mathbf{r}' = \hat{\mathbf{k}}$ (unit vector in $z$ direction), we have
+  \[
+    \frac{1}{|\mathbf{r} - \hat{\mathbf{k}}|} = \frac{1}{\sqrt{r^2 + 1 - 2r \cos \theta}} = \sum_{\ell = 0}^\infty c_\ell r^\ell P_\ell(\cos \theta).
+  \]
+  At $\theta = 0$, using $P_\ell(1) = 1$:
+  \[
+    \sum_{\ell = 0}^\infty c_\ell r^\ell = \frac{1}{1 - r} = \sum_{\ell = 0}^\infty r^\ell,
+  \]
+  so $c_\ell = 1$ for all $\ell$. The general case follows by rotational symmetry.
+\end{proof}
+
+\begin{defi}[Multipole terminology]
+  \label{def:multipoles}
+  Expanding the multipole series:
+  \[
+    \frac{1}{|\mathbf{r} - \mathbf{r}'|} = \underbrace{\frac{1}{r'}}_{\text{monopole}} + \underbrace{\frac{r}{r'^2}\hat{\mathbf{r}}\cdot \hat{\mathbf{r}}'}_{\text{dipole}} + \cdots
+  \]
+  In electromagnetism, the monopole term corresponds to a point charge, and the dipole term to an electric dipole.
+\end{defi}
 
 \subsection{Laplace's equation in cylindrical coordinates}
-We let
-\[
-  \Omega = \{(r, \theta, z) \in \R^3: r \leq a, z \geq 0\}.
-\]
-In cylindrical polars, we have
-\[
-  \nabla^2 \phi = \frac{1}{r}\frac{\partial}{\partial r}\left(r \frac{\partial \phi}{\partial r}\right) + \frac{1}{r^2}\frac{\partial^2 \phi}{\partial \theta^2} + \frac{\partial^2 \phi}{\partial z^2} = 0.
-\]
-We look for a solution that is regular inside $\Omega$ and obeys the boundary conditions
-\begin{align*}
-  \phi(a, \theta, z) &= 0\\
-  \phi(r, \theta, 0) &= f(r, \theta)\\
-  \lim_{z\to \infty} \phi(r, \theta, z) &= 0,
-\end{align*}
-where $f$ is some fixed function.
 
-Again, we start by separation of variables. We try
-\[
-  \phi(r, \theta, z) = R(r) \Theta(\theta)Z(z).
-\]
-Then we get
-\[
-  \frac{1}{rR} (rR')' + \frac{1}{r^2}\frac{\Theta''}{\Theta} + \frac{Z''}{Z} = 0.
-\]
-So we immediately know that
-\[
-  Z'' = \mu Z
-\]
-We now replace $Z''/Z$ by $\mu$, and multiply by $r^2$ to obtain
-\[
-  \frac{r}{R}(rR')' + \frac{\Theta''}{\Theta} + \mu r^2 = 0.
-\]
-So we know that
-\[
-  \Theta'' = -\lambda \Theta.
-\]
-Then we are left with
-\[
-  r^2 R'' + rR' + (\mu r^2 - \lambda)R = 0.
-\]
-Since we require periodicity in $\theta$, we have
-\[
-  \Theta(\theta) = a_n \sin n\theta + b_n \cos n\theta, \quad \lambda = n^2,\quad n \in \N.
-\]
-Since we want the solution to decay as $z \to \infty$, we have
-\[
-  Z(z) = c_\mu e^{-\sqrt{\mu}z}
-\]
-The radial equation is of Sturm-Liouville type since it can be written as
-\[
-  \frac{\d}{\d r}\left(r \frac{\d R}{\d r}\right) - \frac{n^2}{r}R = -\mu rR.
-\]
-Here we have
-\[
-  p(r) = r, q(r) = -\frac{n^2}{r}, w(r) = r.
-\]
-Introducing $x = r\sqrt{\mu}$, we can rewrite this as
-\[
-  x^2 \frac{\d^2 R}{\d x^2} + x\frac{\d R}{\d x} + (x^2 - n^2)R = 0.
-\]
-This is Bessel's equation. Note that this is actually a whole family of differential equations, one for each $n$. The $n$ is not the eigenvalue we are trying to figure out in this equation. It is already fixed by the $\Theta$ equation. The actual eigenvalue we are finding out is $\mu$, not $n$.
+\begin{defi}[Cylindrical coordinates]
+  \label{def:cylindrical-coordinates}
+  \emph{Cylindrical coordinates} $(r, \theta, z)$ on $\R^3$ have Laplacian
+  \[
+    \nabla^2 \phi = \frac{1}{r}\frac{\partial}{\partial r}\left(r \frac{\partial \phi}{\partial r}\right) + \frac{1}{r^2}\frac{\partial^2 \phi}{\partial \theta^2} + \frac{\partial^2 \phi}{\partial z^2}.
+  \]
+\end{defi}
 
-Since Bessel's equations are second-order, there are two independent solution for each $n$, namely $J_n(x)$ and $Y_n(x)$. These are called Bessel functions of order $n$ of the first ($J_n$) or second ($Y_n$) kind. We will not study these functions' properties, but just state some useful properties of them.
+\begin{eg}[Laplace's equation on a half-cylinder]
+  \label{eg:laplace-cylinder}
+  Let $\Omega = \{(r, \theta, z) \in \R^3: r \leq a, z \geq 0\}$. We seek a regular solution to $\nabla^2\phi = 0$ with boundary conditions:
+  \begin{align*}
+    \phi(a, \theta, z) &= 0, & \phi(r, \theta, 0) &= f(r, \theta), & \lim_{z\to \infty} \phi(r, \theta, z) &= 0.
+  \end{align*}
 
- % include plot of Bessel's functions
-The $J_n$'s are all regular at the origin. In particular, as $x \to 0$ $J_n (x) \sim x^n$. These look like decaying sine waves, but the zeroes are not regularly spaced.
+  \textbf{Step 1: Separation of variables.} With $\phi(r, \theta, z) = R(r) \Theta(\theta)Z(z)$:
+  \[
+    \frac{1}{rR} (rR')' + \frac{1}{r^2}\frac{\Theta''}{\Theta} + \frac{Z''}{Z} = 0.
+  \]
+  The separated equations are $Z'' = \mu Z$, $\Theta'' = -\lambda \Theta$, and
+  \[
+    r^2 R'' + rR' + (\mu r^2 - \lambda)R = 0.
+  \]
 
-On the other hand, the $Y_n$'s are similar but singular at the origin. As $x \to 0$, $Y_0(x) \sim \ln x$, while $Y_n(x) \sim x^{-n}$.
+  \textbf{Step 2: Angular and axial parts.} Periodicity in $\theta$ requires
+  \[
+    \Theta(\theta) = a_n \sin n\theta + b_n \cos n\theta, \quad \lambda = n^2,\quad n \in \N_0.
+  \]
+  Decay as $z \to \infty$ requires $Z(z) = c_\mu e^{-\sqrt{\mu}z}$ (with $\mu > 0$).
 
-Now we can write our separable solution as
+  \textbf{Step 3: Radial equation.} The radial equation is Sturm-Liouville type:
+  \[
+    \frac{\d}{\d r}\left(r \frac{\d R}{\d r}\right) - \frac{n^2}{r}R = -\mu rR,
+  \]
+  with $p(r) = r$, $q(r) = -n^2/r$, $w(r) = r$. Substituting $x = r\sqrt{\mu}$ gives Bessel's equation.
+\end{eg}
+
+\begin{defi}[Bessel's equation and Bessel functions]
+  \label{def:bessel}
+  \emph{Bessel's equation of order $n$} is
+  \[
+    x^2 \frac{\d^2 R}{\d x^2} + x\frac{\d R}{\d x} + (x^2 - n^2)R = 0.
+  \]
+  Its two linearly independent solutions are \emph{Bessel functions}:
+  \begin{itemize}
+    \item $J_n(x)$: Bessel function of the first kind, regular at the origin with $J_n(x) \sim x^n$ as $x \to 0$.
+    \item $Y_n(x)$: Bessel function of the second kind, singular at the origin with $Y_0(x) \sim \ln x$ and $Y_n(x) \sim x^{-n}$ for $n > 0$.
+  \end{itemize}
+\end{defi}
+
+\begin{remark}
+  Bessel functions resemble decaying sine waves, but their zeros are not regularly spaced.
+\end{remark}
+
+Continuing Example~\ref{eg:laplace-cylinder}:
+
+\textbf{Step 4: Apply regularity and boundary conditions.} For regularity at $r = 0$, we discard $Y_n$ terms. The separated solution is
 \[
-  \phi(r, \theta, z) = (a_n \sin n \theta + b_n \cos n\theta) e^{-\sqrt{\mu}z} [c_{\mu, n}J_n (r\sqrt{\mu}) + d_{\mu, n}Y_n (r, \sqrt{\mu})].
+  \phi(r, \theta, z) = (a_n \sin n \theta + b_n \cos n\theta) e^{-\sqrt{\mu}z} J_n (r\sqrt{\mu}).
 \]
-Since we want regularity at $r = 0$, we don't want to have the $Y_n$ terms. So $d_{\mu, n} = 0$.
-
-We now impose our first boundary condition $\phi(a, \theta, z) = 0$. This demands $J_n(a \sqrt{\mu}) = 0$. So we must have
+The boundary condition $\phi(a, \theta, z) = 0$ requires $J_n(a \sqrt{\mu}) = 0$, so
 \[
   \sqrt{\mu} = \frac{k_{ni}}{a},
 \]
-where $k_{ni}$ is the $i$th root of $J_n(x)$ (since there is not much pattern to these roots, this is the best description we can give!).
+where $k_{ni}$ denotes the $i$-th positive zero of $J_n$.
 
-So our general solution obeying the homogeneous conditions is
+\textbf{Step 5: General solution.} The general solution satisfying homogeneous conditions is
 \[
-  \phi(r, \theta, z) = \sum_{n = 0}^\infty \sum_{i \in \text{roots}} (A_{ni} \sin n \theta + B_{ni}\cos n\theta) \exp\left(-\frac{k_{ni}}{a}z\right) J_n \left(\frac{k_{ni}r}{a}\right).
+  \phi(r, \theta, z) = \sum_{n = 0}^\infty \sum_{i=1}^\infty (A_{ni} \sin n \theta + B_{ni}\cos n\theta) \exp\left(-\frac{k_{ni}}{a}z\right) J_n \left(\frac{k_{ni}r}{a}\right).
 \]
-We finally impose the inhomogeneous boundary condition $\phi(r, \theta, 0) = f(r, \theta)$. To do this, we use the orthogonality condition
-\[
-  \int_0^a J_n\left(\frac{k_{nj}r}{a}\right)J_n\left(\frac{k_{ni}r}{a}\right) r\;\d r = \frac{a^2}{2}\delta_{ij}[J_n'(k_{ni})]^2,
-\]
-which is proved in the example sheets. Note that we have a weight function $r$ here. Also, remember this is the orthogonality relation for different roots of Bessel's functions of the \emph{same order}. It does not relate Bessel's functions of different orders.
 
-We now integrate our general solution with respect to $\cos m\theta$ to obtain
+\begin{prop}[Orthogonality of Bessel functions]
+  \label{prop:bessel-orthogonality}
+  With weight function $w(r) = r$:
+  \[
+    \int_0^a J_n\left(\frac{k_{nj}r}{a}\right)J_n\left(\frac{k_{ni}r}{a}\right) r\;\d r = \frac{a^2}{2}\delta_{ij}[J_n'(k_{ni})]^2.
+  \]
+  This relates zeros of Bessel functions of the \emph{same order} $n$.
+\end{prop}
+
+\textbf{Step 6: Determine coefficients.} Imposing $\phi(r, \theta, 0) = f(r, \theta)$ and using orthogonality in both $\theta$ and $r$:
 \[
-  \frac{1}{\pi}\int_{-\pi}^\pi f(r, \theta) \cos m\theta \;\d \theta = \sum_{i \in \text{roots}} J_m\left(\frac{k_{mi}r}{a}\right).
+  B_{mj} = \frac{2}{\pi a^2 [J'_m(k_{mj})]^2}\int_0^a \int_{-\pi}^\pi \cos m\theta \, J_m\left(\frac{k_{mj}r}{a}\right) f(r, \theta)\,r \;\d r \;\d \theta.
 \]
-Now we just have Bessel's function for a single order $j$. So we can use the orthogonality relation for the Bessel's functions to obtain
-\[
-  B_{mj} = \frac{1}{[J'_m(k_{mj})]}\frac{2}{\pi a^2}\int_0^a \int_{-\pi}^\pi \cos m\theta J_m\left(\frac{k_{mj}r}{a}\right) f(r, \theta)r \;\d r \;\d \theta.
-\]
-How can we possibly perform this integral? We don't know how $J_m$ looks like, what the roots $k_{mj}$ are, and we multiply all these complicated things together and integrate! Often, we just don't. We ask our computers to do this numerically for us. There are indeed some rare cases where we are indeed able to get an explicit solution, but these are rare.
+
+\begin{remark}
+  In practice, these integrals are often computed numerically, since the zeros $k_{mj}$ of Bessel functions have no simple closed form.
+\end{remark}
 
 \subsection{The heat equation}
-We choose $\Omega = \R^n \times[0, \infty)$. We treat $\R^n$ as the ``space'' variable, and $[0, \infty)$ as our time variable.
+
 \begin{defi}[Heat equation]
-  The \emph{heat equation} for a function $\phi: \Omega \to \C$ is
+  \label{def:heat-equation}
+  The \emph{heat equation} on $\Omega \subseteq \R^n$ for a function $\phi: \Omega \times [0,\infty) \to \R$ is
   \[
     \frac{\partial \phi}{\partial t} = \kappa \nabla^2 \phi,
   \]
-  where $\kappa > 0$ is the \emph{diffusion constant}.
+  where $\kappa > 0$ is the \emph{diffusion constant}. Physically, $\phi$ represents temperature and the equation states that the rate of change of temperature is proportional to the Laplacian.
 \end{defi}
-We can think of this as a function $\phi$ representing the ``temperature'' at different points in space and time, and this equation says the rate of change of temperature is proportional to $\nabla^2 \phi$.
 
-Our previous study of the Laplace's equation comes in handy. When our system is in equilibrium and does not change with time, then we are left with Laplace's equation.
+\begin{remark}
+  In equilibrium ($\partial\phi/\partial t = 0$), the heat equation reduces to Laplace's equation.
+\end{remark}
 
-Let's first look at some interesting properties of the heat equation.
-
-The first most important property of the heat equation is that the total ``heat'' is conserved under evolution by the heat equation, i.e.
-\[
-  \frac{\d}{\d t}\int_{\R^n} \phi(\mathbf{x}, t)\;\d^n x = 0,
-\]
-since we can write this as
-\[
-  \frac{\d}{\d t}\int_{\R^n} \phi(\mathbf{x}, t)\;\d^n x = \int_{\R^n} \frac{\partial \phi}{\partial t}\; \d^n x = \kappa \int_{\R^n} \nabla^2 \phi \;\d^n x = 0,
-\]
-provided $\nabla \phi(\mathbf{x}, t) \to 0$ as $|\mathbf{x}|\to \infty$.
-
-In particular, on a compact space, i.e.\ $\Omega = M\times [0, \infty)$ with $M$ compact, there is no boundary term and we have
-\[
-  \frac{\d}{\d t}\int_M \phi \;\d\mu = 0.
-\]
-The second useful property is if $\phi(\mathbf{x}, t)$ solves the heat equation, so do $\phi_1(\mathbf{x}, t) = \phi(\mathbf{x} - \mathbf{x}_0, t - t_0)$, and $\phi_2(\mathbf{x}, t) = A \phi(\lambda \mathbf{x}, \lambda^2 t)$.
-
-Let's try to choose $A$ such that
-\[
-  \int_{\R^n}\phi_2(\mathbf{x}, t) \;\d^n x = \int_{\R^n}\phi(\mathbf{x}, t) \;\d^n x.
-\]
-We have
-\[
-  \int_{\R^n} \phi_2(\mathbf{x}, t)\;\d^n x = A\int_{\R^n}\phi(\lambda \mathbf{x}, \lambda^2 t)\;\d^n x = A\lambda^{-n} \int_{\R^n}\phi(\mathbf{y}, \lambda^2 t)\;\d^n y,
-\]
-where we substituted $\mathbf{y} = \lambda \mathbf{x}$.
-
-So if we set $A = \lambda^n$, then the total heat in $\phi_2$ at time $\lambda^2 t$ is the same as the total heat in $\phi$ at time $t$. But the total heat is constant in time. So the total heat is the same all the time.
-
-Note again that if $\frac{\partial\phi}{\partial t} = \kappa \nabla^2 \phi$ on $\Omega\times [0, \infty)$, then so does $\lambda^n \phi(\lambda x, \lambda^2 t)$. This means that nothing is lost by letting $\lambda = \frac{1}{\sqrt{t \kappa}}$ and consider solutions of the form % dodgy
-\[
-  \phi(\mathbf{x}, t) = \frac{1}{(\kappa t)^{n/2}} F\left(\frac{\mathbf{x}}{\sqrt{\kappa t}}\right) = \frac{1}{(\kappa t)^{n/2}}F(\boldsymbol\eta),
-\]
-where
-\[
-  \boldsymbol\eta = \frac{\mathbf{x}}{\sqrt{\kappa t}}.
-\]
-For example, in $1 + 1$ dimensions, we can look for a solution of the form $\frac{1}{\sqrt{\kappa t}} F(\eta)$. We have
-\[
-  \frac{\partial\phi}{\partial t} = \frac{\partial}{\partial t}\left(\frac{1}{\sqrt{\kappa t}} F(\eta)\right) = \frac{-1}{2\sqrt{\kappa t^3}} F(\eta) + \frac{1}{\sqrt{\kappa t}} \frac{\d \eta}{\d t}F'(\eta) = \frac{-1}{2\sqrt{\kappa t^3}}[F + \eta F']
-\]
-On the other side of the equation, we have
-\[
-  \kappa\frac{\partial^2}{\partial x^2} \left(\frac{1}{\sqrt{\kappa t}} F(\eta)\right) = \frac{\kappa}{\sqrt{\kappa t}} \frac{\partial}{\partial x}\left(\frac{\partial \eta}{\partial x} F'\right) = \frac{1}{\sqrt{\kappa t^3}}F''.
-\]
-So the equation becomes
-\[
-  0 = 2F'' + \eta F' + F = (2F' + \eta F)'.
-\]
-So we have
-\[
-  2F' + \eta F = \text{const},
-\]
-and the boundary conditions require that the constant is zero. So we get
-\[
-  F' = \frac{-\eta}{2}F.
-\]
-We now see a solution
-\[
-  F(\eta) = a \exp\left(\frac{-\eta^2}{4}\right).
-\]
-By convention, we now normalize our solution $\phi(x, t)$ by requiring
-\[
-  \int_{-\infty}^\infty \phi(x, t)\;\d x = 1.
-\]
-This gives
-\[
-  a = \frac{1}{\sqrt{4\pi}},
-\]
-and the full solution is
-\[
-  \phi(x, t) = \frac{1}{\sqrt{4\pi \kappa t}}\exp\left(- \frac{x^2}{4\kappa t}\right).
-\]
-More generally, on $\R^n \times [0, \infty)$, we have the solution
-\[
-  \phi(\mathbf{x}, t) = \frac{1}{(4\pi (t - t_0))^{n/2}} \exp\left(\frac{-(\mathbf{x} - \mathbf{x}_0)^2}{4\kappa(t - t_0)}\right).
-\]
-At any fixed time $t\not= t_0$, the solutions are Gaussians centered on $x_0$ with standard deviation $\sqrt{2\kappa (t - t_0)}$, and the height of the peak at $x = x_0$ is $\sqrt{\frac{1}{4\pi \kappa (t - t_0)}}$.
-
-We see that the solution gets ``flatter'' as $t$ increases. This is a general property of the evolution by the heat equation. Suppose we have an eigenfunction $y(\mathbf{x})$ of the Laplacian on $\Omega$, i.e.\ $\nabla^2 y = -\lambda y$. We want to show that in certain cases, $\lambda$ must be positive. Consider
-\[
-  - \lambda \int_\Omega |y|^2 \d^n x = \int_\Omega y^*(x) \nabla^2 y(x)\;\d^n x = \int_{\partial\Omega} y^* \mathbf{n}\cdot \nabla y \;\d^{n - 1}x - \int_\Omega |\nabla y|^2 \;\d^n x.
-\]
-If there is no boundary term, e.g.\ when $\Omega$ is closed and compact (e.g.\ a sphere), then we get
-\[
-  \lambda = \frac{\int |\nabla y|^2\;\d^n x}{\int_\Omega |y|^2 \;\d^n x}.
-\]
-Hence the eigenvalues are all positive. What does this mean for heat flow? Suppose $\phi(\mathbf{x}, t)$ obeys the heat equation for $t > 0$. At time $t = 0$, we have $\phi(\mathbf{x}, 0) = f(\mathbf{x})$. We can write the solution (somehow) as
-\[
-  \phi(\mathbf{x}, t) = e^{t\nabla^2} \phi(\mathbf{x}, 0),
-\]
-where we (for convenience) let $\kappa = 1$. But we can expand our initial condition
-\[
-  \phi(\mathbf{x}, 0) = f(\mathbf{x}) = \sum_I c_I y_I(\mathbf{x})
-\]
-in a complete set $\{y_I(\mathbf{x})\}$ of eigenfunctions for $\nabla^2$.
-
-By linearity, we have
-\begin{align*}
-  \phi(\mathbf{x}, t) &= e^{t \nabla^2}\left(\sum_I c_I y_I(\mathbf{x})\right) \\
-  &= \sum_I c_I e^{t \nabla^2 }y_I(\mathbf{x}) \\
-  &= \sum_I c_I e^{-\lambda_2 t}y_I(\mathbf{x}) \\
-  &= c_I(t) y_I(\mathbf{x}),
-\end{align*}
-where $c_I(t) = c_I e^{-\lambda_2 t}$. Since $\lambda_I$ are all positive, we know that $c_I(t)$ decays exponentially with time. In particular, the coefficients corresponding to the largest eigenvalues $|\lambda_I|$ decays most rapidly. We also know that eigenfunctions with larger eigenvalues are in general more ``spiky''. So these smooth out rather quickly.
-
-When people first came up with the heat equation to describe heat loss, they were slightly skeptical --- this flattening out caused by the heat equation is not time-reversible, while Newton's laws of motions are all time reversible. How could this smoothening out arise from reversible equations?
-
-Einstein came up with an example where the heat equation can come out of apparently naturally from seemingly reversible laws, namely Brownian motion. The idea is that a particle will randomly jump around in space, where the movement is independent of time and position.
-
-Let the probability that a dust particle moves through a step $y$ over a time $\Delta t$ be $p(y, \Delta t)$. For any fixed $\Delta t$, we must have
-\[
-  \int_{-\infty}^\infty p(y, \Delta t)\;\d y = 1.
-\]
-We also assume that $p(y, \Delta t)$ is independent of time, and of the location of the dust particle. We also assume $p(y, \Delta t)$ is strongly peaked around $y = 0$ and $p(y, \Delta t) = p(-y, \Delta t)$. Now let $P(x, t)$ be the probability that the dust particle is located at $x$ at time $t$. Then at time $t + \delta t$, we have
-\[
-  P(x, t + \Delta t) = \int_{-\infty}^\infty P(x - y, t) p(y, \Delta t)\;\d y.
-\]
-For $P(x - y, t)$ sufficiently smooth, we can write
-\[
-  P(x - y, t) \approx P(x, t)- y\frac{\partial P}{\partial x}(x, t) + \frac{y^2}{2}\frac{\partial^2 P}{\partial x^2}(x, t).
-\]
-So we get
-\[
-  P(x, t + \Delta t) \approx P(x, t) - \frac{\partial P}{\partial x}(x, t) \bra y \ket + \frac{1}{2} \bra y^2\ket \frac{\partial^2 P}{\partial x^2}P(x, t) + \cdots,
-\]
-where
-\[
-  \bra y^r\ket = \int_{-\infty}^\infty y^r p(y, \Delta t)\;\d y.
-\]
-Since $p$ is even, we expect $\bra y^r\ket$ to vanish when $r$ is odd. Also, since $y$ is strongly peaked at $0$, we expect the higher order terms to be small. So we can write
-\[
-  P(x, t + \Delta t) - P(x, t) = \frac{1}{2}\bra y^2\ket \frac{\partial^2 P}{\partial x^2}.
-\]
-Suppose that as we take the limit $\Delta t \to 0$, we get $\frac{\bra y^2\ket }{2 \Delta t} \to \kappa$ for some $\kappa$. Then this becomes the heat equation
-\[
-  \frac{\partial P}{\partial t} = \kappa \frac{\partial^2 P}{\partial x^2}.
-\]
-\begin{prop}[Heat equation, uniqueness]
-  Suppose $\phi: \Omega\times [0, \infty) \to \R$ satisfies the heat equation $\frac{\partial \phi}{\partial t} = \kappa \nabla^2 \phi$, and obeys
-  \begin{itemize}
-    \item Initial conditions $\phi(\mathbf{x}, 0) = f(x)$ for all $x \in \Omega$
-    \item Boundary condition $\phi(\mathbf{x}, t) |_{\partial \Omega} = g(\mathbf{x}, t)$ for all $t \in [0, \infty)$.
-  \end{itemize}
-  Then $\phi(\mathbf{x}, t)$ is unique.
+\begin{prop}[Conservation of total heat]
+  \label{prop:heat-conservation}
+  If $\phi$ solves the heat equation and $\nabla \phi \to 0$ as $|\mathbf{x}|\to \infty$, then
+  \[
+    \frac{\d}{\d t}\int_{\R^n} \phi(\mathbf{x}, t)\;\d^n x = 0.
+  \]
 \end{prop}
+\begin{proof}
+  \[
+    \frac{\d}{\d t}\int_{\R^n} \phi(\mathbf{x}, t)\;\d^n x = \int_{\R^n} \frac{\partial \phi}{\partial t}\; \d^n x = \kappa \int_{\R^n} \nabla^2 \phi \;\d^n x = 0,
+  \]
+  since the last integral vanishes by the divergence theorem.
+\end{proof}
+
+\begin{prop}[Symmetries of the heat equation]
+  \label{prop:heat-symmetries}
+  If $\phi(\mathbf{x}, t)$ solves the heat equation, so do:
+  \begin{enumerate}
+    \item Translation: $\phi_1(\mathbf{x}, t) = \phi(\mathbf{x} - \mathbf{x}_0, t - t_0)$
+    \item Scaling: $\phi_2(\mathbf{x}, t) = A \phi(\lambda \mathbf{x}, \lambda^2 t)$ for any $A, \lambda \in \R$.
+  \end{enumerate}
+\end{prop}
+
+The scaling symmetry suggests seeking self-similar solutions. If $\phi_2 = \lambda^n \phi(\lambda \mathbf{x}, \lambda^2 t)$ preserves total heat, setting $\lambda = 1/\sqrt{\kappa t}$ suggests the ansatz
+\[
+  \phi(\mathbf{x}, t) = \frac{1}{(\kappa t)^{n/2}} F\left(\frac{\mathbf{x}}{\sqrt{\kappa t}}\right) = \frac{1}{(\kappa t)^{n/2}}F(\boldsymbol\eta), \quad \boldsymbol\eta = \frac{\mathbf{x}}{\sqrt{\kappa t}}.
+\]
+
+\begin{eg}[Self-similar solution in one dimension]
+  \label{eg:heat-1d}
+  In $1+1$ dimensions, we seek $\phi(x,t) = \frac{1}{\sqrt{\kappa t}} F(\eta)$ where $\eta = x/\sqrt{\kappa t}$.
+
+  Computing derivatives:
+  \[
+    \frac{\partial\phi}{\partial t} = \frac{-1}{2\sqrt{\kappa t^3}}[F + \eta F'], \quad \kappa\frac{\partial^2 \phi}{\partial x^2} = \frac{1}{\sqrt{\kappa t^3}}F''.
+  \]
+  The heat equation becomes $(2F' + \eta F)' = 0$, so $2F' + \eta F = C$. With decay at infinity, $C = 0$, giving $F' = -\frac{\eta}{2}F$, hence
+  \[
+    F(\eta) = a \exp\left(-\frac{\eta^2}{4}\right).
+  \]
+  Normalizing to $\int_{-\infty}^\infty \phi \,dx = 1$ gives $a = 1/\sqrt{4\pi}$.
+\end{eg}
+
+\begin{defi}[Heat kernel]
+  \label{def:heat-kernel}
+  The \emph{heat kernel} (or \emph{fundamental solution}) on $\R^n$ is
+  \[
+    K(\mathbf{x}, t; \mathbf{x}_0, t_0) = \frac{1}{(4\pi\kappa (t - t_0))^{n/2}} \exp\left(-\frac{|\mathbf{x} - \mathbf{x}_0|^2}{4\kappa(t - t_0)}\right), \quad t > t_0.
+  \]
+  This is a Gaussian centered at $\mathbf{x}_0$ with standard deviation $\sqrt{2\kappa(t-t_0)}$. As $t$ increases, the solution spreads out and flattens while preserving total integral.
+\end{defi}
+
+\begin{prop}[Positivity of Laplacian eigenvalues]
+  \label{prop:laplacian-eigenvalues}
+  On a closed compact domain $\Omega$ (or with Dirichlet boundary conditions), all eigenvalues of $-\nabla^2$ are non-negative.
+\end{prop}
+\begin{proof}
+  Let $\nabla^2 y = -\lambda y$. Then
+  \[
+    - \lambda \int_\Omega |y|^2 \d^n x = \int_\Omega y^* \nabla^2 y\;\d^n x = \int_{\partial\Omega} y^* \mathbf{n}\cdot \nabla y \;\d^{n - 1}x - \int_\Omega |\nabla y|^2 \;\d^n x.
+  \]
+  If the boundary term vanishes, then $\lambda = \frac{\int |\nabla y|^2\;\d^n x}{\int_\Omega |y|^2 \;\d^n x} \geq 0$.
+\end{proof}
+
+\begin{thm}[Solution by eigenfunction expansion]
+  \label{thm:heat-eigenfunction}
+  Let $\{y_I\}$ be eigenfunctions of $-\nabla^2$ with eigenvalues $\lambda_I \geq 0$. If $\phi(\mathbf{x}, 0) = \sum_I c_I y_I(\mathbf{x})$, then the solution to the heat equation (with $\kappa = 1$) is
+  \[
+    \phi(\mathbf{x}, t) = \sum_I c_I e^{-\lambda_I t} y_I(\mathbf{x}).
+  \]
+\end{thm}
+
+\begin{remark}
+  Since all $\lambda_I > 0$, the coefficients $c_I(t) = c_I e^{-\lambda_I t}$ decay exponentially. Eigenfunctions with larger eigenvalues (corresponding to more oscillatory, ``spiky'' modes) decay fastest, explaining why heat flow smooths out solutions.
+\end{remark}
+
+\subsubsection{Brownian motion and the heat equation}
+The heat equation is not time-reversible, yet arises from microscopic dynamics that are. Einstein showed how this emerges from Brownian motion.
+
+\begin{eg}[Derivation from random walk]
+  \label{eg:brownian-motion}
+  Let $p(y, \Delta t)$ be the probability of a particle moving by $y$ in time $\Delta t$, with:
+  \begin{itemize}
+    \item Normalization: $\int_{-\infty}^\infty p(y, \Delta t)\;\d y = 1$
+    \item Symmetry: $p(y, \Delta t) = p(-y, \Delta t)$
+    \item Localization: $p$ is strongly peaked around $y = 0$
+  \end{itemize}
+  Let $P(x, t)$ be the probability density at position $x$, time $t$. Then
+  \[
+    P(x, t + \Delta t) = \int_{-\infty}^\infty P(x - y, t) p(y, \Delta t)\;\d y.
+  \]
+  Taylor expanding $P(x - y, t)$ and using $\langle y \rangle = 0$ (by symmetry):
+  \[
+    P(x, t + \Delta t) - P(x, t) \approx \frac{1}{2}\langle y^2\rangle \frac{\partial^2 P}{\partial x^2},
+  \]
+  where $\langle y^r\rangle = \int y^r p(y, \Delta t)\,dy$. If $\langle y^2\rangle/(2\Delta t) \to \kappa$ as $\Delta t \to 0$, we obtain
+  \[
+    \frac{\partial P}{\partial t} = \kappa \frac{\partial^2 P}{\partial x^2}.
+  \]
+\end{eg}
+\begin{thm}[Uniqueness for the heat equation]
+  \label{thm:heat-uniqueness}
+  Suppose $\phi: \Omega\times [0, \infty) \to \R$ satisfies the heat equation $\frac{\partial \phi}{\partial t} = \kappa \nabla^2 \phi$, with:
+  \begin{itemize}
+    \item Initial condition: $\phi(\mathbf{x}, 0) = f(\mathbf{x})$ for all $\mathbf{x} \in \Omega$
+    \item Boundary condition: $\phi(\mathbf{x}, t)|_{\partial \Omega} = g(\mathbf{x}, t)$ for all $t \in [0, \infty)$.
+  \end{itemize}
+  Then $\phi$ is unique.
+\end{thm}
 
 \begin{proof}
   Suppose $\phi_1$ and $\phi_2$ are both solutions. Then define $\Phi = \phi_1 - \phi_2$ and
@@ -1541,8 +1516,9 @@ Suppose that as we take the limit $\Delta t \to 0$, we get $\frac{\bra y^2\ket }
   So we know that $E$ decreases with time but is always non-negative. We also know that at time $t = 0$, $E = \Phi = 0$. So $E = 0$ always. So $\Phi = 0$ always. So $\phi_1 = \phi_2$.
 \end{proof}
 
-\begin{eg}[Heat conduction in uniform medium]
-  Suppose we are on Earth, and the Sun heats up the surface of the Earth through sun light. So the sun will maintain the soil at some fixed temperature. However, this temperature varies with time as we move through the day-night cycle and seasons of the year.
+\begin{eg}[Heat conduction in soil]
+  \label{eg:heat-soil}
+  Consider temperature $\phi(x, t)$ in soil at depth $x \geq 0$, where the surface temperature varies with daily and seasonal cycles.
 
   We let $\phi(x, t)$ be the temperature of the soil as a function of the depth $x$, defined on $\R^{\geq 0} \times [0, \infty)$. Then it obeys the heat equation with conditions
   \begin{enumerate}
@@ -1588,7 +1564,8 @@ Suppose that as we take the limit $\Delta t \to 0$, we get $\frac{\bra y^2\ket }
 \end{eg}
 
 \begin{eg}[Heat conduction in a finite rod]
-  We now have a finite rod of length $2L$.
+  \label{eg:heat-rod}
+  Consider a rod of length $2L$ from $x = -L$ to $x = L$.
   \begin{center}
     \begin{tikzpicture}
       \draw [thick] (-2, 0) -- (2, 0);
@@ -1720,7 +1697,10 @@ Suppose that as we take the limit $\Delta t \to 0$, we get $\frac{\bra y^2\ket }
 \end{eg}
 
 \subsection{The wave equation}
-Consider a string $x\in [0, L]$ undergoing small oscillations described by $\phi(x, t)$.
+We derive the wave equation from physical principles and study its solutions.
+
+\subsubsection{Derivation from string dynamics}
+Consider a string $x\in [0, L]$ undergoing small transverse oscillations described by displacement $\phi(x, t)$.
 \begin{center}
   \begin{tikzpicture}[xscale=0.75]
     \draw (0, 0) sin (2, 1) cos (4, 0) sin (6, -1) cos (8, 0) sin (10, 1) cos (12, 0);
@@ -1755,39 +1735,47 @@ We now divide everything by $T$, noting the relation $(*)$, and get
   &= \left.\frac{\partial\phi}{\partial x}\right|_B - \left.\frac{\partial\phi}{\partial x}\right|_A\\
   &\approx \delta x\frac{\partial^2 \phi}{\partial x^2}.
 \end{align*}
-Taking the limit $\delta x \to 0$ and setting $c^2 = T/\mu$, we have that $\phi(x, t)$ obeys the wave equation
-\[
-  \frac{1}{c^2} \frac{\partial^2 \phi}{\partial t^2} = \frac{\partial^2 \phi}{\partial x^2}.
-\]
-From IA Differential Equations, we've learnt that the solution can be written as $f(x - ct) + g(x + ct)$. However, this does not extend to higher dimensions, but separation of variables does. So let's do that.
+Taking the limit $\delta x \to 0$ and setting $c^2 = T/\mu$, we obtain:
 
-Assume that the string is fixed at both ends. Then $\phi(0, t) = \phi(L, t) = 0$ for all $t$. The we can perform separation of variables, and the general solution can then be written
-\[
-  \phi(x, t) = \sum_{n = 1}^\infty \sin\left(\frac{n \pi x}{L}\right)\left[A_n \cos\left(\frac{n \pi c t}{L}\right) + B_n \sin\left(\frac{n\pi ct}{L}\right)\right].
-\]
-The coefficients $A_n$ are fixed by the initial profile $\phi(x, 0)$ of the string, while the coefficients $B_n$ are fixed by the initial string velocity $\frac{\partial \phi}{\partial t} (x, 0)$. Note that we need \emph{two} sets of initial conditions, since the wave equation is second-order in time.
+\begin{defi}[Wave equation]
+  \label{def:wave-equation}
+  The \emph{wave equation} in one spatial dimension is
+  \[
+    \frac{\partial^2 \phi}{\partial t^2} = c^2 \frac{\partial^2 \phi}{\partial x^2},
+  \]
+  where $c > 0$ is the \emph{wave speed}. For a string with tension $T$ and mass per unit length $\mu$, we have $c = \sqrt{T/\mu}$.
+\end{defi}
 
-\subsubsection*{Energetics and uniqueness}
-An oscillating string contains has some sort of \emph{energy}. The \emph{kinetic energy} of a small element $\delta x$ of the string is
-\[
-  \frac{1}{2}\mu \delta x\left(\frac{\partial \phi}{\partial t}\right)^2.
-\]
-The \emph{total kinetic energy} of the string is hence the integral
-\[
-  K(t) = \frac{\mu}{2}\int_0^L \left(\frac{\partial \phi}{\partial t}\right)^2 \;\d x.
-\]
-The string also has potential energy due to tension. The \emph{potential energy} of a small element $\delta x$ of the string is
+\begin{remark}
+  The general solution in one dimension is $\phi(x,t) = f(x - ct) + g(x + ct)$, representing left- and right-traveling waves. However, separation of variables generalizes to higher dimensions.
+\end{remark}
+
+\begin{eg}[String with fixed ends]
+  \label{eg:wave-string}
+  For a string fixed at both ends ($\phi(0, t) = \phi(L, t) = 0$), separation of variables gives
+  \[
+    \phi(x, t) = \sum_{n = 1}^\infty \sin\left(\frac{n \pi x}{L}\right)\left[A_n \cos\left(\frac{n \pi c t}{L}\right) + B_n \sin\left(\frac{n\pi ct}{L}\right)\right].
+  \]
+  The coefficients $A_n$ are determined by the initial displacement $\phi(x, 0)$, and $B_n$ by the initial velocity $\frac{\partial \phi}{\partial t}(x, 0)$. Since the wave equation is second-order in time, \emph{two} initial conditions are required.
+\end{eg}
+
+\subsubsection{Energetics and uniqueness}
+
+\begin{defi}[Energy of a vibrating string]
+  \label{def:string-energy}
+  For a vibrating string with displacement $\phi(x,t)$, mass density $\mu$, and wave speed $c$:
+  \begin{itemize}
+    \item \emph{Kinetic energy}: $K(t) = \frac{\mu}{2}\int_0^L \left(\frac{\partial \phi}{\partial t}\right)^2 \;\d x$
+    \item \emph{Potential energy}: $V(t) = \frac{\mu c^2}{2}\int_0^L \left(\frac{\partial \phi}{\partial x}\right)^2 \;\d x$
+    \item \emph{Total energy}: $E(t) = K(t) + V(t)$
+  \end{itemize}
+\end{defi}
+
+The potential energy arises from the work done against tension due to string extension:
 \begin{align*}
-  T\times \text{extension} &= T(\delta s - \delta x) \\
-  &= T(\sqrt{\delta x^2 + \delta \phi^2} - \delta x)\\
-  &\approx T\delta x\left(1 + \frac{1}{2}\left(\frac{\delta \phi}{\delta x}\right)^2 + \cdots\right) - T \delta x\\
-  &= \frac{T}{2}\delta x \left(\frac{\delta \phi}{\delta x}\right)^2.
+  T\times \text{extension} &= T(\delta s - \delta x) = T(\sqrt{\delta x^2 + \delta \phi^2} - \delta x)\\
+  &\approx \frac{T}{2}\delta x \left(\frac{\partial \phi}{\partial x}\right)^2 = \frac{\mu c^2}{2}\delta x \left(\frac{\partial \phi}{\partial x}\right)^2.
 \end{align*}
-Hence the total potential energy of the string is
-\[
-  V(t) = \frac{\mu}{2}\int_0^L c^2 \left(\frac{\partial \phi}{\partial x}\right)^2 \;\d x,
-\]
-using the definition of $c^2$.
 
 Using our series expansion for $\phi$, we get
 \begin{align*}
@@ -1806,9 +1794,10 @@ Hence we have an equipartition of the energy between the kinetic and potential e
 
 The energy also allows us to prove a uniqueness theorem. First we show that energy is conserved in general.
 
-\begin{prop}[Wave equation, energy conservation]
-  Suppose $\phi: \Omega \times [0, \infty) \to \R$ obeys the wave equation $\frac{\partial^2 \phi}{\partial t^2} = c^2 \nabla^2 \phi$ inside $\Omega \times (0, \infty)$, and is fixed at the boundary. Then $E$ is constant.
-\end{prop}
+\begin{thm}[Energy conservation for wave equation]
+  \label{thm:wave-energy}
+  If $\phi$ satisfies the wave equation $\frac{\partial^2 \phi}{\partial t^2} = c^2 \nabla^2 \phi$ on $\Omega \times (0, \infty)$ with $\phi|_{\partial\Omega}$ fixed, then the total energy $E = K + V$ is constant.
+\end{thm}
 
 \begin{proof}
   By definition, we have
@@ -1825,15 +1814,16 @@ The energy also allows us to prove a uniqueness theorem. First we show that ener
   \]
 \end{proof}
 
-\begin{prop}[Wave equation, uniqueness]
-  Suppose $\phi: \Omega \times [0, \infty) \to \R$ obeys the wave equation $\frac{\partial^2 \phi}{\partial t^2} = c^2 \nabla^2 \phi$ inside $\Omega \times (0, \infty)$, and obeys, for some $f, g, h$,
+\begin{thm}[Uniqueness for wave equation]
+  \label{thm:wave-uniqueness}
+  Suppose $\phi: \Omega \times [0, \infty) \to \R$ satisfies the wave equation $\frac{\partial^2 \phi}{\partial t^2} = c^2 \nabla^2 \phi$ with:
   \begin{enumerate}
-    \item $\phi(x, 0) = f(x)$;
-    \item $\frac{\partial \phi}{\partial t}(x, 0) = g(x)$; and
-    \item $\phi|_{\partial \Omega\times [0, \infty)} = h(x)$.
+    \item Initial displacement: $\phi(\mathbf{x}, 0) = f(\mathbf{x})$
+    \item Initial velocity: $\frac{\partial \phi}{\partial t}(\mathbf{x}, 0) = g(\mathbf{x})$
+    \item Boundary condition: $\phi|_{\partial \Omega\times [0, \infty)} = h(\mathbf{x}, t)$
   \end{enumerate}
   Then $\phi$ is unique.
-\end{prop}
+\end{thm}
 \begin{proof}
   Suppose $\phi_1$ and $\phi_2$ are two such solutions. Then $\psi = \phi_1 - \phi_2$ obeys the wave equation
   \[
@@ -1857,7 +1847,8 @@ The energy also allows us to prove a uniqueness theorem. First we show that ener
 \end{proof}
 
 \begin{eg}[Circular drum]
-  Consider $\Omega = \{(x, y) \in \R^2, x^2 + y^2 \leq 1\}$, and let $\phi(r, \theta, t)$ solve
+  \label{eg:circular-drum}
+  Consider a circular membrane $\Omega = \{(x, y) \in \R^2 : x^2 + y^2 \leq 1\}$. Let $\phi(r, \theta, t)$ solve
   \[
     \frac{1}{c^2}\frac{\partial^2 \phi}{\partial t^2} = \nabla^2 \phi = \frac{1}{r} \left(r \frac{\partial \phi}{\partial r}\right) + \frac{1}{r^2}\frac{\partial^2\phi}{\partial \theta^2},
   \]
