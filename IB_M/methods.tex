@@ -2478,44 +2478,48 @@ The inverse Fourier transform differs from the forward transform only by a facto
   \end{align*}
 \end{proof}
 \subsection{A word of warning}
-Suppose $f(x)$ is defined by
-\[
-  f(x) =
-  \begin{cases}
-    1 & |x| < 1\\
-    0 & |x| \geq 1.
-  \end{cases}
-\]
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (-3, 0) -- (3, 0) node [right] {$x$};
-    \draw [->] (0, -0.5) -- (0, 2) node [above] {$y$};
+The Fourier inversion theorem requires care about convergence.
 
-    \draw [mred, semithick] (-2.5, 0) -- (-1, 0) -- (-1, 1) -- (1, 1) -- (1, 0) -- (2.5, 0);
-  \end{tikzpicture}
-\end{center}
-This function looks rather innocent. Sure it has discontinuities at $\pm 1$, but these are not too absurd, and we are just integrating. This is certainly absolutely integrable. We can easily compute the Fourier transform as
-\[
-  \tilde{f}(k) = \int_{-\infty}^\infty e^{-ikx}f(x)\;\d x = \int_{-1}^1 e^{-ikx} \;\d x = \frac{2\sin k}{k}.
-\]
-Is our original function equal to the integral $\mathcal{F}^{-1}[\tilde{f}(l)]$? We have
-\[
-  \mathcal{F}^{-1}\left[\frac{2 \sin k}{k}\right] = \frac{1}{\pi} \int_{-\infty}^\infty e^{ikx} \frac{\sin k}{k} \;\d k.
-\]
-This is hard to do. So let's first see if this function is absolutely integrable. We have
-\begin{align*}
-  \int_{-\infty}^\infty \left|e^{ikx} \frac{\sin k}{k}\right|\;\d x &= \int_{-\infty}^\infty \left|\frac{\sin k}{k}\right|\;\d k\\
-  &= 2 \int_0^\infty \left|\frac{\sin k}{k}\right|\;\d k\\
-  &\geq 2 \sum_{n = 0}^N \int_{(n + 1/4) \pi}^{(n + 3/4)\pi} \left|\frac{\sin k}{k}\right|\;\d k.
-\end{align*}
- % can insert diagram
-The idea here is instead of looking at the integral over the whole real line, we just pick out segments of it. In these small segments, we know that $|\sin k| \geq \frac{1}{\sqrt{2}}$. So we can bound this by
-\begin{align*}
-  \int_{-\infty}^\infty \left|e^{ikx} \frac{\sin k}{k}\right|\;\d x &\geq 2 \sum_{n = 0}^N \frac{1}{\sqrt{2}} \int_{(n + 1/4) \pi}^{(n + 3/4)\pi} \frac{\d k}{k}\\
-  &\geq \sqrt{2} \sum_{n = 0}^N \int_{(n + 1/4) \pi}^{(n + 3/4)\pi} \frac{\d k}{(n + 1)\pi}\\
-  &= \frac{\sqrt{2}}{2} \sum_{n = 0}^N \frac{1}{n + 1},
-\end{align*}
-and this diverges as $N \to \infty$. So we don't have absolute integrability. So we have to be careful when we are doing these things. Well, in theory. We actually won't. We'll just ignore this issue.
+\begin{eg}[Box function]
+  \label{eg:box-function}
+  Consider the box function
+  \[
+    f(x) =
+    \begin{cases}
+      1 & |x| < 1\\
+      0 & |x| \geq 1.
+    \end{cases}
+  \]
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (-3, 0) -- (3, 0) node [right] {$x$};
+      \draw [->] (0, -0.5) -- (0, 2) node [above] {$y$};
+
+      \draw [mred, semithick] (-2.5, 0) -- (-1, 0) -- (-1, 1) -- (1, 1) -- (1, 0) -- (2.5, 0);
+    \end{tikzpicture}
+  \end{center}
+  This function is absolutely integrable, and its Fourier transform is
+  \[
+    \tilde{f}(k) = \int_{-1}^1 e^{-ikx} \;\d x = \frac{2\sin k}{k}.
+  \]
+\end{eg}
+
+\begin{prop}[Sinc is not absolutely integrable]
+  \label{prop:sinc-not-integrable}
+  The function $\operatorname{sinc}(k) = \frac{\sin k}{k}$ is not absolutely integrable on $\R$.
+\end{prop}
+
+\begin{proof}
+  On the intervals $[(n + \frac{1}{4})\pi, (n + \frac{3}{4})\pi]$, we have $|\sin k| \geq \frac{1}{\sqrt{2}}$. Thus
+  \[
+    \int_{-\infty}^\infty \left|\frac{\sin k}{k}\right|\;\d k \geq \sqrt{2} \sum_{n = 0}^N \int_{(n + 1/4) \pi}^{(n + 3/4)\pi} \frac{\d k}{(n + 1)\pi} = \frac{\sqrt{2}}{2} \sum_{n = 0}^N \frac{1}{n + 1},
+  \]
+  which diverges as $N \to \infty$.
+\end{proof}
+
+\begin{rmk}
+  This means the inverse Fourier transform $\mathcal{F}^{-1}[\tilde{f}]$ does not converge absolutely for the box function. The inversion still works, but requires more careful analysis. In practice, we often ignore such subtleties.
+\end{rmk}
 
 \subsection{Fourier transformation of distributions}
 We have
