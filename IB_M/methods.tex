@@ -2400,83 +2400,55 @@ These properties allow us to break complicated Fourier transforms into simpler p
 \end{rmk}
 
 \subsection{The Fourier inversion theorem}
-We need to be able to express our original function $f(x)$ in terms of its Fourier transform $\tilde{f}(k)$. Recall that in the periodic case where $f(x) = f(x + L)$, we have
-\[
-  f(x) = \sum_{n \in \Z}\hat{f}_n e^{2inx\pi /L}.
-\]
-We can try to obtain a similar expression for a non-periodic function $f: \R \to \C$ by taking the limit $L \to \infty$. Recall that our coefficients are defined by
-\[
-  \hat{f}_n = \frac{1}{L} \int_{-L/2}^{L/2} e^{-2 in\pi x/L} f(x)\;\d x.
-\]
-Now define
-\[
-  \Delta k = \frac{2\pi }{L}.
-\]
-So we have
-\[
-  f(x) = \sum_{n \in \Z} e^{inx \Delta k} \frac{\Delta k}{2 \pi}\int_{-L/2}^{L/2} e^{-inx \Delta k} f(u) \;\d u
-\]
-As we take the limit $L \to \infty$, we can approximate
-\[
-  \int_{-L/2}^{L/2} e^{-ixn\Delta k} f(x) \;\d x = \int_{-\infty}^\infty e^{-ix (n \Delta k)} f(x)\;\d x = \tilde{f}(n \Delta k).
-\]
-Then for a non-periodic function, we have
-\[
-  f(x) = \lim_{\Delta k \to \infty} \sum_{n \in \Z} \frac{\Delta k}{2\pi} e^{in \Delta k x} \tilde{f} (n \Delta k) = \frac{1}{2\pi} \int_{-\infty}^\infty e^{ik x} \tilde{f}(k) \;\d k.
-\]
-So
-\[
-  f(x) = \mathcal{F}^{-1}[f(k)] = \frac{1}{2\pi} \int_{-\infty}^\infty e^{ik x} \tilde{f}(k) \;\d k.
-\]
-This is a really dodgy argument. We first took the limit as $L \to \infty$ to turn the integral from $\int_{-L}^L$ to $\int_{-\infty}^\infty$. \emph{Then} we take the limit as $\Delta k \to 0$. However, we can't really do this, since $\Delta k$ is defined to be $2\pi /L$, and both limits have to be taken at the same time. So we should really just take this as a heuristic argument for why this works, instead of a formal proof.
+We need to recover a function $f(x)$ from its Fourier transform $\tilde{f}(k)$. A heuristic derivation proceeds by taking the $L \to \infty$ limit of Fourier series, treating the discrete sum as a Riemann sum that becomes an integral.
 
-Nevertheless, note that the inverse Fourier transform looks very similar to the Fourier transform itself. The only differences are a factor of $\frac{1}{2\pi}$, and the sign of the exponent. We can get rid of the first difference by evenly distributing the factor among the Fourier transform and inverse Fourier transform. For example, we can instead define
-\[
-  \mathcal{F}[f(x)] = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty e^{-ikx} f(x)\;\d x.
-\]
-Then $\mathcal{F}^{-1}$ looks just like $\mathcal{F}$ apart from having the wrong sign.
-
-However, we will stick to our original definition so that we don't have to deal with messy square roots. Hence we have the duality
-\[
-  \mathcal{F}[f(x)] = \mathcal{F}^{-1}[f(-x)] (2\pi).
-\]
-This is useful because it means we can use our knowledge of Fourier transforms to compute inverse Fourier transform.
-
-Note that this does not occur in the case of the Fourier \emph{series}. In the Fourier series, we obtain the coefficients by evaluating an integral, and restore the original function by taking a discrete sum. These operations are not symmetric.
-
-\begin{eg}[Convolution theorem, inverse]
-  Recall that we defined the convolution as
+\begin{thm}[Fourier inversion]
+  \label{thm:fourier-inversion}
+  For sufficiently well-behaved functions, the \emph{inverse Fourier transform} recovers $f$ from $\tilde{f}$:
   \[
-    f * g(x) = \int_{-\infty}^\infty f(x - y) g(y)\;\d y.
+    f(x) = \mathcal{F}^{-1}[\tilde{f}(k)] = \frac{1}{2\pi} \int_{-\infty}^\infty e^{ikx} \tilde{f}(k) \;\d k.
   \]
-  We then computed
-  \[
-    \mathcal{F}[f * g(x)] = \tilde{f}(k) \tilde{f}(g).
-  \]
-  It follows by definition of the inverse that
-  \[
-    \mathcal{F}^{-1}[\tilde{f}(k) \tilde{g}(k)] = f * g(x).
-  \]
-  Therefore, we know that
-  \[
-    \mathcal{F}[f(x) g(x)] = 2\pi \int_{-\infty}^\infty \tilde{f}(k - \ell) \tilde{g}(\ell)\;\d \ell = 2\pi \tilde{f} * \tilde{g} (k).
-  \]
-\end{eg}
+\end{thm}
 
-\begin{eg}[Screened Poisson, Fourier inversion]
-  Last time we saw that if $\nabla^2 \phi - m^2 \phi = \rho(x)$, then
+\begin{rmk}
+  The heuristic derivation involves taking $L \to \infty$ and $\Delta k = 2\pi/L \to 0$ simultaneously, which is not rigorous. A proper proof requires careful analysis of convergence.
+\end{rmk}
+
+The inverse Fourier transform differs from the forward transform only by a factor of $\frac{1}{2\pi}$ and a sign change in the exponent. Some conventions distribute the $2\pi$ symmetrically by defining $\mathcal{F}[f] = \frac{1}{\sqrt{2\pi}} \int e^{-ikx} f(x)\,\d x$. We use the asymmetric convention, which gives:
+
+\begin{prop}[Duality]
+  \label{prop:fourier-duality}
+  The Fourier transform and inverse are related by
+  \[
+    \mathcal{F}[f(x)](k) = 2\pi \cdot \mathcal{F}^{-1}[f(-x)](k).
+  \]
+  This allows us to compute inverse Fourier transforms using forward transforms.
+\end{prop}
+
+\begin{rmk}
+  This duality does not occur for Fourier series, where the forward operation (integration) and inverse operation (discrete summation) are fundamentally different.
+\end{rmk}
+
+\begin{prop}[Convolution and multiplication]
+  \label{prop:convolution-multiplication}
+  The Fourier transform exchanges convolution and multiplication:
+  \begin{enumerate}
+    \item $\mathcal{F}[f * g] = \tilde{f} \cdot \tilde{g}$ (convolution becomes multiplication).
+    \item $\mathcal{F}[f \cdot g] = \frac{1}{2\pi} \tilde{f} * \tilde{g}$ (multiplication becomes convolution).
+  \end{enumerate}
+\end{prop}
+
+\begin{eg}[Screened Poisson: inversion]
+  \label{eg:screened-poisson-inversion}
+  From Example~\ref{eg:screened-poisson}, the screened Poisson equation $\nabla^2 \phi - m^2 \phi = \rho$ has Fourier solution
   \[
     \tilde{\phi}(\mathbf{k}) = -\frac{\tilde{\rho}(\mathbf{k})}{|\mathbf{k}|^2 + m^2}.
   \]
-  Hence we can retrieve our $\phi$ as
+  Inverting gives
   \[
-    \phi(\mathbf{x}) = \mathcal{F}^{-1}[\tilde{\phi}(k)] = -\frac{1}{(2\pi)^n} \int_{\R^n} e^{i\mathbf{k}\cdot \mathbf{x}} \frac{\tilde{\rho}(\mathbf{k})}{|\mathbf{k}|^2 + m^2}\;\d^n x.
+    \phi(\mathbf{x}) = -\frac{1}{(2\pi)^n} \int_{\R^n} e^{i\mathbf{k}\cdot \mathbf{x}} \frac{\tilde{\rho}(\mathbf{k})}{|\mathbf{k}|^2 + m^2}\;\d^n \mathbf{k}.
   \]
-  Note that we have $(2\pi)^n$ instead of $2\pi$ since we get a factor of $2\pi$ for each dimension (and the negative sign was just brought down from the original expression).
-
-  Since we are taking the inverse Fourier transform of a product, we know that the result is just a convolution of $\mathcal{F}^{-1}[\tilde{\rho}(k)] = \rho(x)$ and $\mathcal{F}^{-1}\left(\frac{1}{|\mathbf{k}|^2 + m^2}\right)$.
-
-  Recall that when we worked with Green's function, if we have a forcing term, then the final solution is the convolution of our Green's function with the forcing term. Here we get a similar expression in higher dimensions.
+  Since this is the inverse transform of a product, $\phi$ is a convolution of $\rho$ with $\mathcal{F}^{-1}[(|\mathbf{k}|^2 + m^2)^{-1}]$. This is analogous to how Green's function solutions are convolutions of the Green's function with the forcing term.
 \end{eg}
 
 \subsection{Parseval's theorem for Fourier transforms}
