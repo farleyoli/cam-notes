@@ -2697,43 +2697,32 @@ To understand the DFT algebraically, consider functions on the group $G = \{1, \
 \end{rmk}
 
 \subsection{The fast Fourier transform*}
-What we've said so far is we've defined
-\[
-  F(m) = \frac{1}{N} \sum_{j = 0}^{N - 1} \omega^{-mj}g(\omega^j).
-\]
-To compute this directly, even given the values of $\omega^{-mj}$ for all $j, m$, this takes $N - 1$ additions and $N + 1$ multiplications. This is $2N$ operations for a \emph{single} value of $m$. To know $F(m)$ for all $m$, this takes $2N^2$ operations.
+Computing the DFT directly requires $O(N^2)$ operations. The \emph{fast Fourier transform (FFT)} reduces this to $O(N \log N)$.
 
-This is a problem. Historically, during the cold war, especially after the Cuban missile crisis, people were in fear that the world will one day go into a huge nuclear war, and something had to be done to prevent this. Thus the countries decided to come up with a treaty to ensure people don't perform nuclear testings anymore.
+\begin{rmk}[Historical motivation]
+  The FFT was developed during the Cold War to analyze seismic data for detecting underground nuclear tests. With millions of data points, $O(N^2)$ was computationally infeasible.
+\end{rmk}
 
-However, the obvious problem is that we can't easily check if other countries are doing nuclear tests. Nuclear tests are easy to spot if the test is done above ground, since there will be a huge explosion. However, if it is done underground, it is much harder to test.
+\begin{thm}[Fast Fourier transform]
+  \label{thm:fft}
+  When $N = 2^n$, the DFT can be computed in $O(N \log N)$ operations using the recursion:
+  \[
+    F(m) = \frac{1}{2}\left[\tilde{G}(m) + \omega^{-m} \tilde{H}(m)\right],
+  \]
+  where $\tilde{G}$ and $\tilde{H}$ are length-$N/2$ DFTs of the even- and odd-indexed inputs respectively.
+\end{thm}
 
-They then came up with the idea to put some seismometers all around the world, and record vibrations in the ground. To distinguish normal crust movements from nuclear tests, they wanted to take the Fourier transform and analyze the frequencies of the vibrations. However, they had a \emph{large} amount of data, and the value of $N$ is on the order of magnitude of a few million. So $2N^2$ will be a huge number that the computers at that time were not able to handle. So they need to find a trick to perform Fourier transforms quickly. This is known as the \emph{fast Fourier transform}. Note that this is nothing new mathematically. This is entirely a computational trick.
+\begin{proof}[Proof sketch]
+  Split the sum into even and odd terms: if $G(\eta^k) = g(\omega^{2k})$ and $H(\eta^k) = g(\omega^{2k+1})$ where $\eta = \omega^2$ is an $(N/2)$th root of unity, then
+  \[
+    F(m) = \frac{1}{2}\left[\tilde{G}(m) + \omega^{-m} \tilde{H}(m)\right].
+  \]
+  If $P_N$ denotes the operation count, then $P_N = 2P_{N/2} + O(N)$, which solves to $P_N = O(N \log N)$.
+\end{proof}
 
-Now suppose $N = 2M$. We can write
-\begin{align*}
-  F(m) &= \frac{1}{2M} \sum_{j = 0}^{2M - 1} \omega^{-jm} g(\omega^j) \\
-  &= \frac{1}{2}\left[\frac{1}{M}\sum_{k = 0}^{M - 1} \omega^{-2km} g(\omega^{2k}) + \omega^{-(2k + 1)m} g(\omega^{2k + 1})\right].
-\end{align*}
-We now let $\eta$ be an $M$th root of unity, and define
-\[
-  G(\eta^k) = g(\omega^{2k}),\quad H(\eta^k) = g(\omega^{2k + 1}).
-\]
-We then have
-\begin{align*}
-  F(m) &= \frac{1}{2} \left[\frac{1}{M} \sum_{k = 0}^{M - 1} \eta^{-km} G(\eta^k) + \frac{\omega^{-m}}{M} \sum_{k = 0}^{M - 1} \eta^{-km} H(\eta^k)\right]\\
-  &= \frac{1}{2}[\tilde{G}(m) + \omega^{-m} \tilde{H}(m)].
-\end{align*}
-Suppose we are given the values of $\tilde{G}(m)$ and $\tilde{H}(m)$ and $\omega^{-m}$ for all $m = \{0, \cdots, N - 1\}$. Then we can compute $F(m)$ using $3$ operations per value of $m$. So this takes $3 \times N = 6M$ operations for all $M$.
-
-We can compute $\omega^{-m}$ for all $m$ using at most $2N$ operations, and suppose it takes $P_M$ operations to compute $\tilde{G}(m)$ for all $m$. Then the number of operations needed to compute $F(m)$ is
-\[
-  P_{2M} = 2 P_M + 6M + 2M.
-\]
-Now let $N = 2^n$. Then by iterating this, we can find
-\[
-  P_N \leq 4N \log_2 N \ll N^2.
-\]
-So by breaking the Fourier transform apart, we are able to greatly reduce the number of operations needed to compute the Fourier transform. This is used nowadays everywhere for everything.
+\begin{rmk}
+  The FFT is purely a computational optimization with no new mathematics. It is ubiquitous in signal processing, image compression, and scientific computing.
+\end{rmk}
 \section{More partial differential equations}
 \subsection{Well-posedness}
 Recall that to find a unique solution of Laplace's equation $\nabla^2 \phi = 0$ on a bounded domain $\Omega \subseteq \R^n$, we imposed the Dirichlet boundary condition $\phi|_{\partial \Omega} = f$ or the Neumann boundary condition $\mathbf{n}\cdot \nabla \phi|_{\partial \Omega} = g$.
