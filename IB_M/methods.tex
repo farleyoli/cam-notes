@@ -2522,29 +2522,37 @@ The Fourier inversion theorem requires care about convergence.
 \end{rmk}
 
 \subsection{Fourier transformation of distributions}
-We have
-\[
-  \mathcal{F}[\delta(x)] = \int_{-\infty}^\infty e^{ikx} \delta (x)\;\d x = 1.
-\]
-Hence we have
-\[
-  \mathcal{F}^{-1}[1] = \frac{1}{2\pi} \int_{-\infty}^\infty e^{ikx}\;\d k = \delta (x).
-\]
-Of course, it is extremely hard to make sense of this integral. It quite obviously diverges as a normal integral, but we can just have faith and believe this makes sense as long as we are talking about distributions.
+The Fourier transform extends to distributions, though the integrals must be interpreted carefully.
 
-Similarly, from our rules of translations, we get
-\[
-  \mathcal{F}[\delta(x - a)] = e^{-ika}
-\]
-and
-\[
-  \mathcal{F}[e^{-i\ell x}] = 2\pi \delta(k - \ell),
-\]
-Hence we get
-\[
-  \mathcal{F}[\cos (\ell x)] = \mathcal{F}\left[\frac{1}{2}( e^{i\ell x} + e^{-i\ell x})\right] = \frac{1}{2} \mathcal{F}[e^{i\ell x}] + \frac{1}{2} \mathcal{F}[e^{-i\ell x}] = \pi [\delta (k - \ell) + \delta(k + \ell)].
-\]
-We see that highly localized functions in $x$-space have very spread-out behaviour in $k$-space, and vice versa.
+\begin{prop}[Fourier transform of the delta function]
+  \label{prop:fourier-delta}
+  The Fourier transform of the delta function is constant:
+  \[
+    \mathcal{F}[\delta(x)] = 1.
+  \]
+  Equivalently,
+  \[
+    \mathcal{F}^{-1}[1] = \delta(x), \quad \text{i.e.,} \quad \frac{1}{2\pi} \int_{-\infty}^\infty e^{ikx}\;\d k = \delta(x).
+  \]
+\end{prop}
+
+\begin{rmk}
+  The integral $\int e^{ikx}\,\d k$ diverges as an ordinary integral. It only makes sense as a distributional identity.
+\end{rmk}
+
+\begin{prop}[Fourier transforms of translated and modulated distributions]
+  \label{prop:fourier-translate-modulate}
+  For $a, \ell \in \R$:
+  \begin{enumerate}
+    \item $\mathcal{F}[\delta(x - a)] = e^{-ika}$ (translated delta becomes modulation).
+    \item $\mathcal{F}[e^{i\ell x}] = 2\pi \delta(k - \ell)$ (plane wave becomes translated delta).
+    \item $\mathcal{F}[\cos(\ell x)] = \pi[\delta(k - \ell) + \delta(k + \ell)]$.
+  \end{enumerate}
+\end{prop}
+
+\begin{rmk}[Uncertainty principle]
+  Highly localized functions in $x$-space (like $\delta(x)$) have spread-out Fourier transforms in $k$-space (like the constant $1$), and vice versa. This is a manifestation of the uncertainty principle.
+\end{rmk}
 
 \subsection{Linear systems and response functions}
 Suppose we have an amplifier that modifies an input signal $I(t)$ to produce an output $O(t)$. Typically, amplifiers work by modifying the amplitudes and phases of specific frequencies in the output. By Fourier's inversion theorem, we know
