@@ -2555,33 +2555,37 @@ The Fourier transform extends to distributions, though the integrals must be int
 \end{rmk}
 
 \subsection{Linear systems and response functions}
-Suppose we have an amplifier that modifies an input signal $I(t)$ to produce an output $O(t)$. Typically, amplifiers work by modifying the amplitudes and phases of specific frequencies in the output. By Fourier's inversion theorem, we know
-\[
-  I(t) = \frac{1}{2\pi} \int e^{i\omega t} \tilde{I}(\omega) \;\d \omega.
-\]
-This $\tilde{I}(\omega)$ is the \emph{resolution} of $I(t)$.
+Consider a linear system (e.g., an amplifier) that transforms an input signal $I(t)$ into an output $O(t)$ by modifying the amplitudes and phases of frequency components.
 
-We specify what the amplifier does by the \emph{transfer function} $\tilde{R}(\omega)$ such that the output is given by
-\[
-  O(t) = \frac{1}{2\pi} \int_{-\infty}^\infty e^{i\omega t} \tilde{R}(\omega) \tilde{I}(\omega)\;\d \omega.
-\]
-Since this $\tilde{R}(\omega) \tilde{I}(\omega)$ is a product, on computing $O(t) = \mathcal{F}^{-1}[\tilde{R}(\omega) \tilde{I}(\omega)]$, we obtain a \emph{convolution}
-\[
-  O(t) = \int_{-\infty}^\infty R(t - u) I(u)\;\d u,
-\]
-where
-\[
-  R(t) = \frac{1}{2\pi} \int_{-\infty}^\infty e^{i\omega t} \tilde{R}(\omega) \;\d \omega
-\]
-is the \emph{response function}. By plugging it directly into the equation above, we see that $R(t)$ is the response to an input signal $I(t) = \delta(t)$.
+\begin{defi}[Transfer function and response function]
+  \label{def:transfer-response}
+  The \emph{transfer function} $\tilde{R}(\omega)$ specifies how the system acts in frequency space:
+  \[
+    \tilde{O}(\omega) = \tilde{R}(\omega) \tilde{I}(\omega).
+  \]
+  The \emph{response function} (or impulse response) is its inverse Fourier transform:
+  \[
+    R(t) = \mathcal{F}^{-1}[\tilde{R}(\omega)] = \frac{1}{2\pi} \int_{-\infty}^\infty e^{i\omega t} \tilde{R}(\omega) \;\d \omega.
+  \]
+\end{defi}
 
-Now note that causality implies that the amplifier cannot ``respond'' before any input has been given. So we must have $R(t) = 0$ for all $t < 0$.
+\begin{prop}[Output as convolution]
+  \label{prop:output-convolution}
+  The output of a linear system is the convolution of the response function with the input:
+  \[
+    O(t) = (R * I)(t) = \int_{-\infty}^\infty R(t - u) I(u)\;\d u.
+  \]
+  In particular, $R(t)$ is the response to an impulse input $I(t) = \delta(t)$.
+\end{prop}
 
-Assume that we only start providing input at $t = 0$. Then
-\[
-  O(t) = \int_{-\infty}^\infty R(t - u) I(u)\;\d u = \int_0^t R(t - u)I(u)\;\d u.
-\]
-This is exactly the same form of solution as we found for initial value problems with the response function $R(t)$ playing the role of the Green's function.
+\begin{rmk}[Causality]
+  \label{rmk:causality-response}
+  Causality requires that the system cannot respond before receiving input, so $R(t) = 0$ for $t < 0$. For input starting at $t = 0$:
+  \[
+    O(t) = \int_0^t R(t - u) I(u)\;\d u.
+  \]
+  This is the same form as solutions via Green's functions for IVPs, with $R(t)$ playing the role of the causal Green's function.
+\end{rmk}
 
 \subsection{General form of transfer function}
 To model the situation, suppose the amplifier's operation is described by the ordinary differential equation
