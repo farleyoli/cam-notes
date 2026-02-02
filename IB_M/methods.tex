@@ -2588,104 +2588,68 @@ Consider a linear system (e.g., an amplifier) that transforms an input signal $I
 \end{rmk}
 
 \subsection{General form of transfer function}
-To model the situation, suppose the amplifier's operation is described by the ordinary differential equation
+Suppose the system is governed by an ODE with the input as forcing:
 \[
-  I(t) = \mathcal{L}_m O(t),
+  \mathcal{L}_m O(t) = I(t), \quad \text{where} \quad \mathcal{L}_m = \sum_{i = 0}^m a_i \frac{\d^i}{\d t^i}
 \]
-where
-\[
-  \mathcal{L}_m = \sum_{i = 0}^m a_i \frac{\d^i}{\d t^i}
-\]
-with $a_i \in \C$. In other words, we have an $m$th order ordinary differential equation with constant coefficients, and the input is the forcing function. Notice that we are not saying that $O(t)$ can be expressed as a function of derivatives of $I(t)$. Instead, $I(t)$ influences $O(t)$ by being the forcing term the differential equation has to satisfy. This makes sense because when we send an input into the amplifier, this input wave ``pushes'' the amplifier, and the amplifier is forced to react in some way to match the input.
+with constant coefficients $a_i \in \C$.
 
-Taking the Fourier transform and using $\mathcal{F}\left[\frac{\d O}{\d t}\right] = i\omega \tilde{O}(\omega)$, we have
-\[
-  \tilde{I}(\omega) = \sum_{j = 0}^m a_j (i\omega)^j \tilde{O}(\omega).
-\]
-So we get
-\[
-  \tilde{O}(\omega) = \frac{\tilde{I}(\omega)}{a_0 + i\omega a_1 + \cdots + (i\omega)^m a_m}.
-\]
-Hence, the transfer function is just
-\[
-  \tilde{R}(\omega) = \frac{1}{a_0 + i\omega a_1 + \cdots + (i\omega)^m a_m}.
-\]
-The denominator is an $n$th order polynomial. By the fundamental theorem of algebra, it has $m$ roots, say $c_j \in \C$ for $j = 1, \cdots, J$, where $c_j$ has multiplicity $k_j$. Then we can write our transfer function as
-\[
-  \tilde{R}(\omega) = \frac{1}{a_m} \prod_{j = 1}^J \frac{1}{(i\omega - c_j)^{k_j}}.
-\]
-By repeated use of partial fractions, we can write this as
-\[
-  \tilde{R}(\omega) = \sum_{j = 1}^J \sum_{r = 1}^{k_j} \frac{\Gamma_{rj}}{(i\omega - c_j)^r}
-\]
-for some constants $\Gamma_{rj} \in \C$.
+\begin{prop}[Transfer function for ODE systems]
+  \label{prop:transfer-ode}
+  For the system $\mathcal{L}_m O = I$, the transfer function is
+  \[
+    \tilde{R}(\omega) = \frac{1}{\sum_{j=0}^m a_j (i\omega)^j}.
+  \]
+  If the denominator has roots $c_j \in \C$ with multiplicities $k_j$, partial fractions give
+  \[
+    \tilde{R}(\omega) = \sum_{j = 1}^J \sum_{r = 1}^{k_j} \frac{\Gamma_{rj}}{(i\omega - c_j)^r}
+  \]
+  for constants $\Gamma_{rj} \in \C$.
+\end{prop}
 
-By linearity of the (inverse) Fourier transform, we can find $O(t)$ if we know the inverse Fourier transform of all functions of the form
-\[
-  \frac{1}{(i\omega - \alpha)^p}.
-\]
-To compute this, there are many possible approaches. We can try to evaluate the integral directly, learn some fancy tricks from complex analysis, or cheat, and let the lecturer tell you the answer. Consider the function
-\[
-  h_0(t) =
-  \begin{cases}
-    e^{\alpha t} & t > 0\\
-    0 & \text{otherwise}
-  \end{cases}
-\]
-The Fourier transform is then
-\[
-  \tilde{h}_o(\omega) = \int_{-\infty}^\infty e^{-i\omega t} h_0(t) \;\d t = \int_0^\infty e^{(\alpha - i \omega)t} \;\d t = \frac{1}{i\omega - \alpha}
-\]
-provided $\Re(\alpha) < 0$ (so that $e^{(\alpha - i\omega) t} \to 0$ as $t \to \infty$). Similarly, we can let
-\[
-  h_1(t) =
-  \begin{cases}
-    te^{\alpha t} & t > 0\\
-    0 & \text{otherwise}
-  \end{cases}
-\]
-Then we get
-\[
-  \tilde{h}_1(\omega) = \mathcal{F}[t h_0(t)] = i\frac{\d}{\d \omega} \mathcal{F}[h_0(t)] = \frac{1}{(i \omega - \alpha)^2}.
-\]
-Proceeding inductively, we can define
-\[
-  h_p(t) =
-  \begin{cases}
-    \frac{t^p}{p!} e^{\alpha t} & t > 0\\
-    0 & \text{otherwise}
-  \end{cases},
-\]
-and this has Fourier transform
-\[
-  \tilde{h}_p (\omega) = \frac{1}{(i \omega - \alpha)^{p + 1}},
-\]
-again provided $\Re(\alpha) < 0$. So the response function is a linear combination of these functions $h_p(t)$ (if any of the roots $c_j$ have non-negative real part, then it turns out the system is unstable, and is better analysed by the Laplace transform). We see that the response function does indeed vanish for all $t < 0$. In fact, each term (except $h_0$) increases from zero at $t = 0$ to rise to some maximum before eventually decaying exponentially.
+To find the response function, we need inverse Fourier transforms of terms $(i\omega - \alpha)^{-p}$.
 
-Fourier transforms can also be used to solve ordinary differential equations on the whole real line $\R$, provided the functions are sufficiently well-behaved. For example, suppose $y: \R \to \R$ solves
-\[
-  y'' - A^2 y = -f(x)
-\]
-with $y$ and $y' \to 0$ as $|x| \to \infty$. Taking the Fourier transform, we get
-\[
-  \tilde{y}(k) = \frac{\tilde{f}(k)}{k^2 + A^2}.
-\]
-Since this is a product, the inverse Fourier transform will be a convolution of $f(x)$ and an object whose Fourier transform is $\frac{1}{k^2 + A^2}$. Again, we'll cheat. Consider
-\[
-  h(x) = \frac{1}{2\mu} e^{-\mu|x|}.
-\]
-with $\mu > 0$. Then
-\begin{align*}
-  \tilde{f}(k) &= \frac{1}{2\mu} \int_{-\infty}^\infty e^{-ikx} e^{-\mu |x|}\;\d x\\
-  &= \frac{1}{\mu} \Re \int_0^\infty e^{-(\mu + ik)x}\;\d x \\
-  &= \frac{1}{\mu} \Re \frac{1}{ik + \mu} \\
-  &= \frac{1}{\mu^2 + k^2}.
-\end{align*}
-Therefore we get
-\[
-  y(x) = \frac{1}{2A} \int_{-\infty}^\infty e^{-A|x - u|} f(u)\;\d u.
-\]
-So far, we have done Fourier analysis over some abelian groups. For example, we've done it over $S^1$, which is an abelian group under multiplication, and $\R$, which is an abelian group under addition. We will next look at Fourier analysis over another abelian group, $\Z_m$, known as the discrete Fourier transform.
+\begin{lemma}[Inverse Fourier transform of rational functions]
+  \label{lem:inverse-fourier-rational}
+  For $\Re(\alpha) < 0$ and $p \geq 0$, define
+  \[
+    h_p(t) =
+    \begin{cases}
+      \frac{t^p}{p!} e^{\alpha t} & t > 0\\
+      0 & t \leq 0.
+    \end{cases}
+  \]
+  Then
+  \[
+    \mathcal{F}[h_p(t)] = \frac{1}{(i\omega - \alpha)^{p+1}}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  For $p = 0$: $\mathcal{F}[h_0] = \int_0^\infty e^{(\alpha - i\omega)t}\,\d t = \frac{1}{i\omega - \alpha}$, valid when $\Re(\alpha) < 0$.
+
+  For $p \geq 1$: use $\mathcal{F}[t \cdot g(t)] = i\frac{\d}{\d\omega}\mathcal{F}[g]$ inductively.
+\end{proof}
+
+\begin{rmk}[Stability]
+  The response function is a linear combination of terms $h_p(t)$, which vanish for $t < 0$ (causality). If any root $c_j$ has $\Re(c_j) \geq 0$, the system is unstable and better analysed via Laplace transforms.
+\end{rmk}
+
+\begin{eg}[ODE on the real line]
+  \label{eg:ode-real-line}
+  Consider $y'' - A^2 y = -f(x)$ on $\R$ with $y, y' \to 0$ as $|x| \to \infty$. Taking Fourier transforms:
+  \[
+    \tilde{y}(k) = \frac{\tilde{f}(k)}{k^2 + A^2}.
+  \]
+  Since $\mathcal{F}\left[\frac{1}{2\mu}e^{-\mu|x|}\right] = \frac{1}{\mu^2 + k^2}$ for $\mu > 0$, the solution is
+  \[
+    y(x) = \frac{1}{2A} \int_{-\infty}^\infty e^{-A|x - u|} f(u)\;\d u.
+  \]
+\end{eg}
+
+\begin{rmk}
+  Fourier analysis works over various abelian groups: $S^1$ (Fourier series), $\R$ (Fourier transform), and $\Z_N$ (discrete Fourier transform, discussed next).
+\end{rmk}
 
 \subsection{The discrete Fourier transform}
 Recall that the Fourier transform is defined as
