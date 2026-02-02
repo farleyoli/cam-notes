@@ -2452,17 +2452,21 @@ The inverse Fourier transform differs from the forward transform only by a facto
 \end{eg}
 
 \subsection{Parseval's theorem for Fourier transforms}
-\begin{thm}[Parseval's theorem (again)]
-  Suppose $f, g: \R \to \C$ are sufficiently well-behaved that $\tilde{f}$ and $\tilde{g}$ exist and we indeed have $\mathcal{F}^{-1}[\tilde{f}] = f, \mathcal{F}^{-1}[\tilde{g}] = g$. Then
+\begin{thm}[Parseval's theorem for Fourier transforms]
+  \label{thm:parseval-fourier}
+  Let $f, g: \R \to \C$ be functions such that $\tilde{f}, \tilde{g}$ exist and $\mathcal{F}^{-1}[\tilde{f}] = f$, $\mathcal{F}^{-1}[\tilde{g}] = g$. Then
   \[
     (f, g) = \int_\R f^*(x) g(x)\;\d x = \frac{1}{2\pi}(\tilde{f}, \tilde{g}).
   \]
-  In particular, if $f = g$, then
+  In particular,
   \[
     \|f\|^2 = \frac{1}{2\pi} \|\tilde{f}\|^2.
   \]
 \end{thm}
-So taking the Fourier transform preserves the $L^2$ norm (up to a constant factor of $\frac{1}{2 \pi}$).
+
+\begin{rmk}
+  The Fourier transform preserves the $L^2$ norm up to a factor of $\sqrt{2\pi}$. With the symmetric convention $\mathcal{F}[f] = \frac{1}{\sqrt{2\pi}} \int e^{-ikx} f(x)\,\d x$, it would be an isometry.
+\end{rmk}
 \begin{proof}
   \begin{align*}
     (f, g) &= \int_\R f^*(x) g(x)\;\d x\\
