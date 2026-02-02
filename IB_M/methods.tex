@@ -2075,125 +2075,126 @@ The power of distributions lies in allowing ``generalized functions'' that are n
   The two forms are equivalent since $\delta(x - \xi) = \frac{w(\xi)}{w(x)} \delta(x - \xi)$ (the factor only matters at $x = \xi$).
 \end{proof}
 \subsection{Green's functions}
-One of the main uses of the $\delta$ function is the Green's function. Suppose we wish to solve the 2nd order ordinary differential equation $\mathcal{L}y = f$, where $f(x)$ is a bounded forcing term, and $\mathcal{L}$ is a bounded differential operator, say
-\[
-  \mathcal{L} = \alpha(x) \frac{\partial^2}{\partial x^2} + \beta(x) \frac{\partial}{\partial x} + \gamma(x).
-\]
-As a first step, we try to find the Green's function for $\mathcal{L}$, which we shall write as $G(x, \xi)$, which obeys
-\[
-  \mathcal{L} G(x, \xi) = \delta(x - \xi).
-\]
-Given $G(x, \xi)$, we can then define
-\[
-  y(x) = \int_{a}^b G(x, \xi) f(\xi) \;\d \xi.
-\]
-Then we have
-\[
-  \mathcal{L}y = \int_a^b \mathcal{L} G(x, \xi) f(\xi)\;\d \xi = \int_a^b \delta(x - \xi) f(\xi) \;d\xi = f(x).
-\]
-We can formally say $y = \mathcal{L}^{-1} f$, and the Green's function shows that $\mathcal{L}^{-1}$ means an integral.
+One of the main applications of the Dirac delta is in solving differential equations via Green's functions.
 
-Hence if we can solve for Green's function, then we have solved the differential equation, at least in terms of an integral.
-
-To find the Green's function $G(x, \xi)$ obeying the boundary conditions
-\[
-  G(a, \xi) = G(b, \xi) = 0,
-\]
-first note that $\mathcal{L} G = 0$ for all $x \in [a, \xi) \cup (\xi, b]$, i.e.\ everywhere except $\xi$ itself. Thus we must be able to expand it in a basis of solutions in these two regions.
-
-Suppose $\{y_1(x), y_2(x)\}$ are a basis of solutions to $\mathcal{L}G = 0$ everywhere on $[a, b]$, with boundary conditions $y_1(a) = 0, y_2(b) = 0$. Then we must have
-\[
-  G(x, \xi) =
-  \begin{cases}
-    A(\xi) y_1(x) & a \leq x < \xi\\
-    B(\xi) y_2(x) & \xi < x \leq b
-  \end{cases}
-\]
-So we have a whole family of solutions. To fix the coefficients, we must decide how to join these solutions together over $x = \xi$.
-
-If $G(x, \xi)$ were discontinuous at $x = \xi$, then $\partial_x G|_{x = \xi}$ would involve a $\delta$ function, while $\partial^2_x G|_{x = \xi}$ would involve the derivative of the $\delta$ function. This is not good, since nothing in $\mathcal{L}G = \delta(x - \xi)$ would balance a $\delta'$. So $G(x, \xi)$ must be everywhere continuous. Hence we require
-\[
-  A(\xi) y_1 (\xi) = B(\xi) y_2(\xi).\tag{$*$}
-\]
-Now integrate over a small region $(\xi - \varepsilon, \xi + \varepsilon)$ surrounding $\xi$. Then we have
-\[
-  \int_{\xi - \varepsilon}^{\xi + \varepsilon} \left[\alpha(x) \frac{\d^2 G}{\d x^2} + \beta(x) \frac{\d G}{\d x} + \gamma(x) G\right]\;\d x = \int_{\xi - \varepsilon}^{\xi + \varepsilon} \delta(x - \xi)\;\d x = 1.
-\]
-By continuity of $G$, we know that the $\gamma G$ term does not contribute. While $G'$ is discontinuous, it is still finite. So the $\beta G'$ term also does not contribute. So we have
-\[
-  \lim_{\varepsilon \to 0} \int_{\xi - \varepsilon}^{\xi + \varepsilon} \alpha G'' \;\d x = 1.
-\]
-We now integrate by parts to obtain
-\[
-  \lim_{\varepsilon \to 0} [\alpha G']^{\xi + \varepsilon}_{\xi - \varepsilon} + \int_{\xi - \varepsilon}^{\xi + \varepsilon} \alpha' G' \;\d x = 1.
-\]
-Again, by finiteness of $G'$, the integral does not contribute. So we know that
-\[
-  \alpha(\xi)\left(\left.\frac{\partial G}{\partial x}\right|_{\xi^+} - \left.\frac{\partial G}{\partial x}\right|_{\xi^-}\right) = 1
-\]
-Hence we obtain
-\[
-  B(\xi) y'_2 (\xi) - A(\xi) y_1'(\xi) = \frac{1}{\alpha(\xi)}.
-\]
-Together with $(*)$, we know that
-\[
-  A(\xi) = \frac{y_2(\xi)}{\alpha(\xi) W(\xi)},\quad B(\xi) = \frac{y_1(\xi)}{\alpha(\xi)W(\xi)},
-\]
-where $W$ is the \emph{Wronskian}
-\[
-  W = y_1 y_2' - y_2y_1'.
-\]
-Hence, we know that
-\[
-  G(x, \xi) = \frac{1}{\alpha(\xi)W(\xi)}
-  \begin{cases}
-    y_2(\xi) y_1(x) & a \leq x \leq \xi\\
-    y_1(\xi) y_2(x) & \xi < x \leq b.
-  \end{cases}
-\]
-Using the step function $\Theta$, we can write this as
-\[
-  G(x, \xi) = \frac{1}{\alpha(\xi)W(\xi)} [\Theta (\xi - x) y_2(\xi)y_1(x) + \Theta(x - \xi)y_1(\xi)y_2(x)].
-\]
-So our general solution is
-\begin{align*}
-  y(x) &= \int_a^b G(x, \xi) f(\xi)\;\d \xi\\
-  &= \int_x^b \frac{f(\xi)}{\alpha(\xi)W(\xi)} y_2(\xi) y_1(x)\;\d \xi + \int_a^x \frac{f(\xi)}{\alpha(\xi)W(\xi)}y_1(\xi) y_2(x)\;\d \xi.
-\end{align*}
-
-\begin{eg}[Second-order ODE, Dirichlet Green's function]
-  Consider
+\begin{defi}[Green's function]
+  \label{def:greens-function}
+  Consider a linear differential operator $\mathcal{L}$ on $[a,b]$, such as
   \[
-    \mathcal{L}y= -y'' - y = f
+    \mathcal{L} = \alpha(x) \frac{\d^2}{\d x^2} + \beta(x) \frac{\d}{\d x} + \gamma(x).
   \]
-  for $x \in (0, 1)$ with $y(0) = y(1) = 0$. We choose our basis solution to satisfy $y'' = -y$ as $\{\sin x, \sin (1 - x)\}$. Then we can compute the Wronskian
+  The \emph{Green's function} $G(x, \xi)$ for $\mathcal{L}$ with given boundary conditions is the solution to
   \[
-    W(x) = -\sin x \cos(1 - x) - \sin (1 - x) \cos x = -\sin 1.
+    \mathcal{L}_x G(x, \xi) = \delta(x - \xi),
   \]
-  Our Green's function is
+  where $\mathcal{L}_x$ acts on the $x$ variable, satisfying the same homogeneous boundary conditions.
+\end{defi}
+
+\begin{prop}[Solution via Green's function]
+  \label{prop:greens-solution}
+  If $G(x, \xi)$ is the Green's function for $\mathcal{L}$ with homogeneous boundary conditions, then the solution to $\mathcal{L}y = f$ with those boundary conditions is
   \[
-    G(x, \xi) = \frac{1}{\sin 1}[\Theta(\xi - x) \sin (1 - \xi) \sin x + \Theta(x - \xi) \sin \xi \sin (1 - x)].
+    y(x) = \int_{a}^b G(x, \xi) f(\xi) \;\d \xi.
   \]
-  Hence we get
+\end{prop}
+\begin{proof}
+  Apply $\mathcal{L}$ to the integral:
   \[
-    y(x) = \sin x \int_{x}^1 \frac{\sin (1 - \xi)}{ \sin 1}f(\xi) \;\d \xi + \sin(1 - x)\int_0^x \frac{\sin \xi}{\sin 1}f(\xi)\;\d \xi.
+    \mathcal{L}y = \int_a^b \mathcal{L}_x G(x, \xi) f(\xi)\;\d \xi = \int_a^b \delta(x - \xi) f(\xi) \;\d\xi = f(x). \qedhere
+  \]
+\end{proof}
+
+\begin{remark}
+  The Green's function represents the ``inverse'' of $\mathcal{L}$: symbolically, $y = \mathcal{L}^{-1}f$, where $\mathcal{L}^{-1}$ is an integral operator with kernel $G$.
+\end{remark}
+
+\subsubsection{Construction of Green's function for boundary value problems}
+
+We construct the Green's function for Dirichlet boundary conditions $G(a, \xi) = G(b, \xi) = 0$.
+
+\begin{enumerate}
+  \item \textbf{Homogeneous solutions away from $\xi$}: Since $\mathcal{L}G = 0$ for $x \neq \xi$, we expand $G$ in homogeneous solutions. Let $y_1, y_2$ be a basis for $\mathcal{L}y = 0$ with $y_1(a) = 0$ and $y_2(b) = 0$. Then
+    \[
+      G(x, \xi) =
+      \begin{cases}
+        A(\xi) y_1(x) & a \leq x < \xi\\
+        B(\xi) y_2(x) & \xi < x \leq b.
+      \end{cases}
+    \]
+
+  \item \textbf{Continuity condition}: If $G$ were discontinuous at $\xi$, then $G''$ would contain $\delta'$, which cannot be balanced by $\mathcal{L}G = \delta$. Hence $G$ must be continuous:
+    \[
+      A(\xi) y_1(\xi) = B(\xi) y_2(\xi). \tag{$*$}
+    \]
+
+  \item \textbf{Jump condition on derivative}: Integrating $\mathcal{L}G = \delta(x-\xi)$ over $(\xi - \varepsilon, \xi + \varepsilon)$:
+    \[
+      \int_{\xi - \varepsilon}^{\xi + \varepsilon} \left[\alpha G'' + \beta G' + \gamma G\right]\d x = 1.
+    \]
+    The $\gamma G$ and $\beta G'$ terms vanish as $\varepsilon \to 0$ (since $G$ is continuous and $G'$ is bounded). Integration by parts gives
+    \[
+      \alpha(\xi)\left(G'(\xi^+) - G'(\xi^-)\right) = 1,
+    \]
+    yielding $B(\xi) y'_2(\xi) - A(\xi) y_1'(\xi) = 1/\alpha(\xi)$.
+\end{enumerate}
+
+\begin{defi}[Wronskian]
+  \label{def:wronskian}
+  The \emph{Wronskian} of two functions $y_1, y_2$ is $W = y_1 y_2' - y_2 y_1'$.
+\end{defi}
+
+\begin{thm}[Green's function for second-order BVP]
+  \label{thm:greens-bvp}
+  For the operator $\mathcal{L} = \alpha(x)\frac{d^2}{dx^2} + \beta(x)\frac{d}{dx} + \gamma(x)$ with Dirichlet conditions on $[a,b]$, the Green's function is
+  \[
+    G(x, \xi) = \frac{1}{\alpha(\xi)W(\xi)}
+    \begin{cases}
+      y_2(\xi) y_1(x) & a \leq x \leq \xi\\
+      y_1(\xi) y_2(x) & \xi < x \leq b,
+    \end{cases}
+  \]
+  where $y_1, y_2$ satisfy $\mathcal{L}y = 0$ with $y_1(a) = 0$, $y_2(b) = 0$, and $W$ is their Wronskian.
+
+  Equivalently, using the Heaviside step function $\Theta$:
+  \[
+    G(x, \xi) = \frac{\Theta(\xi - x) y_2(\xi)y_1(x) + \Theta(x - \xi)y_1(\xi)y_2(x)}{\alpha(\xi)W(\xi)}.
+  \]
+\end{thm}
+
+The general solution to $\mathcal{L}y = f$ is then
+\[
+  y(x) = y_1(x)\int_x^b \frac{y_2(\xi)f(\xi)}{\alpha(\xi)W(\xi)}\d\xi + y_2(x)\int_a^x \frac{y_1(\xi)f(\xi)}{\alpha(\xi)W(\xi)}\d\xi.
+\]
+
+\begin{eg}[Green's function for $-y'' - y = f$]
+  \label{eg:greens-sinusoidal}
+  Consider $\mathcal{L}y = -y'' - y = f$ on $(0, 1)$ with $y(0) = y(1) = 0$.
+
+  The homogeneous equation $y'' + y = 0$ has solutions $\sin x$ and $\sin(1-x)$ satisfying the boundary conditions at $x=0$ and $x=1$ respectively. The Wronskian is
+  \[
+    W = -\sin x \cos(1 - x) - \sin(1 - x) \cos x = -\sin 1.
+  \]
+  With $\alpha = -1$, the Green's function is
+  \[
+    G(x, \xi) = \frac{\Theta(\xi - x) \sin(1 - \xi) \sin x + \Theta(x - \xi) \sin\xi \sin(1 - x)}{\sin 1}.
+  \]
+  The solution is
+  \[
+    y(x) = \frac{\sin x}{\sin 1} \int_{x}^1 \sin(1 - \xi)f(\xi)\d\xi + \frac{\sin(1 - x)}{\sin 1}\int_0^x \sin\xi\, f(\xi)\d\xi.
   \]
 \end{eg}
 
 \begin{eg}[String under gravity]
-  Suppose we have a string with mass per unit length $\mu(x)$ and held under a tension $T$. In the presence of gravity, Newton's second law gives
+  \label{eg:greens-string}
+  A string with mass density $\mu(x)$ under tension $T$ satisfies (from Newton's second law)
   \[
     \mu\frac{\partial^2 y}{\partial t^2} = T \frac{\partial^2 y}{\partial x^2} + \mu g.
   \]
-  We look for the steady state solution $\dot{y} = 0$ shape of the string, assuming $y(0, t) = y(L, t) = 0$. So we get
+  For the steady state ($\partial_t y = 0$) with $y(0) = y(L) = 0$:
   \[
-    \frac{\partial^2 y}{\partial x^2} = -\frac{\mu(x)}{T}g.
+    \frac{d^2 y}{d x^2} = -\frac{\mu(x) g}{T}.
   \]
-  We look for a Green's function obeying
-  \[
-    \frac{\partial^2 y}{\partial x^2} = - \delta(x - \xi).
-  \]
-  This can be interpreted as the contribution of a pointlike mass located at $x = \xi$.
+  The Green's function satisfies $G'' = -\delta(x - \xi)$, representing a point mass at $x = \xi$:
   \begin{center}
     \begin{tikzpicture}
       \draw [gray] (-0.5, 0) -- (4.5, 0);
@@ -2208,44 +2209,27 @@ So our general solution is
       \draw [->] (1, -1) -- +(0, -0.5) node [below] {$y$};
     \end{tikzpicture}
   \end{center}
-  The homogeneous equation $y'' = 0$ gives
-  \[
-    y = Ax + B(x - L).
-  \]
-  So we get
+  The homogeneous solution $y'' = 0$ gives $y = Ax$ or $y = B(x - L)$. Thus
   \[
     G(x, \xi) =
     \begin{cases}
-      A(\xi x) & 0 \leq x < \xi\\
+      A(\xi) x & 0 \leq x < \xi\\
       B(\xi)(x - L) & \xi < x \leq L.
     \end{cases}
   \]
-  Continuity at $x = \xi$ gives
+  Continuity ($A\xi = B(\xi - L)$) and the jump condition ($B - A = 1$, since $\alpha = -1$) give
   \[
-    A(\xi)\xi = B(\xi) (\xi -L).
+    A(\xi) = \frac{\xi - L}{L},\quad B(\xi) = -\frac{\xi}{L}.
   \]
-  The jump condition on the derivative gives
+  The Green's function is
   \[
-    A(\xi) - B(\xi) = 1.
+    G(x, \xi) = \frac{(\xi - L)x}{L}\Theta(\xi - x) - \frac{\xi(x - L)}{L}\Theta(x - \xi).
   \]
-  We can solve these to get
+  The full solution is
   \[
-    A(\xi) = \frac{\xi - L}{L},\quad B(\xi) = \frac{\xi}{L}.
+    y(x) = \frac{g}{T} \int_0^L G(x, \xi) \mu(\xi)\;\d \xi,
   \]
-  Hence the Green's function is
-  \[
-    G(x, \xi) = \frac{\xi - L}{L} \Theta(\xi - x) + \frac{\xi}{L}(x - L) \Theta(x - \xi).
-  \]
-  Notice that $\xi$ is always less that $L$. So the first term has a negative slope; while $\xi$ is always positive, so the second term has positive slope.
-
-  For the general case, we can just substitute this into the integral. We can give this integral a physical interpretation. We can think that we have many pointlike particles $m_i$ at small separations $\Delta x$ along the string. So we get
-  \[
-    g(x) = \sum_{i = 1}^n G(x, x_i) \frac{m_i g}{T},
-  \]
-  and in the limit $\Delta x \to 0$ and $n \to \infty$, we get
-  \[
-    g(x) \to \frac{g}{T} \int_0^L G(x, \xi) \mu(\xi)\;\d \xi.
-  \]
+  representing the superposition of contributions from infinitesimal mass elements.
 \end{eg}
 \subsection{Green's functions for initial value problems}
 Consider $\mathcal{L}y = f(t)$ subject to $y(t = t_0) = 0$ and $y'(t = t_0) = 0$. So instead of having two boundaries, we have one boundary and restrict both the value and the derivative at this boundary.
