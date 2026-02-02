@@ -1904,144 +1904,176 @@ The answer is no, and we can explicitly construct two distinct drums that sound 
 
 \section{Distributions}
 \subsection{Distributions}
-When performing separation of variables, we also have the problem of convergence as well. To perform separation of variables, we first find some particular solutions of the form, say, $X(x)Y(y)Z(z)$. We know that these solve, say, the wave equation. However, what we do next is take an \emph{infinite} sum of these functions. First of all, how can we be sure that this converges at all? Even if it did, how do we know that the sum satisfies the differential equation? As we have seen in Fourier series, an infinite sum of continuous functions can be discontinuous. If it is not even continuous, how can we say it is a solution of a differential equation?
+When using separation of variables, we encounter convergence questions: does the infinite sum of separated solutions converge, and does it satisfy the differential equation? Since infinite sums of continuous functions can be discontinuous (as seen in Fourier series), we need a broader framework. This leads to \emph{distributions}, or generalized functions.
 
-Hence, at first people were rather skeptical of this method. They thought that while these methods worked, they only work on a small, restricted domain of problems. However, later people realized that this method is indeed rather general, as long as we allow some more ``generalized'' functions that are not functions in the usual sense. These are known as distributions.
+\begin{defi}[Test functions]
+  \label{def:test-functions}
+  The space of \emph{test functions} on $\Omega \subseteq \R^n$, denoted $D(\Omega)$ or $C^\infty_{\mathrm{cpt}}(\Omega)$, consists of all infinitely differentiable functions with compact support in $\Omega$.
+\end{defi}
 
-To define a distribution, we first pick a class of ``nice'' test functions, where ``nice'' means we can do whatever we want to them (e.g.\ differentiate, integrate etc.) A main example is the set of infinitely smooth functions with compact support on some set $K\subseteq \Omega$, written $C^{\infty}_{\mathrm{cpt}}(\Omega)$ or $D(\Omega)$. For example, we can have the bump function defined by
-\[
-  \phi(x) =
-  \begin{cases}
-    e^{-1/(1- x^2)} & |x| < 1\\
-    0 & \text{otherwise}.
-  \end{cases}
-\]
-\begin{center}
-  \begin{tikzpicture}[scale=1.5]
-    \draw [->] (-2, 0) -- (2, 0) node [right] {$x$};
-    \draw [->] (0, -0.5) -- (0, 1);
+\begin{eg}[Bump function]
+  \label{eg:bump-function}
+  A standard example is the bump function
+  \[
+    \phi(x) =
+    \begin{cases}
+      e^{-1/(1- x^2)} & |x| < 1\\
+      0 & \text{otherwise}.
+    \end{cases}
+  \]
+  \begin{center}
+    \begin{tikzpicture}[scale=1.5]
+      \draw [->] (-2, 0) -- (2, 0) node [right] {$x$};
+      \draw [->] (0, -0.5) -- (0, 1);
 
-    \draw [semithick, domain=-0.999:0.999, mblue] plot (\x, {exp (-1 / (1 - \x * \x))});
-    \draw [semithick, mblue] (-1.5, 0) -- (-1, 0);
-    \draw [semithick, mblue] (1, 0) -- (1.5, 0);
-  \end{tikzpicture}
-\end{center}
-We now define a distribution $T$ to be a linear map $T:D(\Omega) \to \R$. For those who are doing IB Linear Algebra, this is the dual space of the space of (``nice'') real-valued functions. For $\phi \in D(\Omega)$, we often write its image under $T$ as $T[\phi]$.
+      \draw [semithick, domain=-0.999:0.999, mblue] plot (\x, {exp (-1 / (1 - \x * \x))});
+      \draw [semithick, mblue] (-1.5, 0) -- (-1, 0);
+      \draw [semithick, mblue] (1, 0) -- (1.5, 0);
+    \end{tikzpicture}
+  \end{center}
+\end{eg}
 
-\begin{eg}[Function as distribution]
-  The simplest example is just an ordinary function that is integrable over any compact region. Then we define the distribution $T_f$ as
+\begin{defi}[Distribution]
+  \label{def:distribution}
+  A \emph{distribution} on $\Omega$ is a continuous linear functional $T: D(\Omega) \to \R$. For $\phi \in D(\Omega)$, we write the value of $T$ at $\phi$ as $T[\phi]$.
+\end{defi}
+
+\begin{eg}[Regular distribution]
+  \label{eg:regular-distribution}
+  Any locally integrable function $f$ defines a distribution $T_f$ by
   \[
     T_f[\phi] = \int_\Omega f(x) \phi(x) \;\d x.
   \]
-  Note that this is a linear map since integration is linear (and multiplication is commutative and distributes over addition). Hence every function ``is'' a distribution.
+  Linearity follows from linearity of integration. Thus every function can be viewed as a distribution.
 \end{eg}
-Of course, this would not be interesting if we only had ordinary functions. The most important example of a distribution (that is not an ordinary function) is the Dirac delta ``function''.
-\begin{defi}[Dirac-delta]
-  The \emph{Dirac-delta} is a distribution defined by
+
+The power of distributions lies in allowing ``generalized functions'' that are not ordinary functions.
+
+\begin{defi}[Dirac delta distribution]
+  \label{def:dirac-delta}
+  The \emph{Dirac delta} is the distribution $\delta: D(\Omega) \to \R$ defined by
   \[
     \delta[\phi] = \phi(0).
   \]
+  More generally, for $a \in \Omega$, the \emph{shifted Dirac delta} is $\delta_a[\phi] = \phi(a)$.
 \end{defi}
-By analogy with the first case, we often abuse notation and write
-\[
-  \delta[\phi] = \int_\Omega \delta(x) \phi(x) \;\d x,
-\]
-and pretend $\delta(x)$ is an actual function. Of course, it is not really a function, i.e.\ it is not a map $\Omega \to \R$. If it were, then we must have $\delta(x) = 0$ whenever $x \not = 0$, since $\delta[\phi] = \phi(0)$ only depends on what happens at $0$. But then this integral will just give $0$ if $\delta(0) \in \R$. Some people like to think of this as a function that is zero anywhere and ``infinitely large'' everywhere else. Formally, though, we have to think of it as a distribution.
 
-Although distributions can be arbitrarily singular and insane, we can nonetheless define \emph{all} their derivatives, defined by
-\[
-  T'[\phi] = -T[\phi'].
-\]
-This is motivated by the case of regular functions, where we get, after integrating by parts,
-\[
-  \int_\Omega f'(x) \phi(x)\;\d x = -\int_\Omega f(x)\phi'(x) \;\d x,
-\]
-with no boundary terms since we have a compact support. Since $\phi$ is infinitely differentiable, we can take arbitrary derivatives of distributions.
+\begin{remark}
+  By analogy with regular distributions, we write symbolically
+  \[
+    \delta[\phi] = \int_\Omega \delta(x) \phi(x) \;\d x,
+  \]
+  treating $\delta(x)$ as if it were a function. However, $\delta$ is \emph{not} a function: if $\delta(x) = 0$ for $x \neq 0$ (as required since $\delta[\phi]$ depends only on $\phi(0)$), then the integral would vanish for any finite $\delta(0)$. Informally, one thinks of $\delta$ as ``zero everywhere except at the origin, where it is infinite.''
+\end{remark}
 
-So even though distributions can be crazy and singular, everything can be differentiated. This is good.
+\begin{defi}[Derivative of a distribution]
+  \label{def:distributional-derivative}
+  The \emph{derivative} of a distribution $T$ is the distribution $T'$ defined by
+  \[
+    T'[\phi] = -T[\phi'].
+  \]
+  More generally, the $k$-th derivative is $T^{(k)}[\phi] = (-1)^k T[\phi^{(k)}]$.
+\end{defi}
 
-Generalized functions can occur as limits of sequences of normal functions. For example, the family of functions
-\[
-  G_n(x) = \frac{n}{\sqrt{\pi}} \exp(-n^2 x^2)
-\]
-are smooth for any finite $n$, and $G_n[\phi] \to \delta[\phi]$ for any $\phi$.
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (-3, 0) -- (3.25, 0) node [right] {$t$};
-    \draw [->, use as bounding box] (0, 0) -- (0, 4) node [above] {$D$};
+\begin{remark}
+  This definition is motivated by integration by parts: for a regular distribution $T_f$,
+  \[
+    \int_\Omega f'(x) \phi(x)\;\d x = -\int_\Omega f(x)\phi'(x) \;\d x,
+  \]
+  with no boundary terms since $\phi$ has compact support. Since test functions are infinitely differentiable, \emph{every distribution has derivatives of all orders}.
+\end{remark}
 
-    \draw [semithick, mblue, domain=-3:3, samples = 100] plot (\x, { 1.6 * exp( - \x * \x)});
-    \draw [semithick, morange, domain=-3:3, samples = 100] plot (\x, { 3.2 * exp( - 4 * \x * \x)});
-  \end{tikzpicture}
-\end{center}
-It thus makes sense to define
-\[
-  \delta'(\phi) = -\delta[\phi'] = -\phi'(0),
-\]
-as this is the limit of the sequence
-\[
-  \lim_{n \to \infty}\int_\Omega G'_n(x) \phi(x)\;\d x.
-\]
-It is often convenient to think of $\delta(x)$ as $\lim\limits_{n \to \infty} G_n(x)$, and $\delta'(x) = \lim\limits_{n \to \infty} G'_n(x)$ etc, despite the fact that these limits do not exist as functions.
+\begin{eg}[Delta as a limit of smooth functions]
+  \label{eg:delta-limit}
+  The Gaussians
+  \[
+    G_n(x) = \frac{n}{\sqrt{\pi}} \exp(-n^2 x^2)
+  \]
+  are smooth and satisfy $\int G_n = 1$. As $n \to \infty$, they become increasingly peaked at the origin:
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (-3, 0) -- (3.25, 0) node [right] {$x$};
+      \draw [->, use as bounding box] (0, 0) -- (0, 4) node [above] {$G_n$};
 
-We can look at some properties of $\delta(x)$:
-\begin{itemize}
-  \item Translation:
-    \[
-      \int_{-\infty}^\infty \delta(x - a) \phi(x)\;\d x = \int_{-\infty}^\infty \delta(y) \phi(y + a)\;\d x.
-    \]
-  \item Scaling:
-    \[
-      \int_{-\infty}^\infty \delta(cx) \phi(x)\;\d x = \int_{-\infty}^\infty \delta(y) \phi\left(\frac{y}{c}\right) \frac{\d y}{|c|} = \frac{1}{|c|}\phi(0).
-    \]
-  \item These are both special cases of the following: suppose $f(x)$ is a continuously differentiable function with isolated simple zeros at $x_i$. Then near any of its zeros $x_i$, we have $f(x) \approx (x - x_i) \left.\frac{\partial f}{\partial x}\right|_{x_i}$. Then
-    \begin{align*}
-      \int_{-\infty}^\infty \delta(f(x)) \phi(x)\;\d x &= \sum_{i = 1}^n \int_{-\infty}^\infty \delta\left((x - x_i)\left.\frac{\partial f}{\partial x}\right|_{x_i}\right) \phi(x)\;\d x \\
-      &= \sum_{i = 1}^n \frac{1}{|f'(x_i)|} \phi(x_i).
-    \end{align*}
-\end{itemize}
-We can also expand the $\delta$-function in a basis of eigenfunctions. Suppose we live in the interval $[-L, L]$, and write a Fourier expansion
-\[
-  \delta(x) = \sum_{n \in \Z}\hat{\delta}_n e^{in\pi x/L}
-\]
-with
-\[
-  \hat{\delta}_n = \frac{1}{2L} \int_{-L}^L e^{in\pi x/L}\delta(x)\;\d x = \frac{1}{2L}
-\]
-So we have
-\[
-  \delta(x) = \frac{1}{2L} \sum_{n \in \Z} e^{in\pi x/L}.
-\]
-This \emph{does} make sense as a distribution. We let
-\[
-  S_N \delta(x) = \frac{1}{2L} \sum_{n = -N}^N e^{in \pi x/L}.
-\]
-Then
-\begin{align*}
-  \lim_{N \to \infty} \int_{-L}^L S_N \delta(x) \phi(x)\;\d x &= \lim_{N \to \infty} \frac{1}{2L}\int_{L}^L \sum_{n = -N}^N e^{in\pi x/L}\phi(x) \;\d x\\
-  &= \lim_{N \to \infty} \sum_{n = -N}^N \left[\frac{1}{2L}\int_{-L}^L e^{in\pi x/L} \phi(x) \;\d x\right]\\
-  &= \lim_{N\to \infty} \sum_{n = -N}^N \hat{\phi}_{-n}\\
-  &= \lim_{N \to \infty}\sum_{n = -N}^N \hat{\phi}_n e^{in\pi 0/L}\\
-  &= \phi(0),
-\end{align*}
-since the Fourier series of the smooth function $\phi(x)$ \emph{does} converge for all $x \in [-L, L]$.
+      \draw [semithick, mblue, domain=-3:3, samples = 100] plot (\x, { 1.6 * exp( - \x * \x)});
+      \draw [semithick, morange, domain=-3:3, samples = 100] plot (\x, { 3.2 * exp( - 4 * \x * \x)});
+    \end{tikzpicture}
+  \end{center}
+  As distributions, $G_n \to \delta$: for any test function $\phi$, we have $\int G_n(x)\phi(x)\,dx \to \phi(0)$.
+\end{eg}
 
-We can equally well expand $\delta(x)$ in terms of any other set of orthonormal eigenfunctions. Let $\{y_n(x)\}$ be a complete set of eigenfunctions on $[a, b]$ that are orthogonal with respect to a weight function $w(x)$. Then we can write
-\[
-  \delta (x - \xi) = \sum_{n} c_n y_n(x),
-\]
-with
-\[
-  c_n = \int_a^b y_n^*(x) \delta(x - \xi) w(x)\;\d x = y_n^*(\xi) w(\xi).
-\]
-So
-\[
-  \delta(x - \xi) = w(\xi) \sum_n y_n^* (\xi) y_n(x) = w(x) \sum_n y_n^*(\xi) y_n(x),
-\]
-using the fact that
-\[
-  \delta(x - \xi) = \frac{w(\xi)}{w(x)} \delta(x - \xi).
-\]
+\begin{eg}[Derivative of delta]
+  \label{eg:delta-derivative}
+  By definition,
+  \[
+    \delta'[\phi] = -\delta[\phi'] = -\phi'(0).
+  \]
+  This can also be viewed as $\lim_{n \to \infty} G'_n$ in the distributional sense.
+\end{eg}
+
+\begin{prop}[Properties of the Dirac delta]
+  \label{prop:delta-properties}
+  The Dirac delta satisfies:
+  \begin{enumerate}
+    \item \emph{Translation}: $\displaystyle\int_{-\infty}^\infty \delta(x - a) \phi(x)\;\d x = \phi(a)$.
+    \item \emph{Scaling}: For $c \neq 0$, $\displaystyle\int_{-\infty}^\infty \delta(cx) \phi(x)\;\d x = \frac{1}{|c|}\phi(0)$, i.e., $\delta(cx) = \frac{1}{|c|}\delta(x)$.
+    \item \emph{Composition}: If $f$ is continuously differentiable with simple zeros at $\{x_i\}$, then
+      \[
+        \delta(f(x)) = \sum_i \frac{\delta(x - x_i)}{|f'(x_i)|}.
+      \]
+  \end{enumerate}
+\end{prop}
+\begin{proof}
+  For (1), substitute $y = x - a$. For (2), substitute $y = cx$ to get
+  \[
+    \int \delta(cx)\phi(x)\,dx = \int \delta(y)\phi(y/c)\frac{dy}{|c|} = \frac{\phi(0)}{|c|}.
+  \]
+  For (3), near each zero $x_i$, we have $f(x) \approx (x - x_i)f'(x_i)$, so by (2),
+  \[
+    \int \delta(f(x))\phi(x)\,dx = \sum_i \int \delta((x-x_i)f'(x_i))\phi(x)\,dx = \sum_i \frac{\phi(x_i)}{|f'(x_i)|}. \qedhere
+  \]
+\end{proof}
+\subsubsection{Eigenfunction expansions of delta}
+
+\begin{prop}[Fourier expansion of delta]
+  \label{prop:delta-fourier}
+  On the interval $[-L, L]$,
+  \[
+    \delta(x) = \frac{1}{2L} \sum_{n \in \Z} e^{in\pi x/L}
+  \]
+  in the sense of distributions.
+\end{prop}
+\begin{proof}
+  Computing the Fourier coefficients:
+  \[
+    \hat{\delta}_n = \frac{1}{2L} \int_{-L}^L e^{-in\pi x/L}\delta(x)\;\d x = \frac{1}{2L}.
+  \]
+  To verify this makes sense as a distribution, let $S_N\delta(x) = \frac{1}{2L} \sum_{n = -N}^N e^{in \pi x/L}$. Then
+  \begin{align*}
+    \lim_{N \to \infty} \int_{-L}^L S_N \delta(x) \phi(x)\;\d x &= \lim_{N \to \infty} \sum_{n = -N}^N \frac{1}{2L}\int_{-L}^L e^{in\pi x/L}\phi(x) \;\d x\\
+    &= \lim_{N\to \infty} \sum_{n = -N}^N \hat{\phi}_{-n} = \phi(0),
+  \end{align*}
+  since the Fourier series of the smooth function $\phi$ converges pointwise.
+\end{proof}
+
+\begin{prop}[General eigenfunction expansion of delta]
+  \label{prop:delta-eigenfunction}
+  Let $\{y_n(x)\}$ be a complete orthonormal set of eigenfunctions on $[a, b]$ with respect to weight $w(x)$, i.e.,
+  \[
+    \int_a^b y_m^*(x) y_n(x) w(x)\,dx = \delta_{mn}.
+  \]
+  Then
+  \[
+    \delta(x - \xi) = w(\xi) \sum_n y_n^*(\xi) y_n(x) = w(x) \sum_n y_n^*(\xi) y_n(x).
+  \]
+\end{prop}
+\begin{proof}
+  Expanding $\delta(x - \xi) = \sum_n c_n y_n(x)$, the coefficients are
+  \[
+    c_n = \int_a^b y_n^*(x) \delta(x - \xi) w(x)\;\d x = y_n^*(\xi) w(\xi).
+  \]
+  The two forms are equivalent since $\delta(x - \xi) = \frac{w(\xi)}{w(x)} \delta(x - \xi)$ (the factor only matters at $x = \xi$).
+\end{proof}
 \subsection{Green's functions}
 One of the main uses of the $\delta$ function is the Green's function. Suppose we wish to solve the 2nd order ordinary differential equation $\mathcal{L}y = f$, where $f(x)$ is a bounded forcing term, and $\mathcal{L}$ is a bounded differential operator, say
 \[
