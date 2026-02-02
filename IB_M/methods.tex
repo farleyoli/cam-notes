@@ -2232,61 +2232,70 @@ The general solution to $\mathcal{L}y = f$ is then
   representing the superposition of contributions from infinitesimal mass elements.
 \end{eg}
 \subsection{Green's functions for initial value problems}
-Consider $\mathcal{L}y = f(t)$ subject to $y(t = t_0) = 0$ and $y'(t = t_0) = 0$. So instead of having two boundaries, we have one boundary and restrict both the value and the derivative at this boundary.
+For initial value problems (IVPs), we specify both the function value and its derivative at a single point, rather than values at two boundary points.
 
-As before, let $y_1(t), y_2(t)$ be \emph{any} basis of solutions to $\mathcal{L} y = 0$. The Green's function obeys
-\[
-  \mathcal{L}(G) = \delta(t - \tau).
-\]
-We can write our Green's function as
-\[
-  G(t, \tau) =
-  \begin{cases}
-    A(\tau) y_1(t) + B(\tau) y_2(t) & t_0 \leq t < \tau\\
-    C(\tau) y_1(t) + D(\tau) y_2(t) & t > \tau.
-  \end{cases}
-\]
-Our initial conditions require that
-\[
-  \begin{pmatrix}
-    y_1(t_0) & y_2(t_0)\\
-    y_1'(t_0) & y_2'(t_0)
-  \end{pmatrix}
-  \begin{pmatrix}
-    A\\
-    B
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    0\\0
-  \end{pmatrix}
-\]
-However, we know that the matrix is non-singular (by definition of $y_1, y_2$ being a basis). So we must have $A, B = 0$ (which makes sense, since $G = 0$ is obviously a solution for $t_0 \leq t < \tau$).
+\begin{defi}[Green's function for IVP]
+  \label{def:greens-ivp}
+  Consider $\mathcal{L}y = f(t)$ with initial conditions $y(t_0) = y'(t_0) = 0$. The \emph{causal Green's function} satisfies $\mathcal{L}_t G(t, \tau) = \delta(t - \tau)$ with $G(t_0, \tau) = \partial_t G(t_0, \tau) = 0$.
+\end{defi}
 
-Our continuity and jump conditions now require
-\begin{align*}
-  0 &= C(\tau) t_1(t) + D(\tau) y_2(t)\\
-  \frac{1}{\alpha(\tau)} &= C(\tau) y_1'(\tau) + D(\tau) y_2'(\tau).
-\end{align*}
-We can solve this to get $C(\tau)$ and $D(\tau)$. Then we get
-\[
-  y(t) = \int_{t_0}^\infty G(t, \tau) f(\tau)\;\d \tau = \int_{t_0}^t G(t, \tau) f(\tau) \;\d \tau,
-\]
-since we know that when $\tau > t$, the Green's function $G(t, \tau) = 0$. Thus the solution $y(t)$ depends on the forcing term $f$ only for times $ < t$. This expresses causality!
+\begin{prop}[Structure of causal Green's function]
+  \label{prop:causal-greens}
+  Let $y_1, y_2$ be any basis of solutions to $\mathcal{L}y = 0$. The causal Green's function has the form
+  \[
+    G(t, \tau) =
+    \begin{cases}
+      0 & t_0 \leq t < \tau\\
+      C(\tau) y_1(t) + D(\tau) y_2(t) & t > \tau.
+    \end{cases}
+  \]
+\end{prop}
+\begin{proof}
+  For $t < \tau$, write $G = A(\tau)y_1(t) + B(\tau)y_2(t)$. The initial conditions give
+  \[
+    \begin{pmatrix}
+      y_1(t_0) & y_2(t_0)\\
+      y_1'(t_0) & y_2'(t_0)
+    \end{pmatrix}
+    \begin{pmatrix}
+      A \\ B
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      0 \\ 0
+    \end{pmatrix}.
+  \]
+  Since $y_1, y_2$ are linearly independent, the matrix (the Wronskian at $t_0$) is non-singular, so $A = B = 0$.
 
-\begin{eg}[Simple harmonic oscillator, Green's function]
-  For example, suppose we have $\ddot{y} + y = f(t)$ with $f(0) = \dot{y}(0) = 0$. Then we have
+  For $t > \tau$, the coefficients $C, D$ are determined by continuity at $\tau$ and the jump condition on $G'$.
+\end{proof}
+
+\begin{thm}[Causality]
+  \label{thm:causality}
+  The solution to the IVP $\mathcal{L}y = f$ with $y(t_0) = y'(t_0) = 0$ is
   \[
-    G(t, \tau) = \Theta(t - \tau) [C(\tau) \cos(t - \tau) + D(\tau) \sin (t - \tau)]
+    y(t) = \int_{t_0}^t G(t, \tau) f(\tau)\;\d \tau.
   \]
-  for some $C(\tau), D(\tau)$. The continuity and jump conditions gives $D(\tau) = 1, C(\tau) = 0$. So we get
+  The upper limit is $t$ (not $\infty$) because $G(t, \tau) = 0$ for $\tau > t$. This expresses \emph{causality}: the solution at time $t$ depends only on the forcing at earlier times.
+\end{thm}
+
+\begin{eg}[Simple harmonic oscillator]
+  \label{eg:greens-sho}
+  Consider $\ddot{y} + y = f(t)$ with $y(0) = \dot{y}(0) = 0$.
+
+  The homogeneous solutions are $\cos t$ and $\sin t$. For $t > \tau$, we write
   \[
-    G(t, \tau) = \Theta(t - \tau) \sin t(\tau).
+    G(t, \tau) = C(\tau) \cos(t - \tau) + D(\tau) \sin(t - \tau),
   \]
-  So we get
+  using shifted solutions for convenience. Continuity at $t = \tau$ gives $C(\tau) = 0$. The jump condition (with $\alpha = 1$) gives $D(\tau) = 1$. Thus
   \[
-    y(t) = \int_0^t \sin (t - \tau) f(\tau) \;\d \tau.
+    G(t, \tau) = \Theta(t - \tau) \sin(t - \tau),
   \]
+  and the solution is
+  \[
+    y(t) = \int_0^t \sin(t - \tau) f(\tau) \;\d \tau.
+  \]
+  This is a \emph{convolution} of $\sin t$ with the forcing $f(t)$.
 \end{eg}
 
 \section{Fourier transforms}
