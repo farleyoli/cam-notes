@@ -3050,13 +3050,15 @@ To classify these differential equations, we need to define
     \sigma^p (\mathbf{k}, x) = -\sum_{i = 1}^{n - 1}(k_i)^2.
   \]
 \end{eg}
-Note that the symbol is closely related to the Fourier transform of the differential operator, since both turn differentiation into multiplication. Indeed, they are equal if the coefficients are constant. However, we define this symbol for arbitrary differential operators with non-constant coefficients.
+\begin{remark}
+  The symbol is closely related to the Fourier transform of the differential operator, since both turn differentiation into multiplication. Indeed, they are equal when the coefficients are constant. However, the symbol is defined for arbitrary differential operators, including those with non-constant coefficients.
+\end{remark}
 
-In general, for each $x$, we can write
+For each $x$, the principal part of the symbol can be written as the quadratic form
 \[
   \sigma^p (\mathbf{k}, x) = \mathbf{k}^T A(x)\mathbf{k},
 \]
-where $A(x)$ has elements $a^{ij}(x)$. Recall that a real symmetric matrix (such as $A$) has all real eigenvalues. So we define the following:
+where $A(x)$ is the symmetric matrix with entries $a^{ij}(x)$. Since $A(x)$ is real and symmetric, it has real eigenvalues, which allows us to classify the differential operator based on the signs of these eigenvalues.
 
 \begin{defi}[Elliptic, hyperbolic, ultra-hyperbolic and parabolic differential operators]
   Let $\mathcal{L}$ be a differential operator. We say $\mathcal{L}$ is
@@ -3068,7 +3070,10 @@ where $A(x)$ has elements $a^{ij}(x)$. Recall that a real symmetric matrix (such
   \end{itemize}
   We say $\mathcal{L}$ is elliptic if $\mathcal{L}$ is elliptic at all $x$, and similarly for the other terms.
 \end{defi}
-These names are supposed to remind us of conic sections, and indeed if we think of $\mathbf{k}^T A\mathbf{k}$ as an equation in $\mathbf{k}$, then we get a conic section.
+
+\begin{remark}
+  The terminology is motivated by conic sections: the equation $\mathbf{k}^T A\mathbf{k} = 1$ defines an ellipse, hyperbola, or parabola depending on the signs of the eigenvalues of $A$.
+\end{remark}
 
 \begin{eg}[PDE classification in two dimensions]
   Let
@@ -3096,62 +3101,104 @@ These names are supposed to remind us of conic sections, and indeed if we think 
 
 \subsubsection*{Characteristic surfaces}
 \begin{defi}[Characteristic surface]
-  Given a differential operator $\mathcal{L}$, let
+  Given a second-order differential operator $\mathcal{L}$ with principal symbol matrix $A(x)$, let
   \[
     f(x^1, x^2, \cdots, x^n) = 0
   \]
-  define a surface $C \subseteq \R^n$. We say $C$ is \emph{characteristic} if
+  define a surface $C \subseteq \R^n$. We say $C$ is a \emph{characteristic surface} if
   \[
-    \sum_{i, j = 1}^n a^{ij}(x) \frac{\partial f}{\partial x^i} \frac{\partial f}{\partial x^j} = (\nabla f)^T A (\nabla f) = \sigma^p(\nabla f, x) = 0.
+    \sigma^p(\nabla f, x) = (\nabla f)^T A(x) (\nabla f) = \sum_{i, j = 1}^n a^{ij}(x) \frac{\partial f}{\partial x^i} \frac{\partial f}{\partial x^j} = 0.
   \]
-  In the case where we only have two dimensions, a characteristic surface is just a curve.
+  In two dimensions, a characteristic surface is simply a curve, called a \emph{characteristic curve}.
 \end{defi}
-We see that the characteristic equation restricts what values $\nabla f$ can take. Recall that $\nabla f$ is the normal to the surface $C$. So in general, at any point, we can find what the normal of the surface should be, and stitch these together to form the full characteristic surfaces.
 
-For an elliptic operator, all the eigenvalues of $A$ have the same sign. So there are no non-trivial real solutions to this equation $(\nabla f)^T A (\nabla f) = 0$. Consequently, elliptic operators have no real characteristics. So the method of characteristics would not be of any use when studying, say, Laplace's equation, at least if we want to stay in the realm of real numbers.
+\begin{remark}
+  The characteristic equation $(\nabla f)^T A (\nabla f) = 0$ constrains the possible values of $\nabla f$. Since $\nabla f$ is normal to the surface $C$, this determines the allowed normal directions at each point. Characteristic surfaces are constructed by integrating these normal directions.
+\end{remark}
 
-If $\mathcal{L}$ is parabolic, we for simplicity assume that $A$ has exactly one zero eigenvector, say $\mathbf{n}$, and the other eigenvalues have the same sign. This is the case when, say, there are just two dimensions. So we have $A \mathbf{n} = \mathbf{n}^T A = \mathbf{0}$. We normalize $\mathbf{n}$ such that $\mathbf{n}\cdot \mathbf{n} = 1$.
+We now analyze the existence of characteristics for each type of operator.
 
-For any $\nabla f$, we can always decompose it as
-\[
-  \nabla f = \mathbf{n} (\mathbf{n} \cdot \nabla f) + [\nabla f - \mathbf{n}\cdot (\mathbf{n}\cdot \nabla f)].
-\]
-This is a relation that is trivially true, since we just add and subtract the same thing. Note, however, that the first term points along $\mathbf{n}$, while the latter term is orthogonal to $\mathbf{n}$. To save some writing, we adopt the notation
-\[
-  \nabla_\perp f = \nabla f - \mathbf{n}(\mathbf{n} \cdot \nabla \mathbf{f}).
-\]
-So we have
-\[
-  \nabla f = \mathbf{n}(\mathbf{n}\cdot \nabla f) + \nabla f_\perp.
-\]
-Then we can compute
-\begin{align*}
-  (\nabla f)^T A(\nabla f) &= [\mathbf{n}(\mathbf{n}\cdot \nabla f) + \nabla_\perp f]^T A[\mathbf{n}(\mathbf{n}\cdot \nabla f) + \nabla_\perp f]\\
-  &= (\nabla_\perp f)^T A(\nabla_\perp f).
-\end{align*}
-Then by assumption, $(\nabla_\perp f)^T A(\nabla_\perp f)$ is definite. So just as in the elliptic case, there are no non-trivial solutions. Hence, if $f$ defines a characteristic surface, then $\nabla_\perp f = 0$. In other words, $f$ is parallel to $\mathbf{n}$. So at any point, the normal to a characteristic surface must be $\mathbf{n}$, and there is only one possible characteristic.
+\begin{prop}[Characteristics of elliptic operators]
+  An elliptic operator has no real characteristic surfaces.
+\end{prop}
 
-If $\mathcal{L}$ is hyperbolic, we assume all but one eigenvalues are positive, and let $-\lambda$ be the unique negative eigenvalue. We let $\mathbf{n}$ be the corresponding unit eigenvector, where we normalize it such that $\mathbf{n}\cdot \mathbf{n} = 1$. We say $f$ is characteristic if
-\begin{align*}
-  0 &= (\nabla f)^T A(\nabla f) \\
-  &= [\mathbf{n}(\mathbf{n}\cdot \nabla f) + \nabla_\perp f]^T A[\mathbf{n}(\mathbf{n}\cdot \nabla f) + \nabla_\perp f]\\
-  &= -\lambda (\mathbf{n}\cdot \nabla f)^2 + (\nabla_\perp f)^T A(\nabla_\perp f).
-\end{align*}
-Consequently, for this to be a characteristic, we need
-\[
-  \mathbf{n}\cdot \nabla f = \pm \sqrt{\frac{(\nabla_\perp f)^T A(\nabla_\perp f)}{\lambda}}.
-\]
-So there are two choices for $\mathbf{n}\cdot \nabla f$, given any $\nabla_\perp f$. So hyperbolic equations have two characteristic surfaces through any point. % why?
+\begin{proof}
+  For an elliptic operator, all eigenvalues of $A$ have the same sign, so $(\nabla f)^T A (\nabla f)$ is a definite quadratic form. The only solution to $(\nabla f)^T A (\nabla f) = 0$ is $\nabla f = 0$, which does not define a surface.
+\end{proof}
 
-This is not too helpful in general. However, in the case where we have two dimensions, we can find the characteristic curves explicitly. Suppose our curve is given by $f(x, y) = 0$. We can write $y = y(x)$. Then since $f$ is constant along each characteristic, by the chain rule, we know
-\[
-  0 = \frac{\partial f}{\partial x} + \frac{\partial f}{\partial y} \frac{\d y}{\d x}.
-\]
-Hence, we can compute
-\[
-  \frac{\d y}{\d x} = -\frac{-b \pm \sqrt{b^2 - ac}}{a}.
-\]
-We now see explicitly how the type of the differential equation influences the number of characteristics --- if $b^2 - ac > 0$, then we obtain two distinct differential equations and obtain two solutions; if $b^2 - ac = 0$, then we only have one equation; if $b^2 - ac < 0$, then there are no real characteristics.
+\begin{remark}
+  Since elliptic operators have no real characteristics, the method of characteristics is not useful for equations like Laplace's equation, at least when working with real numbers.
+\end{remark}
+
+\begin{prop}[Characteristics of parabolic operators]
+  A parabolic operator (with exactly one zero eigenvalue) has a unique family of characteristic surfaces.
+\end{prop}
+
+\begin{proof}
+  Assume $A$ has exactly one zero eigenvector $\mathbf{n}$ (normalized so that $\mathbf{n} \cdot \mathbf{n} = 1$), with all other eigenvalues having the same sign. Then $A \mathbf{n} = \mathbf{0}$.
+
+  Decompose $\nabla f$ into components parallel and perpendicular to $\mathbf{n}$:
+  \[
+    \nabla f = \mathbf{n}(\mathbf{n}\cdot \nabla f) + \nabla_\perp f,
+  \]
+  where $\nabla_\perp f = \nabla f - \mathbf{n}(\mathbf{n} \cdot \nabla f)$ is the component orthogonal to $\mathbf{n}$.
+
+  Computing the characteristic condition:
+  \begin{align*}
+    (\nabla f)^T A(\nabla f) &= [\mathbf{n}(\mathbf{n}\cdot \nabla f) + \nabla_\perp f]^T A[\mathbf{n}(\mathbf{n}\cdot \nabla f) + \nabla_\perp f]\\
+    &= (\nabla_\perp f)^T A(\nabla_\perp f),
+  \end{align*}
+  since terms involving $A\mathbf{n}$ vanish. The quadratic form $(\nabla_\perp f)^T A(\nabla_\perp f)$ is definite on the subspace orthogonal to $\mathbf{n}$, so the only solution is $\nabla_\perp f = 0$. Thus $\nabla f$ must be parallel to $\mathbf{n}$, giving a unique characteristic direction at each point.
+\end{proof}
+
+\begin{prop}[Characteristics of hyperbolic operators]
+  A hyperbolic operator has two families of characteristic surfaces through each point.
+\end{prop}
+
+\begin{proof}
+  Assume all but one eigenvalues of $A$ are positive, and let $-\lambda$ (with $\lambda > 0$) be the unique negative eigenvalue with corresponding unit eigenvector $\mathbf{n}$.
+
+  Using the decomposition $\nabla f = \mathbf{n}(\mathbf{n}\cdot \nabla f) + \nabla_\perp f$, the characteristic condition becomes:
+  \begin{align*}
+    0 &= (\nabla f)^T A(\nabla f) \\
+    &= -\lambda (\mathbf{n}\cdot \nabla f)^2 + (\nabla_\perp f)^T A(\nabla_\perp f).
+  \end{align*}
+  Solving for the component along $\mathbf{n}$:
+  \[
+    \mathbf{n}\cdot \nabla f = \pm \sqrt{\frac{(\nabla_\perp f)^T A(\nabla_\perp f)}{\lambda}}.
+  \]
+  The two choices of sign give two distinct families of characteristic surfaces through each point.
+\end{proof}
+
+In two dimensions, we can find the characteristic curves explicitly.
+
+\begin{prop}[Characteristic curves in two dimensions]
+  Consider a second-order operator in two dimensions with principal part
+  \[
+    a(x, y) \frac{\partial^2}{\partial x^2} + 2b(x, y) \frac{\partial^2}{\partial x \partial y} + c(x, y) \frac{\partial^2}{\partial y^2}.
+  \]
+  The characteristic curves $y = y(x)$ satisfy
+  \[
+    \frac{\d y}{\d x} = \frac{b \pm \sqrt{b^2 - ac}}{a}.
+  \]
+\end{prop}
+
+\begin{proof}
+  Let $f(x, y) = 0$ define a characteristic curve, which we write as $y = y(x)$. Since $f$ is constant along the curve, the chain rule gives
+  \[
+    0 = \frac{\partial f}{\partial x} + \frac{\partial f}{\partial y} \frac{\d y}{\d x}.
+  \]
+  The characteristic condition $a f_x^2 + 2b f_x f_y + c f_y^2 = 0$ can be solved for the ratio $f_x/f_y$, which yields the stated formula for $\d y/\d x$.
+\end{proof}
+
+\begin{remark}
+  This formula makes explicit how the type of the PDE determines the number of characteristics:
+  \begin{itemize}
+    \item If $b^2 - ac > 0$ (hyperbolic), there are two distinct real characteristic curves through each point.
+    \item If $b^2 - ac = 0$ (parabolic), there is exactly one characteristic curve through each point.
+    \item If $b^2 - ac < 0$ (elliptic), there are no real characteristics.
+  \end{itemize}
+\end{remark}
 
 \begin{eg}[Variable type PDE]
   Consider
@@ -3210,7 +3257,17 @@ We now see explicitly how the type of the differential equation influences the n
   \]
   This is d'Alembert's solution to the $1 + 1$ dimensional wave equation.
 \end{eg}
-Note that the value of $\phi$ at any point $(x, t)$ is \emph{completely} determined by $f, g$ in the interval $[x - ct, x + ct]$. This is known as the \emph{(past) domain of dependence} of the solution at $(x, t)$, written $D^-(x, t)$. Similarly, at any time $t$, the initial data at $(x_0, 0)$ only affects the solution within the region $x_0 - ct \leq x \leq x_0 + ct$. This is the \emph{range of influence} of data at $x_0$, written $D^+(x_0)$.
+
+The d'Alembert solution reveals important concepts about how information propagates in hyperbolic equations.
+
+\begin{defi}[Domain of dependence]
+  The \emph{(past) domain of dependence} of the solution at a point $(x, t)$, denoted $D^-(x, t)$, is the set of points on the initial surface whose data determines the value of the solution at $(x, t)$. For the wave equation, this is the interval $[x - ct, x + ct]$ on the initial line $t = 0$.
+\end{defi}
+
+\begin{defi}[Range of influence]
+  The \emph{range of influence} of initial data at a point $x_0$, denoted $D^+(x_0)$, is the set of points in spacetime where the solution can be affected by the data at $x_0$. For the wave equation, this is the region $\{(x, t) : x_0 - ct \leq x \leq x_0 + ct,\; t \geq 0\}$.
+\end{defi}
+
 \begin{center}
   \begin{tikzpicture}
     \node at (-1.5, 2) [circ] {};
@@ -3229,7 +3286,10 @@ Note that the value of $\phi$ at any point $(x, t)$ is \emph{completely} determi
     \node at (1.75, 1) {$D^+(S)$};
   \end{tikzpicture}
 \end{center}
-We see that disturbances in the wave equation propagate with speed $c$.
+
+\begin{remark}
+  The domain of dependence and range of influence are bounded by the characteristic curves. This shows that disturbances in the wave equation propagate with finite speed $c$.
+\end{remark}
 
 \subsection{Green's functions for PDEs on \texorpdfstring{$\R^n$}{Rn}}
 \subsubsection*{Green's functions for the heat equation}
