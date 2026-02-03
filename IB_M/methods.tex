@@ -2772,13 +2772,25 @@ Suppose we have a curve on the plane $\mathbf{x}: \R \to \R^2$ given by $s\mapst
   \]
 \end{defi}
 
-If we have some quantity $\phi: \R^2 \to \R$, then its value along the curve $C$ is just $\phi(x(s), y(s))$.
+\begin{remark}
+  If $\phi: \R^2 \to \R$ is a scalar function, then its value along a curve $C$ parametrized by $\mathbf{x}(s) = (x(s), y(s))$ is simply the composition $\phi(x(s), y(s))$.
+\end{remark}
 
-A vector field $\mathbf{V}(x, y): \R^2 \to \R^2$ defines a family of curves. To imagine this, suppose we are living in a river. The vector field tells us the how the water flows at each point. We can then obtain a curve by starting a point and flow along with the water. More precisely,
+A vector field assigns a vector to each point in the plane. Such a vector field naturally defines a family of curves: intuitively, if we imagine the vector field as describing the flow of water in a river, we can obtain a curve by starting at a point and flowing along with the water.
+
 \begin{defi}[Integral curve]
-  Let $\mathbf{V}(x, y): \R^2 \to \R^2$ be a vector field. The \emph{integral curves} associated to $\mathbf{V}$ are curves whose tangent $\left(\frac{\d x}{\d s}, \frac{\d y}{\d s}\right)$ is just $\mathbf{V}(x, y)$.
+  Let $\mathbf{V}: \R^2 \to \R^2$ be a vector field with $\mathbf{V}(x,y) = (V_1(x,y), V_2(x,y))$. An \emph{integral curve} of $\mathbf{V}$ is a curve $\mathbf{x}(s) = (x(s), y(s))$ whose tangent vector at each point equals the value of $\mathbf{V}$ at that point, i.e.,
+  \[
+    \frac{\d x}{\d s} = V_1(x, y), \quad \frac{\d y}{\d s} = V_2(x, y).
+  \]
 \end{defi}
-For sufficiently regular vector fields, we can fill the space with different curves. We will parametrize which curve we are on by the parameter $t$. More precisely, we have a curve $B = (x(t), y(t))$ that is \emph{transverse} (i.e.\ nowhere parallel) to our family of curves, and we can label the members of our family by the value of $t$ at which they intersect $B$.
+For sufficiently regular vector fields, the integral curves fill the plane. To parametrize which curve we are on, we introduce a second parameter $t$.
+
+\begin{defi}[Transverse curve]
+  A curve $B(t) = (x(t), y(t))$ is \emph{transverse} to a family of integral curves if $B$ is nowhere parallel to the integral curves, i.e., the tangent vector of $B$ is never parallel to the vector field $\mathbf{V}$.
+\end{defi}
+
+Given a transverse curve $B$, we can label each integral curve by the value of $t$ at which it intersects $B$. This is illustrated in the following figure:
 \begin{center}
   \begin{tikzpicture}
     \draw rectangle (3, 3);
@@ -2798,188 +2810,203 @@ For sufficiently regular vector fields, we can fill the space with different cur
     \node [mred, right] at (1.3, 2.4) {$B(t)$};
   \end{tikzpicture}
 \end{center}
-We can thus label our family of curves by $(x(s, t), y(s, t))$. If the Jacobian
-\[
-  J = \frac{\partial x}{\partial s} \frac{\partial y}{\partial t} - \frac{\partial x}{\partial t} \frac{\partial y}{\partial s} \not= 0,
-\]
-then we can invert this to find $(s, t)$ as a function of $(x, y)$, i.e.\ at any point, we know which curve we are on, and how far along the curve we are.
+We can thus describe the family of integral curves by $(x(s, t), y(s, t))$, where $s$ is the parameter along each curve and $t$ labels which curve we are on.
 
-This means we now have a new coordinate system $(s, t)$ for our points in $\R^2$. It turns out by picking the right vector field $\mathbf{V}$, we can make differential equations much easier to solve in this new coordinate system.
+\begin{prop}[Characteristic coordinates]
+  Let $(x(s,t), y(s,t))$ parametrize a family of integral curves as above. If the Jacobian
+  \[
+    J = \frac{\partial x}{\partial s} \frac{\partial y}{\partial t} - \frac{\partial x}{\partial t} \frac{\partial y}{\partial s}
+  \]
+  is non-zero, then we can invert this to find $(s, t)$ as a function of $(x, y)$. In other words, at any point $(x,y)$, we can determine which curve we are on and how far along the curve we are. The pair $(s, t)$ forms a new coordinate system for points in $\R^2$, called \emph{characteristic coordinates}.
+\end{prop}
+
+By choosing an appropriate vector field $\mathbf{V}$, we can make differential equations much easier to solve in characteristic coordinates.
 
 \subsubsection*{The method of characteristics}
-Suppose $\phi: \R^2 \to \R$ obeys
+Consider a first-order linear partial differential equation of the form
 \[
-  a(x, y) \frac{\partial \phi}{\partial x} + b(x, y) \frac{\partial \phi}{\partial y} = 0.
+  a(x, y) \frac{\partial \phi}{\partial x} + b(x, y) \frac{\partial \phi}{\partial y} = 0,
 \]
-We can define our vector field as
-\[
-  \mathbf{V}(x, y) =
-  \begin{pmatrix}
-    a(x, y)\\
-    b(x, y)
-  \end{pmatrix}.
-\]
-Then we can write the differential equation as
+where $\phi: \R^2 \to \R$ is the unknown function and $a, b: \R^2 \to \R$ are given coefficient functions.
+
+\begin{defi}[Characteristic vector field and equations]
+  The \emph{characteristic vector field} associated with the PDE above is
+  \[
+    \mathbf{V}(x, y) =
+    \begin{pmatrix}
+      a(x, y)\\
+      b(x, y)
+    \end{pmatrix}.
+  \]
+  The \emph{characteristic equations} are the ODEs that determine the integral curves of $\mathbf{V}$:
+  \[
+    \frac{\d x}{\d s} = a(x, y),\quad \frac{\d y}{\d s} = b(x, y).
+  \]
+  These integral curves are called the \emph{characteristics} of the PDE.
+\end{defi}
+
+Using the characteristic vector field, the PDE can be written compactly as
 \[
   \mathbf{V}\cdot \nabla \phi = 0.
 \]
-Along any particular integral curve of $\mathbf{V}$, we have
-\[
-  \frac{\partial \phi}{\partial s} = \frac{\d x(s)}{\d s} \frac{\partial \phi}{\partial x} + \frac{\d y(s)}{\d s} \frac{\partial \phi}{\partial y} = \mathbf{V}\cdot \nabla \phi,
-\]
-where the integral curves of $\mathbf{V}$ are determined by
-\[
-  \left.\frac{\partial x}{\partial s}\right|_t = a(x, y),\quad \left.\frac{\partial y}{\partial s}\right|_t = b(x, y).
-\]
-This is known as the characteristic equation.
 
-Hence our partial differential equation just becomes the equation
-\[
-  \left.\frac{\partial \phi}{\partial s}\right|_t = 0.
-\]
-To get ourselves a well-posed problem, we have to specify our boundary data along a transverse curve $B$. We pick our transverse curve as $s = 0$, and we suppose we are given the initial data
-\[
-  \phi(0, t) = h(t).
-\]
-Since $\phi$ does not vary with $s$, our solution automatically is
-\[
-  \phi(s, t) = h(t).
-\]
-Then $\phi(x, y)$ is given by inverting the characteristic equations to find $t(x, y)$.
-
-We do a few examples to make this clear.
-
-\begin{eg}[Trivial]
-  Suppose $\phi$ obeys
+\begin{thm}[Method of characteristics]
+  Let $\phi$ satisfy the PDE $\mathbf{V} \cdot \nabla \phi = 0$. Then $\phi$ is constant along each characteristic curve. More precisely, if $(x(s), y(s))$ is a characteristic curve, then
   \[
-    \left.\frac{\partial \phi}{\partial x}\right|_y = 0.
+    \frac{\d}{\d s} \phi(x(s), y(s)) = 0.
   \]
-  We are given the boundary condition
+\end{thm}
+
+\begin{proof}
+  By the chain rule, along a characteristic curve $(x(s), y(s))$ we have
   \[
-    \phi(0, y) = f(y).
+    \frac{\d \phi}{\d s} = \frac{\d x}{\d s} \frac{\partial \phi}{\partial x} + \frac{\d y}{\d s} \frac{\partial \phi}{\partial y} = a(x, y) \frac{\partial \phi}{\partial x} + b(x, y) \frac{\partial \phi}{\partial y} = \mathbf{V}\cdot \nabla \phi = 0.
   \]
-  The solution is obvious, since the differential equation tells us the function is just a function of $y$, and then the solution is obviously $\phi(x, y) = h(y)$. However, we can try to use the method of characteristics to practice our skills. Our vector field is given by
+  Thus $\phi$ does not change along characteristics.
+\end{proof}
+
+\begin{remark}[Solution procedure]
+  To solve the PDE with boundary data specified along a transverse curve $B$, we proceed as follows:
+  \begin{enumerate}
+    \item Parametrize $B$ by $t$, so that $B$ corresponds to $s = 0$ in characteristic coordinates.
+    \item Suppose the boundary condition is $\phi(0, t) = h(t)$ for some given function $h$.
+    \item Since $\phi$ is constant along characteristics, the solution in characteristic coordinates is simply $\phi(s, t) = h(t)$.
+    \item To obtain $\phi(x, y)$, invert the characteristic equations to find $t$ as a function of $(x, y)$.
+  \end{enumerate}
+\end{remark}
+
+We illustrate this method with several examples.
+
+\begin{eg}[A simple first-order PDE]
+  Consider the PDE
+  \[
+    \frac{\partial \phi}{\partial x} = 0
+  \]
+  with boundary condition $\phi(0, y) = f(y)$.
+
+  \emph{Direct solution.} The PDE says that $\phi$ does not depend on $x$, so immediately we have $\phi(x, y) = f(y)$.
+
+  \emph{Solution via characteristics.} We apply the method of characteristics for practice. The characteristic vector field is
   \[
     \mathbf{V} =
     \begin{pmatrix}
       1\\0
-    \end{pmatrix}
-    =
-    \begin{pmatrix}
-      \frac{\d x}{\d s}\\
-      \frac{\d y}{\d s}
     \end{pmatrix}.
   \]
-  Hence, we get
+  The characteristic equations are
   \[
     \frac{\d x}{\d s} = 1,\quad \frac{\d y}{\d s} = 0.
   \]
-  So we have
+  Integrating, we obtain
   \[
-    x = s + c,\quad y = d.
+    x = s + c,\quad y = d,
   \]
-  Our initial curve is given by $y = t, x = 0$. Since we want this to be the curve $s = 0$, we find our integral curves to be
+  where $c$ and $d$ are constants of integration. We choose the boundary curve $B$ to be $x = 0$, parametrized by $y = t$. Setting $s = 0$ along $B$, we find the characteristics are
   \[
     x = s,\quad y = t.
   \]
-  Now for each fixed $t$, we have to solve
+  The boundary condition $\phi(0, y) = f(y)$ becomes $\phi(0, t) = f(t)$ in characteristic coordinates. Since $\phi$ is constant along characteristics, the solution is
   \[
-    \left.\frac{\partial \phi}{\partial s}\right|_t = 0,\quad \phi(s, t) = h(t) = f(t).
+    \phi(s, t) = f(t).
   \]
-  So we know that
+  Converting back to $(x, y)$ coordinates using $t = y$, we obtain
   \[
-    \phi(x, y) = f(y).
+    \phi(x, y) = f(y),
   \]
+  in agreement with the direct solution.
 \end{eg}
 
-\begin{eg}[First-order PDE, exponential coefficient]
-  Consider the equation
+\begin{eg}[First-order PDE with exponential coefficient]
+  Consider the PDE
   \[
-    e^x \frac{\partial \phi}{\partial x} + \frac{\partial \phi}{\partial y} = 0.
+    e^x \frac{\partial \phi}{\partial x} + \frac{\partial \phi}{\partial y} = 0
   \]
-  with the boundary condition
-  \[
-    \phi(x, 0) = \cosh x.
-  \]
-  We find that the vector field is
+  with boundary condition $\phi(x, 0) = \cosh x$.
+
+  The characteristic vector field is
   \[
     \mathbf{V} =
     \begin{pmatrix}
       e^x\\
       1
-    \end{pmatrix}
+    \end{pmatrix}.
   \]
-  This gives
+  The characteristic equations are
   \[
     \frac{\d x}{\d s} = e^x,\quad \frac{\d y}{\d s} = 1.
   \]
-  Thus we have
+  Integrating the first equation by separation of variables and the second directly, we obtain
   \[
-    e^{-x} = -s + c,\quad y = s + d.
+    e^{-x} = -s + c,\quad y = s + d,
   \]
-  We pick our curve as $x = t, y = 0$. So our relation becomes
+  where $c$ and $d$ are constants of integration.
+
+  We choose the boundary curve $B$ to be $y = 0$, parametrized by $x = t$. Setting $s = 0$ along $B$ gives $c = e^{-t}$ and $d = 0$, so the characteristics are
   \[
     e^{-x} = -s + e^{-t},\quad y = s.
   \]
-  We thus have
+  The boundary condition $\phi(x, 0) = \cosh x$ becomes $\phi(0, t) = \cosh t$ in characteristic coordinates. Since $\phi$ is constant along characteristics,
   \[
-    \left.\frac{\partial \phi}{\partial s}\right|_t = 0,\quad \phi(s, t) = \phi(0, t) = \cosh(t) = \cosh[-\ln (y + e^{-x})]
+    \phi(s, t) = \cosh t.
   \]
-  So done.
+  To express the solution in $(x, y)$ coordinates, we solve for $t$. From $y = s$ and $e^{-x} = -s + e^{-t}$, we get $e^{-t} = y + e^{-x}$, hence $t = -\ln(y + e^{-x})$. Thus
+  \[
+    \phi(x, y) = \cosh[-\ln (y + e^{-x})].
+  \]
 \end{eg}
 
-\begin{eg}[First-order PDE, inhomogeneous]
-  Let $\phi: \R^2 \to \R$ solve the inhomogeneous partial differential equation
+\begin{eg}[Inhomogeneous first-order PDE]
+  Consider the inhomogeneous PDE
   \[
-    \partial_x \phi + 2 \partial_y \phi = y e^x
+    \frac{\partial \phi}{\partial x} + 2 \frac{\partial \phi}{\partial y} = y e^x
   \]
-  with $\phi(x, x) = \sin x$.
+  with boundary condition $\phi(x, x) = \sin x$.
 
-  We can still use the method of characteristics. We have
+  The method of characteristics extends to inhomogeneous equations. The characteristic vector field is
   \[
-    \mathbf{u} =
+    \mathbf{V} =
     \begin{pmatrix}
       1\\2
     \end{pmatrix}.
   \]
-  So the characteristic curves obey
+  The characteristic equations are
   \[
     \frac{\d x}{\d s} = 1, \quad \frac{\d y}{\d s} = 2.
   \]
-  This gives
+  Integrating, we obtain
   \[
-    x = s + t,\quad y = 2s + t
+    x = s + c,\quad y = 2s + d.
   \]
-  so that $x = y = t$ at $s = 0$. We can invert this to obtain the relations
+  We choose the boundary curve $B$ to be the line $y = x$, parametrized by $x = t$ (equivalently, $y = t$). Setting $s = 0$ along $B$ gives $c = t$ and $d = t$, so
+  \[
+    x = s + t,\quad y = 2s + t.
+  \]
+  Inverting, we find
   \[
     s = y - x, \quad t = 2x - y.
   \]
-  The partial differential equation now becomes
+  Along a characteristic, the PDE becomes an ODE in $s$:
   \[
-    \left.\frac{\d \phi}{\d s}\right|_t = \mathbf{u}\cdot \nabla \phi = y e^x = (2s + t)e^{s + t}
+    \frac{\d \phi}{\d s} = \mathbf{V}\cdot \nabla \phi = y e^x = (2s + t)e^{s + t}.
   \]
-  Note that this is just an ordinary differential equation in $s$ because $t$ is held constant. We have the boundary conditions
+  The boundary condition $\phi(x, x) = \sin x$ becomes $\phi(0, t) = \sin t$. Integrating the ODE with this initial condition gives
   \[
-    \phi(s = 0, t) = \sin t.
+    \phi(s, t) = (2 - t)e^t(1 - e^s) + \sin t + 2s e^{s + t}.
   \]
-  So we get
-  \[
-    \phi(x(s, t), y(s, t)) = (2 - t)e^t(1 - e^s) + \sin t + 2s e^{s + t}.
-  \]
-  Putting it in terms of $x$ and $y$, we have
+  Converting to $(x, y)$ coordinates using $s = y - x$ and $t = 2x - y$, we obtain
   \[
     \phi(x, y) = (2 - 2x + y) e^{2x - y} + \sin (2x - y) + (y - 2) e^x.
   \]
 \end{eg}
-We see that our Cauchy data $\phi(x, x) = \sin x$ should be specified on a curve $B$ that intersects each characteristic curve exactly once.
-
-If we tried to use a characteristic curve $B$ that intersects the characteristics multiple times, if we want a solution \emph{at all}, we cannot specify data freely along $B$. its values at the points of intersection have to compatible with the partial differential equation.
-
-For example, if we have a homogeneous equation, we saw the solution will be constant along the same characteristic. Hence if our Cauchy data requires the solution to take different values on the same characteristic, we will have no solution.
-
-Moreover, even if it is compatible, if $B$ does not intersect all characteristics, we will not get a unique solution. So the solution is not fixed along such characteristics.
-
-On the other hand, if $B$ intersects each characteristic curve transversely, the problem is well-posed. So there exists a unique solution, at least in the neighbourhood of $B$. Notice that data is never transferred between characteristic curves.
+\begin{remark}[Well-posedness and the choice of boundary curve]
+  The boundary (or Cauchy) data must be specified on a curve $B$ that intersects each characteristic curve exactly once. Several important observations follow:
+  \begin{enumerate}
+    \item If $B$ intersects the same characteristic multiple times, then the boundary data cannot be specified freely along $B$---the values at the points of intersection must be compatible with the PDE. For a homogeneous equation, the solution is constant along each characteristic, so if the boundary data prescribes different values at two points on the same characteristic, no solution exists.
+    \item If $B$ does not intersect all characteristics, then even if the data is compatible, the solution will not be unique: the value of $\phi$ is undetermined along characteristics that do not meet $B$.
+    \item If $B$ intersects each characteristic curve transversely (i.e., $B$ is a transverse curve in the sense defined earlier), then the problem is well-posed and there exists a unique solution, at least in a neighbourhood of $B$.
+  \end{enumerate}
+  An important feature of the method is that information is transported along characteristics but never between them.
+\end{remark}
 
 \subsection{Characteristics for 2nd order partial differential equations}
 Whether the method of characteristics works for a 2nd order partial differential equation, or even higher order ones, depends on the ``type'' of the differential equation.
