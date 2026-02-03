@@ -2725,49 +2725,41 @@ Computing the DFT directly requires $O(N^2)$ operations. The \emph{fast Fourier 
 \end{rmk}
 \section{More partial differential equations}
 \subsection{Well-posedness}
-Recall that to find a unique solution of Laplace's equation $\nabla^2 \phi = 0$ on a bounded domain $\Omega \subseteq \R^n$, we imposed the Dirichlet boundary condition $\phi|_{\partial \Omega} = f$ or the Neumann boundary condition $\mathbf{n}\cdot \nabla \phi|_{\partial \Omega} = g$.
+Different PDEs require different types of boundary/initial conditions:
+\begin{itemize}
+  \item \emph{Laplace's equation} $\nabla^2 \phi = 0$: Dirichlet ($\phi|_{\partial\Omega} = f$) or Neumann ($\mathbf{n} \cdot \nabla\phi|_{\partial\Omega} = g$).
+  \item \emph{Heat equation} $\partial_t \phi = \kappa \nabla^2 \phi$: boundary conditions plus initial condition $\phi|_{t=0}$.
+  \item \emph{Wave equation} $\partial_t^2 \phi = c^2 \nabla^2 \phi$: boundary conditions plus initial data for both $\phi|_{t=0}$ and $\partial_t\phi|_{t=0}$.
+\end{itemize}
 
-For the heat equation $\frac{\partial \phi}{\partial t} = \kappa \nabla^2 \phi$ on $\Omega \times [0, \infty)$, we asked for $\partial |_{\partial \Omega \times [0, \infty)} = f$ and also $\phi|_{\Omega \times \{0\}} = g$.
-
-For the wave equation $\frac{\partial^2 \phi}{\partial t^2} = c^2 \nabla^2 \phi$ on $\Omega \times [0, \infty)$, we imposed $\phi|_{\partial \Omega \times [0, \infty)} = f$, $\phi|_{\Omega \times \{0\}} = g$ and also $\partial_t \phi|_{\Omega \times \{0\}} = h$.
-
-All the boundary and initial conditions restrict the value of $\phi$ on some co-dimension 1 surface, i.e.\ a surface whose dimension is one less than the domain. This is known as \emph{Cauchy data} for our partial differential equation.
+\begin{defi}[Cauchy data]
+  \label{def:cauchy-data}
+  The \emph{Cauchy data} for a PDE consists of values of $\phi$ (and possibly its derivatives) specified on a codimension-1 surface.
+\end{defi}
 
 \begin{defi}[Well-posed problem]
-  A partial differential equation problem is said to be well-posed if its Cauchy data means
+  \label{def:well-posed}
+  A PDE problem is \emph{well-posed} (in the sense of Hadamard) if:
   \begin{enumerate}
     \item A solution exists;
     \item The solution is unique;
-    \item A ``small change'' in the Cauchy data leads to a ``small change'' in the solution.
+    \item The solution depends continuously on the Cauchy data.
   \end{enumerate}
 \end{defi}
-To understand the last condition, we need to make it clear what we mean by ``small change''. To do this properly, we need to impose some topology on our space of functions, which is some technicalities we will not go into. Instead, we can look at a simple example.
 
-Suppose we have the heat equation $\partial_t \phi = \kappa \nabla^2 \phi$. We know that whatever starting condition we have, the solution quickly smooths out with time. Any spikiness of the initial conditions get exponentially suppressed. Hence this is a well-posed problem --- changing the initial condition slightly will result in a similar solution.
+\begin{eg}[Heat equation: well-posed]
+  \label{eg:heat-well-posed}
+  The forward heat equation $\partial_t \phi = \kappa \nabla^2 \phi$ is well-posed: solutions smooth out over time, so small changes in initial data produce small changes in the solution. However, the \emph{backward} heat equation is ill-posed: small perturbations grow exponentially as we evolve backward in time.
+\end{eg}
 
-However, if we take the heat equation but run it backwards in time, we get a non-well-posed problem. If we provide a tiny, small change in the ``ending condition'', as we go back in time, this perturbation grows \emph{exponentially}, and the result could vary wildly.
+\begin{eg}[Laplace with Cauchy data: ill-posed]
+  \label{eg:laplace-ill-posed}
+  Consider $\nabla^2 \phi = 0$ on the upper half-plane with $\phi(x,0) = 0$ and $\partial_y\phi(x,0) = g(x)$.
 
-Another example is as follows: consider the Laplace's equation $\nabla^2 \phi$ on the upper half plane $(x, y) \in \R \times \R^{\geq 0}$ subject to the boundary conditions
-\[
-  \phi(x, 0) = 0,\quad \partial_y \phi(x, 0) = g(x).
-\]
-If we take $g(x) = 0$, then $\phi(x, y) = 0$ is the unique solution, obviously.
+  For $g(x) = \frac{\sin(Ax)}{A}$, the solution is $\phi = \frac{\sin(Ax)\sinh(Ay)}{A^2}$.
 
-However, if we take $g(x) = \frac{\sin Ax}{A}$, then we get the unique solution
-\[
-  \phi(x, y) = \frac{\sin (Ax) \sinh (Ay)}{A^2}.
-\]
-So far so good. However, now consider the limit as $A \to \infty$. Then
-\[
-  g(x) = \frac{\sin (Ax)}{A} \to 0.
-\]
-for all $x \in \R$. However, at the special point $\phi\left(\frac{\pi}{2A}, y\right)$, we get
-\[
-  \phi\left(\frac{\pi}{2A}, y\right) = \frac{\sinh (Ay)}{A^2} \to A^{-2} e^{Ay},
-\]
-which is unbounded. So as we take the limit as our boundary conditions $g(x) \to 0$, we get an unbounded solution.
-
-How can we make sure this doesn't happen? We're first going to look at first order equations.
+  As $A \to \infty$: $g(x) \to 0$ pointwise, but $\phi\left(\frac{\pi}{2A}, y\right) = \frac{\sinh(Ay)}{A^2}$ becomes unbounded. This violates continuous dependence, so the problem is ill-posed.
+\end{eg}
 
 \subsection{Method of characteristics}
 \subsubsection*{Curves in the plane}
