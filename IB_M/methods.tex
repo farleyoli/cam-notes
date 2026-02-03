@@ -3293,191 +3293,168 @@ The d'Alembert solution reveals important concepts about how information propaga
 
 \subsection{Green's functions for PDEs on \texorpdfstring{$\R^n$}{Rn}}
 \subsubsection*{Green's functions for the heat equation}
-Suppose $\phi: \R^n \times [0, \infty) \to \R$ solves the heat equation
+Consider the heat equation on $\R^n$:
 \[
   \partial_t \phi = D \nabla^2 \phi,
 \]
-where $D$ is the diffusion constant, subject to
+where $\phi: \R^n \times [0, \infty) \to \R$ and $D > 0$ is the diffusion constant. We seek solutions subject to the initial condition
 \[
-  \phi|_{\R^n \times \{0\}} = f.
+  \phi(\mathbf{x}, 0) = f(\mathbf{x}).
 \]
-To solve this, we take the Fourier transform of the heat equation in the spatial variables. For simplicity of notation, we take $n = 1$. Writing $\mathcal{F}[\phi(x, t)] = \tilde{\phi}(k, t)$, we get
+
+To solve this, we take the Fourier transform with respect to the spatial variables. For simplicity, we first consider the case $n = 1$. Writing $\mathcal{F}[\phi(x, t)] = \tilde{\phi}(k, t)$, the heat equation becomes
 \[
-  \partial_t \tilde{\phi}(k ,t) = -D k^2 \tilde{\phi}(k, t)
+  \partial_t \tilde{\phi}(k ,t) = -D k^2 \tilde{\phi}(k, t),
 \]
-with the boundary conditions
-\[
-  \tilde{\phi}(k, 0) = \tilde{f}(k).
-\]
-Note that this is just an ordinary differential equation in $t$, and $k$ is a fixed parameter for each $k$. So we have
+with the initial condition $\tilde{\phi}(k, 0) = \tilde{f}(k)$. For each fixed $k$, this is an ordinary differential equation in $t$ with solution
 \[
   \tilde{\phi}(k, t) = \tilde{f}(k) e^{-Dk^2 t}.
 \]
-We now take the inverse Fourier transform and get
+Taking the inverse Fourier transform:
 \[
-  \phi(x, t) = \frac{1}{2\pi} \int_\R e^{ikx}\left[\tilde{f}(k) e^{-D k^2 t} \right]\;\d k
+  \phi(x, t) = \frac{1}{2\pi} \int_\R e^{ikx}\tilde{f}(k) e^{-D k^2 t}\;\d k = f * \mathcal{F}^{-1}[e^{-Dk^2 t}].
 \]
-This is the inverse Fourier transform of a product. This thus gives the convolution
+Using the Fourier transform of a Gaussian,
 \[
-  \phi(x, t) = f * \mathcal{F}^{-1}[e^{-Dk^2 t}].
+  \mathcal{F}[e^{-a^2 x^2}] = \frac{\sqrt{\pi}}{a} e^{-k^2/4a^2},
 \]
-So we are done if we can find the inverse Fourier transform of the Gaussian. This is an easy exercise on example sheet 3, where we find
+with $a^2 = 1/(4Dt)$, we find
 \[
-  \mathcal{F}[e^{-a^2 x^2}] = \frac{\sqrt{\pi}}{a} e^{-k^2/4a^2}.
+  \mathcal{F}^{-1}[e^{-Dk^2 t}] = \frac{1}{\sqrt{4\pi Dt}} \exp\left(-\frac{x^2}{4Dt}\right).
 \]
-So setting
-\[
-  a^2 = \frac{1}{4Dt},
-\]
-So we get
-\[
-  \mathcal{F}^{-1}[e^{-Dk^2 t}] = \frac{1}{\sqrt{4\pi Dt}} \exp\left(-\frac{x^2}{4Dt}\right)
-\]
-We shall call this $S_1(x, t)$, where the subscript $1$ tells us we are in $1 + 1$ dimensions. This is known as the \emph{fundamental solution} of the heat equation. We then get
-\[
-  \phi(x, t) = \int_{-\infty}^\infty f(y) S_1(x - y, t) \;\d y
-\]
-\begin{eg}[Heat equation, delta initial data]
-  Suppose our initial data is
+
+\begin{defi}[Fundamental solution of the heat equation]
+  The \emph{fundamental solution} (or \emph{heat kernel}) of the heat equation in $n$ spatial dimensions is
   \[
-    f(x) = \phi_0\delta(x).
+    S_n(\mathbf{x}, t) = \frac{1}{(4\pi D t)^{n/2}} \exp\left(-\frac{|\mathbf{x}|^2}{4Dt}\right).
   \]
-  So we start with a really cold room, with a huge spike in temperature at the middle of the room. Then we get
+  In one dimension, we write $S_1(x, t) = (4\pi Dt)^{-1/2} \exp(-x^2/4Dt)$.
+\end{defi}
+
+\begin{prop}[Solution of the heat equation via convolution]
+  The solution to the heat equation with initial condition $\phi(\mathbf{x}, 0) = f(\mathbf{x})$ is
+  \[
+    \phi(\mathbf{x}, t) = \int_{\R^n} f(\mathbf{y}) S_n(\mathbf{x} - \mathbf{y}, t) \;\d^n y.
+  \]
+\end{prop}
+\begin{eg}[Heat equation with delta initial data]
+  Consider the initial condition $f(x) = \phi_0\delta(x)$, representing an initial temperature distribution concentrated at the origin. The solution is
   \[
     \phi(x, t) = \frac{\phi_0}{\sqrt{4\pi Dt}} \exp\left(-\frac{x^2}{4Dt}\right).
   \]
-  What this shows, as we've seen before, is that if we start with a delta function, then as time evolves, we get a Gaussian that gets shorter and broader.
-
-  Now note that if we start with a delta function, at $t = 0$, everywhere outside the origin is non-zero. However, after any infinitely small time $t$, $\phi$ becomes non-zero everywhere, instantly. Unlike the wave equation, information travels instantly to all of space, i.e.\ heat propagates arbitrarily fast according to this equation (of course in reality, it doesn't). This fundamentally, is because the heat equation is parabolic, and only has one characteristic.
+  As time evolves, the initial delta function spreads into a Gaussian that becomes shorter and broader.
 \end{eg}
 
-Now suppose instead $\phi$ satisfies the inhomogeneous, forced, heat equation
+\begin{remark}[Infinite propagation speed]
+  For the heat equation, if the initial data is supported at a single point (e.g., a delta function at the origin), then for any $t > 0$, no matter how small, the solution $\phi(x, t)$ is non-zero everywhere. This means that information propagates instantaneously to all of space. This behaviour contrasts sharply with the wave equation, where disturbances propagate at finite speed $c$. The infinite propagation speed is a consequence of the heat equation being parabolic.
+\end{remark}
+
+We now consider the \emph{inhomogeneous} (or \emph{forced}) heat equation
 \[
-  \partial_t \phi - D \nabla^2 \phi = F(x, t),
+  \partial_t \phi - D \nabla^2 \phi = F(\mathbf{x}, t),
 \]
-but with homogeneous initial conditions $\phi|_{t = 0} = 0$. Physically, this represents having an external heat source somewhere, starting at zero.
+with homogeneous initial conditions $\phi|_{t = 0} = 0$. Physically, $F$ represents an external heat source.
 
-Note that if we can solve this, then we have completely solved the heat equation. If we have an inhomogeneous equation \emph{and} an inhomogeneous initial condition, then we can solve this forced problem with homogeneous boundary conditions to get $\phi_F$; and solve the unforced equation with homogeneous equation to get $\phi_H$. Then the sum $\phi = \phi_F + \phi_H$ solves the full equation.
+\begin{remark}[Superposition principle]
+  By linearity, if we can solve both the homogeneous equation with inhomogeneous initial data and the inhomogeneous equation with homogeneous initial data, then the general solution is their sum. Specifically, if $\phi_H$ solves $\partial_t \phi_H = D\nabla^2 \phi_H$ with $\phi_H|_{t=0} = f$, and $\phi_F$ solves $\partial_t \phi_F - D\nabla^2 \phi_F = F$ with $\phi_F|_{t=0} = 0$, then $\phi = \phi_H + \phi_F$ solves the full problem.
+\end{remark}
 
-As before, we take the Fourier transform of the forced equation with respect to the spacial variables. As before, we will just do it in the cases with one spacial dimension. We find
+We solve the forced equation by Fourier transform. In one spatial dimension, the transformed equation is
 \[
   \partial_t \tilde{\phi}(k, t) + Dk^2 \tilde{\phi}(k, t) = \tilde{F}(k, t),
 \]
-with the initial condition
+with initial condition $\tilde{\phi}(k, 0) = 0$. This is a first-order ODE in $t$. Using an integrating factor:
 \[
-  \tilde{\phi}(k, 0) = 0.
+  \pd{t} [e^{Dk^2 t} \tilde{\phi}(k, t)] = e^{Dk^2 t} \tilde{F}(k, t),
 \]
-As before, we have reduced this to a first-order ordinary differential equation in $t$. Using an integrating factor, we can rewrite this as
-\[
-  \pd{t} [e^{Dk^2 t} \tilde{\phi}(k, t)] = e^{Dk^2 t} \tilde{F}(k, t).
-\]
-The solution is them
+which integrates to
 \[
   \tilde{\phi}(k, t) = e^{-Dk^2 t} \int_0^t e^{Dk^2 u} \tilde{F}(k, u)\;\d u.
 \]
-We define the Green's function $G(x, t; y, \tau))$ to be the solution to
-\[
-  [\partial_t - D \nabla_x^2] G(x, t; y, \tau) = \delta(x - y) \delta(t - \tau).
-\]
-So the Fourier transform with respect to $x$ gives
-\[
-  \tilde{G}(k, t, y, \tau) = e^{-Dk^2 t} \int_0^t e^{D k^2 u}e^{iky}\delta(t - \tau) \;\d u,
-\]
-where $e^{iky}$ is just the Fourier transform of $\delta(x - y)$. This is equal to
-\[
-  \tilde{G}(k, t; y, \tau) =
-  \begin{cases}
-    0 & t < \tau\\
-    e^{-iky} e^{-Dk^2 (t - \tau)} & t > \tau
-  \end{cases}
-  = \Theta(t - \tau) e^{-iky} e^{-Dk^2 (t - \tau)}.
-\]
-Reverting the Fourier transform, we get
-\[
-  G(x, t; y, \tau) = \frac{\Theta(t - \tau)}{2\pi} \int_\R e^{ik(x - y)} e^{-Dk^2(t - \tau)}\;\d x
-\]
-This integral is just the inverse Fourier transform of the Gaussian with a phase shift. So we end up with
-\[
-  G(x, t; y, \tau) = \frac{\Theta(t - \tau)}{\sqrt{4\pi D(t- \tau)}} \exp\left(-\frac{(x - y)^2}{4D (t - \tau)}\right) = \Theta(t - \tau) S_1 (x - y; t - \tau).
-\]
-The solution we seek is then
-\[
-  \phi(x, t) = \int_0^t \int_\R F(y, \tau) G(x, t; y, \tau)\;\d y\;\d \tau.
-\]
-It is interesting that the solution to the forced equation involves the same function $S_1(x, t)$ as the homogeneous equation with inhomogeneous boundary conditions.
 
-In general, $S_n(\mathbf{x}, t)$ solves
-\[
-  \frac{\partial S_n}{\partial t} - D \nabla^2 S_n = 0
-\]
-with boundary conditions $S_n(\mathbf{x}, 0) = \delta^{(n)}(\mathbf{x} - \mathbf{y})$, and we can find
-\[
-  S_n(\mathbf{x}, t) = \frac{1}{(4\pi D t)^{n/2}} \exp\left(-\frac{|\mathbf{x} - \mathbf{y}|^2}{4 Dt}\right).
-\]
-Then in general, given an initial condition $\phi|_{t = 0}= f(\mathbf{x})$, the solution is
-\[
-  \phi(\mathbf{x}, t) = \int f(\mathbf{y}) S(\mathbf{x} - \mathbf{y}, t)\;\d^n y.
-\]
-Similarly, $G_n(\mathbf{x}, t; \mathbf{y}, t)$ solves
-\[
-  \frac{\partial G_n}{\partial t} - D \nabla^2 G_n = \delta(t - \tau) \delta^{(n)} (\mathbf{x} - \mathbf{y}),
-\]
-with the boundary condition $G_n(\mathbf{x}, 0; \mathbf{y}, \tau) = 0$. The solution is
-\[
-  G(\mathbf{x}, t; \mathbf{y}, \tau) = \Theta(t - \tau) S_n (\mathbf{x} - \mathbf{y}, t - \tau).
-\]
-Given our Green's function, the general solution to the forced heat equation
-\[
-  \frac{\partial \phi}{\partial t} - D \nabla^2 \phi = F(\mathbf{x}, t),\quad \phi(\mathbf{x}, 0) = 0
-\]
-is just
-\begin{align*}
-  \phi(\mathbf{x}, t) &= \int_0^\infty \int_{\R^n} F(\mathbf{y}, \tau) G(\mathbf{x}, t; \mathbf{y}, \tau) \;\d^n y \;\d \tau \\
-  &= \int_0^t \int_{\R^n} F(\mathbf{y}, \tau) G(\mathbf{x}, t; \mathbf{y}, \tau) \;\d^n y \;\d \tau.
-\end{align*}
-Duhamel noticed that we can write this as
-\[
-  \phi(\mathbf{x}, t) = \int_0^t \phi_F(\mathbf{x}, t; \tau)\;\d \tau,
-\]
-where
-\[
-  \phi_F = \int_\R F(\mathbf{y}, t) S_n(\mathbf{x} - \mathbf{y}, t - \tau)\;\d^n y
-\]
-solves the homogeneous heat equation with $\phi_F |_{t = \tau} = F(\mathbf{x}, \tau)$.
+\begin{defi}[Green's function for the heat equation]
+  The \emph{Green's function} $G_n(\mathbf{x}, t; \mathbf{y}, \tau)$ for the heat equation in $n$ spatial dimensions is the solution to
+  \[
+    [\partial_t - D \nabla_{\mathbf{x}}^2] G_n(\mathbf{x}, t; \mathbf{y}, \tau) = \delta^{(n)}(\mathbf{x} - \mathbf{y}) \delta(t - \tau),
+  \]
+  with the initial condition $G_n(\mathbf{x}, 0; \mathbf{y}, \tau) = 0$ for $\tau > 0$.
+\end{defi}
 
-Hence in general, we can think of the forcing term as providing a whole sequence of ``initial conditions'' for all $t > 0$. We then integrate over the times at which these conditions were imposed to find the full solution to the forced problem. This interpretation is called \emph{Duhamel's principle}.
+We compute $G_1$ in one spatial dimension by Fourier transform. The Fourier transform with respect to $x$ gives
+\[
+  \tilde{G}(k, t; y, \tau) = \Theta(t - \tau) e^{-iky} e^{-Dk^2 (t - \tau)}.
+\]
+Taking the inverse Fourier transform (which is the inverse transform of a Gaussian with a phase shift):
+\[
+  G_1(x, t; y, \tau) = \frac{\Theta(t - \tau)}{\sqrt{4\pi D(t- \tau)}} \exp\left(-\frac{(x - y)^2}{4D (t - \tau)}\right) = \Theta(t - \tau) S_1 (x - y, t - \tau).
+\]
+
+\begin{prop}[Green's function for the heat equation]
+  The Green's function for the heat equation in $n$ dimensions is
+  \[
+    G_n(\mathbf{x}, t; \mathbf{y}, \tau) = \Theta(t - \tau) S_n (\mathbf{x} - \mathbf{y}, t - \tau),
+  \]
+  where $S_n$ is the fundamental solution. The solution to the forced heat equation
+  \[
+    \partial_t \phi - D \nabla^2 \phi = F(\mathbf{x}, t),\quad \phi(\mathbf{x}, 0) = 0
+  \]
+  is given by
+  \[
+    \phi(\mathbf{x}, t) = \int_0^t \int_{\R^n} F(\mathbf{y}, \tau) G_n(\mathbf{x}, t; \mathbf{y}, \tau) \;\d^n y \;\d \tau.
+  \]
+\end{prop}
+
+\begin{remark}
+  The Green's function $G_n$ is related to the fundamental solution $S_n$ by $G_n = \Theta(t-\tau) S_n$. This reflects causality: the response at time $t$ can only depend on sources at earlier times $\tau < t$.
+\end{remark}
+
+\begin{thm}[Duhamel's principle]
+  The solution to the forced heat equation with homogeneous initial conditions can be written as
+  \[
+    \phi(\mathbf{x}, t) = \int_0^t \phi_F(\mathbf{x}, t; \tau)\;\d \tau,
+  \]
+  where $\phi_F(\mathbf{x}, t; \tau)$ solves the \emph{homogeneous} heat equation $\partial_t \phi_F = D\nabla^2 \phi_F$ for $t > \tau$, with initial condition $\phi_F(\mathbf{x}, \tau; \tau) = F(\mathbf{x}, \tau)$.
+\end{thm}
+
+\begin{remark}
+  Duhamel's principle provides a physical interpretation: the forcing term $F(\mathbf{x}, t)$ can be viewed as imposing a sequence of ``initial conditions'' at each instant $\tau$. The full solution is obtained by integrating the individual responses over all times $\tau \in [0, t]$.
+\end{remark}
 \subsubsection*{Green's functions for the wave equation}
-Suppose $\phi: \R^n \times [0, \infty) \to \C$ solves the inhomogeneous wave equation
+We now consider the inhomogeneous wave equation
 \[
-  \frac{\partial^2 \phi}{\partial t^2} - c^2 \nabla^2 \phi = F(\mathbf{x}, t)
+  \frac{\partial^2 \phi}{\partial t^2} - c^2 \nabla^2 \phi = F(\mathbf{x}, t),
 \]
-with
+where $\phi: \R^n \times [0, \infty) \to \R$ and $c > 0$ is the wave speed. We impose homogeneous initial conditions:
 \[
-  \phi(\mathbf{x}, 0) = \pd{t} \phi(\mathbf{x}, 0) = 0.
+  \phi(\mathbf{x}, 0) = 0, \quad \partial_t \phi(\mathbf{x}, 0) = 0.
 \]
-We look for a Green's function $G_n(\mathbf{x}, t; \mathbf{y}, \tau)$ that solves
-\[
-  \frac{\partial G_n}{\partial t} - c^2 \nabla^2 G_n = \delta(t - \tau) \delta^{(n)}(\mathbf{x} - \mathbf{y}) \tag{$*$}
-\]
-with the same initial conditions
-\[
-  G_n(\mathbf{x}, 0, \mathbf{y}, \tau) = \pd{t} G_n(\mathbf{x}, 0, \mathbf{y}, \tau) = 0.
-\]
-Just as before, we take the Fourier transform of this equation with respect the spacial variables $\mathbf{x}$. We get
-\[
-  \pd{t} \tilde{G}_n + c^2 |\mathbf{k}|^2 \tilde{G}_n = \delta(t - \tau) e^{-i\mathbf{k} \cdot \mathbf{y}}.
-\]
-where $\tilde{G}_n = \tilde{G}_n(\mathbf{k}, t, \mathbf{y}, \tau)$.
 
-This is just an ordinary differential equation from the point of view of $t$, and is of the same type of initial value problem that we studied earlier, and the solution is
+\begin{defi}[Green's function for the wave equation]
+  The \emph{Green's function} $G_n(\mathbf{x}, t; \mathbf{y}, \tau)$ for the wave equation in $n$ spatial dimensions is the solution to
+  \[
+    \frac{\partial^2 G_n}{\partial t^2} - c^2 \nabla^2 G_n = \delta(t - \tau) \delta^{(n)}(\mathbf{x} - \mathbf{y}),
+  \]
+  with homogeneous initial conditions $G_n(\mathbf{x}, 0; \mathbf{y}, \tau) = \partial_t G_n(\mathbf{x}, 0; \mathbf{y}, \tau) = 0$.
+\end{defi}
+
+Taking the Fourier transform with respect to the spatial variables $\mathbf{x}$:
 \[
-  \tilde{G}_n (\mathbf{k}, t, \mathbf{y}, \tau) = \Theta(t - \tau) e^{-i\mathbf{k} \cdot \mathbf{y}} \frac{\sin |\mathbf{k}| c (t - \tau)}{|\mathbf{k}| c}.
+  \partial_t^2 \tilde{G}_n + c^2 |\mathbf{k}|^2 \tilde{G}_n = \delta(t - \tau) e^{-i\mathbf{k} \cdot \mathbf{y}}.
 \]
-To recover the Green's function itself, we have to compute the inverse Fourier transform, and find
+This is an ODE in $t$ with solution
 \[
-  G_n(\mathbf{x}, t; \mathbf{y}, \tau) = \frac{1}{(2\pi)^n} \int_{\R^n} e^{i\mathbf{k}\cdot \mathbf{x}} \Theta(t - \tau) e^{-i\mathbf{k}\cdot \mathbf{y}}\frac{\sin |\mathbf{k}| c(t - \tau)}{|\mathbf{k}| c} \;\d^n k.
+  \tilde{G}_n (\mathbf{k}, t; \mathbf{y}, \tau) = \Theta(t - \tau) e^{-i\mathbf{k} \cdot \mathbf{y}} \frac{\sin |\mathbf{k}| c (t - \tau)}{|\mathbf{k}| c}.
 \]
-Unlike the case of the heat equation, the form of the answer we get here does depend on the number of spatial dimensions $n$. For definiteness, we look at the case where $n = 3$, since our world (probably) has three dimensions. Then our Green's function is
+The Green's function is recovered by inverse Fourier transform:
+\[
+  G_n(\mathbf{x}, t; \mathbf{y}, \tau) = \frac{1}{(2\pi)^n} \int_{\R^n} e^{i\mathbf{k}\cdot (\mathbf{x} - \mathbf{y})} \Theta(t - \tau) \frac{\sin |\mathbf{k}| c(t - \tau)}{|\mathbf{k}| c} \;\d^n k.
+\]
+
+\begin{remark}
+  Unlike the heat equation, the form of the Green's function depends significantly on the number of spatial dimensions $n$. We compute the case $n = 3$ explicitly.
+\end{remark}
+
+For $n = 3$, the Green's function is
 \[
   G(\mathbf{x}, t; \mathbf{y}, \tau) = \frac{\Theta(t - \tau)}{(2\pi)^3 c} \int_{\R^3} e^{i\mathbf{k}\cdot (\mathbf{x} - \mathbf{y})} \frac{\sin |\mathbf{k}|c(t - \tau)}{|\mathbf{k}|} \;\d^3 k.
 \]
@@ -3496,37 +3473,43 @@ Now recall $\mathcal{F}[\delta(x - \alpha)] = e^{-ik\alpha}$. So
 \[
   \mathcal{F}^{-1}[\sin k\alpha] = \mathcal{F}^{-1} \left[\frac{e^{ik\alpha} - e^{-ik\alpha}}{2 i}\right] = \frac{1}{2i} [\delta(x + \alpha) - \delta(x - \alpha)].
 \]
-Hence our Green's function is
-\[
-  G(\mathbf{x}, t; \mathbf{y}, \tau) = -\frac{\Theta(t - \tau)}{4\pi c |\mathbf{x} - \mathbf{y}|}\Big[\delta\big(|\mathbf{x} - \mathbf{y}| + c(t - \tau)\big) - \delta\big(|\mathbf{x} - \mathbf{y}| - c(t - \tau)\big)\Big].
-\]
-Now we look at our delta functions. The step function is non-zero only if $t > \tau$. Hence $|\mathbf{x} - \mathbf{y}| + c(t - \tau)$ is always positive. So $\delta(|\mathbf{x} - \mathbf{y}| + c(t - \tau))$ does not contribute. On the other hand, $\delta(|\mathbf{x} - \mathbf{y}| - c(t - \tau))$ is non-zero only if $t > \tau$. So $\Theta(t - \tau)$ is always positive in this region. So we can write our Green's function as
-\[
-  G(\mathbf{x}, t; \mathbf{y}, \tau) = \frac{1}{4\pi c} \frac{1}{|\mathbf{x} - \mathbf{y}|} \delta(|\mathbf{x} - \mathbf{y}| - c(t - \tau)).
-\]
-As always, given our Green's function, the general solution to the forced equation
-\[
-  \frac{\partial^2 \phi}{\partial t^2} - c^2 \nabla^2 \phi = F(\mathbf{x}, t)
-\]
-is
-\[
-  \phi(\mathbf{x}, t) = \int_0^\infty \int_{\R^3} \frac{F(\mathbf{y}, \tau)}{4\pi c|\mathbf{x} - \mathbf{y}|} \delta(|\mathbf{x} - \mathbf{y}| - c(t - \tau)) \;\d^3 y\;\d \tau.
-\]
-We can use the delta function to do one of the integrals. It is up to us which integral we do, but we pick the time integral to do. Then we get
-\[
-  \phi(\mathbf{x}, t) = \frac{1}{4\pi c^2} \int_{\R^3} \frac{F(\mathbf{y}, t_{\mathrm{ret}})}{|\mathbf{x} - \mathbf{y}|} \;\d^3 y,
-\]
-where
-\[
-  t_{\mathrm{ret}} = t - \frac{|\mathbf{x} - \mathbf{y}|}{c}.
-\]
-This shows that the effect of the forcing term at some point $\mathbf{y} \in \R^3$ affects the solution $\phi$ at some other point $\mathbf{x}$ not instantaneously, but only after time $|\mathbf{x} - \mathbf{y}|/c$ has elapsed. This is just as we saw for characteristics. This, again, tells us that information travels at speed $c$.
+Since the first delta function $\delta(|\mathbf{x} - \mathbf{y}| + c(t - \tau))$ has a strictly positive argument when $t > \tau$, it does not contribute. The second delta function contributes only when $|\mathbf{x} - \mathbf{y}| = c(t - \tau)$.
 
-Also, we see the effect of the forcing term gets weaker and weaker as we move further away from the source. This dispersion depends on the number of dimensions of the space. As we spread out in a three-dimensional space, the ``energy'' from the forcing term has to be distributed over a larger sphere, and the effect diminishes. On the contrary, in one-dimensional space, there is no spreading out to do, and we don't have this reduction. In fact, in one dimensions, we get
+\begin{prop}[Green's function for the 3D wave equation]
+  The Green's function for the wave equation in three spatial dimensions is
+  \[
+    G_3(\mathbf{x}, t; \mathbf{y}, \tau) = \frac{1}{4\pi c |\mathbf{x} - \mathbf{y}|} \delta(|\mathbf{x} - \mathbf{y}| - c(t - \tau)).
+  \]
+  The solution to the forced wave equation with homogeneous initial conditions is
+  \[
+    \phi(\mathbf{x}, t) = \int_0^\infty \int_{\R^3} F(\mathbf{y}, \tau) G_3(\mathbf{x}, t; \mathbf{y}, \tau) \;\d^3 y\;\d \tau.
+  \]
+\end{prop}
+
+\begin{defi}[Retarded time]
+  The \emph{retarded time} at position $\mathbf{x}$ due to a source at position $\mathbf{y}$ is
+  \[
+    t_{\mathrm{ret}} = t - \frac{|\mathbf{x} - \mathbf{y}|}{c}.
+  \]
+  This is the time at which a signal must leave $\mathbf{y}$, travelling at speed $c$, in order to arrive at $\mathbf{x}$ at time $t$.
+\end{defi}
+
+Using the delta function to perform the time integral, the solution becomes
 \[
-  \phi(x, t) = \int_0^t \int_\R F(y, \tau) \frac{\Theta(c(t - \tau) - |x - y|)}{2c} \;\d y \;\d \tau.
+  \phi(\mathbf{x}, t) = \frac{1}{4\pi c^2} \int_{\R^3} \frac{F(\mathbf{y}, t_{\mathrm{ret}})}{|\mathbf{x} - \mathbf{y}|} \;\d^3 y.
 \]
-We see there is now no suppression factor at the bottom, as expected.
+
+\begin{remark}[Finite propagation speed]
+  The retarded time formula shows that the effect of the forcing term at $\mathbf{y}$ reaches the point $\mathbf{x}$ only after time $|\mathbf{x} - \mathbf{y}|/c$ has elapsed. This confirms that information propagates at finite speed $c$, consistent with our analysis of characteristics for hyperbolic equations.
+\end{remark}
+
+\begin{remark}[Geometric spreading]
+  The factor $1/|\mathbf{x} - \mathbf{y}|$ represents \emph{geometric spreading}: as distance increases, the effect of a source diminishes because its energy is distributed over a larger sphere. This dimension-dependent behaviour contrasts with the one-dimensional case, where the Green's function is
+  \[
+    G_1(x, t; y, \tau) = \frac{1}{2c}\Theta(c(t - \tau) - |x - y|),
+  \]
+  which has no decay factor. In one dimension, there is no spreading, so the signal amplitude is preserved.
+\end{remark}
 
 \subsection{Poisson's equation}
 Let $\phi: \R^3 \to \R$ satisfy the Poisson's equation
