@@ -3461,145 +3461,136 @@ Conic sections admit an alternative geometric definition in terms of a focus and
 \end{rmk}
 
 \section{Transformation groups}
-We have previously seen that orthogonal matrices are used to transform between orthonormal bases. Alternatively, we can see them as transformations of space itself that preserve distances, which is something we will prove shortly.
+In this section, we study matrices as transformations of space that preserve certain geometric properties. We have seen that orthogonal matrices arise as change-of-basis matrices between orthonormal bases. Here we take an alternative viewpoint: orthogonal matrices are precisely the linear transformations that preserve distances (lengths and angles).
 
-Using this as the definition of an orthogonal matrix, we see that our definition of orthogonal matrices is dependent on our choice of the notion of distance, or metric. In special relativity, we will need to use a different metric, which will lead to the \emph{Lorentz matrices}, the matrices that conserve distances in special relativity. We will have a brief look at these as well.
+This geometric characterization depends on our notion of distance, or \emph{metric}. In special relativity, distances are measured using the Minkowski metric rather than the Euclidean metric. This leads to the \emph{Lorentz transformations}, which we briefly introduce at the end of this section.
 
-\subsection{Groups of orthogonal matrices}
-\begin{prop}[Orthogonal matrices form a group]
-  The set of all $n\times n$ orthogonal matrices $P$ forms a group under matrix multiplication.
+\subsection{The orthogonal group}
+
+\begin{prop}[Orthogonal matrices form a group]\label{prop:orthogonal-group}
+  The set of all $n \times n$ orthogonal matrices forms a group under matrix multiplication.
 \end{prop}
 
-\begin{proof}\leavevmode
-  \begin{enumerate}[label=\arabic{*}.]
-      \setcounter{enumi}{-1}
-    \item If $P, Q$ are orthogonal, then consider $R = PQ$. $RR^T = (PQ)(PQ)^T = P(QQ^T)P^T = PP^T = I$. So $R$ is orthogonal.
-    \item $I$ satisfies $II^T = I$. So $I$ is orthogonal and is an identity of the group.
-    \item Inverse: if $P$ is orthogonal, then $P^{-1}=P^T$ by definition, which is also orthogonal.
-    \item Matrix multiplication is associative since function composition is associative.\qedhere
+\begin{proof}
+  We verify the group axioms:
+  \begin{enumerate}
+    \item \textbf{Closure:} If $P, Q$ are orthogonal, then $(PQ)(PQ)^\top = PQ Q^\top P^\top = P I P^\top = I$, so $PQ$ is orthogonal.
+    \item \textbf{Identity:} The identity matrix $I$ satisfies $I I^\top = I$, so $I$ is orthogonal.
+    \item \textbf{Inverses:} If $P$ is orthogonal, then $P^{-1} = P^\top$, which satisfies $(P^\top)(P^\top)^\top = P^\top P = I$, so $P^{-1}$ is orthogonal.
+    \item \textbf{Associativity:} Matrix multiplication is associative. \qedhere
   \end{enumerate}
 \end{proof}
 
-\begin{defi}[Orthogonal group]
-  The \emph{orthogonal group} $O(n)$ is the group of orthogonal matrices.
+\begin{defi}[Orthogonal and special orthogonal groups]
+  The \emph{orthogonal group} $O(n)$ is the group of all $n \times n$ orthogonal matrices. The \emph{special orthogonal group} $SO(n)$ is the subgroup of $O(n)$ consisting of orthogonal matrices with determinant $+1$.
 \end{defi}
 
-\begin{defi}[Special orthogonal group]
-  The \emph{special orthogonal group} is the subgroup of $O(n)$ that consists of all orthogonal matrices with determinant $1$.
-\end{defi}
+\begin{prop}[Structure of $O(2)$]\label{prop:O2-structure}
+  Every matrix in $O(2)$ has one of the following forms:
+  \[
+    R_\theta = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix} \quad \text{or} \quad S_\theta = \begin{pmatrix} \cos\theta & \sin\theta \\ \sin\theta & -\cos\theta \end{pmatrix}.
+  \]
+  The matrix $R_\theta$ is a rotation by angle $\theta$ (with $\det R_\theta = 1$), while $S_\theta$ is a reflection (with $\det S_\theta = -1$). Thus $SO(2)$ consists of all rotations.
+\end{prop}
 
-In general, we can show that any matrix in $O(2)$ is of the form
-\[
-  \begin{pmatrix}
-    \cos\theta & -\sin\theta\\
-    \sin\theta & \cos\theta
-  \end{pmatrix}\text{ or }
-  \begin{pmatrix}
-    \cos\theta & \sin\theta\\
-    \sin\theta & -\cos\theta
-  \end{pmatrix}
-\]
-\subsection{Length preserving matrices}
-\begin{thm}[Equivalent characterizations of orthogonal matrices]
-  Let $P\in O(n)$. Then the following are equivalent:
+\subsection{Length-preserving transformations}
+
+\begin{thm}[Characterizations of orthogonal matrices]\label{thm:orthogonal-characterizations}
+  For an $n \times n$ matrix $P$, the following are equivalent:
   \begin{enumerate}
-    \item $P$ is orthogonal
-    \item $|P\mathbf{x}| = |\mathbf{x}|$
-    \item $(P\mathbf{x})^T(P\mathbf{y}) = \mathbf{x}^T\mathbf{y}$, i.e.\ $(P\mathbf{x})\cdot(P\mathbf{y}) = \mathbf{x}\cdot \mathbf{y}$.
-    \item If $(\mathbf{v}_1, \mathbf{v_2}, \cdots, \mathbf{v}_n)$ are orthonormal, so are $(P\mathbf{v}_1, P\mathbf{v}_2, \cdots, P\mathbf{v}_n)$
+    \item $P$ is orthogonal (i.e., $P^\top P = I$).
+    \item $P$ preserves lengths: $|P\mathbf{x}| = |\mathbf{x}|$ for all $\mathbf{x} \in \R^n$.
+    \item $P$ preserves the inner product: $(P\mathbf{x}) \cdot (P\mathbf{y}) = \mathbf{x} \cdot \mathbf{y}$ for all $\mathbf{x}, \mathbf{y} \in \R^n$.
+    \item $P$ preserves orthonormality: if $\{\mathbf{v}_1, \ldots, \mathbf{v}_n\}$ is orthonormal, so is $\{P\mathbf{v}_1, \ldots, P\mathbf{v}_n\}$.
     \item The columns of $P$ are orthonormal.
   \end{enumerate}
 \end{thm}
 
 \begin{proof}
-  We do them one by one:
-  \begin{enumerate}
-    \item $\Rightarrow$ (ii): $|P\mathbf{x}|^2 = (P\mathbf{x})^T(P\mathbf{x}) = \mathbf{x}^TP^TP\mathbf{x} = \mathbf{x}^T\mathbf{x} = |\mathbf{x}|^2$
-    \item $\Rightarrow$ (iii): $|P(\mathbf{x} + \mathbf{y})|^2 = |\mathbf{x + y}|^2$. The right hand side is
-      \[
-        (\mathbf{x}^T + \mathbf{y}^T)(\mathbf{x + y}) = \mathbf{x}^T\mathbf{x} + y^T\mathbf{y} + \mathbf{y}^T\mathbf{x} + \mathbf{x}^T\mathbf{y} = |\mathbf{x}|^2 + |\mathbf{y}|^2 + 2\mathbf{x}^T\mathbf{y}.
-      \]
-      Similarly, the left hand side is
-      \[
-        |P\mathbf{x} + P\mathbf{y}|^2 = |P\mathbf{x}|^2 + |P\mathbf{y}|^2 + 2(P\mathbf{x})^TP\mathbf{y} = |\mathbf{x}|^2 + |\mathbf{y}|^2 + 2(P\mathbf{x})^TP\mathbf{y}.
-      \]
-      So $(P\mathbf{x})^TP\mathbf{y} = \mathbf{x}^T\mathbf{y}$.
-    \item $\Rightarrow$ (iv): $(P\mathbf{v}_i)^TP\mathbf{v}_j = \mathbf{v}_i^T\mathbf{v}_j = \delta_{ij}$. So $P\mathbf{v}_i$'s are also orthonormal.
-    \item $\Rightarrow$ (v): Take the $\mathbf{v}_i$'s to be the standard basis. So the columns of $P$, being $P\mathbf{e}_i$, are orthonormal.
-    \item $\Rightarrow$ (i): The columns of $P$ are orthonormal. Then $(PP^T)_{ij} = P_{ik}P_{jk} = (P_i)\cdot (P_j) = \delta_{ij}$, viewing $P_i$ as the $i$th column of $P$. So $PP^T = I$.\qedhere
-  \end{enumerate}
+  We prove the cyclic implications (i) $\Rightarrow$ (ii) $\Rightarrow$ (iii) $\Rightarrow$ (iv) $\Rightarrow$ (v) $\Rightarrow$ (i).
+
+  \textbf{(i) $\Rightarrow$ (ii):} $|P\mathbf{x}|^2 = (P\mathbf{x})^\top (P\mathbf{x}) = \mathbf{x}^\top P^\top P \mathbf{x} = \mathbf{x}^\top \mathbf{x} = |\mathbf{x}|^2$.
+
+  \textbf{(ii) $\Rightarrow$ (iii):} Using the polarization identity, $|P(\mathbf{x} + \mathbf{y})|^2 = |\mathbf{x} + \mathbf{y}|^2$ expands to
+  \[
+    |P\mathbf{x}|^2 + |P\mathbf{y}|^2 + 2(P\mathbf{x}) \cdot (P\mathbf{y}) = |\mathbf{x}|^2 + |\mathbf{y}|^2 + 2\mathbf{x} \cdot \mathbf{y}.
+  \]
+  Since $|P\mathbf{x}| = |\mathbf{x}|$ and $|P\mathbf{y}| = |\mathbf{y}|$, we conclude $(P\mathbf{x}) \cdot (P\mathbf{y}) = \mathbf{x} \cdot \mathbf{y}$.
+
+  \textbf{(iii) $\Rightarrow$ (iv):} If $\{\mathbf{v}_i\}$ is orthonormal, then $(P\mathbf{v}_i) \cdot (P\mathbf{v}_j) = \mathbf{v}_i \cdot \mathbf{v}_j = \delta_{ij}$, so $\{P\mathbf{v}_i\}$ is orthonormal.
+
+  \textbf{(iv) $\Rightarrow$ (v):} Apply (iv) to the standard basis $\{\mathbf{e}_1, \ldots, \mathbf{e}_n\}$. Then $\{P\mathbf{e}_1, \ldots, P\mathbf{e}_n\}$ is orthonormal, and these are precisely the columns of $P$.
+
+  \textbf{(v) $\Rightarrow$ (i):} Let $\mathbf{p}_i$ denote the $i$th column of $P$. Then $(P^\top P)_{ij} = \mathbf{p}_i \cdot \mathbf{p}_j = \delta_{ij}$, so $P^\top P = I$.
 \end{proof}
 
-Therefore the set of length-preserving matrices is precisely $O(n)$.
+\begin{cor}
+  The orthogonal group $O(n)$ is precisely the group of linear transformations of $\R^n$ that preserve the Euclidean length (or equivalently, the Euclidean inner product).
+\end{cor}
 
 \subsection{Lorentz transformations}
-Consider the \emph{Minkowski} 1 + 1 dimension spacetime (i.e.\ 1 space dimension and 1 time dimension)
+In special relativity, spacetime is equipped with a different notion of distance than Euclidean space. We briefly introduce the matrices that preserve this relativistic distance in $(1+1)$-dimensional spacetime (one space dimension and one time dimension).
 
 \begin{defi}[Minkowski inner product]
-  The \emph{Minkowski} inner product of 2 vectors $\mathbf{x}$ and $\mathbf{y}$ is
+  The \emph{Minkowski inner product} on $\R^2$ is defined by
   \[
-    \bra \mathbf{x}\mid \mathbf{y}\ket = \mathbf{x}^TJ\mathbf{y},
+    \langle \mathbf{x}, \mathbf{y} \rangle_J = \mathbf{x}^\top J \mathbf{y}, \quad \text{where} \quad J = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}.
   \]
-  where
-  \[
-    J =
-    \begin{pmatrix}
-      1 & 0\\
-      0 & -1
-    \end{pmatrix}
-  \]
-  Then $\bra \mathbf{x}\mid \mathbf{y}\ket = x_1y_1 - x_2y_2$.
-\end{defi}
-This is to be compared to the usual \emph{Euclidean} inner product of $\mathbf{x}, \mathbf{y}\in \R^2$, given by
-\[
-  \bra \mathbf{x}\mid \mathbf{y}\ket = \mathbf{x}^T\mathbf{y} = \mathbf{x}^TI\mathbf{y} = x_1y_1 + x_2y_2.
-\]
-
-\begin{defi}[Preservation of inner product]
-  A transformation matrix $M$ preserves the Minkowski inner product if
-  \[
-    \bra \mathbf{x}|\mathbf{y}\ket = \bra M\mathbf{x} | M\mathbf{y}\ket
-  \]
-  for all $\mathbf{x}, \mathbf{y}$.
+  Explicitly, $\langle \mathbf{x}, \mathbf{y} \rangle_J = x_1 y_1 - x_2 y_2$.
 \end{defi}
 
-We know that $\mathbf{x}^TJ\mathbf{y} = (M\mathbf{x})^TJM\mathbf{y} = \mathbf{x}^T M^TJM\mathbf{y}$. Since this has to be true for all $\mathbf{x}$ and $\mathbf{y}$, we must have
-\[
-  J = M^TJM.
-\]
-We can show that $M$ takes the form of
-\[
-  H_\alpha = \begin{pmatrix}
-    \cosh \alpha & \sinh \alpha\\
-    \sinh \alpha & \cosh \alpha
-  \end{pmatrix}\text{ or } K_{\alpha/2} =
-  \begin{pmatrix}
-    \cosh\alpha & -\sinh\alpha\\
-    \sinh\alpha & -\cosh\alpha
-  \end{pmatrix}
-\]
-where $H_\alpha$ is a \emph{hyperbolic rotation}, and $K_{\alpha/2}$ is a \emph{hyperbolic reflection}.
+\begin{rmk}
+  Compare this to the Euclidean inner product $\langle \mathbf{x}, \mathbf{y} \rangle = \mathbf{x}^\top I \mathbf{y} = x_1 y_1 + x_2 y_2$. The Minkowski inner product has a crucial sign difference in the second term.
+\end{rmk}
 
-This is technically \emph{all} matrices that preserve the metric, since these only include matrices with $M_{11} > 0$. In physics, these are the matrices we want, since $M_{11} < 0$ corresponds to inverting time, which is frowned upon.
-
-\begin{defi}[Lorentz matrix]
-  A \emph{Lorentz matrix} or a \emph{Lorentz boost} is a matrix in the form
+\begin{prop}[Characterization of Minkowski-preserving matrices]\label{prop:minkowski-preserving}
+  A matrix $M$ preserves the Minkowski inner product (i.e., $\langle M\mathbf{x}, M\mathbf{y} \rangle_J = \langle \mathbf{x}, \mathbf{y} \rangle_J$ for all $\mathbf{x}, \mathbf{y}$) if and only if
   \[
-    B_v = \frac{1}{\sqrt{1 - v^2}}
-    \begin{pmatrix}
-      1 & v\\
-      v & 1
-    \end{pmatrix}.
+    M^\top J M = J.
   \]
-  Here $|v| < 1$, where we have chosen units in which the speed of light is equal to $1$. We have $B_v = H_{\tanh^{-1}v}$
+\end{prop}
+
+\begin{proof}
+  We have $\langle M\mathbf{x}, M\mathbf{y} \rangle_J = (M\mathbf{x})^\top J (M\mathbf{y}) = \mathbf{x}^\top M^\top J M \mathbf{y}$. This equals $\mathbf{x}^\top J \mathbf{y}$ for all $\mathbf{x}, \mathbf{y}$ if and only if $M^\top J M = J$.
+\end{proof}
+
+\begin{prop}[Structure of Minkowski-preserving matrices]\label{prop:lorentz-structure}
+  The matrices satisfying $M^\top J M = J$ with $M_{11} > 0$ take one of two forms:
+  \[
+    H_\alpha = \begin{pmatrix} \cosh\alpha & \sinh\alpha \\ \sinh\alpha & \cosh\alpha \end{pmatrix} \quad \text{or} \quad K_\alpha = \begin{pmatrix} \cosh\alpha & -\sinh\alpha \\ \sinh\alpha & -\cosh\alpha \end{pmatrix},
+  \]
+  where $H_\alpha$ is a \emph{hyperbolic rotation} (or \emph{boost}) and $K_\alpha$ is a \emph{hyperbolic reflection}.
+\end{prop}
+
+\begin{rmk}
+  The condition $M_{11} > 0$ excludes transformations that reverse the direction of time. In physics, such time-reversing transformations are typically excluded, giving the \emph{proper orthochronous Lorentz group}.
+\end{rmk}
+
+\begin{defi}[Lorentz boost]
+  A \emph{Lorentz boost} with velocity $v$ (where $|v| < 1$ in units where the speed of light $c = 1$) is the matrix
+  \[
+    B_v = \frac{1}{\sqrt{1 - v^2}} \begin{pmatrix} 1 & v \\ v & 1 \end{pmatrix} = \begin{pmatrix} \gamma & \gamma v \\ \gamma v & \gamma \end{pmatrix},
+  \]
+  where $\gamma = 1/\sqrt{1 - v^2}$ is the \emph{Lorentz factor}. We have $B_v = H_\alpha$ with $\alpha = \tanh^{-1}(v)$.
 \end{defi}
 
 \begin{defi}[Lorentz group]
-  The \emph{Lorentz group} is a group of all Lorentz matrices under matrix multiplication.
+  The \emph{Lorentz group} (in $1+1$ dimensions) is the group of all Lorentz boosts under matrix multiplication.
 \end{defi}
-It is easy to prove that this is a group. For the closure axiom, we have $B_{v_1}B_{v_2} = B_{v_3}$, where
-\[
-  v_3 = \tanh(\tanh^{-1} v_1 + \tanh^{-1} v_2) = \frac{v_1 + v_2}{1 + v_1v_2}
-\]
-The set of all $B_v$ is a group of transformations which preserve the Minkowski inner product.
+
+\begin{prop}[Velocity addition formula]\label{prop:velocity-addition}
+  Lorentz boosts satisfy $B_{v_1} B_{v_2} = B_{v_3}$, where
+  \[
+    v_3 = \frac{v_1 + v_2}{1 + v_1 v_2}.
+  \]
+  This is the relativistic velocity addition formula.
+\end{prop}
+
+\begin{proof}
+  Since $B_v = H_{\tanh^{-1}(v)}$ and hyperbolic rotations satisfy $H_{\alpha_1} H_{\alpha_2} = H_{\alpha_1 + \alpha_2}$, we have
+  \[
+    v_3 = \tanh(\tanh^{-1}(v_1) + \tanh^{-1}(v_2)) = \frac{v_1 + v_2}{1 + v_1 v_2},
+  \]
+  using the addition formula for hyperbolic tangent.
+\end{proof}
 \end{document}
