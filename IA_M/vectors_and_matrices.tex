@@ -1976,55 +1976,57 @@ In practical terms, we use a combination of properties of determinants with a se
 \end{cor}
 
 \subsection{Matrix rank}
-Consider a linear map $\alpha: \R^n\to \R^m$. Recall the rank $r(\alpha)$ is the dimension of the image. Suppose that the matrix $A$ is associated with the linear map. We also call $r(A)$ the \emph{rank} of $A$.
+\begin{defi}[Rank of a matrix]
+  Let $\alpha: \R^n \to \R^m$ be a linear map with associated matrix $A$. The \emph{rank} of $A$, denoted $r(A)$, is the dimension of the image of $\alpha$.
+\end{defi}
 
-Recall that if the standard basis is $\mathbf{e}_1,\cdots \mathbf{e}_n$, then $A\mathbf{e}_1, \cdots, A\mathbf{e}_n$ span the image (but not necessarily linearly independent).
+\begin{prop}[Rank equals number of independent columns]
+  Let $A$ be an $m \times n$ matrix. Then $r(A)$ equals the number of linearly independent columns of $A$.
+\end{prop}
 
-Further, $A\mathbf{e}_1, \cdots, A\mathbf{e}_n$ are the columns of the matrix $A$. Hence $r(A)$ is the number of linearly independent columns.
+\begin{proof}
+  Let $\mathbf{e}_1, \ldots, \mathbf{e}_n$ denote the standard basis of $\R^n$. The image of $A$ is spanned by $A\mathbf{e}_1, \ldots, A\mathbf{e}_n$. Since $A\mathbf{e}_j$ is the $j$th column of $A$, the dimension of the image equals the number of linearly independent columns.
+\end{proof}
 
-\begin{defi}[Column and row rank of linear map]
-  The \emph{column rank} of a matrix is the maximum number of linearly independent columns.
-
-  The \emph{row rank} of a matrix is the maximum number of linearly independent rows.
+\begin{defi}[Column rank and row rank]
+  Let $A$ be an $m \times n$ matrix. The \emph{column rank} of $A$ is the maximum number of linearly independent columns. The \emph{row rank} of $A$ is the maximum number of linearly independent rows.
 \end{defi}
 
 \begin{thm}[Column rank equals row rank]
-  The column rank and row rank are equal for any $m\times n$ matrix.
+  For any $m \times n$ matrix $A$, the column rank and row rank are equal.
 \end{thm}
 
 \begin{proof}
-  Let $r$ be the row rank of $A$. Write the biggest set of linearly independent rows as $\mathbf{v}_1^T, \mathbf{v}_2^T, \cdots \mathbf{v}_r^T$ or in component form $\mathbf{v}_k^T = (v_{k1}, v_{k2}, \cdots, v_{kn})$ for $k = 1, 2, \cdots, r$.
+  Let $r$ denote the row rank of $A$, and let $\mathbf{v}_1^T, \mathbf{v}_2^T, \ldots, \mathbf{v}_r^T$ be a maximal set of linearly independent rows, where $\mathbf{v}_k^T = (v_{k1}, v_{k2}, \ldots, v_{kn})$ for $k = 1, \ldots, r$.
 
-  Now denote the $i$th row of $A$ as $\mathbf{r}_i^T = (A_{i1}, A_{i2}, \cdots A_{in})$.
-
-  Note that every row of $A$ can be written as a linear combination of the $\mathbf{v}$'s. (If $\mathbf{r_i}$ cannot be written as a linear combination of the $\mathbf{v}$'s, then it is independent of the $\mathbf{v}$'s and $\mathbf{v}$ is not the maximum collection of linearly independent rows) Write
+  Denote the $i$th row of $A$ by $\mathbf{r}_i^T = (A_{i1}, A_{i2}, \ldots, A_{in})$. Since $\{\mathbf{v}_1, \ldots, \mathbf{v}_r\}$ is a maximal linearly independent set of rows, every row of $A$ can be written as a linear combination of these vectors:
   \[
-    \mathbf{r}_i^T = \sum_{k = 1}^r C_{ik}\mathbf{v}_{k}^T.
+    \mathbf{r}_i^T = \sum_{k = 1}^r C_{ik}\mathbf{v}_{k}^T
   \]
-  For some coefficients $C_{ik}$ with $1 \leq i\leq m$ and $1 \leq k \leq r$.
+  for some coefficients $C_{ik}$ with $1 \leq i \leq m$ and $1 \leq k \leq r$.
 
-  Now the elements of $A$ are
+  The $(i,j)$-entry of $A$ is therefore
   \[
-    A_{ij} = (\mathbf{r}_i)^T_j = \sum_{k = 1}^r C_{ik}(\mathbf{v}_k)_j,
+    A_{ij} = (\mathbf{r}_i)_j = \sum_{k = 1}^r C_{ik}(\mathbf{v}_k)_j.
   \]
-  or
+  Writing this in terms of the $j$th column of $A$, we have
   \[
     \begin{pmatrix}
       A_{1j}\\
       A_{2j}\\
       \vdots\\
       A_{mj}
-    \end{pmatrix} = \sum_{k = 1}^r {\mathbf{v}_k}_j
+    \end{pmatrix} = \sum_{k = 1}^r (\mathbf{v}_k)_j
     \begin{pmatrix}
       C_{1k}\\
-      C_{2k}\\\
+      C_{2k}\\
       \vdots\\
       C_{mk}
-    \end{pmatrix}
+    \end{pmatrix}.
   \]
-  So every column of $A$ can be written as a linear combination of the $r$ column vectors $\mathbf{c}_k$. Then the column rank of $A \leq r$, the row rank of $A$.
+  Thus every column of $A$ is a linear combination of the $r$ vectors $(C_{1k}, C_{2k}, \ldots, C_{mk})^T$ for $k = 1, \ldots, r$. Hence the column rank of $A$ is at most $r$, the row rank.
 
-  Apply the same argument to $A^T$ to see that the row rank is $\leq$ the column rank.
+  Applying the same argument to $A^T$ shows that the row rank is at most the column rank. Therefore the two ranks are equal.
 \end{proof}
 
 \subsection{Homogeneous problem \texorpdfstring{$A\mathbf{x} = \mathbf{0}$}{Ax = 0}}
