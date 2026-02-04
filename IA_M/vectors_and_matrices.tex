@@ -1721,44 +1721,74 @@ In practical terms, we use a combination of properties of determinants with a se
 
 \section{Matrices and linear equations}
 \subsection{Simple example, \texorpdfstring{$2\times 2$}{2 x 2}}
-Consider the system of equations
-\begin{align*}
-  A_{11}x_1 + A_{12}x_2 &= d_1\tag{a}\\
-  A_{21}x_1 + A_{22}x_2 &= d_2\tag{b}.
-  \intertext{We can write this as}
-  A\mathbf{x} &= \mathbf{d}.
-\end{align*}
-If we do (a)$\times A_{22} - $(b)$\times A_{12}$ and similarly the other way round, we obtain
-\begin{align*}
-  (A_{11}A_{22} - A_{12}A_{21})x_1 &= A_{22}d_1 - A_{12}d_2\\
-  \underbrace{(A_{11}A_{22} - A_{12}A_{21})}_{\det A}x_2 &= A_{11}d_2 - A_{21}d_1
-\end{align*}
-Dividing by $\det A$ and writing in matrix form, we have
-\[
-  \begin{pmatrix}
-    x_1\\
-    x_2
-  \end{pmatrix} = \frac{1}{\det A}
-  \begin{pmatrix}
-    A_{22} & - A_{12}\\
-    -A_{21} & A_{11}
-  \end{pmatrix}
-  \begin{pmatrix}
-    d_1\\
-    d_2
-  \end{pmatrix}
-\]
-On the other hand, given the equation $A\mathbf{x} = \mathbf{d}$, if $A^{-1}$ exists, then by multiplying both sides on the left by $A^{-1}$, we obtain $\mathbf{x} = A^{-1}\mathbf{d}$.
+\begin{remark}
+  We begin by studying the inverse of a $2 \times 2$ matrix through the lens of solving linear systems. This concrete case motivates the general theory developed in the following subsections.
+\end{remark}
 
-Hence, we have constructed $A^{-1}$ in the $2\times 2$ case, and shown that the condition for its existence is $\det A \not= 0$, with
-\[
-  A^{-1} =\frac{1}{\det A}\begin{pmatrix}A_{22} & - A_{12}\\-A_{21} & A_{11}\end{pmatrix}
-\]
+\begin{eg}[Solving a $2 \times 2$ system by elimination]
+  Let $A = \begin{pmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{pmatrix}$ be a $2 \times 2$ matrix, and consider the system of linear equations
+  \begin{align*}
+    A_{11}x_1 + A_{12}x_2 &= d_1\tag{a}\\
+    A_{21}x_1 + A_{22}x_2 &= d_2\tag{b},
+  \end{align*}
+  where $\mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \end{pmatrix}$ and $\mathbf{d} = \begin{pmatrix} d_1 \\ d_2 \end{pmatrix}$ are column vectors. In matrix form, this system is $A\mathbf{x} = \mathbf{d}$.
+
+  To solve for $x_1$ and $x_2$, we eliminate variables. Computing (a)$\times A_{22} - $(b)$\times A_{12}$ and similarly the other way round, we obtain
+  \begin{align*}
+    (A_{11}A_{22} - A_{12}A_{21})x_1 &= A_{22}d_1 - A_{12}d_2\\
+    \underbrace{(A_{11}A_{22} - A_{12}A_{21})}_{\det A}x_2 &= A_{11}d_2 - A_{21}d_1.
+  \end{align*}
+  Assuming $\det A \neq 0$, we may divide by $\det A$ and write the solution in matrix form:
+  \[
+    \begin{pmatrix}
+      x_1\\
+      x_2
+    \end{pmatrix} = \frac{1}{\det A}
+    \begin{pmatrix}
+      A_{22} & - A_{12}\\
+      -A_{21} & A_{11}
+    \end{pmatrix}
+    \begin{pmatrix}
+      d_1\\
+      d_2
+    \end{pmatrix}.
+  \]
+\end{eg}
+
+\begin{prop}[Inverse of a $2 \times 2$ matrix]
+  Let $A = \begin{pmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{pmatrix}$ be a $2 \times 2$ matrix. Then $A^{-1}$ exists if and only if $\det A \neq 0$, in which case
+  \[
+    A^{-1} = \frac{1}{\det A}\begin{pmatrix}A_{22} & - A_{12}\\-A_{21} & A_{11}\end{pmatrix}.
+  \]
+\end{prop}
+
+\begin{proof}
+  Suppose $\det A \neq 0$. The preceding example shows that the unique solution to $A\mathbf{x} = \mathbf{d}$ is
+  \[
+    \mathbf{x} = \frac{1}{\det A}
+    \begin{pmatrix}
+      A_{22} & - A_{12}\\
+      -A_{21} & A_{11}
+    \end{pmatrix}
+    \mathbf{d}.
+  \]
+  On the other hand, if $A^{-1}$ exists, then multiplying $A\mathbf{x} = \mathbf{d}$ on the left by $A^{-1}$ gives $\mathbf{x} = A^{-1}\mathbf{d}$. Comparing these expressions, we conclude that
+  \[
+    A^{-1} = \frac{1}{\det A}\begin{pmatrix}A_{22} & - A_{12}\\-A_{21} & A_{11}\end{pmatrix}.
+  \]
+  The converse, that $\det A = 0$ implies $A^{-1}$ does not exist, follows from the general theory in the next subsection.
+\end{proof}
 
 \subsection{Inverse of an \texorpdfstring{$n\times n$}{n x n} matrix}
-For larger matrices, the formula for the inverse is similar, but slightly more complicated (and costly to evaluate). The key to finding the inverse is the following:
+\begin{remark}
+  For larger matrices, the formula for the inverse is similar to the $2 \times 2$ case, but slightly more complicated (and costly to evaluate). The key ingredient is the following lemma.
+\end{remark}
+
 \begin{lemma}[Cofactor sum formula]
-  $\sum A_{ik}\Delta_{jk} = \delta_{ij}\det A$.
+  Let $A$ be an $n \times n$ matrix with cofactors $\Delta_{jk}$. Then
+  \[
+    \sum_{k=1}^{n} A_{ik}\Delta_{jk} = \delta_{ij}\det A.
+  \]
 \end{lemma}
 
 \begin{proof}
@@ -1770,22 +1800,31 @@ For larger matrices, the formula for the inverse is similar, but slightly more c
 \end{proof}
 
 \begin{thm}[Matrix inverse via cofactors]
-  If $\det A \not =0$, then $A^{-1}$ exists and is given by
+  Let $A$ be an $n \times n$ matrix. If $\det A \neq 0$, then $A^{-1}$ exists and is given by
   \[
-    (A^{-1})_{ij} = \frac{\Delta_{ji}}{\det A}.
+    (A^{-1})_{ij} = \frac{\Delta_{ji}}{\det A},
   \]
+  where $\Delta_{ji}$ denotes the $(j,i)$-cofactor of $A$.
 \end{thm}
 
 \begin{proof}
+  Using the Einstein summation convention, we compute
   \[
-    (A^{-1})_{ik}A_{kj} = \frac{\Delta_{ki}}{\det A} A_{kj} = \frac{\delta_{ij}\det A}{\det A} = \delta_{ij}.
+    (A^{-1})_{ik}A_{kj} = \frac{\Delta_{ki}}{\det A} A_{kj} = \frac{\delta_{ij}\det A}{\det A} = \delta_{ij},
   \]
-  So $A^{-1}A = I$.
+  where the second equality follows from the cofactor sum formula. Hence $A^{-1}A = I$.
 \end{proof}
-The other direction is easy to prove. If $\det A = 0$, then it has no inverse, since for any matrix $B$, $\det AB = 0$, and hence $AB$ cannot be the identity.
 
-\begin{eg}
-  Consider the shear matrix $S_\lambda = \begin{pmatrix} 1 & \lambda & 0 \\ 0 & 1 & 0\\ 0 & 0 & 1\end{pmatrix}$. We have $\det{S_\lambda} = 1$. The cofactors are
+\begin{cor}
+  Let $A$ be an $n \times n$ matrix. If $\det A = 0$, then $A^{-1}$ does not exist.
+\end{cor}
+
+\begin{proof}
+  Suppose for contradiction that $B$ is an inverse of $A$. Then $AB = I$, so $\det(AB) = \det I = 1$. But by the multiplicative property of determinants, $\det(AB) = \det A \cdot \det B = 0$, a contradiction.
+\end{proof}
+
+\begin{eg}[Inverse of a shear matrix]
+  Consider the shear matrix $S_\lambda = \begin{pmatrix} 1 & \lambda & 0 \\ 0 & 1 & 0\\ 0 & 0 & 1\end{pmatrix}$. We have $\det{S_\lambda} = 1$, so $S_\lambda$ is invertible. The cofactors are
   \begin{center}
     \begin{tabular}{ccc}
       $\Delta_{11} = 1$ & $\Delta_{12} = 0$ & $\Delta_{13} = 0$ \\
@@ -1796,214 +1835,288 @@ The other direction is easy to prove. If $\det A = 0$, then it has no inverse, s
   So $S_\lambda^{-1} = \begin{pmatrix} 1 & -\lambda & 0\\ 0 & 1 & 0\\ 0 & 0 & 1\end{pmatrix}$.
 \end{eg}
 
-How many arithmetic operations are involved in calculating the inverse of an $n\times n$ matrix? We just count multiplication operations since they are the most time-consuming. Suppose that calculating $\det A$ takes $f_n$ multiplications. This involves $n$ $(n - 1)\times (n - 1)$ determinants, and you need $n$ more multiplications to put them together. So $f_n = nf_{n -1} + n$. So $f_n = O(n!)$ (in fact $f_n \approx (1 + e)n!$).
+\begin{remark}[Computational complexity of matrix inversion]
+  How many arithmetic operations are involved in calculating the inverse of an $n\times n$ matrix? We count multiplication operations since they are the most time-consuming. Suppose that calculating $\det A$ takes $f_n$ multiplications. This involves $n$ determinants of $(n - 1)\times (n - 1)$ matrices, and $n$ additional multiplications to combine them. Thus $f_n = nf_{n -1} + n$, which gives $f_n = O(n!)$ (in fact $f_n \approx (1 + e)n!$).
 
-To find the inverse, we need to calculate $n^2$ cofactors. Each is a $n -1$ determinant, and each takes $O((n - 1)!)$. So the time complexity is $O(n^2 (n - 1)!) = O(n\cdot n!)$.
+  To find the inverse, we must calculate $n^2$ cofactors. Each cofactor is an $(n-1) \times (n-1)$ determinant, requiring $O((n - 1)!)$ operations. Hence the total time complexity is $O(n^2 (n - 1)!) = O(n\cdot n!)$.
 
-This is incredibly slow. Hence while it is theoretically possible to solve systems of linear equations by inverting a matrix, sane people do not do so in general. Instead, we develop certain better methods to solve the equations. In fact, the ``usual'' method people use to solve equations by hand only has complexity $O(n^3)$, which is a much better complexity.
+  This is prohibitively slow for large matrices. While it is theoretically possible to solve systems of linear equations by inverting a matrix, this approach is impractical in general. Instead, we develop more efficient methods such as Gaussian elimination, which has complexity $O(n^3)$.
+\end{remark}
 
 \subsection{Homogeneous and inhomogeneous equations}
-Consider $A\mathbf{x} = \mathbf{b}$ where $A$ is an $n\times n$ matrix, $\mathbf{x}$ and $\mathbf{b}$ are $n\times 1$ column vectors.
-\begin{defi}[Homogeneous equation]
-  If $\mathbf{b} = \mathbf{0}$, then the system is \emph{homogeneous}. Otherwise, it's \emph{inhomogeneous}.
+\begin{defi}[Homogeneous and inhomogeneous systems]
+  Consider a system of linear equations $A\mathbf{x} = \mathbf{b}$, where $A$ is an $n\times n$ matrix, and $\mathbf{x}, \mathbf{b} \in \R^n$ are column vectors. The system is called \emph{homogeneous} if $\mathbf{b} = \mathbf{0}$, and \emph{inhomogeneous} otherwise.
 \end{defi}
 
-Suppose $\det A\not= 0$. Then there is a unique solution $\mathbf{x} = A^{-1}\mathbf{b}$ ($\mathbf{x} = \mathbf{0}$ for homogeneous).
+\begin{prop}[Unique solution for invertible matrices]
+  Let $A$ be an $n \times n$ matrix with $\det A \neq 0$, and let $\mathbf{b} \in \R^n$. Then the system $A\mathbf{x} = \mathbf{b}$ has a unique solution $\mathbf{x} = A^{-1}\mathbf{b}$. In particular, the homogeneous system $A\mathbf{x} = \mathbf{0}$ has only the trivial solution $\mathbf{x} = \mathbf{0}$.
+\end{prop}
 
-How can we understand this result? Recall that $\det A\not= 0$ means that the columns of $A$ are linearly independent. The columns are the images of the standard basis, $\mathbf{e}_i' = A\mathbf{e_i}$. So $\det A\not = 0$ means that $\mathbf{e}_i'$ are linearly independent and form a basis of $\R^n$. Therefore the image is the whole of $\R^n$. This automatically ensures that $\mathbf{b}$ is in the image, i.e.\ there is a solution.
+\begin{proof}
+  We first show existence. Since $\det A \neq 0$, the columns of $A$ are linearly independent. The columns are the images of the standard basis vectors under $A$, i.e.\ $A\mathbf{e}_i$ for $i = 1, \ldots, n$. Thus these images form a basis of $\R^n$, so the image of $A$ is all of $\R^n$. In particular, $\mathbf{b}$ lies in the image of $A$, meaning a solution exists.
 
-To show that there is exactly one solution, suppose $\mathbf{x}$ and $\mathbf{x}'$ are both solutions. Then $A\mathbf{x} = A\mathbf{x}' = \mathbf{b}$. So $A(\mathbf{x} - \mathbf{x}') = \mathbf{0}$. So $\mathbf{x} - \mathbf{x}'$ is in the kernel of $A$. But since the rank of $A$ is $n$, by the rank-nullity theorem, the nullity is $0$. So the kernel is trivial. So $\mathbf{x} - \mathbf{x}' = \mathbf{0}$, i.e.\ $\mathbf{x} = \mathbf{x}'$.
+  We now show uniqueness. Suppose $\mathbf{x}$ and $\mathbf{x}'$ are both solutions, so $A\mathbf{x} = A\mathbf{x}' = \mathbf{b}$. Then $A(\mathbf{x} - \mathbf{x}') = \mathbf{0}$, so $\mathbf{x} - \mathbf{x}'$ lies in the kernel of $A$. Since the rank of $A$ is $n$, by the rank-nullity theorem the nullity is $0$, so the kernel is trivial. Hence $\mathbf{x} - \mathbf{x}' = \mathbf{0}$, i.e.\ $\mathbf{x} = \mathbf{x}'$.
+\end{proof}
 
 \subsubsection{Gaussian elimination}
-Consider a general solution
-\begin{align*}
-  A_{11}x_1 + A_{12}x_2 + \cdots + A_{1n}x_n &= d_1\\
-  A_{21}x_1 + A_{22}x_2 + \cdots + A_{2n}x_n &= d_2\\
-  \vdots&\\
-  A_{m1}x_1 + A_{m2}x_2 + \cdots + A_{mn}x_n &= d_m
-\end{align*}
-So we have $m$ equations and $n$ unknowns.
+\begin{remark}[The Gaussian elimination algorithm]
+  Consider a general system of $m$ linear equations in $n$ unknowns:
+  \begin{align*}
+    A_{11}x_1 + A_{12}x_2 + \cdots + A_{1n}x_n &= d_1\\
+    A_{21}x_1 + A_{22}x_2 + \cdots + A_{2n}x_n &= d_2\\
+    \vdots&\\
+    A_{m1}x_1 + A_{m2}x_2 + \cdots + A_{mn}x_n &= d_m.
+  \end{align*}
+  Assuming $A_{11} \neq 0$ (which can be achieved by reordering the equations if necessary), we use the first equation to eliminate $x_1$ from the remaining $(m - 1)$ equations. We then use the second equation to eliminate $x_2$ from the remaining $(m - 2)$ equations (reordering if needed), and repeat. After this process, we obtain a system in \emph{row echelon form}:
+  \begin{align*}
+    A_{11}x_1 + A_{12}x_2 + A_{13}x_3 + \cdots + A_{1n}x_n &= d_1\\
+    A_{22}^{(2)}x_2 + A_{23}^{(2)}x_3 + \cdots + A_{2n}^{(2)}x_n &= d_2^{(2)}\\
+    \vdots&\\
+    A_{rr}^{(r)}x_r + \cdots + A_{rn}^{(r)}x_n &= d_r^{(r)}\\
+    0 &= d_{r + 1}^{(r)}\\
+    \vdots&\\
+    0 &= d_{m}^{(r)},
+  \end{align*}
+  where $A_{ii}^{(i)} \neq 0$ for $i = 1, \ldots, r$ (achievable by reordering), and the superscript $(i)$ denotes the coefficient after $i$ elimination steps.
+\end{remark}
 
-Assume $A_{11}\not=0$ (if not, we can re-order the equations). We can use the first equation to eliminate $x_1$ from the remaining $(m - 1)$ equations. Then use the second equation to eliminate $x_2$ from the remaining $(m - 2)$ equations (if anything goes wrong, just re-order until things work). Repeat.
+\begin{defi}[Classification of linear systems]
+  A system of linear equations is called:
+  \begin{enumerate}
+    \item \emph{Overdetermined} if it has no solution (inconsistent);
+    \item \emph{Determined} if it has exactly one solution;
+    \item \emph{Underdetermined} if it has infinitely many solutions.
+  \end{enumerate}
+\end{defi}
 
-We are left with
-\begin{align*}
-  A_{11}x_1 + A_{12}x_2 + A_{13}x_3 + \cdots + A_{1n}x_n &= d_1\\
-  A_{22}^{(2)}x_2 + A_{23}^{(2)}x_3 + \cdots + A_{2n}^{(2)}x_n &= d_2\\
-  \vdots&\\
-  A_{rr}^{(r)}x_r + \cdots + A_{rn}^{(r)}x_n &= d_r\\
-  0 &= d_{r + 1}^{(r)}\\
-  \vdots&\\
-  0 &= d_{m}^{(r)}
-\end{align*}
-Here $A_{ii}^{(i)} \not=0$ (which we can achieve by re-ordering), and the superfix $(i)$ refers to the ``version number'' of the coefficient, e.g.\ $A_{22}^{(2)}$ is the second version of the coefficient of $x_2$ in the second row.
+\begin{prop}[Classification via row echelon form]
+  Consider a system of $m$ equations in $n$ unknowns, reduced to row echelon form with $r$ nonzero rows (where $r \leq \min(m, n)$). Then:
+  \begin{enumerate}
+    \item If $r < m$ and at least one of $d^{(r)}_{r + 1}, \ldots, d_m^{(r)}$ is nonzero, the system is overdetermined.
+    \item If $r = n \leq m$ and $d_{r+i}^{(r)} = 0$ for all $i \geq 1$, the system is determined, with unique solution found by back substitution.
+    \item If $r < n$ and $d_{r+i}^{(r)} = 0$ for all $i \geq 1$, the system is underdetermined, with $x_{r+1}, \ldots, x_n$ as free parameters.
+  \end{enumerate}
+\end{prop}
 
-Let's consider the different possibilities:
-\begin{enumerate}
-  \item $r < m$ and at least one of $d^{(r)}_{r + 1}, \cdots d_m^{(r)} \not= 0$. Then a contradiction is reached. The system is inconsistent and has no solution. We say it is \emph{overdetermined}.
-    \begin{eg}
-      Consider the system
-      \begin{align*}
-        3x_1 + 2x_2 + x_3 &= 3\\
-        6x_1 + 3x_2 + 3x_3 &= 0\\
-        6x_1 + 2x_2 + 4x_3 &= 6
-        \intertext{This becomes }
-        3x_1 + 2x_2 + x_3 &= 3\\
-        0 - x_2 + x_3 &= -6\\
-        0 - 2x_2 + 2x_3 &= 0
-        \intertext{And then}
-        3x_1 + 2x_2 + x_3 &= 3\\
-        0 - x_2 + x_3 &= -6\\
-        0 &= 12
-      \end{align*}
-      We have $d_3^{(3)} = 12 \not= 0$ and there is no solution.
-    \end{eg}
-  \item If $r = n\leq m$, and all $d_{r + i}^{(r)} = 0$. Then from the $n$th equation, there is a unique solution for $x_n = d_{n}^{(n)}/A_{nn}^{(n)}$, and hence for all $x_i$ by back substitution. This system is \emph{determined}.
-    \begin{eg}
-      \begin{align*}
-        2x_1 + 5x_2 &= 2\\
-        4x_1 + 3x_2 &= 11\\
-        \intertext{This becomes}
-        2x_1 + 5x_2 &= 2\\
-        -7x_2 &= 7
-      \end{align*}
-      So $x_2 = -1$ and thus $x_1 = 7/2$.
-    \end{eg}
-  \item If $r < n$ and $d_{r + i}^{(r)} = 0$, then $x_{r + 1}, \cdots x_n$ can be freely chosen, and there are infinitely many solutions. System is \emph{under-determined}. e.g.
-    \begin{align*}
-      x_1 + x_2 &= 1\\
-      2x_1 + 2x_2 &= 2
-      \intertext{Which gives}
-      x_1 + x_2 &= 1\\
-      0 &= 0
-    \end{align*}
-    So $x_1 = 1 - x_2$ is a solution for any $x_2$.
-\end{enumerate}
-In the $n = m$ case, there are $O(n^3)$ operations involved, which is much less than inverting the matrix. So this is an efficient way of solving equations.
+\begin{eg}[Overdetermined system]
+  Consider the system
+  \begin{align*}
+    3x_1 + 2x_2 + x_3 &= 3\\
+    6x_1 + 3x_2 + 3x_3 &= 0\\
+    6x_1 + 2x_2 + 4x_3 &= 6.
+    \intertext{Eliminating $x_1$ from the second and third equations gives}
+    3x_1 + 2x_2 + x_3 &= 3\\
+    - x_2 + x_3 &= -6\\
+    - 2x_2 + 2x_3 &= 0.
+    \intertext{Eliminating $x_2$ from the third equation gives}
+    3x_1 + 2x_2 + x_3 &= 3\\
+    - x_2 + x_3 &= -6\\
+    0 &= 12.
+  \end{align*}
+  Since $d_3^{(3)} = 12 \neq 0$, the system has no solution.
+\end{eg}
 
-This is also be related to the determinant. Consider the case where $m = n$ and $A$ is square. Since row operations do not change the determinant and swapping rows give a factor of $(-1)$. So
-\[
-  \det A = (-1)^k
-  \begin{vmatrix}
-    A_{11} &A_{12}&\cdots& \cdots& \cdots & A_{1n}\\
-    0 & A_{22}^{(2)} &\cdots& \cdots & \cdots & A_{2n}^{(n)} \\
-    \vdots & \vdots &\ddots & \vdots & \vdots & \vdots\\
-    0 & 0 & \cdots & A_{rr}^{(r)} & \cdots & A_{rn}^{(n)}\\
-    0 & 0 & \cdots & 0 & 0 & \cdots\\
-    \vdots & \vdots & \vdots & \vdots & \vdots & \vdots
-  \end{vmatrix}
-\]
+\begin{eg}[Determined system]
+  Consider the system
+  \begin{align*}
+    2x_1 + 5x_2 &= 2\\
+    4x_1 + 3x_2 &= 11.
+    \intertext{Eliminating $x_1$ from the second equation gives}
+    2x_1 + 5x_2 &= 2\\
+    -7x_2 &= 7.
+  \end{align*}
+  Back substitution yields $x_2 = -1$ and $x_1 = 7/2$.
+\end{eg}
+
+\begin{eg}[Underdetermined system]
+  Consider the system
+  \begin{align*}
+    x_1 + x_2 &= 1\\
+    2x_1 + 2x_2 &= 2.
+    \intertext{Eliminating $x_1$ from the second equation gives}
+    x_1 + x_2 &= 1\\
+    0 &= 0.
+  \end{align*}
+  Thus $x_2$ is a free parameter, and $x_1 = 1 - x_2$ for any choice of $x_2$.
+\end{eg}
+
+\begin{remark}[Computational complexity]
+  For an $n \times n$ system, Gaussian elimination requires $O(n^3)$ arithmetic operations, which is far more efficient than computing the inverse via cofactors.
+\end{remark}
+
+\begin{remark}[Connection to determinants]
+  For a square system ($m = n$), Gaussian elimination is closely related to the determinant. Since row operations of the form ``row $i$ minus a multiple of row $j$'' do not change the determinant, and swapping rows introduces a factor of $(-1)$, we have
+  \[
+    \det A = (-1)^k
+    \begin{vmatrix}
+      A_{11} &A_{12}&\cdots& \cdots& \cdots & A_{1n}\\
+      0 & A_{22}^{(2)} &\cdots& \cdots & \cdots & A_{2n}^{(2)} \\
+      \vdots & \vdots &\ddots & \vdots & \vdots & \vdots\\
+      0 & 0 & \cdots & A_{rr}^{(r)} & \cdots & A_{rn}^{(r)}\\
+      0 & 0 & \cdots & 0 & 0 & \cdots\\
+      \vdots & \vdots & \vdots & \vdots & \vdots & \vdots
+    \end{vmatrix},
+  \]
+  where $k$ is the number of row swaps performed.
+\end{remark}
+
 \begin{lemma}[Determinant of upper triangular matrix]
-  If a matrix is \emph{upper triangular} (all elements below the diagonal are $0$), then its determinant is the product of its diagonal elements.
+  Let $T$ be an $n \times n$ \emph{upper triangular} matrix (i.e., $T_{ij} = 0$ for all $i > j$). Then
+  \[
+    \det T = T_{11} T_{22} \cdots T_{nn}.
+  \]
 \end{lemma}
 
-Hence if $r < n$ (and $d_i^{(r)} = 0$ for $i > r$), then we have case (ii) and the $\det A = 0$. If $r = n$, then $\det A = (-1)^k A_{11}A_{22}^{(2)}\cdots A_{nn}^{(n)} \not= 0$.
+\begin{cor}
+  For a square $n \times n$ system reduced to row echelon form with $r$ nonzero rows:
+  \begin{enumerate}
+    \item If $r < n$, then $\det A = 0$.
+    \item If $r = n$, then $\det A = (-1)^k A_{11}A_{22}^{(2)}\cdots A_{nn}^{(n)} \neq 0$.
+  \end{enumerate}
+\end{cor}
 
 \subsection{Matrix rank}
-Consider a linear map $\alpha: \R^n\to \R^m$. Recall the rank $r(\alpha)$ is the dimension of the image. Suppose that the matrix $A$ is associated with the linear map. We also call $r(A)$ the \emph{rank} of $A$.
+\begin{defi}[Rank of a matrix]
+  Let $\alpha: \R^n \to \R^m$ be a linear map with associated matrix $A$. The \emph{rank} of $A$, denoted $r(A)$, is the dimension of the image of $\alpha$.
+\end{defi}
 
-Recall that if the standard basis is $\mathbf{e}_1,\cdots \mathbf{e}_n$, then $A\mathbf{e}_1, \cdots, A\mathbf{e}_n$ span the image (but not necessarily linearly independent).
+\begin{prop}[Rank equals number of independent columns]
+  Let $A$ be an $m \times n$ matrix. Then $r(A)$ equals the number of linearly independent columns of $A$.
+\end{prop}
 
-Further, $A\mathbf{e}_1, \cdots, A\mathbf{e}_n$ are the columns of the matrix $A$. Hence $r(A)$ is the number of linearly independent columns.
+\begin{proof}
+  Let $\mathbf{e}_1, \ldots, \mathbf{e}_n$ denote the standard basis of $\R^n$. The image of $A$ is spanned by $A\mathbf{e}_1, \ldots, A\mathbf{e}_n$. Since $A\mathbf{e}_j$ is the $j$th column of $A$, the dimension of the image equals the number of linearly independent columns.
+\end{proof}
 
-\begin{defi}[Column and row rank of linear map]
-  The \emph{column rank} of a matrix is the maximum number of linearly independent columns.
-
-  The \emph{row rank} of a matrix is the maximum number of linearly independent rows.
+\begin{defi}[Column rank and row rank]
+  Let $A$ be an $m \times n$ matrix. The \emph{column rank} of $A$ is the maximum number of linearly independent columns. The \emph{row rank} of $A$ is the maximum number of linearly independent rows.
 \end{defi}
 
 \begin{thm}[Column rank equals row rank]
-  The column rank and row rank are equal for any $m\times n$ matrix.
+  For any $m \times n$ matrix $A$, the column rank and row rank are equal.
 \end{thm}
 
 \begin{proof}
-  Let $r$ be the row rank of $A$. Write the biggest set of linearly independent rows as $\mathbf{v}_1^T, \mathbf{v}_2^T, \cdots \mathbf{v}_r^T$ or in component form $\mathbf{v}_k^T = (v_{k1}, v_{k2}, \cdots, v_{kn})$ for $k = 1, 2, \cdots, r$.
+  Let $r$ denote the row rank of $A$, and let $\mathbf{v}_1^T, \mathbf{v}_2^T, \ldots, \mathbf{v}_r^T$ be a maximal set of linearly independent rows, where $\mathbf{v}_k^T = (v_{k1}, v_{k2}, \ldots, v_{kn})$ for $k = 1, \ldots, r$.
 
-  Now denote the $i$th row of $A$ as $\mathbf{r}_i^T = (A_{i1}, A_{i2}, \cdots A_{in})$.
-
-  Note that every row of $A$ can be written as a linear combination of the $\mathbf{v}$'s. (If $\mathbf{r_i}$ cannot be written as a linear combination of the $\mathbf{v}$'s, then it is independent of the $\mathbf{v}$'s and $\mathbf{v}$ is not the maximum collection of linearly independent rows) Write
+  Denote the $i$th row of $A$ by $\mathbf{r}_i^T = (A_{i1}, A_{i2}, \ldots, A_{in})$. Since $\{\mathbf{v}_1, \ldots, \mathbf{v}_r\}$ is a maximal linearly independent set of rows, every row of $A$ can be written as a linear combination of these vectors:
   \[
-    \mathbf{r}_i^T = \sum_{k = 1}^r C_{ik}\mathbf{v}_{k}^T.
+    \mathbf{r}_i^T = \sum_{k = 1}^r C_{ik}\mathbf{v}_{k}^T
   \]
-  For some coefficients $C_{ik}$ with $1 \leq i\leq m$ and $1 \leq k \leq r$.
+  for some coefficients $C_{ik}$ with $1 \leq i \leq m$ and $1 \leq k \leq r$.
 
-  Now the elements of $A$ are
+  The $(i,j)$-entry of $A$ is therefore
   \[
-    A_{ij} = (\mathbf{r}_i)^T_j = \sum_{k = 1}^r C_{ik}(\mathbf{v}_k)_j,
+    A_{ij} = (\mathbf{r}_i)_j = \sum_{k = 1}^r C_{ik}(\mathbf{v}_k)_j.
   \]
-  or
+  Writing this in terms of the $j$th column of $A$, we have
   \[
     \begin{pmatrix}
       A_{1j}\\
       A_{2j}\\
       \vdots\\
       A_{mj}
-    \end{pmatrix} = \sum_{k = 1}^r {\mathbf{v}_k}_j
+    \end{pmatrix} = \sum_{k = 1}^r (\mathbf{v}_k)_j
     \begin{pmatrix}
       C_{1k}\\
-      C_{2k}\\\
+      C_{2k}\\
       \vdots\\
       C_{mk}
-    \end{pmatrix}
+    \end{pmatrix}.
   \]
-  So every column of $A$ can be written as a linear combination of the $r$ column vectors $\mathbf{c}_k$. Then the column rank of $A \leq r$, the row rank of $A$.
+  Thus every column of $A$ is a linear combination of the $r$ vectors $(C_{1k}, C_{2k}, \ldots, C_{mk})^T$ for $k = 1, \ldots, r$. Hence the column rank of $A$ is at most $r$, the row rank.
 
-  Apply the same argument to $A^T$ to see that the row rank is $\leq$ the column rank.
+  Applying the same argument to $A^T$ shows that the row rank is at most the column rank. Therefore the two ranks are equal.
 \end{proof}
 
 \subsection{Homogeneous problem \texorpdfstring{$A\mathbf{x} = \mathbf{0}$}{Ax = 0}}
-We restrict our attention to the square case, i.e.\ number of unknowns = number of equations. Here $A$ is an $n\times n$ matrix. We want to solve $A\mathbf{x} = \mathbf{0}$.
+\begin{remark}
+  We now focus on the square case, where the number of unknowns equals the number of equations. Let $A$ be an $n \times n$ matrix, and consider the homogeneous system $A\mathbf{x} = \mathbf{0}$.
+\end{remark}
 
-First of all, if $\det A\not=0$, then $A^{-1}$ exists and $\mathbf{x}^{-1} = A^{-1}\mathbf{0} = \mathbf{0}$, which is the unique solution. Hence if $A\mathbf{x} = \mathbf{0}$ with $\mathbf{x} \not= \mathbf{0}$, then $\det A = 0$.
+\begin{prop}[Nontrivial solutions require singular matrix]
+  Let $A$ be an $n \times n$ matrix. If $\det A \neq 0$, then $\mathbf{x} = \mathbf{0}$ is the unique solution to $A\mathbf{x} = \mathbf{0}$. Equivalently, if $A\mathbf{x} = \mathbf{0}$ has a nontrivial solution $\mathbf{x} \neq \mathbf{0}$, then $\det A = 0$.
+\end{prop}
+
+\begin{proof}
+  If $\det A \neq 0$, then $A^{-1}$ exists and $\mathbf{x} = A^{-1}\mathbf{0} = \mathbf{0}$.
+\end{proof}
 
 \subsubsection{Geometrical interpretation}
-We consider a $3\times 3$ matrix
-\[
-  A = \begin{pmatrix} \mathbf{r}_1^T\\\mathbf{r}_2^T\\\mathbf{r}_3^T\end{pmatrix}
-\]
-$A\mathbf{x} = \mathbf{0}$ means that $\mathbf{r}_i\cdot \mathbf{x} = 0$ for all $i$. Each equation $\mathbf{r}_i\cdot \mathbf{x} = 0$ represents a plane through the origin. So the solution is the intersection of the three planes.
+\begin{remark}
+  Consider a $3 \times 3$ matrix $A$ with rows $\mathbf{r}_1^T, \mathbf{r}_2^T, \mathbf{r}_3^T$:
+  \[
+    A = \begin{pmatrix} \mathbf{r}_1^T\\\mathbf{r}_2^T\\\mathbf{r}_3^T\end{pmatrix}.
+  \]
+  The equation $A\mathbf{x} = \mathbf{0}$ is equivalent to $\mathbf{r}_i \cdot \mathbf{x} = 0$ for $i = 1, 2, 3$. Each equation $\mathbf{r}_i \cdot \mathbf{x} = 0$ represents a plane through the origin with normal vector $\mathbf{r}_i$. Thus the solution set is the intersection of these three planes.
+\end{remark}
 
-There are three possibilities:
-\begin{enumerate}
-  \item If $\det A =[\mathbf{r}_1, \mathbf{r}_2, \mathbf{r}_3] \not= 0$, span$\{\mathbf{r}_1, \mathbf{r}_2, \mathbf{r}_3\} = \R^3$ and thus $r(A) = 3$. By the rank-nullity theorem, $n(A) = 0$ and the kernel is $\{\mathbf{0}\}$. So $\mathbf{x} = \mathbf{0}$ is the unique solution.
-  \item If $\det A = 0$, then $\dim(\spn\{\mathbf{r}_1, \mathbf{r}_2, \mathbf{r}_3\}) = 1$ or $2$.
-    \begin{enumerate}
-      \item If rank $= 2$, wlog assume $\mathbf{r}_1, \mathbf{r}_2$ are linearly independent. So $\mathbf{x}$ lies on the intersection of two planes $\mathbf{x}\cdot \mathbf{r}_1 = 0$ and $\mathbf{x}\cdot \mathbf{r}_2 = 0$, which is the line $\{\mathbf{x}\in \R^3: \mathbf{x} = \lambda \mathbf{r}_1\times \mathbf{r}_2\}$ (Since $\mathbf{x}$ lies on the intersection of the two planes, it has to be normal to the normals of both planes). All such points on this line also satisfy $\mathbf{x}\cdot\mathbf{r}_3 = 0$ since $\mathbf{r}_3$ is a linear combination of $\mathbf{r}_1$ and $\mathbf{r}_2$. The kernel is a line, $n(A) = 1$.
-      \item If rank = 1, then $\mathbf{r}_1, \mathbf{r}_2, \mathbf{r}_3$ are parallel. So $\mathbf{x}\cdot \mathbf{r}_1 = 0 \Rightarrow \mathbf{x}\cdot \mathbf{r}_2 = \mathbf{x}\cdot \mathbf{r}_3 = 0$. So all $\mathbf{x}$ that satisfy $\mathbf{x}\cdot \mathbf{r}_1 = 0$ are in the kernel, and the kernel now is a plane. $n(A) = 2$.
-    \end{enumerate}
-\end{enumerate}
-(We also have the trivial case where $r(A) = 0$, we have the zero mapping and the kernel is $\R^3$)
+\begin{prop}[Classification of solutions in $\R^3$]
+  Let $A$ be a $3 \times 3$ matrix with rows $\mathbf{r}_1^T, \mathbf{r}_2^T, \mathbf{r}_3^T$. The kernel of $A$ is determined by the rank as follows:
+  \begin{enumerate}
+    \item If $r(A) = 3$ (equivalently, $\det A \neq 0$), then $\ker A = \{\mathbf{0}\}$ and $n(A) = 0$.
+    \item If $r(A) = 2$, then $\ker A$ is a line through the origin, and $n(A) = 1$.
+    \item If $r(A) = 1$, then $\ker A$ is a plane through the origin, and $n(A) = 2$.
+    \item If $r(A) = 0$, then $A$ is the zero matrix and $\ker A = \R^3$.
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  The dimension of the kernel follows from the rank-nullity theorem: $n(A) = 3 - r(A)$.
+
+  For case (i), if $\det A = [\mathbf{r}_1, \mathbf{r}_2, \mathbf{r}_3] \neq 0$, then $\spn\{\mathbf{r}_1, \mathbf{r}_2, \mathbf{r}_3\} = \R^3$, so $r(A) = 3$ and the kernel is trivial.
+
+  For case (ii), assume without loss of generality that $\mathbf{r}_1, \mathbf{r}_2$ are linearly independent. The solution $\mathbf{x}$ must lie on the intersection of the planes $\mathbf{r}_1 \cdot \mathbf{x} = 0$ and $\mathbf{r}_2 \cdot \mathbf{x} = 0$. This intersection is the line $\{\lambda(\mathbf{r}_1 \times \mathbf{r}_2) : \lambda \in \R\}$, since $\mathbf{r}_1 \times \mathbf{r}_2$ is perpendicular to both $\mathbf{r}_1$ and $\mathbf{r}_2$. Since $\mathbf{r}_3$ is a linear combination of $\mathbf{r}_1$ and $\mathbf{r}_2$, every point on this line also satisfies $\mathbf{r}_3 \cdot \mathbf{x} = 0$.
+
+  For case (iii), the rows $\mathbf{r}_1, \mathbf{r}_2, \mathbf{r}_3$ are all parallel. Thus $\mathbf{r}_1 \cdot \mathbf{x} = 0$ implies $\mathbf{r}_2 \cdot \mathbf{x} = \mathbf{r}_3 \cdot \mathbf{x} = 0$, so the kernel is the plane $\{\mathbf{x} \in \R^3 : \mathbf{r}_1 \cdot \mathbf{x} = 0\}$.
+\end{proof}
 
 \subsubsection{Linear mapping view of \texorpdfstring{$A\mathbf{x} = \mathbf{0}$}{Ax = 0}}
-In the general case, consider a linear map $\alpha: \R^n \to \R^n$ $\mathbf{x} \mapsto \mathbf{x}' = A\mathbf{x}$. The kernel $k(A) = \{\mathbf{x}\in \R^n: A\mathbf{x} = \mathbf{0}\}$ has dimension $n(A)$.
+\begin{remark}
+  In the general case, consider a linear map $\alpha: \R^n \to \R^n$ defined by $\mathbf{x} \mapsto A\mathbf{x}$. The kernel $\ker(A) = \{\mathbf{x} \in \R^n : A\mathbf{x} = \mathbf{0}\}$ has dimension $n(A)$, the nullity of $A$.
+\end{remark}
 
-\begin{enumerate}
-  \item If $n(A) = 0$, then $A(\mathbf{e}_1), A(\mathbf{e}_2), \cdots, A(\mathbf{e}_n)$ is a linearly independent set, and $r(A) = n$.
-  \item If $n(A) > 0$, then the image is not the whole of $\R^n$. Let $\{\mathbf{u}_i\}, i = 1, \cdots, n(A)$ be a basis of the kernel, i.e.\ so given any solution to $A\mathbf{x} = \mathbf{0}$, $\displaystyle \mathbf{x} = \sum_{i = 1}^{n(A)} \lambda_i \mathbf{u}_i$ for some $\lambda_i$. Extend $\{\mathbf{u}_i\}$ to be a basis of $\R^n$ by introducing extra vectors $\mathbf{u}_{i}$ for $i = n(A) + 1, \cdots, n$. The vectors $A(\mathbf{u}_i)$ for $i = n(A) + 1, \cdots, n$ form a basis of the image.
-\end{enumerate}
+\begin{prop}[Structure of the kernel]
+  Let $A$ be an $n \times n$ matrix with nullity $n(A)$.
+  \begin{enumerate}
+    \item If $n(A) = 0$, then $A\mathbf{e}_1, A\mathbf{e}_2, \ldots, A\mathbf{e}_n$ are linearly independent, and $r(A) = n$.
+    \item If $n(A) > 0$, then the image of $A$ is a proper subspace of $\R^n$. If $\{\mathbf{u}_1, \ldots, \mathbf{u}_{n(A)}\}$ is a basis of the kernel, extend it to a basis $\{\mathbf{u}_1, \ldots, \mathbf{u}_n\}$ of $\R^n$. Then $\{A\mathbf{u}_{n(A)+1}, \ldots, A\mathbf{u}_n\}$ forms a basis of the image.
+  \end{enumerate}
+\end{prop}
 
 \subsection{General solution of \texorpdfstring{$A\mathbf{x} = \mathbf{d}$}{Ax = d}}
-Finally consider the general equation $A\mathbf{x} = \mathbf{d}$, where $A$ is an $n\times n$ matrix and $\mathbf{x}, \mathbf{d}$ are $n \times 1$ column vectors. We can separate into two main cases.
+\begin{remark}
+  We now consider the general inhomogeneous equation $A\mathbf{x} = \mathbf{d}$, where $A$ is an $n \times n$ matrix and $\mathbf{x}, \mathbf{d} \in \R^n$ are column vectors.
+\end{remark}
 
-\begin{enumerate}
-  \item $\det(A) \not= 0$. So $A^{-1}$ exists and $n(A) = 0$, $r(A) = n$. Then for any $\mathbf{d}\in \R^n$, a unique solution must exists and it is $\mathbf{x} = A^{-1}\mathbf{d}$.
-  \item $\det(A) = 0$. Then $A^{-1}$ does not exist, and $n(A) > 0$, $r(A) < n$. So the image of $A$ is not the whole of $\R^n$.
-    \begin{enumerate}
-      \item If $\mathbf{d}\not\in \im A$, then there is no solution (by definition of the image)
-      \item If $\mathbf{d}\in \im A$, then by definition there exists at least one $\mathbf{x}$ such that $A\mathbf{x} = \mathbf{d}$. The general solution of $A\mathbf{x} = \mathbf{d}$ can be written as $\mathbf{x} = \mathbf{x}_0 + \mathbf{y}$, where $\mathbf{x}_0$ is a particular solution (i.e.\ $A\mathbf{x}_0 = \mathbf{d}$), and $\mathbf{y}$ is any vector in $\ker A$ (i.e.\ $A\mathbf{y} = \mathbf{0}$). (cf.\ Isomorphism theorem)
+\begin{thm}[General solution of linear systems]
+  Let $A$ be an $n \times n$ matrix and $\mathbf{d} \in \R^n$. The solutions to $A\mathbf{x} = \mathbf{d}$ are characterised as follows:
+  \begin{enumerate}
+    \item If $\det A \neq 0$, then $A^{-1}$ exists, $n(A) = 0$, and $r(A) = n$. For any $\mathbf{d} \in \R^n$, there is a unique solution $\mathbf{x} = A^{-1}\mathbf{d}$.
+    \item If $\det A = 0$, then $A^{-1}$ does not exist, $n(A) > 0$, and $r(A) < n$. The image of $A$ is a proper subspace of $\R^n$, and:
+      \begin{enumerate}
+        \item If $\mathbf{d} \notin \im A$, there is no solution.
+        \item If $\mathbf{d} \in \im A$, the general solution is $\mathbf{x} = \mathbf{x}_0 + \mathbf{y}$, where $\mathbf{x}_0$ is any particular solution satisfying $A\mathbf{x}_0 = \mathbf{d}$, and $\mathbf{y} \in \ker A$.
+      \end{enumerate}
+  \end{enumerate}
+\end{thm}
 
-        If $n(A) = 0$, then $\mathbf{y = 0}$ only, and then the solution is unique (i.e.\ case (i)). If $n(A) > 0$ , then $\{\mathbf{u}_i\}, i = 1, \cdots, n(A)$ is a basis of the kernel. Hence
-        \[
-          \mathbf{y} = \sum_{j = 1}^{n(A)} \mu_j \mathbf{u}_j,
-        \]
-        so
-        \[
-          \mathbf{x} = \mathbf{x}_0 + \sum_{j = 1}^{n(A)} \mu_j \mathbf{u}_j
-        \]
-        for any $\mu_j$, i.e.\ there are infinitely many solutions.
-    \end{enumerate}
-\end{enumerate}
-\begin{eg}
+\begin{proof}
+  Case (i) follows from the existence of $A^{-1}$ when $\det A \neq 0$.
+
+  For case (ii), if $\mathbf{d} \notin \im A$, then by definition no $\mathbf{x}$ satisfies $A\mathbf{x} = \mathbf{d}$. If $\mathbf{d} \in \im A$, let $\mathbf{x}_0$ be a particular solution. For any $\mathbf{y} \in \ker A$, we have $A(\mathbf{x}_0 + \mathbf{y}) = A\mathbf{x}_0 + A\mathbf{y} = \mathbf{d} + \mathbf{0} = \mathbf{d}$. Conversely, if $\mathbf{x}$ is any solution, then $A(\mathbf{x} - \mathbf{x}_0) = \mathbf{d} - \mathbf{d} = \mathbf{0}$, so $\mathbf{x} - \mathbf{x}_0 \in \ker A$.
+\end{proof}
+
+\begin{cor}
+  In case (ii)(b) above, if $\{\mathbf{u}_1, \ldots, \mathbf{u}_{n(A)}\}$ is a basis for $\ker A$, then the general solution can be written as
+  \[
+    \mathbf{x} = \mathbf{x}_0 + \sum_{j=1}^{n(A)} \mu_j \mathbf{u}_j
+  \]
+  for arbitrary scalars $\mu_j \in \R$. In particular, there are infinitely many solutions.
+\end{cor}
+
+\begin{eg}[A $2 \times 2$ system with parameter]
+  Consider the system
   \[
     \begin{pmatrix}
       1 & 1\\
@@ -2059,11 +2172,7 @@ Finally consider the general equation $A\mathbf{x} = \mathbf{d}$, where $A$ is a
   \end{pmatrix}
   \in \im A$.
 
-  We find a particular solution of
-  $\begin{pmatrix}
-    1\\
-    0
-  \end{pmatrix}$. So The general solution is
+  A particular solution is $\mathbf{x}_0 = \begin{pmatrix} 1\\ 0 \end{pmatrix}$, so the general solution is
   \[
     \mathbf{x} =
     \begin{pmatrix}
@@ -2076,8 +2185,8 @@ Finally consider the general equation $A\mathbf{x} = \mathbf{d}$, where $A$ is a
   \]
 \end{eg}
 
-\begin{eg}
-  Find the general solution of
+\begin{eg}[A $3 \times 3$ system with parameters]
+  Consider the system
   \[
     \begin{pmatrix}
       a & a & b\\
@@ -2188,9 +2297,11 @@ Finally consider the general equation $A\mathbf{x} = \mathbf{d}$, where $A$ is a
 
 \section{Eigenvalues and eigenvectors}
 \label{sec:eigen}
-The study of eigenvalues and eigenvectors is one of the most important topics in linear algebra, with numerous applications in mathematics, physics, and engineering. Intuitively, given a matrix $A$ representing a linear map, an eigenvector is a nonzero vector $\mathbf{x} \neq \mathbf{0}$ that satisfies $A\mathbf{x} = \lambda \mathbf{x}$ for some scalar $\lambda$ called the associated eigenvalue. In other words, the linear map $A$ transforms the eigenvector $\mathbf{x}$ into a multiple of itself: the direction of $\mathbf{x}$ is preserved, only its length is modified by the factor $\lambda$.
+\begin{remark}
+  The study of eigenvalues and eigenvectors is one of the most important topics in linear algebra, with numerous applications in mathematics, physics, and engineering. Intuitively, given a matrix $A$ representing a linear map, an eigenvector is a nonzero vector $\mathbf{x} \neq \mathbf{0}$ that satisfies $A\mathbf{x} = \lambda \mathbf{x}$ for some scalar $\lambda$ called the associated eigenvalue. In other words, the linear map $A$ transforms the eigenvector $\mathbf{x}$ into a multiple of itself: the direction of $\mathbf{x}$ is preserved, only its length is modified by the factor $\lambda$.
 
-In this section, we will study the properties of eigenvectors and eigenvalues, and see their fundamental importance in the diagonalization of matrices.
+  In this section, we will study the properties of eigenvectors and eigenvalues, and see their fundamental importance in the diagonalization of matrices.
+\end{remark}
 
 \subsection{Preliminaries and definitions}
 \begin{thm}[Fundamental theorem of algebra]
@@ -2202,14 +2313,17 @@ In this section, we will study the properties of eigenvectors and eigenvalues, a
 
   Then $p(z) = 0$ has precisely $m$ (not necessarily distinct) roots in the complex plane, accounting for multiplicity.
 \end{thm}
-Note that we have the disclaimer ``accounting for multiplicity''. For example, $x^2 - 2x + 1 = 0$ has only one distinct root, $1$, but we say that this root has multiplicity 2, and is thus counted twice. Formally, multiplicity is defined as follows:
+
+\begin{remark}
+  The phrase ``accounting for multiplicity'' means that repeated roots are counted multiple times. For example, $x^2 - 2x + 1 = 0$ has only one distinct root, $1$, but this root has multiplicity $2$ and is thus counted twice.
+\end{remark}
 
 \begin{defi}[Multiplicity of root]
   The root $z = \omega$ has \emph{multiplicity} $k$ if $(z - \omega)^k$ is a factor of $p(z)$ but $(z - \omega)^{k + 1}$ is not.
 \end{defi}
 
-\begin{eg}
-  Let $p(z) = z^3 - z^2 - z + 1 = (z - 1)^2(z + 1)$. So $p(z) = 0$ has roots $1, 1, -1$, where $z = 1$ has multiplicity $2$.
+\begin{eg}[Roots with multiplicity]
+  Let $p(z) = z^3 - z^2 - z + 1 = (z - 1)^2(z + 1)$. Then $p(z) = 0$ has roots $1, 1, -1$, where $z = 1$ has multiplicity $2$ and $z = -1$ has multiplicity $1$.
 \end{eg}
 
 \begin{defi}[Eigenvector and eigenvalue]
@@ -2220,38 +2334,25 @@ Note that we have the disclaimer ``accounting for multiplicity''. For example, $
   for some $\lambda$. $\lambda$ is the associated \emph{eigenvalue}. This means that the direction of the eigenvector is preserved by the mapping, but is scaled up by $\lambda$.
 \end{defi}
 
-There is a rather easy way of finding eigenvalues:
 \begin{thm}[Eigenvalue determinant condition]
-  $\lambda$ is an eigenvalue of $A$ iff
+  Let $A$ be an $n \times n$ matrix. Then $\lambda$ is an eigenvalue of $A$ if and only if
   \[
     \det(A - \lambda I) = 0.
   \]
 \end{thm}
 
 \begin{proof}
-  $(\Rightarrow)$ Suppose that $\lambda$ is an eigenvalue and $\mathbf{x}$ is the associated eigenvector. We can rearrange the equation in the definition above to
-  \[
-    (A - \lambda I)\mathbf{x} = \mathbf{0}
-  \]
-  and thus
-  \[
-    \mathbf{x}\in \ker(A - \lambda I)
-  \]
-  But $\mathbf{x}\not= \mathbf{0}$. So $\ker(A - \lambda I)$ is non-trivial and $\det(A - \lambda I) = 0$. The $(\Leftarrow)$ direction is similar.
+  $(\Rightarrow)$ Suppose $\lambda$ is an eigenvalue with associated eigenvector $\mathbf{x} \neq \mathbf{0}$. From $A\mathbf{x} = \lambda\mathbf{x}$, we obtain $(A - \lambda I)\mathbf{x} = \mathbf{0}$, so $\mathbf{x} \in \ker(A - \lambda I)$. Since $\mathbf{x} \neq \mathbf{0}$, the kernel is non-trivial, hence $\det(A - \lambda I) = 0$.
+
+  $(\Leftarrow)$ Conversely, if $\det(A - \lambda I) = 0$, then $\ker(A - \lambda I)$ is non-trivial, so there exists $\mathbf{x} \neq \mathbf{0}$ with $(A - \lambda I)\mathbf{x} = \mathbf{0}$, i.e., $A\mathbf{x} = \lambda\mathbf{x}$.
 \end{proof}
 
-\begin{defi}[Characteristic equation of matrix]
-  The \emph{characteristic equation} of $A$ is
+\begin{defi}[Characteristic equation and polynomial]
+  Let $A$ be an $n \times n$ matrix. The \emph{characteristic polynomial} of $A$ is
   \[
-    \det(A - \lambda I) = 0.
+    p_A(\lambda) = \det(A - \lambda I),
   \]
-\end{defi}
-
-\begin{defi}[Characteristic polynomial of matrix]
-  The \emph{characteristic polynomial} of $A$ is
-  \[
-    p_A(\lambda) = \det(A - \lambda I).
-  \]
+  and the \emph{characteristic equation} of $A$ is $p_A(\lambda) = 0$, i.e., $\det(A - \lambda I) = 0$.
 \end{defi}
 
 \begin{prop}[Properties of characteristic polynomial]
