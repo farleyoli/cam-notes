@@ -2964,72 +2964,80 @@ By Theorem~\ref{thm:diag-criterion}, a matrix is diagonalizable if and only if a
 \end{eg}
 
 \subsection{Cayley-Hamilton Theorem}
-\begin{thm}[Cayley-Hamilton theorem]
-  Every $n\times n$ complex matrix satisfies its own characteristic equation.
+
+\begin{thm}[Cayley-Hamilton theorem]\label{thm:cayley-hamilton}
+  Every $n \times n$ complex matrix $A$ satisfies its own characteristic equation. That is, if $p_A(\lambda) = \det(A - \lambda I)$ is the characteristic polynomial of $A$, then $p_A(A) = 0$.
 \end{thm}
 
-\begin{proof}
-  We will only prove for diagonalizable matrices here. So suppose for our matrix $A$, there is some $P$ such that $D = \mathrm{diag}(\lambda_1, \lambda_2, \cdots, \lambda_n) = P^{-1}AP$.
-  Note that
+\begin{proof}[Proof for diagonalizable matrices]
+  We prove the theorem for diagonalizable matrices; the general case is deferred to IB Linear Algebra.
+
+  Suppose $A$ is diagonalizable, so there exists an invertible matrix $P$ such that $D = P^{-1}AP = \operatorname{diag}(\lambda_1, \lambda_2, \ldots, \lambda_n)$, where $\lambda_1, \ldots, \lambda_n$ are the eigenvalues of $A$. Note that for any positive integer $i$,
   \[
-    D^i = (P^{-1}AP)(P^{-1}AP)\cdots(P^{-1}AP) = P^{-1}A^iP.
+    D^i = (P^{-1}AP)^i = P^{-1}A^i P.
   \]
-  Hence
+  Therefore, for any polynomial $p$, we have $p(D) = P^{-1} p(A) P$.
+
+  Since similar matrices have the same characteristic polynomial (Proposition~\ref{prop:similar-invariants}), we have $p_A = p_D$. Thus
   \[
-    p_D(D) = p_D(P^{-1}AP) = P^{-1}[p_D(A)]P.
+    p_A(D) = P^{-1} p_A(A) P.
   \]
-  Since similar matrices have the same characteristic polynomial. So
+  Now, since $D$ is diagonal, $D^i = \operatorname{diag}(\lambda_1^i, \lambda_2^i, \ldots, \lambda_n^i)$, and hence
   \[
-    p_A(D) = P^{-1}[p_A(A)]P.
+    p_A(D) = \operatorname{diag}(p_A(\lambda_1), p_A(\lambda_2), \ldots, p_A(\lambda_n)) = 0,
   \]
-  However, we also know that $D^i = \mathrm{diag}(\lambda_1^i, \lambda_2^i, \cdots \lambda_n^i)$. So
-  \[
-    p_A(D) = \mathrm{diag}(p_A(\lambda_1), p_A(\lambda_2), \cdots, p_A(\lambda_n)) = \mathrm{diag}(0, 0, \cdots, 0)
-  \]
-  since the eigenvalues are roots of $p_A(\lambda) = 0$. So $0 = p_A(D) = P^{-1}p_A(A)P$ and thus $p_A(A) = 0$.
+  because each eigenvalue $\lambda_i$ is a root of $p_A$. Therefore $P^{-1} p_A(A) P = 0$, which implies $p_A(A) = 0$.
 \end{proof}
 
-There are a few things to note.
-\begin{enumerate}
-  \item If $A^{-1}$ exists, then $A^{-1} p_A(A) = A^{-1}(c_0 + c_1A + c_2A^2 + \cdots + c_n A^n) = 0$. So $c_0 A^{-1} + c_1 + c_2A + \cdots + c_n A^{n - 1} = 0$. Since $A^{-1}$ exists, $c_0 = \pm \det A \not= 0$. So
-    \[
-      A^{-1} = \frac{-1}{c_0}(c_1 + c_2 A + \cdots + c_n A^{n -1}).
-    \]
-    So we can calculate $A^{-1}$ from positive powers of $A$.
-  \item We can define matrix exponentiation by
-    \[
-      e^A = I + A + \frac{1}{2!}A^2 + \cdots + \frac{1}{n!}A^n + \cdots.
-    \]
-    It is a fact that this always converges.
+\begin{cor}[Computing the inverse via Cayley-Hamilton]\label{cor:inverse-cayley-hamilton}
+  Let $A$ be an invertible $n \times n$ matrix with characteristic polynomial $p_A(\lambda) = c_0 + c_1 \lambda + c_2 \lambda^2 + \cdots + c_n \lambda^n$. Then
+  \[
+    A^{-1} = -\frac{1}{c_0}(c_1 I + c_2 A + c_3 A^2 + \cdots + c_n A^{n-1}).
+  \]
+\end{cor}
 
-    If $A$ is diagonalizable with $P$ with $D = P^{-1}AP = \mathrm{diag}(\lambda_1, \lambda_2, \cdots, \lambda_n)$, then
-    \begin{align*}
-      P^{-1}e^A P &= P^{-1}IP + P^{-1}AP + \frac{1}{2!}P^{-1}A^2P + \cdots\\
-      &= I + D + \frac{1}{2!}D^{2} + \cdots\\
-      &= \mathrm{diag}(e^{\lambda_1}, e^{\lambda_2}, \cdots e^{\lambda_n})
-    \end{align*}
-    So
-    \[
-      e^A = P[\mathrm{diag}(e^{\lambda_1}, e^{\lambda_2}, \cdots, e^{\lambda_n})]P^{-1}.
-    \]
-  \item For $2\times 2$ matrices which are similar to $B =
-    \begin{pmatrix}
-      \lambda & 1\\
-      0 & \lambda
-    \end{pmatrix}$
-    We see that the characteristic polynomial $p_B(z) = \det (B - zI) = (\lambda - z)^2$. Then $p_B(B) = (\lambda I - B)^2 =
-    \begin{pmatrix}
-      0 & -1\\
-      0 & 0
-    \end{pmatrix}^2 =
-    \begin{pmatrix}
-      0 & 0\\
-      0 & 0
-    \end{pmatrix}$.
+\begin{proof}
+  By the Cayley-Hamilton theorem, $p_A(A) = c_0 I + c_1 A + c_2 A^2 + \cdots + c_n A^n = 0$. Multiplying both sides by $A^{-1}$:
+  \[
+    c_0 A^{-1} + c_1 I + c_2 A + \cdots + c_n A^{n-1} = 0.
+  \]
+  Since $A$ is invertible, $c_0 = (-1)^n \det A \neq 0$. Solving for $A^{-1}$ gives the result.
+\end{proof}
 
-    Since we have proved for the diagonalizable matrices above, we now know that \emph{any} $2\times 2$ matrix satisfies Cayley-Hamilton theorem.
-\end{enumerate}
-In IB Linear Algebra, we will prove the Cayley Hamilton theorem properly for all matrices without assuming diagonalizability.
+\begin{defi}[Matrix exponential]
+  For an $n \times n$ matrix $A$, the \emph{matrix exponential} is defined by the power series
+  \[
+    e^A = \sum_{k=0}^{\infty} \frac{A^k}{k!} = I + A + \frac{A^2}{2!} + \frac{A^3}{3!} + \cdots.
+  \]
+  This series converges for all matrices $A$.
+\end{defi}
+
+\begin{prop}[Matrix exponential of diagonalizable matrices]\label{prop:matrix-exp-diag}
+  Let $A$ be a diagonalizable matrix with $P^{-1}AP = D = \operatorname{diag}(\lambda_1, \lambda_2, \ldots, \lambda_n)$. Then
+  \[
+    e^A = P \operatorname{diag}(e^{\lambda_1}, e^{\lambda_2}, \ldots, e^{\lambda_n}) P^{-1}.
+  \]
+\end{prop}
+
+\begin{proof}
+  Using $A^k = P D^k P^{-1}$ for all $k \geq 0$:
+  \begin{align*}
+    e^A &= \sum_{k=0}^{\infty} \frac{A^k}{k!} = \sum_{k=0}^{\infty} \frac{P D^k P^{-1}}{k!} = P \left( \sum_{k=0}^{\infty} \frac{D^k}{k!} \right) P^{-1} = P e^D P^{-1}.
+  \end{align*}
+  Since $D^k = \operatorname{diag}(\lambda_1^k, \ldots, \lambda_n^k)$, we have $e^D = \operatorname{diag}(e^{\lambda_1}, \ldots, e^{\lambda_n})$.
+\end{proof}
+
+\begin{eg}[Cayley-Hamilton for $2 \times 2$ Jordan blocks]
+  Consider a $2 \times 2$ matrix similar to the Jordan block $B = \begin{pmatrix} \lambda & 1 \\ 0 & \lambda \end{pmatrix}$. The characteristic polynomial is $p_B(z) = (\lambda - z)^2$. We verify directly:
+  \[
+    p_B(B) = (\lambda I - B)^2 = \begin{pmatrix} 0 & -1 \\ 0 & 0 \end{pmatrix}^2 = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}.
+  \]
+  Combined with the proof for diagonalizable matrices and Theorem~\ref{thm:jordan-2x2}, this verifies the Cayley-Hamilton theorem for all $2 \times 2$ matrices.
+\end{eg}
+
+\begin{rmk}
+  The proof of the Cayley-Hamilton theorem for general (non-diagonalizable) matrices requires different techniques and will be covered in IB Linear Algebra. One approach uses the Jordan normal form; another uses the adjugate matrix.
+\end{rmk}
 
 \subsection{Eigenvalues and eigenvectors of a Hermitian matrix}
 \subsubsection{Eigenvalues and eigenvectors}
