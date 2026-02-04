@@ -788,64 +788,105 @@ A \emph{differential equation} is an equation involving derivatives of an unknow
 \end{eg}
 
 \subsection{Forced (inhomogeneous) equations}
-A homogeneous equation has only terms involving the unknown function $y$. An \emph{inhomogeneous} (or \emph{forced}) equation has additional terms that do not involve $y$. For example, $5y' - 3y = 10$ is inhomogeneous, with $10$ called the \emph{forcing term}.
 
-\begin{prop}[Superposition principle]
-  Let $y_p$ be any \emph{particular solution} of the inhomogeneous equation, and let $y_c$ be the general solution of the associated \emph{homogeneous} equation (called the \emph{complementary function}). Then the general solution of the inhomogeneous equation is
+\begin{defi}[Inhomogeneous equation and forcing term]
+  An \emph{inhomogeneous} (or \emph{forced}) differential equation is one that contains terms not involving the unknown function $y$. These additional terms are called \emph{forcing terms}. For example, in the equation $5y' - 3y = 10$, the constant $10$ is the forcing term.
+\end{defi}
+
+\begin{defi}[Particular solution and complementary function]
+  Let $L[y] = f(x)$ be an inhomogeneous linear differential equation, where $L$ is a linear differential operator and $f(x) \neq 0$.
+  \begin{enumerate}
+    \item A \emph{particular solution} (or \emph{particular integral}) $y_p$ is any specific solution satisfying $L[y_p] = f(x)$.
+    \item The \emph{complementary function} $y_c$ is the general solution of the associated homogeneous equation $L[y] = 0$.
+  \end{enumerate}
+\end{defi}
+
+\begin{prop}[Superposition principle]\label{prop:superposition}
+  Let $y_p$ be a particular solution of the inhomogeneous equation $L[y] = f(x)$, and let $y_c$ be the general solution of the associated homogeneous equation $L[y] = 0$. Then the general solution of the inhomogeneous equation is
   \[
     y = y_p + y_c.
   \]
 \end{prop}
 
+\begin{proof}
+  If $L[y_p] = f(x)$ and $L[y_c] = 0$, then by linearity of $L$,
+  \[
+    L[y_p + y_c] = L[y_p] + L[y_c] = f(x) + 0 = f(x).
+  \]
+  Thus $y = y_p + y_c$ is a solution of the inhomogeneous equation.
+
+  Conversely, if $y$ is any solution of $L[y] = f(x)$, then $L[y - y_p] = L[y] - L[y_p] = f(x) - f(x) = 0$, so $y - y_p$ is a solution of the homogeneous equation. Hence $y - y_p = y_c$ for some complementary function, giving $y = y_p + y_c$.
+\end{proof}
+
 \subsubsection{Constant forcing}
 
 \begin{eg}[Constant forcing term]
-  Consider $5y' - 3y = 10$. We can spot that there is an equilibrium (constant) solution $y = y_p = -\frac{10}{3}$ with $y_p' = 0$.
+  Consider $5y' - 3y = 10$. We seek an equilibrium (constant) solution by setting $y_p' = 0$. Then $-3y_p = 10$, giving $y_p = -\frac{10}{3}$.
 
-  The particular solution $y_p$ is a solution of the ODE. Now suppose the general solution is $y = y_p + y_c$. We see that $5y_c' - 3y_c = 0$. So $y_c$ satisfies the homogeneous equation we already solved, and
+  By Proposition~\ref{prop:superposition}, the general solution is $y = y_p + y_c$, where $y_c$ satisfies the homogeneous equation $5y_c' - 3y_c = 0$. From Example~\ref{eg:first-order-homog}, $y_c = Ae^{3x/5}$. Therefore
   \[
     y = -\frac{10}{3} + Ae^{3x/5}.
   \]
-  Note that any boundary conditions to determine $A$ must be applied to the full solution $y$ and not the complementary function $y_c$.
 \end{eg}
 
 \begin{remark}
-  This illustrates the general method for solving forced equations: first find a particular solution $y_p$ (often by inspection or an appropriate ansatz), then solve the associated homogeneous equation to obtain the complementary function $y_c$. The general solution is then $y = y_p + y_c$.
+  When applying initial or boundary conditions, one must use the full solution $y = y_p + y_c$, not the complementary function $y_c$ alone.
+\end{remark}
+
+\begin{remark}[General method for forced equations]
+  The procedure for solving forced equations is:
+  \begin{enumerate}
+    \item Find a particular solution $y_p$ (often by inspection or an appropriate ansatz).
+    \item Solve the associated homogeneous equation to obtain the complementary function $y_c$.
+    \item The general solution is $y = y_p + y_c$.
+  \end{enumerate}
 \end{remark}
 
 \subsubsection{Eigenfunction forcing}
-This is the case when the forcing term is an eigenfunction of the differential operator.
-\begin{eg}[Radioactive decay chain]
-  In a radioactive rock, isotope A decays into isotope B at a rate proportional to the number $a$ of remaining nuclei A, and B also decays at a rate proportional to the number $b$ of remaining nuclei B. Determine $b(t)$.
 
-  We have
+\begin{remark}
+  When the forcing term is an eigenfunction of the differential operator, we seek a particular solution of the same exponential form.
+\end{remark}
+
+\begin{eg}[Radioactive decay chain]\label{eg:radioactive-decay}
+  In a radioactive rock, isotope A decays into isotope B at a rate proportional to the number $a(t)$ of remaining nuclei of type A. Isotope B also decays, at a rate proportional to the number $b(t)$ of remaining nuclei of type B. The decay constants are $k_a > 0$ and $k_b > 0$ respectively, with $k_a \neq k_b$. Determine $b(t)$.
+
+  The governing equations are
   \begin{align*}
-    \frac{\d a}{\d t} &= -k_a a\\
+    \frac{\d a}{\d t} &= -k_a a,\\
     \frac{\d b}{\d t} &= k_a a - k_b b.
   \end{align*}
-  Solving the first equation, we obtain $a = a_0e^{-k_at}$. Then we have
+  The first equation is homogeneous; solving it gives $a(t) = a_0e^{-k_at}$, where $a_0 = a(0)$.
+
+  Substituting into the second equation and rearranging:
   \[
     \frac{\d b}{\d t} + k_b b = k_aa_0e^{-k_at}.
   \]
-  We usually put the variables involving $b$ on the left hand side and the others on the right. The right-hand term $k_aa_0e^{-k_at}$ is the \emph{forcing term}.
+  The right-hand side $k_aa_0e^{-k_at}$ is the forcing term, which is an eigenfunction of the operator $\frac{\d}{\d t} + k_b$.
 
-  Note that the forcing term is an eigenfunction of the differential operator on the left-hand side. This suggests trying a particular integral of the form $b_p = Ce^{-k_at}$. Substituting it in, we obtain
+  We seek a particular solution of the form $b_p = Ce^{-k_at}$. Substituting:
   \begin{align*}
-    -k_aC + k_bC &= k_a a_0\\
+    -k_aC + k_bC &= k_a a_0,\\
     C &= \frac{k_a}{k_b - k_a}a_0.
   \end{align*}
-  Then write $b = b_p + b_c$. We get $b'_c + k_bb_c = 0$ and $b_c = De^{-k_bt}$. All together, we have the general solution
+  The complementary function satisfies $b'_c + k_bb_c = 0$, giving $b_c = De^{-k_bt}$ for some constant $D$.
+
+  By the superposition principle, the general solution is
   \[
-    b = \frac{k_a}{k_b - k_a}a_0 e^{-k_at} + De^{-k_bt}.
+    b(t) = \frac{k_a}{k_b - k_a}a_0 e^{-k_at} + De^{-k_bt}.
   \]
-  Assume the following boundary condition: $b = 0$ when $t = 0$, in which case we can find
+  Applying the initial condition $b(0) = 0$:
   \[
-    b = \frac{k_a}{k_b - k_a}a_0\left(e^{-k_at} - e^{-k_bt}\right).
+    0 = \frac{k_a}{k_b - k_a}a_0 + D \implies D = -\frac{k_a}{k_b - k_a}a_0.
+  \]
+  Therefore
+  \[
+    b(t) = \frac{k_a}{k_b - k_a}a_0\left(e^{-k_at} - e^{-k_bt}\right).
   \]
   \begin{center}
     \begin{tikzpicture}[scale = 1.5]
-      \draw [->] (0, 0) -- (5, 0) node [right] {$x$};
-      \draw [->] (0, 0) -- (0, 3.5) node [above] {$y$};
+      \draw [->] (0, 0) -- (5, 0) node [right] {$t$};
+      \draw [->] (0, 0) -- (0, 3.5) node [above] {nuclei};
       \node [anchor = north east] {$O$};
       \draw [domain = 0:4.5, mgreen, semithick, samples=50] plot (\x, {3*exp(-\x)});
       \draw [domain = 0:4.5, mblue, semithick, samples=50] plot (\x, {8*(exp(-\x) - exp(-1.3*\x))});
@@ -857,7 +898,7 @@ This is the case when the forcing term is an eigenfunction of the differential o
   \[
     \frac{b}{a} = \frac{k_a}{k_b - k_a}\left[1 - e^{(k_a - k_b)t}\right].
   \]
-  Given the current ratio $b/a$ and laboratory-determined decay rates $k_a$ and $k_b$, one can determine $t$, the age of the rock.
+  Given the current ratio $b/a$ and laboratory-determined decay rates $k_a$ and $k_b$, one can solve for $t$, the age of the rock.
 \end{eg}
 
 \subsection{Non-constant coefficients: integrating factors}
