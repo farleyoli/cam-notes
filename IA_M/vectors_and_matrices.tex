@@ -3040,213 +3040,197 @@ By Theorem~\ref{thm:diag-criterion}, a matrix is diagonalizable if and only if a
 \end{rmk}
 
 \subsection{Eigenvalues and eigenvectors of a Hermitian matrix}
+
 \subsubsection{Eigenvalues and eigenvectors}
-\begin{thm}[Hermitian matrices have real eigenvalues]
-  The eigenvalues of a Hermitian matrix $H$ are real.
+
+\begin{thm}[Hermitian matrices have real eigenvalues]\label{thm:hermitian-real-eigenvalues}
+  Let $H$ be an $n \times n$ Hermitian matrix. Then all eigenvalues of $H$ are real.
 \end{thm}
 
 \begin{proof}
-  Suppose that $H$ has eigenvalue $\lambda$ with eigenvector $\mathbf{v}\not= 0$. Then
+  Suppose $H$ has eigenvalue $\lambda$ with eigenvector $\mathbf{v} \neq \mathbf{0}$, so $H\mathbf{v} = \lambda\mathbf{v}$. Pre-multiplying by $\mathbf{v}^\dagger$ gives
   \[
-    H\mathbf{v} = \lambda\mathbf{v}.
+    \mathbf{v}^\dagger H\mathbf{v} = \lambda \mathbf{v}^\dagger \mathbf{v}. \tag{$*$}
   \]
-  We pre-multiply by $\mathbf{v}^\dagger$, a $1\times n$ row vector, to obtain
-  \[
-  \mathbf{v}^\dagger H\mathbf{v} = \lambda \mathbf{v}^\dagger \mathbf{v}\tag{$*$}\]
-  We take the Hermitian conjugate of both sides. The left hand side is
+  Taking the Hermitian conjugate of $(*)$: the left-hand side becomes
   \[
     (\mathbf{v}^\dagger H\mathbf{v})^\dagger = \mathbf{v}^\dagger H^\dagger \mathbf{v} = \mathbf{v}^\dagger H \mathbf{v}
   \]
-  since $H$ is Hermitian. The right hand side is
-  \[
-    (\lambda\mathbf{v}^\dagger\mathbf{v})^\dagger = \lambda^* \mathbf{v}^\dagger \mathbf{v}
-  \]
-  So we have
+  since $H^\dagger = H$, while the right-hand side becomes $(\lambda \mathbf{v}^\dagger \mathbf{v})^\dagger = \lambda^* \mathbf{v}^\dagger \mathbf{v}$. Thus
   \[
     \mathbf{v}^\dagger H\mathbf{v} = \lambda^* \mathbf{v}^\dagger \mathbf{v}.
   \]
-  From $(*)$, we know that $\lambda \mathbf{v}^\dagger \mathbf{v} = \lambda^* \mathbf{v}^\dagger \mathbf{v}$. Since $\mathbf{v} \not= 0$, we know that $\mathbf{v}^\dagger \mathbf{v} = \mathbf{v}\cdot \mathbf{v} \not =0$. So $\lambda = \lambda^*$ and $\lambda$ is real.
+  Comparing with $(*)$, we obtain $\lambda \mathbf{v}^\dagger \mathbf{v} = \lambda^* \mathbf{v}^\dagger \mathbf{v}$. Since $\mathbf{v} \neq \mathbf{0}$, we have $\mathbf{v}^\dagger \mathbf{v} = \|\mathbf{v}\|^2 > 0$, so $\lambda = \lambda^*$, i.e., $\lambda$ is real.
 \end{proof}
 
-\begin{thm}[Hermitian eigenvectors are orthogonal]
-  The eigenvectors of a Hermitian matrix $H$ corresponding to distinct eigenvalues are orthogonal.
+\begin{thm}[Orthogonality of Hermitian eigenvectors]\label{thm:hermitian-orthogonal}
+  Let $H$ be a Hermitian matrix. Eigenvectors of $H$ corresponding to distinct eigenvalues are orthogonal.
 \end{thm}
 
 \begin{proof}
-  Let
-  \begin{align*}
-    H\mathbf{v}_i &= \lambda_i\mathbf{v}_i\tag{i}\\
-    H\mathbf{v}_j &= \lambda_j\mathbf{v}_j\tag{ii}.
-  \end{align*}
-  Pre-multiply (i) by $\mathbf{v}_j^\dagger$ to obtain
+  Let $\mathbf{v}_i$ and $\mathbf{v}_j$ be eigenvectors with distinct eigenvalues $\lambda_i \neq \lambda_j$:
   \[
-    \mathbf{v}_j^\dagger H\mathbf{v}_i = \lambda_i \mathbf{v}_j^\dagger \mathbf{v}_i\tag{iii}.
+    H\mathbf{v}_i = \lambda_i\mathbf{v}_i, \quad H\mathbf{v}_j = \lambda_j\mathbf{v}_j.
   \]
-  Pre-multiply (ii) by $\mathbf{v}_i^\dagger$ and take the Hermitian conjugate to obtain
+  Pre-multiplying the first equation by $\mathbf{v}_j^\dagger$ gives
   \[
-    \mathbf{v}_j^\dagger H\mathbf{v}_i = \lambda_j \mathbf{v}_j^\dagger \mathbf{v}_i\tag{iv}.
+    \mathbf{v}_j^\dagger H\mathbf{v}_i = \lambda_i \mathbf{v}_j^\dagger \mathbf{v}_i. \tag{i}
   \]
-  Equating (iii) and (iv) yields
+  Pre-multiplying the second equation by $\mathbf{v}_i^\dagger$ and taking the Hermitian conjugate:
   \[
-    \lambda_i \mathbf{v}_j^\dagger \mathbf{v}_i = \lambda_j \mathbf{v}_j^\dagger \mathbf{v}_i.
+    \mathbf{v}_j^\dagger H^\dagger \mathbf{v}_i = \lambda_j^* \mathbf{v}_j^\dagger \mathbf{v}_i.
   \]
-  Since $\lambda_i\not= \lambda_j$, we must have $\mathbf{v}_j^\dagger\mathbf{v}_i = 0$. So their inner product is zero and are orthogonal.
+  Since $H$ is Hermitian and its eigenvalues are real (Theorem~\ref{thm:hermitian-real-eigenvalues}), this becomes
+  \[
+    \mathbf{v}_j^\dagger H\mathbf{v}_i = \lambda_j \mathbf{v}_j^\dagger \mathbf{v}_i. \tag{ii}
+  \]
+  Subtracting (ii) from (i): $(\lambda_i - \lambda_j) \mathbf{v}_j^\dagger \mathbf{v}_i = 0$. Since $\lambda_i \neq \lambda_j$, we conclude $\mathbf{v}_j^\dagger \mathbf{v}_i = 0$, i.e., $\mathbf{v}_i$ and $\mathbf{v}_j$ are orthogonal.
 \end{proof}
 
-So we know that if a Hermitian matrix has $n$ distinct eigenvalues, then the eigenvectors form an orthonormal basis. However, if there are degenerate eigenvalues, it is more difficult, and requires the Gram-Schmidt process.
+\begin{rmk}
+  If a Hermitian matrix has $n$ distinct eigenvalues, then by Theorem~\ref{thm:hermitian-orthogonal} its eigenvectors are mutually orthogonal and hence form an orthogonal basis of $\C^n$ (which can be normalized to an orthonormal basis). When eigenvalues are repeated (degenerate), the eigenvectors within each eigenspace need not be orthogonal, but can be orthogonalized using the Gram-Schmidt process.
+\end{rmk}
 
 \subsubsection{Gram-Schmidt orthogonalization (non-examinable)}
-Suppose we have a set $B = \{\mathbf{w}_1, \mathbf{w}_2, \cdots, \mathbf{w}_r\}$ of linearly independent vectors. We want to find an orthogonal set $\tilde{\mathbf{B}} = \{\mathbf{v}_1, \mathbf{v}_2, \cdots, \mathbf{v}_r\}$.
 
-Define the projection of $\mathbf{w}$ onto $\mathbf{v}$ by $\mathcal{P}_\mathbf{v}(\mathbf{w}) = \frac{\bra \mathbf{v}\mid \mathbf{w}\ket}{\bra \mathbf{v}\mid \mathbf{v}\ket} \mathbf{v}$. Now construct $\tilde{\mathbf{B}}$ iteratively:
-\begin{enumerate}
-  \item $\mathbf{v}_1 = \mathbf{w}_1$
-  \item $\mathbf{v}_2 = \mathbf{w}_2 - \mathcal{P}_{\mathbf{v}_1}(\mathbf{w}_2)$
-
-    Then we get that $\bra \mathbf{v}_1\mid \mathbf{v}_2\ket = \bra \mathbf{v}_1\mid \mathbf{w}_2\ket - \left(\frac{\bra \mathbf{v}_1\mid \mathbf{w}_2\ket}{\bra \mathbf{v}_1 \mid \mathbf{v}_1\ket}\right) \bra \mathbf{v}_1\mid \mathbf{v}_1\ket = 0$
-  \item $\mathbf{v}_3 = \mathbf{w}_3 - \mathcal{P}_{\mathbf{v}_1}(\mathbf{w}_3) - \mathcal{P}_{\mathbf{v}_2}(\mathbf{w}_3)$
-  \item $\vdots$
-  \item $\displaystyle \mathbf{v}_r = \mathbf{w}_r - \sum_{j = 1}^{r - 1} \mathcal{P}_{\mathbf{v}_j}(\mathbf{w}_r)$
-\end{enumerate}
-At each step, we subtract out the components of $\mathbf{v}_i$ that belong to the space of $\{\mathbf{v}_1, \cdots, \mathbf{v}_{k - 1}\}$. This ensures that all the vectors are orthogonal. Finally, we normalize each basis vector individually to obtain an orthonormal basis.
-
-\subsubsection{Unitary transformation}
-Suppose $U$ is the transformation between one orthonormal basis and a new orthonormal basis $\{\mathbf{u}_1, \mathbf{u}_2, \cdots, \mathbf{u}_n\}$, i.e.\ $\bra \mathbf{u}_i\mid \mathbf{u}_j\ket = \delta_{ij}$. Then
-\[
-  U =
-  \begin{pmatrix}
-    (\mathbf{u}_1)_1 & (\mathbf{u}_2)_1 & \cdots & (\mathbf{u}_n)_1\\
-    (\mathbf{u}_1)_2 & (\mathbf{u}_2)_2 & \cdots & (\mathbf{u}_n)_2\\
-    \vdots & \vdots & \ddots & \vdots\\
-    (\mathbf{u}_1)_n & (\mathbf{u}_2)_n & \cdots & (\mathbf{u}_n)_n
-  \end{pmatrix}
-\]
-Then
-\begin{align*}
-  (U^\dagger U)_{ij} &= (U^\dagger)_{ik}U_{kj}\\
-  &= U_{ki}^* U_{kj}\\
-  &= (\mathbf{u}_i)^*_k(\mathbf{u}_j)_k\\
-  &= \bra \mathbf{u}_i \mid \mathbf{u}_j \ket\\
-  &= \delta_{ij}
-\end{align*}
-So $U$ is a unitary matrix.
-\subsubsection{Diagonalization of \texorpdfstring{$n\times n$}{n x n} Hermitian matrices}
-\begin{thm}[Hermitian matrix has $n$ orthogonal eigenvectors]
-  An $n\times n$ Hermitian matrix has precisely $n$ orthogonal eigenvectors.
-\end{thm}
-
-\begin{proof}
-  (Non-examinable) Let $\lambda_1,\lambda_2, \cdots, \lambda_r$ be the distinct eigenvalues of $H$ ($r \leq n$), with a set of corresponding orthonormal eigenvectors $B = \{\mathbf{v}_1, \mathbf{v}_2, \cdots, \mathbf{v}_r\}$. Extend to a basis of the whole of $\C^n$
+\begin{defi}[Orthogonal projection]
+  The \emph{orthogonal projection} of a vector $\mathbf{w}$ onto a nonzero vector $\mathbf{v}$ is
   \[
-    B' = \{\mathbf{v}_1, \mathbf{v}_2, \cdots, \mathbf{v}_r, \mathbf{w}_1, \mathbf{w}_2,\cdots, \mathbf{w}_{n - r}\}
-  \]
-  Now use Gram-Schmidt to create an orthonormal basis
-  \[
-    \tilde{B} = \{\mathbf{v}_1, \mathbf{v}_2, \cdots, \mathbf{v}_r, \mathbf{u}_1, \mathbf{u}_2, \cdots, \mathbf{u}_{n - r}\}.
-  \]
-  Now write
-  \[
-    P =
-    \begin{pmatrix}
-      \uparrow & \uparrow & & \uparrow & \uparrow & & \uparrow\\
-      \mathbf{v}_1 & \mathbf{v}_2 & \cdots & \mathbf{v}_r & \mathbf{u}_1 & \cdots & \mathbf{u}_{n - r}\\
-      \downarrow & \downarrow & & \downarrow & \downarrow & & \downarrow\\
-    \end{pmatrix}
-  \]
-  We have shown above that this is a unitary matrix, i.e.\ $P^{-1} = P^\dagger$. So if we change basis, we have
-  \begin{align*}
-    P^{-1}HP &= P^\dagger HP\\
-    &= \begin{pmatrix}
-      \lambda_1 & 0 & \cdots & 0 & 0 & 0 & \cdots & 0\\
-      0 & \lambda_2 & \cdots & 0 & 0 & 0 & \cdots & 0\\
-      \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & 0\\
-      0 & 0 & \cdots & \lambda_r & 0 & 0 & \cdots & 0\\
-      0 & 0 & \cdots & 0 & c_{11} & c_{12} & \cdots & c_{1, n - r}\\
-      0 & 0 & \cdots & 0 & c_{21} & c_{22} & \cdots & c_{2, n - r}\\
-      \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
-      0 & 0 & \cdots & 0 & c_{n - r,1} & c_{n - r,2} & \cdots & c_{n - r, n - r}
-    \end{pmatrix}
-  \end{align*}
-  Here $C$ is an $(n - r)\times (n - r)$ Hermitian matrix. The eigenvalues of $C$ are also eigenvalues of $H$ because $\det (H - \lambda I) = \det(P^\dagger HP - \lambda I) = (\lambda_1 - \lambda)\cdots (\lambda_r - \lambda)\det (C - \lambda I)$. So the eigenvalues of $C$ are the eigenvalues of $H$.
-
-  We can keep repeating the process on $C$ until we finish all rows. For example, if the eigenvalues of $C$ are all distinct, there are $n - r$ orthonormal eigenvectors $\mathbf{w}_j$ (for $j = r + 1, \cdots, n$) of $C$. Let
-  \[
-    Q =
-    \begin{pmatrix}
-      1 \\
-      & 1\\
-      && \ddots\\
-      &&& 1\\
-      &&&& \uparrow & \uparrow & &\uparrow\\
-      &&&& \mathbf{w}_{r+1} & \mathbf{w}_{r + 2} & \cdots & \mathbf{w}_n\\
-      &&&& \downarrow & \downarrow & &\downarrow\\
-    \end{pmatrix}
-  \]
-  with other entries $0$. (where we have a $r\times r$ identity matrix block on the top left corner and a $(n - r) \times (n -r)$ with columns formed by $\mathbf{w}_j$)
-
-  Since the columns of $Q$ are orthonormal, $Q$ is unitary. So $Q^\dagger P^\dagger HPQ = \mathrm{diag}(\lambda_1, \lambda_2, \cdots, \lambda_r, \lambda_{r + 1}, \cdots, \lambda_n)$, where the first $r$ $\lambda$s are distinct and the remaining ones are copies of previous ones.
-
-  The $n$ linearly-independent eigenvectors are the columns of $PQ$.
-
-\end{proof}
-So it now follows that $H$ is diagonalizable via transformation $U (=PQ)$. $U$ is a unitary matrix because $P$ and $Q$ are. We have
-\begin{align*}
-  D &= U^\dagger HU\\
-  H &= UDU^\dagger
-\end{align*}
-Note that a real symmetric matrix $S$ is a special case of Hermitian matrices. So we have
-\begin{align*}
-  D &= Q^T SQ\\
-  S &= QDQ^T
-\end{align*}
-\begin{eg}
-  Find the orthogonal matrix which diagonalizes the following real symmetric matrix: $S =
-  \begin{pmatrix}
-    1 & \beta\\
-    \beta & 1
-  \end{pmatrix}$ with $\beta \not= 0 \in \R$.
-
-  We find the eigenvalues by solving the characteristic equation: $\det(S - \lambda I) = 0$, and obtain $\lambda = 1\pm \beta$.
-
-  The corresponding eigenvectors satisfy $(S - \lambda I)\mathbf{x} = 0$, which gives $\displaystyle \mathbf{x} = \frac{1}{\sqrt{2}}
-  \begin{pmatrix}
-    1\\
-    \pm1
-  \end{pmatrix}$
-
-  We change the basis from the standard basis to $
-  \displaystyle
-  \frac{1}{\sqrt{2}}\begin{pmatrix}
-    1\\1
-  \end{pmatrix},
-  \frac{1}{\sqrt{2}}
-  \begin{pmatrix}
-    1\\-1
-  \end{pmatrix}$ (which is just a rotation by $\pi/4$).
-
-  The transformation matrix is $
-  Q = \begin{pmatrix}
-    1/\sqrt{2} & 1/\sqrt{2}\\
-    1/\sqrt{2} & -1/\sqrt{2}
-  \end{pmatrix}$. Then we know that $S = QDQ^T$ with $D = \mathrm{diag}(1+\beta, 1-\beta)$
-\end{eg}
-\subsubsection{Normal matrices}
-We have seen that the eigenvalues and eigenvectors of Hermitian matrices satisfy some nice properties. More generally, we can define the following:
-\begin{defi}[Normal matrix]
-  A \emph{normal matrix} as a matrix that commutes with its own Hermitian conjugate, i.e.
-  \[
-    NN^\dagger = N^\dagger N
+    \operatorname{proj}_{\mathbf{v}}(\mathbf{w}) = \frac{\langle \mathbf{v}, \mathbf{w} \rangle}{\langle \mathbf{v}, \mathbf{v} \rangle} \mathbf{v} = \frac{\mathbf{v}^\dagger \mathbf{w}}{\mathbf{v}^\dagger \mathbf{v}} \mathbf{v}.
   \]
 \end{defi}
-Hermitian, real symmetric, skew-Hermitian, real anti-symmetric, orthogonal, unitary matrices are all special cases of normal matrices.
 
-\begin{prop}[Properties of normal matrices]\leavevmode
+\begin{prop}[Gram-Schmidt orthogonalization]\label{prop:gram-schmidt}
+  Let $\{\mathbf{w}_1, \mathbf{w}_2, \ldots, \mathbf{w}_r\}$ be a set of linearly independent vectors. Define vectors $\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_r$ iteratively by
+  \begin{align*}
+    \mathbf{v}_1 &= \mathbf{w}_1, \\
+    \mathbf{v}_k &= \mathbf{w}_k - \sum_{j=1}^{k-1} \operatorname{proj}_{\mathbf{v}_j}(\mathbf{w}_k) \quad \text{for } k = 2, \ldots, r.
+  \end{align*}
+  Then $\{\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_r\}$ is an orthogonal set spanning the same subspace as $\{\mathbf{w}_1, \ldots, \mathbf{w}_r\}$.
+\end{prop}
+
+\begin{proof}[Sketch of proof]
+  At each step, we subtract from $\mathbf{w}_k$ its components in the directions of $\mathbf{v}_1, \ldots, \mathbf{v}_{k-1}$. For orthogonality, note that for $i < k$:
+  \[
+    \langle \mathbf{v}_i, \mathbf{v}_k \rangle = \langle \mathbf{v}_i, \mathbf{w}_k \rangle - \frac{\langle \mathbf{v}_i, \mathbf{w}_k \rangle}{\langle \mathbf{v}_i, \mathbf{v}_i \rangle} \langle \mathbf{v}_i, \mathbf{v}_i \rangle = 0.
+  \]
+  Normalizing each $\mathbf{v}_k$ to $\hat{\mathbf{v}}_k = \mathbf{v}_k / \|\mathbf{v}_k\|$ yields an orthonormal set.
+\end{proof}
+
+\subsubsection{Unitary transformations}
+
+\begin{prop}[Orthonormal columns imply unitary]\label{prop:unitary-orthonormal}
+  Let $U$ be an $n \times n$ matrix whose columns $\mathbf{u}_1, \mathbf{u}_2, \ldots, \mathbf{u}_n$ form an orthonormal set, i.e., $\langle \mathbf{u}_i, \mathbf{u}_j \rangle = \delta_{ij}$. Then $U$ is unitary: $U^\dagger U = I$.
+\end{prop}
+
+\begin{proof}
+  Writing $U = (\mathbf{u}_1 \; \mathbf{u}_2 \; \cdots \; \mathbf{u}_n)$, we compute
+  \begin{align*}
+    (U^\dagger U)_{ij} &= (U^\dagger)_{ik} U_{kj} = U_{ki}^* U_{kj} = (\mathbf{u}_i)_k^* (\mathbf{u}_j)_k = \mathbf{u}_i^\dagger \mathbf{u}_j = \langle \mathbf{u}_i, \mathbf{u}_j \rangle = \delta_{ij}.
+  \end{align*}
+  Thus $U^\dagger U = I$, so $U$ is unitary.
+\end{proof}
+
+\begin{rmk}
+  Consequently, any change of basis from one orthonormal basis to another is represented by a unitary matrix. For real vector spaces, this specializes to orthogonal matrices.
+\end{rmk}
+\subsubsection{Diagonalization of \texorpdfstring{$n\times n$}{n x n} Hermitian matrices}
+
+\begin{thm}[Spectral theorem for Hermitian matrices]\label{thm:spectral-hermitian}
+  Every $n \times n$ Hermitian matrix $H$ has $n$ orthonormal eigenvectors. Consequently, $H$ is unitarily diagonalizable: there exists a unitary matrix $U$ such that
+  \[
+    U^\dagger H U = D = \operatorname{diag}(\lambda_1, \lambda_2, \ldots, \lambda_n),
+  \]
+  where $\lambda_1, \ldots, \lambda_n$ are the (real) eigenvalues of $H$.
+\end{thm}
+
+\begin{proof}[Proof (non-examinable)]
+  Let $\lambda_1, \lambda_2, \ldots, \lambda_r$ be the distinct eigenvalues of $H$ (where $r \leq n$), with corresponding orthonormal eigenvectors $\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_r$. Extend this to a basis of $\C^n$:
+  \[
+    \{\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_r, \mathbf{w}_1, \mathbf{w}_2, \ldots, \mathbf{w}_{n-r}\}.
+  \]
+  Apply Gram-Schmidt (Proposition~\ref{prop:gram-schmidt}) to obtain an orthonormal basis
+  \[
+    \tilde{\mathcal{B}} = \{\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_r, \mathbf{u}_1, \mathbf{u}_2, \ldots, \mathbf{u}_{n-r}\}.
+  \]
+  Form the matrix $P = (\mathbf{v}_1 \; \cdots \; \mathbf{v}_r \; \mathbf{u}_1 \; \cdots \; \mathbf{u}_{n-r})$. By Proposition~\ref{prop:unitary-orthonormal}, $P$ is unitary, so $P^{-1} = P^\dagger$. The matrix $P^\dagger H P$ has the block form
+  \[
+    P^\dagger H P = \begin{pmatrix} \Lambda & 0 \\ 0 & C \end{pmatrix},
+  \]
+  where $\Lambda = \operatorname{diag}(\lambda_1, \ldots, \lambda_r)$ and $C$ is an $(n-r) \times (n-r)$ Hermitian matrix. The eigenvalues of $C$ are eigenvalues of $H$ (with remaining multiplicities), since
+  \[
+    \det(H - \lambda I) = \det(P^\dagger H P - \lambda I) = (\lambda_1 - \lambda) \cdots (\lambda_r - \lambda) \det(C - \lambda I).
+  \]
+
+  Repeating this process on $C$, we eventually obtain $n$ orthonormal eigenvectors. If $\mathbf{w}_{r+1}, \ldots, \mathbf{w}_n$ are orthonormal eigenvectors of $C$, define
+  \[
+    Q = \begin{pmatrix} I_r & 0 \\ 0 & W \end{pmatrix},
+  \]
+  where $W = (\mathbf{w}_{r+1} \; \cdots \; \mathbf{w}_n)$. Then $Q$ is unitary and $Q^\dagger (P^\dagger H P) Q = \operatorname{diag}(\lambda_1, \ldots, \lambda_n)$.
+
+  Setting $U = PQ$, which is unitary as a product of unitary matrices, we obtain $U^\dagger H U = D$. The columns of $U$ are the $n$ orthonormal eigenvectors.
+\end{proof}
+
+\begin{cor}[Unitary diagonalization of Hermitian matrices]\label{cor:hermitian-diag}
+  For any Hermitian matrix $H$, we have $H = U D U^\dagger$, where $U$ is unitary and $D$ is the diagonal matrix of eigenvalues.
+\end{cor}
+
+\begin{rmk}
+  For a real symmetric matrix $S$ (a special case of Hermitian matrices with real entries), the unitary matrix $U$ can be chosen to be a real orthogonal matrix $Q$. Thus
+  \[
+    S = Q D Q^\top \quad \text{and} \quad D = Q^\top S Q.
+  \]
+\end{rmk}
+
+\begin{eg}
+  Let $S = \begin{pmatrix} 1 & \beta \\ \beta & 1 \end{pmatrix}$ with $\beta \neq 0$ be a real symmetric matrix. We find an orthogonal matrix that diagonalizes $S$.
+
+  The characteristic equation $\det(S - \lambda I) = (1-\lambda)^2 - \beta^2 = 0$ gives eigenvalues $\lambda = 1 \pm \beta$.
+
+  The corresponding normalized eigenvectors are
+  \[
+    \mathbf{v}_1 = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ 1 \end{pmatrix} \quad (\lambda = 1 + \beta), \qquad \mathbf{v}_2 = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ -1 \end{pmatrix} \quad (\lambda = 1 - \beta).
+  \]
+  The orthogonal transformation matrix is
+  \[
+    Q = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix},
+  \]
+  which represents a rotation by $\pi/4$. Then $S = Q D Q^\top$ with $D = \operatorname{diag}(1+\beta, 1-\beta)$.
+\end{eg}
+
+\subsubsection{Normal matrices}
+
+\begin{defi}[Normal matrix]
+  An $n \times n$ matrix $N$ is \emph{normal} if it commutes with its Hermitian conjugate:
+  \[
+    N N^\dagger = N^\dagger N.
+  \]
+\end{defi}
+
+\begin{rmk}
+  The class of normal matrices includes many important special cases:
+  \begin{itemize}
+    \item Hermitian matrices ($N^\dagger = N$);
+    \item Real symmetric matrices ($N^\top = N$ with real entries);
+    \item Skew-Hermitian matrices ($N^\dagger = -N$);
+    \item Real skew-symmetric matrices ($N^\top = -N$ with real entries);
+    \item Unitary matrices ($N^\dagger = N^{-1}$);
+    \item Orthogonal matrices ($N^\top = N^{-1}$ with real entries).
+  \end{itemize}
+\end{rmk}
+
+\begin{thm}[Spectral theorem for normal matrices]\label{thm:spectral-normal}
+  Let $N$ be a normal matrix. Then:
   \begin{enumerate}
     \item If $\lambda$ is an eigenvalue of $N$, then $\lambda^*$ is an eigenvalue of $N^\dagger$.
-    \item The eigenvectors of distinct eigenvalues are orthogonal.
-    \item A normal matrix can always be diagonalized with an orthonormal basis of eigenvectors.
+    \item Eigenvectors corresponding to distinct eigenvalues are orthogonal.
+    \item $N$ is unitarily diagonalizable: there exists a unitary matrix $U$ and a diagonal matrix $D$ such that $N = U D U^\dagger$.
   \end{enumerate}
-\end{prop}
+\end{thm}
+
+\begin{rmk}
+  The proof of Theorem~\ref{thm:spectral-normal} is beyond the scope of this course. The key observation is that normality is precisely the condition needed to generalize the spectral theorem from Hermitian to complex matrices.
+\end{rmk}
 
 \section{Quadratic forms and conics}
 We want to study quantities like $x_1^2 + x_2^2$ and $3x_1^2 + 2x_1x_2 + 4x_2^2$. For example, conic sections generally take this form. The common characteristic of these is that each term has degree 2. Consequently, we can write it in the form $\mathbf{x}^\dagger A\mathbf{x}$ for some matrix $A$.
