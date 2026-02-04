@@ -1721,39 +1721,63 @@ In practical terms, we use a combination of properties of determinants with a se
 
 \section{Matrices and linear equations}
 \subsection{Simple example, \texorpdfstring{$2\times 2$}{2 x 2}}
-Consider the system of equations
-\begin{align*}
-  A_{11}x_1 + A_{12}x_2 &= d_1\tag{a}\\
-  A_{21}x_1 + A_{22}x_2 &= d_2\tag{b}.
-  \intertext{We can write this as}
-  A\mathbf{x} &= \mathbf{d}.
-\end{align*}
-If we do (a)$\times A_{22} - $(b)$\times A_{12}$ and similarly the other way round, we obtain
-\begin{align*}
-  (A_{11}A_{22} - A_{12}A_{21})x_1 &= A_{22}d_1 - A_{12}d_2\\
-  \underbrace{(A_{11}A_{22} - A_{12}A_{21})}_{\det A}x_2 &= A_{11}d_2 - A_{21}d_1
-\end{align*}
-Dividing by $\det A$ and writing in matrix form, we have
-\[
-  \begin{pmatrix}
-    x_1\\
-    x_2
-  \end{pmatrix} = \frac{1}{\det A}
-  \begin{pmatrix}
-    A_{22} & - A_{12}\\
-    -A_{21} & A_{11}
-  \end{pmatrix}
-  \begin{pmatrix}
-    d_1\\
-    d_2
-  \end{pmatrix}
-\]
-On the other hand, given the equation $A\mathbf{x} = \mathbf{d}$, if $A^{-1}$ exists, then by multiplying both sides on the left by $A^{-1}$, we obtain $\mathbf{x} = A^{-1}\mathbf{d}$.
+\begin{remark}
+  We begin by studying the inverse of a $2 \times 2$ matrix through the lens of solving linear systems. This concrete case motivates the general theory developed in the following subsections.
+\end{remark}
 
-Hence, we have constructed $A^{-1}$ in the $2\times 2$ case, and shown that the condition for its existence is $\det A \not= 0$, with
-\[
-  A^{-1} =\frac{1}{\det A}\begin{pmatrix}A_{22} & - A_{12}\\-A_{21} & A_{11}\end{pmatrix}
-\]
+\begin{eg}[Solving a $2 \times 2$ system by elimination]
+  Let $A = \begin{pmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{pmatrix}$ be a $2 \times 2$ matrix, and consider the system of linear equations
+  \begin{align*}
+    A_{11}x_1 + A_{12}x_2 &= d_1\tag{a}\\
+    A_{21}x_1 + A_{22}x_2 &= d_2\tag{b},
+  \end{align*}
+  where $\mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \end{pmatrix}$ and $\mathbf{d} = \begin{pmatrix} d_1 \\ d_2 \end{pmatrix}$ are column vectors. In matrix form, this system is $A\mathbf{x} = \mathbf{d}$.
+
+  To solve for $x_1$ and $x_2$, we eliminate variables. Computing (a)$\times A_{22} - $(b)$\times A_{12}$ and similarly the other way round, we obtain
+  \begin{align*}
+    (A_{11}A_{22} - A_{12}A_{21})x_1 &= A_{22}d_1 - A_{12}d_2\\
+    \underbrace{(A_{11}A_{22} - A_{12}A_{21})}_{\det A}x_2 &= A_{11}d_2 - A_{21}d_1.
+  \end{align*}
+  Assuming $\det A \neq 0$, we may divide by $\det A$ and write the solution in matrix form:
+  \[
+    \begin{pmatrix}
+      x_1\\
+      x_2
+    \end{pmatrix} = \frac{1}{\det A}
+    \begin{pmatrix}
+      A_{22} & - A_{12}\\
+      -A_{21} & A_{11}
+    \end{pmatrix}
+    \begin{pmatrix}
+      d_1\\
+      d_2
+    \end{pmatrix}.
+  \]
+\end{eg}
+
+\begin{prop}[Inverse of a $2 \times 2$ matrix]
+  Let $A = \begin{pmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{pmatrix}$ be a $2 \times 2$ matrix. Then $A^{-1}$ exists if and only if $\det A \neq 0$, in which case
+  \[
+    A^{-1} = \frac{1}{\det A}\begin{pmatrix}A_{22} & - A_{12}\\-A_{21} & A_{11}\end{pmatrix}.
+  \]
+\end{prop}
+
+\begin{proof}
+  Suppose $\det A \neq 0$. The preceding example shows that the unique solution to $A\mathbf{x} = \mathbf{d}$ is
+  \[
+    \mathbf{x} = \frac{1}{\det A}
+    \begin{pmatrix}
+      A_{22} & - A_{12}\\
+      -A_{21} & A_{11}
+    \end{pmatrix}
+    \mathbf{d}.
+  \]
+  On the other hand, if $A^{-1}$ exists, then multiplying $A\mathbf{x} = \mathbf{d}$ on the left by $A^{-1}$ gives $\mathbf{x} = A^{-1}\mathbf{d}$. Comparing these expressions, we conclude that
+  \[
+    A^{-1} = \frac{1}{\det A}\begin{pmatrix}A_{22} & - A_{12}\\-A_{21} & A_{11}\end{pmatrix}.
+  \]
+  The converse, that $\det A = 0$ implies $A^{-1}$ does not exist, follows from the general theory in the next subsection.
+\end{proof}
 
 \subsection{Inverse of an \texorpdfstring{$n\times n$}{n x n} matrix}
 For larger matrices, the formula for the inverse is similar, but slightly more complicated (and costly to evaluate). The key to finding the inverse is the following:
