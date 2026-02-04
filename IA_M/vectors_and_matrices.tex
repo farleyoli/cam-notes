@@ -2801,84 +2801,74 @@ The transformation law for matrices (Theorem~\ref{thm:matrix-transformation}) mo
   \end{enumerate}
 \end{proof}
 \subsection{Diagonalizable matrices}
-\begin{defi}[Diagonalizable matrices]
-  An $n\times n$ matrix $A$ is \emph{diagonalizable} if it is similar to a diagonal matrix. We showed above that this is equivalent to saying the eigenvectors form a basis of $\C^n$.
+
+\begin{defi}[Diagonalizable matrix]
+  An $n \times n$ matrix $A$ is \emph{diagonalizable} if it is similar to a diagonal matrix, i.e., if there exists an invertible matrix $P$ such that $P^{-1}AP$ is diagonal.
 \end{defi}
 
-The requirement that matrix $A$ has $n$ distinct eigenvalues is a \emph{sufficient} condition for diagonalizability as shown above. However, it is \emph{not} necessary.
+\begin{prop}[Eigenvector characterization of diagonalizability]\label{prop:diag-eigenvector}
+  An $n \times n$ matrix $A$ is diagonalizable if and only if $A$ has $n$ linearly independent eigenvectors, i.e., if and only if the eigenvectors of $A$ form a basis of $\C^n$.
+\end{prop}
 
-Consider the second example in Section 5.2,
-\[
-  A = \begin{pmatrix}
-    -2 & 2 & -3\\
-    2 & 1 & -6\\
-    -1 & -2 & 0
-  \end{pmatrix}
-\]
-We found three linear eigenvectors
-\[
-  \tilde{\mathbf{e}_1} =
-  \begin{pmatrix}
-    1\\2\\-1
-  \end{pmatrix}, \tilde{\mathbf{e}_2} =
-  \begin{pmatrix}
-    -2\\1\\0
-  \end{pmatrix}, \tilde{\mathbf{e}_3} =
-  \begin{pmatrix}
-    3\\0\\1
-  \end{pmatrix}
-\]
-If we let
-\[
-  P =
-  \begin{pmatrix}
-    1 & -2 & 3\\
-    2 & 1 & 0\\
-    1 & 0 & 1
-  \end{pmatrix}, P^{-1} = \frac{1}{8}
-  \begin{pmatrix}
-    1 & 2 & -3\\
-    -2 & 4 & 6\\
-    1 & 2 & 5
-  \end{pmatrix},
-\]
-then
-\[
-  \tilde{A} = P^{-1}AP =
-  \begin{pmatrix}
-    5 & 0 & 0\\
-    0 & -3 & 0\\
-    0 & 0 & -3
-  \end{pmatrix},
-\]
-so $A$ is diagonalizable.
-
-\begin{thm}[Union of eigenspace bases is independent]
-  Let $\lambda_1, \lambda_2, \cdots, \lambda_r$, with $r \leq n$ be the distinct eigenvalues of $A$. Let $B_1, B_2, \cdots B_r$ be the bases of the eigenspaces $E_{\lambda_1}, E_{\lambda_2}, \cdots, E_{\lambda_r}$ correspondingly. Then the set $\displaystyle B = \bigcup_{i= 1}^r B_i$ is linearly independent.
-\end{thm}
-
-This is similar to the proof we had for the case where the eigenvalues are distinct. However, we are going to do it much concisely, and the actual meat of the proof is actually just a single line.
 \begin{proof}
-  Write $B_1 = \{\mathbf{x}_1^{(1)}, \mathbf{x}_2^{(1)}, \cdots \mathbf{x}_{m(\lambda_1)}^{(1)}\}$. Then $m(\lambda_1) = \dim (E_{\lambda_1})$, and similarly for all $B_i$.
-
-  Consider the following general linear combination of all elements in $B$. Consider the equation
-  \[
-    \sum_{i = 1}^r\sum_{j = 1}^{m(\lambda_i)} \alpha_{ij} \mathbf{x}_j^{(i)} = 0.
-  \]
-  The first sum is summing over all eigenspaces, and the second sum sums over the basis vectors in $B_i$. Now apply the matrix
-  \[
-    \prod_{k = 1, 2, \cdots, \bar{K}, \cdots, r} (A - \lambda_kI)
-  \]
-  to the above sum, for some arbitrary $K$. We obtain
-  \[
-    \sum_{j = 1}^{m(\lambda_K)}\alpha_{Kj}\left[\prod_{k = 1, 2, \cdots, \bar{K}, \cdots, r}(\lambda_K - \lambda_k)\right]\mathbf{x}_j^{(K)} = 0.
-  \]
-  Since the $\mathbf{x}^{(K)}_j$ are linearly independent ($B_K$ is a basis), $\alpha_{Kj} = 0$ for all $j$. Since $K$ was arbitrary, all $\alpha_{ij}$ must be zero. So $B$ is linearly independent.
+  If $A$ has $n$ linearly independent eigenvectors $\mathbf{v}_1, \ldots, \mathbf{v}_n$ with corresponding eigenvalues $\lambda_1, \ldots, \lambda_n$, let $P = (\mathbf{v}_1 \; \mathbf{v}_2 \; \cdots \; \mathbf{v}_n)$. Then $P^{-1}AP = \operatorname{diag}(\lambda_1, \ldots, \lambda_n)$. Conversely, if $P^{-1}AP = D$ is diagonal, then the columns of $P$ are eigenvectors of $A$.
 \end{proof}
 
-\begin{prop}[Diagonalizability and defect criterion]
-  $A$ is diagonalizable iff all its eigenvalues have zero defect.
-\end{prop}
+\begin{rmk}
+  Having $n$ distinct eigenvalues is a \emph{sufficient} condition for diagonalizability (since eigenvectors corresponding to distinct eigenvalues are linearly independent), but it is \emph{not necessary}. A matrix with repeated eigenvalues may still be diagonalizable if the eigenspaces are sufficiently large.
+\end{rmk}
+
+\begin{eg}
+  Consider the matrix
+  \[
+    A = \begin{pmatrix} -2 & 2 & -3 \\ 2 & 1 & -6 \\ -1 & -2 & 0 \end{pmatrix}.
+  \]
+  This matrix has eigenvalues $\lambda_1 = 5$ and $\lambda_2 = \lambda_3 = -3$ (a repeated eigenvalue). The corresponding eigenvectors are
+  \[
+    \tilde{\mathbf{e}}_1 = \begin{pmatrix} 1 \\ 2 \\ -1 \end{pmatrix}, \quad \tilde{\mathbf{e}}_2 = \begin{pmatrix} -2 \\ 1 \\ 0 \end{pmatrix}, \quad \tilde{\mathbf{e}}_3 = \begin{pmatrix} 3 \\ 0 \\ 1 \end{pmatrix}.
+  \]
+  Forming $P$ with these eigenvectors as columns:
+  \[
+    P = \begin{pmatrix} 1 & -2 & 3 \\ 2 & 1 & 0 \\ -1 & 0 & 1 \end{pmatrix}, \quad P^{-1} = \frac{1}{8} \begin{pmatrix} 1 & 2 & -3 \\ -2 & 4 & 6 \\ 1 & 2 & 5 \end{pmatrix}.
+  \]
+  Then
+  \[
+    P^{-1}AP = \begin{pmatrix} 5 & 0 & 0 \\ 0 & -3 & 0 \\ 0 & 0 & -3 \end{pmatrix},
+  \]
+  confirming that $A$ is diagonalizable despite having a repeated eigenvalue.
+\end{eg}
+
+\begin{thm}[Linear independence of eigenspace bases]\label{thm:eigenspace-union}
+  Let $A$ be an $n \times n$ matrix with distinct eigenvalues $\lambda_1, \lambda_2, \ldots, \lambda_r$ (where $r \leq n$). For each $i$, let $\mathcal{B}_i$ be a basis for the eigenspace $E_{\lambda_i}$. Then the union $\mathcal{B} = \bigcup_{i=1}^r \mathcal{B}_i$ is a linearly independent set.
+\end{thm}
+
+\begin{rmk}
+  This theorem generalizes the result that eigenvectors corresponding to distinct eigenvalues are linearly independent. The key technique in the proof is to apply a carefully chosen polynomial in $A$ to isolate the contribution from a single eigenspace.
+\end{rmk}
+
+\begin{proof}
+  For each $i$, write $\mathcal{B}_i = \{\mathbf{x}_1^{(i)}, \mathbf{x}_2^{(i)}, \ldots, \mathbf{x}_{m_i}^{(i)}\}$, where $m_i = \dim E_{\lambda_i}$. Consider a linear combination
+  \[
+    \sum_{i=1}^r \sum_{j=1}^{m_i} \alpha_{ij} \mathbf{x}_j^{(i)} = \mathbf{0}.
+  \]
+  For any fixed $K \in \{1, \ldots, r\}$, apply the matrix $\prod_{k \neq K} (A - \lambda_k I)$ to both sides. Since $(A - \lambda_k I)\mathbf{x} = (\lambda_i - \lambda_k)\mathbf{x}$ for any $\mathbf{x} \in E_{\lambda_i}$, this annihilates all terms with $i \neq K$ and yields
+  \[
+    \sum_{j=1}^{m_K} \alpha_{Kj} \left[ \prod_{k \neq K} (\lambda_K - \lambda_k) \right] \mathbf{x}_j^{(K)} = \mathbf{0}.
+  \]
+  The scalar $\prod_{k \neq K} (\lambda_K - \lambda_k)$ is nonzero since the eigenvalues are distinct. Since $\mathcal{B}_K$ is a basis (hence linearly independent), we conclude $\alpha_{Kj} = 0$ for all $j$. As $K$ was arbitrary, all coefficients $\alpha_{ij}$ vanish, proving that $\mathcal{B}$ is linearly independent.
+\end{proof}
+
+\begin{thm}[Diagonalizability criterion]\label{thm:diag-criterion}
+  An $n \times n$ matrix $A$ is diagonalizable if and only if every eigenvalue has zero defect, i.e., the geometric multiplicity equals the algebraic multiplicity for each eigenvalue.
+\end{thm}
+
+\begin{proof}
+  Let $\lambda_1, \ldots, \lambda_r$ be the distinct eigenvalues with algebraic multiplicities $a_i$ and geometric multiplicities $g_i = \dim E_{\lambda_i}$.
+
+  By Theorem~\ref{thm:eigenspace-union}, the union of bases for all eigenspaces is linearly independent, giving at most $\sum_{i=1}^r g_i$ linearly independent eigenvectors. Since $g_i \leq a_i$ for each $i$ and $\sum_{i=1}^r a_i = n$, we have $\sum_{i=1}^r g_i \leq n$.
+
+  By Proposition~\ref{prop:diag-eigenvector}, $A$ is diagonalizable if and only if there are $n$ linearly independent eigenvectors, which occurs if and only if $\sum_{i=1}^r g_i = n$. This happens if and only if $g_i = a_i$ for all $i$, i.e., every eigenvalue has zero defect.
+\end{proof}
 \subsection{Canonical (Jordan normal) form}
 Given a matrix $A$, if its eigenvalues all have zero defect, then we can find a basis in which it is diagonal. However, if some eigenvalue \emph{does} have defect, we can still put it into an almost-diagonal form. This is known as the \emph{Jordan normal form}.
 
