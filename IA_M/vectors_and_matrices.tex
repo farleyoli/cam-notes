@@ -2596,224 +2596,161 @@ In practical terms, we use a combination of properties of determinants with a se
 The fact that $A$ can be diagonalized by changing the basis is an important observation. We will now look at how we can change bases and see how we can make use of this.
 
 \subsection{Transformation matrices}
-How do the components of a vector or a matrix change when we change the basis?
+In this section, we study how the components of vectors and matrices change when we change the basis. Throughout, let $V$ denote either $\R^n$ or $\C^n$.
 
-Let $\{\mathbf{e}_1, \mathbf{e}_2, \cdots, \mathbf{e}_n\}$ and $\{\tilde{\mathbf{e}}_1, \tilde{\mathbf{e}}_2,\cdots, \tilde{\mathbf{e}}_n\}$ be 2 different bases of $\R^n$ or $\C^n$. Then we can write
-\[
-  \tilde{\mathbf{e}_j} = \sum_{i = 1}^n P_{ij}\mathbf{e}_i
-\]
-i.e.\ $P_{ij}$ is the $i$th component of $\tilde{\mathbf{e}_j}$ with respect to the basis $\{\mathbf{e}_1, \mathbf{e}_2, \cdots, \mathbf{e}_n\}$. Note that the sum is made as $P_{ij}\mathbf{e}_i$, not $P_{ij}\mathbf{e}_j$. This is different from the formula for matrix multiplication.
+\begin{defi}[Transformation matrix]
+  Let $\mathcal{B} = \{\mathbf{e}_1, \mathbf{e}_2, \ldots, \mathbf{e}_n\}$ and $\tilde{\mathcal{B}} = \{\tilde{\mathbf{e}}_1, \tilde{\mathbf{e}}_2, \ldots, \tilde{\mathbf{e}}_n\}$ be two bases of $V$. The \emph{transformation matrix} (or \emph{change of basis matrix}) from $\mathcal{B}$ to $\tilde{\mathcal{B}}$ is the $n \times n$ matrix $P$ defined by
+  \[
+    \tilde{\mathbf{e}}_j = \sum_{i=1}^n P_{ij} \mathbf{e}_i
+  \]
+  for $j = 1, 2, \ldots, n$. That is, $P_{ij}$ is the $i$th component of $\tilde{\mathbf{e}}_j$ with respect to the basis $\mathcal{B}$.
+\end{defi}
 
-Matrix $P$ has as its columns the vectors $\tilde{\mathbf{e}_j}$ relative to $\{\mathbf{e}_1, \mathbf{e}_2, \cdots, \mathbf{e}_n\}$. So $P = (\tilde{\mathbf{e}_1}\; \tilde{\mathbf{e}_2}\; \cdots \; \tilde{\mathbf{e}_n})$ and
-\[
-  P(\mathbf{e}_i) = \tilde{\mathbf{e}_i}
-\]
-Similarly, we can write
-\[
-  \mathbf{e}_i = \sum_{k = 1}^nQ_{ki} \tilde{\mathbf{e}_k}
-\]
-with $Q = (\mathbf{e}_1\; \mathbf{e}_2\;\cdots\;\mathbf{e}_n)$.
+\begin{rmk}
+  The columns of $P$ are the vectors $\tilde{\mathbf{e}}_j$ expressed in terms of $\mathcal{B}$. Thus we may write $P = (\tilde{\mathbf{e}}_1 \; \tilde{\mathbf{e}}_2 \; \cdots \; \tilde{\mathbf{e}}_n)$, and $P$ satisfies $P(\mathbf{e}_i) = \tilde{\mathbf{e}}_i$ for each $i$.
+\end{rmk}
 
-Substituting this into the equation for $\tilde{\mathbf{e}_j}$, we have
-\begin{align*}
-  \tilde{\mathbf{e}_j} &= \sum_{i = 1}^n\left(\sum_{k = 1}^{n} Q_{ki}\tilde{\mathbf{e}_k}\right)P_{ij}\\
-  &= \sum_{k = 1}^n \tilde{\mathbf{e}_k} \left(\sum_{i = 1}^n Q_{ki}P_{ij}\right)
-\end{align*}
-But $\tilde{\mathbf{e}}_1, \tilde{\mathbf{e}}_2,\cdots, \tilde{\mathbf{e}}_n$ are linearly independent, so this is only possible if
-\[
-  \sum_{i = 1}^n Q_{ki}P_{ij} = \delta_{kj},
-\]
-which is just a fancy way of saying $QP = I$, or $Q = P^{-1}$.
+\begin{rmk}
+  Note that the sum in the definition is $\sum_i P_{ij} \mathbf{e}_i$ (summing over the first index), not $\sum_j P_{ij} \mathbf{e}_j$. This convention differs from the standard matrix multiplication formula.
+\end{rmk}
+
+\begin{prop}[Inverse of transformation matrix]\label{prop:inverse-transformation}
+  Let $P$ be the transformation matrix from basis $\mathcal{B}$ to basis $\tilde{\mathcal{B}}$, and let $Q$ be the transformation matrix from $\tilde{\mathcal{B}}$ to $\mathcal{B}$. Then $Q = P^{-1}$.
+\end{prop}
+
+\begin{proof}
+  By definition, we have
+  \[
+    \mathbf{e}_i = \sum_{k=1}^n Q_{ki} \tilde{\mathbf{e}}_k
+  \]
+  for each $i$. Substituting the expression $\tilde{\mathbf{e}}_j = \sum_{i=1}^n P_{ij} \mathbf{e}_i$ into the above, we obtain
+  \begin{align*}
+    \tilde{\mathbf{e}}_j &= \sum_{i=1}^n P_{ij} \mathbf{e}_i = \sum_{i=1}^n P_{ij} \left( \sum_{k=1}^n Q_{ki} \tilde{\mathbf{e}}_k \right) = \sum_{k=1}^n \tilde{\mathbf{e}}_k \left( \sum_{i=1}^n Q_{ki} P_{ij} \right).
+  \end{align*}
+  Since $\tilde{\mathbf{e}}_1, \tilde{\mathbf{e}}_2, \ldots, \tilde{\mathbf{e}}_n$ are linearly independent, we must have
+  \[
+    \sum_{i=1}^n Q_{ki} P_{ij} = \delta_{kj},
+  \]
+  which is equivalent to $QP = I$. Hence $Q = P^{-1}$.
+\end{proof}
+
 \subsubsection{Transformation law for vectors}
-With respect to basis $\left\{\mathbf{e}_i\right\}$, $\mathbf{u} = \sum_{i = 1}^n u_i\mathbf{e}_i$.
-With respect to basis $\left\{\tilde{\mathbf{e}_i}\right\}$, $\mathbf{u} = \sum_{i = 1}^n \tilde{u_i}\tilde{\mathbf{e}_i}$. Note that this is the \emph{same} vector $\mathbf{u}$ but has different components with respect to different bases. Using the transformation matrix above for the basis, we have
-\begin{align*}
-  \mathbf{u} &= \sum_{j= 1}^n \tilde{u_j} \sum_{i = 1}^{n}P_{ij}\mathbf{e}_i\\
-  &= \sum_{i = 1}^n \left(\sum_{j = 1}^n P_{ij}\tilde{u_j}\right) \mathbf{e}_i
-\end{align*}
-By comparison, we know that
-\[
-  u_i = \sum_{j = 1}^n P_{ij}\tilde{u_j}
-\]
 
-\begin{thm}[Basis transformation of vectors]
-  Denote vector as $\mathbf{u}$ with respect to $\{\mathbf{e}_i\}$ and $\tilde{\mathbf{u}}$ with respect to $\{\tilde{\mathbf{e}_i}\}$. Then
+\begin{defi}[Component vectors]
+  Let $\mathbf{u} \in V$ be a vector. With respect to basis $\mathcal{B} = \{\mathbf{e}_i\}$, we write $\mathbf{u} = \sum_{i=1}^n u_i \mathbf{e}_i$ and denote the column vector of components by $\mathbf{u} = (u_1, u_2, \ldots, u_n)^\top$. With respect to basis $\tilde{\mathcal{B}} = \{\tilde{\mathbf{e}}_i\}$, we write $\mathbf{u} = \sum_{i=1}^n \tilde{u}_i \tilde{\mathbf{e}}_i$ and denote the column vector of components by $\tilde{\mathbf{u}} = (\tilde{u}_1, \tilde{u}_2, \ldots, \tilde{u}_n)^\top$. Note that $\mathbf{u}$ and $\tilde{\mathbf{u}}$ represent the \emph{same} vector but with components expressed in different bases.
+\end{defi}
+
+\begin{thm}[Basis transformation of vectors]\label{thm:vector-transformation}
+  Let $P$ be the transformation matrix from basis $\mathcal{B}$ to basis $\tilde{\mathcal{B}}$. Let $\mathbf{u}$ and $\tilde{\mathbf{u}}$ denote the component vectors of a vector with respect to $\mathcal{B}$ and $\tilde{\mathcal{B}}$, respectively. Then
   \[
-    \mathbf{u} = P\mathbf{\tilde{u}}\text{ and }\mathbf{\tilde{u}} = P^{-1}\mathbf{u}
+    \mathbf{u} = P \tilde{\mathbf{u}} \quad \text{and} \quad \tilde{\mathbf{u}} = P^{-1} \mathbf{u}.
   \]
 \end{thm}
 
+\begin{proof}
+  Using the definition of the transformation matrix, we have
+  \begin{align*}
+    \mathbf{u} = \sum_{j=1}^n \tilde{u}_j \tilde{\mathbf{e}}_j = \sum_{j=1}^n \tilde{u}_j \sum_{i=1}^n P_{ij} \mathbf{e}_i = \sum_{i=1}^n \left( \sum_{j=1}^n P_{ij} \tilde{u}_j \right) \mathbf{e}_i.
+  \end{align*}
+  Comparing with $\mathbf{u} = \sum_{i=1}^n u_i \mathbf{e}_i$, we find $u_i = \sum_{j=1}^n P_{ij} \tilde{u}_j$, which in matrix form is $\mathbf{u} = P \tilde{\mathbf{u}}$. The second equation follows by multiplying both sides by $P^{-1}$.
+\end{proof}
+
 \begin{eg}
-  Take the first basis as $\{\mathbf{e}_1 = (1, 0), \mathbf{e}_2 = (0, 1)\}$ and the second as $\{\tilde{\mathbf{e}_1} = (1, 1), \tilde{\mathbf{e}_2} = (-1, 1)\}$.
+  Let $\mathcal{B} = \{\mathbf{e}_1, \mathbf{e}_2\}$ be the standard basis of $\R^2$, where $\mathbf{e}_1 = (1, 0)^\top$ and $\mathbf{e}_2 = (0, 1)^\top$. Let $\tilde{\mathcal{B}} = \{\tilde{\mathbf{e}}_1, \tilde{\mathbf{e}}_2\}$ with $\tilde{\mathbf{e}}_1 = (1, 1)^\top$ and $\tilde{\mathbf{e}}_2 = (-1, 1)^\top$.
 
-  So $\tilde{\mathbf{e}_1} = \mathbf{e}_1 + \mathbf{e}_2$ and $\tilde{\mathbf{e}_2} = -\mathbf{e}_1 + \mathbf{e}_2$. We have
+  Since $\tilde{\mathbf{e}}_1 = \mathbf{e}_1 + \mathbf{e}_2$ and $\tilde{\mathbf{e}}_2 = -\mathbf{e}_1 + \mathbf{e}_2$, the transformation matrix is
   \[
-    \mathbf{P} =
-    \begin{pmatrix}
-      1 & -1\\
-      1 & 1
-    \end{pmatrix}.
+    P = \begin{pmatrix} 1 & -1 \\ 1 & 1 \end{pmatrix}.
   \]
-  Then for an arbitrary vector $\mathbf{u}$, we have
+  For an arbitrary vector $\mathbf{u} = u_1 \mathbf{e}_1 + u_2 \mathbf{e}_2$, we can compute the components in $\tilde{\mathcal{B}}$ directly:
   \begin{align*}
-    \mathbf{u}&= u_1\mathbf{e}_1 + u_2\mathbf{e}_2\\
-    &= u_1\frac{1}{2}(\tilde{\mathbf{e}_1} - \tilde{\mathbf{e}_2}) + u_2\frac{1}{2}(\tilde{\mathbf{e}_1} + \tilde{\mathbf{e}_2})\\
-    &= \frac{1}{2}(u_1 + u_2)\tilde{\mathbf{e}_1} + \frac{1}{2}(-u_1 + u_2)\tilde{\mathbf{e}_2}.
+    \mathbf{u} &= u_1 \mathbf{e}_1 + u_2 \mathbf{e}_2 = u_1 \cdot \tfrac{1}{2}(\tilde{\mathbf{e}}_1 - \tilde{\mathbf{e}}_2) + u_2 \cdot \tfrac{1}{2}(\tilde{\mathbf{e}}_1 + \tilde{\mathbf{e}}_2) \\
+    &= \tfrac{1}{2}(u_1 + u_2) \tilde{\mathbf{e}}_1 + \tfrac{1}{2}(-u_1 + u_2) \tilde{\mathbf{e}}_2.
   \end{align*}
-  Alternatively, using the formula above, we obtain
-  \begin{align*}
-    \mathbf{\tilde{u}} &= P^{-1} \mathbf{u}\\
-    &= \frac{1}{2}
-    \begin{pmatrix}
-      1&1\\-1&1
-    \end{pmatrix}
-    \begin{pmatrix}
-      u_1\\u_2
-    \end{pmatrix}\\
-    &=
-    \begin{pmatrix}
-      \frac{1}{2}(u_1 + u_2)\\
-      \frac{1}{2}(-u_1 + u_2)
-    \end{pmatrix}
-  \end{align*}
-  Which agrees with the above direct expansion.
-\end{eg}
-\subsubsection{Transformation law for matrix}
-Consider a linear map $\alpha: \C^n \to \C^n$ with associated $n\times n$ matrix $A$. We have
-\[
-  \mathbf{u}' = \alpha(\mathbf{u}) = A\mathbf{u}.
-\]
-Denote $\mathbf{u}$ and $\mathbf{u}'$ as being with respect to basis $\{\mathbf{e}_i\}$ (i.e.\ same basis in both spaces), and $\mathbf{\tilde{u}, \tilde{u}'}$ with respect to $\{\tilde{\mathbf{e}_i}\}$.
-
-Using what we've got above, we have
-\begin{align*}
-  \mathbf{u}' &= A\mathbf{u}\\
-  P\mathbf{\tilde{u}'} &= AP\tilde{\mathbf{u}}\\
-  \mathbf{\tilde{u}'} &= P^{-1}AP\mathbf{\tilde{u}}\\
-  &= \tilde{A}\tilde{\mathbf{u}}
-\end{align*}
-So
-\begin{thm}[Basis transformation of matrices]
+  Alternatively, using Theorem~\ref{thm:vector-transformation}:
   \[
-    \tilde{A} = P^{-1}AP.
+    \tilde{\mathbf{u}} = P^{-1} \mathbf{u} = \frac{1}{2} \begin{pmatrix} 1 & 1 \\ -1 & 1 \end{pmatrix} \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} = \begin{pmatrix} \frac{1}{2}(u_1 + u_2) \\ \frac{1}{2}(-u_1 + u_2) \end{pmatrix},
+  \]
+  which agrees with the direct computation.
+\end{eg}
+
+\subsubsection{Transformation law for matrices}
+
+\begin{thm}[Basis transformation of matrices]\label{thm:matrix-transformation}
+  Let $\alpha: V \to V$ be a linear map with associated matrix $A$ with respect to basis $\mathcal{B}$, and let $\tilde{A}$ be the matrix of $\alpha$ with respect to basis $\tilde{\mathcal{B}}$. If $P$ is the transformation matrix from $\mathcal{B}$ to $\tilde{\mathcal{B}}$, then
+  \[
+    \tilde{A} = P^{-1} A P.
   \]
 \end{thm}
 
-\begin{eg}
-  Consider the shear $S_\lambda =
-  \begin{pmatrix}
-    1 & \lambda & 0\\
-    0 & 1 & 0\\
-    0 & 0 & 1
-  \end{pmatrix}$ with respect to the standard basis. Choose a new set of basis vectors by rotating by $\theta$ about the $\mathbf{e}_3$ axis:
+\begin{proof}
+  Let $\mathbf{u}' = \alpha(\mathbf{u}) = A\mathbf{u}$, where $\mathbf{u}$ and $\mathbf{u}'$ denote component vectors with respect to $\mathcal{B}$. Let $\tilde{\mathbf{u}}$ and $\tilde{\mathbf{u}}'$ denote the component vectors with respect to $\tilde{\mathcal{B}}$. By Theorem~\ref{thm:vector-transformation}, we have $\mathbf{u} = P\tilde{\mathbf{u}}$ and $\mathbf{u}' = P\tilde{\mathbf{u}}'$. Substituting:
   \begin{align*}
-    \tilde{\mathbf{e}_1} &= \cos\theta \mathbf{e}_1 + \sin\theta \mathbf{e}_2\\
-    \tilde{\mathbf{e}_2} &= -\sin\theta \mathbf{e}_1 + \cos\theta \mathbf{e}_2\\
-    \tilde{\mathbf{e}_3} &= \mathbf{e}_3
+    P\tilde{\mathbf{u}}' = A P \tilde{\mathbf{u}} \implies \tilde{\mathbf{u}}' = P^{-1} A P \tilde{\mathbf{u}} = \tilde{A} \tilde{\mathbf{u}}.
   \end{align*}
-  So we have
+  Hence $\tilde{A} = P^{-1} A P$.
+\end{proof}
+
+\begin{eg}
+  Consider the shear transformation on $\R^3$ given by the matrix
   \[
-    P =
-    \begin{pmatrix}
-      \cos\theta & -\sin\theta & 0\\
-      \sin\theta & \cos\theta & 0\\
-      0 & 0 & 1
-    \end{pmatrix}, P^{-1} =
-    \begin{pmatrix}
-      \cos\theta & \sin\theta & 0\\
-      -\sin\theta & \cos\theta & 0\\
-      0 & 0 & 1
-    \end{pmatrix}
+    S_\lambda = \begin{pmatrix} 1 & \lambda & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}
   \]
-  Now use the basis transformation laws to obtain
+  with respect to the standard basis $\mathcal{B} = \{\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3\}$. Define a new basis $\tilde{\mathcal{B}}$ by rotating by angle $\theta$ about the $\mathbf{e}_3$-axis:
   \[
-    \tilde{S}_\lambda =
-    \begin{pmatrix}
-      1 + \lambda\sin\theta\cos\theta & \lambda \cos^2\theta & 0\\
-      -\lambda \sin^2\theta & 1 - \lambda\sin\theta\cos\theta & 0\\
-      0 & 0 & 1
-    \end{pmatrix}
+    \tilde{\mathbf{e}}_1 = \cos\theta \, \mathbf{e}_1 + \sin\theta \, \mathbf{e}_2, \quad \tilde{\mathbf{e}}_2 = -\sin\theta \, \mathbf{e}_1 + \cos\theta \, \mathbf{e}_2, \quad \tilde{\mathbf{e}}_3 = \mathbf{e}_3.
   \]
-  Clearly this is much more complicated than our original basis. This shows that choosing a sensible basis is important.
+  The transformation matrix and its inverse are
+  \[
+    P = \begin{pmatrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{pmatrix}, \quad P^{-1} = \begin{pmatrix} \cos\theta & \sin\theta & 0 \\ -\sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{pmatrix}.
+  \]
+  By Theorem~\ref{thm:matrix-transformation}, the shear matrix in the new basis is
+  \[
+    \tilde{S}_\lambda = P^{-1} S_\lambda P = \begin{pmatrix} 1 + \lambda \sin\theta \cos\theta & \lambda \cos^2\theta & 0 \\ -\lambda \sin^2\theta & 1 - \lambda \sin\theta \cos\theta & 0 \\ 0 & 0 & 1 \end{pmatrix}.
+  \]
+  This is considerably more complicated than the original matrix $S_\lambda$, illustrating that the choice of basis significantly affects the simplicity of a matrix representation.
 \end{eg}
 
-More generally, given $\alpha: \C^m \to \C^n$, given $\mathbf{x}\in \C^m$, $\mathbf{x}'\in \C^n$ with $\mathbf{x}' = A\mathbf{x}$. We know that $A$ is an $n\times m$ matrix.
+\begin{rmk}
+  The transformation law generalizes to linear maps between different spaces. Let $\alpha: \C^m \to \C^n$ be a linear map with associated $n \times m$ matrix $A$. Suppose $\C^m$ has bases $\mathcal{B} = \{\mathbf{e}_i\}$ and $\tilde{\mathcal{B}} = \{\tilde{\mathbf{e}}_i\}$ with transformation matrix $P$ (an $m \times m$ matrix), and $\C^n$ has bases $\mathcal{F} = \{\mathbf{f}_i\}$ and $\tilde{\mathcal{F}} = \{\tilde{\mathbf{f}}_i\}$ with transformation matrix $R$ (an $n \times n$ matrix). Then the matrix $\tilde{A}$ of $\alpha$ with respect to bases $\tilde{\mathcal{B}}$ and $\tilde{\mathcal{F}}$ is given by
+  \[
+    \tilde{A} = R^{-1} A P.
+  \]
+\end{rmk}
 
-Suppose $\C^m$ has a basis $\{\mathbf{e}_i\}$ and $\C^n$ has a basis $\{\mathbf{f}_i\}$. Now change bases to $\{\tilde{\mathbf{e}_i}\}$ and $\{\tilde{\mathbf{f}_i}\}$.
-
-We know that $\mathbf{x} = P\mathbf{\tilde{x}}$ with $P$ being an $m\times m$ matrix, with $\mathbf{x}' = R\tilde{\mathbf{x}}'$ with $R$ being an $n\times n$ matrix.
-
-Combining both of these, we have
-\begin{align*}
-  R\tilde{\mathbf{x}}' &= AP\tilde{\mathbf{x}}\\
-  \tilde{\mathbf{x}}' &= R^{-1}AP\mathbf{\tilde{x}}
-\end{align*}
-Therefore $\tilde{A} = R^{-1}AP$.
+\begin{proof}[Derivation]
+  Let $\mathbf{x} \in \C^m$ and $\mathbf{x}' = A\mathbf{x} \in \C^n$ (with components in bases $\mathcal{B}$ and $\mathcal{F}$). By Theorem~\ref{thm:vector-transformation}, we have $\mathbf{x} = P\tilde{\mathbf{x}}$ and $\mathbf{x}' = R\tilde{\mathbf{x}}'$. Substituting:
+  \[
+    R\tilde{\mathbf{x}}' = A P \tilde{\mathbf{x}} \implies \tilde{\mathbf{x}}' = R^{-1} A P \tilde{\mathbf{x}}.
+  \]
+  Hence $\tilde{A} = R^{-1} A P$.
+\end{proof}
 
 \begin{eg}
-  Consider $\alpha: \R^3 \to \R^2$, with respect to the standard bases in both spaces,
+  Consider the linear map $\alpha: \R^3 \to \R^2$ with matrix
   \[
-    A =
-    \begin{pmatrix}
-      2 & 3 & 4\\
-      1 & 6 & 3
-    \end{pmatrix}
+    A = \begin{pmatrix} 2 & 3 & 4 \\ 1 & 6 & 3 \end{pmatrix}
   \]
-  Use a new basis $
-  \begin{pmatrix}
-    2\\1
-  \end{pmatrix},
-  \begin{pmatrix}
-    1\\5
-  \end{pmatrix}$ in $\R^2$ and keep the standard basis in $\R^3$. The basis change matrix in $\R^3$ is simply $I$, while
+  with respect to the standard bases $\mathcal{B}$ in $\R^3$ and $\mathcal{F}$ in $\R^2$. Keep the standard basis in $\R^3$ (so $P = I$) and change to the basis $\tilde{\mathcal{F}} = \{\tilde{\mathbf{f}}_1, \tilde{\mathbf{f}}_2\}$ in $\R^2$, where
   \[
-    R =
-    \begin{pmatrix}
-      2& 1\\
-      1 & 5
-    \end{pmatrix}, R^{-1} = \frac{1}{9}
-    \begin{pmatrix}
-      5 & -1\\
-      -1 & 2
-    \end{pmatrix}
+    \tilde{\mathbf{f}}_1 = \begin{pmatrix} 2 \\ 1 \end{pmatrix}, \quad \tilde{\mathbf{f}}_2 = \begin{pmatrix} 1 \\ 5 \end{pmatrix}.
   \]
-  is the transformation matrix for $\R^2$. So
+  The transformation matrix for $\R^2$ and its inverse are
+  \[
+    R = \begin{pmatrix} 2 & 1 \\ 1 & 5 \end{pmatrix}, \quad R^{-1} = \frac{1}{9} \begin{pmatrix} 5 & -1 \\ -1 & 2 \end{pmatrix}.
+  \]
+  Therefore,
+  \[
+    \tilde{A} = R^{-1} A P = \frac{1}{9} \begin{pmatrix} 5 & -1 \\ -1 & 2 \end{pmatrix} \begin{pmatrix} 2 & 3 & 4 \\ 1 & 6 & 3 \end{pmatrix} = \begin{pmatrix} 1 & 1 & 17/9 \\ 0 & 1 & 2/9 \end{pmatrix}.
+  \]
+
+  Alternatively, we can verify this by computing where the basis vectors map. Since $\tilde{\mathbf{e}}_i = \mathbf{e}_i$:
   \begin{align*}
-    \tilde{A} &=
-    \begin{pmatrix}
-      2 & 1\\1 & 5
-    \end{pmatrix}
-    \begin{pmatrix}
-      2 & 3 & 4\\1 & 6 & 3
-    \end{pmatrix}I\\
-    &= \frac{1}{9}
-    \begin{pmatrix}
-      5 & -1\\
-      -1 & 2
-    \end{pmatrix}
-    \begin{pmatrix}
-      2 & 3 & 4\\1 & 6 & 3
-    \end{pmatrix}\\
-    &=
-    \begin{pmatrix}
-      1 & 1 & 17/9\\
-      0 & 1 & 2/9
-    \end{pmatrix}
+    \tilde{\mathbf{e}}_1 = \mathbf{e}_1 &\mapsto 2\mathbf{f}_1 + \mathbf{f}_2 = \tilde{\mathbf{f}}_1, \\
+    \tilde{\mathbf{e}}_2 = \mathbf{e}_2 &\mapsto 3\mathbf{f}_1 + 6\mathbf{f}_2 = \tilde{\mathbf{f}}_1 + \tilde{\mathbf{f}}_2, \\
+    \tilde{\mathbf{e}}_3 = \mathbf{e}_3 &\mapsto 4\mathbf{f}_1 + 3\mathbf{f}_2 = \tfrac{17}{9} \tilde{\mathbf{f}}_1 + \tfrac{2}{9} \tilde{\mathbf{f}}_2,
   \end{align*}
-  We can alternatively do it this way: we know that $\tilde{\mathbf{f}_1} =
-  \begin{pmatrix}
-    2\\1
-  \end{pmatrix}, \tilde{\mathbf{f}_2} =
-  \begin{pmatrix}
-    1\\5
-  \end{pmatrix}$
-  Then we know that
-  \begin{align*}
-    \tilde{\mathbf{e}_1} = \mathbf{e}_1 &\mapsto 2\mathbf{f}_1 + \mathbf{f}_2 = \mathbf{f}_1\\
-    \tilde{\mathbf{e}_2} = \mathbf{e}_2 &\mapsto 3\mathbf{f}_1 + 6\mathbf{f}_2 = \tilde{\mathbf{f}_1} + \tilde{\mathbf{f}_2}\\
-    \tilde{\mathbf{e}_3} = \mathbf{e}_3 &\mapsto 4\mathbf{f}_1 + 3\mathbf{f}_2 = \frac{17}{9} \tilde{\mathbf{f}_1} + \frac{2}{9}\tilde{\mathbf{f}_2}
-  \end{align*}
-  and we can construct the matrix correspondingly.
+  from which we can construct $\tilde{A}$ column by column.
 \end{eg}
 \subsection{Similar matrices}
 \begin{defi}[Similar matrices]
