@@ -2297,9 +2297,11 @@ In practical terms, we use a combination of properties of determinants with a se
 
 \section{Eigenvalues and eigenvectors}
 \label{sec:eigen}
-The study of eigenvalues and eigenvectors is one of the most important topics in linear algebra, with numerous applications in mathematics, physics, and engineering. Intuitively, given a matrix $A$ representing a linear map, an eigenvector is a nonzero vector $\mathbf{x} \neq \mathbf{0}$ that satisfies $A\mathbf{x} = \lambda \mathbf{x}$ for some scalar $\lambda$ called the associated eigenvalue. In other words, the linear map $A$ transforms the eigenvector $\mathbf{x}$ into a multiple of itself: the direction of $\mathbf{x}$ is preserved, only its length is modified by the factor $\lambda$.
+\begin{remark}
+  The study of eigenvalues and eigenvectors is one of the most important topics in linear algebra, with numerous applications in mathematics, physics, and engineering. Intuitively, given a matrix $A$ representing a linear map, an eigenvector is a nonzero vector $\mathbf{x} \neq \mathbf{0}$ that satisfies $A\mathbf{x} = \lambda \mathbf{x}$ for some scalar $\lambda$ called the associated eigenvalue. In other words, the linear map $A$ transforms the eigenvector $\mathbf{x}$ into a multiple of itself: the direction of $\mathbf{x}$ is preserved, only its length is modified by the factor $\lambda$.
 
-In this section, we will study the properties of eigenvectors and eigenvalues, and see their fundamental importance in the diagonalization of matrices.
+  In this section, we will study the properties of eigenvectors and eigenvalues, and see their fundamental importance in the diagonalization of matrices.
+\end{remark}
 
 \subsection{Preliminaries and definitions}
 \begin{thm}[Fundamental theorem of algebra]
@@ -2311,14 +2313,17 @@ In this section, we will study the properties of eigenvectors and eigenvalues, a
 
   Then $p(z) = 0$ has precisely $m$ (not necessarily distinct) roots in the complex plane, accounting for multiplicity.
 \end{thm}
-Note that we have the disclaimer ``accounting for multiplicity''. For example, $x^2 - 2x + 1 = 0$ has only one distinct root, $1$, but we say that this root has multiplicity 2, and is thus counted twice. Formally, multiplicity is defined as follows:
+
+\begin{remark}
+  The phrase ``accounting for multiplicity'' means that repeated roots are counted multiple times. For example, $x^2 - 2x + 1 = 0$ has only one distinct root, $1$, but this root has multiplicity $2$ and is thus counted twice.
+\end{remark}
 
 \begin{defi}[Multiplicity of root]
   The root $z = \omega$ has \emph{multiplicity} $k$ if $(z - \omega)^k$ is a factor of $p(z)$ but $(z - \omega)^{k + 1}$ is not.
 \end{defi}
 
-\begin{eg}
-  Let $p(z) = z^3 - z^2 - z + 1 = (z - 1)^2(z + 1)$. So $p(z) = 0$ has roots $1, 1, -1$, where $z = 1$ has multiplicity $2$.
+\begin{eg}[Roots with multiplicity]
+  Let $p(z) = z^3 - z^2 - z + 1 = (z - 1)^2(z + 1)$. Then $p(z) = 0$ has roots $1, 1, -1$, where $z = 1$ has multiplicity $2$ and $z = -1$ has multiplicity $1$.
 \end{eg}
 
 \begin{defi}[Eigenvector and eigenvalue]
@@ -2329,38 +2334,25 @@ Note that we have the disclaimer ``accounting for multiplicity''. For example, $
   for some $\lambda$. $\lambda$ is the associated \emph{eigenvalue}. This means that the direction of the eigenvector is preserved by the mapping, but is scaled up by $\lambda$.
 \end{defi}
 
-There is a rather easy way of finding eigenvalues:
 \begin{thm}[Eigenvalue determinant condition]
-  $\lambda$ is an eigenvalue of $A$ iff
+  Let $A$ be an $n \times n$ matrix. Then $\lambda$ is an eigenvalue of $A$ if and only if
   \[
     \det(A - \lambda I) = 0.
   \]
 \end{thm}
 
 \begin{proof}
-  $(\Rightarrow)$ Suppose that $\lambda$ is an eigenvalue and $\mathbf{x}$ is the associated eigenvector. We can rearrange the equation in the definition above to
-  \[
-    (A - \lambda I)\mathbf{x} = \mathbf{0}
-  \]
-  and thus
-  \[
-    \mathbf{x}\in \ker(A - \lambda I)
-  \]
-  But $\mathbf{x}\not= \mathbf{0}$. So $\ker(A - \lambda I)$ is non-trivial and $\det(A - \lambda I) = 0$. The $(\Leftarrow)$ direction is similar.
+  $(\Rightarrow)$ Suppose $\lambda$ is an eigenvalue with associated eigenvector $\mathbf{x} \neq \mathbf{0}$. From $A\mathbf{x} = \lambda\mathbf{x}$, we obtain $(A - \lambda I)\mathbf{x} = \mathbf{0}$, so $\mathbf{x} \in \ker(A - \lambda I)$. Since $\mathbf{x} \neq \mathbf{0}$, the kernel is non-trivial, hence $\det(A - \lambda I) = 0$.
+
+  $(\Leftarrow)$ Conversely, if $\det(A - \lambda I) = 0$, then $\ker(A - \lambda I)$ is non-trivial, so there exists $\mathbf{x} \neq \mathbf{0}$ with $(A - \lambda I)\mathbf{x} = \mathbf{0}$, i.e., $A\mathbf{x} = \lambda\mathbf{x}$.
 \end{proof}
 
-\begin{defi}[Characteristic equation of matrix]
-  The \emph{characteristic equation} of $A$ is
+\begin{defi}[Characteristic equation and polynomial]
+  Let $A$ be an $n \times n$ matrix. The \emph{characteristic polynomial} of $A$ is
   \[
-    \det(A - \lambda I) = 0.
+    p_A(\lambda) = \det(A - \lambda I),
   \]
-\end{defi}
-
-\begin{defi}[Characteristic polynomial of matrix]
-  The \emph{characteristic polynomial} of $A$ is
-  \[
-    p_A(\lambda) = \det(A - \lambda I).
-  \]
+  and the \emph{characteristic equation} of $A$ is $p_A(\lambda) = 0$, i.e., $\det(A - \lambda I) = 0$.
 \end{defi}
 
 \begin{prop}[Properties of characteristic polynomial]
