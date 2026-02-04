@@ -2753,47 +2753,51 @@ In this section, we study how the components of vectors and matrices change when
   from which we can construct $\tilde{A}$ column by column.
 \end{eg}
 \subsection{Similar matrices}
+The transformation law for matrices (Theorem~\ref{thm:matrix-transformation}) motivates the following important equivalence relation on matrices.
+
 \begin{defi}[Similar matrices]
-  Two $n\times n$ matrices $A$ and $B$ are \emph{similar} if there exists an invertible matrix $P$ such that
+  Two $n \times n$ matrices $A$ and $B$ are \emph{similar} if there exists an invertible matrix $P$ such that
   \[
-    B = P^{-1}AP,
+    B = P^{-1}AP.
   \]
-  i.e.\ they represent the same map under different bases. Alternatively, using the language from IA Groups, we say that they are in the same conjugacy class.
+  Equivalently, $A$ and $B$ are similar if and only if they represent the same linear map with respect to different bases.
 \end{defi}
 
-\begin{prop}[Properties of similar matrices]
-  Similar matrices have the following properties:
+\begin{rmk}
+  Similarity is an equivalence relation on the set of $n \times n$ matrices. In the language of group theory, similar matrices lie in the same conjugacy class under the action of the general linear group.
+\end{rmk}
+
+\begin{prop}[Invariants of similar matrices]\label{prop:similar-invariants}
+  Let $A$ and $B$ be similar $n \times n$ matrices. Then:
   \begin{enumerate}
-    \item Similar matrices have the same determinant.
-    \item Similar matrices have the same trace.
-    \item Similar matrices have the same characteristic polynomial.
+    \item $\det A = \det B$;
+    \item $\tr A = \tr B$;
+    \item $p_A(\lambda) = p_B(\lambda)$, where $p_A$ and $p_B$ denote the characteristic polynomials.
   \end{enumerate}
 \end{prop}
-Note that (iii) implies (i) and (ii) since the determinant and trace are the coefficients of the characteristic polynomial
+
+\begin{rmk}
+  Since the determinant and trace appear as coefficients of the characteristic polynomial, property (iii) implies properties (i) and (ii). Nevertheless, we provide direct proofs of all three.
+\end{rmk}
 
 \begin{proof}
-  They are proven as follows:
+  Suppose $B = P^{-1}AP$ for some invertible matrix $P$.
   \begin{enumerate}
-    \item $\det B =\det (P^{-1}AP) = (\det A) (\det P)^{-1} (\det P) = \det A$
-    \item
+    \item Using the multiplicativity of the determinant:
+      \[
+        \det B = \det(P^{-1}AP) = (\det P)^{-1} (\det A) (\det P) = \det A.
+      \]
+    \item Using index notation with the Einstein summation convention:
       \begin{align*}
-        \tr B &= B_{ii}\\
-        &= P_{ij}^{-1} A_{jk} P_{ki}\\
-        &= A_{jk} P_{ki}P_{ij}^{-1}\\
-        &= A_{jk}(PP^{-1})_{kj}\\
-        &= A_{jk}\delta_{kj}\\
-        &= A_{jj}\\
-        &= \tr A
+        \tr B &= B_{ii} = (P^{-1})_{ij} A_{jk} P_{ki} = A_{jk} P_{ki} (P^{-1})_{ij} \\
+        &= A_{jk} (PP^{-1})_{kj} = A_{jk} \delta_{kj} = A_{jj} = \tr A.
       \end{align*}
-    \item
+    \item For the characteristic polynomial:
       \begin{align*}
-        p_B(\lambda) &= \det(B - \lambda I)\\
-        &= \det(P^{-1}AP - \lambda I)\\
-        &= \det(P^{-1}AP - \lambda P^{-1}IP)\\
-        &= \det(P^{-1}(A - \lambda I)P)\\
-        &= \det(A - \lambda I)\\
-        &= p_A(\lambda)\qedhere
-      \end{align*}%\qedhere
+        p_B(\lambda) &= \det(B - \lambda I) = \det(P^{-1}AP - \lambda I) \\
+        &= \det(P^{-1}AP - \lambda P^{-1}IP) = \det(P^{-1}(A - \lambda I)P) \\
+        &= \det(A - \lambda I) = p_A(\lambda). \qedhere
+      \end{align*}
   \end{enumerate}
 \end{proof}
 \subsection{Diagonalizable matrices}
