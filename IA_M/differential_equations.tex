@@ -549,9 +549,15 @@ More generally, suppose both the upper limit and a parameter in the integrand de
 A \emph{differential equation} is an equation involving derivatives of an unknown function. For example, $x^2\frac{\d y}{\d x} + 2y = 0$ is a differential equation in the unknown function $y(x)$. Unlike algebraic equations where the solution is a number, the solution to a differential equation is a \emph{function} satisfying the equation. This section focuses on \emph{first-order} differential equations, in which only first derivatives appear.
 
 \subsection{The exponential function}
-Solutions to differential equations frequently involve the exponential function, which plays a central role in this subject. We begin by examining why this is the case.
 
-Consider the general exponential function $f(x) = a^x$, where $a > 0$ is a constant.
+\begin{remark}
+  Solutions to differential equations frequently involve the exponential function, which plays a central role in this subject. We begin by examining why this is the case.
+\end{remark}
+
+\begin{defi}[Exponential function with base $a$]
+  For a constant $a > 0$, the \emph{exponential function with base $a$} is the function $f \colon \R \to \R$ defined by $f(x) = a^x$.
+\end{defi}
+
 \begin{center}
   \begin{tikzpicture}[yscale = 0.15]
     \draw [->] (-2, 0) -- (3.5, 0) node [right] {$x$};
@@ -563,35 +569,79 @@ Consider the general exponential function $f(x) = a^x$, where $a > 0$ is a const
     \node [circ] at (0, 1) {};
   \end{tikzpicture}
 \end{center}
-Its derivative is
-\begin{align*}
-  \frac{\d f}{\d x} &= \lim_{h\to 0}\frac{a^{x+h}-a^x}{h} = a^x\lim_{h\to 0}\frac{a^h-1}{h}.
-\end{align*}
-The limit $\lambda = \lim_{h\to 0}\frac{a^h-1}{h}$ depends only on $a$, not on $x$. Thus $\frac{\d f}{\d x} = \lambda f(x)$: the derivative of an exponential function is proportional to itself.
 
-\begin{defi}[Exponential function]
+\begin{prop}[Derivative of exponential functions]\label{prop:exp-deriv-proportional}
+  Let $a > 0$ be a constant and let $f(x) = a^x$. Then there exists a constant $\lambda$ depending only on $a$ such that
+  \[
+    \frac{\d f}{\d x} = \lambda f(x).
+  \]
+  That is, the derivative of an exponential function is proportional to itself.
+\end{prop}
+
+\begin{proof}
+  By the definition of the derivative,
+  \[
+    \frac{\d f}{\d x} = \lim_{h\to 0}\frac{a^{x+h}-a^x}{h} = a^x\lim_{h\to 0}\frac{a^h-1}{h}.
+  \]
+  Setting $\lambda = \lim_{h\to 0}\frac{a^h-1}{h}$, we observe that $\lambda$ depends only on $a$ and not on $x$. Therefore $\frac{\d f}{\d x} = \lambda f(x)$.
+\end{proof}
+
+\begin{defi}[Natural exponential function]
   The \emph{natural exponential function} $\exp(x) = e^x$ is the unique function $f$ satisfying $f'(x) = f(x)$ and $f(0) = 1$. The number $e \approx 2.71828$ is called \emph{Euler's number}.
 
   The inverse function is called the \emph{natural logarithm}, written $\ln x$ or $\log x$.
 \end{defi}
 
-Any exponential $a^x$ can be written in terms of the natural exponential: if $y = a^x = e^{x\ln a}$, then by the chain rule, $y' = (\ln a)\, e^{x\ln a} = (\ln a)\, a^x$. Thus $\lambda = \ln a$ for the base-$a$ exponential.
+\begin{prop}[Expressing general exponentials via the natural exponential]\label{prop:general-exp-via-natural}
+  Let $a > 0$ be a constant. Then for all $x \in \R$,
+  \[
+    a^x = e^{x \ln a}.
+  \]
+  In particular, the constant $\lambda$ from Proposition~\ref{prop:exp-deriv-proportional} satisfies $\lambda = \ln a$.
+\end{prop}
+
+\begin{proof}
+  By definition of the natural logarithm, $a = e^{\ln a}$, so $a^x = (e^{\ln a})^x = e^{x \ln a}$. Setting $y = a^x = e^{x\ln a}$ and applying the chain rule,
+  \[
+    \frac{\d y}{\d x} = (\ln a)\, e^{x\ln a} = (\ln a)\, a^x.
+  \]
+  Thus the proportionality constant from Proposition~\ref{prop:exp-deriv-proportional} is $\lambda = \ln a$.
+\end{proof}
 
 \begin{defi}[Eigenfunction of the differential operator]
-  An \emph{eigenfunction} of the differential operator $\frac{\d}{\d x}$ is a non-zero function $f$ satisfying
+  Let $\frac{\d}{\d x}$ denote the differential operator. An \emph{eigenfunction} of $\frac{\d}{\d x}$ is a non-zero function $f$ satisfying
   \[
     \frac{\d f}{\d x} = \lambda f
   \]
-  for some constant $\lambda$, called the \emph{eigenvalue}. The functional form of $f$ is unchanged by differentiation; only its magnitude changes.
+  for some constant $\lambda \in \C$, called the \emph{eigenvalue}.
 \end{defi}
 
+\begin{remark}
+  The functional form of an eigenfunction is unchanged by differentiation; only its magnitude (and possibly sign or phase) changes.
+\end{remark}
+
 \begin{eg}[Exponential eigenfunctions]
-  For any constant $m$, the function $e^{mx}$ is an eigenfunction with eigenvalue $m$, since $\frac{\d}{\d x}e^{mx} = me^{mx}$.
+  For any constant $m \in \C$, the function $f(x) = e^{mx}$ is an eigenfunction of $\frac{\d}{\d x}$ with eigenvalue $m$, since
+  \[
+    \frac{\d}{\d x}e^{mx} = me^{mx}.
+  \]
 \end{eg}
 
-\begin{prop}[Exponentials are the only eigenfunctions]
-  The exponential functions $e^{\lambda x}$ (for $\lambda \in \C$) are the \emph{only} eigenfunctions of the differential operator $\frac{\d}{\d x}$. This explains their ubiquity in the theory of differential equations.
+\begin{prop}[Exponentials are the only eigenfunctions]\label{prop:exp-only-eigenfunctions}
+  Let $\lambda \in \C$. If $f$ is a non-zero function satisfying $\frac{\d f}{\d x} = \lambda f$, then $f(x) = Ce^{\lambda x}$ for some constant $C \neq 0$.
 \end{prop}
+
+\begin{proof}
+  Suppose $f$ satisfies $f' = \lambda f$ with $f$ not identically zero. Consider the function $g(x) = f(x) e^{-\lambda x}$. By the product rule,
+  \[
+    g'(x) = f'(x) e^{-\lambda x} + f(x) \cdot (-\lambda) e^{-\lambda x} = \lambda f(x) e^{-\lambda x} - \lambda f(x) e^{-\lambda x} = 0.
+  \]
+  Since $g'(x) = 0$ for all $x$, the function $g$ is constant, say $g(x) = C$. Therefore $f(x) = Ce^{\lambda x}$, where $C \neq 0$ since $f$ is non-zero.
+\end{proof}
+
+\begin{remark}
+  Proposition~\ref{prop:exp-only-eigenfunctions} explains the ubiquity of exponential functions in the theory of differential equations: they are the unique eigenfunctions of the differentiation operator.
+\end{remark}
 
 \subsection{Homogeneous linear ordinary differential equations}
 We begin by defining the terminology used to classify differential equations.
