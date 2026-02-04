@@ -2030,35 +2030,59 @@ In practical terms, we use a combination of properties of determinants with a se
 \end{proof}
 
 \subsection{Homogeneous problem \texorpdfstring{$A\mathbf{x} = \mathbf{0}$}{Ax = 0}}
-We restrict our attention to the square case, i.e.\ number of unknowns = number of equations. Here $A$ is an $n\times n$ matrix. We want to solve $A\mathbf{x} = \mathbf{0}$.
+\begin{remark}
+  We now focus on the square case, where the number of unknowns equals the number of equations. Let $A$ be an $n \times n$ matrix, and consider the homogeneous system $A\mathbf{x} = \mathbf{0}$.
+\end{remark}
 
-First of all, if $\det A\not=0$, then $A^{-1}$ exists and $\mathbf{x}^{-1} = A^{-1}\mathbf{0} = \mathbf{0}$, which is the unique solution. Hence if $A\mathbf{x} = \mathbf{0}$ with $\mathbf{x} \not= \mathbf{0}$, then $\det A = 0$.
+\begin{prop}[Nontrivial solutions require singular matrix]
+  Let $A$ be an $n \times n$ matrix. If $\det A \neq 0$, then $\mathbf{x} = \mathbf{0}$ is the unique solution to $A\mathbf{x} = \mathbf{0}$. Equivalently, if $A\mathbf{x} = \mathbf{0}$ has a nontrivial solution $\mathbf{x} \neq \mathbf{0}$, then $\det A = 0$.
+\end{prop}
+
+\begin{proof}
+  If $\det A \neq 0$, then $A^{-1}$ exists and $\mathbf{x} = A^{-1}\mathbf{0} = \mathbf{0}$.
+\end{proof}
 
 \subsubsection{Geometrical interpretation}
-We consider a $3\times 3$ matrix
-\[
-  A = \begin{pmatrix} \mathbf{r}_1^T\\\mathbf{r}_2^T\\\mathbf{r}_3^T\end{pmatrix}
-\]
-$A\mathbf{x} = \mathbf{0}$ means that $\mathbf{r}_i\cdot \mathbf{x} = 0$ for all $i$. Each equation $\mathbf{r}_i\cdot \mathbf{x} = 0$ represents a plane through the origin. So the solution is the intersection of the three planes.
+\begin{remark}
+  Consider a $3 \times 3$ matrix $A$ with rows $\mathbf{r}_1^T, \mathbf{r}_2^T, \mathbf{r}_3^T$:
+  \[
+    A = \begin{pmatrix} \mathbf{r}_1^T\\\mathbf{r}_2^T\\\mathbf{r}_3^T\end{pmatrix}.
+  \]
+  The equation $A\mathbf{x} = \mathbf{0}$ is equivalent to $\mathbf{r}_i \cdot \mathbf{x} = 0$ for $i = 1, 2, 3$. Each equation $\mathbf{r}_i \cdot \mathbf{x} = 0$ represents a plane through the origin with normal vector $\mathbf{r}_i$. Thus the solution set is the intersection of these three planes.
+\end{remark}
 
-There are three possibilities:
-\begin{enumerate}
-  \item If $\det A =[\mathbf{r}_1, \mathbf{r}_2, \mathbf{r}_3] \not= 0$, span$\{\mathbf{r}_1, \mathbf{r}_2, \mathbf{r}_3\} = \R^3$ and thus $r(A) = 3$. By the rank-nullity theorem, $n(A) = 0$ and the kernel is $\{\mathbf{0}\}$. So $\mathbf{x} = \mathbf{0}$ is the unique solution.
-  \item If $\det A = 0$, then $\dim(\spn\{\mathbf{r}_1, \mathbf{r}_2, \mathbf{r}_3\}) = 1$ or $2$.
-    \begin{enumerate}
-      \item If rank $= 2$, wlog assume $\mathbf{r}_1, \mathbf{r}_2$ are linearly independent. So $\mathbf{x}$ lies on the intersection of two planes $\mathbf{x}\cdot \mathbf{r}_1 = 0$ and $\mathbf{x}\cdot \mathbf{r}_2 = 0$, which is the line $\{\mathbf{x}\in \R^3: \mathbf{x} = \lambda \mathbf{r}_1\times \mathbf{r}_2\}$ (Since $\mathbf{x}$ lies on the intersection of the two planes, it has to be normal to the normals of both planes). All such points on this line also satisfy $\mathbf{x}\cdot\mathbf{r}_3 = 0$ since $\mathbf{r}_3$ is a linear combination of $\mathbf{r}_1$ and $\mathbf{r}_2$. The kernel is a line, $n(A) = 1$.
-      \item If rank = 1, then $\mathbf{r}_1, \mathbf{r}_2, \mathbf{r}_3$ are parallel. So $\mathbf{x}\cdot \mathbf{r}_1 = 0 \Rightarrow \mathbf{x}\cdot \mathbf{r}_2 = \mathbf{x}\cdot \mathbf{r}_3 = 0$. So all $\mathbf{x}$ that satisfy $\mathbf{x}\cdot \mathbf{r}_1 = 0$ are in the kernel, and the kernel now is a plane. $n(A) = 2$.
-    \end{enumerate}
-\end{enumerate}
-(We also have the trivial case where $r(A) = 0$, we have the zero mapping and the kernel is $\R^3$)
+\begin{prop}[Classification of solutions in $\R^3$]
+  Let $A$ be a $3 \times 3$ matrix with rows $\mathbf{r}_1^T, \mathbf{r}_2^T, \mathbf{r}_3^T$. The kernel of $A$ is determined by the rank as follows:
+  \begin{enumerate}
+    \item If $r(A) = 3$ (equivalently, $\det A \neq 0$), then $\ker A = \{\mathbf{0}\}$ and $n(A) = 0$.
+    \item If $r(A) = 2$, then $\ker A$ is a line through the origin, and $n(A) = 1$.
+    \item If $r(A) = 1$, then $\ker A$ is a plane through the origin, and $n(A) = 2$.
+    \item If $r(A) = 0$, then $A$ is the zero matrix and $\ker A = \R^3$.
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  The dimension of the kernel follows from the rank-nullity theorem: $n(A) = 3 - r(A)$.
+
+  For case (i), if $\det A = [\mathbf{r}_1, \mathbf{r}_2, \mathbf{r}_3] \neq 0$, then $\spn\{\mathbf{r}_1, \mathbf{r}_2, \mathbf{r}_3\} = \R^3$, so $r(A) = 3$ and the kernel is trivial.
+
+  For case (ii), assume without loss of generality that $\mathbf{r}_1, \mathbf{r}_2$ are linearly independent. The solution $\mathbf{x}$ must lie on the intersection of the planes $\mathbf{r}_1 \cdot \mathbf{x} = 0$ and $\mathbf{r}_2 \cdot \mathbf{x} = 0$. This intersection is the line $\{\lambda(\mathbf{r}_1 \times \mathbf{r}_2) : \lambda \in \R\}$, since $\mathbf{r}_1 \times \mathbf{r}_2$ is perpendicular to both $\mathbf{r}_1$ and $\mathbf{r}_2$. Since $\mathbf{r}_3$ is a linear combination of $\mathbf{r}_1$ and $\mathbf{r}_2$, every point on this line also satisfies $\mathbf{r}_3 \cdot \mathbf{x} = 0$.
+
+  For case (iii), the rows $\mathbf{r}_1, \mathbf{r}_2, \mathbf{r}_3$ are all parallel. Thus $\mathbf{r}_1 \cdot \mathbf{x} = 0$ implies $\mathbf{r}_2 \cdot \mathbf{x} = \mathbf{r}_3 \cdot \mathbf{x} = 0$, so the kernel is the plane $\{\mathbf{x} \in \R^3 : \mathbf{r}_1 \cdot \mathbf{x} = 0\}$.
+\end{proof}
 
 \subsubsection{Linear mapping view of \texorpdfstring{$A\mathbf{x} = \mathbf{0}$}{Ax = 0}}
-In the general case, consider a linear map $\alpha: \R^n \to \R^n$ $\mathbf{x} \mapsto \mathbf{x}' = A\mathbf{x}$. The kernel $k(A) = \{\mathbf{x}\in \R^n: A\mathbf{x} = \mathbf{0}\}$ has dimension $n(A)$.
+\begin{remark}
+  In the general case, consider a linear map $\alpha: \R^n \to \R^n$ defined by $\mathbf{x} \mapsto A\mathbf{x}$. The kernel $\ker(A) = \{\mathbf{x} \in \R^n : A\mathbf{x} = \mathbf{0}\}$ has dimension $n(A)$, the nullity of $A$.
+\end{remark}
 
-\begin{enumerate}
-  \item If $n(A) = 0$, then $A(\mathbf{e}_1), A(\mathbf{e}_2), \cdots, A(\mathbf{e}_n)$ is a linearly independent set, and $r(A) = n$.
-  \item If $n(A) > 0$, then the image is not the whole of $\R^n$. Let $\{\mathbf{u}_i\}, i = 1, \cdots, n(A)$ be a basis of the kernel, i.e.\ so given any solution to $A\mathbf{x} = \mathbf{0}$, $\displaystyle \mathbf{x} = \sum_{i = 1}^{n(A)} \lambda_i \mathbf{u}_i$ for some $\lambda_i$. Extend $\{\mathbf{u}_i\}$ to be a basis of $\R^n$ by introducing extra vectors $\mathbf{u}_{i}$ for $i = n(A) + 1, \cdots, n$. The vectors $A(\mathbf{u}_i)$ for $i = n(A) + 1, \cdots, n$ form a basis of the image.
-\end{enumerate}
+\begin{prop}[Structure of the kernel]
+  Let $A$ be an $n \times n$ matrix with nullity $n(A)$.
+  \begin{enumerate}
+    \item If $n(A) = 0$, then $A\mathbf{e}_1, A\mathbf{e}_2, \ldots, A\mathbf{e}_n$ are linearly independent, and $r(A) = n$.
+    \item If $n(A) > 0$, then the image of $A$ is a proper subspace of $\R^n$. If $\{\mathbf{u}_1, \ldots, \mathbf{u}_{n(A)}\}$ is a basis of the kernel, extend it to a basis $\{\mathbf{u}_1, \ldots, \mathbf{u}_n\}$ of $\R^n$. Then $\{A\mathbf{u}_{n(A)+1}, \ldots, A\mathbf{u}_n\}$ forms a basis of the image.
+  \end{enumerate}
+\end{prop}
 
 \subsection{General solution of \texorpdfstring{$A\mathbf{x} = \mathbf{d}$}{Ax = d}}
 Finally consider the general equation $A\mathbf{x} = \mathbf{d}$, where $A$ is an $n\times n$ matrix and $\mathbf{x}, \mathbf{d}$ are $n \times 1$ column vectors. We can separate into two main cases.
