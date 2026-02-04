@@ -1780,9 +1780,15 @@ In practical terms, we use a combination of properties of determinants with a se
 \end{proof}
 
 \subsection{Inverse of an \texorpdfstring{$n\times n$}{n x n} matrix}
-For larger matrices, the formula for the inverse is similar, but slightly more complicated (and costly to evaluate). The key to finding the inverse is the following:
+\begin{remark}
+  For larger matrices, the formula for the inverse is similar to the $2 \times 2$ case, but slightly more complicated (and costly to evaluate). The key ingredient is the following lemma.
+\end{remark}
+
 \begin{lemma}[Cofactor sum formula]
-  $\sum A_{ik}\Delta_{jk} = \delta_{ij}\det A$.
+  Let $A$ be an $n \times n$ matrix with cofactors $\Delta_{jk}$. Then
+  \[
+    \sum_{k=1}^{n} A_{ik}\Delta_{jk} = \delta_{ij}\det A.
+  \]
 \end{lemma}
 
 \begin{proof}
@@ -1794,22 +1800,31 @@ For larger matrices, the formula for the inverse is similar, but slightly more c
 \end{proof}
 
 \begin{thm}[Matrix inverse via cofactors]
-  If $\det A \not =0$, then $A^{-1}$ exists and is given by
+  Let $A$ be an $n \times n$ matrix. If $\det A \neq 0$, then $A^{-1}$ exists and is given by
   \[
-    (A^{-1})_{ij} = \frac{\Delta_{ji}}{\det A}.
+    (A^{-1})_{ij} = \frac{\Delta_{ji}}{\det A},
   \]
+  where $\Delta_{ji}$ denotes the $(j,i)$-cofactor of $A$.
 \end{thm}
 
 \begin{proof}
+  Using the Einstein summation convention, we compute
   \[
-    (A^{-1})_{ik}A_{kj} = \frac{\Delta_{ki}}{\det A} A_{kj} = \frac{\delta_{ij}\det A}{\det A} = \delta_{ij}.
+    (A^{-1})_{ik}A_{kj} = \frac{\Delta_{ki}}{\det A} A_{kj} = \frac{\delta_{ij}\det A}{\det A} = \delta_{ij},
   \]
-  So $A^{-1}A = I$.
+  where the second equality follows from the cofactor sum formula. Hence $A^{-1}A = I$.
 \end{proof}
-The other direction is easy to prove. If $\det A = 0$, then it has no inverse, since for any matrix $B$, $\det AB = 0$, and hence $AB$ cannot be the identity.
 
-\begin{eg}
-  Consider the shear matrix $S_\lambda = \begin{pmatrix} 1 & \lambda & 0 \\ 0 & 1 & 0\\ 0 & 0 & 1\end{pmatrix}$. We have $\det{S_\lambda} = 1$. The cofactors are
+\begin{cor}
+  Let $A$ be an $n \times n$ matrix. If $\det A = 0$, then $A^{-1}$ does not exist.
+\end{cor}
+
+\begin{proof}
+  Suppose for contradiction that $B$ is an inverse of $A$. Then $AB = I$, so $\det(AB) = \det I = 1$. But by the multiplicative property of determinants, $\det(AB) = \det A \cdot \det B = 0$, a contradiction.
+\end{proof}
+
+\begin{eg}[Inverse of a shear matrix]
+  Consider the shear matrix $S_\lambda = \begin{pmatrix} 1 & \lambda & 0 \\ 0 & 1 & 0\\ 0 & 0 & 1\end{pmatrix}$. We have $\det{S_\lambda} = 1$, so $S_\lambda$ is invertible. The cofactors are
   \begin{center}
     \begin{tabular}{ccc}
       $\Delta_{11} = 1$ & $\Delta_{12} = 0$ & $\Delta_{13} = 0$ \\
@@ -1820,11 +1835,13 @@ The other direction is easy to prove. If $\det A = 0$, then it has no inverse, s
   So $S_\lambda^{-1} = \begin{pmatrix} 1 & -\lambda & 0\\ 0 & 1 & 0\\ 0 & 0 & 1\end{pmatrix}$.
 \end{eg}
 
-How many arithmetic operations are involved in calculating the inverse of an $n\times n$ matrix? We just count multiplication operations since they are the most time-consuming. Suppose that calculating $\det A$ takes $f_n$ multiplications. This involves $n$ $(n - 1)\times (n - 1)$ determinants, and you need $n$ more multiplications to put them together. So $f_n = nf_{n -1} + n$. So $f_n = O(n!)$ (in fact $f_n \approx (1 + e)n!$).
+\begin{remark}[Computational complexity of matrix inversion]
+  How many arithmetic operations are involved in calculating the inverse of an $n\times n$ matrix? We count multiplication operations since they are the most time-consuming. Suppose that calculating $\det A$ takes $f_n$ multiplications. This involves $n$ determinants of $(n - 1)\times (n - 1)$ matrices, and $n$ additional multiplications to combine them. Thus $f_n = nf_{n -1} + n$, which gives $f_n = O(n!)$ (in fact $f_n \approx (1 + e)n!$).
 
-To find the inverse, we need to calculate $n^2$ cofactors. Each is a $n -1$ determinant, and each takes $O((n - 1)!)$. So the time complexity is $O(n^2 (n - 1)!) = O(n\cdot n!)$.
+  To find the inverse, we must calculate $n^2$ cofactors. Each cofactor is an $(n-1) \times (n-1)$ determinant, requiring $O((n - 1)!)$ operations. Hence the total time complexity is $O(n^2 (n - 1)!) = O(n\cdot n!)$.
 
-This is incredibly slow. Hence while it is theoretically possible to solve systems of linear equations by inverting a matrix, sane people do not do so in general. Instead, we develop certain better methods to solve the equations. In fact, the ``usual'' method people use to solve equations by hand only has complexity $O(n^3)$, which is a much better complexity.
+  This is prohibitively slow for large matrices. While it is theoretically possible to solve systems of linear equations by inverting a matrix, this approach is impractical in general. Instead, we develop more efficient methods such as Gaussian elimination, which has complexity $O(n^3)$.
+\end{remark}
 
 \subsection{Homogeneous and inhomogeneous equations}
 Consider $A\mathbf{x} = \mathbf{b}$ where $A$ is an $n\times n$ matrix, $\mathbf{x}$ and $\mathbf{b}$ are $n\times 1$ column vectors.
