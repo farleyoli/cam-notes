@@ -3233,120 +3233,137 @@ By Theorem~\ref{thm:diag-criterion}, a matrix is diagonalizable if and only if a
 \end{rmk}
 
 \section{Quadratic forms and conics}
-We want to study quantities like $x_1^2 + x_2^2$ and $3x_1^2 + 2x_1x_2 + 4x_2^2$. For example, conic sections generally take this form. The common characteristic of these is that each term has degree 2. Consequently, we can write it in the form $\mathbf{x}^\dagger A\mathbf{x}$ for some matrix $A$.
+In this section, we study homogeneous polynomials of degree two in several variables, such as $x_1^2 + x_2^2$ or $3x_1^2 + 2x_1x_2 + 4x_2^2$. These arise naturally in the study of conic sections and their higher-dimensional generalizations. Such expressions can be written in matrix form as $\mathbf{x}^\dagger A \mathbf{x}$ for an appropriate matrix $A$.
 
-\begin{defi}[Sesquilinear, Hermitian and quadratic forms]
-  A \emph{sesquilinear form} is a quantity $F = \mathbf{x}^\dagger A\mathbf{x} = x_i^*A_{ij}x_j$. If $A$ is Hermitian, then $F$ is a \emph{Hermitian form}. If $A$ is real symmetric, then $F$ is a \emph{quadratic form}.
+\begin{defi}[Sesquilinear, Hermitian, and quadratic forms]
+  Let $A$ be an $n \times n$ complex matrix and let $\mathbf{x} \in \C^n$. The expression
+  \[
+    F(\mathbf{x}) = \mathbf{x}^\dagger A \mathbf{x} = \sum_{i,j=1}^n x_i^* A_{ij} x_j
+  \]
+  is called a \emph{sesquilinear form}. If $A$ is Hermitian, then $F$ is called a \emph{Hermitian form}. If $A$ is real symmetric and $\mathbf{x} \in \R^n$, then $F$ is called a \emph{quadratic form}.
 \end{defi}
 
-\begin{thm}[Hermitian forms are real]
-  Hermitian forms are real.
-\end{thm}
+\begin{prop}[Hermitian forms are real-valued]\label{prop:hermitian-form-real}
+  If $H$ is a Hermitian matrix, then $\mathbf{x}^\dagger H \mathbf{x} \in \R$ for all $\mathbf{x} \in \C^n$.
+\end{prop}
+
 \begin{proof}
-  $(\mathbf{x}^\dagger H\mathbf{x})^* = (\mathbf{x}^\dagger H\mathbf{x})^\dagger = \mathbf{x}^\dagger H^\dagger\mathbf{x} = \mathbf{x}^\dagger H\mathbf{x}$. So $(\mathbf{x}^\dagger H\mathbf{x})^* = \mathbf{x}^\dagger H\mathbf{x}$ and it is real.
+  We show that $\mathbf{x}^\dagger H \mathbf{x}$ equals its own complex conjugate:
+  \[
+    (\mathbf{x}^\dagger H \mathbf{x})^* = (\mathbf{x}^\dagger H \mathbf{x})^\dagger = \mathbf{x}^\dagger H^\dagger \mathbf{x} = \mathbf{x}^\dagger H \mathbf{x},
+  \]
+  where we used $(AB)^\dagger = B^\dagger A^\dagger$ and $H^\dagger = H$. Hence $\mathbf{x}^\dagger H \mathbf{x}$ is real.
 \end{proof}
 
-We know that any Hermitian matrix can be diagonalized with a unitary transformation. So $F(\mathbf{x}) = \mathbf{x}^\dagger H\mathbf{x} = \mathbf{x}^\dagger UDU^\dagger \mathbf{x}$. Write $\mathbf{x}' = U^\dagger \mathbf{x}$. So $F = (\mathbf{x}')^\dagger D\mathbf{x}'$, where $D = \mathrm{diag}(\lambda_1,\cdots,\lambda_n)$.
+\begin{prop}[Diagonalization of Hermitian forms]\label{prop:hermitian-form-diag}
+  Let $F(\mathbf{x}) = \mathbf{x}^\dagger H \mathbf{x}$ be a Hermitian form, where $H$ has eigenvalues $\lambda_1, \ldots, \lambda_n$. Then there exists a unitary matrix $U$ such that, writing $\mathbf{x}' = U^\dagger \mathbf{x}$,
+  \[
+    F(\mathbf{x}) = \sum_{i=1}^n \lambda_i |x_i'|^2.
+  \]
+\end{prop}
 
-We know that $\mathbf{x}'$ is the vector $\mathbf{x}$ relative to the eigenvector basis. So
-\[
-  F(\mathbf{x}) = \sum_{i = 1}^n \lambda_i |x_i'|^2
-\]
-The eigenvectors are known as the principal axes.
+\begin{proof}
+  By the spectral theorem (Theorem~\ref{thm:spectral-hermitian}), $H = U D U^\dagger$ where $D = \operatorname{diag}(\lambda_1, \ldots, \lambda_n)$ and $U$ is unitary. Then
+  \[
+    F(\mathbf{x}) = \mathbf{x}^\dagger H \mathbf{x} = \mathbf{x}^\dagger U D U^\dagger \mathbf{x} = (U^\dagger \mathbf{x})^\dagger D (U^\dagger \mathbf{x}) = (\mathbf{x}')^\dagger D \mathbf{x}' = \sum_{i=1}^n \lambda_i |x_i'|^2. \qedhere
+  \]
+\end{proof}
+
+\begin{defi}[Principal axes]
+  The eigenvectors of the matrix $H$ (equivalently, the columns of $U$) are called the \emph{principal axes} of the Hermitian form $F$.
+\end{defi}
+
+\begin{rmk}
+  For a real quadratic form $\mathbf{x}^\top S \mathbf{x}$, we can always assume $S$ is symmetric. If $A$ is any matrix, then $\mathbf{x}^\top A \mathbf{x} = \mathbf{x}^\top S \mathbf{x}$ where $S = \frac{1}{2}(A + A^\top)$, since $\mathbf{x}^\top A_{\text{skew}} \mathbf{x} = 0$ for any skew-symmetric matrix $A_{\text{skew}}$.
+\end{rmk}
 
 \begin{eg}
-  Take $F = 2x^2 - 4xy + 5y^2 = \mathbf{x}^TS\mathbf{x}$, where $\mathbf{x} =
-  \begin{pmatrix}
-    x\\y
-  \end{pmatrix}$ and $S =
-  \begin{pmatrix}
-    2 & -2\\
-    -2 & 5
-  \end{pmatrix}$.
-
-  Note that we can always choose the matrix to be symmetric. This is since for any antisymmetric $A$, we have $\mathbf{x}^T A\mathbf{x} = 0$. So we can just take the symmetric part.
-
-  The eigenvalues are $1, 6$ with corresponding eigenvectors $
-  \displaystyle \frac{1}{\sqrt{5}}\begin{pmatrix}
-    2\\1
-  \end{pmatrix},\frac{1}{\sqrt{5}}
-  \begin{pmatrix}
-    1\\-2
-  \end{pmatrix}$. Now change basis with
+  Consider the quadratic form $F = 2x^2 - 4xy + 5y^2$. Writing $\mathbf{x} = (x, y)^\top$, we have $F = \mathbf{x}^\top S \mathbf{x}$ where
   \[
-    Q = \frac{1}{\sqrt{5}}
-    \begin{pmatrix}
-      2 & 1\\
-      1 & -2
-    \end{pmatrix}
+    S = \begin{pmatrix} 2 & -2 \\ -2 & 5 \end{pmatrix}.
   \]
-  Then $\mathbf{x}' = Q^T\mathbf{x} =
-  \frac{1}{\sqrt{5}}\begin{pmatrix}
-    2x + y\\x - 2y
-  \end{pmatrix}$. Then $F = (x')^2 + 6(y')^2$.
-
-  So $F = c$ is an ellipse.
+  The eigenvalues of $S$ are $\lambda_1 = 1$ and $\lambda_2 = 6$, with corresponding normalized eigenvectors
+  \[
+    \mathbf{v}_1 = \frac{1}{\sqrt{5}} \begin{pmatrix} 2 \\ 1 \end{pmatrix}, \quad \mathbf{v}_2 = \frac{1}{\sqrt{5}} \begin{pmatrix} 1 \\ -2 \end{pmatrix}.
+  \]
+  The orthogonal matrix $Q = (\mathbf{v}_1 \; \mathbf{v}_2) = \frac{1}{\sqrt{5}} \begin{pmatrix} 2 & 1 \\ 1 & -2 \end{pmatrix}$ diagonalizes $S$. In the new coordinates $\mathbf{x}' = Q^\top \mathbf{x}$, we have
+  \[
+    F = (x')^2 + 6(y')^2.
+  \]
+  Thus the level set $F = c$ (for $c > 0$) is an ellipse with principal axes along the eigenvectors of $S$.
 \end{eg}
 
 \subsection{Quadrics and conics}
+
 \subsubsection{Quadrics}
+
 \begin{defi}[Quadric]
-  A \emph{quadric} is an $n$-dimensional surface defined by the zero of a real quadratic polynomial, i.e.
+  A \emph{quadric} (or \emph{quadric hypersurface}) in $\R^n$ is the set of points $\mathbf{x}$ satisfying a general quadratic equation
   \[
-    \mathbf{x}^T A\mathbf{x} + \mathbf{b}^T\mathbf{x} + c = 0,
+    \mathbf{x}^\top A \mathbf{x} + \mathbf{b}^\top \mathbf{x} + c = 0,
   \]
-  where $A$ is a real $n\times n$ matrix, $\mathbf{x}, \mathbf{b}$ are $n$-dimensional column vectors and $c$ is a constant scalar.
+  where $A$ is a real $n \times n$ matrix, $\mathbf{b} \in \R^n$, and $c \in \R$.
 \end{defi}
 
-As noted in example, anti-symmetric matrix has $\mathbf{x}^TA\mathbf{x} = 0$, so for any $A$, we can split it into symmetric and anti-symmetric parts, and just retain the symmetric part $S = (A + A^T)/2$. So we can have
-\[
-  \mathbf{x}^T S\mathbf{x} + \mathbf{b}^T\mathbf{x} + c = 0
-\]
-with $S$ symmetric.
+\begin{rmk}
+  By the observation that $\mathbf{x}^\top A_{\text{skew}} \mathbf{x} = 0$ for any skew-symmetric matrix, we may assume without loss of generality that $A$ is symmetric: replace $A$ by $S = \frac{1}{2}(A + A^\top)$.
+\end{rmk}
 
-Since $S$ is real and symmetric, we can diagonalize it using $S = QDQ^T$ with $D$ diagonal. We write $\mathbf{x}' = Q^T \mathbf{x}$ and $\mathbf{b}' = Q^T \mathbf{b}$. So we have
-\[
-  (\mathbf{x}')^TD\mathbf{x}' + (\mathbf{b}')^T \mathbf{x}' + c = 0.
-\]
-If $S$ is invertible, i.e.\ with no zero eigenvalues, then write $\mathbf{x}'' = \mathbf{x}' + \frac{1}{2}D^{-1}\mathbf{b}'$ which shifts the origin to eliminate the linear term $(\mathbf{b}')^T\mathbf{x}'$ and finally have (dropping the prime superfixes)
-\[
-  \mathbf{x}^TD\mathbf{x} = k.
-\]
-So through two transformations, we have ended up with a simple quadratic form.
+\begin{prop}[Standard form of a quadric]\label{prop:quadric-standard}
+  Any quadric with invertible quadratic part can be reduced to the standard form
+  \[
+    \sum_{i=1}^n \lambda_i x_i^2 = k
+  \]
+  by a rotation (orthogonal transformation) followed by a translation.
+\end{prop}
+
+\begin{proof}
+  Since $S$ is real symmetric, we can diagonalize it: $S = Q D Q^\top$ with $Q$ orthogonal and $D = \operatorname{diag}(\lambda_1, \ldots, \lambda_n)$. Setting $\mathbf{x}' = Q^\top \mathbf{x}$ and $\mathbf{b}' = Q^\top \mathbf{b}$, the equation becomes
+  \[
+    (\mathbf{x}')^\top D \mathbf{x}' + (\mathbf{b}')^\top \mathbf{x}' + c = 0.
+  \]
+  If $S$ (equivalently $D$) is invertible, we can eliminate the linear term by the translation $\mathbf{x}'' = \mathbf{x}' + \frac{1}{2} D^{-1} \mathbf{b}'$. This yields
+  \[
+    (\mathbf{x}'')^\top D \mathbf{x}'' = k
+  \]
+  for some constant $k$ (absorbing the constant terms).
+\end{proof}
 
 \subsubsection{Conic sections \texorpdfstring{$(n = 2)$}{(n = 2)}}
-From the equation above, we obtain
+
+In two dimensions, the standard form of a quadric is
 \[
-  \lambda_1x_1^2 + \lambda_2x_2^2 = k.
+  \lambda_1 x_1^2 + \lambda_2 x_2^2 = k.
 \]
-We have the following cases:
-\begin{enumerate}
-  \item $\lambda_1\lambda_2 > 0$: we have ellipses with axes coinciding with eigenvectors of $S$. (We require $\mathrm{sgn}(k) = \mathrm{sgn}(\lambda_1,\lambda_2)$, or else we would have no solutions at all)
-  \item $\lambda_1\lambda_2 < 0$: say $\lambda_1 = k/a^2 > 0$, $\lambda_2 = -k/b^2 < 0$. So we obtain
-    \[
-      \frac{x_1^2}{a^2} - \frac{x_2^2}{b^2} = 1,
-    \]
-    which is a hyperbola.
-  \item $\lambda_1\lambda_2 = 0$: Say $\lambda_2 = 0$, $\lambda_1\not= 0$. Note that in this case, our symmetric matrix $S$ is not invertible and we cannot shift our origin using as above.
+The type of curve depends on the signs of the eigenvalues $\lambda_1, \lambda_2$.
 
-    From our initial equation, we have
-    \[
-      \lambda_1(x_1')^2 + b_1'x_1' + b_2' x_2' + c = 0.
-    \]
-    We perform the coordinate transform (which is simply completing the square!)
-    \begin{align*}
-      x_1'' &= x_1' + \frac{b_1'}{2\lambda_1}\\
-      x_2'' &= x_2' + \frac{c}{b_2'} - \frac{(b_1')^2}{4\lambda_1b_2'}
-    \end{align*}
-    to remove the $x_1'$ and constant term. Dropping the primes, we have
-    \[
-      \lambda_1 x_1^2 + b_2 x_2 = 0,
-    \]
-    which is a parabola.
+\begin{prop}[Classification of conics]\label{prop:conic-classification}
+  The non-degenerate conic sections are classified as follows:
+  \begin{enumerate}
+    \item \textbf{Ellipse} ($\lambda_1 \lambda_2 > 0$, $k$ has the same sign as $\lambda_i$): The axes of the ellipse coincide with the eigenvectors of $S$.
+    \item \textbf{Hyperbola} ($\lambda_1 \lambda_2 < 0$): Writing $\lambda_1 = k/a^2 > 0$ and $\lambda_2 = -k/b^2 < 0$, we obtain
+      \[
+        \frac{x_1^2}{a^2} - \frac{x_2^2}{b^2} = 1.
+      \]
+    \item \textbf{Parabola} ($\lambda_1 \lambda_2 = 0$, one eigenvalue zero): The matrix $S$ is singular, so we cannot complete the reduction as above. Suppose $\lambda_2 = 0$ and $\lambda_1 \neq 0$. The equation in rotated coordinates is
+      \[
+        \lambda_1 (x_1')^2 + b_1' x_1' + b_2' x_2' + c = 0.
+      \]
+      If $b_2' \neq 0$, completing the square in $x_1'$ and translating gives
+      \[
+        \lambda_1 x_1^2 + b_2 x_2 = 0,
+      \]
+      which is a parabola.
+  \end{enumerate}
+\end{prop}
 
-    Note that above we assumed $b_2'\not= 0$. If $b_2' = 0$, we have $\lambda_1(x_1')^2 + b_1' x_1' + c = 0$. If we solve this quadratic for $x_1'$, we obtain 0, 1 or 2 solutions for $x_1$ (and $x_2$ can be any value). So we have 0, 1 or 2 straight lines.
-\end{enumerate}
-These are known as conic sections. As you will see in IA Dynamics and Relativity, this are the trajectories of planets under the influence of gravity.
+\begin{rmk}[Degenerate cases]
+  If $\lambda_2 = 0$ and $b_2' = 0$, the equation $\lambda_1 (x_1')^2 + b_1' x_1' + c = 0$ is a quadratic in $x_1'$ alone (with $x_2'$ arbitrary). This yields $0$, $1$, or $2$ parallel lines, depending on the discriminant.
+\end{rmk}
+
+\begin{rmk}
+  The conic sections arise as intersections of a plane with a double cone, hence the name. They also describe the trajectories of objects under an inverse-square gravitational force, as studied in IA Dynamics and Relativity.
+\end{rmk}
 
 \subsection{Focus-directrix property}
 Conic sections can be defined in a different way, in terms of
