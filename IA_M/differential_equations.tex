@@ -644,62 +644,91 @@ A \emph{differential equation} is an equation involving derivatives of an unknow
 \end{remark}
 
 \subsection{Homogeneous linear ordinary differential equations}
-We begin by defining the terminology used to classify differential equations.
+
+\begin{remark}
+  We begin by defining the terminology used to classify differential equations.
+\end{remark}
 
 \begin{defi}[Linear differential equation]
-  A differential equation is \emph{linear} if the dependent variable and its derivatives ($y$, $y'$, $y''$, etc.) appear only to the first power and are not multiplied together. A general first-order linear equation has the form $a(x)y' + b(x)y = c(x)$.
+  A differential equation is \emph{linear} if the dependent variable and its derivatives ($y$, $y'$, $y''$, etc.) appear only to the first power and are not multiplied together. A general first-order linear equation has the form $a(x)y' + b(x)y = c(x)$, where $a$, $b$, and $c$ are functions of the independent variable $x$.
 \end{defi}
 
 \begin{defi}[Homogeneous differential equation]
-  A linear differential equation is \emph{homogeneous} if the right-hand side is zero, i.e., if $y = 0$ is a solution. For example, $y' + p(x)y = 0$ is homogeneous, while $y' + p(x)y = f(x)$ with $f \neq 0$ is \emph{inhomogeneous}.
+  A linear differential equation is \emph{homogeneous} if the right-hand side is zero, i.e., if $y = 0$ is a solution. A linear differential equation that is not homogeneous is called \emph{inhomogeneous}.
 \end{defi}
+
+\begin{eg}[Homogeneous and inhomogeneous equations]
+  The equation $y' + p(x)y = 0$ is homogeneous, while $y' + p(x)y = f(x)$ with $f \neq 0$ is inhomogeneous.
+\end{eg}
 
 \begin{defi}[Constant coefficients]
   A differential equation has \emph{constant coefficients} if the coefficients of $y$ and its derivatives do not depend on the independent variable $x$.
 \end{defi}
 
-For a first-order linear homogeneous equation with constant coefficients, the general form is
-\[
-  ay' + by = 0,
-\]
-where $a$ and $b$ are constants. Since exponentials are eigenfunctions of $\frac{\d}{\d x}$, we expect solutions of the form $y = e^{mx}$.
+\begin{remark}[General form of first-order linear homogeneous equations]
+  For a first-order linear homogeneous equation with constant coefficients, the general form is
+  \[
+    ay' + by = 0,
+  \]
+  where $a, b \in \R$ are constants. Since exponentials are eigenfunctions of $\frac{\d}{\d x}$ (see Proposition~\ref{prop:exp-only-eigenfunctions}), we expect solutions of the form $y = e^{mx}$ for some constant $m$.
+\end{remark}
 
-\begin{eg}[First-order homogeneous equation with constant coefficients]
-  Consider $5\frac{\d y}{\d x} - 3y = 0$. We try the ansatz $y = e^{mx}$ for some constant $m$ to be determined. Since $\frac{\d y}{\d x} = me^{mx}$, substitution gives
+\begin{eg}[First-order homogeneous equation with constant coefficients]\label{eg:first-order-homog}
+  Consider the equation $5\frac{\d y}{\d x} - 3y = 0$. We seek solutions using the ansatz $y = e^{mx}$ for some constant $m$ to be determined. Since $\frac{\d y}{\d x} = me^{mx}$, substitution gives
   \[
     5me^{mx} - 3e^{mx} = (5m - 3)e^{mx} = 0.
   \]
   Since $e^{mx} \neq 0$ for all $x$, we must have $5m - 3 = 0$, giving $m = \frac{3}{5}$. Thus $y = e^{3x/5}$ is a solution.
 
-  Because the equation is linear and homogeneous, any constant multiple of a solution is also a solution. Therefore $y = Ae^{3x/5}$ is a solution for any constant $A$.
+  Because the equation is linear and homogeneous, any constant multiple of a solution is also a solution. Therefore $y = Ae^{3x/5}$ is a solution for any constant $A \in \R$.
 
   This is in fact the \emph{general solution}: a first-order linear equation has exactly one independent solution (up to multiplicative constants), so $y = Ae^{3x/5}$ captures all solutions.
 \end{eg}
 
+\begin{defi}[Initial condition]
+  An \emph{initial condition} (or \emph{boundary condition}) is a constraint specifying the value of the solution $y$ at some point $x_0$, such as $y(x_0) = y_0$ for a given value $y_0$.
+\end{defi}
+
 \begin{remark}
-  The arbitrary constant $A$ in the general solution is determined by an \emph{initial condition} (or \emph{boundary condition}), such as specifying the value of $y$ at some point $x_0$.
+  The arbitrary constant $A$ in the general solution of a first-order equation is uniquely determined by an initial condition.
 \end{remark}
 
 \subsubsection*{Connection to discrete equations}
-There is an illuminating connection between differential equations and discrete recurrence relations. Consider $5y' - 3y = 0$ with initial condition $y(0) = y_0$. We can approximate the derivative by a finite difference: if $x_n = nh$ for small step size $h$, then $y'(x_n) \approx \frac{y_{n+1} - y_n}{h}$. Substituting into the differential equation gives the \emph{difference equation}
-\[
-  5\frac{y_{n+1} - y_n}{h} - 3y_n \approx 0.
-\]
-Rearranging, $y_{n+1} = \left(1 + \frac{3h}{5}\right)y_n$. Applying this relation recursively:
-\begin{align*}
-  y_n &= \left(1 + \frac{3}{5}h\right)y_{n - 1}\\
-  &= \left(1 + \frac{3}{5}h\right)\left(1 + \frac{3}{5}h\right)y_{n - 2}\\
-  &= \left(1 + \frac{3}{5}h\right)^ny_0
-\end{align*}
-For each given value of $x$, choose $h = x/n$, so
-\[
-  y_n = y_0\left(1 + \frac{3}{5}(x/n)\right)^n.
-\]
-Taking the limit as $n\to \infty$, we have
-\[
-  y(x) = \lim_{n\to \infty} y_0\left(1 + \frac{3x/5}{n}\right)^n = y_0 e^{3x/5},
-\]
-in agreement with the solution of the differential equation.
+
+\begin{remark}
+  There is an illuminating connection between differential equations and discrete recurrence relations, which we illustrate with an example.
+\end{remark}
+
+\begin{eg}[Discrete approximation of a differential equation]\label{eg:discrete-approx}
+  Consider the equation $5y' - 3y = 0$ with initial condition $y(0) = y_0$. We approximate the derivative by a finite difference as follows.
+
+  Let $h > 0$ be a small step size, and define $x_n = nh$ for $n = 0, 1, 2, \ldots$. Writing $y_n = y(x_n)$, the derivative at $x_n$ can be approximated by
+  \[
+    y'(x_n) \approx \frac{y_{n+1} - y_n}{h}.
+  \]
+  Substituting this approximation into the differential equation gives the \emph{difference equation}
+  \[
+    5\frac{y_{n+1} - y_n}{h} - 3y_n \approx 0.
+  \]
+  Rearranging yields the recurrence relation $y_{n+1} = \left(1 + \frac{3h}{5}\right)y_n$.
+
+  Applying this relation recursively from $y_0$:
+  \begin{align*}
+    y_n &= \left(1 + \frac{3}{5}h\right)y_{n - 1}\\
+    &= \left(1 + \frac{3}{5}h\right)\left(1 + \frac{3}{5}h\right)y_{n - 2}\\
+    &= \left(1 + \frac{3}{5}h\right)^ny_0.
+  \end{align*}
+  To find $y(x)$ for a given value of $x > 0$, we choose $n$ steps of size $h = x/n$, so that $x_n = x$. This gives
+  \[
+    y_n = y_0\left(1 + \frac{3x}{5n}\right)^n.
+  \]
+  Taking the limit as $n \to \infty$ (equivalently, as $h \to 0$), we obtain
+  \[
+    y(x) = \lim_{n\to \infty} y_0\left(1 + \frac{3x/5}{n}\right)^n = y_0 e^{3x/5},
+  \]
+  in agreement with the solution found in Example~\ref{eg:first-order-homog}.
+\end{eg}
+
 \begin{center}
   \begin{tikzpicture}[yscale = 0.15]
     \draw [->] (-2, 0) -- (3.5, 0) node [right] {$x$};
@@ -723,23 +752,40 @@ in agreement with the solution of the differential equation.
 \end{center}
 
 \subsubsection*{Series solution}
-Another approach is to seek a solution as a power series. Assume $y = \sum_{n=0}^\infty a_n x^n$, so that $y' = \sum_{n=1}^\infty n a_n x^{n-1} = \sum_{n=0}^\infty (n+1)a_{n+1}x^n$. Substituting into $5y' - 3y = 0$:
-\[
-  \sum_{n=0}^\infty \bigl[5(n+1)a_{n+1} - 3a_n\bigr]x^n = 0.
-\]
-For this to hold for all $x$, each coefficient must vanish: $5(n+1)a_{n+1} = 3a_n$, giving the recurrence relation
-\[
-  a_{n+1} = \frac{3}{5(n+1)}a_n.
-\]
-Solving this recurrence with $a_0$ arbitrary:
-\[
-  a_n = \frac{3}{5n} \cdot \frac{3}{5(n-1)} \cdots \frac{3}{5 \cdot 1}\, a_0 = \frac{1}{n!}\left(\frac{3}{5}\right)^n a_0.
-\]
-Therefore
-\[
-  y = a_0\sum_{n = 0}^\infty \frac{1}{n!}\left(\frac{3x}{5}\right)^n = a_0 e^{3x/5},
-\]
-recovering our earlier solution.
+
+\begin{remark}
+  Another approach to solving differential equations is to seek a solution as a power series. This method is particularly useful when closed-form solutions are not readily available.
+\end{remark}
+
+\begin{eg}[Power series solution]\label{eg:series-solution}
+  Consider again the equation $5y' - 3y = 0$. We seek a solution of the form
+  \[
+    y = \sum_{n=0}^\infty a_n x^n,
+  \]
+  where the coefficients $a_n$ are to be determined.
+
+  Differentiating term by term,
+  \[
+    y' = \sum_{n=1}^\infty n a_n x^{n-1} = \sum_{n=0}^\infty (n+1)a_{n+1}x^n.
+  \]
+  Substituting into the differential equation:
+  \[
+    5y' - 3y = \sum_{n=0}^\infty \bigl[5(n+1)a_{n+1} - 3a_n\bigr]x^n = 0.
+  \]
+  For this to hold for all $x$, each coefficient must vanish: $5(n+1)a_{n+1} = 3a_n$. This yields the recurrence relation
+  \[
+    a_{n+1} = \frac{3}{5(n+1)}a_n.
+  \]
+  Solving this recurrence with $a_0$ arbitrary:
+  \[
+    a_n = \frac{3}{5n} \cdot \frac{3}{5(n-1)} \cdots \frac{3}{5 \cdot 1}\, a_0 = \frac{1}{n!}\left(\frac{3}{5}\right)^n a_0.
+  \]
+  Therefore
+  \[
+    y = a_0\sum_{n = 0}^\infty \frac{1}{n!}\left(\frac{3x}{5}\right)^n = a_0 e^{3x/5},
+  \]
+  recovering the solution from Example~\ref{eg:first-order-homog}.
+\end{eg}
 
 \subsection{Forced (inhomogeneous) equations}
 A homogeneous equation has only terms involving the unknown function $y$. An \emph{inhomogeneous} (or \emph{forced}) equation has additional terms that do not involve $y$. For example, $5y' - 3y = 10$ is inhomogeneous, with $10$ called the \emph{forcing term}.
