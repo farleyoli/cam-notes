@@ -549,9 +549,15 @@ More generally, suppose both the upper limit and a parameter in the integrand de
 A \emph{differential equation} is an equation involving derivatives of an unknown function. For example, $x^2\frac{\d y}{\d x} + 2y = 0$ is a differential equation in the unknown function $y(x)$. Unlike algebraic equations where the solution is a number, the solution to a differential equation is a \emph{function} satisfying the equation. This section focuses on \emph{first-order} differential equations, in which only first derivatives appear.
 
 \subsection{The exponential function}
-Solutions to differential equations frequently involve the exponential function, which plays a central role in this subject. We begin by examining why this is the case.
 
-Consider the general exponential function $f(x) = a^x$, where $a > 0$ is a constant.
+\begin{remark}
+  Solutions to differential equations frequently involve the exponential function, which plays a central role in this subject. We begin by examining why this is the case.
+\end{remark}
+
+\begin{defi}[Exponential function with base $a$]
+  For a constant $a > 0$, the \emph{exponential function with base $a$} is the function $f \colon \R \to \R$ defined by $f(x) = a^x$.
+\end{defi}
+
 \begin{center}
   \begin{tikzpicture}[yscale = 0.15]
     \draw [->] (-2, 0) -- (3.5, 0) node [right] {$x$};
@@ -563,93 +569,166 @@ Consider the general exponential function $f(x) = a^x$, where $a > 0$ is a const
     \node [circ] at (0, 1) {};
   \end{tikzpicture}
 \end{center}
-Its derivative is
-\begin{align*}
-  \frac{\d f}{\d x} &= \lim_{h\to 0}\frac{a^{x+h}-a^x}{h} = a^x\lim_{h\to 0}\frac{a^h-1}{h}.
-\end{align*}
-The limit $\lambda = \lim_{h\to 0}\frac{a^h-1}{h}$ depends only on $a$, not on $x$. Thus $\frac{\d f}{\d x} = \lambda f(x)$: the derivative of an exponential function is proportional to itself.
 
-\begin{defi}[Exponential function]
+\begin{prop}[Derivative of exponential functions]\label{prop:exp-deriv-proportional}
+  Let $a > 0$ be a constant and let $f(x) = a^x$. Then there exists a constant $\lambda$ depending only on $a$ such that
+  \[
+    \frac{\d f}{\d x} = \lambda f(x).
+  \]
+  That is, the derivative of an exponential function is proportional to itself.
+\end{prop}
+
+\begin{proof}
+  By the definition of the derivative,
+  \[
+    \frac{\d f}{\d x} = \lim_{h\to 0}\frac{a^{x+h}-a^x}{h} = a^x\lim_{h\to 0}\frac{a^h-1}{h}.
+  \]
+  Setting $\lambda = \lim_{h\to 0}\frac{a^h-1}{h}$, we observe that $\lambda$ depends only on $a$ and not on $x$. Therefore $\frac{\d f}{\d x} = \lambda f(x)$.
+\end{proof}
+
+\begin{defi}[Natural exponential function]
   The \emph{natural exponential function} $\exp(x) = e^x$ is the unique function $f$ satisfying $f'(x) = f(x)$ and $f(0) = 1$. The number $e \approx 2.71828$ is called \emph{Euler's number}.
 
   The inverse function is called the \emph{natural logarithm}, written $\ln x$ or $\log x$.
 \end{defi}
 
-Any exponential $a^x$ can be written in terms of the natural exponential: if $y = a^x = e^{x\ln a}$, then by the chain rule, $y' = (\ln a)\, e^{x\ln a} = (\ln a)\, a^x$. Thus $\lambda = \ln a$ for the base-$a$ exponential.
+\begin{prop}[Expressing general exponentials via the natural exponential]\label{prop:general-exp-via-natural}
+  Let $a > 0$ be a constant. Then for all $x \in \R$,
+  \[
+    a^x = e^{x \ln a}.
+  \]
+  In particular, the constant $\lambda$ from Proposition~\ref{prop:exp-deriv-proportional} satisfies $\lambda = \ln a$.
+\end{prop}
+
+\begin{proof}
+  By definition of the natural logarithm, $a = e^{\ln a}$, so $a^x = (e^{\ln a})^x = e^{x \ln a}$. Setting $y = a^x = e^{x\ln a}$ and applying the chain rule,
+  \[
+    \frac{\d y}{\d x} = (\ln a)\, e^{x\ln a} = (\ln a)\, a^x.
+  \]
+  Thus the proportionality constant from Proposition~\ref{prop:exp-deriv-proportional} is $\lambda = \ln a$.
+\end{proof}
 
 \begin{defi}[Eigenfunction of the differential operator]
-  An \emph{eigenfunction} of the differential operator $\frac{\d}{\d x}$ is a non-zero function $f$ satisfying
+  Let $\frac{\d}{\d x}$ denote the differential operator. An \emph{eigenfunction} of $\frac{\d}{\d x}$ is a non-zero function $f$ satisfying
   \[
     \frac{\d f}{\d x} = \lambda f
   \]
-  for some constant $\lambda$, called the \emph{eigenvalue}. The functional form of $f$ is unchanged by differentiation; only its magnitude changes.
+  for some constant $\lambda \in \C$, called the \emph{eigenvalue}.
 \end{defi}
 
+\begin{remark}
+  The functional form of an eigenfunction is unchanged by differentiation; only its magnitude (and possibly sign or phase) changes.
+\end{remark}
+
 \begin{eg}[Exponential eigenfunctions]
-  For any constant $m$, the function $e^{mx}$ is an eigenfunction with eigenvalue $m$, since $\frac{\d}{\d x}e^{mx} = me^{mx}$.
+  For any constant $m \in \C$, the function $f(x) = e^{mx}$ is an eigenfunction of $\frac{\d}{\d x}$ with eigenvalue $m$, since
+  \[
+    \frac{\d}{\d x}e^{mx} = me^{mx}.
+  \]
 \end{eg}
 
-\begin{prop}[Exponentials are the only eigenfunctions]
-  The exponential functions $e^{\lambda x}$ (for $\lambda \in \C$) are the \emph{only} eigenfunctions of the differential operator $\frac{\d}{\d x}$. This explains their ubiquity in the theory of differential equations.
+\begin{prop}[Exponentials are the only eigenfunctions]\label{prop:exp-only-eigenfunctions}
+  Let $\lambda \in \C$. If $f$ is a non-zero function satisfying $\frac{\d f}{\d x} = \lambda f$, then $f(x) = Ce^{\lambda x}$ for some constant $C \neq 0$.
 \end{prop}
 
+\begin{proof}
+  Suppose $f$ satisfies $f' = \lambda f$ with $f$ not identically zero. Consider the function $g(x) = f(x) e^{-\lambda x}$. By the product rule,
+  \[
+    g'(x) = f'(x) e^{-\lambda x} + f(x) \cdot (-\lambda) e^{-\lambda x} = \lambda f(x) e^{-\lambda x} - \lambda f(x) e^{-\lambda x} = 0.
+  \]
+  Since $g'(x) = 0$ for all $x$, the function $g$ is constant, say $g(x) = C$. Therefore $f(x) = Ce^{\lambda x}$, where $C \neq 0$ since $f$ is non-zero.
+\end{proof}
+
+\begin{remark}
+  Proposition~\ref{prop:exp-only-eigenfunctions} explains the ubiquity of exponential functions in the theory of differential equations: they are the unique eigenfunctions of the differentiation operator.
+\end{remark}
+
 \subsection{Homogeneous linear ordinary differential equations}
-We begin by defining the terminology used to classify differential equations.
+
+\begin{remark}
+  We begin by defining the terminology used to classify differential equations.
+\end{remark}
 
 \begin{defi}[Linear differential equation]
-  A differential equation is \emph{linear} if the dependent variable and its derivatives ($y$, $y'$, $y''$, etc.) appear only to the first power and are not multiplied together. A general first-order linear equation has the form $a(x)y' + b(x)y = c(x)$.
+  A differential equation is \emph{linear} if the dependent variable and its derivatives ($y$, $y'$, $y''$, etc.) appear only to the first power and are not multiplied together. A general first-order linear equation has the form $a(x)y' + b(x)y = c(x)$, where $a$, $b$, and $c$ are functions of the independent variable $x$.
 \end{defi}
 
 \begin{defi}[Homogeneous differential equation]
-  A linear differential equation is \emph{homogeneous} if the right-hand side is zero, i.e., if $y = 0$ is a solution. For example, $y' + p(x)y = 0$ is homogeneous, while $y' + p(x)y = f(x)$ with $f \neq 0$ is \emph{inhomogeneous}.
+  A linear differential equation is \emph{homogeneous} if the right-hand side is zero, i.e., if $y = 0$ is a solution. A linear differential equation that is not homogeneous is called \emph{inhomogeneous}.
 \end{defi}
+
+\begin{eg}[Homogeneous and inhomogeneous equations]
+  The equation $y' + p(x)y = 0$ is homogeneous, while $y' + p(x)y = f(x)$ with $f \neq 0$ is inhomogeneous.
+\end{eg}
 
 \begin{defi}[Constant coefficients]
   A differential equation has \emph{constant coefficients} if the coefficients of $y$ and its derivatives do not depend on the independent variable $x$.
 \end{defi}
 
-For a first-order linear homogeneous equation with constant coefficients, the general form is
-\[
-  ay' + by = 0,
-\]
-where $a$ and $b$ are constants. Since exponentials are eigenfunctions of $\frac{\d}{\d x}$, we expect solutions of the form $y = e^{mx}$.
+\begin{remark}[General form of first-order linear homogeneous equations]
+  For a first-order linear homogeneous equation with constant coefficients, the general form is
+  \[
+    ay' + by = 0,
+  \]
+  where $a, b \in \R$ are constants. Since exponentials are eigenfunctions of $\frac{\d}{\d x}$ (see Proposition~\ref{prop:exp-only-eigenfunctions}), we expect solutions of the form $y = e^{mx}$ for some constant $m$.
+\end{remark}
 
-\begin{eg}[First-order homogeneous equation with constant coefficients]
-  Consider $5\frac{\d y}{\d x} - 3y = 0$. We try the ansatz $y = e^{mx}$ for some constant $m$ to be determined. Since $\frac{\d y}{\d x} = me^{mx}$, substitution gives
+\begin{eg}[First-order homogeneous equation with constant coefficients]\label{eg:first-order-homog}
+  Consider the equation $5\frac{\d y}{\d x} - 3y = 0$. We seek solutions using the ansatz $y = e^{mx}$ for some constant $m$ to be determined. Since $\frac{\d y}{\d x} = me^{mx}$, substitution gives
   \[
     5me^{mx} - 3e^{mx} = (5m - 3)e^{mx} = 0.
   \]
   Since $e^{mx} \neq 0$ for all $x$, we must have $5m - 3 = 0$, giving $m = \frac{3}{5}$. Thus $y = e^{3x/5}$ is a solution.
 
-  Because the equation is linear and homogeneous, any constant multiple of a solution is also a solution. Therefore $y = Ae^{3x/5}$ is a solution for any constant $A$.
+  Because the equation is linear and homogeneous, any constant multiple of a solution is also a solution. Therefore $y = Ae^{3x/5}$ is a solution for any constant $A \in \R$.
 
   This is in fact the \emph{general solution}: a first-order linear equation has exactly one independent solution (up to multiplicative constants), so $y = Ae^{3x/5}$ captures all solutions.
 \end{eg}
 
+\begin{defi}[Initial condition]
+  An \emph{initial condition} (or \emph{boundary condition}) is a constraint specifying the value of the solution $y$ at some point $x_0$, such as $y(x_0) = y_0$ for a given value $y_0$.
+\end{defi}
+
 \begin{remark}
-  The arbitrary constant $A$ in the general solution is determined by an \emph{initial condition} (or \emph{boundary condition}), such as specifying the value of $y$ at some point $x_0$.
+  The arbitrary constant $A$ in the general solution of a first-order equation is uniquely determined by an initial condition.
 \end{remark}
 
 \subsubsection*{Connection to discrete equations}
-There is an illuminating connection between differential equations and discrete recurrence relations. Consider $5y' - 3y = 0$ with initial condition $y(0) = y_0$. We can approximate the derivative by a finite difference: if $x_n = nh$ for small step size $h$, then $y'(x_n) \approx \frac{y_{n+1} - y_n}{h}$. Substituting into the differential equation gives the \emph{difference equation}
-\[
-  5\frac{y_{n+1} - y_n}{h} - 3y_n \approx 0.
-\]
-Rearranging, $y_{n+1} = \left(1 + \frac{3h}{5}\right)y_n$. Applying this relation recursively:
-\begin{align*}
-  y_n &= \left(1 + \frac{3}{5}h\right)y_{n - 1}\\
-  &= \left(1 + \frac{3}{5}h\right)\left(1 + \frac{3}{5}h\right)y_{n - 2}\\
-  &= \left(1 + \frac{3}{5}h\right)^ny_0
-\end{align*}
-For each given value of $x$, choose $h = x/n$, so
-\[
-  y_n = y_0\left(1 + \frac{3}{5}(x/n)\right)^n.
-\]
-Taking the limit as $n\to \infty$, we have
-\[
-  y(x) = \lim_{n\to \infty} y_0\left(1 + \frac{3x/5}{n}\right)^n = y_0 e^{3x/5},
-\]
-in agreement with the solution of the differential equation.
+
+\begin{remark}
+  There is an illuminating connection between differential equations and discrete recurrence relations, which we illustrate with an example.
+\end{remark}
+
+\begin{eg}[Discrete approximation of a differential equation]\label{eg:discrete-approx}
+  Consider the equation $5y' - 3y = 0$ with initial condition $y(0) = y_0$. We approximate the derivative by a finite difference as follows.
+
+  Let $h > 0$ be a small step size, and define $x_n = nh$ for $n = 0, 1, 2, \ldots$. Writing $y_n = y(x_n)$, the derivative at $x_n$ can be approximated by
+  \[
+    y'(x_n) \approx \frac{y_{n+1} - y_n}{h}.
+  \]
+  Substituting this approximation into the differential equation gives the \emph{difference equation}
+  \[
+    5\frac{y_{n+1} - y_n}{h} - 3y_n \approx 0.
+  \]
+  Rearranging yields the recurrence relation $y_{n+1} = \left(1 + \frac{3h}{5}\right)y_n$.
+
+  Applying this relation recursively from $y_0$:
+  \begin{align*}
+    y_n &= \left(1 + \frac{3}{5}h\right)y_{n - 1}\\
+    &= \left(1 + \frac{3}{5}h\right)\left(1 + \frac{3}{5}h\right)y_{n - 2}\\
+    &= \left(1 + \frac{3}{5}h\right)^ny_0.
+  \end{align*}
+  To find $y(x)$ for a given value of $x > 0$, we choose $n$ steps of size $h = x/n$, so that $x_n = x$. This gives
+  \[
+    y_n = y_0\left(1 + \frac{3x}{5n}\right)^n.
+  \]
+  Taking the limit as $n \to \infty$ (equivalently, as $h \to 0$), we obtain
+  \[
+    y(x) = \lim_{n\to \infty} y_0\left(1 + \frac{3x/5}{n}\right)^n = y_0 e^{3x/5},
+  \]
+  in agreement with the solution found in Example~\ref{eg:first-order-homog}.
+\end{eg}
+
 \begin{center}
   \begin{tikzpicture}[yscale = 0.15]
     \draw [->] (-2, 0) -- (3.5, 0) node [right] {$x$};
@@ -673,83 +752,141 @@ in agreement with the solution of the differential equation.
 \end{center}
 
 \subsubsection*{Series solution}
-Another approach is to seek a solution as a power series. Assume $y = \sum_{n=0}^\infty a_n x^n$, so that $y' = \sum_{n=1}^\infty n a_n x^{n-1} = \sum_{n=0}^\infty (n+1)a_{n+1}x^n$. Substituting into $5y' - 3y = 0$:
-\[
-  \sum_{n=0}^\infty \bigl[5(n+1)a_{n+1} - 3a_n\bigr]x^n = 0.
-\]
-For this to hold for all $x$, each coefficient must vanish: $5(n+1)a_{n+1} = 3a_n$, giving the recurrence relation
-\[
-  a_{n+1} = \frac{3}{5(n+1)}a_n.
-\]
-Solving this recurrence with $a_0$ arbitrary:
-\[
-  a_n = \frac{3}{5n} \cdot \frac{3}{5(n-1)} \cdots \frac{3}{5 \cdot 1}\, a_0 = \frac{1}{n!}\left(\frac{3}{5}\right)^n a_0.
-\]
-Therefore
-\[
-  y = a_0\sum_{n = 0}^\infty \frac{1}{n!}\left(\frac{3x}{5}\right)^n = a_0 e^{3x/5},
-\]
-recovering our earlier solution.
+
+\begin{remark}
+  Another approach to solving differential equations is to seek a solution as a power series. This method is particularly useful when closed-form solutions are not readily available.
+\end{remark}
+
+\begin{eg}[Power series solution]\label{eg:series-solution}
+  Consider again the equation $5y' - 3y = 0$. We seek a solution of the form
+  \[
+    y = \sum_{n=0}^\infty a_n x^n,
+  \]
+  where the coefficients $a_n$ are to be determined.
+
+  Differentiating term by term,
+  \[
+    y' = \sum_{n=1}^\infty n a_n x^{n-1} = \sum_{n=0}^\infty (n+1)a_{n+1}x^n.
+  \]
+  Substituting into the differential equation:
+  \[
+    5y' - 3y = \sum_{n=0}^\infty \bigl[5(n+1)a_{n+1} - 3a_n\bigr]x^n = 0.
+  \]
+  For this to hold for all $x$, each coefficient must vanish: $5(n+1)a_{n+1} = 3a_n$. This yields the recurrence relation
+  \[
+    a_{n+1} = \frac{3}{5(n+1)}a_n.
+  \]
+  Solving this recurrence with $a_0$ arbitrary:
+  \[
+    a_n = \frac{3}{5n} \cdot \frac{3}{5(n-1)} \cdots \frac{3}{5 \cdot 1}\, a_0 = \frac{1}{n!}\left(\frac{3}{5}\right)^n a_0.
+  \]
+  Therefore
+  \[
+    y = a_0\sum_{n = 0}^\infty \frac{1}{n!}\left(\frac{3x}{5}\right)^n = a_0 e^{3x/5},
+  \]
+  recovering the solution from Example~\ref{eg:first-order-homog}.
+\end{eg}
 
 \subsection{Forced (inhomogeneous) equations}
-A homogeneous equation has only terms involving the unknown function $y$. An \emph{inhomogeneous} (or \emph{forced}) equation has additional terms that do not involve $y$. For example, $5y' - 3y = 10$ is inhomogeneous, with $10$ called the \emph{forcing term}.
 
-\begin{prop}[Superposition principle]
-  Let $y_p$ be any \emph{particular solution} of the inhomogeneous equation, and let $y_c$ be the general solution of the associated \emph{homogeneous} equation (called the \emph{complementary function}). Then the general solution of the inhomogeneous equation is
+\begin{defi}[Inhomogeneous equation and forcing term]
+  An \emph{inhomogeneous} (or \emph{forced}) differential equation is one that contains terms not involving the unknown function $y$. These additional terms are called \emph{forcing terms}. For example, in the equation $5y' - 3y = 10$, the constant $10$ is the forcing term.
+\end{defi}
+
+\begin{defi}[Particular solution and complementary function]
+  Let $L[y] = f(x)$ be an inhomogeneous linear differential equation, where $L$ is a linear differential operator and $f(x) \neq 0$.
+  \begin{enumerate}
+    \item A \emph{particular solution} (or \emph{particular integral}) $y_p$ is any specific solution satisfying $L[y_p] = f(x)$.
+    \item The \emph{complementary function} $y_c$ is the general solution of the associated homogeneous equation $L[y] = 0$.
+  \end{enumerate}
+\end{defi}
+
+\begin{prop}[Superposition principle]\label{prop:superposition}
+  Let $y_p$ be a particular solution of the inhomogeneous equation $L[y] = f(x)$, and let $y_c$ be the general solution of the associated homogeneous equation $L[y] = 0$. Then the general solution of the inhomogeneous equation is
   \[
     y = y_p + y_c.
   \]
 \end{prop}
 
+\begin{proof}
+  If $L[y_p] = f(x)$ and $L[y_c] = 0$, then by linearity of $L$,
+  \[
+    L[y_p + y_c] = L[y_p] + L[y_c] = f(x) + 0 = f(x).
+  \]
+  Thus $y = y_p + y_c$ is a solution of the inhomogeneous equation.
+
+  Conversely, if $y$ is any solution of $L[y] = f(x)$, then $L[y - y_p] = L[y] - L[y_p] = f(x) - f(x) = 0$, so $y - y_p$ is a solution of the homogeneous equation. Hence $y - y_p = y_c$ for some complementary function, giving $y = y_p + y_c$.
+\end{proof}
+
 \subsubsection{Constant forcing}
 
 \begin{eg}[Constant forcing term]
-  Consider $5y' - 3y = 10$. We can spot that there is an equilibrium (constant) solution $y = y_p = -\frac{10}{3}$ with $y_p' = 0$.
+  Consider $5y' - 3y = 10$. We seek an equilibrium (constant) solution by setting $y_p' = 0$. Then $-3y_p = 10$, giving $y_p = -\frac{10}{3}$.
 
-  The particular solution $y_p$ is a solution of the ODE. Now suppose the general solution is $y = y_p + y_c$. We see that $5y_c' - 3y_c = 0$. So $y_c$ satisfies the homogeneous equation we already solved, and
+  By Proposition~\ref{prop:superposition}, the general solution is $y = y_p + y_c$, where $y_c$ satisfies the homogeneous equation $5y_c' - 3y_c = 0$. From Example~\ref{eg:first-order-homog}, $y_c = Ae^{3x/5}$. Therefore
   \[
     y = -\frac{10}{3} + Ae^{3x/5}.
   \]
-  Note that any boundary conditions to determine $A$ must be applied to the full solution $y$ and not the complementary function $y_c$.
 \end{eg}
 
 \begin{remark}
-  This illustrates the general method for solving forced equations: first find a particular solution $y_p$ (often by inspection or an appropriate ansatz), then solve the associated homogeneous equation to obtain the complementary function $y_c$. The general solution is then $y = y_p + y_c$.
+  When applying initial or boundary conditions, one must use the full solution $y = y_p + y_c$, not the complementary function $y_c$ alone.
+\end{remark}
+
+\begin{remark}[General method for forced equations]
+  The procedure for solving forced equations is:
+  \begin{enumerate}
+    \item Find a particular solution $y_p$ (often by inspection or an appropriate ansatz).
+    \item Solve the associated homogeneous equation to obtain the complementary function $y_c$.
+    \item The general solution is $y = y_p + y_c$.
+  \end{enumerate}
 \end{remark}
 
 \subsubsection{Eigenfunction forcing}
-This is the case when the forcing term is an eigenfunction of the differential operator.
-\begin{eg}[Radioactive decay chain]
-  In a radioactive rock, isotope A decays into isotope B at a rate proportional to the number $a$ of remaining nuclei A, and B also decays at a rate proportional to the number $b$ of remaining nuclei B. Determine $b(t)$.
 
-  We have
+\begin{remark}
+  When the forcing term is an eigenfunction of the differential operator, we seek a particular solution of the same exponential form.
+\end{remark}
+
+\begin{eg}[Radioactive decay chain]\label{eg:radioactive-decay}
+  In a radioactive rock, isotope A decays into isotope B at a rate proportional to the number $a(t)$ of remaining nuclei of type A. Isotope B also decays, at a rate proportional to the number $b(t)$ of remaining nuclei of type B. The decay constants are $k_a > 0$ and $k_b > 0$ respectively, with $k_a \neq k_b$. Determine $b(t)$.
+
+  The governing equations are
   \begin{align*}
-    \frac{\d a}{\d t} &= -k_a a\\
+    \frac{\d a}{\d t} &= -k_a a,\\
     \frac{\d b}{\d t} &= k_a a - k_b b.
   \end{align*}
-  Solving the first equation, we obtain $a = a_0e^{-k_at}$. Then we have
+  The first equation is homogeneous; solving it gives $a(t) = a_0e^{-k_at}$, where $a_0 = a(0)$.
+
+  Substituting into the second equation and rearranging:
   \[
     \frac{\d b}{\d t} + k_b b = k_aa_0e^{-k_at}.
   \]
-  We usually put the variables involving $b$ on the left hand side and the others on the right. The right-hand term $k_aa_0e^{-k_at}$ is the \emph{forcing term}.
+  The right-hand side $k_aa_0e^{-k_at}$ is the forcing term, which is an eigenfunction of the operator $\frac{\d}{\d t} + k_b$.
 
-  Note that the forcing term is an eigenfunction of the differential operator on the left-hand side. This suggests trying a particular integral of the form $b_p = Ce^{-k_at}$. Substituting it in, we obtain
+  We seek a particular solution of the form $b_p = Ce^{-k_at}$. Substituting:
   \begin{align*}
-    -k_aC + k_bC &= k_a a_0\\
+    -k_aC + k_bC &= k_a a_0,\\
     C &= \frac{k_a}{k_b - k_a}a_0.
   \end{align*}
-  Then write $b = b_p + b_c$. We get $b'_c + k_bb_c = 0$ and $b_c = De^{-k_bt}$. All together, we have the general solution
+  The complementary function satisfies $b'_c + k_bb_c = 0$, giving $b_c = De^{-k_bt}$ for some constant $D$.
+
+  By the superposition principle, the general solution is
   \[
-    b = \frac{k_a}{k_b - k_a}a_0 e^{-k_at} + De^{-k_bt}.
+    b(t) = \frac{k_a}{k_b - k_a}a_0 e^{-k_at} + De^{-k_bt}.
   \]
-  Assume the following boundary condition: $b = 0$ when $t = 0$, in which case we can find
+  Applying the initial condition $b(0) = 0$:
   \[
-    b = \frac{k_a}{k_b - k_a}a_0\left(e^{-k_at} - e^{-k_bt}\right).
+    0 = \frac{k_a}{k_b - k_a}a_0 + D \implies D = -\frac{k_a}{k_b - k_a}a_0.
+  \]
+  Therefore
+  \[
+    b(t) = \frac{k_a}{k_b - k_a}a_0\left(e^{-k_at} - e^{-k_bt}\right).
   \]
   \begin{center}
     \begin{tikzpicture}[scale = 1.5]
-      \draw [->] (0, 0) -- (5, 0) node [right] {$x$};
-      \draw [->] (0, 0) -- (0, 3.5) node [above] {$y$};
+      \draw [->] (0, 0) -- (5, 0) node [right] {$t$};
+      \draw [->] (0, 0) -- (0, 3.5) node [above] {nuclei};
       \node [anchor = north east] {$O$};
       \draw [domain = 0:4.5, mgreen, semithick, samples=50] plot (\x, {3*exp(-\x)});
       \draw [domain = 0:4.5, mblue, semithick, samples=50] plot (\x, {8*(exp(-\x) - exp(-1.3*\x))});
@@ -761,7 +898,7 @@ This is the case when the forcing term is an eigenfunction of the differential o
   \[
     \frac{b}{a} = \frac{k_a}{k_b - k_a}\left[1 - e^{(k_a - k_b)t}\right].
   \]
-  Given the current ratio $b/a$ and laboratory-determined decay rates $k_a$ and $k_b$, one can determine $t$, the age of the rock.
+  Given the current ratio $b/a$ and laboratory-determined decay rates $k_a$ and $k_b$, one can solve for $t$, the age of the rock.
 \end{eg}
 
 \subsection{Non-constant coefficients: integrating factors}
