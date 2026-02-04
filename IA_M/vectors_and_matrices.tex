@@ -2085,27 +2085,38 @@ In practical terms, we use a combination of properties of determinants with a se
 \end{prop}
 
 \subsection{General solution of \texorpdfstring{$A\mathbf{x} = \mathbf{d}$}{Ax = d}}
-Finally consider the general equation $A\mathbf{x} = \mathbf{d}$, where $A$ is an $n\times n$ matrix and $\mathbf{x}, \mathbf{d}$ are $n \times 1$ column vectors. We can separate into two main cases.
+\begin{remark}
+  We now consider the general inhomogeneous equation $A\mathbf{x} = \mathbf{d}$, where $A$ is an $n \times n$ matrix and $\mathbf{x}, \mathbf{d} \in \R^n$ are column vectors.
+\end{remark}
 
-\begin{enumerate}
-  \item $\det(A) \not= 0$. So $A^{-1}$ exists and $n(A) = 0$, $r(A) = n$. Then for any $\mathbf{d}\in \R^n$, a unique solution must exists and it is $\mathbf{x} = A^{-1}\mathbf{d}$.
-  \item $\det(A) = 0$. Then $A^{-1}$ does not exist, and $n(A) > 0$, $r(A) < n$. So the image of $A$ is not the whole of $\R^n$.
-    \begin{enumerate}
-      \item If $\mathbf{d}\not\in \im A$, then there is no solution (by definition of the image)
-      \item If $\mathbf{d}\in \im A$, then by definition there exists at least one $\mathbf{x}$ such that $A\mathbf{x} = \mathbf{d}$. The general solution of $A\mathbf{x} = \mathbf{d}$ can be written as $\mathbf{x} = \mathbf{x}_0 + \mathbf{y}$, where $\mathbf{x}_0$ is a particular solution (i.e.\ $A\mathbf{x}_0 = \mathbf{d}$), and $\mathbf{y}$ is any vector in $\ker A$ (i.e.\ $A\mathbf{y} = \mathbf{0}$). (cf.\ Isomorphism theorem)
+\begin{thm}[General solution of linear systems]
+  Let $A$ be an $n \times n$ matrix and $\mathbf{d} \in \R^n$. The solutions to $A\mathbf{x} = \mathbf{d}$ are characterised as follows:
+  \begin{enumerate}
+    \item If $\det A \neq 0$, then $A^{-1}$ exists, $n(A) = 0$, and $r(A) = n$. For any $\mathbf{d} \in \R^n$, there is a unique solution $\mathbf{x} = A^{-1}\mathbf{d}$.
+    \item If $\det A = 0$, then $A^{-1}$ does not exist, $n(A) > 0$, and $r(A) < n$. The image of $A$ is a proper subspace of $\R^n$, and:
+      \begin{enumerate}
+        \item If $\mathbf{d} \notin \im A$, there is no solution.
+        \item If $\mathbf{d} \in \im A$, the general solution is $\mathbf{x} = \mathbf{x}_0 + \mathbf{y}$, where $\mathbf{x}_0$ is any particular solution satisfying $A\mathbf{x}_0 = \mathbf{d}$, and $\mathbf{y} \in \ker A$.
+      \end{enumerate}
+  \end{enumerate}
+\end{thm}
 
-        If $n(A) = 0$, then $\mathbf{y = 0}$ only, and then the solution is unique (i.e.\ case (i)). If $n(A) > 0$ , then $\{\mathbf{u}_i\}, i = 1, \cdots, n(A)$ is a basis of the kernel. Hence
-        \[
-          \mathbf{y} = \sum_{j = 1}^{n(A)} \mu_j \mathbf{u}_j,
-        \]
-        so
-        \[
-          \mathbf{x} = \mathbf{x}_0 + \sum_{j = 1}^{n(A)} \mu_j \mathbf{u}_j
-        \]
-        for any $\mu_j$, i.e.\ there are infinitely many solutions.
-    \end{enumerate}
-\end{enumerate}
-\begin{eg}
+\begin{proof}
+  Case (i) follows from the existence of $A^{-1}$ when $\det A \neq 0$.
+
+  For case (ii), if $\mathbf{d} \notin \im A$, then by definition no $\mathbf{x}$ satisfies $A\mathbf{x} = \mathbf{d}$. If $\mathbf{d} \in \im A$, let $\mathbf{x}_0$ be a particular solution. For any $\mathbf{y} \in \ker A$, we have $A(\mathbf{x}_0 + \mathbf{y}) = A\mathbf{x}_0 + A\mathbf{y} = \mathbf{d} + \mathbf{0} = \mathbf{d}$. Conversely, if $\mathbf{x}$ is any solution, then $A(\mathbf{x} - \mathbf{x}_0) = \mathbf{d} - \mathbf{d} = \mathbf{0}$, so $\mathbf{x} - \mathbf{x}_0 \in \ker A$.
+\end{proof}
+
+\begin{cor}
+  In case (ii)(b) above, if $\{\mathbf{u}_1, \ldots, \mathbf{u}_{n(A)}\}$ is a basis for $\ker A$, then the general solution can be written as
+  \[
+    \mathbf{x} = \mathbf{x}_0 + \sum_{j=1}^{n(A)} \mu_j \mathbf{u}_j
+  \]
+  for arbitrary scalars $\mu_j \in \R$. In particular, there are infinitely many solutions.
+\end{cor}
+
+\begin{eg}[A $2 \times 2$ system with parameter]
+  Consider the system
   \[
     \begin{pmatrix}
       1 & 1\\
@@ -2161,11 +2172,7 @@ Finally consider the general equation $A\mathbf{x} = \mathbf{d}$, where $A$ is a
   \end{pmatrix}
   \in \im A$.
 
-  We find a particular solution of
-  $\begin{pmatrix}
-    1\\
-    0
-  \end{pmatrix}$. So The general solution is
+  A particular solution is $\mathbf{x}_0 = \begin{pmatrix} 1\\ 0 \end{pmatrix}$, so the general solution is
   \[
     \mathbf{x} =
     \begin{pmatrix}
@@ -2178,8 +2185,8 @@ Finally consider the general equation $A\mathbf{x} = \mathbf{d}$, where $A$ is a
   \]
 \end{eg}
 
-\begin{eg}
-  Find the general solution of
+\begin{eg}[A $3 \times 3$ system with parameters]
+  Consider the system
   \[
     \begin{pmatrix}
       a & a & b\\
