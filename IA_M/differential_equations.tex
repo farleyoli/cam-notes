@@ -902,42 +902,81 @@ A \emph{differential equation} is an equation involving derivatives of an unknow
 \end{eg}
 
 \subsection{Non-constant coefficients: integrating factors}
-When the coefficients depend on $x$, we can no longer use exponential solutions directly. Consider the general first-order linear equation
-\[
-  a(x)y' + b(x)y = c(x).
-\]
-Dividing by $a(x)$ puts this in \emph{standard form}:
-\[
-  y' + p(x) y = f(x),
-\]
-where $p(x) = b(x)/a(x)$ and $f(x) = c(x)/a(x)$.
+\begin{defi}[Standard form of a first-order linear ODE]
+  A first-order linear ordinary differential equation with variable coefficients
+  \[
+    a(x)y' + b(x)y = c(x),
+  \]
+  where $a(x)$, $b(x)$, and $c(x)$ are given functions and $a(x) \neq 0$, is said to be in \emph{standard form} when written as
+  \[
+    y' + p(x) y = f(x),
+  \]
+  where $p(x) = b(x)/a(x)$ and $f(x) = c(x)/a(x)$.
+\end{defi}
 
-The method of \emph{integrating factors} converts the left-hand side into an exact derivative. Multiply through by a function $\mu(x)$ (to be determined):
-\[
-  \mu y' + \mu p\, y = \mu f.
-\]
-We want the left-hand side to equal $(\mu y)'$. By the product rule, $(\mu y)' = \mu y' + \mu' y$, so we need $\mu' = \mu p$, i.e.,
-\[
-  \frac{\d \mu}{\mu} = p\,\d x \implies \ln \mu = \int p\,\d x \implies \mu = \exp\left(\int p\,\d x\right).
-\]
-With this choice, the equation becomes $(\mu y)' = \mu f$, which integrates to give the solution.
+\begin{remark}
+  When the coefficients depend on $x$, we can no longer use exponential solutions directly. Instead, we employ the method of \emph{integrating factors}, which converts the left-hand side of the standard form equation into an exact derivative.
+\end{remark}
 
-\begin{prop}[Integrating factor solution]
+\begin{defi}[Integrating factor]
+  For a first-order linear equation in standard form $y' + p(x)y = f(x)$, the \emph{integrating factor} is the function
+  \[
+    \mu(x) = \exp\left(\int p(x)\,\d x\right).
+  \]
+\end{defi}
+
+\begin{prop}[Solution via integrating factor]\label{prop:integrating-factor}
   The general solution to the first-order linear equation $y' + p(x)y = f(x)$ is
   \[
-    y = e^{-\int p\,\d x}\int f\, e^{\int p\,\d x}\,\d x,
+    y = e^{-\int p\,\d x}\left(\int f\, e^{\int p\,\d x}\,\d x + C\right),
   \]
-  where the \emph{integrating factor} is $\mu(x) = \exp\left(\int p\,\d x\right)$.
+  where $C$ is an arbitrary constant.
 \end{prop}
-\begin{eg}[Integrating factor method]
-  Consider $xy' + (1 - x)y = 1$. To obtain it in standard form, we have $y' + \frac{1 - x}{x} y = \frac{1}{x}$.
-  We have $\mu = \exp\left(\int (\frac{1}{x} - 1)\; \d x\right) = e^{\ln x - x} = xe^{-x}$. Then
+\begin{proof}
+  Multiply both sides of the equation $y' + p(x)y = f(x)$ by the integrating factor $\mu(x) = \exp\left(\int p\,\d x\right)$:
+  \[
+    \mu y' + \mu p\, y = \mu f.
+  \]
+  We claim that the left-hand side equals $(\mu y)'$. Indeed, by the product rule,
+  \[
+    (\mu y)' = \mu' y + \mu y'.
+  \]
+  Since $\mu = e^{\int p\,\d x}$, differentiating gives $\mu' = p\,e^{\int p\,\d x} = p\mu$. Therefore,
+  \[
+    (\mu y)' = p\mu y + \mu y' = \mu y' + \mu p\, y,
+  \]
+  which matches the left-hand side. The equation thus becomes
+  \[
+    (\mu y)' = \mu f.
+  \]
+  Integrating both sides with respect to $x$ yields
+  \[
+    \mu y = \int \mu f\,\d x + C,
+  \]
+  where $C$ is an arbitrary constant. Dividing by $\mu = e^{\int p\,\d x}$ gives the stated formula.
+\end{proof}
+
+\begin{eg}[Applying the integrating factor method]
+  Consider the equation $xy' + (1 - x)y = 1$ with the boundary condition that $y$ remains finite as $x \to 0$.
+
+  First, we write the equation in standard form by dividing by $x$:
+  \[
+    y' + \frac{1 - x}{x} y = \frac{1}{x}.
+  \]
+  Here $p(x) = \frac{1-x}{x} = \frac{1}{x} - 1$ and $f(x) = \frac{1}{x}$.
+
+  The integrating factor is
+  \[
+    \mu(x) = \exp\left(\int \left(\frac{1}{x} - 1\right)\d x\right) = e^{\ln x - x} = xe^{-x}.
+  \]
+  By Proposition~\ref{prop:integrating-factor}, the general solution is
   \begin{align*}
-    y &= \frac{\int xe^{-x}\frac{1}{x}\;\d x}{xe^{-x}}\\
+    y &= \frac{1}{xe^{-x}}\left(\int xe^{-x} \cdot \frac{1}{x}\,\d x + C\right)\\
+    &= \frac{1}{xe^{-x}}\left(\int e^{-x}\,\d x + C\right)\\
     &= \frac{-e^{-x} + C}{xe^{-x}}\\
-    &= \frac{-1}{x} + \frac{C}{x}e^x
+    &= \frac{Ce^x - 1}{x}.
   \end{align*}
-  Suppose that we have a boundary condition $y$ is finite at $x = 0$. Since we have $y = \frac{Ce^x - 1}{x}$, we have to ensure that $Ce^x - 1\to 0$ as $x\to 0$. Thus $C = 1$, and by L'Hopital's rule, $y\to 1$ as $x\to 0$.
+  To satisfy the boundary condition that $y$ is finite at $x = 0$, we require $Ce^x - 1 \to 0$ as $x \to 0$. This gives $C = 1$, and by L'H\^opital's rule, $y \to 1$ as $x \to 0$.
 \end{eg}
 
 \subsection{Non-linear equations}
