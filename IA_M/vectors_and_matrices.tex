@@ -2870,125 +2870,97 @@ The transformation law for matrices (Theorem~\ref{thm:matrix-transformation}) mo
   By Proposition~\ref{prop:diag-eigenvector}, $A$ is diagonalizable if and only if there are $n$ linearly independent eigenvectors, which occurs if and only if $\sum_{i=1}^r g_i = n$. This happens if and only if $g_i = a_i$ for all $i$, i.e., every eigenvalue has zero defect.
 \end{proof}
 \subsection{Canonical (Jordan normal) form}
-Given a matrix $A$, if its eigenvalues all have zero defect, then we can find a basis in which it is diagonal. However, if some eigenvalue \emph{does} have defect, we can still put it into an almost-diagonal form. This is known as the \emph{Jordan normal form}.
+By Theorem~\ref{thm:diag-criterion}, a matrix is diagonalizable if and only if all its eigenvalues have zero defect. When some eigenvalue has nonzero defect, the matrix cannot be diagonalized, but it can still be reduced to a nearly diagonal form called the \emph{Jordan normal form}.
 
-\begin{thm}[Jordan normal form for $2\times 2$ matrices]
-  Any $2\times 2$ complex matrix $A$ is similar to exactly one of
-  \[
-    \begin{pmatrix}
-      \lambda_1 & 0\\
-      0 & \lambda_2
-    \end{pmatrix},
-    \begin{pmatrix}
-      \lambda & 0\\
-      0 & \lambda
-    \end{pmatrix},
-    \begin{pmatrix}
-      \lambda & 1\\
-      0 & \lambda
-    \end{pmatrix}
-  \]
-\end{thm}
-\begin{proof}
-  For each case:
+\begin{thm}[Jordan normal form for $2 \times 2$ matrices]\label{thm:jordan-2x2}
+  Every $2 \times 2$ complex matrix $A$ is similar to exactly one of the following canonical forms:
   \begin{enumerate}
-    \item If $A$ has two distinct eigenvalues, then eigenvectors are linearly independent. Then we can use $P$ formed from eigenvectors as its columns
-    \item If $\lambda_1=\lambda_2 = \lambda$ and $\dim E_\lambda = 2$, then write $E_\lambda = \spn\{\mathbf{u}, \mathbf{v}\}$, with $\mathbf{u}, \mathbf{v}$ linearly independent. Now use $\{\mathbf{u}, \mathbf{v}\}$ as a new basis of $\C^2$ and $\tilde{A} = P^{-1}AP =
-      \begin{pmatrix}
-        \lambda & 0\\
-        0 & \lambda
-      \end{pmatrix} = \lambda I$
-
-      Note that since $P^{-1}AP = \lambda I$, we have $A = P(\lambda I)P^{-1} = \lambda I$. So $A$ is \emph{isotropic}, i.e.\ the same with respect to any basis.
-    \item If $\lambda_1 = \lambda_2 = \lambda$ and $\dim (E_\lambda) = 1$, then $E_\lambda = \spn\{\mathbf{v}\}$. Now choose basis of $\C^2$ as $\{\mathbf{v}, \mathbf{w}\}$, where $\mathbf{w}\in \C^2\setminus E_\lambda$.
-
-      We know that $A\mathbf{w}\in \C^2$. So $A\mathbf{w} = \alpha \mathbf{v} + \beta \mathbf{w}$. Hence, if we change basis to $\{\mathbf{v}, \mathbf{w}\}$, then $\tilde{A} = P^{-1}AP =
-      \begin{pmatrix}
-        \lambda & \alpha\\
-        0 & \beta
-      \end{pmatrix}$.
-
-      However, $A$ and $\tilde{A}$ both have eigenvalue $\lambda$ with algebraic multiplicity $2$. So we must have $\beta = \lambda$. To make $\alpha = 1$, let $\mathbf{u} = (\tilde{A} - \lambda I)\mathbf{w}$. We know $\mathbf{u}\not= \mathbf{0}$ since $\mathbf{w}$ is not in the eigenspace. Then
-      \[
-        (\tilde{A} - \lambda I)\mathbf{u} = (\tilde{A} - \lambda I)^2 \mathbf{w} =
-        \begin{pmatrix}
-          0 & \alpha\\
-          0 & 0
-        \end{pmatrix}
-        \begin{pmatrix}
-          0 & \alpha\\
-          0 & 0
-        \end{pmatrix}\mathbf{w} = \mathbf{0}.
-      \]
-      So $\mathbf{u}$ is an eigenvector of $\tilde{A}$ with eigenvalue $\lambda$.
-
-      We have $\mathbf{u} = \tilde A\mathbf{w} - \lambda\mathbf{w}$. So $\tilde A\mathbf{w} = \mathbf{u} + \lambda\mathbf{w}$.
-
-      Change basis to $\{\mathbf{u}, \mathbf{w}\}$. Then $A$ with respect to this basis is $
-      \begin{pmatrix}
-        \lambda & 1\\
-        0 & \lambda
-      \end{pmatrix}$.
-
-      This is a two-stage process: $P$ sends basis to $\{\mathbf{v}, \mathbf{w}\}$ and then matrix $Q$ sends to basis $\{\mathbf{u}, \mathbf{w}\}$. So the similarity transformation is $Q^{-1}(P^{-1}AP)Q = (PQ)^{-1}A(PQ)$.\qedhere
+    \item $\begin{pmatrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{pmatrix}$ with $\lambda_1 \neq \lambda_2$ (two distinct eigenvalues);
+    \item $\begin{pmatrix} \lambda & 0 \\ 0 & \lambda \end{pmatrix} = \lambda I$ (repeated eigenvalue, zero defect);
+    \item $\begin{pmatrix} \lambda & 1 \\ 0 & \lambda \end{pmatrix}$ (repeated eigenvalue, defect one).
   \end{enumerate}
+\end{thm}
+
+\begin{proof}
+  We consider each case based on the eigenvalue structure.
+
+  \textbf{Case 1:} Suppose $A$ has two distinct eigenvalues $\lambda_1 \neq \lambda_2$. Then the corresponding eigenvectors are linearly independent. Taking $P$ to have these eigenvectors as columns, we obtain $P^{-1}AP = \operatorname{diag}(\lambda_1, \lambda_2)$.
+
+  \textbf{Case 2:} Suppose $A$ has a repeated eigenvalue $\lambda_1 = \lambda_2 = \lambda$ with $\dim E_\lambda = 2$. Then $E_\lambda = \C^2$, so we can choose any basis $\{\mathbf{u}, \mathbf{v}\}$ of eigenvectors. With $P = (\mathbf{u} \; \mathbf{v})$, we have $P^{-1}AP = \lambda I$.
+
+  Note that $P^{-1}AP = \lambda I$ implies $A = P(\lambda I)P^{-1} = \lambda I$. Thus $A$ itself equals $\lambda I$ and is unchanged by any similarity transformation.
+
+  \textbf{Case 3:} Suppose $\lambda_1 = \lambda_2 = \lambda$ with $\dim E_\lambda = 1$, so $E_\lambda = \operatorname{span}\{\mathbf{v}\}$. Choose any $\mathbf{w} \in \C^2 \setminus E_\lambda$ to form a basis $\{\mathbf{v}, \mathbf{w}\}$ of $\C^2$.
+
+  Since $A\mathbf{w} \in \C^2$, we can write $A\mathbf{w} = \alpha \mathbf{v} + \beta \mathbf{w}$ for some scalars $\alpha, \beta$. In the basis $\{\mathbf{v}, \mathbf{w}\}$, the matrix becomes
+  \[
+    \tilde{A} = P^{-1}AP = \begin{pmatrix} \lambda & \alpha \\ 0 & \beta \end{pmatrix}.
+  \]
+  Since similar matrices have the same characteristic polynomial and $A$ has $\lambda$ as a repeated eigenvalue, we must have $\beta = \lambda$.
+
+  To normalize $\alpha$ to $1$, define $\mathbf{u} = (\tilde{A} - \lambda I)\mathbf{w} = \alpha \mathbf{v}$. Since $\mathbf{w} \notin E_\lambda$, we have $\mathbf{u} \neq \mathbf{0}$. Then $\mathbf{u}$ is an eigenvector:
+  \[
+    (\tilde{A} - \lambda I)\mathbf{u} = (\tilde{A} - \lambda I)^2 \mathbf{w} = \begin{pmatrix} 0 & \alpha \\ 0 & 0 \end{pmatrix}^2 \mathbf{w} = \mathbf{0}.
+  \]
+  From $\mathbf{u} = \tilde{A}\mathbf{w} - \lambda\mathbf{w}$, we get $\tilde{A}\mathbf{w} = \mathbf{u} + \lambda\mathbf{w}$. In the basis $\{\mathbf{u}, \mathbf{w}\}$, the matrix is
+  \[
+    \begin{pmatrix} \lambda & 1 \\ 0 & \lambda \end{pmatrix}.
+  \]
+  The full similarity transformation is achieved by the matrix $PQ$, where $P$ changes to the basis $\{\mathbf{v}, \mathbf{w}\}$ and $Q$ changes to $\{\mathbf{u}, \mathbf{w}\}$.
 \end{proof}
 
-\begin{prop}[Jordan normal form existence]
-  (Without proof) The canonical form, or Jordan normal form, exists for any $n\times n$ matrix $A$. Specifically, there exists a similarity transform such that $A$ is similar to a matrix to $\tilde{A}$ that satisfies the following properties:
-  \begin{enumerate}
-    \item $\tilde{A}_{\alpha\alpha} = \lambda_\alpha$, i.e.\ the diagonal composes of the eigenvalues.
-    \item $\tilde{A}_{\alpha, \alpha + 1} = 0$ or $1$.
-    \item $\tilde{A}_{ij} = 0$ otherwise.
-  \end{enumerate}
-\end{prop}
-The actual theorem is actually stronger than this, and the Jordan normal form satisfies some additional properties in addition to the above. However, we shall not go into details, and this is left for the IB Linear Algebra course.
+\begin{defi}[Jordan block]
+  A \emph{Jordan block} of size $k$ with eigenvalue $\lambda$ is the $k \times k$ matrix
+  \[
+    J_k(\lambda) = \begin{pmatrix}
+      \lambda & 1 & 0 & \cdots & 0 \\
+      0 & \lambda & 1 & \cdots & 0 \\
+      \vdots & & \ddots & \ddots & \vdots \\
+      0 & \cdots & 0 & \lambda & 1 \\
+      0 & \cdots & 0 & 0 & \lambda
+    \end{pmatrix}.
+  \]
+  That is, $J_k(\lambda)$ has $\lambda$ on the diagonal, $1$ on the superdiagonal, and $0$ elsewhere.
+\end{defi}
+
+\begin{thm}[Jordan normal form]\label{thm:jordan-general}
+  Every $n \times n$ complex matrix $A$ is similar to a block diagonal matrix
+  \[
+    J = \operatorname{diag}(J_{k_1}(\lambda_1), J_{k_2}(\lambda_2), \ldots, J_{k_r}(\lambda_r))
+  \]
+  where each $J_{k_i}(\lambda_i)$ is a Jordan block. The matrix $J$ is called the \emph{Jordan normal form} of $A$ and is unique up to permutation of the blocks.
+\end{thm}
+
+\begin{rmk}
+  The proof of the general Jordan normal form theorem requires more sophisticated techniques and is deferred to the IB Linear Algebra course. However, the $2 \times 2$ case (Theorem~\ref{thm:jordan-2x2}) illustrates the key ideas: we construct a basis using eigenvectors and, when needed, \emph{generalized eigenvectors} (vectors $\mathbf{w}$ satisfying $(A - \lambda I)^k \mathbf{w} = \mathbf{0}$ for some $k > 1$).
+\end{rmk}
 
 \begin{eg}
-  Let
+  Consider the matrix
   \[
-    A = \begin{pmatrix}
-      -3 & -1 & 1\\
-      -1 & -3 & 1\\
-      -2 & -2 & 0
-    \end{pmatrix}
+    A = \begin{pmatrix} -3 & -1 & 1 \\ -1 & -3 & 1 \\ -2 & -2 & 0 \end{pmatrix}.
   \]
-  The eigenvalues are $-2, -2, -2$ and the eigenvectors are $
-  \begin{pmatrix}
-    -1 \\1 \\ 0
-  \end{pmatrix},
-  \begin{pmatrix}
-    1 \\ 0 \\1
-  \end{pmatrix}$. Pick $\mathbf{w} =
-  \begin{pmatrix}
-    1\\0\\0
-  \end{pmatrix}$. Write $\mathbf{u} = (A - \lambda I)\mathbf{w} =
-  \begin{pmatrix}
-    -1 & -1 & 1\\
-    -1 & -1 & 1\\
-    -2 & -2 & 2
-  \end{pmatrix}
-  \begin{pmatrix}
-    1\\0\\0
-  \end{pmatrix} =
-  \begin{pmatrix}
-    -1\\-1\\-2
-  \end{pmatrix}$. Note that $A\mathbf{u} = -2\mathbf{u}$. We also have $A\mathbf{w} = \mathbf{u} - 2\mathbf{w}$. Form a basis $\{\mathbf{u}, \mathbf{w}, \mathbf{v}\}$, where $\mathbf{v}$ is another eigenvector linearly independent from $\mathbf{u}$, say $
-  \begin{pmatrix}
-    1\\0\\1
-  \end{pmatrix}$.
+  The characteristic polynomial is $p_A(\lambda) = -(\lambda + 2)^3$, so $\lambda = -2$ is the only eigenvalue with algebraic multiplicity $3$. Solving $(A + 2I)\mathbf{x} = \mathbf{0}$, we find that $\dim E_{-2} = 2$, with basis
+  \[
+    \mathbf{v}_1 = \begin{pmatrix} -1 \\ 1 \\ 0 \end{pmatrix}, \quad \mathbf{v}_2 = \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}.
+  \]
+  Since the geometric multiplicity ($2$) is less than the algebraic multiplicity ($3$), the matrix is not diagonalizable.
 
-  Now change to this basis with
-  $P = \begin{pmatrix}
-    -1 & 1 & 1\\
-    -1 & 0 & 0\\
-    -2 & 0 & 1
-  \end{pmatrix}$. Then the Jordan normal form is $P^{-1}AP =
-  \begin{pmatrix}
-    -2 & 1 & 0\\
-    0 & -2 & 0\\
-    0 & 0 & -2
-  \end{pmatrix}$
+  To find the Jordan form, we need a generalized eigenvector. Choose $\mathbf{w} = (1, 0, 0)^\top \notin E_{-2}$ and compute
+  \[
+    \mathbf{u} = (A + 2I)\mathbf{w} = \begin{pmatrix} -1 & -1 & 1 \\ -1 & -1 & 1 \\ -2 & -2 & 2 \end{pmatrix} \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} -1 \\ -1 \\ -2 \end{pmatrix}.
+  \]
+  One can verify that $A\mathbf{u} = -2\mathbf{u}$ (so $\mathbf{u}$ is an eigenvector) and $A\mathbf{w} = \mathbf{u} - 2\mathbf{w}$.
+
+  Using the basis $\{\mathbf{u}, \mathbf{w}, \mathbf{v}_2\}$ with
+  \[
+    P = \begin{pmatrix} -1 & 1 & 1 \\ -1 & 0 & 0 \\ -2 & 0 & 1 \end{pmatrix},
+  \]
+  the Jordan normal form is
+  \[
+    P^{-1}AP = \begin{pmatrix} -2 & 1 & 0 \\ 0 & -2 & 0 \\ 0 & 0 & -2 \end{pmatrix} = \operatorname{diag}(J_2(-2), J_1(-2)).
+  \]
+  This consists of one $2 \times 2$ Jordan block and one $1 \times 1$ Jordan block (i.e., a single eigenvalue on the diagonal).
 \end{eg}
 
 \subsection{Cayley-Hamilton Theorem}
