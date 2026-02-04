@@ -3366,88 +3366,99 @@ The type of curve depends on the signs of the eigenvalues $\lambda_1, \lambda_2$
 \end{rmk}
 
 \subsection{Focus-directrix property}
-Conic sections can be defined in a different way, in terms of
-\begin{defi}[Conic sections]
-  The \emph{eccentricity} and \emph{scale} are properties of a conic section that satisfy the following:
+Conic sections admit an alternative geometric definition in terms of a focus and directrix.
 
-  Let the \emph{foci} of a conic section be $(\pm ae, 0)$ and the \emph{directrices} be $x = \pm a/e$.
-
-  A \emph{conic section} is the set of points whose distance from focus is $e \times$ distance from directrix which is closer to that of focus (unless $e = 1$, where we take the distance to the other directrix).
+\begin{defi}[Focus, directrix, and eccentricity]
+  Let $e \geq 0$ be a non-negative real number called the \emph{eccentricity}, and let $a > 0$ be a positive real number called the \emph{scale parameter}. A \emph{conic section} with eccentricity $e$ and scale $a$ is the locus of points $P$ such that
+  \[
+    \frac{\text{distance from } P \text{ to focus}}{\text{distance from } P \text{ to directrix}} = e.
+  \]
+  The \emph{foci} are located at $(\pm ae, 0)$ and the \emph{directrices} are the lines $x = \pm a/e$ (for $e \neq 0$).
 \end{defi}
 
-Now consider the different cases of $e$:
-\begin{enumerate}
-  \item $e < 1$. By definition,
-    \begin{center}
-      \begin{tikzpicture}
-        \draw [->] (-2.5, 0) -- (4, 0) node [right] {$x$};
-        \draw [->] (0, -2) -- (0, 2.5) node [above] {$y$};
-        \draw (0, 0) node [anchor = north east] {$O$};
-        \draw [dashed] (3.333, -2) -- (3.333, 2) node [above] {$x = a/e$};
+\begin{prop}[Focus-directrix characterization of conics]\label{prop:focus-directrix}
+  The conic sections are classified by eccentricity as follows:
+  \begin{enumerate}
+    \item \textbf{Ellipse} ($0 \leq e < 1$): The focus-directrix condition gives
+      \begin{center}
+        \begin{tikzpicture}
+          \draw [->] (-2.5, 0) -- (4, 0) node [right] {$x$};
+          \draw [->] (0, -2) -- (0, 2.5) node [above] {$y$};
+          \draw (0, 0) node [anchor = north east] {$O$};
+          \draw [dashed] (3.333, -2) -- (3.333, 2) node [above] {$x = a/e$};
 
-        \draw [dashed] (1.2, 0) node [anchor = south east] {$ae$} node [circ] {}
-        -- (1.6, 0.96) node [anchor = south west] {$(x, y)$} node [circ] {}
-        -- (3.333, 0.96);
-        \draw (0, 0) circle [x radius = 2, y radius = 1.6];
-      \end{tikzpicture}
-    \end{center}
-    \begin{align*}
-      \sqrt{(x - ae)^2 + y^2} &= e\left(\frac{a}{e} - x\right)\\
-      \frac{x^2}{a^2} + \frac{y^2}{a^2(1 - e^2)} = 1
-    \end{align*}
-    Which is an ellipse with semi-major axis $a$ and semi-minor axis $a\sqrt{1 - e^2}$. (if $e = 0$, then we have a circle)
+          \draw [dashed] (1.2, 0) node [anchor = south east] {$ae$} node [circ] {}
+          -- (1.6, 0.96) node [anchor = south west] {$(x, y)$} node [circ] {}
+          -- (3.333, 0.96);
+          \draw (0, 0) circle [x radius = 2, y radius = 1.6];
+        \end{tikzpicture}
+      \end{center}
+      \[
+        \sqrt{(x - ae)^2 + y^2} = e\left(\frac{a}{e} - x\right) \implies \frac{x^2}{a^2} + \frac{y^2}{a^2(1 - e^2)} = 1.
+      \]
+      This is an ellipse with semi-major axis $a$ and semi-minor axis $b = a\sqrt{1 - e^2}$. When $e = 0$, we obtain a circle.
 
-  \item $e > 1$. So
-    \begin{center}
-      \begin{tikzpicture}
-        \draw [->] (-4, 0) -- (4, 0) node [right] {$x$};
-        \draw [->] (0, -3) -- (0, 3) node [above] {$y$};
-        \draw (0, 0) node [anchor = north east] {$O$};
-        \draw [dashed] (1.333, -3) -- (1.333, 2.5) node [above] {$x = a/e$};
-        \draw [dashed] (3, 0) node [anchor = south west] {$ae$} node [circ] {}
-        -- (2.41, 1.5) node [right] {$(x, y)$} node [circ] {}
-        -- (1.333, 1.5);
+    \item \textbf{Hyperbola} ($e > 1$): The focus-directrix condition gives
+      \begin{center}
+        \begin{tikzpicture}
+          \draw [->] (-4, 0) -- (4, 0) node [right] {$x$};
+          \draw [->] (0, -3) -- (0, 3) node [above] {$y$};
+          \draw (0, 0) node [anchor = north east] {$O$};
+          \draw [dashed] (1.333, -3) -- (1.333, 2.5) node [above] {$x = a/e$};
+          \draw [dashed] (3, 0) node [anchor = south west] {$ae$} node [circ] {}
+          -- (2.41, 1.5) node [right] {$(x, y)$} node [circ] {}
+          -- (1.333, 1.5);
 
-        \draw plot[domain = -1:1] ({2*cosh(\x)},{2.23607*sinh(\x)});
-        \draw plot[domain = -1:1] ({-2*cosh(\x)},{2.23607*sinh(\x)});
-      \end{tikzpicture}
-    \end{center}
-    \begin{align*}
-      \sqrt{(x - ae)^2 + y^2} &= e\left(x - \frac{a}{e}\right)\\
-      \frac{x^2}{a^2} - \frac{y^2}{a^2(e^2 - 1)} &= 1
-    \end{align*}
-    and we have a hyperbola.
-  \item $e = 1$: Then
-    \begin{center}
-      \begin{tikzpicture}[yscale=0.4]
-        \draw [->] (-2.5, 0) -- (4, 0) node [right] {$x$};
-        \draw [->] (0, -6) -- (0, 6) node [above] {$y$};
-        \draw (0, 0) node [anchor = north east] {$O$};
-        \draw [dashed] (-2, -6) -- (-2, 5) node [above] {$x = a$};
-        \draw [dashed] (2, 0) node [anchor = south west] {$a$} node [circ] {}
-        -- (1.2, 3.1) node [right] {$(x, y)$} node [circ] {}
-        -- (-2, 3.1);
+          \draw plot[domain = -1:1] ({2*cosh(\x)},{2.23607*sinh(\x)});
+          \draw plot[domain = -1:1] ({-2*cosh(\x)},{2.23607*sinh(\x)});
+        \end{tikzpicture}
+      \end{center}
+      \[
+        \sqrt{(x - ae)^2 + y^2} = e\left(x - \frac{a}{e}\right) \implies \frac{x^2}{a^2} - \frac{y^2}{a^2(e^2 - 1)} = 1.
+      \]
 
-        \draw plot[domain = -5:5] ({\x*\x/8,\x});
-      \end{tikzpicture}
-    \end{center}
-    \begin{align*}
-      \sqrt{(x - a)^2 + y^2} &= (x + a)\\
-      y^2 &= 4ax
-    \end{align*}
-    and we have a parabola.
-\end{enumerate}
+    \item \textbf{Parabola} ($e = 1$): The focus-directrix condition gives
+      \begin{center}
+        \begin{tikzpicture}[yscale=0.4]
+          \draw [->] (-2.5, 0) -- (4, 0) node [right] {$x$};
+          \draw [->] (0, -6) -- (0, 6) node [above] {$y$};
+          \draw (0, 0) node [anchor = north east] {$O$};
+          \draw [dashed] (-2, -6) -- (-2, 5) node [above] {$x = -a$};
+          \draw [dashed] (2, 0) node [anchor = south west] {$a$} node [circ] {}
+          -- (1.2, 3.1) node [right] {$(x, y)$} node [circ] {}
+          -- (-2, 3.1);
 
-Conics also work in polar coordinates. We introduce a new parameter $l$ such that $l/e$ is the distance from the focus to the directrix. So
-\[
-  l = a|1 - e^2|.
-\]
-We use polar coordinates $(r, \theta)$ centered on a focus. So the focus-directrix property is
-\begin{align*}
-  r &= e\left(\frac{l}{e} - r\cos\theta\right)\\
-  r &= \frac{l}{1 + e\cos\theta}
-\end{align*}
-We see that $r\to \infty$ if $\theta \to \cos^{-1}(-1/e)$, which is only possible if $e\geq 1$, i.e.\ hyperbola or parabola. But ellipses have $e < 1$. So $r$ is bounded, as expected.
+          \draw plot[domain = -5:5] ({\x*\x/8,\x});
+        \end{tikzpicture}
+      \end{center}
+      \[
+        \sqrt{(x - a)^2 + y^2} = x + a \implies y^2 = 4ax.
+      \]
+  \end{enumerate}
+\end{prop}
+
+\begin{defi}[Semi-latus rectum]
+  The \emph{semi-latus rectum} $l$ is defined by $l = a|1 - e^2|$. Geometrically, $l/e$ equals the distance from the focus to the directrix.
+\end{defi}
+
+\begin{prop}[Polar form of conics]\label{prop:conic-polar}
+  In polar coordinates $(r, \theta)$ centered at a focus, the equation of a conic section is
+  \[
+    r = \frac{l}{1 + e\cos\theta}.
+  \]
+\end{prop}
+
+\begin{proof}
+  The focus-directrix property states that $r = e \cdot d$, where $d$ is the distance to the directrix. With the focus at the origin and the directrix at distance $l/e$, we have $d = l/e - r\cos\theta$. Thus
+  \[
+    r = e\left(\frac{l}{e} - r\cos\theta\right) = l - er\cos\theta,
+  \]
+  which rearranges to $r(1 + e\cos\theta) = l$.
+\end{proof}
+
+\begin{rmk}
+  From the polar form, we see that $r \to \infty$ when $\cos\theta \to -1/e$. This is only possible when $e \geq 1$ (hyperbola or parabola). For ellipses ($e < 1$), we have $|{-1/e}| > 1$, so $r$ remains bounded for all $\theta$, as expected for a closed curve.
+\end{rmk}
 
 \section{Transformation groups}
 We have previously seen that orthogonal matrices are used to transform between orthonormal bases. Alternatively, we can see them as transformations of space itself that preserve distances, which is something we will prove shortly.
