@@ -2337,13 +2337,15 @@ A \emph{second-order differential equation} involves the second derivative of th
 \end{remark}
 
 \section{Series solutions}
-Many differential equations cannot be solved in terms of elementary functions. However, it is often possible to find solutions expressed as power series (Taylor series or generalizations thereof). This approach is particularly important for equations arising in physics, such as Bessel's equation and Legendre's equation.
+\begin{remark}[Motivation]
+  Many differential equations cannot be solved in terms of elementary functions. However, it is often possible to find solutions expressed as power series (Taylor series or generalizations thereof). This approach is particularly important for equations arising in physics, such as Bessel's equation and Legendre's equation.
 
-We consider second-order linear equations of the form
-\[
-  p(x) y'' + q(x) y' + r(x) y = 0,
-\]
-where $p$, $q$, and $r$ are given functions. The behaviour of solutions depends critically on the nature of the point about which we expand.
+  We consider second-order linear equations of the form
+  \[
+    p(x) y'' + q(x) y' + r(x) y = 0,
+  \]
+  where $p$, $q$, and $r$ are given functions. The behaviour of solutions depends critically on the nature of the point about which we expand.
+\end{remark}
 
 \begin{defi}[Ordinary and singular points]
   Consider the equation $p(x) y'' + q(x) y' + r(x) y = 0$ with $p(x) \neq 0$.
@@ -2365,7 +2367,9 @@ where $p$, $q$, and $r$ are given functions. The behaviour of solutions depends 
   \end{enumerate}
 \end{eg}
 
-The following existence theorems (stated without proof) guide our approach:
+\begin{remark}
+  The following existence theorems (stated without proof) guide our approach.
+\end{remark}
 
 \begin{thm}[Series solution at ordinary points]
   If $x_0$ is an ordinary point of the equation $p(x)y'' + q(x)y' + r(x)y = 0$, then the equation has two linearly independent solutions of the form
@@ -2387,8 +2391,10 @@ The following existence theorems (stated without proof) guide our approach:
   where $f(x) = \sum_{n=0}^{\infty} a_n (x - x_0)^n$ is analytic at $x_0$.
 \end{thm}
 
-\subsubsection*{Ordinary points}
-At an ordinary point $x_0$, we substitute $y = \sum_{n=0}^{\infty} a_n (x - x_0)^n$ into the differential equation. This yields a recurrence relation for the coefficients $a_n$, with two of them (typically $a_0$ and $a_1$) remaining as arbitrary constants corresponding to the two linearly independent solutions.
+\subsubsection{Ordinary points}
+\begin{remark}[Method]
+  At an ordinary point $x_0$, we substitute $y = \sum_{n=0}^{\infty} a_n (x - x_0)^n$ into the differential equation. This yields a recurrence relation for the coefficients $a_n$, with two of them (typically $a_0$ and $a_1$) remaining as arbitrary constants corresponding to the two linearly independent solutions.
+\end{remark}
 
 \begin{eg}[Legendre-type series solution]
   Consider $(1 - x^2)y'' - 2xy' + 2y = 0$. We seek a series solution about $x = 0$, which is an ordinary point.
@@ -2430,8 +2436,10 @@ At an ordinary point $x_0$, we substitute $y = \sum_{n=0}^{\infty} a_n (x - x_0)
   The solution exhibits logarithmic behaviour near $x = \pm 1$, which are regular singular points of the equation. This is typical: solutions often have singular behaviour (such as logarithms or non-integer powers) near singular points of the differential equation.
 \end{remark}
 
-\subsubsection*{Regular singular points}
-At a regular singular point $x_0$, we use the Frobenius method: substitute $y = \sum_{n=0}^{\infty} a_n (x - x_0)^{n + \sigma}$ with $a_0 \neq 0$. The $n = 0$ term of the recurrence relation yields the \emph{indicial equation} for $\sigma$, which is typically a quadratic with two roots $\sigma_1$ and $\sigma_2$.
+\subsubsection{Regular singular points}
+\begin{remark}[Frobenius method]
+  At a regular singular point $x_0$, we use the \emph{Frobenius method}: substitute $y = \sum_{n=0}^{\infty} a_n (x - x_0)^{n + \sigma}$ with $a_0 \neq 0$ into the differential equation. The $n = 0$ term of the resulting recurrence relation yields the \emph{indicial equation} for $\sigma$, which is typically a quadratic with two roots $\sigma_1$ and $\sigma_2$.
+\end{remark}
 
 \begin{eg}[Frobenius with half-integer index]
   Consider $4xy'' + 2(1 - x^2)y' - xy = 0$. Here $x = 0$ is a singular point. Multiplying the equation by $x$ yields the equidimensional form
@@ -2495,8 +2503,10 @@ At a regular singular point $x_0$, we use the Frobenius method: substitute $y = 
   \]
 \end{eg}
 
-\subsubsection*{Resonance of solutions}
-The indicial equation is quadratic in $\sigma$, yielding two roots $\sigma_1$ and $\sigma_2$ (with $\Re(\sigma_1) \leq \Re(\sigma_2)$). Whether both roots give independent Frobenius series solutions depends on their difference.
+\subsubsection{Resonance of solutions}
+\begin{remark}
+  The indicial equation is quadratic in $\sigma$, yielding two roots $\sigma_1$ and $\sigma_2$ (with $\operatorname{Re}(\sigma_1) \leq \operatorname{Re}(\sigma_2)$). Whether both roots give independent Frobenius series solutions depends on their difference.
+\end{remark}
 
 \begin{prop}[Classification of Frobenius solutions]
   Let $\sigma_1$ and $\sigma_2$ be the roots of the indicial equation with $\Re(\sigma_1) \leq \Re(\sigma_2)$.
