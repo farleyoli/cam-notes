@@ -3350,34 +3350,34 @@ This section introduces three fundamental PDEs and the key technique of \emph{ch
   \]
 \end{eg}
 \subsection{Second-order wave equation}
-The \emph{second-order wave equation} (or simply the \emph{wave equation}) is
-\[
-  \frac{\partial ^2 y}{\partial t^2} = c^2 \frac{\partial^2 y}{\partial x^2}.
-\]
-This is classified as a \emph{hyperbolic PDE} (the terminology comes from the theory of characteristics, not from any connection to hyperbolas).
+
+\begin{defi}[Wave equation]
+  Let $c > 0$ be a constant and let $y(x, t)$ be a function of position $x$ and time $t$. The \emph{second-order wave equation} (or simply the \emph{wave equation}) is
+  \[
+    \frac{\partial ^2 y}{\partial t^2} = c^2 \frac{\partial^2 y}{\partial x^2}.
+  \]
+  This is classified as a \emph{hyperbolic PDE}.
+\end{defi}
 
 \subsubsection*{Physical motivation}
-The wave equation models vibrations of a string. Let $y(x, t)$ denote the vertical displacement of a string at position $x$ and time $t$:
-\begin{center}
-  \begin{tikzpicture}
-    \draw (0, 0) sin (1.5, 0.667) cos (3, 0) sin (4.5, -0.667) cos (6, 0);
-    \draw [dashed] (0, 0) -- (6, 0);
-    \draw [->] (1.5, 0) -- (1.5, 0.667) node [pos = 0.5, right] {$y$};
-  \end{tikzpicture}
-\end{center}
-Suppose that $\rho(x)$ is the mass per unit length of a string. Then the restoring force on the string $\displaystyle ma = \rho \frac{\partial ^2 y}{\partial t^2}$ is proportional to the second derivative $\displaystyle\frac{\partial^2 y}{\partial x^2}$. So we obtain this wave equation.
+
+\begin{remark}
+  The wave equation models vibrations of a string. Let $y(x, t)$ denote the vertical displacement of a string at position $x$ and time $t$:
+  \begin{center}
+    \begin{tikzpicture}
+      \draw (0, 0) sin (1.5, 0.667) cos (3, 0) sin (4.5, -0.667) cos (6, 0);
+      \draw [dashed] (0, 0) -- (6, 0);
+      \draw [->] (1.5, 0) -- (1.5, 0.667) node [pos = 0.5, right] {$y$};
+    \end{tikzpicture}
+  \end{center}
+  If $\rho(x)$ denotes the mass per unit length, then the restoring force per unit length $\rho \frac{\partial ^2 y}{\partial t^2}$ is proportional to the curvature $\frac{\partial^2 y}{\partial x^2}$, yielding the wave equation.
+\end{remark}
 
 \begin{remark}
   Why the second spatial derivative? The restoring force cannot depend on $y$ itself (translating the whole string causes no force) or on $\partial y/\partial x$ (a uniform slope has balanced forces). Only \emph{curvature}, measured by $\partial^2 y/\partial x^2$, produces a net restoring force.
 \end{remark}
 
 \subsubsection*{General solution (d'Alembert)}
-Assuming $c$ is constant, we can factor the wave operator:
-\begin{align*}
-  \frac{\partial ^2 y}{\partial t^2} - c^2 \frac{\partial^2 y}{\partial x^2} &= 0\\
-  \left(\frac{\partial}{\partial t} + c\frac{\partial}{\partial x}\right)\left(\frac{\partial}{\partial t} - c\frac{\partial}{\partial x}\right) y &= 0
-\end{align*}
-If $y = f(x + ct)$, then $(\partial_t - c\partial_x)y = 0$, so the product of operators gives zero. Similarly, $y = g(x - ct)$ satisfies $(\partial_t + c\partial_x)y = 0$. Since the equation is linear:
 
 \begin{prop}[d'Alembert's solution]
   The general solution to the wave equation $y_{tt} = c^2 y_{xx}$ is
@@ -3387,44 +3387,44 @@ If $y = f(x + ct)$, then $(\partial_t - c\partial_x)y = 0$, so the product of op
   where $f$ and $g$ are arbitrary twice-differentiable functions. This represents a superposition of a wave travelling left (with speed $c$) and a wave travelling right (with speed $c$).
 \end{prop}
 
-To verify this is the most general solution, substitute $\xi = x + ct$ and $\eta = x - ct$. The chain rule gives $y_{tt} - c^2 y_{xx} = -4c^2 y_{\xi\eta}$. Thus the wave equation becomes $y_{\xi\eta} = 0$, which integrates to $y = f(\xi) + g(\eta)$.
+\begin{proof}
+  Rewrite the wave equation as
+  \[
+    \frac{\partial ^2 y}{\partial t^2} - c^2 \frac{\partial^2 y}{\partial x^2} = \left(\frac{\partial}{\partial t} + c\frac{\partial}{\partial x}\right)\left(\frac{\partial}{\partial t} - c\frac{\partial}{\partial x}\right) y = 0.
+  \]
+  If $y = f(x + ct)$, then $(\partial_t - c\partial_x)y = 0$, so the product of operators gives zero. Similarly, $y = g(x - ct)$ satisfies $(\partial_t + c\partial_x)y = 0$. Since the equation is linear, $y = f(x + ct) + g(x - ct)$ is also a solution.
+
+  To see that this is the most general solution, introduce coordinates $\xi = x + ct$ and $\eta = x - ct$. The chain rule gives $y_{tt} - c^2 y_{xx} = -4c^2 y_{\xi\eta}$, so the wave equation becomes $y_{\xi\eta} = 0$. Integrating first with respect to $\xi$ and then with respect to $\eta$ yields $y = f(\xi) + g(\eta) = f(x + ct) + g(x - ct)$.
+\end{proof}
 
 \begin{remark}
   How many conditions do we need for a unique solution? In ODEs, we simply count the order of the equation. In PDEs, we must count over all variables. For the wave equation (second-order in both $x$ and $t$), we need 2 boundary conditions and 2 initial conditions.
 \end{remark}
 
-For example, we can have:
-\begin{itemize}
-  \item Initial conditions: at $t = 0$,
-    \begin{gather*}
-      y = \frac{1}{1 + x^2}\\
-      \frac{\partial y}{\partial t} = 0
-    \end{gather*}
-  \item Boundary conditions: $y \to 0$ as $x \to \pm \infty$.
-\end{itemize}
-We know that the solution has the form
-\[
-  y = f(x + ct) + g(x - ct).
-\]
-The first initial condition give
-\[
-  f(x) + g(x) = \frac{1}{1 + x^2}\tag{1}
-\]
-The second initial condition gives
-\[
-  \frac{\partial y}{\partial t} = cf'(x) - cg'(x)\tag{2} = 0
-\]
-From (2), we know that $f' = g'$. So $f$ and $g$ differ by a constant. wlog, we can assume that they are indeed equal, since if we had, say, $f = g + 2$, then we can let $y = (f(x + ct) + 1) + (g(x - ct) + 1)$ instead, and the new $f$ and $g$ are equal.
+\begin{eg}[Initial value problem on the real line]
+  Consider the wave equation $y_{tt} = c^2 y_{xx}$ with initial conditions
+  \[
+    y(x, 0) = \frac{1}{1 + x^2}, \quad \frac{\partial y}{\partial t}(x, 0) = 0,
+  \]
+  and boundary conditions $y \to 0$ as $x \to \pm \infty$.
 
-From (1), we must have
-\[
-  f(x) = g(x) = \frac{1}{2(1 + x^2)}
-\]
-So, overall,
-\[
-  y = \frac{1}{2}\left[\frac{1}{1 + (x + ct)^2} + \frac{1}{1 + (x - ct)^2}\right]
-\]
-Where we substituted $x$ for $x +ct$ and $x - ct$ in $f$ and $g$ respectively.
+  The general solution is $y = f(x + ct) + g(x - ct)$. The first initial condition gives
+  \[
+    f(x) + g(x) = \frac{1}{1 + x^2}. \tag{$*$}
+  \]
+  The second initial condition gives
+  \[
+    cf'(x) - cg'(x) = 0. \tag{$**$}
+  \]
+  From ($**$), $f' = g'$, so $f$ and $g$ differ by a constant. Without loss of generality, we may take $f = g$: if $f = g + C$ for some constant $C$, we can redefine $\tilde f = f - C/2$ and $\tilde g = g + C/2$ so that $\tilde f = \tilde g$ while $\tilde f + \tilde g = f + g$. Then ($*$) gives
+  \[
+    f(x) = g(x) = \frac{1}{2(1 + x^2)}.
+  \]
+  Substituting $x + ct$ and $x - ct$ for the arguments of $f$ and $g$ respectively, the solution is
+  \[
+    y = \frac{1}{2}\left[\frac{1}{1 + (x + ct)^2} + \frac{1}{1 + (x - ct)^2}\right].
+  \]
+\end{eg}
 
 \subsection{The diffusion equation}
 The \emph{diffusion equation} (or \emph{heat equation}) models heat conduction in a solid:
