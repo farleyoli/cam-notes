@@ -1218,49 +1218,70 @@ A \emph{differential equation} is an equation involving derivatives of an unknow
 \end{remark}
 
 \subsection{Fixed (equilibrium) points and stability}
-A key question in the qualitative study of differential equations is: what happens to solutions in the long run? This leads to the study of equilibria and their stability.
+\begin{remark}[Motivation]
+  A key question in the qualitative study of differential equations is: what happens to solutions in the long run? This leads to the study of equilibria and their stability.
+\end{remark}
 
 \begin{defi}[Equilibrium point]
   An \emph{equilibrium point} (or \emph{fixed point}) of the differential equation $\frac{\d y}{\d t} = f(t, y)$ is a constant solution $y = c$, satisfying $f(t, c) = 0$ for all $t$.
 \end{defi}
 
-Equilibrium points are found by solving $\frac{\d y}{\d t} = 0$. Once found, we ask whether nearby solutions approach the equilibrium or move away from it.
+\begin{remark}[Finding equilibrium points]
+  Equilibrium points are found by solving $\frac{\d y}{\d t} = 0$. Once found, the natural question is whether nearby solutions approach the equilibrium or move away from it.
+\end{remark}
 
 \begin{defi}[Stability]
   An equilibrium $y = c$ is \emph{stable} (or \emph{attracting}) if solutions starting near $c$ converge to $c$ as $t \to \infty$. It is \emph{unstable} (or \emph{repelling}) if solutions starting arbitrarily close to $c$ eventually move away from $c$.
 \end{defi}
-\begin{eg}[Stability of $y = \pm 1$]
-  Referring to the differential equation above ($\dot y = t (1 - y^2)$), the solutions converge towards $y = 1$, which is therefore a stable fixed point. They diverge from $y = -1$, which is an unstable fixed point.
+\begin{eg}[Stability of equilibria for $\dot{y} = t(1 - y^2)$]
+  Consider the differential equation $\dot{y} = t(1 - y^2)$. The equilibrium points are $y = 1$ and $y = -1$. From the solution curves (see the previous subsection), solutions converge towards $y = 1$, which is therefore a stable fixed point. They diverge from $y = -1$, which is an unstable fixed point.
 \end{eg}
 
 \subsubsection{Perturbation analysis}
-To determine stability analytically, we use \emph{linearisation}. Suppose $y = a$ is an equilibrium of $\frac{\d y}{\d t} = f(y, t)$, so $f(a, t) = 0$ for all $t$. Write $y = a + \varepsilon(t)$, where $\varepsilon(t)$ is a small perturbation. Substituting into the differential equation and Taylor expanding:
-\begin{align*}
-  \frac{\d \varepsilon}{\d t} &= f(a + \varepsilon, t) = f(a, t) + \varepsilon\frac{\partial f}{\partial y}(a, t) + O(\varepsilon^2) = \varepsilon\frac{\partial f}{\partial y}(a, t) + O(\varepsilon^2).
-\end{align*}
-For small $\varepsilon$, we neglect the $O(\varepsilon^2)$ term to obtain the \emph{linearised equation}
-\[
-  \frac{\d \varepsilon}{\d t} \approx \varepsilon\frac{\partial f}{\partial y}(a, t).
-\]
-This linear equation determines whether small perturbations grow or decay.
-\begin{eg}[Perturbation of $y = \pm 1$]
-  Using the example $\dot y = t(1 - y^2)$ above, we have
+\begin{defi}[Linearisation]
+  \emph{Linearisation} is a technique for determining the stability of an equilibrium by analysing the behaviour of small perturbations.
+\end{defi}
+
+\begin{prop}[Linearised equation near an equilibrium]
+  Consider the differential equation $\frac{\d y}{\d t} = f(y, t)$, and suppose $y = a$ is an equilibrium, so $f(a, t) = 0$ for all $t$. Let $\varepsilon(t)$ be a small perturbation, so that $y = a + \varepsilon(t)$. Then $\varepsilon$ satisfies the \emph{linearised equation}
+  \[
+    \frac{\d \varepsilon}{\d t} \approx \varepsilon\frac{\partial f}{\partial y}(a, t).
+  \]
+\end{prop}
+\begin{proof}
+  Substituting $y = a + \varepsilon$ into the differential equation and Taylor expanding:
+  \[
+    \frac{\d \varepsilon}{\d t} = f(a + \varepsilon, t) = f(a, t) + \varepsilon\frac{\partial f}{\partial y}(a, t) + O(\varepsilon^2) = \varepsilon\frac{\partial f}{\partial y}(a, t) + O(\varepsilon^2).
+  \]
+  For small $\varepsilon$, we neglect the $O(\varepsilon^2)$ term to obtain the linearised equation.
+\end{proof}
+
+\begin{remark}
+  The linearised equation determines whether small perturbations grow or decay, and hence whether the equilibrium is stable or unstable.
+\end{remark}
+\begin{eg}[Linearisation for $\dot{y} = t(1 - y^2)$]
+  Consider again the equation $\dot{y} = t(1 - y^2)$, with $f(y, t) = t(1 - y^2)$. The partial derivative is
   \[
     \frac{\partial f}{\partial y} = -2yt =
     \begin{cases}
-      -2t & \text{ at } y = 1\\
-      2t & \text{ at } y = -1
-    \end{cases}.
+      -2t & \text{at } y = 1,\\
+      2t & \text{at } y = -1.
+    \end{cases}
   \]
-  At $y = 1$, $\dot{\varepsilon} = -2t\varepsilon$ and $\varepsilon = \varepsilon_0 e^{-t^2}$. Since $\varepsilon \to 0$ as $t \to \infty$, $y \to 1$. So $y = 1$ is a stable fixed point.
-
-  On the other hand, if we consider $y = -1$, then $\dot\varepsilon = 2t\varepsilon$ and $\varepsilon = \varepsilon_0 e^{t^2}$. Since $\varepsilon \to \infty$ as $t\to \infty$, $y = -1$ is unstable.
-
-  Technically $\varepsilon \to \infty$ is not a correct statement, since the approximation used is only valid for small $\varepsilon$. But we can be sure that the perturbation grows (even if not $\to \infty$) as $t$ increases.
+  \begin{itemize}
+    \item At $y = 1$: the linearised equation is $\dot{\varepsilon} = -2t\varepsilon$, with solution $\varepsilon = \varepsilon_0 e^{-t^2}$. Since $\varepsilon \to 0$ as $t \to \infty$, the equilibrium $y = 1$ is \textbf{stable}.
+    \item At $y = -1$: the linearised equation is $\dot{\varepsilon} = 2t\varepsilon$, with solution $\varepsilon = \varepsilon_0 e^{t^2}$. Since $|\varepsilon|$ grows without bound as $t \to \infty$, the equilibrium $y = -1$ is \textbf{unstable}.
+  \end{itemize}
 \end{eg}
 
+\begin{remark}
+  In the above example, the statement ``$\varepsilon \to \infty$'' should be interpreted with care: the linearised approximation is only valid for small $\varepsilon$. However, the conclusion that $|\varepsilon|$ initially grows is sufficient to establish instability.
+\end{remark}
+
 \subsubsection{Autonomous systems}
-In many physical systems, the governing laws do not change with time, so $\frac{\d y}{\d t}$ depends only on $y$ itself.
+\begin{remark}[Motivation]
+  In many physical systems, the governing laws do not change with time, so $\frac{\d y}{\d t}$ depends only on $y$ itself.
+\end{remark}
 
 \begin{defi}[Autonomous system]
   A differential equation is \emph{autonomous} if it has the form $\frac{\d y}{\d t} = f(y)$, where $f$ does not depend explicitly on $t$.
@@ -1323,40 +1344,55 @@ In many physical systems, the governing laws do not change with time, so $\frac{
 \end{eg}
 
 \subsubsection{Logistic Equation}
-The logistic equation is a simple model of population dynamics. Suppose we have a population of size $y$. It has a birth rate $\alpha y$ and a death rate $\beta y$. With this model, we obtain
-\begin{align*}
-  \frac{\d y}{\d t} &= (\alpha - \beta)y\\
-  y &= y_0 e^{(\alpha - \beta)t}
-\end{align*}
-Our population increases or decreases exponentially depending on whether the birth rate exceeds death rate or vice versa.
+\begin{remark}[Motivation: exponential growth model]
+  Consider a population of size $y(t)$, with birth rate $\alpha y$ and death rate $\beta y$. This simple model gives
+  \[
+    \frac{\d y}{\d t} = (\alpha - \beta)y, \quad \text{with solution } y = y_0 e^{(\alpha - \beta)t}.
+  \]
+  The population increases or decreases exponentially depending on whether $\alpha > \beta$ or $\alpha < \beta$.
+\end{remark}
 
-However, in reality, there is fighting for limited resources. The probability of some piece of food (resource) being found is $\propto y$. The probability of the same piece of food being found by two individuals is $\propto y^2$. If food is scarce, they fight (to the death), so death rate due to fighting (competing) is $\gamma y^2$ for some $\gamma$. So
-\begin{align*}
-  \frac{\d y}{\d t} &= (\alpha - \beta)y - \gamma y^2\\
-  \frac{\d y}{\d t}&= ry \left(1 - \frac{y}{Y}\right),
-\end{align*}
-where $r = \alpha - \beta$ and $Y = r/\gamma$. This is the differential logistic equation. Note that it is separable and can be solved explicitly.
+\begin{remark}[Competition for resources]
+  In reality, individuals compete for limited resources. The probability of a resource being found by one individual is proportional to $y$; the probability of the same resource being found by two individuals (leading to competition) is proportional to $y^2$. If competition results in death, we add a term $-\gamma y^2$ to the death rate, for some constant $\gamma > 0$.
+\end{remark}
 
-However, we find the phase portrait instead. If $r = \alpha - \beta > 0$, then the graph is a quadratic parabola, and we see that $Y$ is a stable fixed point.
-\begin{center}
-  \begin{tikzpicture}[yscale = 1.5]
-    \draw [->] (-0.5, 0) -- (4.5, 0) node [right] {$y$};
-    \draw [->] (0, -1) -- (0, 2) node [above] {$f$};
-    \node [anchor = north east] at (0, 0) {$O$};
-    \draw [mblue, semithick] (0, 0) parabola bend (1.75, 1.5) (4, -.9796);
-    \node [anchor = north east] at (3.5, 0) {$Y$};
+\begin{defi}[Logistic equation]
+  The \emph{logistic equation} is the differential equation
+  \[
+    \frac{\d y}{\d t} = ry \left(1 - \frac{y}{Y}\right),
+  \]
+  where $r = \alpha - \beta$ is the net growth rate and $Y = r/\gamma$ is the \emph{carrying capacity}. This equation is separable and can be solved explicitly.
+\end{defi}
 
-    \draw [->-=0.5] (0, -1.5) -- (3.5, -1.5);
-    \draw [-<-=0.2, ->] (3.5, -1.5) -- (4.5, -1.5) node [right] {$y$};
-    \draw (0, -1.4) -- (0, -1.6) node [below] {$O$};
-    \draw (3.5, -1.4) -- (3.5, -1.6) node [below] {$Y$};
-  \end{tikzpicture}
-\end{center}
-Now when the population is small, we have
-\[
-  \dot y \simeq ry
-\]
-So the population grows exponentially. Eventually, the stable equilibrium $Y$ is reached.
+\begin{prop}[Stability analysis of the logistic equation]
+  Assume $r > 0$. The logistic equation has equilibria at $y = 0$ and $y = Y$. The equilibrium $y = 0$ is unstable and $y = Y$ is stable.
+\end{prop}
+\begin{proof}
+  Let $f(y) = ry(1 - y/Y)$. Setting $f(y) = 0$ gives equilibria at $y = 0$ and $y = Y$. For stability, we compute $f'(y) = r - 2ry/Y$:
+  \begin{itemize}
+    \item At $y = 0$: $f'(0) = r > 0$, so the equilibrium is unstable.
+    \item At $y = Y$: $f'(Y) = r - 2r = -r < 0$, so the equilibrium is stable.
+  \end{itemize}
+  The phase portrait below confirms this analysis:
+  \begin{center}
+    \begin{tikzpicture}[yscale = 1.5]
+      \draw [->] (-0.5, 0) -- (4.5, 0) node [right] {$y$};
+      \draw [->] (0, -1) -- (0, 2) node [above] {$f$};
+      \node [anchor = north east] at (0, 0) {$O$};
+      \draw [mblue, semithick] (0, 0) parabola bend (1.75, 1.5) (4, -.9796);
+      \node [anchor = north east] at (3.5, 0) {$Y$};
+
+      \draw [->-=0.5] (0, -1.5) -- (3.5, -1.5);
+      \draw [-<-=0.2, ->] (3.5, -1.5) -- (4.5, -1.5) node [right] {$y$};
+      \draw (0, -1.4) -- (0, -1.6) node [below] {$O$};
+      \draw (3.5, -1.4) -- (3.5, -1.6) node [below] {$Y$};
+    \end{tikzpicture}
+  \end{center}
+\end{proof}
+
+\begin{remark}[Small population behaviour]
+  When the population is small ($y \ll Y$), the logistic equation reduces to $\dot{y} \approx ry$, so the population grows exponentially. As the population approaches the carrying capacity, growth slows and eventually the stable equilibrium $y = Y$ is reached.
+\end{remark}
 
 \subsection{Discrete equations (Difference equations)}
 Differential equations are often approximated numerically using discrete equations, making it important to understand the behaviour of such discrete systems and how they may differ from their continuous counterparts.
