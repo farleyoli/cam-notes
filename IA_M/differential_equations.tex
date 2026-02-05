@@ -1395,132 +1395,163 @@ A \emph{differential equation} is an equation involving derivatives of an unknow
 \end{remark}
 
 \subsection{Discrete equations (Difference equations)}
-Differential equations are often approximated numerically using discrete equations, making it important to understand the behaviour of such discrete systems and how they may differ from their continuous counterparts.
+\begin{remark}[Motivation]
+  Differential equations are often approximated numerically using discrete equations, making it important to understand the behaviour of such discrete systems and how they may differ from their continuous counterparts. For example, population changes may occur at discrete time intervals (births in spring and deaths in winter).
+\end{remark}
 
-For the logistic equation, population changes may occur at discrete time intervals (for example, births in spring and deaths in winter). Measuring the population at regular intervals leads to a model of the form
-\[
-  x_{n + 1} = \lambda x_n(1 - x_n).
-\]
-This can be derived from the continuous equation with a discrete approximation
-\begin{align*}
-  \frac{y_{n+1} - y_n}{\Delta t} &= ry_n\left(1 - \frac{y_n}{Y}\right)\\
-  y_{n + 1} &= y_n + r\Delta ty_n\left(1 - \frac{y_n}{Y}\right)\\
-  &= (1 + r\Delta t)y_n - \frac{r\Delta t}{Y}y_n^2\\
-  &= (1 + r\Delta t)y_n\left[1 - \left(\frac{r\Delta t}{1 + r\Delta t}\right)\frac{y_n}{Y}\right]
-\end{align*}
-Write
-\[
-  \lambda = 1 + r\Delta t,\;\;\;\;\;\; x_n = \left(\frac{r\Delta t}{1 + r\Delta t}\right)\frac{y_n}{Y},
-\]
-then
-\[
-  x_{n+1}=\lambda x_n(1 - x_n).
-\]
-This is the discrete logistic equation or logistic map.
+\begin{defi}[Difference equation]
+  A \emph{difference equation} (or \emph{discrete dynamical system}) is a recurrence relation of the form $x_{n+1} = f(x_n)$, where $x_n$ denotes the state at discrete time step $n$.
+\end{defi}
 
-If $\lambda < 1$, then deaths exceed births and the population decays to zero.
-\begin{center}
-  \begin{tikzpicture}[scale=5]
-    \draw [<->] (0, 1) node [above] {$x_{n + 1}$} -- (0, 0) -- (1.2, 0) node [right] {$x_n$};
-    \draw [mgreen, semithick] (0, 0) -- (1, 1) node [right] {$x_{n + 1} = x_n$};
-    \draw [mblue, semithick] (0, 0) parabola bend (0.5, 0.225) (1, 0);
+\begin{defi}[Discrete logistic equation]
+  The \emph{discrete logistic equation} (or \emph{logistic map}) is the difference equation
+  \[
+    x_{n + 1} = \lambda x_n(1 - x_n),
+  \]
+  where $\lambda > 0$ is a parameter.
+\end{defi}
 
-    \draw [mred] (0.4, 0) node [below, black] {$x_0$}
-    -- (0.4, 0.216) -- (0.216, 0.216)
-    -- (0.216, 0.152) -- (0.152, 0.152)
-    -- (0.152, 0.116) -- (0.116, 0.116)
-    -- (0.116, 0.092) -- (0.092, 0.092)
-    -- (0.092, 0.075) -- (0.075, 0.075);
-  \end{tikzpicture}
-\end{center}
-We see that $x = 0$ is a fixed point.
+\begin{remark}[Derivation from the continuous logistic equation]
+  The discrete logistic equation can be derived from the continuous logistic equation $\dot{y} = ry(1 - y/Y)$ using a finite difference approximation. Replacing $\dot{y}$ by $(y_{n+1} - y_n)/\Delta t$:
+  \begin{align*}
+    \frac{y_{n+1} - y_n}{\Delta t} &= ry_n\left(1 - \frac{y_n}{Y}\right)\\
+    y_{n + 1} &= y_n + r\Delta t \cdot y_n\left(1 - \frac{y_n}{Y}\right)\\
+    &= (1 + r\Delta t)y_n\left[1 - \left(\frac{r\Delta t}{1 + r\Delta t}\right)\frac{y_n}{Y}\right].
+  \end{align*}
+  Substituting $\lambda = 1 + r\Delta t$ and $x_n = \frac{r\Delta t}{1 + r\Delta t} \cdot \frac{y_n}{Y}$ yields $x_{n+1} = \lambda x_n(1 - x_n)$.
+\end{remark}
 
-In general, to find fixed points, we solve for $x_{n + 1} = x_n$, i.e.\ $f(x_n) = x_n$. For the logistic map, we have
-\begin{align*}
-  \lambda x_n(1 - x_n) &= x_n\\
-  x_n[1 - \lambda(1 - x_n)] &= 0\\
-  x_n = 0 &\text{ or } x_n = 1 - \frac{1}{\lambda}
-\end{align*}
-When $1 < \lambda < 2$, we have
-\begin{center}
-  \begin{tikzpicture}[scale=5]
-    \draw [<->] (0, 1) node [above] {$x_{n + 1}$} -- (0, 0) -- (1.2, 0) node [right] {$x_n$};
-    \draw [mgreen, semithick] (0, 0) -- (1, 1) node [right] {$x_{n + 1} = x_n$};
-    \draw [mblue, semithick] (0, 0) parabola bend (0.5, 0.45) (1, 0);
+\begin{defi}[Fixed point of a difference equation]
+  A \emph{fixed point} of the difference equation $x_{n+1} = f(x_n)$ is a value $x^*$ such that $f(x^*) = x^*$. At a fixed point, the system remains stationary: if $x_n = x^*$, then $x_{n+1} = x^*$.
+\end{defi}
 
-    \draw [mred] (0.2, 0) node [below, black] {$x_0$}
-    -- (0.2, 0.288) -- (0.288, 0.288)
-    -- (0.288, 0.369) -- (0.369, 0.369)
-    -- (0.369, 0.419) -- (0.419, 0.419)
-    -- (0.419, 0.438) -- (0.438, 0.438)
-    -- (0.438, 0.443) -- (0.443, 0.443);
-  \end{tikzpicture}
-\end{center}
-We see that $x_n = 0$ is an unstable fixed point and $x_n = 1 - \frac{1}{\lambda}$ is a stable fixed point.
+\begin{prop}[Fixed points of the logistic map]
+  The logistic map $x_{n+1} = \lambda x_n(1 - x_n)$ has fixed points at $x = 0$ and $x = 1 - 1/\lambda$ (provided $\lambda \neq 0$).
+\end{prop}
+\begin{proof}
+  Setting $x_{n+1} = x_n = x$ in the logistic map:
+  \begin{align*}
+    \lambda x(1 - x) &= x\\
+    x[\lambda(1 - x) - 1] &= 0\\
+    x = 0 &\text{ or } x = 1 - \frac{1}{\lambda}. \qedhere
+  \end{align*}
+\end{proof}
 
-When $2 < \lambda < 3$, we have
-\begin{center}
-  \begin{tikzpicture}[scale=5]
-    \draw [<->] (0, 1) node [above] {$x_{n + 1}$} -- (0, 0) -- (1.2, 0) node [right] {$x_n$};
-    \draw [mgreen, semithick] (0, 0) -- (1, 1) node [right] {$x_{n + 1} = x_n$};
-    \draw [mblue, semithick] (0, 0) parabola bend (0.5, 0.675) (1, 0);
+\begin{eg}[Case $\lambda < 1$: decay to zero]
+  When $\lambda < 1$, deaths exceed births and the population decays to zero. The cobweb diagram below illustrates this: starting from $x_0$, the iterates spiral towards the fixed point $x = 0$.
+  \begin{center}
+    \begin{tikzpicture}[scale=5]
+      \draw [<->] (0, 1) node [above] {$x_{n + 1}$} -- (0, 0) -- (1.2, 0) node [right] {$x_n$};
+      \draw [mgreen, semithick] (0, 0) -- (1, 1) node [right] {$x_{n + 1} = x_n$};
+      \draw [mblue, semithick] (0, 0) parabola bend (0.5, 0.225) (1, 0);
 
-    \draw [mred] (0.1, 0) node [below, black] {$x_0$}
-    -- (0.1, 0.243) -- (0.243, 0.243)
-    -- (0.243, 0.497) -- (0.497, 0.497)
-    -- (0.497, 0.675) -- (0.675, 0.675)
-    -- (0.675, 0.592) -- (0.592, 0.592)
-    -- (0.592, 0.652) -- (0.652, 0.652)
-    -- (0.652, 0.613) -- (0.613, 0.613)
-    -- (0.613, 0.641) -- (0.641, 0.641)
-    -- (0.641, 0.621) -- (0.621, 0.621)
-    -- (0.621, 0.635) -- (0.635, 0.635)
-    -- (0.635, 0.626) -- (0.626, 0.626)
-    -- (0.626, 0.632) -- (0.632, 0.632)
-    -- (0.632, 0.628) -- (0.628, 0.628)
-    -- (0.628, 0.631) -- (0.631, 0.631)
-    -- (0.631, 0.629) -- (0.629, 0.629)
-    -- (0.629, 0.63) -- (0.63, 0.63)
-    -- (0.63, 0.629) -- (0.629, 0.629)
-    -- (0.629, 0.63) -- (0.63, 0.63);
-  \end{tikzpicture}
-\end{center}
-There is an oscillatory convergence to $x_n = 1 - \frac{1}{\lambda}$.
+      \draw [mred] (0.4, 0) node [below, black] {$x_0$}
+      -- (0.4, 0.216) -- (0.216, 0.216)
+      -- (0.216, 0.152) -- (0.152, 0.152)
+      -- (0.152, 0.116) -- (0.116, 0.116)
+      -- (0.116, 0.092) -- (0.092, 0.092)
+      -- (0.092, 0.075) -- (0.075, 0.075);
+    \end{tikzpicture}
+  \end{center}
+  Here $x = 0$ is a stable fixed point.
+\end{eg}
+\begin{eg}[Case $1 < \lambda < 2$: monotonic convergence]
+  When $1 < \lambda < 2$, the cobweb diagram shows monotonic convergence to the non-zero fixed point:
+  \begin{center}
+    \begin{tikzpicture}[scale=5]
+      \draw [<->] (0, 1) node [above] {$x_{n + 1}$} -- (0, 0) -- (1.2, 0) node [right] {$x_n$};
+      \draw [mgreen, semithick] (0, 0) -- (1, 1) node [right] {$x_{n + 1} = x_n$};
+      \draw [mblue, semithick] (0, 0) parabola bend (0.5, 0.45) (1, 0);
 
-When $\lambda > 3$, we have a limit cycle, in which $x_n$ oscillates between 2 values, i.e.\ $x_{n + 2} = x_n$. When $\lambda = 1 + \sqrt{6} \approx 3.449$, we have a 4-cycle, and so on.
-\begin{center}
-  \begin{tikzpicture}[scale=5]
-    \draw [<->] (0, 1) node [above] {$x_{n + 1}$} -- (0, 0) -- (1.2, 0) node [right] {$x_n$};
-    \draw [mgreen, semithick] (0, 0) -- (1, 1) node [right] {$x_{n + 1} = x_n$};
-    \draw [mblue, semithick] (0, 0) parabola bend (0.5, 0.8) (1, 0);
+      \draw [mred] (0.2, 0) node [below, black] {$x_0$}
+      -- (0.2, 0.288) -- (0.288, 0.288)
+      -- (0.288, 0.369) -- (0.369, 0.369)
+      -- (0.369, 0.419) -- (0.419, 0.419)
+      -- (0.419, 0.438) -- (0.438, 0.438)
+      -- (0.438, 0.443) -- (0.443, 0.443);
+    \end{tikzpicture}
+  \end{center}
+  Here $x = 0$ is an unstable fixed point and $x = 1 - 1/\lambda$ is a stable fixed point.
+\end{eg}
 
-    \draw [mred] (0.15, 0) node [below, black] {$x_0$}
-    -- (0.15, 0.408) -- (0.408, 0.408)
-    -- (0.408, 0.773) -- (0.773, 0.773)
-    -- (0.773, 0.562) -- (0.562, 0.562)
-    -- (0.562, 0.788) -- (0.788, 0.788)
-    -- (0.788, 0.535) -- (0.535, 0.535)
-    -- (0.535, 0.796) -- (0.796, 0.796)
-    -- (0.796, 0.52) -- (0.52, 0.52)
-    -- (0.52, 0.799) -- (0.799, 0.799)
-    -- (0.799, 0.514) -- (0.514, 0.514)
-    -- (0.514, 0.799) -- (0.799, 0.799)
-    -- (0.799, 0.514) -- (0.514, 0.514)
-    -- (0.514, 0.799) -- (0.799, 0.799)
-    -- (0.799, 0.514) -- (0.514, 0.514)
-    -- (0.514, 0.799) -- (0.799, 0.799)
-    -- (0.799, 0.514) -- (0.514, 0.514)
-    -- (0.514, 0.799) -- (0.799, 0.799)
-    -- (0.799, 0.514) -- (0.514, 0.514);
-  \end{tikzpicture}
-\end{center}
-We have the following plot of the stable solutions for different values of $\lambda$ (plotted as $r$ in the horizontal axis)
-\begin{center}
-  \includegraphics[width=330pt]{images/de_bifurcation.png}
+\begin{eg}[Case $2 < \lambda < 3$: oscillatory convergence]
+  When $2 < \lambda < 3$, the iterates oscillate around the fixed point but still converge:
+  \begin{center}
+    \begin{tikzpicture}[scale=5]
+      \draw [<->] (0, 1) node [above] {$x_{n + 1}$} -- (0, 0) -- (1.2, 0) node [right] {$x_n$};
+      \draw [mgreen, semithick] (0, 0) -- (1, 1) node [right] {$x_{n + 1} = x_n$};
+      \draw [mblue, semithick] (0, 0) parabola bend (0.5, 0.675) (1, 0);
 
-  Credits: Wikimedia Commons: Jordan Pierce - Public Domain CC0 1.0
-\end{center}
-Note that the fixed point still exists after $\lambda = 3$, but is no longer stable. Similarly, the 2-cycles still exist after $\lambda = 1 + \sqrt{6}$, but it is not stable.
+      \draw [mred] (0.1, 0) node [below, black] {$x_0$}
+      -- (0.1, 0.243) -- (0.243, 0.243)
+      -- (0.243, 0.497) -- (0.497, 0.497)
+      -- (0.497, 0.675) -- (0.675, 0.675)
+      -- (0.675, 0.592) -- (0.592, 0.592)
+      -- (0.592, 0.652) -- (0.652, 0.652)
+      -- (0.652, 0.613) -- (0.613, 0.613)
+      -- (0.613, 0.641) -- (0.641, 0.641)
+      -- (0.641, 0.621) -- (0.621, 0.621)
+      -- (0.621, 0.635) -- (0.635, 0.635)
+      -- (0.635, 0.626) -- (0.626, 0.626)
+      -- (0.626, 0.632) -- (0.632, 0.632)
+      -- (0.632, 0.628) -- (0.628, 0.628)
+      -- (0.628, 0.631) -- (0.631, 0.631)
+      -- (0.631, 0.629) -- (0.629, 0.629)
+      -- (0.629, 0.63) -- (0.63, 0.63)
+      -- (0.63, 0.629) -- (0.629, 0.629)
+      -- (0.629, 0.63) -- (0.63, 0.63);
+    \end{tikzpicture}
+  \end{center}
+  There is oscillatory convergence to the stable fixed point $x = 1 - 1/\lambda$.
+\end{eg}
+
+\begin{defi}[Limit cycle]
+  A \emph{limit cycle} (or \emph{periodic orbit}) of period $k$ is a sequence of $k$ distinct values $x_1, x_2, \ldots, x_k$ such that $x_{n+k} = x_n$ for all $n$. In other words, the system cycles through these $k$ values repeatedly.
+\end{defi}
+
+\begin{eg}[Case $\lambda > 3$: limit cycles and chaos]
+  When $\lambda > 3$, the fixed point $x = 1 - 1/\lambda$ becomes unstable and the system exhibits a \emph{limit cycle}, oscillating between 2 values (i.e., $x_{n+2} = x_n$):
+  \begin{center}
+    \begin{tikzpicture}[scale=5]
+      \draw [<->] (0, 1) node [above] {$x_{n + 1}$} -- (0, 0) -- (1.2, 0) node [right] {$x_n$};
+      \draw [mgreen, semithick] (0, 0) -- (1, 1) node [right] {$x_{n + 1} = x_n$};
+      \draw [mblue, semithick] (0, 0) parabola bend (0.5, 0.8) (1, 0);
+
+      \draw [mred] (0.15, 0) node [below, black] {$x_0$}
+      -- (0.15, 0.408) -- (0.408, 0.408)
+      -- (0.408, 0.773) -- (0.773, 0.773)
+      -- (0.773, 0.562) -- (0.562, 0.562)
+      -- (0.562, 0.788) -- (0.788, 0.788)
+      -- (0.788, 0.535) -- (0.535, 0.535)
+      -- (0.535, 0.796) -- (0.796, 0.796)
+      -- (0.796, 0.52) -- (0.52, 0.52)
+      -- (0.52, 0.799) -- (0.799, 0.799)
+      -- (0.799, 0.514) -- (0.514, 0.514)
+      -- (0.514, 0.799) -- (0.799, 0.799)
+      -- (0.799, 0.514) -- (0.514, 0.514)
+      -- (0.514, 0.799) -- (0.799, 0.799)
+      -- (0.799, 0.514) -- (0.514, 0.514)
+      -- (0.514, 0.799) -- (0.799, 0.799)
+      -- (0.799, 0.514) -- (0.514, 0.514)
+      -- (0.514, 0.799) -- (0.799, 0.799)
+      -- (0.799, 0.514) -- (0.514, 0.514);
+    \end{tikzpicture}
+  \end{center}
+  As $\lambda$ increases further, the 2-cycle becomes unstable and a 4-cycle appears (at $\lambda = 1 + \sqrt{6} \approx 3.449$), then an 8-cycle, and so on.
+\end{eg}
+
+\begin{remark}[Bifurcation diagram]
+  The following bifurcation diagram shows the stable long-term behaviour of the logistic map for different values of $\lambda$ (plotted as $r$ on the horizontal axis):
+  \begin{center}
+    \includegraphics[width=330pt]{images/de_bifurcation.png}
+
+    Credits: Wikimedia Commons: Jordan Pierce - Public Domain CC0 1.0
+  \end{center}
+\end{remark}
+
+\begin{remark}[Persistence of unstable structures]
+  The fixed point $x = 1 - 1/\lambda$ continues to exist for $\lambda > 3$, but it is no longer stable. Similarly, the 2-cycles persist for $\lambda > 1 + \sqrt{6}$, but they become unstable as higher-period cycles take over.
+\end{remark}
 
 \section{Second-order differential equations}
 A \emph{second-order differential equation} involves the second derivative of the unknown function. Such equations arise naturally in physics, particularly in mechanics where Newton's second law $F = ma$ relates force to acceleration (the second derivative of position). While this section focuses on second-order equations, most of the methods presented here generalize to higher-order differential equations as well.
