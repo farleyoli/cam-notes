@@ -1118,7 +1118,9 @@ A \emph{differential equation} is an equation involving derivatives of an unknow
 \end{eg}
 
 \subsection{Solution curves (trajectories)}
-The solutions to a first-order differential equation $\frac{\d y}{\d t} = f(t, y)$ form a family of curves in the $(t, y)$-plane, called \emph{solution curves} or \emph{trajectories}. Each curve corresponds to a particular initial condition.
+\begin{defi}[Solution curves]
+  The solutions to a first-order differential equation $\frac{\d y}{\d t} = f(t, y)$ form a family of curves in the $(t, y)$-plane, called \emph{solution curves} or \emph{trajectories}. Each curve corresponds to a particular choice of initial condition.
+\end{defi}
 
 \begin{eg}[Solution family for $\dot{y} = t(1-y^2)$]
   Consider the first-order equation
@@ -1127,12 +1129,12 @@ The solutions to a first-order differential equation $\frac{\d y}{\d t} = f(t, y
   \]
   This is separable. Separating variables and integrating:
   \begin{align*}
-    \frac{\d y}{1 - y^2} &= t\; \d t\\
+    \frac{\d y}{1 - y^2} &= t\, \d t\\
     \frac{1}{2}\ln\frac{1 + y}{1 - y} &= \frac{1}{2}t^2 + C\\
     \frac{1 + y}{1 - y} &= Ae^{t^2}\\
-    y &= \frac{A - e^{-t^2}}{A + e^{-t^2}}
+    y &= \frac{Ae^{t^2} - 1}{Ae^{t^2} + 1} = \frac{A - e^{-t^2}}{A + e^{-t^2}}.
   \end{align*}
-  We can plot the solution for different values of $A$ and obtain the following graph:
+  The solution curves for different values of $A$ are shown below:
   \begin{center}
     \begin{tikzpicture}
       \draw [->] (-1, 0) -- (5, 0) node [right] {$t$};
@@ -1153,51 +1155,66 @@ The solutions to a first-order differential equation $\frac{\d y}{\d t} = f(t, y
   \end{center}
 \end{eg}
 
-It is often possible to understand the qualitative behaviour of solutions without solving the equation explicitly.
+\begin{remark}[Qualitative analysis]
+  It is often possible to understand the qualitative behaviour of solutions without solving the equation explicitly. For the equation $\dot{y} = t(1 - y^2)$:
+  \begin{enumerate}
+    \item The values $y = \pm 1$ are constant solutions, since $\dot{y} = 0$ when $y = \pm 1$.
+    \item At $t = 0$, we have $\dot{y} = 0$ for all values of $y$ (solutions have horizontal tangent).
+    \item For $t > 0$: $\dot{y} > 0$ if $|y| < 1$, and $\dot{y} < 0$ if $|y| > 1$.
+  \end{enumerate}
+\end{remark}
 
-First, observe that $y = \pm 1$ are constant solutions (since $\dot{y} = 0$ when $y = \pm 1$). Also note that $y' = 0$ at $t = 0$ for any value of $y$.
+\begin{defi}[Isoclines]
+  An \emph{isocline} of the differential equation $\frac{\d y}{\d t} = f(t, y)$ is a curve along which $\frac{\d y}{\d t}$ is constant. For a constant $D$, the isocline is defined by $f(t, y) = D$.
+\end{defi}
 
-For $t > 0$, we have $y' > 0$ if $-1 < y < 1$, and $y' < 0$ otherwise.
+\begin{remark}[Sketching solutions using isoclines]
+  To visualise solutions without solving explicitly, one can draw several isoclines and mark the slope direction along each. For the equation $\dot{y} = t(1 - y^2)$, setting $t(1 - y^2) = D$ gives the isoclines $y^2 = 1 - D/t$. The following figure shows isoclines (in green) with slope indicators, along with representative solution curves (in red):
+  \begin{center}
+    \begin{tikzpicture}
+      \def\arrowlength{0.3}
+      \tikzset{isocline/.style = {
+        mgreen,
+        decoration = {
+          markings,
+          mark=between positions 0.05 and 1 step 0.1 with {
+            \pgftransformresetnontranslations
+            \pgftransformrotate{#1}
+            \draw [black, arrows={-latex'}] (-\arrowlength/2, 0) -- +(\arrowlength, 0);
+          }
+        },
+        postaction={decorate}
+      }};
 
-To visualise the solutions, we can draw \emph{isoclines}: curves along which $\frac{\d y}{\d t}$ is constant. Setting $t(1 - y^2) = D$ for a constant $D$ gives $y^2 = 1 - D/t$. After marking several isoclines, we can sketch the approximate form of the solutions:
-\begin{center}
-  \begin{tikzpicture}
-    \def\arrowlength{0.3}
-    \tikzset{isocline/.style = {
-      mgreen,
-      decoration = {
-        markings,
-        mark=between positions 0.05 and 1 step 0.1 with {
-          \pgftransformresetnontranslations
-          \pgftransformrotate{#1}
-          \draw [black, arrows={-latex'}] (-\arrowlength/2, 0) -- +(\arrowlength, 0);
-        }
-      },
-      postaction={decorate}
-    }};
+      \draw [->] (-1, 0) -- (5, 0) node [right] {$t$};
+      \draw [->] (0, -2.2) -- (0, 2.2) node [above] {$y$};
 
-    \draw [->] (-1, 0) -- (5, 0) node [right] {$t$};
-    \draw [->] (0, -2.2) -- (0, 2.2) node [above] {$y$};
+      \draw (0, -1) node [left] {$-1$} -- (5, -1);
+      \draw (0, 1) node [left] {$1$} -- (5, 1);
 
-    \draw (0, -1) node [left] {$-1$} -- (5, -1);
-    \draw (0, 1) node [left] {$1$} -- (5, 1);
+      \draw [isocline=55] (5, 0.8) .. controls (-0.5, 0.4) and (-0.5, -0.4) .. (5, -0.8);
+      \draw [isocline=-70] (0.3, 2.2) parabola [bend at end] (5, 1.2);
+      \draw [isocline=-70] (0.3, -2.2) parabola [bend at end] (5, -1.2);
 
-    \draw [isocline=55] (5, 0.8) .. controls (-0.5, 0.4) and (-0.5, -0.4) .. (5, -0.8);
-    \draw [isocline=-70] (0.3, 2.2) parabola [bend at end] (5, 1.2);
-    \draw [isocline=-70] (0.3, -2.2) parabola [bend at end] (5, -1.2);
+      \foreach \y in {-1.66666, -1.33333, -0.66666, -0.33333, 0.33333, 0.66666, 1.33333, 1.66666} {
+        \draw [arrows={-latex'}] (0, \y) -- +(\arrowlength, 0);
+      }
 
-    \foreach \y in {-1.66666, -1.33333, -0.66666, -0.33333, 0.33333, 0.66666, 1.33333, 1.66666} {
-      \draw [arrows={-latex'}] (0, \y) -- +(\arrowlength, 0);
-    }
+      \draw [semithick, mred] (0, -0.66666) .. controls (2, -0.66666) and (0, 0.9) .. (4, 0.9) -- (5, 0.9);
 
-    \draw [semithick, mred] (0, -0.66666) .. controls (2, -0.66666) and (0, 0.9) .. (4, 0.9) -- (5, 0.9);
+      \draw [semithick, mred] (0, -1.33333) .. controls (1, -1.33333) and (2, -1.5) .. (2, -2.2);
+      \draw [semithick, mred] (0, 1.66666) .. controls (1, 1.66666) and (2, 1.1) .. (4, 1.1) -- (5, 1.1);
+    \end{tikzpicture}
+  \end{center}
+\end{remark}
 
-    \draw [semithick, mred] (0, -1.33333) .. controls (1, -1.33333) and (2, -1.5) .. (2, -2.2);
-    \draw [semithick, mred] (0, 1.66666) .. controls (1, 1.66666) and (2, 1.1) .. (4, 1.1) -- (5, 1.1);
-  \end{tikzpicture}
-\end{center}
-\begin{remark}
-  In general, the solution curves of a differential equation $\frac{\d y}{\d t} = f(t, y)$ can be sketched by first locating constant solutions (equilibria), determining their stability (as discussed in the next section), and drawing isoclines.
+\begin{remark}[General strategy for sketching solution curves]
+  In general, solution curves of a differential equation $\frac{\d y}{\d t} = f(t, y)$ can be sketched by:
+  \begin{enumerate}
+    \item Locating constant solutions (equilibria) by solving $f(t, y) = 0$.
+    \item Determining their stability (discussed in the next subsection).
+    \item Drawing isoclines and marking slope directions.
+  \end{enumerate}
 \end{remark}
 
 \subsection{Fixed (equilibrium) points and stability}
