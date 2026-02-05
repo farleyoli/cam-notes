@@ -2199,51 +2199,48 @@ A \emph{second-order differential equation} involves the second derivative of th
   The asymptotic response is out of phase with the forcing: while the forcing is $\sin\tau$, the long-time response is proportional to $\cos\tau$.
 \end{eg}
 \subsection{Impulses and point forces}
-In many applications, forces act over very short time intervals. Rather than model the detailed time-dependence of such forces, it is often convenient to idealize them as acting instantaneously. This leads to the concept of the \emph{Dirac delta function}.
+\begin{remark}[Motivation]
+  In many applications, forces act over very short time intervals. Rather than model the detailed time-dependence of such forces, it is often convenient to idealize them as acting instantaneously. This leads to the concept of the \emph{Dirac delta function}.
+\end{remark}
 
 \subsubsection{Dirac delta function}
-Consider a ball bouncing on the ground. When the ball hits the ground at some time $T$, it experiences a force from the ground for some short period of time. The force on the ball exerted by the ground $F(t)$ is $0$ for most of the time, except during the short period $(T - \varepsilon, T + \varepsilon)$.
+\begin{eg}[Impulse of a bouncing ball]
+  Consider a ball of mass $m$ bouncing on the ground under gravity. When the ball hits the ground at time $T$, it experiences a contact force $F(t)$ from the ground, which is nonzero only during the short interval $(T - \varepsilon, T + \varepsilon)$. Newton's second law gives $m\ddot x = F(t) - mg$. Integrating from $T - \varepsilon$ to $T + \varepsilon$:
+  \begin{align*}
+    \int_{T - \varepsilon}^{T + \varepsilon} m\frac{\d ^2 x}{\d t^2}\;\d t &= \int_{T - \varepsilon}^{T + \varepsilon} F(t)\;\d t - \int_{T - \varepsilon}^{T + \varepsilon} mg\;\d t\\
+    \left[ m\frac{\d x}{\d t}\right]^{T + \varepsilon}_{T - \varepsilon} &= I - 2\varepsilon mg\\
+    \Delta p &= I - O(\varepsilon),
+  \end{align*}
+  where $\Delta p$ is the change in momentum and $I = \int_{T - \varepsilon}^{T + \varepsilon} F(t) \;\d t$ is the \emph{impulse} (the area under the force curve). If the contact time $2\varepsilon$ is small, we neglect the $O(\varepsilon)$ term and write $\Delta p = I$. Thus the only property of $F$ that influences the macroscopic behaviour is its integral $I$.
+\end{eg}
 
-Often we don't know (or we don't wish to know) the details of $F(t)$ but we can note that it only acts for a short time of $O(\varepsilon)$ that is much shorter than the overall time $O(t_2 - t_1)$ of the system. It is convenient mathematically to imagine the force acting instantaneously at time $t = T$, i.e.\ consider the limit $\varepsilon\to 0$.
+\begin{remark}[Nascent delta functions]
+  The preceding example motivates the following construction. Without loss of generality, take $T = 0$. Consider a family of functions $D(t; \varepsilon)$ satisfying
+  \begin{gather*}
+    \lim_{\varepsilon\to 0} D(t; \varepsilon) = 0 \quad\text{for all }t \neq 0;\\
+    \lim_{\varepsilon\to 0}\int_{-\infty}^\infty D(t; \varepsilon) \;\d t = 1.
+  \end{gather*}
+  Such a family is called a \emph{nascent delta function}. The force in the example above can then be replaced by $I\,D(t; \varepsilon)$, and we take the limit $\varepsilon \to 0$.
 
-Newton's second law gives $m\ddot x = F(t) - mg$. While we cannot solve it, we can integrate the equation from $T - \varepsilon$ to $T + \varepsilon$. So
-\begin{align*}
-  \int_{T - \varepsilon}^{T + \varepsilon} m\frac{\d ^2 x}{\d t^2}\;\d t &= \int_{T - \varepsilon}^{T + \varepsilon} F(t)\;\d t - \int_{T - \varepsilon}^{T + \varepsilon} mg\;\d t\\
-  \left[ m\frac{\d x}{\d t}\right]^{T + \varepsilon}_{T - \varepsilon} &= I - 2\varepsilon mg\\
-  \Delta p &= I - O(\varepsilon)
-\end{align*}
-Where $\Delta p$ is the change in momentum and the impulse $I = \int_{T - \varepsilon}^{T + \varepsilon} F(t) \;\d t$ is the area under the force curve. Note that the impulse $I$ is the only property of $F$ that influences the macroscopic behaviour of the system. If the contact time $2\varepsilon$ is small, we'll neglect it and write
-\[
-  \Delta p = I
-\]
-Assuming that $F$ only acts on a negligible amount of time $\varepsilon$, all that matters to us is its integral $I$, i.e.\ the area under the force curve.
+  For instance, one may choose the Gaussian family
+  \[
+    D(t; \varepsilon) = \frac{1}{\varepsilon\sqrt{\pi}}e^{-t^2/\varepsilon^2},
+  \]
+  which has height $O(1/\varepsilon)$ and width $O(\varepsilon)$.
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (-3, 0) -- (3.25, 0) node [right] {$t$};
+      \draw [->, use as bounding box] (0, 0) -- (0, 4) node [above] {$D$};
 
-Without loss of generality, assume $T = 0$ for easier mathematical treatment. We can consider a family of functions $D(t; \varepsilon)$ such that
-\begin{gather*}
-  \lim_{\varepsilon\to 0} D(t; \varepsilon) = 0 \text{ for all }t \not= 0;\\
-  \lim_{\varepsilon\to 0}\int_{-\infty}^\infty D(t; \varepsilon) \;\d t = 1.
-\end{gather*}
-So we can replace the force in our example by $ID(t; \varepsilon)$, and then take the limit as $\varepsilon \to 0$.
+      \draw [semithick, mblue, domain=-3:3, samples = 100] plot (\x, { 1.6 * exp( - \x * \x)});
+      \draw [semithick, morange, domain=-3:3, samples = 100] plot (\x, { 3.2 * exp( - 4 * \x * \x)});
 
-For example, we can choose
-\[
-  D(t; \varepsilon) = \frac{1}{\varepsilon\sqrt{\pi}}e^{-t^2/\varepsilon^2}
-\]
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (-3, 0) -- (3.25, 0) node [right] {$t$};
-    \draw [->, use as bounding box] (0, 0) -- (0, 4) node [above] {$D$};
-
-    \draw [semithick, mblue, domain=-3:3, samples = 100] plot (\x, { 1.6 * exp( - \x * \x)});
-    \draw [semithick, morange, domain=-3:3, samples = 100] plot (\x, { 3.2 * exp( - 4 * \x * \x)});
-
-    \draw [mblue, semithick] (3.5, 2.25) -- (4, 2.25) node [right, black] {$\varepsilon = 1$};
-    \draw [morange, semithick] (3.5, 1.75) -- (4, 1.75) node [right, black] {$\varepsilon = 0.5$};
-  \end{tikzpicture}
-\end{center}
-This has height $O(1/\varepsilon)$ and width $O(\varepsilon)$.
-
-It can be checked that this satisfies the properties listed above. Note that as $\varepsilon \to 0$, $D(0; \varepsilon)\to \infty$. Therefore $\displaystyle \lim_{\varepsilon\to 0} D(0; \varepsilon)$ does not exist.
+      \draw [mblue, semithick] (3.5, 2.25) -- (4, 2.25) node [right, black] {$\varepsilon = 1$};
+      \draw [morange, semithick] (3.5, 1.75) -- (4, 1.75) node [right, black] {$\varepsilon = 0.5$};
+    \end{tikzpicture}
+  \end{center}
+  Note that $D(0; \varepsilon) \to \infty$ as $\varepsilon \to 0$, so $\lim_{\varepsilon\to 0} D(0; \varepsilon)$ does not exist as an ordinary function value.
+\end{remark}
 
 \begin{defi}[Dirac delta function]
   The \emph{Dirac delta function} is defined by
@@ -2263,70 +2260,61 @@ It can be checked that this satisfies the properties listed above. Note that as 
   More generally, $\int_a^b g(x)\delta(x - c)\;\d x = g(c)$ if $c\in (a, b)$ and $0$ otherwise, provided $g$ is continuous at $x = c$.
 \end{defi}
 
-This gives a convenient way of representing and making calculations involving impulsive or point forces. For example, in the previous example, we can write
-\[
-  m\ddot x = -mg + I\delta(t - T).
-\]
+\begin{remark}
+  The delta function gives a convenient way of representing impulsive or point forces. For instance, the bouncing ball example above can be written as $m\ddot x = -mg + I\delta(t - T)$.
+\end{remark}
 
 \begin{eg}[Impulsive forcing]
-  $y'' - y = 3\delta(x - \frac{\pi}{2})$ with $y = 0$ at $x = 0, \pi$. Note that our function $y$ is split into two parts by $x = \frac{\pi}{2}$.
+  Consider $y'' - y = 3\delta(x - \frac{\pi}{2})$ with boundary conditions $y(0) = 0$ and $y(\pi) = 0$. The delta function splits the domain into two regions.
 
-  First consider the region $0 \leq x < \frac{\pi}{2}$. Here the delta function is $0$, and we have $y'' - y = 0$ and $y = 0$ at $x = 0$. Then $y = Ce^x + De^{-x} = A\sinh x + B\cosh x$ and obtain $B = 0$ from the boundary condition.
-  In the region $\frac{\pi}{2} < x \leq \pi$, we again obtain $y = C\sinh(\pi - x) + D\cosh (\pi - x)$ and (from the boundary condition), $D = 0$.
+  In the region $0 \leq x < \frac{\pi}{2}$, the delta function is zero, so we solve $y'' - y = 0$ with $y(0) = 0$. The general solution is $y = A\sinh x + B\cosh x$, and the boundary condition gives $B = 0$.
 
-  When $x = \frac{\pi}{2}$, first insist that $y$ is continuous at $x = \frac{\pi}{2}$. So $A = C$. Then note that we have to solve
+  In the region $\frac{\pi}{2} < x \leq \pi$, we again solve $y'' - y = 0$, now with $y(\pi) = 0$. Writing the solution as $y = C\sinh(\pi - x) + D\cosh(\pi - x)$, the boundary condition gives $D = 0$.
+
+  At $x = \frac{\pi}{2}$, we impose two conditions. First, continuity of $y$ requires $A\sinh\frac{\pi}{2} = C\sinh\frac{\pi}{2}$, so $A = C$. Second, integrating the original equation from $\frac{\pi}{2}^-$ to $\frac{\pi}{2}^+$ gives
   \[
-    y'' - y = 3\delta\left(x - \frac{\pi}{2}\right)
+    [y']^{\frac{\pi}{2}^+}_{\frac{\pi}{2}^-} - \int_{\frac{\pi}{2}^-}^{\frac{\pi}{2}^+} y\;\d x = 3.
   \]
-  But remember that the delta function makes sense only in an integral. So we integrate both sides from $\frac{\pi}{2}^-$ to$\frac{\pi}{2}^+$. Then we obtain
-  \[
-    [y']^{\frac{\pi}{2}^+}_{\frac{\pi}{2}^-} - \int_{\frac{\pi}{2}^-}^{\frac{\pi}{2}^+} y\;\d x= 3
-  \]
-  Since we assume that $y$ is well behaved, the second integral is 0. So we are left with
-  \[
-    [y']^{\frac{\pi}{2}^+}_{\frac{\pi}{2}^-} = 3
-  \]
-  So we have
+  Since $y$ is continuous, the integral vanishes, leaving $[y']^{\frac{\pi}{2}^+}_{\frac{\pi}{2}^-} = 3$. Computing the derivatives:
   \begin{align*}
-    -C\cosh \frac{\pi}{2} - A\cosh\frac{\pi}{2} &= 3\\
-    A = C &= \frac{-3}{2\cosh \frac{\pi}{2}}
+    -C\cosh \frac{\pi}{2} - A\cosh\frac{\pi}{2} &= 3,\\
+    A = C &= \frac{-3}{2\cosh \frac{\pi}{2}}.
   \end{align*}
+  Therefore the solution is
+  \[
+    y =
+    \begin{cases}
+      \dfrac{-3\sinh x}{2\cosh \frac{\pi}{2}} & 0 \leq x < \frac{\pi}{2},\\[6pt]
+      \dfrac{-3\sinh(\pi - x)}{2\cosh \frac{\pi}{2}} & \frac{\pi}{2} < x \leq \pi.
+    \end{cases}
+  \]
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (7, 0) node [right] {$x$};
+
+      \draw [->] (0, 0) -- (0, -3.5) node [below] {$y$};
+
+      \draw [semithick, mblue, domain=0:1.5708] plot ({2 * \x}, {-1.3 * sinh (\x)});
+      \draw [semithick, mblue, domain=1.5708:3.14159] plot ({2 * \x}, {-1.3 * sinh (pi - \x)});
+    \end{tikzpicture}
+  \end{center}
 \end{eg}
-Then we have
-\[
-  y =
-  \begin{cases}
-    \frac{-3\sinh x}{2\cosh \frac{\pi}{2}} & 0 \leq x < \frac{\pi}{2}\\
-    \frac{-3\sinh(\pi - x)}{2\cosh \frac{\pi}{2}} & \frac{\pi}{2} < x \leq \pi
-  \end{cases}
-\]
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (7, 0) node [right] {$x$};
 
-    \draw [->] (0, 0) -- (0, -3.5) node [below] {$y$};
-
-    \draw [semithick, mblue, domain=0:1.5708] plot ({2 * \x}, {-1.3 * sinh (\x)});
-    \draw [semithick, mblue, domain=1.5708:3.14159] plot ({2 * \x}, {-1.3 * sinh (pi - \x)});
-  \end{tikzpicture}
-\end{center}
-\begin{remark}
-  At $x = \frac{\pi}{2}$, the solution has continuous $y$, discontinuous $y'$, and infinite $y''$. In general, differentiating a function makes it \emph{less} continuous. This is why we insisted that $y$ be continuous: otherwise, $y'$ would look like a delta function, and $y''$ would be unrecognizable.
+\begin{remark}[Regularity at the delta function]
+  At $x = \frac{\pi}{2}$, the solution has continuous $y$, discontinuous $y'$, and infinite $y''$. In general, differentiating a function makes it \emph{less} continuous. This is why we insisted that $y$ be continuous: otherwise, $y'$ would contain a delta function, and $y''$ would be unrecognizable.
 
   The discontinuity is always ``absorbed'' by the highest-order derivative, since differentiation increases the severity of discontinuities.
 \end{remark}
 
 \subsubsection{Heaviside step function}
-The Dirac delta function is the derivative of the \emph{Heaviside step function}, which is useful for modelling forces or inputs that ``turn on'' at a particular time.
-
 \begin{defi}[Heaviside step function]
   The \emph{Heaviside step function} (or unit step function) is defined by
   \[
-    H(x) = \int_{-\infty}^x \delta(t) \;\d t
+    H(x) = \int_{-\infty}^x \delta(t) \;\d t.
   \]
-  We have
+  Evaluating the integral gives
   \[
-    H(x) =\begin{cases} 0 & x < 0\\1 & x > 0\\\text{undefined} & x = 0\end{cases}
+    H(x) =\begin{cases} 0 & x < 0,\\1 & x > 0,\\\text{undefined} & x = 0.\end{cases}
   \]
   \begin{center}
     \begin{tikzpicture}
@@ -2339,10 +2327,14 @@ The Dirac delta function is the derivative of the \emph{Heaviside step function}
   \end{center}
   By the fundamental theorem of calculus,
   \[
-    \frac{\d H}{\d x} = \delta(x)
+    \frac{\d H}{\d x} = \delta(x).
   \]
-  But remember that these functions and relationships can only be used inside integrals.
+  As with $\delta$, these relationships can only be used inside integrals.
 \end{defi}
+
+\begin{remark}
+  The Heaviside step function is useful for modelling forces or inputs that ``turn on'' at a particular time.
+\end{remark}
 
 \section{Series solutions}
 Many differential equations cannot be solved in terms of elementary functions. However, it is often possible to find solutions expressed as power series (Taylor series or generalizations thereof). This approach is particularly important for equations arising in physics, such as Bessel's equation and Legendre's equation.
