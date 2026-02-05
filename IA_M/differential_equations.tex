@@ -2014,64 +2014,85 @@ A \emph{second-order differential equation} involves the second derivative of th
 \end{remark}
 
 \subsection{Difference equations}
-A \emph{difference equation} (or \emph{recurrence relation}) relates values of a sequence $y_n$ at different indices. The techniques for solving difference equations closely parallel those for differential equations.
+\begin{defi}[Difference equation]
+  A \emph{difference equation} (or \emph{recurrence relation}) relates values of a sequence $y_n$ at different indices. A \emph{second-order linear difference equation with constant coefficients} has the form
+  \[
+    ay_{n + 2} + by_{n + 1} + cy_n = f_n,
+  \]
+  where $a, b, c$ are constants with $a \neq 0$, and $f_n$ is a given sequence called the \emph{forcing term}. The equation is \emph{homogeneous} if $f_n = 0$ for all $n$.
+\end{defi}
 
-Consider a second-order linear difference equation of the form
-\[
-  a y_{n + 2} + by_{n + 1} + cy_n = f_n,
-\]
-where $a$, $b$, $c$ are constants and $f_n$ is a given sequence. We solve this by exploiting linearity and finding eigenfunctions, just as for differential equations.
+\begin{remark}[Solution strategy]
+  The techniques for solving difference equations closely parallel those for differential equations: we exploit linearity and find eigenfunctions. The general solution is $y_n = y_n^c + y_n^p$, where $y_n^c$ is the complementary function (solving the homogeneous equation) and $y_n^p$ is a particular integral.
+\end{remark}
 
-Define the \emph{shift operator} $S[y_n] = y_{n + 1}$. The function $y_n = k^n$ is an eigenfunction of $S$ with eigenvalue $k$, since $S[k^n] = k^{n + 1} = k \cdot k^n$.
+\begin{defi}[Shift operator]
+  The \emph{shift operator} $S$ acts on sequences by $S[y_n] = y_{n+1}$.
+\end{defi}
 
-To solve the difference equation, we first look for complementary functions satisfying
-\[
-  ay_{n + 2} + by_{n + 1} + cy_n = 0
-\]
-We try $y_n = k^n$ to obtain
-\begin{align*}
-  ak^{n + 2} + bk^{n + 1} + ck^n &= 0\\
-  ak^2 + bk + c &= 0
-\end{align*}
-from which we can determine $k$. So the general complementary function is $y_n^c = Ak_1^n + Bk_2^n$ if $k_1 \not= k_2$. If they are equal, then $y_n^c = (A + Bn)k^n$.
+\begin{remark}[Eigenfunction ansatz]
+  The function $y_n = k^n$ is an eigenfunction of $S$ with eigenvalue $k$, since $S[k^n] = k^{n+1} = k \cdot k^n$. This motivates seeking solutions to the homogeneous difference equation of the form $y_n = k^n$.
+\end{remark}
 
-To find the particular integral, we guess.
-\begin{center}
-  \begin{tabular}{cc}
-    \toprule
-    $f_n$ & $y_n^p$\\
-    \midrule
-    $k^n$ & $Ak^n$ if $k \not= k_1, k_2$\\
-    $k_1^n$ & $nk_1^n$\\
-    $n^p$ & $An^p + Bn^{p - 1} + \cdots + Cn + D$\\
-    \bottomrule
-  \end{tabular}
-\end{center}
+\begin{prop}[Characteristic equation]
+  The function $y_n = k^n$ is a solution of $ay_{n+2} + by_{n+1} + cy_n = 0$ if and only if $k$ satisfies the \emph{characteristic equation}
+  \[
+    ak^2 + bk + c = 0.
+  \]
+\end{prop}
+\begin{proof}
+  Substituting $y_n = k^n$ gives
+  \[
+    ak^{n+2} + bk^{n+1} + ck^n = k^n(ak^2 + bk + c) = 0.
+  \]
+  Since $k^n \neq 0$ (assuming $k \neq 0$), we require $ak^2 + bk + c = 0$.
+\end{proof}
+
+\begin{prop}[Complementary function]
+  Let $k_1$ and $k_2$ be the roots of the characteristic equation $ak^2 + bk + c = 0$.
+  \begin{enumerate}
+    \item If $k_1 \neq k_2$, the general complementary function is $y_n^c = Ak_1^n + Bk_2^n$.
+    \item If $k_1 = k_2 = k$, the general complementary function is $y_n^c = (A + Bn)k^n$.
+  \end{enumerate}
+  Here $A$ and $B$ are arbitrary constants.
+\end{prop}
+
+\begin{remark}[Particular integrals by inspection]
+  To find a particular integral, one uses trial solutions analogous to those for differential equations. A summary of standard guesses is given in the following table, where $k_1$ and $k_2$ denote the roots of the characteristic equation.
+  \begin{center}
+    \begin{tabular}{cc}
+      \toprule
+      $f_n$ & Trial $y_n^p$\\
+      \midrule
+      $k^n$ (with $k \neq k_1, k_2$) & $Ck^n$\\
+      $k_1^n$ & $Cnk_1^n$\\
+      $n^p$ & $C_pn^p + C_{p-1}n^{p - 1} + \cdots + C_1 n + C_0$\\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+\end{remark}
 
 \begin{eg}[Fibonacci sequence]
-  The Fibonacci sequence is defined by
+  The Fibonacci sequence is defined by the recurrence
   \[
-    y_n = y_{n - 1} + y_{n - 2}
+    y_n = y_{n-1} + y_{n-2},
   \]
-  with $y_0 = y_1 = 1$.
-
-  We can write this as
+  with initial conditions $y_0 = y_1 = 1$. Rewriting in standard form gives
   \[
-    y_{n + 2} - y_{n + 1} - y_n = 0
+    y_{n+2} - y_{n+1} - y_n = 0.
   \]
-  We try $y_n = k^n$. Then $k^2 - k - 1 = 0$. Then
-  \begin{align*}
-    k^2 - k - 1 &= 0\\
-    k &= \frac{1 \pm \sqrt{5}}{2}
-  \end{align*}
-  We write $k = \varphi_1, \varphi_2$. Then $y_n = A\varphi_1^n + B\varphi_2^n$. Our initial conditions give
-  \begin{align*}
-    A + B &= 1\\
-    A\varphi_1 + B\varphi_2 &= 1
-  \end{align*}
-  We get $\displaystyle A = \frac{\varphi_1}{\sqrt{5}}$ and $\displaystyle B = \frac{-\varphi_2}{\sqrt{5}}$. So
+  The characteristic equation is $k^2 - k - 1 = 0$, with roots
   \[
-    y_n = \frac{\varphi_1^{n + 1} - \varphi_2^{n + 1}}{\sqrt{5}} = \frac{\varphi_1^{n + 1} - \left(\frac{-1}{\varphi_1}\right)^{n + 1}}{\sqrt{5}}
+    k = \frac{1 \pm \sqrt{5}}{2}.
+  \]
+  Write $\varphi_1 = \frac{1 + \sqrt{5}}{2}$ and $\varphi_2 = \frac{1 - \sqrt{5}}{2}$. The general solution is $y_n = A\varphi_1^n + B\varphi_2^n$. Applying the initial conditions:
+  \begin{align*}
+    A + B &= 1,\\
+    A\varphi_1 + B\varphi_2 &= 1.
+  \end{align*}
+  Solving gives $A = \dfrac{\varphi_1}{\sqrt{5}}$ and $B = \dfrac{-\varphi_2}{\sqrt{5}}$, so
+  \[
+    y_n = \frac{\varphi_1^{n+1} - \varphi_2^{n+1}}{\sqrt{5}} = \frac{\varphi_1^{n+1} - \left(\frac{-1}{\varphi_1}\right)^{n+1}}{\sqrt{5}}.
   \]
 \end{eg}
 
