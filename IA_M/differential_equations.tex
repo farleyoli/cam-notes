@@ -1557,37 +1557,48 @@ A \emph{differential equation} is an equation involving derivatives of an unknow
 A \emph{second-order differential equation} involves the second derivative of the unknown function. Such equations arise naturally in physics, particularly in mechanics where Newton's second law $F = ma$ relates force to acceleration (the second derivative of position). While this section focuses on second-order equations, most of the methods presented here generalize to higher-order differential equations as well.
 
 \subsection{Constant coefficients}
-The general form of an equation with constant coefficients is
-\[
-  ay'' + by' + cy = f(x).
-\]
-We solve this in two steps:
-\begin{enumerate}
-  \item Find the complementary functions which satisfy the homogeneous equation $ay'' + by' + cy = 0$.
-  \item Find a particular solution that satisfies the full equation.
-\end{enumerate}
+\begin{defi}[Second-order linear ODE with constant coefficients]
+  A \emph{second-order linear ordinary differential equation with constant coefficients} has the form
+  \[
+    ay'' + by' + cy = f(x),
+  \]
+  where $a, b, c$ are constants with $a \neq 0$, and $f(x)$ is a given function called the \emph{forcing term}. The equation is \emph{homogeneous} if $f(x) = 0$.
+\end{defi}
+
+\begin{remark}[Solution strategy]
+  We solve such equations in two steps:
+  \begin{enumerate}
+    \item Find the \emph{complementary function} $y_c$ which satisfies the homogeneous equation $ay'' + by' + cy = 0$.
+    \item Find a \emph{particular integral} $y_p$ that satisfies the full equation.
+  \end{enumerate}
+  The general solution is then $y = y_c + y_p$.
+\end{remark}
 \subsubsection{Complementary functions}
-Recall that $e^{\lambda x}$ is an eigenfunction of the differential operator $\frac{\d}{\d x}$. Hence it is also an eigenfunction of the second derivative $\frac{\d^2}{\d x^2} = \frac{\d}{\d x}\left(\frac{\d }{\d x}\right)$.
+\begin{remark}[Exponential ansatz]
+  Recall that $e^{\lambda x}$ is an eigenfunction of the differential operator $\frac{\d}{\d x}$, and hence also of $\frac{\d^2}{\d x^2}$. This motivates seeking solutions of the form $y = e^{\lambda x}$.
+\end{remark}
 
-If we seek a complementary function of the form $y_c = e^{\lambda x}$, then $y'_c = \lambda e^{\lambda x}$ and $y''_c = \lambda^2 e^{\lambda x}$. Substituting into the homogeneous equation $ay'' + by' + cy = 0$ gives
-\[
-  a\lambda^2 e^{\lambda x} + b\lambda e^{\lambda x} + c e^{\lambda x} = e^{\lambda x}(a\lambda^2 + b\lambda + c) = 0.
-\]
-Since $e^{\lambda x} \neq 0$, we require $a\lambda^2 + b\lambda + c = 0$.
-
-\begin{defi}[Characteristic equation]
-  The \emph{characteristic equation} of a (second-order) differential equation $ay'' + by' + cy = 0$ is
+\begin{prop}[Characteristic equation]
+  The function $y = e^{\lambda x}$ is a solution of $ay'' + by' + cy = 0$ if and only if $\lambda$ satisfies the \emph{characteristic equation}
   \[
     a\lambda^2 + b\lambda + c = 0.
   \]
-\end{defi}
+\end{prop}
+\begin{proof}
+  Substituting $y = e^{\lambda x}$ (so $y' = \lambda e^{\lambda x}$ and $y'' = \lambda^2 e^{\lambda x}$) into the equation gives
+  \[
+    a\lambda^2 e^{\lambda x} + b\lambda e^{\lambda x} + c e^{\lambda x} = e^{\lambda x}(a\lambda^2 + b\lambda + c) = 0.
+  \]
+  Since $e^{\lambda x} \neq 0$, we require $a\lambda^2 + b\lambda + c = 0$.
+\end{proof}
 
-In this case there are two solutions to the characteristic equation, giving (in principle) two complementary functions $y_1 = e^{\lambda_1 x}$ and $y_2 = e^{\lambda_2 x}$.
-
-If $\lambda_1$ and $\lambda_2$ are distinct, then $y_1$ and $y_2$ are linearly independent and complete --- they form a basis of the solution space. The (most) general complementary function is
-\[
-  y_c = Ae^{\lambda_1 x} + Be^{\lambda_2 x}.
-\]
+\begin{prop}[General solution with distinct roots]
+  Let $\lambda_1$ and $\lambda_2$ be the roots of the characteristic equation. If $\lambda_1 \neq \lambda_2$, then $y_1 = e^{\lambda_1 x}$ and $y_2 = e^{\lambda_2 x}$ are linearly independent, and the general complementary function is
+  \[
+    y_c = Ae^{\lambda_1 x} + Be^{\lambda_2 x},
+  \]
+  where $A$ and $B$ are arbitrary constants.
+\end{prop}
 \begin{eg}[Distinct real roots]
   $y'' - 5y' + 6y = 0$. Try $y = e^{\lambda x}$. The characteristic equation is $\lambda^2 - 5\lambda + 6 = 0$. Then $\lambda = 2$ or $3$. So the general solution is $y = Ae^{2x} + Be^{3x}$.
 
@@ -1606,63 +1617,70 @@ If $\lambda_1$ and $\lambda_2$ are distinct, then $y_1$ and $y_2$ are linearly i
   In effect, we have changed the basis from $\{e^{2ix}, e^{-2ix}\}$ to $\{\cos 2x$, $\sin 2x\}$.
 \end{eg}
 
-\begin{eg}[Degeneracy] $y'' - 4y' + 4y = 0$.
+\begin{eg}[Repeated roots: detuning method]
+  Consider $y'' - 4y' + 4y = 0$. The characteristic equation is $\lambda^2 - 4\lambda + 4 = (\lambda - 2)^2 = 0$, giving a repeated root $\lambda = 2$. Thus we only obtain one solution $y_1 = e^{2x}$, but a second-order equation requires two independent solutions.
 
-  Try $y = e^{\lambda x}$. We have $\lambda ^2 - 4\lambda + 4 = 0$ and $(\lambda - 2)^2 = 0$. So $\lambda = 2$ or $2$. But $e^{2x}$ and $e^{2x}$ are clearly not linearly independent. We have only managed to find one basis function of the solution space, but a second order equation has a 2 dimensional solution space. We need to find a second solution.
-
-  We can perform \emph{detuning}. We can separate the two functions found above from each other by considering $y'' - 4y' + (4 - \varepsilon^2)y = 0$. This turns into the equation we want to solve as $\varepsilon \to 0$. Try $y = e^{\lambda x}$. We obtain $\lambda^2 - 4\lambda + 4 - \varepsilon^2 = 0$. The two roots are $\lambda = 2 \pm \varepsilon$. Then
+  To find a second solution, we use \emph{detuning}: consider instead $y'' - 4y' + (4 - \varepsilon^2)y = 0$, which reduces to our equation as $\varepsilon \to 0$. The characteristic equation $\lambda^2 - 4\lambda + 4 - \varepsilon^2 = 0$ now has distinct roots $\lambda = 2 \pm \varepsilon$. Thus
   \begin{align*}
-    y &= Ae^{(2 + \varepsilon)x} + Be^{(2 - \varepsilon)x}\\
-    &= e^{2x}[A e^{\varepsilon x} + Be^{-\varepsilon x}]
-    \intertext{Taking the limit as $\varepsilon \to 0$, we use the Taylor expansion of $e^{\varepsilon x}$ to obtain}
-    y &= e^{2x}[(A + B) + \varepsilon x(A - B) + O(A\varepsilon^2, B\varepsilon^2)]
-    \intertext{We let $(A + B) = \alpha$ and $\varepsilon(A - B) = \beta$. This is perfectly valid for any non-zero $\varepsilon$. Then $A = \frac{1}{2}(\alpha + \frac{\beta}{\varepsilon})$ and $B = \frac{1}{2}(\alpha - \frac{\beta}{\varepsilon})$. So we have}
-    y &= e^{2x}[\alpha + \beta x + O(A\varepsilon^2, B\varepsilon^2)]\\
-    \intertext{We know for any $\varepsilon$, we have a solution of this form. Now we turn the procedure around. We fix some $\alpha$ and $\beta$. Then given any $\varepsilon$, we can find some constants $A$, $B$ (depending on $\varepsilon$) such that the above holds. As we decrease the size of $\varepsilon$, we have $A, B = O(\frac{1}{\varepsilon})$. So $O(A\varepsilon^2) = O(B\varepsilon^2) = O(\varepsilon)$. So our solution becomes}
-    y &= e^{2x}[\alpha + \beta x + O(\varepsilon)]\\
-    &\to e^{2x}(\alpha + \beta x)
+    y &= Ae^{(2 + \varepsilon)x} + Be^{(2 - \varepsilon)x} = e^{2x}[A e^{\varepsilon x} + Be^{-\varepsilon x}].
+    \intertext{Taylor expanding in $\varepsilon$:}
+    y &= e^{2x}[(A + B) + \varepsilon x(A - B) + O(\varepsilon^2)].
+    \intertext{Setting $\alpha = A + B$ and $\beta = \varepsilon(A - B)$, and taking $\varepsilon \to 0$:}
+    y &\to e^{2x}(\alpha + \beta x).
   \end{align*}
-  In this way, we have derived two separate basis functions.
-
-\begin{prop}[Degenerate complementary functions]
-  If the characteristic equation of a linear differential equation with constant coefficients has a repeated root, and $y_1(x)$ is the corresponding complementary function, then $y_2(x) = xy_1(x)$ is an independent complementary function.
-\end{prop}
+  Thus the general solution is $y = (\alpha + \beta x)e^{2x}$, with basis functions $e^{2x}$ and $xe^{2x}$.
 \end{eg}
 
+\begin{prop}[General solution with repeated roots]
+  If the characteristic equation $a\lambda^2 + b\lambda + c = 0$ has a repeated root $\lambda_0$, then the general complementary function is
+  \[
+    y_c = (A + Bx)e^{\lambda_0 x},
+  \]
+  where $A$ and $B$ are arbitrary constants. That is, if $y_1 = e^{\lambda_0 x}$ is one solution, then $y_2 = xe^{\lambda_0 x}$ is an independent second solution.
+\end{prop}
+
 \subsubsection{Second complementary function (reduction of order)}
-When the characteristic equation has a repeated root, the detuning method shows that $xy_1(x)$ is a second independent solution. More generally, for equations without constant coefficients, we can find a second complementary function by the method of \emph{reduction of order}: if $y_1(x)$ is one solution, we seek a second solution of the form $y_2(x) = v(x)y_1(x)$ for some unknown function $v(x)$.
+\begin{remark}[Motivation]
+  When the characteristic equation has a repeated root, the detuning method shows that $xy_1(x)$ is a second independent solution. More generally, even for equations without constant coefficients, we can find a second complementary function using \emph{reduction of order}.
+\end{remark}
+
+\begin{defi}[Reduction of order]
+  Given one solution $y_1(x)$ of a second-order homogeneous linear ODE, the method of \emph{reduction of order} seeks a second solution of the form $y_2(x) = v(x)y_1(x)$ for some unknown function $v(x)$.
+\end{defi}
 
 \begin{eg}[Reduction of order]
-  Consider $y'' - 4y' + 4y = 0$. We have $y_1 = e^{2x}$. We try $y_2 = ve^{2x}$. Then
+  Consider $y'' - 4y' + 4y = 0$, with known solution $y_1 = e^{2x}$. We seek $y_2 = v(x)e^{2x}$. Then
   \begin{align*}
-    y_2' &= (v' + 2v)e^{2x}\\
+    y_2' &= (v' + 2v)e^{2x},\\
     y_2'' &= (v'' + 4v' + 4v)e^{2x}.
   \end{align*}
-  Substituting into the original equation gives
+  Substituting into the equation:
   \[
-    (v'' + 4v' + 4v) - 4(v' + 2v) + 4v = 0.
+    (v'' + 4v' + 4v) - 4(v' + 2v) + 4v = v'' = 0.
   \]
-  Simplifying, this tells us $v'' = 0$, which forces $v$ to be a linear function of $x$. So $y_2 = (Ax + B)e^{2x}$ for some $A, B \in \R$.
+  Thus $v$ is linear in $x$, so $v = Ax + B$, and $y_2 = (Ax + B)e^{2x}$.
 \end{eg}
 
 \subsubsection{Phase space}
-To understand the structure of solutions to higher-order differential equations, it is helpful to introduce the concept of \emph{phase space}.
+\begin{remark}[Motivation]
+  To understand the structure of solutions to higher-order differential equations, it is helpful to introduce the concept of \emph{phase space}. For an $n$th-order equation, the solution is not determined by $y(x_0)$ alone---we also need the values of $y'(x_0), \ldots, y^{(n-1)}(x_0)$.
+\end{remark}
 
-Consider a general $n$th order differential equation of the form
-\[
-  a_n(x) y^{(n)} + a_{n - 1}(x)y^{(n - 1)} + \cdots + a_1(x) y' + a_0 (x) y = f(x),
-\]
-where $a_n(x) \neq 0$. Given a solution $y$, we can plot $y$ versus $x$ to see how $y$ evolves with $x$.
+\begin{defi}[Phase space and solution vector]
+  Consider an $n$th-order differential equation
+  \[
+    a_n(x) y^{(n)} + a_{n - 1}(x)y^{(n - 1)} + \cdots + a_1(x) y' + a_0 (x) y = f(x),
+  \]
+  where $a_n(x) \neq 0$. The \emph{solution vector} (or \emph{state vector}) is defined as
+  \[
+    \mathbf{Y}(x) = (y(x), y'(x), \ldots, y^{(n-1)}(x)).
+  \]
+  The \emph{phase space} is the $n$-dimensional space in which $\mathbf{Y}(x)$ lies.
+\end{defi}
 
-However, for such an equation, the solution is not determined by the initial condition $y(x_0)$ alone---we also need $y'(x_0)$, $y''(x_0)$, etc. A snapshot of only the value $y(x_0)$ provides no information about future evolution.
-
-How much information do we actually need? At any point $x_0$, if we are given the values $y(x_0)$, $y'(x_0)$, $\ldots$, $y^{(n - 1)}(x_0)$ (the first $n-1$ derivatives), we can compute the $n$th derivative from the differential equation itself, and hence all higher derivatives. This means we know the Taylor series of $y$ about $x_0$, and the solution is uniquely determined by these $n$ initial conditions. (A rigorous proof of existence and uniqueness requires more work, as covered in IB Analysis II.)
-
-Thus we are led to consider the \emph{solution vector}
-\[
-  \mathbf{Y}(x) = (y(x), y'(x), \cdots , y^{n - 1}(x)).
-\]
-We say such a vector lies in the \emph{phase space}, which is an $n$-dimensional space. So for each $x$, we thus get a point $\mathbf{Y}(x)$ lying in the $n$-dimensional space. Moreover, given any point in the phase space, if we view it as the initial conditions for our differential equation, we get a unique trajectory in the phase space.
+\begin{remark}[Initial conditions and uniqueness]
+  Given initial conditions $y(x_0), y'(x_0), \ldots, y^{(n-1)}(x_0)$ (i.e., a point in phase space), we can compute $y^{(n)}(x_0)$ from the differential equation, and hence all higher derivatives via the Taylor series. Thus a point in phase space uniquely determines a trajectory (solution curve). A rigorous proof of existence and uniqueness is given in IB Analysis II.
+\end{remark}
 
 \begin{eg}[Phase space trajectories]
   Consider $y'' + 4y = 0$. Suppose we have an initial condition of $y_1(0) = 1, y'_1(0) = 0$. Then we can solve the equation to obtain $y_1(x) = \cos 2x$. Thus the initial solution vector is $\mathbf{Y}_1(0) = (1, 0)$, and the trajectory as $x$ varies is given by $\mathbf{Y}_1(x) = (\cos 2x, -2 \sin 2x)$. Thus as $x$ changes, we trace out an ellipse in the clockwise direction:
@@ -1680,30 +1698,38 @@ We say such a vector lies in the \emph{phase space}, which is an $n$-dimensional
   Note that as vectors, our two initial conditions $(1, 0)$ and $(0, 2)$ are independent. Moreover, as $x$ changes, the two solution vectors $\mathbf{Y}_1(x), \mathbf{Y}_2(x)$ remain independent. This is an important observation that allows the method of variation of parameters later on.
 \end{eg}
 
-In general, for a 2nd order equation, the phase space is a 2-dimensional space, and we can take the two complementary functions $\mathbf{Y}_1$ and $\mathbf{Y}_2$ as basis vectors for the phase space at each particular value of $x$. Of course, we need the two solutions to be linearly independent.
+\begin{remark}[Basis of phase space]
+  For a second-order equation, the phase space is 2-dimensional. Two complementary functions $\mathbf{Y}_1$ and $\mathbf{Y}_2$ form a basis for the phase space at each $x$, provided they are linearly independent.
+\end{remark}
 
 \begin{defi}[Wronskian]
   Given two functions $y_1(x)$ and $y_2(x)$, their \emph{Wronskian} is defined as
   \[
     W(x) = \begin{vmatrix}y_1 & y_2 \\ y_1' & y_2'\end{vmatrix} = y_1 y_2' - y_2 y_1'.
   \]
-  The Wronskian measures whether the two functions are linearly independent.
 \end{defi}
 
-\begin{defi}[Independent solutions]
-  Two solutions $y_1(x)$ and $y_2(x)$ are \emph{independent} solutions of the differential equation if and only if $\mathbf{Y}_1$ and $\mathbf{Y}_2$ are linearly independent as vectors in the phase space for some $x$, i.e.\ iff the Wronskian is non-zero for some $x$.
-\end{defi}
+\begin{prop}[Wronskian as independence criterion]
+  Two solutions $y_1(x)$ and $y_2(x)$ are linearly independent (as functions) if and only if their Wronskian $W(x) \neq 0$ for some $x$.
+\end{prop}
 
-In our example, we have $W(x) = 2\cos^2 2x + 2\sin^2 2x = 2 \not= 0$ for all $x$.
-
-\begin{eg}[Wronskian of degenerate solutions]
-  In our earlier example, $y_1 = e^{2x}$ and $y_2 = xe^{2x}$. We have
+\begin{eg}[Wronskian for simple harmonic motion]
+  For $y'' + 4y = 0$ with solutions $y_1 = \cos 2x$ and $y_2 = \sin 2x$:
   \[
-    W = \left|\begin{matrix} e^{2x} & xe^{2x}\\ 2e^{2x} & e^{2x} + 2xe^{2x} \end{matrix}\right| = e^{4x}(1 + 2x - 2x) = e^{4x} \not= 0.
+    W(x) = \cos 2x \cdot 2\cos 2x - \sin 2x \cdot (-2\sin 2x) = 2\cos^2 2x + 2\sin^2 2x = 2 \neq 0.
   \]
 \end{eg}
 
-In both cases, the Wronskian is \emph{never} zero. Is it possible that it is zero for some $x$ while non-zero for others? The answer is no.
+\begin{eg}[Wronskian for repeated roots]
+  For $y'' - 4y' + 4y = 0$ with solutions $y_1 = e^{2x}$ and $y_2 = xe^{2x}$:
+  \[
+    W = \begin{vmatrix} e^{2x} & xe^{2x}\\ 2e^{2x} & (1 + 2x)e^{2x} \end{vmatrix} = e^{4x}(1 + 2x - 2x) = e^{4x} \neq 0.
+  \]
+\end{eg}
+
+\begin{remark}
+  In both examples above, the Wronskian is \emph{never} zero. This is not a coincidence: for solutions of a linear ODE, the Wronskian is either identically zero or never zero.
+\end{remark}
 
 \begin{thm}[Abel's Theorem]
   Given an equation $y'' + p(x)y' + q(x) y = 0$, either $W = 0$ for all $x$, or $W \not= 0$ for all $x$. i.e.\ iff two solutions are independent for some particular $x$, then they are independent for all $x$.
