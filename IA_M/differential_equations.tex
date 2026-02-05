@@ -3247,93 +3247,108 @@ A \emph{partial differential equation} (PDE) involves partial derivatives of an 
 This section introduces three fundamental PDEs and the key technique of \emph{characteristics} for first-order equations.
 
 \subsection{First-order wave equation}
-Consider the \emph{first-order wave equation} (also called the \emph{advection equation}):
-\[
-  \frac{\partial y}{\partial t} - c\frac{\partial y}{\partial x} = 0,
-\]
-where $c$ is a constant and $y(x, t)$ is the unknown function. We will see that solutions represent waves travelling in one direction.
+
+\begin{defi}[First-order wave equation]
+  Let $c$ be a real constant and let $y(x, t)$ be a function of the spatial variable $x$ and time $t$. The \emph{first-order wave equation} (or \emph{advection equation}) is
+  \[
+    \frac{\partial y}{\partial t} - c\frac{\partial y}{\partial x} = 0.
+  \]
+\end{defi}
 
 \subsubsection*{Method of characteristics}
-The key technique for first-order PDEs is the \emph{method of characteristics}: we find curves in the $(x, t)$ plane along which the PDE reduces to an ODE.
 
-Along any path $x = x(t)$, the chain rule gives
-\begin{align*}
-  \frac{\d y}{\d t} &= \frac{\partial y}{\partial x}\frac{\d x}{\d t} + \frac{\partial y}{\partial t}\\
-  &= \frac{\d x}{\d t}\frac{\partial y}{\partial x} + c\frac{\partial y}{\partial x}
-\end{align*}
-by the chain rule. Now we choose a path along which
-\[
-  \frac{\d x}{\d t} = -c. \tag{1}
-\]
-Along such paths,
-\[
-  \frac{\d y}{\d t} = 0 \tag{2}
-\]
-So we have replaced the original partial differential equations with a pair of ordinary differential equations.
-
-Each path that satisfies (1) can be described by $x = x_0 - ct$, where $x_0$ is a constant. We can write this as $x_0 = x + ct$.
-
-From (2), along each of these paths, $y$ is constant. So suppose for each $x_0$, the value of $y$ along the path $x_0 = x + ct$ is given by $f(x_0)$, where $f$ is an arbitrary function.
+\begin{remark}
+  The key technique for solving first-order PDEs is the \emph{method of characteristics}: we seek curves in the $(x, t)$ plane along which the PDE reduces to an ODE. The following proposition illustrates this idea.
+\end{remark}
 
 \begin{prop}[General solution of first-order wave equation]
   The general solution to $y_t - cy_x = 0$ is
   \[
     y = f(x + ct),
   \]
-  where $f$ is an arbitrary differentiable function. Every such function is a solution (verified by direct differentiation), and every solution has this form.
+  where $f$ is an arbitrary differentiable function.
 \end{prop}
 
+\begin{proof}
+  Along any path $x = x(t)$ in the $(x, t)$ plane, the chain rule gives
+  \[
+    \frac{\d y}{\d t} = \frac{\partial y}{\partial x}\frac{\d x}{\d t} + \frac{\partial y}{\partial t}.
+  \]
+  Using the PDE to substitute $\frac{\partial y}{\partial t} = c\frac{\partial y}{\partial x}$, this becomes
+  \[
+    \frac{\d y}{\d t} = \left(\frac{\d x}{\d t} + c\right)\frac{\partial y}{\partial x}.
+  \]
+  Choose paths satisfying $\frac{\d x}{\d t} = -c$. Along such paths, $\frac{\d y}{\d t} = 0$. We have thus replaced the original PDE with a pair of ODEs:
+  \[
+    \frac{\d x}{\d t} = -c, \qquad \frac{\d y}{\d t} = 0.
+  \]
+  The first gives $x = x_0 - ct$ for some constant $x_0$, i.e.\ $x_0 = x + ct$. The second tells us that $y$ is constant along each such path. Since $y$ depends only on which path we follow, we have $y = f(x_0) = f(x + ct)$ for some function $f$.
+
+  Conversely, for any differentiable $f$, direct computation gives
+  \[
+    \frac{\partial}{\partial t}f(x + ct) - c\frac{\partial}{\partial x}f(x + ct) = cf'(x + ct) - cf'(x + ct) = 0,
+  \]
+  confirming that $y = f(x + ct)$ is indeed a solution.
+\end{proof}
+
 \begin{defi}[Characteristics]
-  The \emph{characteristics} of a first-order PDE are the curves along which the PDE reduces to an ODE. For the equation $y_t - cy_x = 0$, the characteristics are the lines $x + ct = \text{constant}$.
+  The \emph{characteristics} of a first-order PDE are the curves in the $(x,t)$ plane along which the PDE reduces to an ODE. For the equation $y_t - cy_x = 0$, the characteristics are the lines $x + ct = \text{constant}$.
 \end{defi}
 
-The characteristics are straight lines in the $(x, t)$ plane with slope $-c$:
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (-1, 0) -- (5, 0) node [right] {$x$};
-    \draw [->] (0, -1) -- (0, 3) node [above] {$t$};
-    \node [anchor = north east] at (0, 0) {$O$};
+\begin{remark}
+  The characteristics of $y_t - cy_x = 0$ are straight lines in the $(x, t)$ plane with slope $-c$:
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (-1, 0) -- (5, 0) node [right] {$x$};
+      \draw [->] (0, -1) -- (0, 3) node [above] {$t$};
+      \node [anchor = north east] at (0, 0) {$O$};
 
-    \foreach \x in {1, 2, 3, 4, 5} {
-      \draw [red] (\x- 0.5, 0) -- (\x - 1.5, 2.5);
-    }
-    \node [right] at (4, 1.5) {characteristics};
-  \end{tikzpicture}
-\end{center}
-Since $y$ is constant along each characteristic, the solution at time $t$ is simply the initial profile translated to the left by $ct$. This is why the equation describes waves travelling with speed $c$.
+      \foreach \x in {1, 2, 3, 4, 5} {
+        \draw [red] (\x- 0.5, 0) -- (\x - 1.5, 2.5);
+      }
+      \node [right] at (4, 1.5) {characteristics};
+    \end{tikzpicture}
+  \end{center}
+  Since $y$ is constant along each characteristic, the solution at time $t$ is the initial profile translated to the left by $ct$. This is why the equation describes waves travelling with speed $c$.
+\end{remark}
 
-We usually have initial conditions e.g.
-\[
-  y(x, 0) = x^2 - 3
-\]
-Since we know that $y = f(x + ct)$ and $f(x) = x^2 - 3$, $y$ must be given by
-\[
-  y = (x + ct)^2 - 3.
-\]
-We can plot the $xy$ curve for different values of $t$ to obtain this:
-\begin{center}
-  \begin{tikzpicture}[yscale=0.5]
-    \draw [->] (-5, 0) -- (5, 0) node [right] {$x$};
-    \draw [->] (0, -3.5) -- (0, 6.5) node [above] {$y$};
+\begin{eg}[Initial value problem]
+  Consider the initial value problem
+  \[
+    y_t - cy_x = 0, \quad y(x, 0) = x^2 - 3.
+  \]
+  The general solution is $y = f(x + ct)$. Setting $t = 0$ gives $f(x) = x^2 - 3$, so the solution is
+  \[
+    y(x, t) = (x + ct)^2 - 3.
+  \]
+  Plotting $y$ against $x$ for different values of $t$ confirms that the solution is a translation of the initial profile:
+  \begin{center}
+    \begin{tikzpicture}[yscale=0.5]
+      \draw [->] (-5, 0) -- (5, 0) node [right] {$x$};
+      \draw [->] (0, -3.5) -- (0, 6.5) node [above] {$y$};
 
-    \foreach \t in {-2,...,2}{
-      \pgfmathsetmacro\k{(\t + 6) * 12.5}
-      \draw [mblue!\k] (3 + \t ,6) parabola bend (\t , -3) (- 3 + \t, 6);
-    }
-  \end{tikzpicture}
-\end{center}
-We see that each solution is just a translation of the $t = 0$ version.
+      \foreach \t in {-2,...,2}{
+        \pgfmathsetmacro\k{(\t + 6) * 12.5}
+        \draw [mblue!\k] (3 + \t ,6) parabola bend (\t , -3) (- 3 + \t, 6);
+      }
+    \end{tikzpicture}
+  \end{center}
+\end{eg}
 
-We can also solve forced equations, such as
-\[
-  \frac{\partial y}{\partial t} + 5\frac{\partial y}{\partial x} = e^{-t},\quad y(x, 0) = e^{-x^2}.
-\]
-Along each path $x_0 = x - 5t$, we have $\frac{\d y}{\d t} = e^{-t}$. So $y = f(x_0) - e^{-t}$ for some function $f$.
-
-Using the boundary conditions provided, At $t = 0$, $y = f(x_0) - 1$ and $x = x_0$. So $f(x_0) - 1 = e^{-x_0^2}$, i.e.\ $f(x_0) = 1 + e^{-x_0^2}$. So
-\[
-  y = 1 + e^{-(x - 5t)^2} - e^{-t}.
-\]
+\begin{eg}[Forced first-order wave equation]
+  Consider the forced equation with initial condition
+  \[
+    \frac{\partial y}{\partial t} + 5\frac{\partial y}{\partial x} = e^{-t}, \quad y(x, 0) = e^{-x^2}.
+  \]
+  The characteristics satisfy $\frac{\d x}{\d t} = 5$, giving $x = x_0 + 5t$, i.e.\ $x_0 = x - 5t$. Along each characteristic, $\frac{\d y}{\d t} = e^{-t}$, which integrates to
+  \[
+    y = f(x_0) - e^{-t}
+  \]
+  for some function $f$. At $t = 0$ we have $x = x_0$ and $y = f(x_0) - 1 = e^{-x_0^2}$, so $f(x_0) = 1 + e^{-x_0^2}$. Therefore the solution is
+  \[
+    y = 1 + e^{-(x - 5t)^2} - e^{-t}.
+  \]
+\end{eg}
 \subsection{Second-order wave equation}
 The \emph{second-order wave equation} (or simply the \emph{wave equation}) is
 \[
