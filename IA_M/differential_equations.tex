@@ -2574,18 +2574,19 @@ A \emph{second-order differential equation} involves the second derivative of th
 \end{eg}
 \section{Directional derivative}
 \label{sec:directional-derivative}
-This section develops the calculus of functions of several variables, focusing on how such functions change in different directions. The key concepts---the gradient vector, directional derivative, and Hessian matrix---are essential for understanding optimization and the classification of stationary points.
+\begin{remark}[Overview]
+  This section develops the calculus of functions of several variables, focusing on how such functions change in different directions. The key concepts---the gradient vector, directional derivative, and Hessian matrix---are essential for understanding optimization and the classification of stationary points.
+\end{remark}
 
 \subsection{Gradient vector}
-Consider a scalar function $f(x, y)$ of two variables. For an infinitesimal displacement $\d\mathbf{s} = (\d x, \d y)$, the total differential gives the change in $f$:
-\[
-  \d f = \frac{\partial f}{\partial x}\d x + \frac{\partial f}{\partial y}\d y
-\]
-We can also write this as
-\begin{align*}
-  \d f &= (\d x, \d y)\cdot \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right)\\
-  &= \d\mathbf{s}\cdot \nabla f
-\end{align*}
+\begin{remark}[Motivation]
+  Consider a scalar function $f(x, y)$ of two variables. For an infinitesimal displacement $\d\mathbf{s} = (\d x, \d y)$, the total differential gives the change in $f$:
+  \[
+    \d f = \frac{\partial f}{\partial x}\d x + \frac{\partial f}{\partial y}\d y = (\d x, \d y)\cdot \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right) = \d\mathbf{s}\cdot \nabla f.
+  \]
+  This motivates the following definition.
+\end{remark}
+
 \begin{defi}[Gradient vector]
   The \emph{gradient} of $f$, written $\nabla f$ or $\mathrm{grad}\, f$, is the vector with Cartesian components
   \[
@@ -2594,10 +2595,8 @@ We can also write this as
   More generally, in $n$ dimensions, $(\nabla f)_i = \frac{\partial f}{\partial x_i}$.
 \end{defi}
 
-Thus $\d f = \d\mathbf{s} \cdot \nabla f$. Writing $\d\mathbf{s} = \hat{\mathbf{s}}\,\d s$ where $\hat{\mathbf{s}}$ is a unit vector, we obtain:
-
 \begin{defi}[Directional derivative]
-  The \emph{directional derivative} of $f$ in the direction of the unit vector $\hat{\mathbf{s}}$ is
+  Writing $\d\mathbf{s} = \hat{\mathbf{s}}\,\d s$ where $\hat{\mathbf{s}}$ is a unit vector and $\d s = |\d\mathbf{s}|$, the \emph{directional derivative} of $f$ in the direction $\hat{\mathbf{s}}$ is
   \[
     \frac{\d f}{\d s} = \hat{\mathbf{s}}\cdot \nabla f.
   \]
@@ -2608,14 +2607,8 @@ Thus $\d f = \d\mathbf{s} \cdot \nabla f$. Writing $\d\mathbf{s} = \hat{\mathbf{
   Alternatively, one can take the directional derivative formula $\frac{\d f}{\d s} = \hat{\mathbf{s}} \cdot \nabla f$ as the \emph{definition} of $\nabla f$ (a coordinate-free definition), from which the Cartesian formula follows as a theorem.
 \end{remark}
 
-We know that the directional derivative is given by
-\[
-  \frac{\d f}{\d s} = \mathbf{\hat{s}}\cdot \nabla f = |\nabla f| \cos \theta
-\]
-where $\theta$ is the angle between the displacement and $\nabla f$.
-
 \begin{prop}[Properties of the gradient]
-  Let $f$ be a differentiable scalar function. Then:
+  Let $f$ be a differentiable scalar function, and let $\theta$ denote the angle between $\hat{\mathbf{s}}$ and $\nabla f$, so that $\frac{\d f}{\d s} = |\nabla f|\cos\theta$. Then:
   \begin{enumerate}
     \item The magnitude $|\nabla f|$ equals the maximum rate of change of $f$.
     \item The direction of $\nabla f$ is the direction in which $f$ increases most rapidly.
