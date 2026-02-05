@@ -1753,22 +1753,30 @@ A \emph{second-order differential equation} involves the second derivative of th
 \end{remark}
 
 \subsection{Particular integrals}
-Having found the complementary function for the homogeneous equation, we now turn to finding a \emph{particular integral} $y_p(x)$ that satisfies the full equation $ay'' + by' + cy = f(x)$. The general solution is then $y = y_c + y_p$.
+\begin{remark}[Goal]
+  Having found the complementary function $y_c$ for the homogeneous equation, we now seek a \emph{particular integral} $y_p(x)$ satisfying the full equation $ay'' + by' + cy = f(x)$. The general solution is then $y = y_c + y_p$.
+\end{remark}
 
 \subsubsection{Guessing (method of undetermined coefficients)}
-For simple forcing terms $f(x)$, we can ``guess'' the form of the particular integral based on the structure of $f(x)$, then determine the unknown coefficients by substitution. This is sometimes called the \emph{method of undetermined coefficients}.
-\begin{center}
-  \begin{tabular}{cc}
-    \toprule
-    $f(x)$ & $y_p(x)$\\
-    \midrule
-    $e^{mx}$ & $Ae^{mx}$\\
-    $\sin kx$ & \multirow{2}{*}{$A\sin kx + B\cos kx$}\\
-    $\cos kx$ & \\
-    polynomial $p_n(x)$ & $q_n(x) = a_nx^n + \cdots + a_1x + a_0$\\
-    \bottomrule
-  \end{tabular}
-\end{center}
+\begin{defi}[Method of undetermined coefficients]
+  For simple forcing terms $f(x)$, the \emph{method of undetermined coefficients} (or ``guessing'') assumes a particular integral of a form suggested by $f(x)$, with unknown coefficients determined by substitution.
+\end{defi}
+
+\begin{remark}[Standard guesses]
+  The following table gives the standard forms for the particular integral based on the forcing term:
+  \begin{center}
+    \begin{tabular}{cc}
+      \toprule
+      $f(x)$ & $y_p(x)$\\
+      \midrule
+      $e^{mx}$ & $Ae^{mx}$\\
+      $\sin kx$ & \multirow{2}{*}{$A\sin kx + B\cos kx$}\\
+      $\cos kx$ & \\
+      polynomial $p_n(x)$ & $q_n(x) = a_nx^n + \cdots + a_1x + a_0$\\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+\end{remark}
 \begin{remark}
   Since the equation is linear, we can superpose solutions and consider each forcing term separately. If $f(x) = f_1(x) + f_2(x)$, and $y_{p,1}$ is a particular integral for forcing $f_1$, and $y_{p,2}$ for $f_2$, then $y_p = y_{p,1} + y_{p,2}$ is a particular integral for $f$.
 \end{remark}
@@ -1795,125 +1803,100 @@ For simple forcing terms $f(x)$, we can ``guess'' the form of the particular int
   Note that any boundary condition to determine $A$ and $B$ must be applied to the full solution, not the complementary function
 \end{eg}
 \subsubsection{Resonance}
-\emph{Resonance} occurs when the forcing term is itself a solution to the homogeneous equation. In this case, the standard guess fails.
+\begin{defi}[Resonance]
+  \emph{Resonance} occurs when the forcing term $f(x)$ is itself a solution to the homogeneous equation. In this case, the standard guess fails and must be modified.
+\end{defi}
 
-Consider $\ddot y + \omega_0^2 y = \sin \omega_0 t$, where $\omega_0$ is the \emph{natural frequency} of the oscillator. The complementary solution is $y_c = A\sin \omega_0 t + B\cos \omega_0 t$. Since the forcing $\sin \omega_0 t$ is itself a complementary function, if we guess $y_p = C\sin \omega_0 t + D\cos \omega_0 t$, we get $\ddot y_p + \omega_0^2 y_p = 0$, which cannot balance the forcing.
+\begin{eg}[Resonance in simple harmonic motion]
+  Consider $\ddot{y} + \omega_0^2 y = \sin \omega_0 t$, where $\omega_0$ is the \emph{natural frequency}. The complementary function is $y_c = A\sin \omega_0 t + B\cos \omega_0 t$. Since the forcing $\sin \omega_0 t$ is a complementary function, the standard guess $y_p = C\sin \omega_0 t + D\cos \omega_0 t$ gives $\ddot{y}_p + \omega_0^2 y_p = 0$, which cannot balance the forcing.
+\end{eg}
 
-This is an example of a simple harmonic oscillator being forced at its natural frequency. To find the particular integral, we use detuning.
+\begin{remark}[Detuning approach]
+  To find the resonant particular integral, we \emph{detune} the forcing frequency away from resonance and take a limit. Consider $\ddot{y} + \omega_0^2 y = \sin \omega t$ with $\omega \neq \omega_0$. Trying $y_p = C(\sin \omega t - \sin \omega_0 t)$ and substituting gives $C(\omega_0^2 - \omega^2) = 1$, so
+  \[
+    y_p = \frac{\sin \omega t - \sin \omega_0 t}{\omega_0^2 - \omega^2}.
+  \]
+  Using the product-to-sum formula and setting $\Delta\omega = \omega_0 - \omega$:
+  \[
+    y_p = \frac{-2}{(2\omega + \Delta \omega)\Delta \omega}\cos \left[\left(\omega + \frac{\Delta \omega}{2}\right)t\right] \sin \left(\frac{\Delta \omega}{2}t\right).
+  \]
+\end{remark}
 
-We can \emph{detune} our forcing away from the natural frequency, and consider $\ddot y + \omega_0^2 y = \sin \omega t$ with $\omega \not= \omega_0$. Try
-\[
-  y_p = C(\sin \omega t - \sin \omega_0 t).
-\]
-We have
-\[
-  \ddot y_p = C(-\omega^2 \sin \omega t + \omega_0^2 \sin\omega_0 t).
-\]
-Substituting into the differential equation, we have $C(\omega_0^2 - \omega^2) = 1$. Then
-\[
-  y_p = \frac{\sin \omega t - \sin \omega_0t}{\omega_0^2 - \omega^2}.
-\]
-We can simplify this to
-\[
-  y_p = \frac{2}{\omega_0^2 - \omega^2} \cos \left(\frac{\omega_0 + \omega}{2}t\right) \sin \left(\frac{\omega - \omega_0}{2} t\right)
-\]
-We let $\omega_0 - \omega = \Delta \omega$. Then
-\[
-  y_p = \frac{-2}{(2\omega + \Delta \omega)\Delta \omega}\cos \left[\left(\omega + \frac{\Delta \omega}{2}\right)t\right] \sin \left(\frac{\Delta \omega}{2}t\right).
-\]
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (6.5, 0) node [right] {$t$};
-    \draw [->] (0, -2) -- (0, 2) node [above] {$y_p$};
+\begin{defi}[Beating]
+  \emph{Beating} is the oscillation in amplitude that occurs when the forcing frequency is close to (but not equal to) the natural frequency:
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (6.5, 0) node [right] {$t$};
+      \draw [->] (0, -2) -- (0, 2) node [above] {$y_p$};
 
-    \draw [semithick, mblue, domain=0:6,samples=600] plot(\x, {2 * cos(2000 * \x) * sin (90 * \x)});
-    \draw [semithick, morange] (0, 0) sin (1, 2) cos (2, 0) sin (3, -2) cos (4, 0) sin (5, 2) cos (6, 0);
-    \draw [semithick, mgreen] (0, 0) sin (1, -2) cos (2, 0) sin (3, 2) cos (4, 0) sin (5, -2) cos (6, 0);
+      \draw [semithick, mblue, domain=0:6,samples=600] plot(\x, {2 * cos(2000 * \x) * sin (90 * \x)});
+      \draw [semithick, morange] (0, 0) sin (1, 2) cos (2, 0) sin (3, -2) cos (4, 0) sin (5, 2) cos (6, 0);
+      \draw [semithick, mgreen] (0, 0) sin (1, -2) cos (2, 0) sin (3, 2) cos (4, 0) sin (5, -2) cos (6, 0);
 
-    \draw [semithick, mblue] (7.5, 0.7) -- (8, 0.7) node [black, right] {$y_p$};
-    \draw [semithick, morange] (7.5, 0) -- (8, 0) node [black, right] {$\sin\left(\frac{\Delta \omega}{2} t\right)$};
-    \draw [semithick, mgreen] (7.5, -0.7) -- (8, -0.7) node [black, right] {$-\sin\left(\frac{\Delta \omega}{2} t\right)$};
+      \draw [semithick, mblue] (7.5, 0.7) -- (8, 0.7) node [black, right] {$y_p$};
+      \draw [semithick, morange] (7.5, 0) -- (8, 0) node [black, right] {$\sin\left(\frac{\Delta \omega}{2} t\right)$};
+      \draw [semithick, mgreen] (7.5, -0.7) -- (8, -0.7) node [black, right] {$-\sin\left(\frac{\Delta \omega}{2} t\right)$};
 
-    \draw [<->] (1, -2.5) -- (5, -2.5) node [pos=0.5,fill=white] {$O\left(\frac{1}{\Delta \omega}\right)$};
-  \end{tikzpicture}
-\end{center}
-This oscillation in the amplitude of the $\cos$ wave is known as \emph{beating}. This happens when the forcing frequency is close to the natural frequency. The wavelength of the $\sin$ function has order $O(\frac{1}{\Delta \omega})$ and $\cos$ has wavelength $O(\frac{1}{\omega_0})$. As $\Delta\omega\to 0$, the wavelength of the beating envelope $\to \infty$ and we just have the initial linear growth.
+      \draw [<->] (1, -2.5) -- (5, -2.5) node [pos=0.5,fill=white] {$O\left(\frac{1}{\Delta \omega}\right)$};
+    \end{tikzpicture}
+  \end{center}
+  The beating envelope has wavelength $O(1/\Delta\omega)$, while the fast oscillation has wavelength $O(1/\omega_0)$.
+\end{defi}
 
-Mathematically, since $\sin\theta \approx \theta$ as $\theta \to 0$, as $\Delta\omega \to 0$, we have
-\[
-  y_p\to \frac{-t}{2\omega_0}\cos\omega_0 t.
-\]
-\begin{prop}[Resonant forcing]
-  If the forcing term of a linear differential equation is a solution of the corresponding homogeneous equation (i.e., a complementary function), then the particular integral is proportional to the independent variable times the non-resonant guess. For example, if $e^{\lambda x}$ is both a complementary function and the forcing, the particular integral has the form $Axe^{\lambda x}$.
+\begin{prop}[Resonant particular integral]
+  As $\Delta\omega \to 0$ (i.e., $\omega \to \omega_0$), using $\sin\theta \approx \theta$ for small $\theta$:
+  \[
+    y_p \to \frac{-t}{2\omega_0}\cos\omega_0 t.
+  \]
+  The amplitude grows linearly with time---this is the hallmark of resonance.
+\end{prop}
+
+\begin{prop}[General rule for resonance]
+  If the forcing term of a linear ODE is a complementary function, the particular integral is the non-resonant guess multiplied by the independent variable. For example:
+  \begin{itemize}
+    \item If $e^{\lambda x}$ is both a complementary function and the forcing, guess $y_p = Axe^{\lambda x}$.
+    \item If $\sin \omega_0 t$ is both a complementary function and the forcing, guess $y_p = t(A\sin \omega_0 t + B\cos \omega_0 t)$.
+  \end{itemize}
 \end{prop}
 
 \subsubsection{Variation of parameters}
-Guessing works well for simple forcing terms, but fails for more complicated functions $f(x)$. The method of \emph{variation of parameters} provides a systematic approach that works for any forcing term, provided we know the complementary functions. Since it is more involved than guessing, we prefer guessing when the form of the particular integral is obvious.
+\begin{remark}[Motivation]
+  The method of undetermined coefficients works well for simple forcing terms, but fails for more complicated functions $f(x)$. The method of \emph{variation of parameters} provides a systematic approach that works for any forcing term, given the complementary functions. Since it is more involved, we prefer guessing when the form of the particular integral is obvious.
+\end{remark}
 
-Suppose we have a second order differential equation
-\[
-  y'' + p(x)y' + q(x)y = f(x).
-\]
-We then know any particular solution vector can be written in the form
-\[
-  \mathbf{Y}(x) =
-  \begin{pmatrix}
-    y(x)\\
-    y'(x)
-  \end{pmatrix},
-\]
-and our job is to find one solution vector that satisfies the equation. We presuppose such a solution actually exists, and we will try to find out what it is.
-
-The trick is to pick a convenient basis for this space. Let $y_1(x)$ and $y_2(x)$ be linearly independent complementary functions of the ODE. Then for each $x$, the solution vectors $\mathbf{Y}_1(x) = (y_1(x), y_1'(x))$ and $\mathbf{Y}_2(x) = (y_2(x), y_2'(x))$ form a basis of the solution space. So for each particular $x$, we can find some constants $u, v$ (depending on $x$) such that the following equality holds:
-\[
-  \mathbf{Y}(x) = u(x) \mathbf{Y}_1(x) + v(x) \mathbf{Y}_2(x),
-\]
-since $\mathbf{Y}_1$ and $\mathbf{Y}_2$ are a basis.
-
-Component-wise, we have
-\begin{align*}
-  y_p &= uy_1 + vy_2 \tag{a}\\
-  y_p' &= uy_1' + vy_2' \tag{b}
-\end{align*}
-Differentiating the second equation, we obtain
-\[
-  y''_p = (uy_1'' + u'y_1') + (vy_2'' + v'y_2') \tag{c}
-\]
-If we consider (c) + $p$(b) + $q$(a), we have $y_1' u' + y_2'v' = f$.
-
-Now note that we derived the equation of $y_p'$ from the vector equation. This must be equal to what we get if we differentiate (a). By (a)$'$ - (b), we obtain $y_1u' + y_2v' = 0$. Now we have two simultaneous equations for $u'$ and $v'$, which we should be able to solve.
-
-We can, for example, write them in matrix form as
-\[
-  \begin{pmatrix}
-    y_1 & y_2\\
-    y_1' & y_2'
-  \end{pmatrix}
-  \begin{pmatrix}
-    u'\\
-    v'
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    0\\
-    f
-  \end{pmatrix}
-\]
-Inverting the left matrix, we have
-\[
-  \begin{pmatrix}
-    u'\\
-    v'
-  \end{pmatrix} = \frac{1}{W}
-  \begin{pmatrix}
-    y_2' & -y_2\\
-    -y_1' & y_1
-  \end{pmatrix}
-  \begin{pmatrix}
-    0\\f
-  \end{pmatrix}
-\]
-So $u' = -\frac{y_2}{W}f$ and $v' = \frac{y_1}{W}f$.
+\begin{thm}[Variation of parameters]
+  Consider the second-order linear ODE $y'' + p(x)y' + q(x)y = f(x)$, with linearly independent complementary functions $y_1(x)$ and $y_2(x)$. A particular integral is given by
+  \[
+    y_p = u(x)y_1(x) + v(x)y_2(x),
+  \]
+  where $u$ and $v$ satisfy
+  \[
+    u' = -\frac{y_2 f}{W}, \qquad v' = \frac{y_1 f}{W},
+  \]
+  and $W = y_1 y_2' - y_2 y_1'$ is the Wronskian.
+\end{thm}
+\begin{proof}
+  We seek a particular solution whose solution vector $\mathbf{Y}(x) = (y_p, y_p')^T$ lies in the span of the complementary function vectors $\mathbf{Y}_1 = (y_1, y_1')^T$ and $\mathbf{Y}_2 = (y_2, y_2')^T$. Write
+  \[
+    \mathbf{Y}(x) = u(x)\mathbf{Y}_1(x) + v(x)\mathbf{Y}_2(x).
+  \]
+  Component-wise:
+  \begin{align*}
+    y_p &= uy_1 + vy_2, \tag{a}\\
+    y_p' &= uy_1' + vy_2'. \tag{b}
+  \end{align*}
+  Differentiating (a) and comparing with (b) gives the constraint $y_1 u' + y_2 v' = 0$. Differentiating (b):
+  \[
+    y_p'' = uy_1'' + u'y_1' + vy_2'' + v'y_2'.
+  \]
+  Substituting into the ODE and using that $y_1, y_2$ are complementary functions yields $y_1'u' + y_2'v' = f$. In matrix form:
+  \[
+    \begin{pmatrix} y_1 & y_2 \\ y_1' & y_2' \end{pmatrix}
+    \begin{pmatrix} u' \\ v' \end{pmatrix}
+    = \begin{pmatrix} 0 \\ f \end{pmatrix}.
+  \]
+  Inverting (with determinant $W$): $u' = -y_2 f/W$ and $v' = y_1 f/W$.
+\end{proof}
 
 \begin{eg}[Variation of parameters]
   $y'' + 4y = \sin 2x$. We know that $y_1 = \sin 2x$ and $y_2 = \cos 2x$. $W = -2$. We write
