@@ -980,103 +980,138 @@ A \emph{differential equation} is an equation involving derivatives of an unknow
 \end{eg}
 
 \subsection{Non-linear equations}
-When the equation is not linear in $y$, the methods above do not apply directly. However, certain classes of non-linear equations can still be solved analytically.
-
-A general first-order equation can be written as
-\[
-  Q(x, y)\frac{\d y}{\d x} + P(x, y) = 0,
-\]
-or equivalently, $P(x,y)\,\d x + Q(x,y)\,\d y = 0$. We consider two important special cases.
+\begin{remark}
+  When the equation is not linear in $y$, the methods of the previous sections do not apply directly. However, certain classes of non-linear equations can still be solved analytically. A general first-order equation can be written as
+  \[
+    Q(x, y)\frac{\d y}{\d x} + P(x, y) = 0,
+  \]
+  where $P$ and $Q$ are functions of both $x$ and $y$. Equivalently, this can be expressed in differential form as $P(x,y)\,\d x + Q(x,y)\,\d y = 0$. We consider two important special cases: separable equations and exact equations.
+\end{remark}
 
 \subsubsection{Separable equations}
-The simplest non-linear equations are those where the variables can be separated.
-
 \begin{defi}[Separable equation]
   A first-order differential equation is \emph{separable} if it can be written in the form
   \[
     q(y)\,\d y = p(x)\,\d x,
   \]
-  where the left-hand side depends only on $y$ and the right-hand side only on $x$. The solution is then obtained by integrating both sides:
-  \[
-    \int q(y)\,\d y = \int p(x)\,\d x.
-  \]
+  where the left-hand side depends only on $y$ and the right-hand side only on $x$.
 \end{defi}
 
-\begin{eg}[Separable equation]
+\begin{prop}[Solution of separable equations]
+  The general solution to a separable equation $q(y)\,\d y = p(x)\,\d x$ is obtained by integrating both sides:
+  \[
+    \int q(y)\,\d y = \int p(x)\,\d x + C,
+  \]
+  where $C$ is an arbitrary constant.
+\end{prop}
+
+\begin{eg}[Solving a separable equation]
+  Consider the equation
+  \[
+    (x^2y - 3y)\frac{\d y}{\d x} - 2xy^2 = 4x.
+  \]
+  Rearranging to isolate $\frac{\d y}{\d x}$:
+  \[
+    \frac{\d y}{\d x} = \frac{4x + 2xy^2}{x^2y - 3y} = \frac{2x(2 + y^2)}{y(x^2 - 3)}.
+  \]
+  This can be separated as
+  \[
+    \frac{y}{2 + y^2}\, \d y = \frac{2x}{x^2 - 3}\,\d x.
+  \]
+  Integrating both sides:
   \begin{align*}
-    (x^2y - 3y)\frac{\d y}{\d x} - 2xy^2 &= 4x\\
-    \frac{\d y}{\d x} &= \frac{4x + 2xy^2}{x^2y - 3y}\\
-    &= \frac{2x(2 + y^2)}{y(x^2 - 3)}\\
-    \frac{y}{2 + y^2}\; \d y &= \frac{2x}{x^2 - 3}\;\d x\\
-    \int \frac{y}{2 + y^2}\; \d y &= \int\frac{2x}{x^2 - 3}\;\d x\\
-    \frac{1}{2}\ln(2 + y^2) &= \ln (x^2 - 3) + C\\
-    \ln \sqrt{2 + y^2} &= \ln A(x^2 - 3)\\
-    \sqrt{y^2 + 2} &= A(x^2 - 3)
+    \int \frac{y}{2 + y^2}\, \d y &= \int\frac{2x}{x^2 - 3}\,\d x\\
+    \frac{1}{2}\ln(2 + y^2) &= \ln |x^2 - 3| + C.
   \end{align*}
+  Writing $C = \ln A$ for some constant $A > 0$, this becomes
+  \[
+    \ln \sqrt{2 + y^2} = \ln A|x^2 - 3|,
+  \]
+  and hence the general solution is
+  \[
+    \sqrt{y^2 + 2} = A|x^2 - 3|.
+  \]
 \end{eg}
 \subsubsection{Exact equations}
-An equation $P\,\d x + Q\,\d y = 0$ is called \emph{exact} if the left-hand side is the total differential of some function.
-
 \begin{defi}[Exact equation]
   The equation $P(x, y)\,\d x + Q(x, y)\,\d y = 0$ is \emph{exact} if there exists a function $f(x, y)$ such that
   \[
     \d f = P\,\d x + Q\,\d y.
   \]
-  In this case, the general solution is simply $f(x, y) = C$ for an arbitrary constant $C$.
+  In this case, the general solution is $f(x, y) = C$ for an arbitrary constant $C$.
 \end{defi}
 
-If the equation is exact, then comparing $\d f = P\,\d x + Q\,\d y$ with the total differential $\d f = \frac{\partial f}{\partial x}\d x + \frac{\partial f}{\partial y}\d y$ gives
-\[
-  \frac{\partial f}{\partial x} = P,\quad\frac{\partial f}{\partial y} = Q.
-\]
-By Schwarz's theorem ($f_{xy} = f_{yx}$), a necessary condition for exactness is
-\[
-  \frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}.
-\]
-We know that the two mixed 2nd derivatives are equal. So
-\[
-  \frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}.
-\]
-The converse is not necessarily true. Even if this equation holds, the differential need not be exact. However, it is true if the domain is \emph{simply-connected}.
+\begin{prop}[Necessary condition for exactness]\label{prop:exact-necessary}
+  If the equation $P(x, y)\,\d x + Q(x, y)\,\d y = 0$ is exact, then
+  \[
+    \frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}.
+  \]
+\end{prop}
+\begin{proof}
+  If the equation is exact, there exists $f(x,y)$ such that $\d f = P\,\d x + Q\,\d y$. Comparing with the total differential
+  \[
+    \d f = \frac{\partial f}{\partial x}\d x + \frac{\partial f}{\partial y}\d y
+  \]
+  gives $\frac{\partial f}{\partial x} = P$ and $\frac{\partial f}{\partial y} = Q$. By Schwarz's theorem (equality of mixed partial derivatives), we have $f_{xy} = f_{yx}$, and hence
+  \[
+    \frac{\partial P}{\partial y} = \frac{\partial^2 f}{\partial y \partial x} = \frac{\partial^2 f}{\partial x \partial y} = \frac{\partial Q}{\partial x}. \qedhere
+  \]
+\end{proof}
+
+\begin{remark}
+  The converse of Proposition~\ref{prop:exact-necessary} is not true in general: even if $\frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}$, the differential need not be exact. However, the converse does hold when the domain is simply-connected.
+\end{remark}
+
 \begin{defi}[Simply-connected domain]
-  A domain $\mathcal{D}$ is simply-connected if it is connected and any closed curve in $\mathcal{D}$ can be shrunk to a point in $\mathcal{D}$ without leaving $\mathcal{D}$.
+  A domain $\mathcal{D}$ is \emph{simply-connected} if it is connected and any closed curve in $\mathcal{D}$ can be continuously shrunk to a point without leaving $\mathcal{D}$.
 \end{defi}
 
-\begin{eg}[Simply-connected examples]
-  A disc in 2D is simply-connected. A disc with a ``hole'' in the middle is not simply-connected because a loop around the hole cannot be shrunk into a point. Similarly, a sphere in 3D is simply-connected but a torus is not.
+\begin{eg}[Simply-connected and non-simply-connected domains]
+  A disc in $\mathbb{R}^2$ is simply-connected. A disc with a hole (an annulus) is not simply-connected, because a loop around the hole cannot be shrunk to a point. Similarly, a sphere in $\mathbb{R}^3$ is simply-connected, but a torus is not.
 \end{eg}
 
-\begin{thm}[Exactness criterion]
-  If $\frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}$ throughout a simply-connected domain $\mathcal{D}$, then $P\;\d x + Q\; \d y$ is an exact differential of a single-valued function in $\mathcal{D}$.
+\begin{thm}[Exactness criterion]\label{thm:exactness}
+  Let $P$ and $Q$ be continuously differentiable functions on a simply-connected domain $\mathcal{D}$. If
+  \[
+    \frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}
+  \]
+  throughout $\mathcal{D}$, then $P\,\d x + Q\,\d y$ is an exact differential of a single-valued function in $\mathcal{D}$.
 \end{thm}
-If the equation is exact, then the solution is simply $f = $ constant, and we can find $f$ by integrating $\frac{\partial f}{\partial x} = P$ and $\frac{\partial f}{\partial y} = Q$.
+
+\begin{remark}[Method for solving exact equations]
+  To solve an exact equation $P\,\d x + Q\,\d y = 0$, we seek a function $f$ satisfying $\frac{\partial f}{\partial x} = P$ and $\frac{\partial f}{\partial y} = Q$. This is done by integrating one equation and using the other to determine the arbitrary function that arises. The solution is then $f(x,y) = C$.
+\end{remark}
 
 \begin{eg}[Solving an exact equation]
   Consider the equation
   \[
     6y(y - x)\frac{\d y}{\d x} + (2x - 3y^2) = 0.
   \]
-  We have
+  Writing this in differential form $P\,\d x + Q\,\d y = 0$, we identify
   \[
-    P = 2x - 3y^2, \quad Q = 6y(y - x).
+    P = 2x - 3y^2, \quad Q = 6y(y - x) = 6y^2 - 6xy.
   \]
-  Then $\frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x} = -6y$. So the differential form is exact. We now have
+  We check the exactness condition:
   \[
-    \frac{\partial f}{\partial x} = 2x - 3y^2, \quad \frac{\partial f}{\partial y} = 6y^2 - 6xy.
+    \frac{\partial P}{\partial y} = -6y, \quad \frac{\partial Q}{\partial x} = -6y.
   \]
-  Integrating the first equation, we have
+  Since these are equal, the equation is exact by Theorem~\ref{thm:exactness}.
+
+  To find $f$, we integrate $\frac{\partial f}{\partial x} = P = 2x - 3y^2$ with respect to $x$:
   \[
-    f = x^2 - 3xy^2 + h(y).
+    f = x^2 - 3xy^2 + h(y),
   \]
-  Since we integrated with respect to $x$ while holding $y$ constant, the ``constant'' of integration can be any function of $y$. Differentiating $f$ with respect to $y$, we have
+  where $h(y)$ is an arbitrary function of $y$ (the ``constant'' of integration when integrating with respect to $x$).
+
+  Differentiating with respect to $y$ and using $\frac{\partial f}{\partial y} = Q$:
   \[
-    \frac{\partial f}{\partial y} = -6xy + h'(y).
+    \frac{\partial f}{\partial y} = -6xy + h'(y) = 6y^2 - 6xy.
   \]
-  Thus $h'(y) = 6y^2$ and $h(y) = 2y^3 + C$, and
+  Thus $h'(y) = 6y^2$, giving $h(y) = 2y^3$. Therefore,
   \[
-    f = x^2 - 3xy^2 + 2y^3 + C.
+    f(x,y) = x^2 - 3xy^2 + 2y^3.
   \]
-  Since the original equation was $\d f = 0$, we have $f = $ constant. Thus the final solution is
+  The general solution is $f(x,y) = C$, i.e.,
   \[
     x^2 - 3xy^2 + 2y^3 = C.
   \]
