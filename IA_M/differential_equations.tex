@@ -3427,24 +3427,28 @@ This section introduces three fundamental PDEs and the key technique of \emph{ch
 \end{eg}
 
 \subsection{The diffusion equation}
-The \emph{diffusion equation} (or \emph{heat equation}) models heat conduction in a solid:
-\[
-  \frac{\partial T}{\partial t} = \kappa \frac{\partial^2 T}{\partial x^2},
-\]
-where $T(x, t)$ is the temperature and $\kappa > 0$ is the \emph{thermal diffusivity}. This is classified as a \emph{parabolic PDE}.
+
+\begin{defi}[Diffusion equation]
+  Let $T(x, t)$ be a function of position $x$ and time $t$, and let $\kappa > 0$ be a constant called the \emph{thermal diffusivity}. The \emph{diffusion equation} (or \emph{heat equation}) is
+  \[
+    \frac{\partial T}{\partial t} = \kappa \frac{\partial^2 T}{\partial x^2}.
+  \]
+  This is classified as a \emph{parabolic PDE}.
+\end{defi}
 
 \begin{remark}
   Unlike the wave equation (where acceleration $\propto$ curvature), here the rate of change $\partial T/\partial t$ is directly proportional to curvature $\partial^2 T/\partial x^2$. This makes the diffusion equation \emph{dissipative}: irregularities smooth out over time rather than propagating as waves.
 \end{remark}
 
 \begin{eg}[Semi-infinite heated bar]
-  Consider a semi-infinite bar ($x \geq 0$) that is initially at temperature zero, then heated at the end $x = 0$ for $t > 0$:
-
-  Suppose $T(x,0) = 0$, $T(0, t) = H(t) =
-  \begin{cases}
-    0 & t < 0\\
-    1 & t > 0
-  \end{cases}$, and $T(x, t)\to 0$ as $x\to \infty$. In words, the bar is initially cold, then suddenly heated at one end.
+  Consider a semi-infinite bar ($x \geq 0$) that is initially at temperature zero, then suddenly heated at the end $x = 0$ for $t > 0$. The conditions are
+  \[
+    T(x,0) = 0 \quad (x > 0), \qquad T(0, t) = H(t) =
+    \begin{cases}
+      0 & t < 0\\
+      1 & t > 0
+    \end{cases}, \qquad T(x, t)\to 0 \text{ as } x\to \infty.
+  \]
 
   We seek a \emph{similarity solution}---a solution where $T$ depends on $x$ and $t$ only through a particular combination. The natural length scale for diffusion over time $t$ is $\sqrt{\kappa t}$, suggesting we try $T(x, t) = \theta(\eta)$ where
   \[
@@ -3452,35 +3456,33 @@ where $T(x, t)$ is the temperature and $\kappa > 0$ is the \emph{thermal diffusi
   \]
   is the \emph{similarity variable}.
 
-  Applying the chain rule, we have
+  Applying the chain rule:
   \begin{align*}
-    \frac{\partial T}{\partial x} &= \frac{\d \theta}{\d \eta} \frac{\partial \eta}{\partial x}\\
-    &= \frac{1}{2\sqrt{\kappa t}} \theta'(\eta)\\
-    \frac{\partial^2 T}{\partial x^2} &= \frac{1}{2\sqrt{\kappa t}} \frac{\d\theta'}{\d\eta}\frac{\partial \eta}{\partial x}\\
-    &= \frac{1}{4\kappa t}\theta''(\eta)\\
-    \frac{\partial T}{\partial t} &= \frac{\d \theta}{\d \eta}\frac{\partial \eta}{\partial t}\\
-    &= -\frac{1}{2}\frac{x}{2\sqrt{\kappa}}\frac{1}{t^{3/2}} \theta'(\eta)\\
-    &= -\frac{\eta}{2t}\theta'(\eta)
+    \frac{\partial T}{\partial x} &= \frac{\d \theta}{\d \eta} \frac{\partial \eta}{\partial x}
+    = \frac{1}{2\sqrt{\kappa t}} \theta'(\eta),\\
+    \frac{\partial^2 T}{\partial x^2} &= \frac{1}{2\sqrt{\kappa t}} \frac{\d\theta'}{\d\eta}\frac{\partial \eta}{\partial x}
+    = \frac{1}{4\kappa t}\theta''(\eta),\\
+    \frac{\partial T}{\partial t} &= \frac{\d \theta}{\d \eta}\frac{\partial \eta}{\partial t}
+    = -\frac{x}{4\sqrt{\kappa}\,t^{3/2}} \theta'(\eta)
+    = -\frac{\eta}{2t}\theta'(\eta).
   \end{align*}
-  Putting this into the diffusion equation yields
+  Substituting into the diffusion equation yields
   \begin{align*}
-    -\frac{\eta}{2t}\theta' &= \kappa \frac{1}{4\kappa t}\theta''\\
-    \theta'' + 2\eta\theta' &= 0
+    -\frac{\eta}{2t}\theta' &= \kappa \cdot \frac{1}{4\kappa t}\theta'',\\
+    \theta'' + 2\eta\theta' &= 0.
   \end{align*}
-  This is an ordinary differential equation for $\theta(\eta)$. This can be seen as a first-order equation for $\theta'$ with non-constant coefficients. Use the integrating factor $\mu = \exp(\int 2\eta \;\d \eta) = e^{\eta^2}$. So
+  This is an ODE for $\theta(\eta)$. Treating it as a first-order linear equation for $\theta'$, we use the integrating factor $\mu = \exp\!\left(\int 2\eta \;\d \eta\right) = e^{\eta^2}$ to obtain
   \begin{align*}
-    (e^{\eta^2}\theta')' &= 0\\
-    \theta' &= Ae^{-\eta^2}\\
-    \theta &= A\int_0^\eta e^{-u^2}\;\d u + B\\
-    &= \alpha\erf(\eta) + B
+    (e^{\eta^2}\theta')' &= 0,\\
+    \theta' &= Ae^{-\eta^2},\\
+    \theta &= A\int_0^\eta e^{-u^2}\;\d u + B
+    = \alpha\,\erf(\eta) + B,
   \end{align*}
-  where $\erf(\eta) = \frac{2}{\sqrt{\pi}} \int_0^\eta e^{-u^2}\;\d u$ from statistics, and $\erf(\eta)\to 1$ as $\eta\to \infty$.
+  where $\erf(\eta) = \frac{2}{\sqrt{\pi}} \int_0^\eta e^{-u^2}\;\d u$ is the \emph{error function}, satisfying $\erf(\eta)\to 1$ as $\eta\to \infty$.
 
-  Now look at the boundary and initial conditions, (recall $\eta = x/(2\sqrt{\kappa t})$) and express them in terms of $\eta$. As $x \to 0$, we have $\eta \to 0$. So $\theta = 1$ at $\eta = 0$.
+  We now express the boundary and initial conditions in terms of $\eta = x/(2\sqrt{\kappa t})$. As $x \to 0$ we have $\eta \to 0$, so $\theta(0) = 1$. As $x\to \infty$ or $t\to 0^+$ we have $\eta \to \infty$, so $\theta \to 0$.
 
-  Also, if $x\to \infty, t\to 0^+$, then $\eta \to \infty$. So $\theta \to 0$ as $\eta \to \infty$.
-
-  From $\theta(0) = 1$, we get $B = 1$. From $\theta \to 0$ as $\eta \to \infty$, we need $\alpha = -1$. Thus $\theta = 1 - \erf(\eta) = \erfc(\eta)$, the \emph{complementary error function}. The solution is
+  From $\theta(0) = 1$ we get $B = 1$. From $\theta \to 0$ as $\eta \to \infty$ we need $\alpha = -1$. Thus $\theta = 1 - \erf(\eta) = \erfc(\eta)$, where $\erfc$ denotes the \emph{complementary error function}. The solution is
   \[
     T = \erfc\left(\frac{x}{2\sqrt{\kappa t}}\right).
   \]
