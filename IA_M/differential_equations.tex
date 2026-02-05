@@ -2830,74 +2830,56 @@ A \emph{second-order differential equation} involves the second derivative of th
 \end{eg}
 
 \section{Systems of differential equations}
-Many physical systems involve multiple interacting quantities, each described by its own differential equation. Such \emph{systems of differential equations} arise naturally in mechanics (coupled oscillators), population dynamics (predator-prey models), and circuit theory. This section develops methods for analyzing both linear and nonlinear systems, with emphasis on phase-space trajectories and stability of equilibria.
-
-\subsection{Linear systems}
-Consider two dependent variables $y_1(t)$ and $y_2(t)$ satisfying a coupled system of first-order linear equations:
-\begin{align*}
-  \dot y_1 &= ay_1 + by_2 + f_1(t)\\
-  \dot y_2 &= cy_1 + dy_2 + f_2(t)
-\end{align*}
-We can write this in vector notation by
-\[
-  \begin{pmatrix}
-    \dot y_1\\\dot y_2
-  \end{pmatrix} =
-  \begin{pmatrix}
-    a & b\\
-    c & d
-  \end{pmatrix}
-  \begin{pmatrix}
-    y_1\\y_2
-  \end{pmatrix}
-  +
-  \begin{pmatrix}
-    f_1\\f_2
-  \end{pmatrix}
-\]
-or $\mathbf{\dot Y} = M\mathbf{Y} + \mathbf{F}$. We can convert this to a higher-order equation by
-\begin{align*}
-  \ddot y_1 &= a\dot y_1 + b\dot y_2 + \dot f_1\\
-  &= a\dot y_1 + b(cy_1 + dy_2 + f_2) + \dot f_1\\
-  &= a\dot y_1 + bcy_1 + d(\dot y_1 - ay_1 - f_1) + bf_2 + \dot f_1
-\end{align*}
-so
-\[
-  \ddot y_1 - (a + d)\dot y_1 + (ad - bc) y_1 = bf_2 - df_1 + \dot f_1
-\]
-and we know how to solve this.
-
-\begin{remark}
-  While converting a system to a higher-order equation is always possible, eliminating variables typically makes the equation more complicated. The more useful direction is usually to convert a higher-order equation into a first-order system.
+\begin{remark}[Overview]
+  Many physical systems involve multiple interacting quantities, each described by its own differential equation. Such \emph{systems of differential equations} arise naturally in mechanics (coupled oscillators), population dynamics (predator-prey models), and circuit theory. This section develops methods for analyzing both linear and nonlinear systems, with emphasis on phase-space trajectories and stability of equilibria.
 \end{remark}
 
-Given $\ddot{y} + a\dot{y} + by = f$, we convert to a first-order system as follows. Given $\ddot{y} + a\dot{y} + by = f$, introduce $y_1 = y$ and $y_2 = \dot{y}$, so that $\mathbf{Y} = \begin{pmatrix} y_1 \\ y_2 \end{pmatrix} = \begin{pmatrix} y \\ \dot{y} \end{pmatrix}$. The second-order equation becomes the first-order system
-\begin{align*}
-  \dot y_1 &= y_2\\
-  \dot y_2 &= f - a y_2 - by_1
-\end{align*}
-or
-\[
-  \mathbf{\dot{Y}} =
-  \begin{pmatrix}
-    0 & 1\\
-    -b & -a
-  \end{pmatrix}
-  \begin{pmatrix}
-    y_1\\y_2
-  \end{pmatrix}
-  \begin{pmatrix}
-    0 \\ f
-  \end{pmatrix}.
-\]
-\subsubsection*{Solution by eigenvalues}
-Consider the general linear system $\dot{\mathbf{Y}} = M\mathbf{Y} + \mathbf{F}$, where $M$ is a constant matrix. For the homogeneous equation $\dot{\mathbf{Y}} = M\mathbf{Y}$, we seek solutions of the form $\mathbf{Y}_c = \mathbf{v} e^{\lambda t}$, where $\mathbf{v}$ is a constant vector. Substituting gives
-\[
-  \lambda \mathbf{v} e^{\lambda t} = M\mathbf{v} e^{\lambda t},
-\]
-which requires $M\mathbf{v} = \lambda \mathbf{v}$. Thus $\lambda$ must be an \emph{eigenvalue} of $M$ and $\mathbf{v}$ the corresponding \emph{eigenvector}.
+\subsection{Linear systems}
+\begin{defi}[Linear system]
+  A \emph{coupled system of first-order linear equations} in two dependent variables $y_1(t)$ and $y_2(t)$ has the form
+  \begin{align*}
+    \dot y_1 &= ay_1 + by_2 + f_1(t),\\
+    \dot y_2 &= cy_1 + dy_2 + f_2(t),
+  \end{align*}
+  where $a, b, c, d$ are constants and $f_1, f_2$ are given forcing terms. In vector notation, this is
+  \[
+    \dot{\mathbf{Y}} = M\mathbf{Y} + \mathbf{F}, \quad\text{where}\quad
+    \mathbf{Y} = \begin{pmatrix} y_1\\y_2 \end{pmatrix},\quad
+    M = \begin{pmatrix} a & b\\ c & d \end{pmatrix},\quad
+    \mathbf{F} = \begin{pmatrix} f_1\\f_2 \end{pmatrix}.
+  \]
+\end{defi}
 
-To find the eigenvalues, solve the characteristic equation $\det(M - \lambda I) = 0$. For each eigenvalue $\lambda_i$, find the corresponding eigenvector $\mathbf{v}_i$ by solving $(M - \lambda_i I)\mathbf{v}_i = \mathbf{0}$.
+\begin{remark}[Conversion between systems and higher-order equations]
+  A first-order system can be converted to a higher-order equation by elimination. Differentiating the first equation and substituting the second gives
+  \[
+    \ddot y_1 - (a + d)\dot y_1 + (ad - bc) y_1 = bf_2 - df_1 + \dot f_1.
+  \]
+  However, elimination typically makes the equation more complicated. The more useful direction is to convert a higher-order equation into a first-order system.
+\end{remark}
+
+\begin{remark}[Reduction of order]
+  Given $\ddot{y} + a\dot{y} + by = f$, introduce $y_1 = y$ and $y_2 = \dot{y}$. The second-order equation becomes the first-order system
+  \[
+    \dot{\mathbf{Y}} =
+    \begin{pmatrix}
+      0 & 1\\
+      -b & -a
+    \end{pmatrix}
+    \begin{pmatrix}
+      y_1\\y_2
+    \end{pmatrix}
+    +
+    \begin{pmatrix}
+      0 \\ f
+    \end{pmatrix}.
+  \]
+\end{remark}
+
+\subsubsection{Solution by eigenvalues}
+\begin{remark}[Eigenfunction ansatz]
+  For the homogeneous equation $\dot{\mathbf{Y}} = M\mathbf{Y}$ (with $M$ a constant matrix), we seek solutions of the form $\mathbf{Y}_c = \mathbf{v} e^{\lambda t}$, where $\mathbf{v}$ is a constant vector. Substituting gives $\lambda \mathbf{v} e^{\lambda t} = M\mathbf{v} e^{\lambda t}$, which requires $M\mathbf{v} = \lambda \mathbf{v}$. Thus $\lambda$ must be an \emph{eigenvalue} of $M$ and $\mathbf{v}$ the corresponding \emph{eigenvector}. The eigenvalues are found by solving the characteristic equation $\det(M - \lambda I) = 0$.
+\end{remark}
 
 \begin{prop}[General solution for distinct eigenvalues]
   If $M$ is an $n \times n$ matrix with $n$ distinct eigenvalues $\lambda_1, \ldots, \lambda_n$ and corresponding eigenvectors $\mathbf{v}_1, \ldots, \mathbf{v}_n$, then the general solution to the homogeneous equation $\dot{\mathbf{Y}} = M\mathbf{Y}$ is
@@ -3044,7 +3026,7 @@ To find the eigenvalues, solve the characteristic equation $\det(M - \lambda I) 
   \]
 \end{eg}
 
-\subsubsection*{Classification of phase portraits}
+\subsubsection{Classification of phase portraits}
 \begin{prop}[Classification of phase portraits]
   For a $2 \times 2$ system $\dot{\mathbf{Y}} = M\mathbf{Y}$, the qualitative behaviour of solutions is determined by the eigenvalues $\lambda_1, \lambda_2$ of $M$. There are three main cases:
   \begin{enumerate}
