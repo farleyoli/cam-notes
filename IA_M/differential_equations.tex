@@ -3247,122 +3247,137 @@ A \emph{partial differential equation} (PDE) involves partial derivatives of an 
 This section introduces three fundamental PDEs and the key technique of \emph{characteristics} for first-order equations.
 
 \subsection{First-order wave equation}
-Consider the \emph{first-order wave equation} (also called the \emph{advection equation}):
-\[
-  \frac{\partial y}{\partial t} - c\frac{\partial y}{\partial x} = 0,
-\]
-where $c$ is a constant and $y(x, t)$ is the unknown function. We will see that solutions represent waves travelling in one direction.
+
+\begin{defi}[First-order wave equation]
+  Let $c$ be a real constant and let $y(x, t)$ be a function of the spatial variable $x$ and time $t$. The \emph{first-order wave equation} (or \emph{advection equation}) is
+  \[
+    \frac{\partial y}{\partial t} - c\frac{\partial y}{\partial x} = 0.
+  \]
+\end{defi}
 
 \subsubsection*{Method of characteristics}
-The key technique for first-order PDEs is the \emph{method of characteristics}: we find curves in the $(x, t)$ plane along which the PDE reduces to an ODE.
 
-Along any path $x = x(t)$, the chain rule gives
-\begin{align*}
-  \frac{\d y}{\d t} &= \frac{\partial y}{\partial x}\frac{\d x}{\d t} + \frac{\partial y}{\partial t}\\
-  &= \frac{\d x}{\d t}\frac{\partial y}{\partial x} + c\frac{\partial y}{\partial x}
-\end{align*}
-by the chain rule. Now we choose a path along which
-\[
-  \frac{\d x}{\d t} = -c. \tag{1}
-\]
-Along such paths,
-\[
-  \frac{\d y}{\d t} = 0 \tag{2}
-\]
-So we have replaced the original partial differential equations with a pair of ordinary differential equations.
-
-Each path that satisfies (1) can be described by $x = x_0 - ct$, where $x_0$ is a constant. We can write this as $x_0 = x + ct$.
-
-From (2), along each of these paths, $y$ is constant. So suppose for each $x_0$, the value of $y$ along the path $x_0 = x + ct$ is given by $f(x_0)$, where $f$ is an arbitrary function.
+\begin{remark}
+  The key technique for solving first-order PDEs is the \emph{method of characteristics}: we seek curves in the $(x, t)$ plane along which the PDE reduces to an ODE. The following proposition illustrates this idea.
+\end{remark}
 
 \begin{prop}[General solution of first-order wave equation]
   The general solution to $y_t - cy_x = 0$ is
   \[
     y = f(x + ct),
   \]
-  where $f$ is an arbitrary differentiable function. Every such function is a solution (verified by direct differentiation), and every solution has this form.
+  where $f$ is an arbitrary differentiable function.
 \end{prop}
 
+\begin{proof}
+  Along any path $x = x(t)$ in the $(x, t)$ plane, the chain rule gives
+  \[
+    \frac{\d y}{\d t} = \frac{\partial y}{\partial x}\frac{\d x}{\d t} + \frac{\partial y}{\partial t}.
+  \]
+  Using the PDE to substitute $\frac{\partial y}{\partial t} = c\frac{\partial y}{\partial x}$, this becomes
+  \[
+    \frac{\d y}{\d t} = \left(\frac{\d x}{\d t} + c\right)\frac{\partial y}{\partial x}.
+  \]
+  Choose paths satisfying $\frac{\d x}{\d t} = -c$. Along such paths, $\frac{\d y}{\d t} = 0$. We have thus replaced the original PDE with a pair of ODEs:
+  \[
+    \frac{\d x}{\d t} = -c, \qquad \frac{\d y}{\d t} = 0.
+  \]
+  The first gives $x = x_0 - ct$ for some constant $x_0$, i.e.\ $x_0 = x + ct$. The second tells us that $y$ is constant along each such path. Since $y$ depends only on which path we follow, we have $y = f(x_0) = f(x + ct)$ for some function $f$.
+
+  Conversely, for any differentiable $f$, direct computation gives
+  \[
+    \frac{\partial}{\partial t}f(x + ct) - c\frac{\partial}{\partial x}f(x + ct) = cf'(x + ct) - cf'(x + ct) = 0,
+  \]
+  confirming that $y = f(x + ct)$ is indeed a solution.
+\end{proof}
+
 \begin{defi}[Characteristics]
-  The \emph{characteristics} of a first-order PDE are the curves along which the PDE reduces to an ODE. For the equation $y_t - cy_x = 0$, the characteristics are the lines $x + ct = \text{constant}$.
+  The \emph{characteristics} of a first-order PDE are the curves in the $(x,t)$ plane along which the PDE reduces to an ODE. For the equation $y_t - cy_x = 0$, the characteristics are the lines $x + ct = \text{constant}$.
 \end{defi}
 
-The characteristics are straight lines in the $(x, t)$ plane with slope $-c$:
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (-1, 0) -- (5, 0) node [right] {$x$};
-    \draw [->] (0, -1) -- (0, 3) node [above] {$t$};
-    \node [anchor = north east] at (0, 0) {$O$};
+\begin{remark}
+  The characteristics of $y_t - cy_x = 0$ are straight lines in the $(x, t)$ plane with slope $-c$:
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (-1, 0) -- (5, 0) node [right] {$x$};
+      \draw [->] (0, -1) -- (0, 3) node [above] {$t$};
+      \node [anchor = north east] at (0, 0) {$O$};
 
-    \foreach \x in {1, 2, 3, 4, 5} {
-      \draw [red] (\x- 0.5, 0) -- (\x - 1.5, 2.5);
-    }
-    \node [right] at (4, 1.5) {characteristics};
-  \end{tikzpicture}
-\end{center}
-Since $y$ is constant along each characteristic, the solution at time $t$ is simply the initial profile translated to the left by $ct$. This is why the equation describes waves travelling with speed $c$.
+      \foreach \x in {1, 2, 3, 4, 5} {
+        \draw [red] (\x- 0.5, 0) -- (\x - 1.5, 2.5);
+      }
+      \node [right] at (4, 1.5) {characteristics};
+    \end{tikzpicture}
+  \end{center}
+  Since $y$ is constant along each characteristic, the solution at time $t$ is the initial profile translated to the left by $ct$. This is why the equation describes waves travelling with speed $c$.
+\end{remark}
 
-We usually have initial conditions e.g.
-\[
-  y(x, 0) = x^2 - 3
-\]
-Since we know that $y = f(x + ct)$ and $f(x) = x^2 - 3$, $y$ must be given by
-\[
-  y = (x + ct)^2 - 3.
-\]
-We can plot the $xy$ curve for different values of $t$ to obtain this:
-\begin{center}
-  \begin{tikzpicture}[yscale=0.5]
-    \draw [->] (-5, 0) -- (5, 0) node [right] {$x$};
-    \draw [->] (0, -3.5) -- (0, 6.5) node [above] {$y$};
+\begin{eg}[Initial value problem]
+  Consider the initial value problem
+  \[
+    y_t - cy_x = 0, \quad y(x, 0) = x^2 - 3.
+  \]
+  The general solution is $y = f(x + ct)$. Setting $t = 0$ gives $f(x) = x^2 - 3$, so the solution is
+  \[
+    y(x, t) = (x + ct)^2 - 3.
+  \]
+  Plotting $y$ against $x$ for different values of $t$ confirms that the solution is a translation of the initial profile:
+  \begin{center}
+    \begin{tikzpicture}[yscale=0.5]
+      \draw [->] (-5, 0) -- (5, 0) node [right] {$x$};
+      \draw [->] (0, -3.5) -- (0, 6.5) node [above] {$y$};
 
-    \foreach \t in {-2,...,2}{
-      \pgfmathsetmacro\k{(\t + 6) * 12.5}
-      \draw [mblue!\k] (3 + \t ,6) parabola bend (\t , -3) (- 3 + \t, 6);
-    }
-  \end{tikzpicture}
-\end{center}
-We see that each solution is just a translation of the $t = 0$ version.
+      \foreach \t in {-2,...,2}{
+        \pgfmathsetmacro\k{(\t + 6) * 12.5}
+        \draw [mblue!\k] (3 + \t ,6) parabola bend (\t , -3) (- 3 + \t, 6);
+      }
+    \end{tikzpicture}
+  \end{center}
+\end{eg}
 
-We can also solve forced equations, such as
-\[
-  \frac{\partial y}{\partial t} + 5\frac{\partial y}{\partial x} = e^{-t},\quad y(x, 0) = e^{-x^2}.
-\]
-Along each path $x_0 = x - 5t$, we have $\frac{\d y}{\d t} = e^{-t}$. So $y = f(x_0) - e^{-t}$ for some function $f$.
-
-Using the boundary conditions provided, At $t = 0$, $y = f(x_0) - 1$ and $x = x_0$. So $f(x_0) - 1 = e^{-x_0^2}$, i.e.\ $f(x_0) = 1 + e^{-x_0^2}$. So
-\[
-  y = 1 + e^{-(x - 5t)^2} - e^{-t}.
-\]
+\begin{eg}[Forced first-order wave equation]
+  Consider the forced equation with initial condition
+  \[
+    \frac{\partial y}{\partial t} + 5\frac{\partial y}{\partial x} = e^{-t}, \quad y(x, 0) = e^{-x^2}.
+  \]
+  The characteristics satisfy $\frac{\d x}{\d t} = 5$, giving $x = x_0 + 5t$, i.e.\ $x_0 = x - 5t$. Along each characteristic, $\frac{\d y}{\d t} = e^{-t}$, which integrates to
+  \[
+    y = f(x_0) - e^{-t}
+  \]
+  for some function $f$. At $t = 0$ we have $x = x_0$ and $y = f(x_0) - 1 = e^{-x_0^2}$, so $f(x_0) = 1 + e^{-x_0^2}$. Therefore the solution is
+  \[
+    y = 1 + e^{-(x - 5t)^2} - e^{-t}.
+  \]
+\end{eg}
 \subsection{Second-order wave equation}
-The \emph{second-order wave equation} (or simply the \emph{wave equation}) is
-\[
-  \frac{\partial ^2 y}{\partial t^2} = c^2 \frac{\partial^2 y}{\partial x^2}.
-\]
-This is classified as a \emph{hyperbolic PDE} (the terminology comes from the theory of characteristics, not from any connection to hyperbolas).
+
+\begin{defi}[Wave equation]
+  Let $c > 0$ be a constant and let $y(x, t)$ be a function of position $x$ and time $t$. The \emph{second-order wave equation} (or simply the \emph{wave equation}) is
+  \[
+    \frac{\partial ^2 y}{\partial t^2} = c^2 \frac{\partial^2 y}{\partial x^2}.
+  \]
+  This is classified as a \emph{hyperbolic PDE}.
+\end{defi}
 
 \subsubsection*{Physical motivation}
-The wave equation models vibrations of a string. Let $y(x, t)$ denote the vertical displacement of a string at position $x$ and time $t$:
-\begin{center}
-  \begin{tikzpicture}
-    \draw (0, 0) sin (1.5, 0.667) cos (3, 0) sin (4.5, -0.667) cos (6, 0);
-    \draw [dashed] (0, 0) -- (6, 0);
-    \draw [->] (1.5, 0) -- (1.5, 0.667) node [pos = 0.5, right] {$y$};
-  \end{tikzpicture}
-\end{center}
-Suppose that $\rho(x)$ is the mass per unit length of a string. Then the restoring force on the string $\displaystyle ma = \rho \frac{\partial ^2 y}{\partial t^2}$ is proportional to the second derivative $\displaystyle\frac{\partial^2 y}{\partial x^2}$. So we obtain this wave equation.
+
+\begin{remark}
+  The wave equation models vibrations of a string. Let $y(x, t)$ denote the vertical displacement of a string at position $x$ and time $t$:
+  \begin{center}
+    \begin{tikzpicture}
+      \draw (0, 0) sin (1.5, 0.667) cos (3, 0) sin (4.5, -0.667) cos (6, 0);
+      \draw [dashed] (0, 0) -- (6, 0);
+      \draw [->] (1.5, 0) -- (1.5, 0.667) node [pos = 0.5, right] {$y$};
+    \end{tikzpicture}
+  \end{center}
+  If $\rho(x)$ denotes the mass per unit length, then the restoring force per unit length $\rho \frac{\partial ^2 y}{\partial t^2}$ is proportional to the curvature $\frac{\partial^2 y}{\partial x^2}$, yielding the wave equation.
+\end{remark}
 
 \begin{remark}
   Why the second spatial derivative? The restoring force cannot depend on $y$ itself (translating the whole string causes no force) or on $\partial y/\partial x$ (a uniform slope has balanced forces). Only \emph{curvature}, measured by $\partial^2 y/\partial x^2$, produces a net restoring force.
 \end{remark}
 
 \subsubsection*{General solution (d'Alembert)}
-Assuming $c$ is constant, we can factor the wave operator:
-\begin{align*}
-  \frac{\partial ^2 y}{\partial t^2} - c^2 \frac{\partial^2 y}{\partial x^2} &= 0\\
-  \left(\frac{\partial}{\partial t} + c\frac{\partial}{\partial x}\right)\left(\frac{\partial}{\partial t} - c\frac{\partial}{\partial x}\right) y &= 0
-\end{align*}
-If $y = f(x + ct)$, then $(\partial_t - c\partial_x)y = 0$, so the product of operators gives zero. Similarly, $y = g(x - ct)$ satisfies $(\partial_t + c\partial_x)y = 0$. Since the equation is linear:
 
 \begin{prop}[d'Alembert's solution]
   The general solution to the wave equation $y_{tt} = c^2 y_{xx}$ is
@@ -3372,64 +3387,68 @@ If $y = f(x + ct)$, then $(\partial_t - c\partial_x)y = 0$, so the product of op
   where $f$ and $g$ are arbitrary twice-differentiable functions. This represents a superposition of a wave travelling left (with speed $c$) and a wave travelling right (with speed $c$).
 \end{prop}
 
-To verify this is the most general solution, substitute $\xi = x + ct$ and $\eta = x - ct$. The chain rule gives $y_{tt} - c^2 y_{xx} = -4c^2 y_{\xi\eta}$. Thus the wave equation becomes $y_{\xi\eta} = 0$, which integrates to $y = f(\xi) + g(\eta)$.
+\begin{proof}
+  Rewrite the wave equation as
+  \[
+    \frac{\partial ^2 y}{\partial t^2} - c^2 \frac{\partial^2 y}{\partial x^2} = \left(\frac{\partial}{\partial t} + c\frac{\partial}{\partial x}\right)\left(\frac{\partial}{\partial t} - c\frac{\partial}{\partial x}\right) y = 0.
+  \]
+  If $y = f(x + ct)$, then $(\partial_t - c\partial_x)y = 0$, so the product of operators gives zero. Similarly, $y = g(x - ct)$ satisfies $(\partial_t + c\partial_x)y = 0$. Since the equation is linear, $y = f(x + ct) + g(x - ct)$ is also a solution.
+
+  To see that this is the most general solution, introduce coordinates $\xi = x + ct$ and $\eta = x - ct$. The chain rule gives $y_{tt} - c^2 y_{xx} = -4c^2 y_{\xi\eta}$, so the wave equation becomes $y_{\xi\eta} = 0$. Integrating first with respect to $\xi$ and then with respect to $\eta$ yields $y = f(\xi) + g(\eta) = f(x + ct) + g(x - ct)$.
+\end{proof}
 
 \begin{remark}
   How many conditions do we need for a unique solution? In ODEs, we simply count the order of the equation. In PDEs, we must count over all variables. For the wave equation (second-order in both $x$ and $t$), we need 2 boundary conditions and 2 initial conditions.
 \end{remark}
 
-For example, we can have:
-\begin{itemize}
-  \item Initial conditions: at $t = 0$,
-    \begin{gather*}
-      y = \frac{1}{1 + x^2}\\
-      \frac{\partial y}{\partial t} = 0
-    \end{gather*}
-  \item Boundary conditions: $y \to 0$ as $x \to \pm \infty$.
-\end{itemize}
-We know that the solution has the form
-\[
-  y = f(x + ct) + g(x - ct).
-\]
-The first initial condition give
-\[
-  f(x) + g(x) = \frac{1}{1 + x^2}\tag{1}
-\]
-The second initial condition gives
-\[
-  \frac{\partial y}{\partial t} = cf'(x) - cg'(x)\tag{2} = 0
-\]
-From (2), we know that $f' = g'$. So $f$ and $g$ differ by a constant. wlog, we can assume that they are indeed equal, since if we had, say, $f = g + 2$, then we can let $y = (f(x + ct) + 1) + (g(x - ct) + 1)$ instead, and the new $f$ and $g$ are equal.
+\begin{eg}[Initial value problem on the real line]
+  Consider the wave equation $y_{tt} = c^2 y_{xx}$ with initial conditions
+  \[
+    y(x, 0) = \frac{1}{1 + x^2}, \quad \frac{\partial y}{\partial t}(x, 0) = 0,
+  \]
+  and boundary conditions $y \to 0$ as $x \to \pm \infty$.
 
-From (1), we must have
-\[
-  f(x) = g(x) = \frac{1}{2(1 + x^2)}
-\]
-So, overall,
-\[
-  y = \frac{1}{2}\left[\frac{1}{1 + (x + ct)^2} + \frac{1}{1 + (x - ct)^2}\right]
-\]
-Where we substituted $x$ for $x +ct$ and $x - ct$ in $f$ and $g$ respectively.
+  The general solution is $y = f(x + ct) + g(x - ct)$. The first initial condition gives
+  \[
+    f(x) + g(x) = \frac{1}{1 + x^2}. \tag{$*$}
+  \]
+  The second initial condition gives
+  \[
+    cf'(x) - cg'(x) = 0. \tag{$**$}
+  \]
+  From ($**$), $f' = g'$, so $f$ and $g$ differ by a constant. Without loss of generality, we may take $f = g$: if $f = g + C$ for some constant $C$, we can redefine $\tilde f = f - C/2$ and $\tilde g = g + C/2$ so that $\tilde f = \tilde g$ while $\tilde f + \tilde g = f + g$. Then ($*$) gives
+  \[
+    f(x) = g(x) = \frac{1}{2(1 + x^2)}.
+  \]
+  Substituting $x + ct$ and $x - ct$ for the arguments of $f$ and $g$ respectively, the solution is
+  \[
+    y = \frac{1}{2}\left[\frac{1}{1 + (x + ct)^2} + \frac{1}{1 + (x - ct)^2}\right].
+  \]
+\end{eg}
 
 \subsection{The diffusion equation}
-The \emph{diffusion equation} (or \emph{heat equation}) models heat conduction in a solid:
-\[
-  \frac{\partial T}{\partial t} = \kappa \frac{\partial^2 T}{\partial x^2},
-\]
-where $T(x, t)$ is the temperature and $\kappa > 0$ is the \emph{thermal diffusivity}. This is classified as a \emph{parabolic PDE}.
+
+\begin{defi}[Diffusion equation]
+  Let $T(x, t)$ be a function of position $x$ and time $t$, and let $\kappa > 0$ be a constant called the \emph{thermal diffusivity}. The \emph{diffusion equation} (or \emph{heat equation}) is
+  \[
+    \frac{\partial T}{\partial t} = \kappa \frac{\partial^2 T}{\partial x^2}.
+  \]
+  This is classified as a \emph{parabolic PDE}.
+\end{defi}
 
 \begin{remark}
   Unlike the wave equation (where acceleration $\propto$ curvature), here the rate of change $\partial T/\partial t$ is directly proportional to curvature $\partial^2 T/\partial x^2$. This makes the diffusion equation \emph{dissipative}: irregularities smooth out over time rather than propagating as waves.
 \end{remark}
 
 \begin{eg}[Semi-infinite heated bar]
-  Consider a semi-infinite bar ($x \geq 0$) that is initially at temperature zero, then heated at the end $x = 0$ for $t > 0$:
-
-  Suppose $T(x,0) = 0$, $T(0, t) = H(t) =
-  \begin{cases}
-    0 & t < 0\\
-    1 & t > 0
-  \end{cases}$, and $T(x, t)\to 0$ as $x\to \infty$. In words, the bar is initially cold, then suddenly heated at one end.
+  Consider a semi-infinite bar ($x \geq 0$) that is initially at temperature zero, then suddenly heated at the end $x = 0$ for $t > 0$. The conditions are
+  \[
+    T(x,0) = 0 \quad (x > 0), \qquad T(0, t) = H(t) =
+    \begin{cases}
+      0 & t < 0\\
+      1 & t > 0
+    \end{cases}, \qquad T(x, t)\to 0 \text{ as } x\to \infty.
+  \]
 
   We seek a \emph{similarity solution}---a solution where $T$ depends on $x$ and $t$ only through a particular combination. The natural length scale for diffusion over time $t$ is $\sqrt{\kappa t}$, suggesting we try $T(x, t) = \theta(\eta)$ where
   \[
@@ -3437,35 +3456,33 @@ where $T(x, t)$ is the temperature and $\kappa > 0$ is the \emph{thermal diffusi
   \]
   is the \emph{similarity variable}.
 
-  Applying the chain rule, we have
+  Applying the chain rule:
   \begin{align*}
-    \frac{\partial T}{\partial x} &= \frac{\d \theta}{\d \eta} \frac{\partial \eta}{\partial x}\\
-    &= \frac{1}{2\sqrt{\kappa t}} \theta'(\eta)\\
-    \frac{\partial^2 T}{\partial x^2} &= \frac{1}{2\sqrt{\kappa t}} \frac{\d\theta'}{\d\eta}\frac{\partial \eta}{\partial x}\\
-    &= \frac{1}{4\kappa t}\theta''(\eta)\\
-    \frac{\partial T}{\partial t} &= \frac{\d \theta}{\d \eta}\frac{\partial \eta}{\partial t}\\
-    &= -\frac{1}{2}\frac{x}{2\sqrt{\kappa}}\frac{1}{t^{3/2}} \theta'(\eta)\\
-    &= -\frac{\eta}{2t}\theta'(\eta)
+    \frac{\partial T}{\partial x} &= \frac{\d \theta}{\d \eta} \frac{\partial \eta}{\partial x}
+    = \frac{1}{2\sqrt{\kappa t}} \theta'(\eta),\\
+    \frac{\partial^2 T}{\partial x^2} &= \frac{1}{2\sqrt{\kappa t}} \frac{\d\theta'}{\d\eta}\frac{\partial \eta}{\partial x}
+    = \frac{1}{4\kappa t}\theta''(\eta),\\
+    \frac{\partial T}{\partial t} &= \frac{\d \theta}{\d \eta}\frac{\partial \eta}{\partial t}
+    = -\frac{x}{4\sqrt{\kappa}\,t^{3/2}} \theta'(\eta)
+    = -\frac{\eta}{2t}\theta'(\eta).
   \end{align*}
-  Putting this into the diffusion equation yields
+  Substituting into the diffusion equation yields
   \begin{align*}
-    -\frac{\eta}{2t}\theta' &= \kappa \frac{1}{4\kappa t}\theta''\\
-    \theta'' + 2\eta\theta' &= 0
+    -\frac{\eta}{2t}\theta' &= \kappa \cdot \frac{1}{4\kappa t}\theta'',\\
+    \theta'' + 2\eta\theta' &= 0.
   \end{align*}
-  This is an ordinary differential equation for $\theta(\eta)$. This can be seen as a first-order equation for $\theta'$ with non-constant coefficients. Use the integrating factor $\mu = \exp(\int 2\eta \;\d \eta) = e^{\eta^2}$. So
+  This is an ODE for $\theta(\eta)$. Treating it as a first-order linear equation for $\theta'$, we use the integrating factor $\mu = \exp\!\left(\int 2\eta \;\d \eta\right) = e^{\eta^2}$ to obtain
   \begin{align*}
-    (e^{\eta^2}\theta')' &= 0\\
-    \theta' &= Ae^{-\eta^2}\\
-    \theta &= A\int_0^\eta e^{-u^2}\;\d u + B\\
-    &= \alpha\erf(\eta) + B
+    (e^{\eta^2}\theta')' &= 0,\\
+    \theta' &= Ae^{-\eta^2},\\
+    \theta &= A\int_0^\eta e^{-u^2}\;\d u + B
+    = \alpha\,\erf(\eta) + B,
   \end{align*}
-  where $\erf(\eta) = \frac{2}{\sqrt{\pi}} \int_0^\eta e^{-u^2}\;\d u$ from statistics, and $\erf(\eta)\to 1$ as $\eta\to \infty$.
+  where $\erf(\eta) = \frac{2}{\sqrt{\pi}} \int_0^\eta e^{-u^2}\;\d u$ is the \emph{error function}, satisfying $\erf(\eta)\to 1$ as $\eta\to \infty$.
 
-  Now look at the boundary and initial conditions, (recall $\eta = x/(2\sqrt{\kappa t})$) and express them in terms of $\eta$. As $x \to 0$, we have $\eta \to 0$. So $\theta = 1$ at $\eta = 0$.
+  We now express the boundary and initial conditions in terms of $\eta = x/(2\sqrt{\kappa t})$. As $x \to 0$ we have $\eta \to 0$, so $\theta(0) = 1$. As $x\to \infty$ or $t\to 0^+$ we have $\eta \to \infty$, so $\theta \to 0$.
 
-  Also, if $x\to \infty, t\to 0^+$, then $\eta \to \infty$. So $\theta \to 0$ as $\eta \to \infty$.
-
-  From $\theta(0) = 1$, we get $B = 1$. From $\theta \to 0$ as $\eta \to \infty$, we need $\alpha = -1$. Thus $\theta = 1 - \erf(\eta) = \erfc(\eta)$, the \emph{complementary error function}. The solution is
+  From $\theta(0) = 1$ we get $B = 1$. From $\theta \to 0$ as $\eta \to \infty$ we need $\alpha = -1$. Thus $\theta = 1 - \erf(\eta) = \erfc(\eta)$, where $\erfc$ denotes the \emph{complementary error function}. The solution is
   \[
     T = \erfc\left(\frac{x}{2\sqrt{\kappa t}}\right).
   \]
