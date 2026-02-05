@@ -2616,7 +2616,9 @@ A \emph{second-order differential equation} involves the second derivative of th
   \end{enumerate}
 \end{prop}
 \subsection{Stationary points}
-At any point, there is at least one direction in which $\frac{\d f}{\d s} = 0$: the direction tangent to the contour (level curve) of $f$. However, at certain special points, the directional derivative vanishes in \emph{all} directions.
+\begin{remark}[Motivation]
+  At any point, there is at least one direction in which $\frac{\d f}{\d s} = 0$: the direction tangent to the contour (level curve) of $f$. However, at certain special points, the directional derivative vanishes in \emph{all} directions.
+\end{remark}
 
 \begin{defi}[Stationary point]
   A \emph{stationary point} (or \emph{critical point}) of $f$ is a point $\mathbf{x}_0$ where $\nabla f(\mathbf{x}_0) = \mathbf{0}$, i.e.,
@@ -2626,18 +2628,16 @@ At any point, there is at least one direction in which $\frac{\d f}{\d s} = 0$: 
   At such points, $\frac{\d f}{\d s} = \hat{\mathbf{s}} \cdot \nabla f = 0$ for all directions $\hat{\mathbf{s}}$.
 \end{defi}
 
-Stationary points include local maxima and local minima, but also \emph{saddle points}:
-\begin{center}
-  \begin{tikzpicture}
-    \begin{axis}[hide axis, xtick=\empty, ytick=\empty]
-      \addplot3 [mesh, draw=gray, samples = 11] {x^2 - y^2};
-      \node [circ] at (axis cs:0, 0, 0) {};
-    \end{axis}
-  \end{tikzpicture}
-\end{center}
-
 \begin{defi}[Saddle point]
-  A \emph{saddle point} is a stationary point (where $\nabla f = \mathbf{0}$) that is neither a local maximum nor a local minimum. At a saddle point, $f$ increases in some directions and decreases in others.
+  Stationary points include local maxima and local minima, but also \emph{saddle points}. A \emph{saddle point} is a stationary point that is neither a local maximum nor a local minimum: $f$ increases in some directions and decreases in others.
+  \begin{center}
+    \begin{tikzpicture}
+      \begin{axis}[hide axis, xtick=\empty, ytick=\empty]
+        \addplot3 [mesh, draw=gray, samples = 11] {x^2 - y^2};
+        \node [circ] at (axis cs:0, 0, 0) {};
+      \end{axis}
+    \end{tikzpicture}
+  \end{center}
 \end{defi}
 
 \begin{remark}
