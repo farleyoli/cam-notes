@@ -1923,224 +1923,324 @@ A \emph{second-order differential equation} involves the second derivative of th
 \end{remark}
 
 \subsection{Linear equidimensional equations}
-\emph{Equidimensional equations} (also called Euler equations or Cauchy--Euler equations) have coefficients that are powers of $x$ matching the order of the derivative. These equations arise naturally in problems with radial or scale symmetry. Note that they are sometimes called ``homogeneous equations'', but we avoid this terminology to prevent confusion with equations having no forcing term.
-
 \begin{defi}[Equidimensional equation]
-  An equation is \emph{equidimensional} if it has the form
+  A second-order linear ODE is \emph{equidimensional} (also called an \emph{Euler equation} or \emph{Cauchy--Euler equation}) if it has the form
   \[
     ax^2y'' + bxy' + cy = f(x),
   \]
-  where $a, b, c$ are constants.
+  where $a, b, c$ are constants with $a \neq 0$, and $f(x)$ is a given forcing term. The equation is \emph{homogeneous} if $f(x) = 0$.
 \end{defi}
-To understand the name ``equidimensional'', suppose we are doing physics and variables have dimensions. Say $y$ has dimensions $L$ and $x$ has dimensions $T$. Then $y'$ has dimensions $LT^{-1}$ and $y''$ has dimensions $LT^{-2}$. So all terms $x^2 y''$, $xy'$ and $y$ have the same dimensions.
 
-\subsubsection*{Solving by eigenfunctions}
-Note that $y = x^k$ is an eigenfunction of $x\frac{\d}{\d x}$. We can try an eigenfunction $y = x^k$. We have $y' = kx^{k - 1}$ and thus $xy' = kx^k = ky$; and $y'' = k(k - 1)x^{k - 2}$ and $x^2y'' = k(k - 1)x^k$.
+\begin{remark}[Terminology]
+  Equidimensional equations are sometimes called ``homogeneous equations'' in other texts, but we avoid this terminology to prevent confusion with equations having a zero forcing term.
+\end{remark}
 
-Substituting in, we have
-\[
-  ak(k - 1) + bk + c = 0,
-\]
-which we can solve, in general, to give two roots $k_1$ and $k_2$, and $y_c = Ax^{k_1} + Bx^{k_2}$.
+\begin{remark}[Origin of the name]
+  To understand the name ``equidimensional'', suppose we assign physical dimensions to the variables: let $y$ have dimensions $L$ and $x$ have dimensions $T$. Then $y'$ has dimensions $LT^{-1}$ and $y''$ has dimensions $LT^{-2}$, so all terms $x^2 y''$, $xy'$, and $y$ have the same dimensions $L$.
+\end{remark}
 
-\subsubsection*{Solving by substitution}
-Alternatively, we can make a substitution $z = \ln x$. Then we can show that
-\[
-  a\frac{\d ^2 y}{d z^2} + (b - a)\frac{\d y}{\d z} + cy = f(e^z).
-\]
-This turns an equidimensional equation into an equation with constant coefficients. The characteristic equation for solutions in the form $y = e^{\lambda z}$ is $a\lambda^2 + (b - a)\lambda + c = 0$, which can be rearranged to $a\lambda(\lambda - 1) + b\lambda + c = 0$. So $\lambda = k_1, k_2$.
+\subsubsection{Solving by eigenfunctions}
+\begin{remark}[Eigenfunction ansatz]
+  The function $y = x^k$ is an eigenfunction of the operator $x\frac{\d}{\d x}$, since $x\frac{\d}{\d x}(x^k) = kx^k$. This motivates seeking solutions to the homogeneous equidimensional equation of the form $y = x^k$.
+\end{remark}
 
-Then the complementary function is $y_c = Ae^{k_1z} + Be^{k_2z} = Ax^{k_1} + Bx^{k_2}$.
+\begin{prop}[Indicial equation]
+  The function $y = x^k$ is a solution of $ax^2y'' + bxy' + cy = 0$ if and only if $k$ satisfies the \emph{indicial equation}
+  \[
+    ak(k - 1) + bk + c = 0.
+  \]
+\end{prop}
+\begin{proof}
+  Substituting $y = x^k$ gives $y' = kx^{k - 1}$ and $y'' = k(k - 1)x^{k - 2}$. Thus
+  \[
+    ax^2 \cdot k(k - 1)x^{k - 2} + bx \cdot kx^{k - 1} + cx^k = x^k\bigl[ak(k - 1) + bk + c\bigr] = 0.
+  \]
+  Since $x^k \neq 0$, we require $ak(k - 1) + bk + c = 0$.
+\end{proof}
 
-\subsubsection*{Degenerate solutions}
-If the roots of the characteristic equation are equal, then $y_c = \{e^{kz}, ze^{kz}\} = \{x^k, x^k\ln x\}$. Similarly, if there is a resonant forcing proportional to $x^{k_1}$ (or $x^{k_2}$), then there is a particular integral of the form $x^{k_1}\ln x$.
+\begin{prop}[Complementary function with distinct roots]
+  Let $k_1$ and $k_2$ be the roots of the indicial equation. If $k_1 \neq k_2$, then the general complementary function is
+  \[
+    y_c = Ax^{k_1} + Bx^{k_2},
+  \]
+  where $A$ and $B$ are arbitrary constants.
+\end{prop}
 
-These results can be easily obtained by considering the substitution method of solving, and then applying our results from homogeneous linear equations with constant coefficients.
+\subsubsection{Solving by substitution}
+\begin{prop}[Reduction to constant coefficients]
+  The substitution $z = \ln x$ transforms the equidimensional equation $ax^2y'' + bxy' + cy = f(x)$ into the constant-coefficient equation
+  \[
+    a\frac{\d ^2 y}{\d z^2} + (b - a)\frac{\d y}{\d z} + cy = f(e^z).
+  \]
+\end{prop}
+\begin{proof}
+  Since $z = \ln x$, we have $\frac{\d z}{\d x} = \frac{1}{x}$. By the chain rule,
+  \[
+    \frac{\d y}{\d x} = \frac{1}{x}\frac{\d y}{\d z}, \quad\text{so}\quad xy' = \frac{\d y}{\d z}.
+  \]
+  Differentiating again,
+  \[
+    \frac{\d^2 y}{\d x^2} = \frac{\d}{\d x}\!\left(\frac{1}{x}\frac{\d y}{\d z}\right) = -\frac{1}{x^2}\frac{\d y}{\d z} + \frac{1}{x^2}\frac{\d^2 y}{\d z^2}, \quad\text{so}\quad x^2y'' = \frac{\d^2 y}{\d z^2} - \frac{\d y}{\d z}.
+  \]
+  Substituting into $ax^2y'' + bxy' + cy = f(x)$ gives
+  \[
+    a\!\left(\frac{\d^2 y}{\d z^2} - \frac{\d y}{\d z}\right) + b\frac{\d y}{\d z} + cy = f(e^z),
+  \]
+  which simplifies to $a\frac{\d^2 y}{\d z^2} + (b - a)\frac{\d y}{\d z} + cy = f(e^z)$.
+\end{proof}
+
+\begin{remark}[Consistency of the two methods]
+  The characteristic equation for the constant-coefficient form, with ansatz $y = e^{\lambda z}$, is $a\lambda^2 + (b - a)\lambda + c = 0$, which rearranges to $a\lambda(\lambda - 1) + b\lambda + c = 0$. This is exactly the indicial equation with $\lambda = k$. Since $y = e^{\lambda z} = e^{\lambda \ln x} = x^\lambda$, the two methods yield the same complementary function $y_c = Ax^{k_1} + Bx^{k_2}$.
+\end{remark}
+
+\subsubsection{Degenerate case}
+\begin{prop}[Repeated roots]
+  If the indicial equation has a repeated root $k$, then the general complementary function is
+  \[
+    y_c = (A + B\ln x)\, x^k,
+  \]
+  where $A$ and $B$ are arbitrary constants.
+\end{prop}
+\begin{proof}
+  Under the substitution $z = \ln x$, the repeated root gives the constant-coefficient complementary function $y_c = (A + Bz)e^{kz}$. Reverting to the original variable via $z = \ln x$ and $e^{kz} = x^k$ gives the result.
+\end{proof}
+
+\begin{prop}[Resonant forcing]
+  If the forcing term is proportional to $x^{k_1}$ (or $x^{k_2}$), where $k_1$ (or $k_2$) is a root of the indicial equation, then there is a particular integral of the form $Cx^{k_1}\ln x$ (or $Cx^{k_2}\ln x$) for some constant $C$.
+\end{prop}
+
+\begin{remark}
+  Both the repeated-root and resonant-forcing results follow immediately from the substitution method and the corresponding results for constant-coefficient equations established in Subsection~5.1.
+\end{remark}
 
 \subsection{Difference equations}
-A \emph{difference equation} (or \emph{recurrence relation}) relates values of a sequence $y_n$ at different indices. The techniques for solving difference equations closely parallel those for differential equations.
+\begin{defi}[Difference equation]
+  A \emph{difference equation} (or \emph{recurrence relation}) relates values of a sequence $y_n$ at different indices. A \emph{second-order linear difference equation with constant coefficients} has the form
+  \[
+    ay_{n + 2} + by_{n + 1} + cy_n = f_n,
+  \]
+  where $a, b, c$ are constants with $a \neq 0$, and $f_n$ is a given sequence called the \emph{forcing term}. The equation is \emph{homogeneous} if $f_n = 0$ for all $n$.
+\end{defi}
 
-Consider a second-order linear difference equation of the form
-\[
-  a y_{n + 2} + by_{n + 1} + cy_n = f_n,
-\]
-where $a$, $b$, $c$ are constants and $f_n$ is a given sequence. We solve this by exploiting linearity and finding eigenfunctions, just as for differential equations.
+\begin{remark}[Solution strategy]
+  The techniques for solving difference equations closely parallel those for differential equations: we exploit linearity and find eigenfunctions. The general solution is $y_n = y_n^c + y_n^p$, where $y_n^c$ is the complementary function (solving the homogeneous equation) and $y_n^p$ is a particular integral.
+\end{remark}
 
-Define the \emph{shift operator} $S[y_n] = y_{n + 1}$. The function $y_n = k^n$ is an eigenfunction of $S$ with eigenvalue $k$, since $S[k^n] = k^{n + 1} = k \cdot k^n$.
+\begin{defi}[Shift operator]
+  The \emph{shift operator} $S$ acts on sequences by $S[y_n] = y_{n+1}$.
+\end{defi}
 
-To solve the difference equation, we first look for complementary functions satisfying
-\[
-  ay_{n + 2} + by_{n + 1} + cy_n = 0
-\]
-We try $y_n = k^n$ to obtain
-\begin{align*}
-  ak^{n + 2} + bk^{n + 1} + ck^n &= 0\\
-  ak^2 + bk + c &= 0
-\end{align*}
-from which we can determine $k$. So the general complementary function is $y_n^c = Ak_1^n + Bk_2^n$ if $k_1 \not= k_2$. If they are equal, then $y_n^c = (A + Bn)k^n$.
+\begin{remark}[Eigenfunction ansatz]
+  The function $y_n = k^n$ is an eigenfunction of $S$ with eigenvalue $k$, since $S[k^n] = k^{n+1} = k \cdot k^n$. This motivates seeking solutions to the homogeneous difference equation of the form $y_n = k^n$.
+\end{remark}
 
-To find the particular integral, we guess.
-\begin{center}
-  \begin{tabular}{cc}
-    \toprule
-    $f_n$ & $y_n^p$\\
-    \midrule
-    $k^n$ & $Ak^n$ if $k \not= k_1, k_2$\\
-    $k_1^n$ & $nk_1^n$\\
-    $n^p$ & $An^p + Bn^{p - 1} + \cdots + Cn + D$\\
-    \bottomrule
-  \end{tabular}
-\end{center}
+\begin{prop}[Characteristic equation]
+  The function $y_n = k^n$ is a solution of $ay_{n+2} + by_{n+1} + cy_n = 0$ if and only if $k$ satisfies the \emph{characteristic equation}
+  \[
+    ak^2 + bk + c = 0.
+  \]
+\end{prop}
+\begin{proof}
+  Substituting $y_n = k^n$ gives
+  \[
+    ak^{n+2} + bk^{n+1} + ck^n = k^n(ak^2 + bk + c) = 0.
+  \]
+  Since $k^n \neq 0$ (assuming $k \neq 0$), we require $ak^2 + bk + c = 0$.
+\end{proof}
+
+\begin{prop}[Complementary function]
+  Let $k_1$ and $k_2$ be the roots of the characteristic equation $ak^2 + bk + c = 0$.
+  \begin{enumerate}
+    \item If $k_1 \neq k_2$, the general complementary function is $y_n^c = Ak_1^n + Bk_2^n$.
+    \item If $k_1 = k_2 = k$, the general complementary function is $y_n^c = (A + Bn)k^n$.
+  \end{enumerate}
+  Here $A$ and $B$ are arbitrary constants.
+\end{prop}
+
+\begin{remark}[Particular integrals by inspection]
+  To find a particular integral, one uses trial solutions analogous to those for differential equations. A summary of standard guesses is given in the following table, where $k_1$ and $k_2$ denote the roots of the characteristic equation.
+  \begin{center}
+    \begin{tabular}{cc}
+      \toprule
+      $f_n$ & Trial $y_n^p$\\
+      \midrule
+      $k^n$ (with $k \neq k_1, k_2$) & $Ck^n$\\
+      $k_1^n$ & $Cnk_1^n$\\
+      $n^p$ & $C_pn^p + C_{p-1}n^{p - 1} + \cdots + C_1 n + C_0$\\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+\end{remark}
 
 \begin{eg}[Fibonacci sequence]
-  The Fibonacci sequence is defined by
+  The Fibonacci sequence is defined by the recurrence
   \[
-    y_n = y_{n - 1} + y_{n - 2}
+    y_n = y_{n-1} + y_{n-2},
   \]
-  with $y_0 = y_1 = 1$.
-
-  We can write this as
+  with initial conditions $y_0 = y_1 = 1$. Rewriting in standard form gives
   \[
-    y_{n + 2} - y_{n + 1} - y_n = 0
+    y_{n+2} - y_{n+1} - y_n = 0.
   \]
-  We try $y_n = k^n$. Then $k^2 - k - 1 = 0$. Then
-  \begin{align*}
-    k^2 - k - 1 &= 0\\
-    k &= \frac{1 \pm \sqrt{5}}{2}
-  \end{align*}
-  We write $k = \varphi_1, \varphi_2$. Then $y_n = A\varphi_1^n + B\varphi_2^n$. Our initial conditions give
-  \begin{align*}
-    A + B &= 1\\
-    A\varphi_1 + B\varphi_2 &= 1
-  \end{align*}
-  We get $\displaystyle A = \frac{\varphi_1}{\sqrt{5}}$ and $\displaystyle B = \frac{-\varphi_2}{\sqrt{5}}$. So
+  The characteristic equation is $k^2 - k - 1 = 0$, with roots
   \[
-    y_n = \frac{\varphi_1^{n + 1} - \varphi_2^{n + 1}}{\sqrt{5}} = \frac{\varphi_1^{n + 1} - \left(\frac{-1}{\varphi_1}\right)^{n + 1}}{\sqrt{5}}
+    k = \frac{1 \pm \sqrt{5}}{2}.
+  \]
+  Write $\varphi_1 = \frac{1 + \sqrt{5}}{2}$ and $\varphi_2 = \frac{1 - \sqrt{5}}{2}$. The general solution is $y_n = A\varphi_1^n + B\varphi_2^n$. Applying the initial conditions:
+  \begin{align*}
+    A + B &= 1,\\
+    A\varphi_1 + B\varphi_2 &= 1.
+  \end{align*}
+  Solving gives $A = \dfrac{\varphi_1}{\sqrt{5}}$ and $B = \dfrac{-\varphi_2}{\sqrt{5}}$, so
+  \[
+    y_n = \frac{\varphi_1^{n+1} - \varphi_2^{n+1}}{\sqrt{5}} = \frac{\varphi_1^{n+1} - \left(\frac{-1}{\varphi_1}\right)^{n+1}}{\sqrt{5}}.
   \]
 \end{eg}
 
 \subsection{Transients and damping}
-Many physical systems involve a restoring force (which tends to return the system to equilibrium) and a damping force (which dissipates energy). The interplay between these forces leads to different types of behaviour: oscillatory decay, exponential decay, or a combination.
+\begin{remark}[Physical motivation]
+  Many physical systems involve a restoring force (which tends to return the system to equilibrium) and a damping force (which dissipates energy). The interplay between these forces leads to different types of behaviour: oscillatory decay, exponential decay, or a combination.
+\end{remark}
 
-As a concrete example, consider a car of mass $M$ with a vertical force $F(t)$ acting on it (for instance, from a passenger jumping in). The wheels act as springs with spring constant $k$ (restoring force $F = -kx$), and the shock absorbers provide damping proportional to velocity (damping force $F = -l\dot{x}$). Newton's second law gives
-\[
-  M\ddot x = F(t) - kx - l\dot x.
-\]
-So we have
-\[
-  \ddot x + \frac{l}{M}\dot x + \frac{k}{M}x = \frac{1}{M}F(t).
-\]
-Note that if we don't have the damping and the forcing, we end up with simple harmonic motion of angular frequency $\sqrt{k/M}$. Write $t = \tau \sqrt{M/k}$, where $\tau$ is dimensionless. The timescale $\sqrt{M/k}$ is proportional to the period of the undamped, unforced system (or 1 over its natural frequency). Then we obtain
-\[
-  \ddot x + 2\kappa\dot x + x = f(\tau)
-\]
-where, $\dot x$ means $\frac{\d x}{d\tau}$, $\kappa = \frac{l}{2\sqrt{kM}}$ and $f = \frac{F}{k}$.
+\begin{eg}[Damped harmonic oscillator]
+  Consider a car of mass $M$ with a vertical force $F(t)$ acting on it (for instance, from a passenger jumping in). The wheels act as springs with spring constant $k$ (restoring force $-kx$), and the shock absorbers provide damping proportional to velocity (damping force $-l\dot{x}$). Newton's second law gives
+  \[
+    M\ddot x = F(t) - kx - l\dot x,
+  \]
+  which rearranges to
+  \[
+    \ddot x + \frac{l}{M}\dot x + \frac{k}{M}x = \frac{1}{M}F(t).
+  \]
+  Without damping or forcing, this reduces to simple harmonic motion with angular frequency $\sqrt{k/M}$.
+\end{eg}
 
-By this substitution, we are now left with only one parameter $\kappa$ instead of the original three ($M, l, k$).
+\begin{remark}[Nondimensionalization]
+  Introducing the dimensionless time $\tau = t\sqrt{k/M}$ (so that the timescale $\sqrt{M/k}$ is proportional to the period of the undamped, unforced system), and writing $\kappa = \frac{l}{2\sqrt{kM}}$ and $f = \frac{F}{k}$, the equation becomes
+  \[
+    \ddot x + 2\kappa\dot x + x = f(\tau),
+  \]
+  where dots now denote $\frac{\d}{\d\tau}$. This nondimensionalization reduces the original three parameters ($M$, $l$, $k$) to a single parameter $\kappa$.
+\end{remark}
 
-We will consider different possible cases.
+\subsubsection{Free response}
+\begin{prop}[Characteristic equation for the free response]
+  Setting $f = 0$ and trying $x = e^{\lambda\tau}$ in $\ddot x + 2\kappa\dot x + x = 0$ gives the characteristic equation
+  \[
+    \lambda^2 + 2\kappa\lambda + 1 = 0,
+  \]
+  with roots $\lambda = -\kappa \pm \sqrt{\kappa^2 - 1}$. Writing $\lambda = -\lambda_1, -\lambda_2$ where $\lambda_1$ and $\lambda_2$ have positive real parts, the nature of the solution depends on the sign of $\kappa^2 - 1$.
+\end{prop}
 
-\subsubsection*{Free (natural) response \texorpdfstring{$f = 0$}{f = 0}}
-\begin{align*}
-  \ddot x + 2\kappa \dot x + x &= 0\\
-  \intertext{We try $x = e^{\lambda \tau}$}
-  \lambda^2 + 2\kappa\lambda + 1 &= 0\\
-  \lambda &= -\kappa \pm \sqrt{\kappa^2 - 1}\\
-  &= -\lambda_1, -\lambda_2
-\end{align*}
-where $\lambda_1$ and $\lambda_2$ have positive real parts.
+\begin{prop}[Underdamping ($\kappa < 1$)]
+  If $\kappa < 1$, the roots are complex and the general solution is
+  \[
+    x = e^{-\kappa\tau}\bigl(A\sin\sqrt{1 - \kappa^2}\,\tau + B\cos\sqrt{1 - \kappa^2}\,\tau\bigr),
+  \]
+  where $A$ and $B$ are arbitrary constants. The solution oscillates with period $\frac{2\pi}{\sqrt{1 - \kappa^2}}$ inside a decaying envelope with characteristic decay time $O(1/\kappa)$.
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (6, 0) node [right] {$\tau$};
+      \draw [->] (0, -2) -- (0, 2) node [above] {$x$};
 
-\subsubsection*{Underdamping}
-If $\kappa < 1$, we have $x = e^{-\kappa\tau}(A\sin \sqrt{1 - \kappa^2}\tau +B\cos \sqrt{1 - \kappa^2}\tau)$.
+      \draw [semithick, mblue, domain = 0:5.8, samples=100] plot (\x, {1.8 * exp (-0.5 * \x) * sin (300 * \x + 40)});
+    \end{tikzpicture}
+  \end{center}
+\end{prop}
 
-The period is $\frac{2\pi}{\sqrt{1 - \kappa^2}}$ and its amplitude decays in a characteristic of $O(\frac{1}{\kappa})$. Note that the damping increases the period. As $\kappa \to 1$, the oscillation period $\to \infty$.
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (6, 0) node [right] {$\tau$};
-    \draw [->] (0, -2) -- (0, 2) node [above] {$x$};
+\begin{remark}
+  Damping increases the period of oscillation compared to the undamped case. As $\kappa \to 1$, the oscillation period tends to infinity.
+\end{remark}
 
-    \draw [semithick, mblue, domain = 0:5.8, samples=100] plot (\x, {1.8 * exp (-0.5 * \x) * sin (300 * \x + 40)});
-  \end{tikzpicture}
-\end{center}
+\begin{prop}[Critical damping ($\kappa = 1$)]
+  If $\kappa = 1$, the characteristic equation has a repeated root $\lambda = -1$, and the general solution is
+  \[
+    x = (A + B\tau)e^{-\tau},
+  \]
+  where $A$ and $B$ are arbitrary constants. The rise time and decay time are both $O(1)$, corresponding to dimensional times of $O(\sqrt{M/k})$.
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (6, 0) node [right] {$\tau$};
+      \draw [->] (0, -2) -- (0, 2) node [above] {$x$};
 
-\subsubsection*{Critical damping}
-If $\kappa = 1$, then $x = (A + B\tau)e^{-\kappa\tau}$.
+      \draw [semithick, mblue, domain = 0:5.8, samples=100] plot (\x, {(1 + 3 * \x) * exp (-\x)});
+    \end{tikzpicture}
+  \end{center}
+\end{prop}
 
-The rise time and decay time are both $O(\frac{1}{\kappa}) = O(1)$. So the dimensional rise and decay times are $O(\sqrt{M/k})$.
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (6, 0) node [right] {$\tau$};
-    \draw [->] (0, -2) -- (0, 2) node [above] {$x$};
+\begin{prop}[Overdamping ($\kappa > 1$)]
+  If $\kappa > 1$, the roots are real and distinct. Writing $\lambda_1 < \lambda_2$ (both positive), the general solution is
+  \[
+    x = Ae^{-\lambda_1\tau} + Be^{-\lambda_2\tau},
+  \]
+  where $A$ and $B$ are arbitrary constants. The decay time is $O(1/\lambda_1)$ and the rise time is $O(1/\lambda_2)$.
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (6, 0) node [right] {$\tau$};
+      \draw [->] (0, -2) -- (0, 2) node [above] {$x$};
 
-    \draw [semithick, mblue, domain = 0:5.8, samples=100] plot (\x, {(1 + 3 * \x) * exp (-\x)});
-  \end{tikzpicture}
-\end{center}
+      \draw [semithick, mblue, domain = 0:5.8, samples=100] plot (\x, {2 * exp (-0.3 * \x) - exp(-2 * \x)});
+    \end{tikzpicture}
+  \end{center}
+\end{prop}
 
-\subsubsection*{Overdamping}
-If $\kappa > 1$, then $x = Ae^{-\lambda_1\tau} + Be^{-\lambda_2\tau}$ with $\lambda_1 < \lambda_2$. Then the decay time is $O(1/\lambda_1)$ and the rise time is $O(1/\lambda_2)$.
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (6, 0) node [right] {$\tau$};
-    \draw [->] (0, -2) -- (0, 2) node [above] {$x$};
+\begin{remark}
+  In all three cases, it is possible for the solution to exhibit a large initial increase in amplitude before eventually decaying.
+\end{remark}
 
-    \draw [semithick, mblue, domain = 0:5.8, samples=100] plot (\x, {2 * exp (-0.3 * \x) - exp(-2 * \x)});
-  \end{tikzpicture}
-\end{center}
-Note that in all cases, it is possible to get a large initial increase in amplitude.
+\subsubsection{Forced response}
+\begin{remark}[Transient and asymptotic behaviour]
+  In a forced system, the complementary functions typically determine the short-time \emph{transient} response, while the particular integral determines the long-time \emph{asymptotic} response, since the complementary functions decay exponentially (as $\operatorname{Re}(\lambda_{1,2}) > 0$).
+\end{remark}
 
-\subsubsection*{Forcing}
-In a forced system, the complementary functions typically determine the short-time transient response, while the particular integral determines the long-time (asymptotic) response.
-For example, if $f(\tau) = \sin\tau$, then we can guess $x_p = C\sin \tau + D\cos\tau$. In this case, it turns out that $x_p = -\frac{1}{2\kappa}\cos\tau$.
-
-The general solution is thus $x = Ae^{-\lambda_1\tau} + Be^{-\lambda_2 \tau} - \frac{1}{2\kappa}\cos\tau \sim -\frac{1}{2\kappa}\cos\tau$ as $\tau\to \infty$ since $\Re (\lambda_{1, 2}) > 0$.
-
-It is important to note that the forcing response is out of phase with the forcing.
+\begin{eg}[Sinusoidal forcing]
+  Consider $\ddot x + 2\kappa\dot x + x = \sin\tau$. Trying $x_p = C\sin\tau + D\cos\tau$ and substituting, one finds $x_p = -\frac{1}{2\kappa}\cos\tau$. The general solution is
+  \[
+    x = Ae^{-\lambda_1\tau} + Be^{-\lambda_2\tau} - \frac{1}{2\kappa}\cos\tau \;\sim\; -\frac{1}{2\kappa}\cos\tau \quad\text{as } \tau \to \infty.
+  \]
+  The asymptotic response is out of phase with the forcing: while the forcing is $\sin\tau$, the long-time response is proportional to $\cos\tau$.
+\end{eg}
 \subsection{Impulses and point forces}
-In many applications, forces act over very short time intervals. Rather than model the detailed time-dependence of such forces, it is often convenient to idealize them as acting instantaneously. This leads to the concept of the \emph{Dirac delta function}.
+\begin{remark}[Motivation]
+  In many applications, forces act over very short time intervals. Rather than model the detailed time-dependence of such forces, it is often convenient to idealize them as acting instantaneously. This leads to the concept of the \emph{Dirac delta function}.
+\end{remark}
 
 \subsubsection{Dirac delta function}
-Consider a ball bouncing on the ground. When the ball hits the ground at some time $T$, it experiences a force from the ground for some short period of time. The force on the ball exerted by the ground $F(t)$ is $0$ for most of the time, except during the short period $(T - \varepsilon, T + \varepsilon)$.
+\begin{eg}[Impulse of a bouncing ball]
+  Consider a ball of mass $m$ bouncing on the ground under gravity. When the ball hits the ground at time $T$, it experiences a contact force $F(t)$ from the ground, which is nonzero only during the short interval $(T - \varepsilon, T + \varepsilon)$. Newton's second law gives $m\ddot x = F(t) - mg$. Integrating from $T - \varepsilon$ to $T + \varepsilon$:
+  \begin{align*}
+    \int_{T - \varepsilon}^{T + \varepsilon} m\frac{\d ^2 x}{\d t^2}\;\d t &= \int_{T - \varepsilon}^{T + \varepsilon} F(t)\;\d t - \int_{T - \varepsilon}^{T + \varepsilon} mg\;\d t\\
+    \left[ m\frac{\d x}{\d t}\right]^{T + \varepsilon}_{T - \varepsilon} &= I - 2\varepsilon mg\\
+    \Delta p &= I - O(\varepsilon),
+  \end{align*}
+  where $\Delta p$ is the change in momentum and $I = \int_{T - \varepsilon}^{T + \varepsilon} F(t) \;\d t$ is the \emph{impulse} (the area under the force curve). If the contact time $2\varepsilon$ is small, we neglect the $O(\varepsilon)$ term and write $\Delta p = I$. Thus the only property of $F$ that influences the macroscopic behaviour is its integral $I$.
+\end{eg}
 
-Often we don't know (or we don't wish to know) the details of $F(t)$ but we can note that it only acts for a short time of $O(\varepsilon)$ that is much shorter than the overall time $O(t_2 - t_1)$ of the system. It is convenient mathematically to imagine the force acting instantaneously at time $t = T$, i.e.\ consider the limit $\varepsilon\to 0$.
+\begin{remark}[Nascent delta functions]
+  The preceding example motivates the following construction. Without loss of generality, take $T = 0$. Consider a family of functions $D(t; \varepsilon)$ satisfying
+  \begin{gather*}
+    \lim_{\varepsilon\to 0} D(t; \varepsilon) = 0 \quad\text{for all }t \neq 0;\\
+    \lim_{\varepsilon\to 0}\int_{-\infty}^\infty D(t; \varepsilon) \;\d t = 1.
+  \end{gather*}
+  Such a family is called a \emph{nascent delta function}. The force in the example above can then be replaced by $I\,D(t; \varepsilon)$, and we take the limit $\varepsilon \to 0$.
 
-Newton's second law gives $m\ddot x = F(t) - mg$. While we cannot solve it, we can integrate the equation from $T - \varepsilon$ to $T + \varepsilon$. So
-\begin{align*}
-  \int_{T - \varepsilon}^{T + \varepsilon} m\frac{\d ^2 x}{\d t^2}\;\d t &= \int_{T - \varepsilon}^{T + \varepsilon} F(t)\;\d t - \int_{T - \varepsilon}^{T + \varepsilon} mg\;\d t\\
-  \left[ m\frac{\d x}{\d t}\right]^{T + \varepsilon}_{T - \varepsilon} &= I - 2\varepsilon mg\\
-  \Delta p &= I - O(\varepsilon)
-\end{align*}
-Where $\Delta p$ is the change in momentum and the impulse $I = \int_{T - \varepsilon}^{T + \varepsilon} F(t) \;\d t$ is the area under the force curve. Note that the impulse $I$ is the only property of $F$ that influences the macroscopic behaviour of the system. If the contact time $2\varepsilon$ is small, we'll neglect it and write
-\[
-  \Delta p = I
-\]
-Assuming that $F$ only acts on a negligible amount of time $\varepsilon$, all that matters to us is its integral $I$, i.e.\ the area under the force curve.
+  For instance, one may choose the Gaussian family
+  \[
+    D(t; \varepsilon) = \frac{1}{\varepsilon\sqrt{\pi}}e^{-t^2/\varepsilon^2},
+  \]
+  which has height $O(1/\varepsilon)$ and width $O(\varepsilon)$.
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (-3, 0) -- (3.25, 0) node [right] {$t$};
+      \draw [->, use as bounding box] (0, 0) -- (0, 4) node [above] {$D$};
 
-Without loss of generality, assume $T = 0$ for easier mathematical treatment. We can consider a family of functions $D(t; \varepsilon)$ such that
-\begin{gather*}
-  \lim_{\varepsilon\to 0} D(t; \varepsilon) = 0 \text{ for all }t \not= 0;\\
-  \lim_{\varepsilon\to 0}\int_{-\infty}^\infty D(t; \varepsilon) \;\d t = 1.
-\end{gather*}
-So we can replace the force in our example by $ID(t; \varepsilon)$, and then take the limit as $\varepsilon \to 0$.
+      \draw [semithick, mblue, domain=-3:3, samples = 100] plot (\x, { 1.6 * exp( - \x * \x)});
+      \draw [semithick, morange, domain=-3:3, samples = 100] plot (\x, { 3.2 * exp( - 4 * \x * \x)});
 
-For example, we can choose
-\[
-  D(t; \varepsilon) = \frac{1}{\varepsilon\sqrt{\pi}}e^{-t^2/\varepsilon^2}
-\]
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (-3, 0) -- (3.25, 0) node [right] {$t$};
-    \draw [->, use as bounding box] (0, 0) -- (0, 4) node [above] {$D$};
-
-    \draw [semithick, mblue, domain=-3:3, samples = 100] plot (\x, { 1.6 * exp( - \x * \x)});
-    \draw [semithick, morange, domain=-3:3, samples = 100] plot (\x, { 3.2 * exp( - 4 * \x * \x)});
-
-    \draw [mblue, semithick] (3.5, 2.25) -- (4, 2.25) node [right, black] {$\varepsilon = 1$};
-    \draw [morange, semithick] (3.5, 1.75) -- (4, 1.75) node [right, black] {$\varepsilon = 0.5$};
-  \end{tikzpicture}
-\end{center}
-This has height $O(1/\varepsilon)$ and width $O(\varepsilon)$.
-
-It can be checked that this satisfies the properties listed above. Note that as $\varepsilon \to 0$, $D(0; \varepsilon)\to \infty$. Therefore $\displaystyle \lim_{\varepsilon\to 0} D(0; \varepsilon)$ does not exist.
+      \draw [mblue, semithick] (3.5, 2.25) -- (4, 2.25) node [right, black] {$\varepsilon = 1$};
+      \draw [morange, semithick] (3.5, 1.75) -- (4, 1.75) node [right, black] {$\varepsilon = 0.5$};
+    \end{tikzpicture}
+  \end{center}
+  Note that $D(0; \varepsilon) \to \infty$ as $\varepsilon \to 0$, so $\lim_{\varepsilon\to 0} D(0; \varepsilon)$ does not exist as an ordinary function value.
+\end{remark}
 
 \begin{defi}[Dirac delta function]
   The \emph{Dirac delta function} is defined by
@@ -2160,70 +2260,61 @@ It can be checked that this satisfies the properties listed above. Note that as 
   More generally, $\int_a^b g(x)\delta(x - c)\;\d x = g(c)$ if $c\in (a, b)$ and $0$ otherwise, provided $g$ is continuous at $x = c$.
 \end{defi}
 
-This gives a convenient way of representing and making calculations involving impulsive or point forces. For example, in the previous example, we can write
-\[
-  m\ddot x = -mg + I\delta(t - T).
-\]
+\begin{remark}
+  The delta function gives a convenient way of representing impulsive or point forces. For instance, the bouncing ball example above can be written as $m\ddot x = -mg + I\delta(t - T)$.
+\end{remark}
 
 \begin{eg}[Impulsive forcing]
-  $y'' - y = 3\delta(x - \frac{\pi}{2})$ with $y = 0$ at $x = 0, \pi$. Note that our function $y$ is split into two parts by $x = \frac{\pi}{2}$.
+  Consider $y'' - y = 3\delta(x - \frac{\pi}{2})$ with boundary conditions $y(0) = 0$ and $y(\pi) = 0$. The delta function splits the domain into two regions.
 
-  First consider the region $0 \leq x < \frac{\pi}{2}$. Here the delta function is $0$, and we have $y'' - y = 0$ and $y = 0$ at $x = 0$. Then $y = Ce^x + De^{-x} = A\sinh x + B\cosh x$ and obtain $B = 0$ from the boundary condition.
-  In the region $\frac{\pi}{2} < x \leq \pi$, we again obtain $y = C\sinh(\pi - x) + D\cosh (\pi - x)$ and (from the boundary condition), $D = 0$.
+  In the region $0 \leq x < \frac{\pi}{2}$, the delta function is zero, so we solve $y'' - y = 0$ with $y(0) = 0$. The general solution is $y = A\sinh x + B\cosh x$, and the boundary condition gives $B = 0$.
 
-  When $x = \frac{\pi}{2}$, first insist that $y$ is continuous at $x = \frac{\pi}{2}$. So $A = C$. Then note that we have to solve
+  In the region $\frac{\pi}{2} < x \leq \pi$, we again solve $y'' - y = 0$, now with $y(\pi) = 0$. Writing the solution as $y = C\sinh(\pi - x) + D\cosh(\pi - x)$, the boundary condition gives $D = 0$.
+
+  At $x = \frac{\pi}{2}$, we impose two conditions. First, continuity of $y$ requires $A\sinh\frac{\pi}{2} = C\sinh\frac{\pi}{2}$, so $A = C$. Second, integrating the original equation from $\frac{\pi}{2}^-$ to $\frac{\pi}{2}^+$ gives
   \[
-    y'' - y = 3\delta\left(x - \frac{\pi}{2}\right)
+    [y']^{\frac{\pi}{2}^+}_{\frac{\pi}{2}^-} - \int_{\frac{\pi}{2}^-}^{\frac{\pi}{2}^+} y\;\d x = 3.
   \]
-  But remember that the delta function makes sense only in an integral. So we integrate both sides from $\frac{\pi}{2}^-$ to$\frac{\pi}{2}^+$. Then we obtain
-  \[
-    [y']^{\frac{\pi}{2}^+}_{\frac{\pi}{2}^-} - \int_{\frac{\pi}{2}^-}^{\frac{\pi}{2}^+} y\;\d x= 3
-  \]
-  Since we assume that $y$ is well behaved, the second integral is 0. So we are left with
-  \[
-    [y']^{\frac{\pi}{2}^+}_{\frac{\pi}{2}^-} = 3
-  \]
-  So we have
+  Since $y$ is continuous, the integral vanishes, leaving $[y']^{\frac{\pi}{2}^+}_{\frac{\pi}{2}^-} = 3$. Computing the derivatives:
   \begin{align*}
-    -C\cosh \frac{\pi}{2} - A\cosh\frac{\pi}{2} &= 3\\
-    A = C &= \frac{-3}{2\cosh \frac{\pi}{2}}
+    -C\cosh \frac{\pi}{2} - A\cosh\frac{\pi}{2} &= 3,\\
+    A = C &= \frac{-3}{2\cosh \frac{\pi}{2}}.
   \end{align*}
+  Therefore the solution is
+  \[
+    y =
+    \begin{cases}
+      \dfrac{-3\sinh x}{2\cosh \frac{\pi}{2}} & 0 \leq x < \frac{\pi}{2},\\[6pt]
+      \dfrac{-3\sinh(\pi - x)}{2\cosh \frac{\pi}{2}} & \frac{\pi}{2} < x \leq \pi.
+    \end{cases}
+  \]
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (7, 0) node [right] {$x$};
+
+      \draw [->] (0, 0) -- (0, -3.5) node [below] {$y$};
+
+      \draw [semithick, mblue, domain=0:1.5708] plot ({2 * \x}, {-1.3 * sinh (\x)});
+      \draw [semithick, mblue, domain=1.5708:3.14159] plot ({2 * \x}, {-1.3 * sinh (pi - \x)});
+    \end{tikzpicture}
+  \end{center}
 \end{eg}
-Then we have
-\[
-  y =
-  \begin{cases}
-    \frac{-3\sinh x}{2\cosh \frac{\pi}{2}} & 0 \leq x < \frac{\pi}{2}\\
-    \frac{-3\sinh(\pi - x)}{2\cosh \frac{\pi}{2}} & \frac{\pi}{2} < x \leq \pi
-  \end{cases}
-\]
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (7, 0) node [right] {$x$};
 
-    \draw [->] (0, 0) -- (0, -3.5) node [below] {$y$};
-
-    \draw [semithick, mblue, domain=0:1.5708] plot ({2 * \x}, {-1.3 * sinh (\x)});
-    \draw [semithick, mblue, domain=1.5708:3.14159] plot ({2 * \x}, {-1.3 * sinh (pi - \x)});
-  \end{tikzpicture}
-\end{center}
-\begin{remark}
-  At $x = \frac{\pi}{2}$, the solution has continuous $y$, discontinuous $y'$, and infinite $y''$. In general, differentiating a function makes it \emph{less} continuous. This is why we insisted that $y$ be continuous: otherwise, $y'$ would look like a delta function, and $y''$ would be unrecognizable.
+\begin{remark}[Regularity at the delta function]
+  At $x = \frac{\pi}{2}$, the solution has continuous $y$, discontinuous $y'$, and infinite $y''$. In general, differentiating a function makes it \emph{less} continuous. This is why we insisted that $y$ be continuous: otherwise, $y'$ would contain a delta function, and $y''$ would be unrecognizable.
 
   The discontinuity is always ``absorbed'' by the highest-order derivative, since differentiation increases the severity of discontinuities.
 \end{remark}
 
 \subsubsection{Heaviside step function}
-The Dirac delta function is the derivative of the \emph{Heaviside step function}, which is useful for modelling forces or inputs that ``turn on'' at a particular time.
-
 \begin{defi}[Heaviside step function]
   The \emph{Heaviside step function} (or unit step function) is defined by
   \[
-    H(x) = \int_{-\infty}^x \delta(t) \;\d t
+    H(x) = \int_{-\infty}^x \delta(t) \;\d t.
   \]
-  We have
+  Evaluating the integral gives
   \[
-    H(x) =\begin{cases} 0 & x < 0\\1 & x > 0\\\text{undefined} & x = 0\end{cases}
+    H(x) =\begin{cases} 0 & x < 0,\\1 & x > 0,\\\text{undefined} & x = 0.\end{cases}
   \]
   \begin{center}
     \begin{tikzpicture}
@@ -2236,19 +2327,25 @@ The Dirac delta function is the derivative of the \emph{Heaviside step function}
   \end{center}
   By the fundamental theorem of calculus,
   \[
-    \frac{\d H}{\d x} = \delta(x)
+    \frac{\d H}{\d x} = \delta(x).
   \]
-  But remember that these functions and relationships can only be used inside integrals.
+  As with $\delta$, these relationships can only be used inside integrals.
 \end{defi}
 
-\section{Series solutions}
-Many differential equations cannot be solved in terms of elementary functions. However, it is often possible to find solutions expressed as power series (Taylor series or generalizations thereof). This approach is particularly important for equations arising in physics, such as Bessel's equation and Legendre's equation.
+\begin{remark}
+  The Heaviside step function is useful for modelling forces or inputs that ``turn on'' at a particular time.
+\end{remark}
 
-We consider second-order linear equations of the form
-\[
-  p(x) y'' + q(x) y' + r(x) y = 0,
-\]
-where $p$, $q$, and $r$ are given functions. The behaviour of solutions depends critically on the nature of the point about which we expand.
+\section{Series solutions}
+\begin{remark}[Motivation]
+  Many differential equations cannot be solved in terms of elementary functions. However, it is often possible to find solutions expressed as power series (Taylor series or generalizations thereof). This approach is particularly important for equations arising in physics, such as Bessel's equation and Legendre's equation.
+
+  We consider second-order linear equations of the form
+  \[
+    p(x) y'' + q(x) y' + r(x) y = 0,
+  \]
+  where $p$, $q$, and $r$ are given functions. The behaviour of solutions depends critically on the nature of the point about which we expand.
+\end{remark}
 
 \begin{defi}[Ordinary and singular points]
   Consider the equation $p(x) y'' + q(x) y' + r(x) y = 0$ with $p(x) \neq 0$.
@@ -2270,7 +2367,9 @@ where $p$, $q$, and $r$ are given functions. The behaviour of solutions depends 
   \end{enumerate}
 \end{eg}
 
-The following existence theorems (stated without proof) guide our approach:
+\begin{remark}
+  The following existence theorems (stated without proof) guide our approach.
+\end{remark}
 
 \begin{thm}[Series solution at ordinary points]
   If $x_0$ is an ordinary point of the equation $p(x)y'' + q(x)y' + r(x)y = 0$, then the equation has two linearly independent solutions of the form
@@ -2292,8 +2391,10 @@ The following existence theorems (stated without proof) guide our approach:
   where $f(x) = \sum_{n=0}^{\infty} a_n (x - x_0)^n$ is analytic at $x_0$.
 \end{thm}
 
-\subsubsection*{Ordinary points}
-At an ordinary point $x_0$, we substitute $y = \sum_{n=0}^{\infty} a_n (x - x_0)^n$ into the differential equation. This yields a recurrence relation for the coefficients $a_n$, with two of them (typically $a_0$ and $a_1$) remaining as arbitrary constants corresponding to the two linearly independent solutions.
+\subsubsection{Ordinary points}
+\begin{remark}[Method]
+  At an ordinary point $x_0$, we substitute $y = \sum_{n=0}^{\infty} a_n (x - x_0)^n$ into the differential equation. This yields a recurrence relation for the coefficients $a_n$, with two of them (typically $a_0$ and $a_1$) remaining as arbitrary constants corresponding to the two linearly independent solutions.
+\end{remark}
 
 \begin{eg}[Legendre-type series solution]
   Consider $(1 - x^2)y'' - 2xy' + 2y = 0$. We seek a series solution about $x = 0$, which is an ordinary point.
@@ -2335,8 +2436,10 @@ At an ordinary point $x_0$, we substitute $y = \sum_{n=0}^{\infty} a_n (x - x_0)
   The solution exhibits logarithmic behaviour near $x = \pm 1$, which are regular singular points of the equation. This is typical: solutions often have singular behaviour (such as logarithms or non-integer powers) near singular points of the differential equation.
 \end{remark}
 
-\subsubsection*{Regular singular points}
-At a regular singular point $x_0$, we use the Frobenius method: substitute $y = \sum_{n=0}^{\infty} a_n (x - x_0)^{n + \sigma}$ with $a_0 \neq 0$. The $n = 0$ term of the recurrence relation yields the \emph{indicial equation} for $\sigma$, which is typically a quadratic with two roots $\sigma_1$ and $\sigma_2$.
+\subsubsection{Regular singular points}
+\begin{remark}[Frobenius method]
+  At a regular singular point $x_0$, we use the \emph{Frobenius method}: substitute $y = \sum_{n=0}^{\infty} a_n (x - x_0)^{n + \sigma}$ with $a_0 \neq 0$ into the differential equation. The $n = 0$ term of the resulting recurrence relation yields the \emph{indicial equation} for $\sigma$, which is typically a quadratic with two roots $\sigma_1$ and $\sigma_2$.
+\end{remark}
 
 \begin{eg}[Frobenius with half-integer index]
   Consider $4xy'' + 2(1 - x^2)y' - xy = 0$. Here $x = 0$ is a singular point. Multiplying the equation by $x$ yields the equidimensional form
@@ -2400,8 +2503,10 @@ At a regular singular point $x_0$, we use the Frobenius method: substitute $y = 
   \]
 \end{eg}
 
-\subsubsection*{Resonance of solutions}
-The indicial equation is quadratic in $\sigma$, yielding two roots $\sigma_1$ and $\sigma_2$ (with $\Re(\sigma_1) \leq \Re(\sigma_2)$). Whether both roots give independent Frobenius series solutions depends on their difference.
+\subsubsection{Resonance of solutions}
+\begin{remark}
+  The indicial equation is quadratic in $\sigma$, yielding two roots $\sigma_1$ and $\sigma_2$ (with $\operatorname{Re}(\sigma_1) \leq \operatorname{Re}(\sigma_2)$). Whether both roots give independent Frobenius series solutions depends on their difference.
+\end{remark}
 
 \begin{prop}[Classification of Frobenius solutions]
   Let $\sigma_1$ and $\sigma_2$ be the roots of the indicial equation with $\Re(\sigma_1) \leq \Re(\sigma_2)$.
@@ -2469,18 +2574,19 @@ The indicial equation is quadratic in $\sigma$, yielding two roots $\sigma_1$ an
 \end{eg}
 \section{Directional derivative}
 \label{sec:directional-derivative}
-This section develops the calculus of functions of several variables, focusing on how such functions change in different directions. The key concepts---the gradient vector, directional derivative, and Hessian matrix---are essential for understanding optimization and the classification of stationary points.
+\begin{remark}[Overview]
+  This section develops the calculus of functions of several variables, focusing on how such functions change in different directions. The key concepts---the gradient vector, directional derivative, and Hessian matrix---are essential for understanding optimization and the classification of stationary points.
+\end{remark}
 
 \subsection{Gradient vector}
-Consider a scalar function $f(x, y)$ of two variables. For an infinitesimal displacement $\d\mathbf{s} = (\d x, \d y)$, the total differential gives the change in $f$:
-\[
-  \d f = \frac{\partial f}{\partial x}\d x + \frac{\partial f}{\partial y}\d y
-\]
-We can also write this as
-\begin{align*}
-  \d f &= (\d x, \d y)\cdot \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right)\\
-  &= \d\mathbf{s}\cdot \nabla f
-\end{align*}
+\begin{remark}[Motivation]
+  Consider a scalar function $f(x, y)$ of two variables. For an infinitesimal displacement $\d\mathbf{s} = (\d x, \d y)$, the total differential gives the change in $f$:
+  \[
+    \d f = \frac{\partial f}{\partial x}\d x + \frac{\partial f}{\partial y}\d y = (\d x, \d y)\cdot \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right) = \d\mathbf{s}\cdot \nabla f.
+  \]
+  This motivates the following definition.
+\end{remark}
+
 \begin{defi}[Gradient vector]
   The \emph{gradient} of $f$, written $\nabla f$ or $\mathrm{grad}\, f$, is the vector with Cartesian components
   \[
@@ -2489,10 +2595,8 @@ We can also write this as
   More generally, in $n$ dimensions, $(\nabla f)_i = \frac{\partial f}{\partial x_i}$.
 \end{defi}
 
-Thus $\d f = \d\mathbf{s} \cdot \nabla f$. Writing $\d\mathbf{s} = \hat{\mathbf{s}}\,\d s$ where $\hat{\mathbf{s}}$ is a unit vector, we obtain:
-
 \begin{defi}[Directional derivative]
-  The \emph{directional derivative} of $f$ in the direction of the unit vector $\hat{\mathbf{s}}$ is
+  Writing $\d\mathbf{s} = \hat{\mathbf{s}}\,\d s$ where $\hat{\mathbf{s}}$ is a unit vector and $\d s = |\d\mathbf{s}|$, the \emph{directional derivative} of $f$ in the direction $\hat{\mathbf{s}}$ is
   \[
     \frac{\d f}{\d s} = \hat{\mathbf{s}}\cdot \nabla f.
   \]
@@ -2503,14 +2607,8 @@ Thus $\d f = \d\mathbf{s} \cdot \nabla f$. Writing $\d\mathbf{s} = \hat{\mathbf{
   Alternatively, one can take the directional derivative formula $\frac{\d f}{\d s} = \hat{\mathbf{s}} \cdot \nabla f$ as the \emph{definition} of $\nabla f$ (a coordinate-free definition), from which the Cartesian formula follows as a theorem.
 \end{remark}
 
-We know that the directional derivative is given by
-\[
-  \frac{\d f}{\d s} = \mathbf{\hat{s}}\cdot \nabla f = |\nabla f| \cos \theta
-\]
-where $\theta$ is the angle between the displacement and $\nabla f$.
-
 \begin{prop}[Properties of the gradient]
-  Let $f$ be a differentiable scalar function. Then:
+  Let $f$ be a differentiable scalar function, and let $\theta$ denote the angle between $\hat{\mathbf{s}}$ and $\nabla f$, so that $\frac{\d f}{\d s} = |\nabla f|\cos\theta$. Then:
   \begin{enumerate}
     \item The magnitude $|\nabla f|$ equals the maximum rate of change of $f$.
     \item The direction of $\nabla f$ is the direction in which $f$ increases most rapidly.
@@ -2518,7 +2616,9 @@ where $\theta$ is the angle between the displacement and $\nabla f$.
   \end{enumerate}
 \end{prop}
 \subsection{Stationary points}
-At any point, there is at least one direction in which $\frac{\d f}{\d s} = 0$: the direction tangent to the contour (level curve) of $f$. However, at certain special points, the directional derivative vanishes in \emph{all} directions.
+\begin{remark}[Motivation]
+  At any point, there is at least one direction in which $\frac{\d f}{\d s} = 0$: the direction tangent to the contour (level curve) of $f$. However, at certain special points, the directional derivative vanishes in \emph{all} directions.
+\end{remark}
 
 \begin{defi}[Stationary point]
   A \emph{stationary point} (or \emph{critical point}) of $f$ is a point $\mathbf{x}_0$ where $\nabla f(\mathbf{x}_0) = \mathbf{0}$, i.e.,
@@ -2528,18 +2628,16 @@ At any point, there is at least one direction in which $\frac{\d f}{\d s} = 0$: 
   At such points, $\frac{\d f}{\d s} = \hat{\mathbf{s}} \cdot \nabla f = 0$ for all directions $\hat{\mathbf{s}}$.
 \end{defi}
 
-Stationary points include local maxima and local minima, but also \emph{saddle points}:
-\begin{center}
-  \begin{tikzpicture}
-    \begin{axis}[hide axis, xtick=\empty, ytick=\empty]
-      \addplot3 [mesh, draw=gray, samples = 11] {x^2 - y^2};
-      \node [circ] at (axis cs:0, 0, 0) {};
-    \end{axis}
-  \end{tikzpicture}
-\end{center}
-
 \begin{defi}[Saddle point]
-  A \emph{saddle point} is a stationary point (where $\nabla f = \mathbf{0}$) that is neither a local maximum nor a local minimum. At a saddle point, $f$ increases in some directions and decreases in others.
+  Stationary points include local maxima and local minima, but also \emph{saddle points}. A \emph{saddle point} is a stationary point that is neither a local maximum nor a local minimum: $f$ increases in some directions and decreases in others.
+  \begin{center}
+    \begin{tikzpicture}
+      \begin{axis}[hide axis, xtick=\empty, ytick=\empty]
+        \addplot3 [mesh, draw=gray, samples = 11] {x^2 - y^2};
+        \node [circ] at (axis cs:0, 0, 0) {};
+      \end{axis}
+    \end{tikzpicture}
+  \end{center}
 \end{defi}
 
 \begin{remark}
@@ -2547,36 +2645,50 @@ Stationary points include local maxima and local minima, but also \emph{saddle p
 \end{remark}
 
 \subsection{Taylor series for multi-variable functions}
-To classify stationary points, we need to examine the local behaviour of $f$ near such points. This requires extending Taylor series to functions of several variables.
+\begin{remark}[Motivation]
+  To classify stationary points, we need to examine the local behaviour of $f$ near such points. This requires extending Taylor series to functions of several variables.
+\end{remark}
 
-Consider a function $f(x, y)$ and a point $\mathbf{x}_0 = (x_0, y_0)$. For a finite displacement $\delta \mathbf{s} = (\delta x, \delta y)$ along a straight line from $\mathbf{x}_0$, we can expand $f$ as a Taylor series:
-\begin{align*}
-  f(s) &= f(s_0 + \delta s)\\
-  &=f(s_0) + \delta s\frac{\d f}{\d s} + \frac{1}{2}(\delta s)^2\frac{\d ^2 f}{\d s^2}\\
-  &= f(s_0) + \delta \mathbf{s} \cdot \nabla f + \frac{1}{2}\delta s^2 (\mathbf{\hat{s}}\cdot \nabla)(\mathbf{\hat{s}}\cdot \nabla)f.
-\end{align*}
-We get
-\begin{align*}
-  \delta \mathbf{s}\cdot \nabla f &= (\delta x)\frac{\partial f}{\partial x} + (\delta y)\frac{\partial f}{\partial y}\\
-  &= (x - x_0)\frac{\partial f}{\partial x} + (y - y_0)\frac{\partial f}{\partial y}
-\end{align*}
-and
-\begin{align*}
-  \delta s^2 (\mathbf{\hat{s}}\cdot \nabla)(\mathbf{\hat{s}}\cdot \nabla)f &= (\delta \mathbf{s}\cdot \nabla)(\delta \mathbf{s}\cdot \nabla) f\\
-  &= \left[\delta x\frac{\partial }{\partial x} + \delta y\frac{\partial}{\partial y}\right]\left[\delta x\frac{\partial f}{\partial x} + \delta y\frac{\partial f}{\partial y}\right]\\
-  &= \delta x^2 \frac{\partial^2 f}{\partial x^2} + 2\delta x\delta y\frac{\partial^2 f}{\partial x\partial y} + \delta y^2 \frac{\partial^2 f}{\partial y^2}\\
-  &=
-  \begin{pmatrix}
-    \delta x& \delta y
-  \end{pmatrix}
-  \begin{pmatrix}
-    f_{xx}&f_{xy}\\
-    f_{yx}&f_{yy}
-  \end{pmatrix}
-  \begin{pmatrix}
-    \delta x\\\delta y
-  \end{pmatrix}
-\end{align*}
+\begin{prop}[Multivariable Taylor expansion]
+  Let $f(x, y)$ be a sufficiently smooth function and let $\mathbf{x}_0 = (x_0, y_0)$. For a finite displacement $\delta \mathbf{s} = (\delta x, \delta y)$ along a straight line from $\mathbf{x}_0$, we can expand $f$ as a Taylor series:
+  \begin{align*}
+    f(s) &= f(s_0 + \delta s)\\
+    &=f(s_0) + \delta s\frac{\d f}{\d s} + \frac{1}{2}(\delta s)^2\frac{\d ^2 f}{\d s^2} + \cdots\\
+    &= f(s_0) + \delta \mathbf{s} \cdot \nabla f + \frac{1}{2}\delta s^2 (\mathbf{\hat{s}}\cdot \nabla)(\mathbf{\hat{s}}\cdot \nabla)f + \cdots
+  \end{align*}
+  Expanding the first- and second-order terms in components:
+  \begin{align*}
+    \delta \mathbf{s}\cdot \nabla f &= (\delta x)\frac{\partial f}{\partial x} + (\delta y)\frac{\partial f}{\partial y} = (x - x_0)\frac{\partial f}{\partial x} + (y - y_0)\frac{\partial f}{\partial y},
+  \end{align*}
+  and
+  \begin{align*}
+    \delta s^2 (\mathbf{\hat{s}}\cdot \nabla)(\mathbf{\hat{s}}\cdot \nabla)f &= (\delta \mathbf{s}\cdot \nabla)(\delta \mathbf{s}\cdot \nabla) f\\
+    &= \left[\delta x\frac{\partial }{\partial x} + \delta y\frac{\partial}{\partial y}\right]\left[\delta x\frac{\partial f}{\partial x} + \delta y\frac{\partial f}{\partial y}\right]\\
+    &= \delta x^2 \frac{\partial^2 f}{\partial x^2} + 2\delta x\delta y\frac{\partial^2 f}{\partial x\partial y} + \delta y^2 \frac{\partial^2 f}{\partial y^2}\\
+    &=
+    \begin{pmatrix}
+      \delta x& \delta y
+    \end{pmatrix}
+    \begin{pmatrix}
+      f_{xx}&f_{xy}\\
+      f_{yx}&f_{yy}
+    \end{pmatrix}
+    \begin{pmatrix}
+      \delta x\\\delta y
+    \end{pmatrix}.
+  \end{align*}
+  Writing $\delta\mathbf{x} = \mathbf{x} - \mathbf{x}_0$, the expansion to second order in two dimensions is
+  \begin{align*}
+    f(x, y) &= f(x_0, y_0) + (x - x_0)f_x + (y - y_0)f_y \\
+    &\quad+ \frac{1}{2}\bigl[(x - x_0)^2 f_{xx} + 2(x - x_0)(y - y_0)f_{xy} + (y - y_0)^2 f_{yy}\bigr] + \cdots
+  \end{align*}
+  and the general coordinate-free form is
+  \[
+    f(\mathbf{x}) = f(\mathbf{x}_0) + \delta \mathbf{x}\cdot\nabla f(\mathbf{x}_0) + \frac{1}{2}\,\delta \mathbf{x}\cdot H\cdot \delta \mathbf{x} + \cdots
+  \]
+  where $H = \nabla\nabla f(\mathbf{x}_0)$ is the Hessian matrix (defined below).
+\end{prop}
+
 \begin{defi}[Hessian matrix]
   The \emph{Hessian matrix} of $f$ is the matrix of second partial derivatives:
   \[
@@ -2589,49 +2701,41 @@ and
   By Schwarz's theorem ($f_{xy} = f_{yx}$), the Hessian is symmetric.
 \end{defi}
 
-In conclusion, we have
-\begin{align*}
-  f(x, y) &= f(x_0, y_0) + (x - x_0)f_x + (y - y_0)f_y \\
-  &+ \frac{1}{2}[(x - x_0)^2 f_{xx} + 2(x - x_0)(y - y_0)f_{xy} + (y - y_0)^2 f_{yy}]
-\end{align*}
-In general, the coordinate-free form is
-\[
-  f(\mathbf{x}) = f(\mathbf{x_0}) + \delta \mathbf{x}\cdot\nabla f(\mathbf{x}_0) + \frac{1}{2}\delta \mathbf{x}\cdot \nabla \nabla f\cdot \delta \mathbf{x}
-\]
-where the dot in the second term represents a matrix product. Alternatively, in terms of the gradient operator (and real dot products), we have
-\[
-  f(\mathbf{x}) = f(\mathbf{x_0}) + \delta \mathbf{x}\cdot \nabla f(\mathbf{x}_0) + \frac{1}{2}[\nabla (\nabla f\cdot \delta \mathbf{x})]\cdot \delta\mathbf{x}
-\]
+\begin{remark}
+  In the coordinate-free Taylor expansion $f(\mathbf{x}) = f(\mathbf{x}_0) + \delta\mathbf{x}\cdot\nabla f(\mathbf{x}_0) + \frac{1}{2}\,\delta\mathbf{x}\cdot H\cdot\delta\mathbf{x} + \cdots$, the dot in the quadratic term represents a matrix product. Alternatively, in terms of real dot products, the quadratic term can be written $\frac{1}{2}[\nabla(\nabla f\cdot\delta\mathbf{x})]\cdot\delta\mathbf{x}$.
+\end{remark}
 
 \subsection{Classification of stationary points}
-At a stationary point $\mathbf{x}_0$, we have $\nabla f(\mathbf{x}_0) = \mathbf{0}$, so the linear term in the Taylor expansion vanishes. The behaviour near $\mathbf{x}_0$ is thus determined by the quadratic term:
-\[
-  f(\mathbf{x})\approx f(\mathbf{x}_0) + \frac{1}{2}\delta\mathbf{x}\cdot H\cdot \delta\mathbf{x},
-\]
-where $H = \nabla\nabla f(\mathbf{x}_0)$ is the Hessian matrix evaluated at $\mathbf{x}_0$, and $\delta\mathbf{x} = \mathbf{x} - \mathbf{x}_0$.
+\begin{remark}[Quadratic approximation at stationary points]
+  At a stationary point $\mathbf{x}_0$, we have $\nabla f(\mathbf{x}_0) = \mathbf{0}$, so the linear term in the Taylor expansion vanishes. The behaviour near $\mathbf{x}_0$ is thus determined by the quadratic term:
+  \[
+    f(\mathbf{x})\approx f(\mathbf{x}_0) + \frac{1}{2}\delta\mathbf{x}\cdot H\cdot \delta\mathbf{x},
+  \]
+  where $H = \nabla\nabla f(\mathbf{x}_0)$ is the Hessian matrix evaluated at $\mathbf{x}_0$, and $\delta\mathbf{x} = \mathbf{x} - \mathbf{x}_0$. The nature of the stationary point depends on the \emph{definiteness} of the quadratic form $Q(\delta\mathbf{x}) = \delta\mathbf{x} \cdot H \cdot \delta\mathbf{x}$:
+  \begin{itemize}
+    \item \textbf{Local minimum:} $Q(\delta\mathbf{x}) > 0$ for all $\delta\mathbf{x} \neq \mathbf{0}$ (positive definite).
+    \item \textbf{Local maximum:} $Q(\delta\mathbf{x}) < 0$ for all $\delta\mathbf{x} \neq \mathbf{0}$ (negative definite).
+    \item \textbf{Saddle point:} $Q(\delta\mathbf{x})$ takes both positive and negative values (indefinite).
+  \end{itemize}
+\end{remark}
 
-The nature of the stationary point depends on the \emph{definiteness} of the quadratic form $Q(\delta\mathbf{x}) = \delta\mathbf{x} \cdot H \cdot \delta\mathbf{x}$:
-\begin{itemize}
-  \item \textbf{Local minimum:} $Q(\delta\mathbf{x}) > 0$ for all $\delta\mathbf{x} \neq \mathbf{0}$ (positive definite).
-  \item \textbf{Local maximum:} $Q(\delta\mathbf{x}) < 0$ for all $\delta\mathbf{x} \neq \mathbf{0}$ (negative definite).
-  \item \textbf{Saddle point:} $Q(\delta\mathbf{x})$ takes both positive and negative values (indefinite).
-\end{itemize}
-
-The criterion above does not immediately indicate the sign of $\delta \mathbf{x}\cdot H\cdot \delta \mathbf{x}$. However, since $H = \nabla\nabla f$ is symmetric (because $f_{xy} = f_{yx}$), $H$ can be diagonalized (see Vectors and Matrices). With respect to these axes in which $H$ is diagonal (principal axes), we have
-\begin{align*}
-  \delta\mathbf{x}\cdot H\cdot \delta\mathbf{x} &= (\delta x, \delta y, \cdots, \delta z)
-  \begin{pmatrix}
-    \lambda_1\\
-    &\lambda_2\\
-    &&\ddots\\
-    &&&\lambda_n
-  \end{pmatrix}
-  \begin{pmatrix}
-    \delta x\\\delta y\\\vdots\\\delta z
-  \end{pmatrix}\\
-  &= \lambda_1(\delta x)^2 + \lambda_2 (\delta y)^2 + \cdots + \lambda_n(\delta z)^2
-\end{align*}
-where $\lambda_1, \lambda_2, \cdots \lambda_n$ are the eigenvalues of $H$.
+\begin{remark}[Diagonalization]
+  The definiteness criterion above does not immediately indicate the sign of $\delta \mathbf{x}\cdot H\cdot \delta \mathbf{x}$. However, since $H$ is symmetric (because $f_{xy} = f_{yx}$), it can be diagonalized. With respect to the principal axes (eigenvectors of $H$), we have
+  \begin{align*}
+    \delta\mathbf{x}\cdot H\cdot \delta\mathbf{x} &= (\delta x, \delta y, \cdots, \delta z)
+    \begin{pmatrix}
+      \lambda_1\\
+      &\lambda_2\\
+      &&\ddots\\
+      &&&\lambda_n
+    \end{pmatrix}
+    \begin{pmatrix}
+      \delta x\\\delta y\\\vdots\\\delta z
+    \end{pmatrix}\\
+    &= \lambda_1(\delta x)^2 + \lambda_2 (\delta y)^2 + \cdots + \lambda_n(\delta z)^2,
+  \end{align*}
+  where $\lambda_1, \lambda_2, \ldots, \lambda_n$ are the eigenvalues of $H$.
+\end{remark}
 
 \begin{prop}[Eigenvalue criterion for stationary points]
   Let $\lambda_1, \lambda_2, \ldots, \lambda_n$ be the eigenvalues of the Hessian matrix $H$ at a stationary point. Then:
@@ -2643,7 +2747,9 @@ where $\lambda_1, \lambda_2, \cdots \lambda_n$ are the eigenvalues of $H$.
   \end{itemize}
 \end{prop}
 
-An alternative to computing eigenvalues is to use \emph{Sylvester's criterion}, which involves the leading principal minors of $H$.
+\begin{remark}
+  An alternative to computing eigenvalues is to use \emph{Sylvester's criterion}, which involves the leading principal minors of $H$.
+\end{remark}
 
 \begin{defi}[Leading principal minors]
   The \emph{leading principal minors} of $H$ are the determinants of the upper-left $k \times k$ submatrices:
@@ -2673,13 +2779,13 @@ An alternative to computing eigenvalues is to use \emph{Sylvester's criterion}, 
 \end{prop}
 
 \subsection{Contours of \texorpdfstring{$f(x, y)$}{f(x, y)}}
-The classification of stationary points can be visualized using contour plots. Near a stationary point, the contours of $f$ have characteristic shapes determined by the eigenvalues of the Hessian.
-
-In two dimensions, choose coordinates $(X, Y)$ aligned with the principal axes (eigenvectors) of $H$, so that
-\[
-  H = \begin{pmatrix} \lambda_1 & 0\\ 0 & \lambda_2 \end{pmatrix}.
-\]
-Near the stationary point, the contour $f = \text{constant}$ satisfies $\lambda_1 X^2 + \lambda_2 Y^2 = \text{constant}$.
+\begin{remark}[Setup]
+  The classification of stationary points can be visualized using contour plots. In two dimensions, choose coordinates $(X, Y)$ aligned with the principal axes (eigenvectors) of $H$, so that
+  \[
+    H = \begin{pmatrix} \lambda_1 & 0\\ 0 & \lambda_2 \end{pmatrix}.
+  \]
+  Near a stationary point, the contour $f = \text{constant}$ satisfies $\lambda_1 X^2 + \lambda_2 Y^2 = \text{constant}$.
+\end{remark}
 
 \begin{prop}[Contour shapes near stationary points]
   In two dimensions, near a stationary point with Hessian eigenvalues $\lambda_1$ and $\lambda_2$:
@@ -2724,74 +2830,56 @@ Near the stationary point, the contour $f = \text{constant}$ satisfies $\lambda_
 \end{eg}
 
 \section{Systems of differential equations}
-Many physical systems involve multiple interacting quantities, each described by its own differential equation. Such \emph{systems of differential equations} arise naturally in mechanics (coupled oscillators), population dynamics (predator-prey models), and circuit theory. This section develops methods for analyzing both linear and nonlinear systems, with emphasis on phase-space trajectories and stability of equilibria.
-
-\subsection{Linear systems}
-Consider two dependent variables $y_1(t)$ and $y_2(t)$ satisfying a coupled system of first-order linear equations:
-\begin{align*}
-  \dot y_1 &= ay_1 + by_2 + f_1(t)\\
-  \dot y_2 &= cy_1 + dy_2 + f_2(t)
-\end{align*}
-We can write this in vector notation by
-\[
-  \begin{pmatrix}
-    \dot y_1\\\dot y_2
-  \end{pmatrix} =
-  \begin{pmatrix}
-    a & b\\
-    c & d
-  \end{pmatrix}
-  \begin{pmatrix}
-    y_1\\y_2
-  \end{pmatrix}
-  +
-  \begin{pmatrix}
-    f_1\\f_2
-  \end{pmatrix}
-\]
-or $\mathbf{\dot Y} = M\mathbf{Y} + \mathbf{F}$. We can convert this to a higher-order equation by
-\begin{align*}
-  \ddot y_1 &= a\dot y_1 + b\dot y_2 + \dot f_1\\
-  &= a\dot y_1 + b(cy_1 + dy_2 + f_2) + \dot f_1\\
-  &= a\dot y_1 + bcy_1 + d(\dot y_1 - ay_1 - f_1) + bf_2 + \dot f_1
-\end{align*}
-so
-\[
-  \ddot y_1 - (a + d)\dot y_1 + (ad - bc) y_1 = bf_2 - df_1 + \dot f_1
-\]
-and we know how to solve this.
-
-\begin{remark}
-  While converting a system to a higher-order equation is always possible, eliminating variables typically makes the equation more complicated. The more useful direction is usually to convert a higher-order equation into a first-order system.
+\begin{remark}[Overview]
+  Many physical systems involve multiple interacting quantities, each described by its own differential equation. Such \emph{systems of differential equations} arise naturally in mechanics (coupled oscillators), population dynamics (predator-prey models), and circuit theory. This section develops methods for analyzing both linear and nonlinear systems, with emphasis on phase-space trajectories and stability of equilibria.
 \end{remark}
 
-Given $\ddot{y} + a\dot{y} + by = f$, we convert to a first-order system as follows. Given $\ddot{y} + a\dot{y} + by = f$, introduce $y_1 = y$ and $y_2 = \dot{y}$, so that $\mathbf{Y} = \begin{pmatrix} y_1 \\ y_2 \end{pmatrix} = \begin{pmatrix} y \\ \dot{y} \end{pmatrix}$. The second-order equation becomes the first-order system
-\begin{align*}
-  \dot y_1 &= y_2\\
-  \dot y_2 &= f - a y_2 - by_1
-\end{align*}
-or
-\[
-  \mathbf{\dot{Y}} =
-  \begin{pmatrix}
-    0 & 1\\
-    -b & -a
-  \end{pmatrix}
-  \begin{pmatrix}
-    y_1\\y_2
-  \end{pmatrix}
-  \begin{pmatrix}
-    0 \\ f
-  \end{pmatrix}.
-\]
-\subsubsection*{Solution by eigenvalues}
-Consider the general linear system $\dot{\mathbf{Y}} = M\mathbf{Y} + \mathbf{F}$, where $M$ is a constant matrix. For the homogeneous equation $\dot{\mathbf{Y}} = M\mathbf{Y}$, we seek solutions of the form $\mathbf{Y}_c = \mathbf{v} e^{\lambda t}$, where $\mathbf{v}$ is a constant vector. Substituting gives
-\[
-  \lambda \mathbf{v} e^{\lambda t} = M\mathbf{v} e^{\lambda t},
-\]
-which requires $M\mathbf{v} = \lambda \mathbf{v}$. Thus $\lambda$ must be an \emph{eigenvalue} of $M$ and $\mathbf{v}$ the corresponding \emph{eigenvector}.
+\subsection{Linear systems}
+\begin{defi}[Linear system]
+  A \emph{coupled system of first-order linear equations} in two dependent variables $y_1(t)$ and $y_2(t)$ has the form
+  \begin{align*}
+    \dot y_1 &= ay_1 + by_2 + f_1(t),\\
+    \dot y_2 &= cy_1 + dy_2 + f_2(t),
+  \end{align*}
+  where $a, b, c, d$ are constants and $f_1, f_2$ are given forcing terms. In vector notation, this is
+  \[
+    \dot{\mathbf{Y}} = M\mathbf{Y} + \mathbf{F}, \quad\text{where}\quad
+    \mathbf{Y} = \begin{pmatrix} y_1\\y_2 \end{pmatrix},\quad
+    M = \begin{pmatrix} a & b\\ c & d \end{pmatrix},\quad
+    \mathbf{F} = \begin{pmatrix} f_1\\f_2 \end{pmatrix}.
+  \]
+\end{defi}
 
-To find the eigenvalues, solve the characteristic equation $\det(M - \lambda I) = 0$. For each eigenvalue $\lambda_i$, find the corresponding eigenvector $\mathbf{v}_i$ by solving $(M - \lambda_i I)\mathbf{v}_i = \mathbf{0}$.
+\begin{remark}[Conversion between systems and higher-order equations]
+  A first-order system can be converted to a higher-order equation by elimination. Differentiating the first equation and substituting the second gives
+  \[
+    \ddot y_1 - (a + d)\dot y_1 + (ad - bc) y_1 = bf_2 - df_1 + \dot f_1.
+  \]
+  However, elimination typically makes the equation more complicated. The more useful direction is to convert a higher-order equation into a first-order system.
+\end{remark}
+
+\begin{remark}[Reduction of order]
+  Given $\ddot{y} + a\dot{y} + by = f$, introduce $y_1 = y$ and $y_2 = \dot{y}$. The second-order equation becomes the first-order system
+  \[
+    \dot{\mathbf{Y}} =
+    \begin{pmatrix}
+      0 & 1\\
+      -b & -a
+    \end{pmatrix}
+    \begin{pmatrix}
+      y_1\\y_2
+    \end{pmatrix}
+    +
+    \begin{pmatrix}
+      0 \\ f
+    \end{pmatrix}.
+  \]
+\end{remark}
+
+\subsubsection{Solution by eigenvalues}
+\begin{remark}[Eigenfunction ansatz]
+  For the homogeneous equation $\dot{\mathbf{Y}} = M\mathbf{Y}$ (with $M$ a constant matrix), we seek solutions of the form $\mathbf{Y}_c = \mathbf{v} e^{\lambda t}$, where $\mathbf{v}$ is a constant vector. Substituting gives $\lambda \mathbf{v} e^{\lambda t} = M\mathbf{v} e^{\lambda t}$, which requires $M\mathbf{v} = \lambda \mathbf{v}$. Thus $\lambda$ must be an \emph{eigenvalue} of $M$ and $\mathbf{v}$ the corresponding \emph{eigenvector}. The eigenvalues are found by solving the characteristic equation $\det(M - \lambda I) = 0$.
+\end{remark}
 
 \begin{prop}[General solution for distinct eigenvalues]
   If $M$ is an $n \times n$ matrix with $n$ distinct eigenvalues $\lambda_1, \ldots, \lambda_n$ and corresponding eigenvectors $\mathbf{v}_1, \ldots, \mathbf{v}_n$, then the general solution to the homogeneous equation $\dot{\mathbf{Y}} = M\mathbf{Y}$ is
@@ -2938,7 +3026,7 @@ To find the eigenvalues, solve the characteristic equation $\det(M - \lambda I) 
   \]
 \end{eg}
 
-\subsubsection*{Classification of phase portraits}
+\subsubsection{Classification of phase portraits}
 \begin{prop}[Classification of phase portraits]
   For a $2 \times 2$ system $\dot{\mathbf{Y}} = M\mathbf{Y}$, the qualitative behaviour of solutions is determined by the eigenvalues $\lambda_1, \lambda_2$ of $M$. There are three main cases:
   \begin{enumerate}
@@ -2985,37 +3073,45 @@ To find the eigenvalues, solve the characteristic equation $\det(M - \lambda I) 
 \end{remark}
 
 \subsection{Nonlinear dynamical systems}
-For nonlinear systems, exact solutions are often impossible to find. However, we can understand the qualitative behaviour by analyzing equilibrium points and their stability.
+\begin{remark}[Motivation]
+  For nonlinear systems, exact solutions are often impossible to find. However, we can understand the qualitative behaviour by analyzing equilibrium points and their stability.
+\end{remark}
 
-Consider an \emph{autonomous} system (one where $t$ does not appear explicitly):
-\begin{align*}
-  \dot x &= f(x, y)\\
-  \dot y &= g(x, y)
-\end{align*}
-
-\begin{defi}[Equilibrium point]
-  An \emph{equilibrium point} (or \emph{fixed point}) is a point $\mathbf{x}_0 = (x_0, y_0)$ where $\dot{x} = \dot{y} = 0$, i.e., where $f(x_0, y_0) = g(x_0, y_0) = 0$.
+\begin{defi}[Autonomous system]
+  An \emph{autonomous} system is one in which $t$ does not appear explicitly:
+  \begin{align*}
+    \dot x &= f(x, y),\\
+    \dot y &= g(x, y),
+  \end{align*}
+  where $f$ and $g$ are given functions.
 \end{defi}
 
-\subsubsection*{Linearization}
-To determine the stability of an equilibrium, we \emph{linearize} about it. Write $x = x_0 + \xi$ and $y = y_0 + \eta$ where $\xi, \eta$ are small perturbations. Taylor expanding:
-\begin{align*}
-  \dot \xi &= f(x_0 + \xi, y_0 + \eta)\\
-  &= f(x_0, y_0)+ \xi \frac{\partial f}{\partial x}(\mathbf{x}_0) + \eta \frac{\partial f}{\partial y}(\mathbf{x}_0) + O(\xi^2, \eta^2)
-\end{align*}
-So if $\xi, \eta \ll 1$,
-\[
-  \begin{pmatrix}
-    \dot \xi\\\dot \eta
-  \end{pmatrix} =
-  \begin{pmatrix}
-    f_x & f_y\\
-    g_x & g_y
-  \end{pmatrix}
-  \begin{pmatrix}
-    \xi\\\eta
-  \end{pmatrix}
-\]
+\begin{defi}[Equilibrium point]
+  An \emph{equilibrium point} (or \emph{fixed point}) of an autonomous system is a point $\mathbf{x}_0 = (x_0, y_0)$ where $\dot{x} = \dot{y} = 0$, i.e., where $f(x_0, y_0) = g(x_0, y_0) = 0$.
+\end{defi}
+
+\subsubsection{Linearization}
+\begin{remark}[Linearization method]
+  To determine the stability of an equilibrium point $(x_0, y_0)$, we \emph{linearize} about it. Write $x = x_0 + \xi$ and $y = y_0 + \eta$ where $\xi, \eta$ are small perturbations. Taylor expanding:
+  \begin{align*}
+    \dot \xi &= f(x_0 + \xi, y_0 + \eta)\\
+    &= f(x_0, y_0)+ \xi \frac{\partial f}{\partial x}(\mathbf{x}_0) + \eta \frac{\partial f}{\partial y}(\mathbf{x}_0) + O(\xi^2, \eta^2).
+  \end{align*}
+  Since $f(x_0, y_0) = 0$ at the equilibrium, neglecting higher-order terms gives
+  \[
+    \begin{pmatrix}
+      \dot \xi\\\dot \eta
+    \end{pmatrix} =
+    \begin{pmatrix}
+      f_x & f_y\\
+      g_x & g_y
+    \end{pmatrix}
+    \begin{pmatrix}
+      \xi\\\eta
+    \end{pmatrix}.
+  \]
+\end{remark}
+
 \begin{defi}[Jacobian matrix]
   The \emph{Jacobian matrix} of the system $\dot{x} = f(x,y)$, $\dot{y} = g(x,y)$ at a point $(x_0, y_0)$ is
   \[
