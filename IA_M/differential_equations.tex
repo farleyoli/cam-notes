@@ -2645,36 +2645,50 @@ A \emph{second-order differential equation} involves the second derivative of th
 \end{remark}
 
 \subsection{Taylor series for multi-variable functions}
-To classify stationary points, we need to examine the local behaviour of $f$ near such points. This requires extending Taylor series to functions of several variables.
+\begin{remark}[Motivation]
+  To classify stationary points, we need to examine the local behaviour of $f$ near such points. This requires extending Taylor series to functions of several variables.
+\end{remark}
 
-Consider a function $f(x, y)$ and a point $\mathbf{x}_0 = (x_0, y_0)$. For a finite displacement $\delta \mathbf{s} = (\delta x, \delta y)$ along a straight line from $\mathbf{x}_0$, we can expand $f$ as a Taylor series:
-\begin{align*}
-  f(s) &= f(s_0 + \delta s)\\
-  &=f(s_0) + \delta s\frac{\d f}{\d s} + \frac{1}{2}(\delta s)^2\frac{\d ^2 f}{\d s^2}\\
-  &= f(s_0) + \delta \mathbf{s} \cdot \nabla f + \frac{1}{2}\delta s^2 (\mathbf{\hat{s}}\cdot \nabla)(\mathbf{\hat{s}}\cdot \nabla)f.
-\end{align*}
-We get
-\begin{align*}
-  \delta \mathbf{s}\cdot \nabla f &= (\delta x)\frac{\partial f}{\partial x} + (\delta y)\frac{\partial f}{\partial y}\\
-  &= (x - x_0)\frac{\partial f}{\partial x} + (y - y_0)\frac{\partial f}{\partial y}
-\end{align*}
-and
-\begin{align*}
-  \delta s^2 (\mathbf{\hat{s}}\cdot \nabla)(\mathbf{\hat{s}}\cdot \nabla)f &= (\delta \mathbf{s}\cdot \nabla)(\delta \mathbf{s}\cdot \nabla) f\\
-  &= \left[\delta x\frac{\partial }{\partial x} + \delta y\frac{\partial}{\partial y}\right]\left[\delta x\frac{\partial f}{\partial x} + \delta y\frac{\partial f}{\partial y}\right]\\
-  &= \delta x^2 \frac{\partial^2 f}{\partial x^2} + 2\delta x\delta y\frac{\partial^2 f}{\partial x\partial y} + \delta y^2 \frac{\partial^2 f}{\partial y^2}\\
-  &=
-  \begin{pmatrix}
-    \delta x& \delta y
-  \end{pmatrix}
-  \begin{pmatrix}
-    f_{xx}&f_{xy}\\
-    f_{yx}&f_{yy}
-  \end{pmatrix}
-  \begin{pmatrix}
-    \delta x\\\delta y
-  \end{pmatrix}
-\end{align*}
+\begin{prop}[Multivariable Taylor expansion]
+  Let $f(x, y)$ be a sufficiently smooth function and let $\mathbf{x}_0 = (x_0, y_0)$. For a finite displacement $\delta \mathbf{s} = (\delta x, \delta y)$ along a straight line from $\mathbf{x}_0$, we can expand $f$ as a Taylor series:
+  \begin{align*}
+    f(s) &= f(s_0 + \delta s)\\
+    &=f(s_0) + \delta s\frac{\d f}{\d s} + \frac{1}{2}(\delta s)^2\frac{\d ^2 f}{\d s^2} + \cdots\\
+    &= f(s_0) + \delta \mathbf{s} \cdot \nabla f + \frac{1}{2}\delta s^2 (\mathbf{\hat{s}}\cdot \nabla)(\mathbf{\hat{s}}\cdot \nabla)f + \cdots
+  \end{align*}
+  Expanding the first- and second-order terms in components:
+  \begin{align*}
+    \delta \mathbf{s}\cdot \nabla f &= (\delta x)\frac{\partial f}{\partial x} + (\delta y)\frac{\partial f}{\partial y} = (x - x_0)\frac{\partial f}{\partial x} + (y - y_0)\frac{\partial f}{\partial y},
+  \end{align*}
+  and
+  \begin{align*}
+    \delta s^2 (\mathbf{\hat{s}}\cdot \nabla)(\mathbf{\hat{s}}\cdot \nabla)f &= (\delta \mathbf{s}\cdot \nabla)(\delta \mathbf{s}\cdot \nabla) f\\
+    &= \left[\delta x\frac{\partial }{\partial x} + \delta y\frac{\partial}{\partial y}\right]\left[\delta x\frac{\partial f}{\partial x} + \delta y\frac{\partial f}{\partial y}\right]\\
+    &= \delta x^2 \frac{\partial^2 f}{\partial x^2} + 2\delta x\delta y\frac{\partial^2 f}{\partial x\partial y} + \delta y^2 \frac{\partial^2 f}{\partial y^2}\\
+    &=
+    \begin{pmatrix}
+      \delta x& \delta y
+    \end{pmatrix}
+    \begin{pmatrix}
+      f_{xx}&f_{xy}\\
+      f_{yx}&f_{yy}
+    \end{pmatrix}
+    \begin{pmatrix}
+      \delta x\\\delta y
+    \end{pmatrix}.
+  \end{align*}
+  Writing $\delta\mathbf{x} = \mathbf{x} - \mathbf{x}_0$, the expansion to second order in two dimensions is
+  \begin{align*}
+    f(x, y) &= f(x_0, y_0) + (x - x_0)f_x + (y - y_0)f_y \\
+    &\quad+ \frac{1}{2}\bigl[(x - x_0)^2 f_{xx} + 2(x - x_0)(y - y_0)f_{xy} + (y - y_0)^2 f_{yy}\bigr] + \cdots
+  \end{align*}
+  and the general coordinate-free form is
+  \[
+    f(\mathbf{x}) = f(\mathbf{x}_0) + \delta \mathbf{x}\cdot\nabla f(\mathbf{x}_0) + \frac{1}{2}\,\delta \mathbf{x}\cdot H\cdot \delta \mathbf{x} + \cdots
+  \]
+  where $H = \nabla\nabla f(\mathbf{x}_0)$ is the Hessian matrix (defined below).
+\end{prop}
+
 \begin{defi}[Hessian matrix]
   The \emph{Hessian matrix} of $f$ is the matrix of second partial derivatives:
   \[
@@ -2687,49 +2701,41 @@ and
   By Schwarz's theorem ($f_{xy} = f_{yx}$), the Hessian is symmetric.
 \end{defi}
 
-In conclusion, we have
-\begin{align*}
-  f(x, y) &= f(x_0, y_0) + (x - x_0)f_x + (y - y_0)f_y \\
-  &+ \frac{1}{2}[(x - x_0)^2 f_{xx} + 2(x - x_0)(y - y_0)f_{xy} + (y - y_0)^2 f_{yy}]
-\end{align*}
-In general, the coordinate-free form is
-\[
-  f(\mathbf{x}) = f(\mathbf{x_0}) + \delta \mathbf{x}\cdot\nabla f(\mathbf{x}_0) + \frac{1}{2}\delta \mathbf{x}\cdot \nabla \nabla f\cdot \delta \mathbf{x}
-\]
-where the dot in the second term represents a matrix product. Alternatively, in terms of the gradient operator (and real dot products), we have
-\[
-  f(\mathbf{x}) = f(\mathbf{x_0}) + \delta \mathbf{x}\cdot \nabla f(\mathbf{x}_0) + \frac{1}{2}[\nabla (\nabla f\cdot \delta \mathbf{x})]\cdot \delta\mathbf{x}
-\]
+\begin{remark}
+  In the coordinate-free Taylor expansion $f(\mathbf{x}) = f(\mathbf{x}_0) + \delta\mathbf{x}\cdot\nabla f(\mathbf{x}_0) + \frac{1}{2}\,\delta\mathbf{x}\cdot H\cdot\delta\mathbf{x} + \cdots$, the dot in the quadratic term represents a matrix product. Alternatively, in terms of real dot products, the quadratic term can be written $\frac{1}{2}[\nabla(\nabla f\cdot\delta\mathbf{x})]\cdot\delta\mathbf{x}$.
+\end{remark}
 
 \subsection{Classification of stationary points}
-At a stationary point $\mathbf{x}_0$, we have $\nabla f(\mathbf{x}_0) = \mathbf{0}$, so the linear term in the Taylor expansion vanishes. The behaviour near $\mathbf{x}_0$ is thus determined by the quadratic term:
-\[
-  f(\mathbf{x})\approx f(\mathbf{x}_0) + \frac{1}{2}\delta\mathbf{x}\cdot H\cdot \delta\mathbf{x},
-\]
-where $H = \nabla\nabla f(\mathbf{x}_0)$ is the Hessian matrix evaluated at $\mathbf{x}_0$, and $\delta\mathbf{x} = \mathbf{x} - \mathbf{x}_0$.
+\begin{remark}[Quadratic approximation at stationary points]
+  At a stationary point $\mathbf{x}_0$, we have $\nabla f(\mathbf{x}_0) = \mathbf{0}$, so the linear term in the Taylor expansion vanishes. The behaviour near $\mathbf{x}_0$ is thus determined by the quadratic term:
+  \[
+    f(\mathbf{x})\approx f(\mathbf{x}_0) + \frac{1}{2}\delta\mathbf{x}\cdot H\cdot \delta\mathbf{x},
+  \]
+  where $H = \nabla\nabla f(\mathbf{x}_0)$ is the Hessian matrix evaluated at $\mathbf{x}_0$, and $\delta\mathbf{x} = \mathbf{x} - \mathbf{x}_0$. The nature of the stationary point depends on the \emph{definiteness} of the quadratic form $Q(\delta\mathbf{x}) = \delta\mathbf{x} \cdot H \cdot \delta\mathbf{x}$:
+  \begin{itemize}
+    \item \textbf{Local minimum:} $Q(\delta\mathbf{x}) > 0$ for all $\delta\mathbf{x} \neq \mathbf{0}$ (positive definite).
+    \item \textbf{Local maximum:} $Q(\delta\mathbf{x}) < 0$ for all $\delta\mathbf{x} \neq \mathbf{0}$ (negative definite).
+    \item \textbf{Saddle point:} $Q(\delta\mathbf{x})$ takes both positive and negative values (indefinite).
+  \end{itemize}
+\end{remark}
 
-The nature of the stationary point depends on the \emph{definiteness} of the quadratic form $Q(\delta\mathbf{x}) = \delta\mathbf{x} \cdot H \cdot \delta\mathbf{x}$:
-\begin{itemize}
-  \item \textbf{Local minimum:} $Q(\delta\mathbf{x}) > 0$ for all $\delta\mathbf{x} \neq \mathbf{0}$ (positive definite).
-  \item \textbf{Local maximum:} $Q(\delta\mathbf{x}) < 0$ for all $\delta\mathbf{x} \neq \mathbf{0}$ (negative definite).
-  \item \textbf{Saddle point:} $Q(\delta\mathbf{x})$ takes both positive and negative values (indefinite).
-\end{itemize}
-
-The criterion above does not immediately indicate the sign of $\delta \mathbf{x}\cdot H\cdot \delta \mathbf{x}$. However, since $H = \nabla\nabla f$ is symmetric (because $f_{xy} = f_{yx}$), $H$ can be diagonalized (see Vectors and Matrices). With respect to these axes in which $H$ is diagonal (principal axes), we have
-\begin{align*}
-  \delta\mathbf{x}\cdot H\cdot \delta\mathbf{x} &= (\delta x, \delta y, \cdots, \delta z)
-  \begin{pmatrix}
-    \lambda_1\\
-    &\lambda_2\\
-    &&\ddots\\
-    &&&\lambda_n
-  \end{pmatrix}
-  \begin{pmatrix}
-    \delta x\\\delta y\\\vdots\\\delta z
-  \end{pmatrix}\\
-  &= \lambda_1(\delta x)^2 + \lambda_2 (\delta y)^2 + \cdots + \lambda_n(\delta z)^2
-\end{align*}
-where $\lambda_1, \lambda_2, \cdots \lambda_n$ are the eigenvalues of $H$.
+\begin{remark}[Diagonalization]
+  The definiteness criterion above does not immediately indicate the sign of $\delta \mathbf{x}\cdot H\cdot \delta \mathbf{x}$. However, since $H$ is symmetric (because $f_{xy} = f_{yx}$), it can be diagonalized. With respect to the principal axes (eigenvectors of $H$), we have
+  \begin{align*}
+    \delta\mathbf{x}\cdot H\cdot \delta\mathbf{x} &= (\delta x, \delta y, \cdots, \delta z)
+    \begin{pmatrix}
+      \lambda_1\\
+      &\lambda_2\\
+      &&\ddots\\
+      &&&\lambda_n
+    \end{pmatrix}
+    \begin{pmatrix}
+      \delta x\\\delta y\\\vdots\\\delta z
+    \end{pmatrix}\\
+    &= \lambda_1(\delta x)^2 + \lambda_2 (\delta y)^2 + \cdots + \lambda_n(\delta z)^2,
+  \end{align*}
+  where $\lambda_1, \lambda_2, \ldots, \lambda_n$ are the eigenvalues of $H$.
+\end{remark}
 
 \begin{prop}[Eigenvalue criterion for stationary points]
   Let $\lambda_1, \lambda_2, \ldots, \lambda_n$ be the eigenvalues of the Hessian matrix $H$ at a stationary point. Then:
@@ -2741,7 +2747,9 @@ where $\lambda_1, \lambda_2, \cdots \lambda_n$ are the eigenvalues of $H$.
   \end{itemize}
 \end{prop}
 
-An alternative to computing eigenvalues is to use \emph{Sylvester's criterion}, which involves the leading principal minors of $H$.
+\begin{remark}
+  An alternative to computing eigenvalues is to use \emph{Sylvester's criterion}, which involves the leading principal minors of $H$.
+\end{remark}
 
 \begin{defi}[Leading principal minors]
   The \emph{leading principal minors} of $H$ are the determinants of the upper-left $k \times k$ submatrices:
@@ -2771,13 +2779,13 @@ An alternative to computing eigenvalues is to use \emph{Sylvester's criterion}, 
 \end{prop}
 
 \subsection{Contours of \texorpdfstring{$f(x, y)$}{f(x, y)}}
-The classification of stationary points can be visualized using contour plots. Near a stationary point, the contours of $f$ have characteristic shapes determined by the eigenvalues of the Hessian.
-
-In two dimensions, choose coordinates $(X, Y)$ aligned with the principal axes (eigenvectors) of $H$, so that
-\[
-  H = \begin{pmatrix} \lambda_1 & 0\\ 0 & \lambda_2 \end{pmatrix}.
-\]
-Near the stationary point, the contour $f = \text{constant}$ satisfies $\lambda_1 X^2 + \lambda_2 Y^2 = \text{constant}$.
+\begin{remark}[Setup]
+  The classification of stationary points can be visualized using contour plots. In two dimensions, choose coordinates $(X, Y)$ aligned with the principal axes (eigenvectors) of $H$, so that
+  \[
+    H = \begin{pmatrix} \lambda_1 & 0\\ 0 & \lambda_2 \end{pmatrix}.
+  \]
+  Near a stationary point, the contour $f = \text{constant}$ satisfies $\lambda_1 X^2 + \lambda_2 Y^2 = \text{constant}$.
+\end{remark}
 
 \begin{prop}[Contour shapes near stationary points]
   In two dimensions, near a stationary point with Hessian eigenvalues $\lambda_1$ and $\lambda_2$:
