@@ -2097,81 +2097,107 @@ A \emph{second-order differential equation} involves the second derivative of th
 \end{eg}
 
 \subsection{Transients and damping}
-Many physical systems involve a restoring force (which tends to return the system to equilibrium) and a damping force (which dissipates energy). The interplay between these forces leads to different types of behaviour: oscillatory decay, exponential decay, or a combination.
+\begin{remark}[Physical motivation]
+  Many physical systems involve a restoring force (which tends to return the system to equilibrium) and a damping force (which dissipates energy). The interplay between these forces leads to different types of behaviour: oscillatory decay, exponential decay, or a combination.
+\end{remark}
 
-As a concrete example, consider a car of mass $M$ with a vertical force $F(t)$ acting on it (for instance, from a passenger jumping in). The wheels act as springs with spring constant $k$ (restoring force $F = -kx$), and the shock absorbers provide damping proportional to velocity (damping force $F = -l\dot{x}$). Newton's second law gives
-\[
-  M\ddot x = F(t) - kx - l\dot x.
-\]
-So we have
-\[
-  \ddot x + \frac{l}{M}\dot x + \frac{k}{M}x = \frac{1}{M}F(t).
-\]
-Note that if we don't have the damping and the forcing, we end up with simple harmonic motion of angular frequency $\sqrt{k/M}$. Write $t = \tau \sqrt{M/k}$, where $\tau$ is dimensionless. The timescale $\sqrt{M/k}$ is proportional to the period of the undamped, unforced system (or 1 over its natural frequency). Then we obtain
-\[
-  \ddot x + 2\kappa\dot x + x = f(\tau)
-\]
-where, $\dot x$ means $\frac{\d x}{d\tau}$, $\kappa = \frac{l}{2\sqrt{kM}}$ and $f = \frac{F}{k}$.
+\begin{eg}[Damped harmonic oscillator]
+  Consider a car of mass $M$ with a vertical force $F(t)$ acting on it (for instance, from a passenger jumping in). The wheels act as springs with spring constant $k$ (restoring force $-kx$), and the shock absorbers provide damping proportional to velocity (damping force $-l\dot{x}$). Newton's second law gives
+  \[
+    M\ddot x = F(t) - kx - l\dot x,
+  \]
+  which rearranges to
+  \[
+    \ddot x + \frac{l}{M}\dot x + \frac{k}{M}x = \frac{1}{M}F(t).
+  \]
+  Without damping or forcing, this reduces to simple harmonic motion with angular frequency $\sqrt{k/M}$.
+\end{eg}
 
-By this substitution, we are now left with only one parameter $\kappa$ instead of the original three ($M, l, k$).
+\begin{remark}[Nondimensionalization]
+  Introducing the dimensionless time $\tau = t\sqrt{k/M}$ (so that the timescale $\sqrt{M/k}$ is proportional to the period of the undamped, unforced system), and writing $\kappa = \frac{l}{2\sqrt{kM}}$ and $f = \frac{F}{k}$, the equation becomes
+  \[
+    \ddot x + 2\kappa\dot x + x = f(\tau),
+  \]
+  where dots now denote $\frac{\d}{\d\tau}$. This nondimensionalization reduces the original three parameters ($M$, $l$, $k$) to a single parameter $\kappa$.
+\end{remark}
 
-We will consider different possible cases.
+\subsubsection{Free response}
+\begin{prop}[Characteristic equation for the free response]
+  Setting $f = 0$ and trying $x = e^{\lambda\tau}$ in $\ddot x + 2\kappa\dot x + x = 0$ gives the characteristic equation
+  \[
+    \lambda^2 + 2\kappa\lambda + 1 = 0,
+  \]
+  with roots $\lambda = -\kappa \pm \sqrt{\kappa^2 - 1}$. Writing $\lambda = -\lambda_1, -\lambda_2$ where $\lambda_1$ and $\lambda_2$ have positive real parts, the nature of the solution depends on the sign of $\kappa^2 - 1$.
+\end{prop}
 
-\subsubsection*{Free (natural) response \texorpdfstring{$f = 0$}{f = 0}}
-\begin{align*}
-  \ddot x + 2\kappa \dot x + x &= 0\\
-  \intertext{We try $x = e^{\lambda \tau}$}
-  \lambda^2 + 2\kappa\lambda + 1 &= 0\\
-  \lambda &= -\kappa \pm \sqrt{\kappa^2 - 1}\\
-  &= -\lambda_1, -\lambda_2
-\end{align*}
-where $\lambda_1$ and $\lambda_2$ have positive real parts.
+\begin{prop}[Underdamping ($\kappa < 1$)]
+  If $\kappa < 1$, the roots are complex and the general solution is
+  \[
+    x = e^{-\kappa\tau}\bigl(A\sin\sqrt{1 - \kappa^2}\,\tau + B\cos\sqrt{1 - \kappa^2}\,\tau\bigr),
+  \]
+  where $A$ and $B$ are arbitrary constants. The solution oscillates with period $\frac{2\pi}{\sqrt{1 - \kappa^2}}$ inside a decaying envelope with characteristic decay time $O(1/\kappa)$.
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (6, 0) node [right] {$\tau$};
+      \draw [->] (0, -2) -- (0, 2) node [above] {$x$};
 
-\subsubsection*{Underdamping}
-If $\kappa < 1$, we have $x = e^{-\kappa\tau}(A\sin \sqrt{1 - \kappa^2}\tau +B\cos \sqrt{1 - \kappa^2}\tau)$.
+      \draw [semithick, mblue, domain = 0:5.8, samples=100] plot (\x, {1.8 * exp (-0.5 * \x) * sin (300 * \x + 40)});
+    \end{tikzpicture}
+  \end{center}
+\end{prop}
 
-The period is $\frac{2\pi}{\sqrt{1 - \kappa^2}}$ and its amplitude decays in a characteristic of $O(\frac{1}{\kappa})$. Note that the damping increases the period. As $\kappa \to 1$, the oscillation period $\to \infty$.
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (6, 0) node [right] {$\tau$};
-    \draw [->] (0, -2) -- (0, 2) node [above] {$x$};
+\begin{remark}
+  Damping increases the period of oscillation compared to the undamped case. As $\kappa \to 1$, the oscillation period tends to infinity.
+\end{remark}
 
-    \draw [semithick, mblue, domain = 0:5.8, samples=100] plot (\x, {1.8 * exp (-0.5 * \x) * sin (300 * \x + 40)});
-  \end{tikzpicture}
-\end{center}
+\begin{prop}[Critical damping ($\kappa = 1$)]
+  If $\kappa = 1$, the characteristic equation has a repeated root $\lambda = -1$, and the general solution is
+  \[
+    x = (A + B\tau)e^{-\tau},
+  \]
+  where $A$ and $B$ are arbitrary constants. The rise time and decay time are both $O(1)$, corresponding to dimensional times of $O(\sqrt{M/k})$.
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (6, 0) node [right] {$\tau$};
+      \draw [->] (0, -2) -- (0, 2) node [above] {$x$};
 
-\subsubsection*{Critical damping}
-If $\kappa = 1$, then $x = (A + B\tau)e^{-\kappa\tau}$.
+      \draw [semithick, mblue, domain = 0:5.8, samples=100] plot (\x, {(1 + 3 * \x) * exp (-\x)});
+    \end{tikzpicture}
+  \end{center}
+\end{prop}
 
-The rise time and decay time are both $O(\frac{1}{\kappa}) = O(1)$. So the dimensional rise and decay times are $O(\sqrt{M/k})$.
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (6, 0) node [right] {$\tau$};
-    \draw [->] (0, -2) -- (0, 2) node [above] {$x$};
+\begin{prop}[Overdamping ($\kappa > 1$)]
+  If $\kappa > 1$, the roots are real and distinct. Writing $\lambda_1 < \lambda_2$ (both positive), the general solution is
+  \[
+    x = Ae^{-\lambda_1\tau} + Be^{-\lambda_2\tau},
+  \]
+  where $A$ and $B$ are arbitrary constants. The decay time is $O(1/\lambda_1)$ and the rise time is $O(1/\lambda_2)$.
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (6, 0) node [right] {$\tau$};
+      \draw [->] (0, -2) -- (0, 2) node [above] {$x$};
 
-    \draw [semithick, mblue, domain = 0:5.8, samples=100] plot (\x, {(1 + 3 * \x) * exp (-\x)});
-  \end{tikzpicture}
-\end{center}
+      \draw [semithick, mblue, domain = 0:5.8, samples=100] plot (\x, {2 * exp (-0.3 * \x) - exp(-2 * \x)});
+    \end{tikzpicture}
+  \end{center}
+\end{prop}
 
-\subsubsection*{Overdamping}
-If $\kappa > 1$, then $x = Ae^{-\lambda_1\tau} + Be^{-\lambda_2\tau}$ with $\lambda_1 < \lambda_2$. Then the decay time is $O(1/\lambda_1)$ and the rise time is $O(1/\lambda_2)$.
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (6, 0) node [right] {$\tau$};
-    \draw [->] (0, -2) -- (0, 2) node [above] {$x$};
+\begin{remark}
+  In all three cases, it is possible for the solution to exhibit a large initial increase in amplitude before eventually decaying.
+\end{remark}
 
-    \draw [semithick, mblue, domain = 0:5.8, samples=100] plot (\x, {2 * exp (-0.3 * \x) - exp(-2 * \x)});
-  \end{tikzpicture}
-\end{center}
-Note that in all cases, it is possible to get a large initial increase in amplitude.
+\subsubsection{Forced response}
+\begin{remark}[Transient and asymptotic behaviour]
+  In a forced system, the complementary functions typically determine the short-time \emph{transient} response, while the particular integral determines the long-time \emph{asymptotic} response, since the complementary functions decay exponentially (as $\operatorname{Re}(\lambda_{1,2}) > 0$).
+\end{remark}
 
-\subsubsection*{Forcing}
-In a forced system, the complementary functions typically determine the short-time transient response, while the particular integral determines the long-time (asymptotic) response.
-For example, if $f(\tau) = \sin\tau$, then we can guess $x_p = C\sin \tau + D\cos\tau$. In this case, it turns out that $x_p = -\frac{1}{2\kappa}\cos\tau$.
-
-The general solution is thus $x = Ae^{-\lambda_1\tau} + Be^{-\lambda_2 \tau} - \frac{1}{2\kappa}\cos\tau \sim -\frac{1}{2\kappa}\cos\tau$ as $\tau\to \infty$ since $\Re (\lambda_{1, 2}) > 0$.
-
-It is important to note that the forcing response is out of phase with the forcing.
+\begin{eg}[Sinusoidal forcing]
+  Consider $\ddot x + 2\kappa\dot x + x = \sin\tau$. Trying $x_p = C\sin\tau + D\cos\tau$ and substituting, one finds $x_p = -\frac{1}{2\kappa}\cos\tau$. The general solution is
+  \[
+    x = Ae^{-\lambda_1\tau} + Be^{-\lambda_2\tau} - \frac{1}{2\kappa}\cos\tau \;\sim\; -\frac{1}{2\kappa}\cos\tau \quad\text{as } \tau \to \infty.
+  \]
+  The asymptotic response is out of phase with the forcing: while the forcing is $\sin\tau$, the long-time response is proportional to $\cos\tau$.
+\end{eg}
 \subsection{Impulses and point forces}
 In many applications, forces act over very short time intervals. Rather than model the detailed time-dependence of such forces, it is often convenient to idealize them as acting instantaneously. This leads to the concept of the \emph{Dirac delta function}.
 
