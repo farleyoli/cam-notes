@@ -1218,49 +1218,70 @@ A \emph{differential equation} is an equation involving derivatives of an unknow
 \end{remark}
 
 \subsection{Fixed (equilibrium) points and stability}
-A key question in the qualitative study of differential equations is: what happens to solutions in the long run? This leads to the study of equilibria and their stability.
+\begin{remark}[Motivation]
+  A key question in the qualitative study of differential equations is: what happens to solutions in the long run? This leads to the study of equilibria and their stability.
+\end{remark}
 
 \begin{defi}[Equilibrium point]
   An \emph{equilibrium point} (or \emph{fixed point}) of the differential equation $\frac{\d y}{\d t} = f(t, y)$ is a constant solution $y = c$, satisfying $f(t, c) = 0$ for all $t$.
 \end{defi}
 
-Equilibrium points are found by solving $\frac{\d y}{\d t} = 0$. Once found, we ask whether nearby solutions approach the equilibrium or move away from it.
+\begin{remark}[Finding equilibrium points]
+  Equilibrium points are found by solving $\frac{\d y}{\d t} = 0$. Once found, the natural question is whether nearby solutions approach the equilibrium or move away from it.
+\end{remark}
 
 \begin{defi}[Stability]
   An equilibrium $y = c$ is \emph{stable} (or \emph{attracting}) if solutions starting near $c$ converge to $c$ as $t \to \infty$. It is \emph{unstable} (or \emph{repelling}) if solutions starting arbitrarily close to $c$ eventually move away from $c$.
 \end{defi}
-\begin{eg}[Stability of $y = \pm 1$]
-  Referring to the differential equation above ($\dot y = t (1 - y^2)$), the solutions converge towards $y = 1$, which is therefore a stable fixed point. They diverge from $y = -1$, which is an unstable fixed point.
+\begin{eg}[Stability of equilibria for $\dot{y} = t(1 - y^2)$]
+  Consider the differential equation $\dot{y} = t(1 - y^2)$. The equilibrium points are $y = 1$ and $y = -1$. From the solution curves (see the previous subsection), solutions converge towards $y = 1$, which is therefore a stable fixed point. They diverge from $y = -1$, which is an unstable fixed point.
 \end{eg}
 
 \subsubsection{Perturbation analysis}
-To determine stability analytically, we use \emph{linearisation}. Suppose $y = a$ is an equilibrium of $\frac{\d y}{\d t} = f(y, t)$, so $f(a, t) = 0$ for all $t$. Write $y = a + \varepsilon(t)$, where $\varepsilon(t)$ is a small perturbation. Substituting into the differential equation and Taylor expanding:
-\begin{align*}
-  \frac{\d \varepsilon}{\d t} &= f(a + \varepsilon, t) = f(a, t) + \varepsilon\frac{\partial f}{\partial y}(a, t) + O(\varepsilon^2) = \varepsilon\frac{\partial f}{\partial y}(a, t) + O(\varepsilon^2).
-\end{align*}
-For small $\varepsilon$, we neglect the $O(\varepsilon^2)$ term to obtain the \emph{linearised equation}
-\[
-  \frac{\d \varepsilon}{\d t} \approx \varepsilon\frac{\partial f}{\partial y}(a, t).
-\]
-This linear equation determines whether small perturbations grow or decay.
-\begin{eg}[Perturbation of $y = \pm 1$]
-  Using the example $\dot y = t(1 - y^2)$ above, we have
+\begin{defi}[Linearisation]
+  \emph{Linearisation} is a technique for determining the stability of an equilibrium by analysing the behaviour of small perturbations.
+\end{defi}
+
+\begin{prop}[Linearised equation near an equilibrium]
+  Consider the differential equation $\frac{\d y}{\d t} = f(y, t)$, and suppose $y = a$ is an equilibrium, so $f(a, t) = 0$ for all $t$. Let $\varepsilon(t)$ be a small perturbation, so that $y = a + \varepsilon(t)$. Then $\varepsilon$ satisfies the \emph{linearised equation}
+  \[
+    \frac{\d \varepsilon}{\d t} \approx \varepsilon\frac{\partial f}{\partial y}(a, t).
+  \]
+\end{prop}
+\begin{proof}
+  Substituting $y = a + \varepsilon$ into the differential equation and Taylor expanding:
+  \[
+    \frac{\d \varepsilon}{\d t} = f(a + \varepsilon, t) = f(a, t) + \varepsilon\frac{\partial f}{\partial y}(a, t) + O(\varepsilon^2) = \varepsilon\frac{\partial f}{\partial y}(a, t) + O(\varepsilon^2).
+  \]
+  For small $\varepsilon$, we neglect the $O(\varepsilon^2)$ term to obtain the linearised equation.
+\end{proof}
+
+\begin{remark}
+  The linearised equation determines whether small perturbations grow or decay, and hence whether the equilibrium is stable or unstable.
+\end{remark}
+\begin{eg}[Linearisation for $\dot{y} = t(1 - y^2)$]
+  Consider again the equation $\dot{y} = t(1 - y^2)$, with $f(y, t) = t(1 - y^2)$. The partial derivative is
   \[
     \frac{\partial f}{\partial y} = -2yt =
     \begin{cases}
-      -2t & \text{ at } y = 1\\
-      2t & \text{ at } y = -1
-    \end{cases}.
+      -2t & \text{at } y = 1,\\
+      2t & \text{at } y = -1.
+    \end{cases}
   \]
-  At $y = 1$, $\dot{\varepsilon} = -2t\varepsilon$ and $\varepsilon = \varepsilon_0 e^{-t^2}$. Since $\varepsilon \to 0$ as $t \to \infty$, $y \to 1$. So $y = 1$ is a stable fixed point.
-
-  On the other hand, if we consider $y = -1$, then $\dot\varepsilon = 2t\varepsilon$ and $\varepsilon = \varepsilon_0 e^{t^2}$. Since $\varepsilon \to \infty$ as $t\to \infty$, $y = -1$ is unstable.
-
-  Technically $\varepsilon \to \infty$ is not a correct statement, since the approximation used is only valid for small $\varepsilon$. But we can be sure that the perturbation grows (even if not $\to \infty$) as $t$ increases.
+  \begin{itemize}
+    \item At $y = 1$: the linearised equation is $\dot{\varepsilon} = -2t\varepsilon$, with solution $\varepsilon = \varepsilon_0 e^{-t^2}$. Since $\varepsilon \to 0$ as $t \to \infty$, the equilibrium $y = 1$ is \textbf{stable}.
+    \item At $y = -1$: the linearised equation is $\dot{\varepsilon} = 2t\varepsilon$, with solution $\varepsilon = \varepsilon_0 e^{t^2}$. Since $|\varepsilon|$ grows without bound as $t \to \infty$, the equilibrium $y = -1$ is \textbf{unstable}.
+  \end{itemize}
 \end{eg}
 
+\begin{remark}
+  In the above example, the statement ``$\varepsilon \to \infty$'' should be interpreted with care: the linearised approximation is only valid for small $\varepsilon$. However, the conclusion that $|\varepsilon|$ initially grows is sufficient to establish instability.
+\end{remark}
+
 \subsubsection{Autonomous systems}
-In many physical systems, the governing laws do not change with time, so $\frac{\d y}{\d t}$ depends only on $y$ itself.
+\begin{remark}[Motivation]
+  In many physical systems, the governing laws do not change with time, so $\frac{\d y}{\d t}$ depends only on $y$ itself.
+\end{remark}
 
 \begin{defi}[Autonomous system]
   A differential equation is \emph{autonomous} if it has the form $\frac{\d y}{\d t} = f(y)$, where $f$ does not depend explicitly on $t$.
@@ -1323,204 +1344,261 @@ In many physical systems, the governing laws do not change with time, so $\frac{
 \end{eg}
 
 \subsubsection{Logistic Equation}
-The logistic equation is a simple model of population dynamics. Suppose we have a population of size $y$. It has a birth rate $\alpha y$ and a death rate $\beta y$. With this model, we obtain
-\begin{align*}
-  \frac{\d y}{\d t} &= (\alpha - \beta)y\\
-  y &= y_0 e^{(\alpha - \beta)t}
-\end{align*}
-Our population increases or decreases exponentially depending on whether the birth rate exceeds death rate or vice versa.
+\begin{remark}[Motivation: exponential growth model]
+  Consider a population of size $y(t)$, with birth rate $\alpha y$ and death rate $\beta y$. This simple model gives
+  \[
+    \frac{\d y}{\d t} = (\alpha - \beta)y, \quad \text{with solution } y = y_0 e^{(\alpha - \beta)t}.
+  \]
+  The population increases or decreases exponentially depending on whether $\alpha > \beta$ or $\alpha < \beta$.
+\end{remark}
 
-However, in reality, there is fighting for limited resources. The probability of some piece of food (resource) being found is $\propto y$. The probability of the same piece of food being found by two individuals is $\propto y^2$. If food is scarce, they fight (to the death), so death rate due to fighting (competing) is $\gamma y^2$ for some $\gamma$. So
-\begin{align*}
-  \frac{\d y}{\d t} &= (\alpha - \beta)y - \gamma y^2\\
-  \frac{\d y}{\d t}&= ry \left(1 - \frac{y}{Y}\right),
-\end{align*}
-where $r = \alpha - \beta$ and $Y = r/\gamma$. This is the differential logistic equation. Note that it is separable and can be solved explicitly.
+\begin{remark}[Competition for resources]
+  In reality, individuals compete for limited resources. The probability of a resource being found by one individual is proportional to $y$; the probability of the same resource being found by two individuals (leading to competition) is proportional to $y^2$. If competition results in death, we add a term $-\gamma y^2$ to the death rate, for some constant $\gamma > 0$.
+\end{remark}
 
-However, we find the phase portrait instead. If $r = \alpha - \beta > 0$, then the graph is a quadratic parabola, and we see that $Y$ is a stable fixed point.
-\begin{center}
-  \begin{tikzpicture}[yscale = 1.5]
-    \draw [->] (-0.5, 0) -- (4.5, 0) node [right] {$y$};
-    \draw [->] (0, -1) -- (0, 2) node [above] {$f$};
-    \node [anchor = north east] at (0, 0) {$O$};
-    \draw [mblue, semithick] (0, 0) parabola bend (1.75, 1.5) (4, -.9796);
-    \node [anchor = north east] at (3.5, 0) {$Y$};
+\begin{defi}[Logistic equation]
+  The \emph{logistic equation} is the differential equation
+  \[
+    \frac{\d y}{\d t} = ry \left(1 - \frac{y}{Y}\right),
+  \]
+  where $r = \alpha - \beta$ is the net growth rate and $Y = r/\gamma$ is the \emph{carrying capacity}. This equation is separable and can be solved explicitly.
+\end{defi}
 
-    \draw [->-=0.5] (0, -1.5) -- (3.5, -1.5);
-    \draw [-<-=0.2, ->] (3.5, -1.5) -- (4.5, -1.5) node [right] {$y$};
-    \draw (0, -1.4) -- (0, -1.6) node [below] {$O$};
-    \draw (3.5, -1.4) -- (3.5, -1.6) node [below] {$Y$};
-  \end{tikzpicture}
-\end{center}
-Now when the population is small, we have
-\[
-  \dot y \simeq ry
-\]
-So the population grows exponentially. Eventually, the stable equilibrium $Y$ is reached.
+\begin{prop}[Stability analysis of the logistic equation]
+  Assume $r > 0$. The logistic equation has equilibria at $y = 0$ and $y = Y$. The equilibrium $y = 0$ is unstable and $y = Y$ is stable.
+\end{prop}
+\begin{proof}
+  Let $f(y) = ry(1 - y/Y)$. Setting $f(y) = 0$ gives equilibria at $y = 0$ and $y = Y$. For stability, we compute $f'(y) = r - 2ry/Y$:
+  \begin{itemize}
+    \item At $y = 0$: $f'(0) = r > 0$, so the equilibrium is unstable.
+    \item At $y = Y$: $f'(Y) = r - 2r = -r < 0$, so the equilibrium is stable.
+  \end{itemize}
+  The phase portrait below confirms this analysis:
+  \begin{center}
+    \begin{tikzpicture}[yscale = 1.5]
+      \draw [->] (-0.5, 0) -- (4.5, 0) node [right] {$y$};
+      \draw [->] (0, -1) -- (0, 2) node [above] {$f$};
+      \node [anchor = north east] at (0, 0) {$O$};
+      \draw [mblue, semithick] (0, 0) parabola bend (1.75, 1.5) (4, -.9796);
+      \node [anchor = north east] at (3.5, 0) {$Y$};
+
+      \draw [->-=0.5] (0, -1.5) -- (3.5, -1.5);
+      \draw [-<-=0.2, ->] (3.5, -1.5) -- (4.5, -1.5) node [right] {$y$};
+      \draw (0, -1.4) -- (0, -1.6) node [below] {$O$};
+      \draw (3.5, -1.4) -- (3.5, -1.6) node [below] {$Y$};
+    \end{tikzpicture}
+  \end{center}
+\end{proof}
+
+\begin{remark}[Small population behaviour]
+  When the population is small ($y \ll Y$), the logistic equation reduces to $\dot{y} \approx ry$, so the population grows exponentially. As the population approaches the carrying capacity, growth slows and eventually the stable equilibrium $y = Y$ is reached.
+\end{remark}
 
 \subsection{Discrete equations (Difference equations)}
-Differential equations are often approximated numerically using discrete equations, making it important to understand the behaviour of such discrete systems and how they may differ from their continuous counterparts.
+\begin{remark}[Motivation]
+  Differential equations are often approximated numerically using discrete equations, making it important to understand the behaviour of such discrete systems and how they may differ from their continuous counterparts. For example, population changes may occur at discrete time intervals (births in spring and deaths in winter).
+\end{remark}
 
-For the logistic equation, population changes may occur at discrete time intervals (for example, births in spring and deaths in winter). Measuring the population at regular intervals leads to a model of the form
-\[
-  x_{n + 1} = \lambda x_n(1 - x_n).
-\]
-This can be derived from the continuous equation with a discrete approximation
-\begin{align*}
-  \frac{y_{n+1} - y_n}{\Delta t} &= ry_n\left(1 - \frac{y_n}{Y}\right)\\
-  y_{n + 1} &= y_n + r\Delta ty_n\left(1 - \frac{y_n}{Y}\right)\\
-  &= (1 + r\Delta t)y_n - \frac{r\Delta t}{Y}y_n^2\\
-  &= (1 + r\Delta t)y_n\left[1 - \left(\frac{r\Delta t}{1 + r\Delta t}\right)\frac{y_n}{Y}\right]
-\end{align*}
-Write
-\[
-  \lambda = 1 + r\Delta t,\;\;\;\;\;\; x_n = \left(\frac{r\Delta t}{1 + r\Delta t}\right)\frac{y_n}{Y},
-\]
-then
-\[
-  x_{n+1}=\lambda x_n(1 - x_n).
-\]
-This is the discrete logistic equation or logistic map.
+\begin{defi}[Difference equation]
+  A \emph{difference equation} (or \emph{discrete dynamical system}) is a recurrence relation of the form $x_{n+1} = f(x_n)$, where $x_n$ denotes the state at discrete time step $n$.
+\end{defi}
 
-If $\lambda < 1$, then deaths exceed births and the population decays to zero.
-\begin{center}
-  \begin{tikzpicture}[scale=5]
-    \draw [<->] (0, 1) node [above] {$x_{n + 1}$} -- (0, 0) -- (1.2, 0) node [right] {$x_n$};
-    \draw [mgreen, semithick] (0, 0) -- (1, 1) node [right] {$x_{n + 1} = x_n$};
-    \draw [mblue, semithick] (0, 0) parabola bend (0.5, 0.225) (1, 0);
+\begin{defi}[Discrete logistic equation]
+  The \emph{discrete logistic equation} (or \emph{logistic map}) is the difference equation
+  \[
+    x_{n + 1} = \lambda x_n(1 - x_n),
+  \]
+  where $\lambda > 0$ is a parameter.
+\end{defi}
 
-    \draw [mred] (0.4, 0) node [below, black] {$x_0$}
-    -- (0.4, 0.216) -- (0.216, 0.216)
-    -- (0.216, 0.152) -- (0.152, 0.152)
-    -- (0.152, 0.116) -- (0.116, 0.116)
-    -- (0.116, 0.092) -- (0.092, 0.092)
-    -- (0.092, 0.075) -- (0.075, 0.075);
-  \end{tikzpicture}
-\end{center}
-We see that $x = 0$ is a fixed point.
+\begin{remark}[Derivation from the continuous logistic equation]
+  The discrete logistic equation can be derived from the continuous logistic equation $\dot{y} = ry(1 - y/Y)$ using a finite difference approximation. Replacing $\dot{y}$ by $(y_{n+1} - y_n)/\Delta t$:
+  \begin{align*}
+    \frac{y_{n+1} - y_n}{\Delta t} &= ry_n\left(1 - \frac{y_n}{Y}\right)\\
+    y_{n + 1} &= y_n + r\Delta t \cdot y_n\left(1 - \frac{y_n}{Y}\right)\\
+    &= (1 + r\Delta t)y_n\left[1 - \left(\frac{r\Delta t}{1 + r\Delta t}\right)\frac{y_n}{Y}\right].
+  \end{align*}
+  Substituting $\lambda = 1 + r\Delta t$ and $x_n = \frac{r\Delta t}{1 + r\Delta t} \cdot \frac{y_n}{Y}$ yields $x_{n+1} = \lambda x_n(1 - x_n)$.
+\end{remark}
 
-In general, to find fixed points, we solve for $x_{n + 1} = x_n$, i.e.\ $f(x_n) = x_n$. For the logistic map, we have
-\begin{align*}
-  \lambda x_n(1 - x_n) &= x_n\\
-  x_n[1 - \lambda(1 - x_n)] &= 0\\
-  x_n = 0 &\text{ or } x_n = 1 - \frac{1}{\lambda}
-\end{align*}
-When $1 < \lambda < 2$, we have
-\begin{center}
-  \begin{tikzpicture}[scale=5]
-    \draw [<->] (0, 1) node [above] {$x_{n + 1}$} -- (0, 0) -- (1.2, 0) node [right] {$x_n$};
-    \draw [mgreen, semithick] (0, 0) -- (1, 1) node [right] {$x_{n + 1} = x_n$};
-    \draw [mblue, semithick] (0, 0) parabola bend (0.5, 0.45) (1, 0);
+\begin{defi}[Fixed point of a difference equation]
+  A \emph{fixed point} of the difference equation $x_{n+1} = f(x_n)$ is a value $x^*$ such that $f(x^*) = x^*$. At a fixed point, the system remains stationary: if $x_n = x^*$, then $x_{n+1} = x^*$.
+\end{defi}
 
-    \draw [mred] (0.2, 0) node [below, black] {$x_0$}
-    -- (0.2, 0.288) -- (0.288, 0.288)
-    -- (0.288, 0.369) -- (0.369, 0.369)
-    -- (0.369, 0.419) -- (0.419, 0.419)
-    -- (0.419, 0.438) -- (0.438, 0.438)
-    -- (0.438, 0.443) -- (0.443, 0.443);
-  \end{tikzpicture}
-\end{center}
-We see that $x_n = 0$ is an unstable fixed point and $x_n = 1 - \frac{1}{\lambda}$ is a stable fixed point.
+\begin{prop}[Fixed points of the logistic map]
+  The logistic map $x_{n+1} = \lambda x_n(1 - x_n)$ has fixed points at $x = 0$ and $x = 1 - 1/\lambda$ (provided $\lambda \neq 0$).
+\end{prop}
+\begin{proof}
+  Setting $x_{n+1} = x_n = x$ in the logistic map:
+  \begin{align*}
+    \lambda x(1 - x) &= x\\
+    x[\lambda(1 - x) - 1] &= 0\\
+    x = 0 &\text{ or } x = 1 - \frac{1}{\lambda}. \qedhere
+  \end{align*}
+\end{proof}
 
-When $2 < \lambda < 3$, we have
-\begin{center}
-  \begin{tikzpicture}[scale=5]
-    \draw [<->] (0, 1) node [above] {$x_{n + 1}$} -- (0, 0) -- (1.2, 0) node [right] {$x_n$};
-    \draw [mgreen, semithick] (0, 0) -- (1, 1) node [right] {$x_{n + 1} = x_n$};
-    \draw [mblue, semithick] (0, 0) parabola bend (0.5, 0.675) (1, 0);
+\begin{eg}[Case $\lambda < 1$: decay to zero]
+  When $\lambda < 1$, deaths exceed births and the population decays to zero. The cobweb diagram below illustrates this: starting from $x_0$, the iterates spiral towards the fixed point $x = 0$.
+  \begin{center}
+    \begin{tikzpicture}[scale=5]
+      \draw [<->] (0, 1) node [above] {$x_{n + 1}$} -- (0, 0) -- (1.2, 0) node [right] {$x_n$};
+      \draw [mgreen, semithick] (0, 0) -- (1, 1) node [right] {$x_{n + 1} = x_n$};
+      \draw [mblue, semithick] (0, 0) parabola bend (0.5, 0.225) (1, 0);
 
-    \draw [mred] (0.1, 0) node [below, black] {$x_0$}
-    -- (0.1, 0.243) -- (0.243, 0.243)
-    -- (0.243, 0.497) -- (0.497, 0.497)
-    -- (0.497, 0.675) -- (0.675, 0.675)
-    -- (0.675, 0.592) -- (0.592, 0.592)
-    -- (0.592, 0.652) -- (0.652, 0.652)
-    -- (0.652, 0.613) -- (0.613, 0.613)
-    -- (0.613, 0.641) -- (0.641, 0.641)
-    -- (0.641, 0.621) -- (0.621, 0.621)
-    -- (0.621, 0.635) -- (0.635, 0.635)
-    -- (0.635, 0.626) -- (0.626, 0.626)
-    -- (0.626, 0.632) -- (0.632, 0.632)
-    -- (0.632, 0.628) -- (0.628, 0.628)
-    -- (0.628, 0.631) -- (0.631, 0.631)
-    -- (0.631, 0.629) -- (0.629, 0.629)
-    -- (0.629, 0.63) -- (0.63, 0.63)
-    -- (0.63, 0.629) -- (0.629, 0.629)
-    -- (0.629, 0.63) -- (0.63, 0.63);
-  \end{tikzpicture}
-\end{center}
-There is an oscillatory convergence to $x_n = 1 - \frac{1}{\lambda}$.
+      \draw [mred] (0.4, 0) node [below, black] {$x_0$}
+      -- (0.4, 0.216) -- (0.216, 0.216)
+      -- (0.216, 0.152) -- (0.152, 0.152)
+      -- (0.152, 0.116) -- (0.116, 0.116)
+      -- (0.116, 0.092) -- (0.092, 0.092)
+      -- (0.092, 0.075) -- (0.075, 0.075);
+    \end{tikzpicture}
+  \end{center}
+  Here $x = 0$ is a stable fixed point.
+\end{eg}
+\begin{eg}[Case $1 < \lambda < 2$: monotonic convergence]
+  When $1 < \lambda < 2$, the cobweb diagram shows monotonic convergence to the non-zero fixed point:
+  \begin{center}
+    \begin{tikzpicture}[scale=5]
+      \draw [<->] (0, 1) node [above] {$x_{n + 1}$} -- (0, 0) -- (1.2, 0) node [right] {$x_n$};
+      \draw [mgreen, semithick] (0, 0) -- (1, 1) node [right] {$x_{n + 1} = x_n$};
+      \draw [mblue, semithick] (0, 0) parabola bend (0.5, 0.45) (1, 0);
 
-When $\lambda > 3$, we have a limit cycle, in which $x_n$ oscillates between 2 values, i.e.\ $x_{n + 2} = x_n$. When $\lambda = 1 + \sqrt{6} \approx 3.449$, we have a 4-cycle, and so on.
-\begin{center}
-  \begin{tikzpicture}[scale=5]
-    \draw [<->] (0, 1) node [above] {$x_{n + 1}$} -- (0, 0) -- (1.2, 0) node [right] {$x_n$};
-    \draw [mgreen, semithick] (0, 0) -- (1, 1) node [right] {$x_{n + 1} = x_n$};
-    \draw [mblue, semithick] (0, 0) parabola bend (0.5, 0.8) (1, 0);
+      \draw [mred] (0.2, 0) node [below, black] {$x_0$}
+      -- (0.2, 0.288) -- (0.288, 0.288)
+      -- (0.288, 0.369) -- (0.369, 0.369)
+      -- (0.369, 0.419) -- (0.419, 0.419)
+      -- (0.419, 0.438) -- (0.438, 0.438)
+      -- (0.438, 0.443) -- (0.443, 0.443);
+    \end{tikzpicture}
+  \end{center}
+  Here $x = 0$ is an unstable fixed point and $x = 1 - 1/\lambda$ is a stable fixed point.
+\end{eg}
 
-    \draw [mred] (0.15, 0) node [below, black] {$x_0$}
-    -- (0.15, 0.408) -- (0.408, 0.408)
-    -- (0.408, 0.773) -- (0.773, 0.773)
-    -- (0.773, 0.562) -- (0.562, 0.562)
-    -- (0.562, 0.788) -- (0.788, 0.788)
-    -- (0.788, 0.535) -- (0.535, 0.535)
-    -- (0.535, 0.796) -- (0.796, 0.796)
-    -- (0.796, 0.52) -- (0.52, 0.52)
-    -- (0.52, 0.799) -- (0.799, 0.799)
-    -- (0.799, 0.514) -- (0.514, 0.514)
-    -- (0.514, 0.799) -- (0.799, 0.799)
-    -- (0.799, 0.514) -- (0.514, 0.514)
-    -- (0.514, 0.799) -- (0.799, 0.799)
-    -- (0.799, 0.514) -- (0.514, 0.514)
-    -- (0.514, 0.799) -- (0.799, 0.799)
-    -- (0.799, 0.514) -- (0.514, 0.514)
-    -- (0.514, 0.799) -- (0.799, 0.799)
-    -- (0.799, 0.514) -- (0.514, 0.514);
-  \end{tikzpicture}
-\end{center}
-We have the following plot of the stable solutions for different values of $\lambda$ (plotted as $r$ in the horizontal axis)
-\begin{center}
-  \includegraphics[width=330pt]{images/de_bifurcation.png}
+\begin{eg}[Case $2 < \lambda < 3$: oscillatory convergence]
+  When $2 < \lambda < 3$, the iterates oscillate around the fixed point but still converge:
+  \begin{center}
+    \begin{tikzpicture}[scale=5]
+      \draw [<->] (0, 1) node [above] {$x_{n + 1}$} -- (0, 0) -- (1.2, 0) node [right] {$x_n$};
+      \draw [mgreen, semithick] (0, 0) -- (1, 1) node [right] {$x_{n + 1} = x_n$};
+      \draw [mblue, semithick] (0, 0) parabola bend (0.5, 0.675) (1, 0);
 
-  Credits: Wikimedia Commons: Jordan Pierce - Public Domain CC0 1.0
-\end{center}
-Note that the fixed point still exists after $\lambda = 3$, but is no longer stable. Similarly, the 2-cycles still exist after $\lambda = 1 + \sqrt{6}$, but it is not stable.
+      \draw [mred] (0.1, 0) node [below, black] {$x_0$}
+      -- (0.1, 0.243) -- (0.243, 0.243)
+      -- (0.243, 0.497) -- (0.497, 0.497)
+      -- (0.497, 0.675) -- (0.675, 0.675)
+      -- (0.675, 0.592) -- (0.592, 0.592)
+      -- (0.592, 0.652) -- (0.652, 0.652)
+      -- (0.652, 0.613) -- (0.613, 0.613)
+      -- (0.613, 0.641) -- (0.641, 0.641)
+      -- (0.641, 0.621) -- (0.621, 0.621)
+      -- (0.621, 0.635) -- (0.635, 0.635)
+      -- (0.635, 0.626) -- (0.626, 0.626)
+      -- (0.626, 0.632) -- (0.632, 0.632)
+      -- (0.632, 0.628) -- (0.628, 0.628)
+      -- (0.628, 0.631) -- (0.631, 0.631)
+      -- (0.631, 0.629) -- (0.629, 0.629)
+      -- (0.629, 0.63) -- (0.63, 0.63)
+      -- (0.63, 0.629) -- (0.629, 0.629)
+      -- (0.629, 0.63) -- (0.63, 0.63);
+    \end{tikzpicture}
+  \end{center}
+  There is oscillatory convergence to the stable fixed point $x = 1 - 1/\lambda$.
+\end{eg}
+
+\begin{defi}[Limit cycle]
+  A \emph{limit cycle} (or \emph{periodic orbit}) of period $k$ is a sequence of $k$ distinct values $x_1, x_2, \ldots, x_k$ such that $x_{n+k} = x_n$ for all $n$. In other words, the system cycles through these $k$ values repeatedly.
+\end{defi}
+
+\begin{eg}[Case $\lambda > 3$: limit cycles and chaos]
+  When $\lambda > 3$, the fixed point $x = 1 - 1/\lambda$ becomes unstable and the system exhibits a \emph{limit cycle}, oscillating between 2 values (i.e., $x_{n+2} = x_n$):
+  \begin{center}
+    \begin{tikzpicture}[scale=5]
+      \draw [<->] (0, 1) node [above] {$x_{n + 1}$} -- (0, 0) -- (1.2, 0) node [right] {$x_n$};
+      \draw [mgreen, semithick] (0, 0) -- (1, 1) node [right] {$x_{n + 1} = x_n$};
+      \draw [mblue, semithick] (0, 0) parabola bend (0.5, 0.8) (1, 0);
+
+      \draw [mred] (0.15, 0) node [below, black] {$x_0$}
+      -- (0.15, 0.408) -- (0.408, 0.408)
+      -- (0.408, 0.773) -- (0.773, 0.773)
+      -- (0.773, 0.562) -- (0.562, 0.562)
+      -- (0.562, 0.788) -- (0.788, 0.788)
+      -- (0.788, 0.535) -- (0.535, 0.535)
+      -- (0.535, 0.796) -- (0.796, 0.796)
+      -- (0.796, 0.52) -- (0.52, 0.52)
+      -- (0.52, 0.799) -- (0.799, 0.799)
+      -- (0.799, 0.514) -- (0.514, 0.514)
+      -- (0.514, 0.799) -- (0.799, 0.799)
+      -- (0.799, 0.514) -- (0.514, 0.514)
+      -- (0.514, 0.799) -- (0.799, 0.799)
+      -- (0.799, 0.514) -- (0.514, 0.514)
+      -- (0.514, 0.799) -- (0.799, 0.799)
+      -- (0.799, 0.514) -- (0.514, 0.514)
+      -- (0.514, 0.799) -- (0.799, 0.799)
+      -- (0.799, 0.514) -- (0.514, 0.514);
+    \end{tikzpicture}
+  \end{center}
+  As $\lambda$ increases further, the 2-cycle becomes unstable and a 4-cycle appears (at $\lambda = 1 + \sqrt{6} \approx 3.449$), then an 8-cycle, and so on.
+\end{eg}
+
+\begin{remark}[Bifurcation diagram]
+  The following bifurcation diagram shows the stable long-term behaviour of the logistic map for different values of $\lambda$ (plotted as $r$ on the horizontal axis):
+  \begin{center}
+    \includegraphics[width=330pt]{images/de_bifurcation.png}
+
+    Credits: Wikimedia Commons: Jordan Pierce - Public Domain CC0 1.0
+  \end{center}
+\end{remark}
+
+\begin{remark}[Persistence of unstable structures]
+  The fixed point $x = 1 - 1/\lambda$ continues to exist for $\lambda > 3$, but it is no longer stable. Similarly, the 2-cycles persist for $\lambda > 1 + \sqrt{6}$, but they become unstable as higher-period cycles take over.
+\end{remark}
 
 \section{Second-order differential equations}
 A \emph{second-order differential equation} involves the second derivative of the unknown function. Such equations arise naturally in physics, particularly in mechanics where Newton's second law $F = ma$ relates force to acceleration (the second derivative of position). While this section focuses on second-order equations, most of the methods presented here generalize to higher-order differential equations as well.
 
 \subsection{Constant coefficients}
-The general form of an equation with constant coefficients is
-\[
-  ay'' + by' + cy = f(x).
-\]
-We solve this in two steps:
-\begin{enumerate}
-  \item Find the complementary functions which satisfy the homogeneous equation $ay'' + by' + cy = 0$.
-  \item Find a particular solution that satisfies the full equation.
-\end{enumerate}
+\begin{defi}[Second-order linear ODE with constant coefficients]
+  A \emph{second-order linear ordinary differential equation with constant coefficients} has the form
+  \[
+    ay'' + by' + cy = f(x),
+  \]
+  where $a, b, c$ are constants with $a \neq 0$, and $f(x)$ is a given function called the \emph{forcing term}. The equation is \emph{homogeneous} if $f(x) = 0$.
+\end{defi}
+
+\begin{remark}[Solution strategy]
+  We solve such equations in two steps:
+  \begin{enumerate}
+    \item Find the \emph{complementary function} $y_c$ which satisfies the homogeneous equation $ay'' + by' + cy = 0$.
+    \item Find a \emph{particular integral} $y_p$ that satisfies the full equation.
+  \end{enumerate}
+  The general solution is then $y = y_c + y_p$.
+\end{remark}
 \subsubsection{Complementary functions}
-Recall that $e^{\lambda x}$ is an eigenfunction of the differential operator $\frac{\d}{\d x}$. Hence it is also an eigenfunction of the second derivative $\frac{\d^2}{\d x^2} = \frac{\d}{\d x}\left(\frac{\d }{\d x}\right)$.
+\begin{remark}[Exponential ansatz]
+  Recall that $e^{\lambda x}$ is an eigenfunction of the differential operator $\frac{\d}{\d x}$, and hence also of $\frac{\d^2}{\d x^2}$. This motivates seeking solutions of the form $y = e^{\lambda x}$.
+\end{remark}
 
-If we seek a complementary function of the form $y_c = e^{\lambda x}$, then $y'_c = \lambda e^{\lambda x}$ and $y''_c = \lambda^2 e^{\lambda x}$. Substituting into the homogeneous equation $ay'' + by' + cy = 0$ gives
-\[
-  a\lambda^2 e^{\lambda x} + b\lambda e^{\lambda x} + c e^{\lambda x} = e^{\lambda x}(a\lambda^2 + b\lambda + c) = 0.
-\]
-Since $e^{\lambda x} \neq 0$, we require $a\lambda^2 + b\lambda + c = 0$.
-
-\begin{defi}[Characteristic equation]
-  The \emph{characteristic equation} of a (second-order) differential equation $ay'' + by' + cy = 0$ is
+\begin{prop}[Characteristic equation]
+  The function $y = e^{\lambda x}$ is a solution of $ay'' + by' + cy = 0$ if and only if $\lambda$ satisfies the \emph{characteristic equation}
   \[
     a\lambda^2 + b\lambda + c = 0.
   \]
-\end{defi}
+\end{prop}
+\begin{proof}
+  Substituting $y = e^{\lambda x}$ (so $y' = \lambda e^{\lambda x}$ and $y'' = \lambda^2 e^{\lambda x}$) into the equation gives
+  \[
+    a\lambda^2 e^{\lambda x} + b\lambda e^{\lambda x} + c e^{\lambda x} = e^{\lambda x}(a\lambda^2 + b\lambda + c) = 0.
+  \]
+  Since $e^{\lambda x} \neq 0$, we require $a\lambda^2 + b\lambda + c = 0$.
+\end{proof}
 
-In this case there are two solutions to the characteristic equation, giving (in principle) two complementary functions $y_1 = e^{\lambda_1 x}$ and $y_2 = e^{\lambda_2 x}$.
-
-If $\lambda_1$ and $\lambda_2$ are distinct, then $y_1$ and $y_2$ are linearly independent and complete --- they form a basis of the solution space. The (most) general complementary function is
-\[
-  y_c = Ae^{\lambda_1 x} + Be^{\lambda_2 x}.
-\]
+\begin{prop}[General solution with distinct roots]
+  Let $\lambda_1$ and $\lambda_2$ be the roots of the characteristic equation. If $\lambda_1 \neq \lambda_2$, then $y_1 = e^{\lambda_1 x}$ and $y_2 = e^{\lambda_2 x}$ are linearly independent, and the general complementary function is
+  \[
+    y_c = Ae^{\lambda_1 x} + Be^{\lambda_2 x},
+  \]
+  where $A$ and $B$ are arbitrary constants.
+\end{prop}
 \begin{eg}[Distinct real roots]
   $y'' - 5y' + 6y = 0$. Try $y = e^{\lambda x}$. The characteristic equation is $\lambda^2 - 5\lambda + 6 = 0$. Then $\lambda = 2$ or $3$. So the general solution is $y = Ae^{2x} + Be^{3x}$.
 
@@ -1539,63 +1617,70 @@ If $\lambda_1$ and $\lambda_2$ are distinct, then $y_1$ and $y_2$ are linearly i
   In effect, we have changed the basis from $\{e^{2ix}, e^{-2ix}\}$ to $\{\cos 2x$, $\sin 2x\}$.
 \end{eg}
 
-\begin{eg}[Degeneracy] $y'' - 4y' + 4y = 0$.
+\begin{eg}[Repeated roots: detuning method]
+  Consider $y'' - 4y' + 4y = 0$. The characteristic equation is $\lambda^2 - 4\lambda + 4 = (\lambda - 2)^2 = 0$, giving a repeated root $\lambda = 2$. Thus we only obtain one solution $y_1 = e^{2x}$, but a second-order equation requires two independent solutions.
 
-  Try $y = e^{\lambda x}$. We have $\lambda ^2 - 4\lambda + 4 = 0$ and $(\lambda - 2)^2 = 0$. So $\lambda = 2$ or $2$. But $e^{2x}$ and $e^{2x}$ are clearly not linearly independent. We have only managed to find one basis function of the solution space, but a second order equation has a 2 dimensional solution space. We need to find a second solution.
-
-  We can perform \emph{detuning}. We can separate the two functions found above from each other by considering $y'' - 4y' + (4 - \varepsilon^2)y = 0$. This turns into the equation we want to solve as $\varepsilon \to 0$. Try $y = e^{\lambda x}$. We obtain $\lambda^2 - 4\lambda + 4 - \varepsilon^2 = 0$. The two roots are $\lambda = 2 \pm \varepsilon$. Then
+  To find a second solution, we use \emph{detuning}: consider instead $y'' - 4y' + (4 - \varepsilon^2)y = 0$, which reduces to our equation as $\varepsilon \to 0$. The characteristic equation $\lambda^2 - 4\lambda + 4 - \varepsilon^2 = 0$ now has distinct roots $\lambda = 2 \pm \varepsilon$. Thus
   \begin{align*}
-    y &= Ae^{(2 + \varepsilon)x} + Be^{(2 - \varepsilon)x}\\
-    &= e^{2x}[A e^{\varepsilon x} + Be^{-\varepsilon x}]
-    \intertext{Taking the limit as $\varepsilon \to 0$, we use the Taylor expansion of $e^{\varepsilon x}$ to obtain}
-    y &= e^{2x}[(A + B) + \varepsilon x(A - B) + O(A\varepsilon^2, B\varepsilon^2)]
-    \intertext{We let $(A + B) = \alpha$ and $\varepsilon(A - B) = \beta$. This is perfectly valid for any non-zero $\varepsilon$. Then $A = \frac{1}{2}(\alpha + \frac{\beta}{\varepsilon})$ and $B = \frac{1}{2}(\alpha - \frac{\beta}{\varepsilon})$. So we have}
-    y &= e^{2x}[\alpha + \beta x + O(A\varepsilon^2, B\varepsilon^2)]\\
-    \intertext{We know for any $\varepsilon$, we have a solution of this form. Now we turn the procedure around. We fix some $\alpha$ and $\beta$. Then given any $\varepsilon$, we can find some constants $A$, $B$ (depending on $\varepsilon$) such that the above holds. As we decrease the size of $\varepsilon$, we have $A, B = O(\frac{1}{\varepsilon})$. So $O(A\varepsilon^2) = O(B\varepsilon^2) = O(\varepsilon)$. So our solution becomes}
-    y &= e^{2x}[\alpha + \beta x + O(\varepsilon)]\\
-    &\to e^{2x}(\alpha + \beta x)
+    y &= Ae^{(2 + \varepsilon)x} + Be^{(2 - \varepsilon)x} = e^{2x}[A e^{\varepsilon x} + Be^{-\varepsilon x}].
+    \intertext{Taylor expanding in $\varepsilon$:}
+    y &= e^{2x}[(A + B) + \varepsilon x(A - B) + O(\varepsilon^2)].
+    \intertext{Setting $\alpha = A + B$ and $\beta = \varepsilon(A - B)$, and taking $\varepsilon \to 0$:}
+    y &\to e^{2x}(\alpha + \beta x).
   \end{align*}
-  In this way, we have derived two separate basis functions.
-
-\begin{prop}[Degenerate complementary functions]
-  If the characteristic equation of a linear differential equation with constant coefficients has a repeated root, and $y_1(x)$ is the corresponding complementary function, then $y_2(x) = xy_1(x)$ is an independent complementary function.
-\end{prop}
+  Thus the general solution is $y = (\alpha + \beta x)e^{2x}$, with basis functions $e^{2x}$ and $xe^{2x}$.
 \end{eg}
 
+\begin{prop}[General solution with repeated roots]
+  If the characteristic equation $a\lambda^2 + b\lambda + c = 0$ has a repeated root $\lambda_0$, then the general complementary function is
+  \[
+    y_c = (A + Bx)e^{\lambda_0 x},
+  \]
+  where $A$ and $B$ are arbitrary constants. That is, if $y_1 = e^{\lambda_0 x}$ is one solution, then $y_2 = xe^{\lambda_0 x}$ is an independent second solution.
+\end{prop}
+
 \subsubsection{Second complementary function (reduction of order)}
-When the characteristic equation has a repeated root, the detuning method shows that $xy_1(x)$ is a second independent solution. More generally, for equations without constant coefficients, we can find a second complementary function by the method of \emph{reduction of order}: if $y_1(x)$ is one solution, we seek a second solution of the form $y_2(x) = v(x)y_1(x)$ for some unknown function $v(x)$.
+\begin{remark}[Motivation]
+  When the characteristic equation has a repeated root, the detuning method shows that $xy_1(x)$ is a second independent solution. More generally, even for equations without constant coefficients, we can find a second complementary function using \emph{reduction of order}.
+\end{remark}
+
+\begin{defi}[Reduction of order]
+  Given one solution $y_1(x)$ of a second-order homogeneous linear ODE, the method of \emph{reduction of order} seeks a second solution of the form $y_2(x) = v(x)y_1(x)$ for some unknown function $v(x)$.
+\end{defi}
 
 \begin{eg}[Reduction of order]
-  Consider $y'' - 4y' + 4y = 0$. We have $y_1 = e^{2x}$. We try $y_2 = ve^{2x}$. Then
+  Consider $y'' - 4y' + 4y = 0$, with known solution $y_1 = e^{2x}$. We seek $y_2 = v(x)e^{2x}$. Then
   \begin{align*}
-    y_2' &= (v' + 2v)e^{2x}\\
+    y_2' &= (v' + 2v)e^{2x},\\
     y_2'' &= (v'' + 4v' + 4v)e^{2x}.
   \end{align*}
-  Substituting into the original equation gives
+  Substituting into the equation:
   \[
-    (v'' + 4v' + 4v) - 4(v' + 2v) + 4v = 0.
+    (v'' + 4v' + 4v) - 4(v' + 2v) + 4v = v'' = 0.
   \]
-  Simplifying, this tells us $v'' = 0$, which forces $v$ to be a linear function of $x$. So $y_2 = (Ax + B)e^{2x}$ for some $A, B \in \R$.
+  Thus $v$ is linear in $x$, so $v = Ax + B$, and $y_2 = (Ax + B)e^{2x}$.
 \end{eg}
 
 \subsubsection{Phase space}
-To understand the structure of solutions to higher-order differential equations, it is helpful to introduce the concept of \emph{phase space}.
+\begin{remark}[Motivation]
+  To understand the structure of solutions to higher-order differential equations, it is helpful to introduce the concept of \emph{phase space}. For an $n$th-order equation, the solution is not determined by $y(x_0)$ alone---we also need the values of $y'(x_0), \ldots, y^{(n-1)}(x_0)$.
+\end{remark}
 
-Consider a general $n$th order differential equation of the form
-\[
-  a_n(x) y^{(n)} + a_{n - 1}(x)y^{(n - 1)} + \cdots + a_1(x) y' + a_0 (x) y = f(x),
-\]
-where $a_n(x) \neq 0$. Given a solution $y$, we can plot $y$ versus $x$ to see how $y$ evolves with $x$.
+\begin{defi}[Phase space and solution vector]
+  Consider an $n$th-order differential equation
+  \[
+    a_n(x) y^{(n)} + a_{n - 1}(x)y^{(n - 1)} + \cdots + a_1(x) y' + a_0 (x) y = f(x),
+  \]
+  where $a_n(x) \neq 0$. The \emph{solution vector} (or \emph{state vector}) is defined as
+  \[
+    \mathbf{Y}(x) = (y(x), y'(x), \ldots, y^{(n-1)}(x)).
+  \]
+  The \emph{phase space} is the $n$-dimensional space in which $\mathbf{Y}(x)$ lies.
+\end{defi}
 
-However, for such an equation, the solution is not determined by the initial condition $y(x_0)$ alone---we also need $y'(x_0)$, $y''(x_0)$, etc. A snapshot of only the value $y(x_0)$ provides no information about future evolution.
-
-How much information do we actually need? At any point $x_0$, if we are given the values $y(x_0)$, $y'(x_0)$, $\ldots$, $y^{(n - 1)}(x_0)$ (the first $n-1$ derivatives), we can compute the $n$th derivative from the differential equation itself, and hence all higher derivatives. This means we know the Taylor series of $y$ about $x_0$, and the solution is uniquely determined by these $n$ initial conditions. (A rigorous proof of existence and uniqueness requires more work, as covered in IB Analysis II.)
-
-Thus we are led to consider the \emph{solution vector}
-\[
-  \mathbf{Y}(x) = (y(x), y'(x), \cdots , y^{n - 1}(x)).
-\]
-We say such a vector lies in the \emph{phase space}, which is an $n$-dimensional space. So for each $x$, we thus get a point $\mathbf{Y}(x)$ lying in the $n$-dimensional space. Moreover, given any point in the phase space, if we view it as the initial conditions for our differential equation, we get a unique trajectory in the phase space.
+\begin{remark}[Initial conditions and uniqueness]
+  Given initial conditions $y(x_0), y'(x_0), \ldots, y^{(n-1)}(x_0)$ (i.e., a point in phase space), we can compute $y^{(n)}(x_0)$ from the differential equation, and hence all higher derivatives via the Taylor series. Thus a point in phase space uniquely determines a trajectory (solution curve). A rigorous proof of existence and uniqueness is given in IB Analysis II.
+\end{remark}
 
 \begin{eg}[Phase space trajectories]
   Consider $y'' + 4y = 0$. Suppose we have an initial condition of $y_1(0) = 1, y'_1(0) = 0$. Then we can solve the equation to obtain $y_1(x) = \cos 2x$. Thus the initial solution vector is $\mathbf{Y}_1(0) = (1, 0)$, and the trajectory as $x$ varies is given by $\mathbf{Y}_1(x) = (\cos 2x, -2 \sin 2x)$. Thus as $x$ changes, we trace out an ellipse in the clockwise direction:
@@ -1613,30 +1698,38 @@ We say such a vector lies in the \emph{phase space}, which is an $n$-dimensional
   Note that as vectors, our two initial conditions $(1, 0)$ and $(0, 2)$ are independent. Moreover, as $x$ changes, the two solution vectors $\mathbf{Y}_1(x), \mathbf{Y}_2(x)$ remain independent. This is an important observation that allows the method of variation of parameters later on.
 \end{eg}
 
-In general, for a 2nd order equation, the phase space is a 2-dimensional space, and we can take the two complementary functions $\mathbf{Y}_1$ and $\mathbf{Y}_2$ as basis vectors for the phase space at each particular value of $x$. Of course, we need the two solutions to be linearly independent.
+\begin{remark}[Basis of phase space]
+  For a second-order equation, the phase space is 2-dimensional. Two complementary functions $\mathbf{Y}_1$ and $\mathbf{Y}_2$ form a basis for the phase space at each $x$, provided they are linearly independent.
+\end{remark}
 
 \begin{defi}[Wronskian]
   Given two functions $y_1(x)$ and $y_2(x)$, their \emph{Wronskian} is defined as
   \[
     W(x) = \begin{vmatrix}y_1 & y_2 \\ y_1' & y_2'\end{vmatrix} = y_1 y_2' - y_2 y_1'.
   \]
-  The Wronskian measures whether the two functions are linearly independent.
 \end{defi}
 
-\begin{defi}[Independent solutions]
-  Two solutions $y_1(x)$ and $y_2(x)$ are \emph{independent} solutions of the differential equation if and only if $\mathbf{Y}_1$ and $\mathbf{Y}_2$ are linearly independent as vectors in the phase space for some $x$, i.e.\ iff the Wronskian is non-zero for some $x$.
-\end{defi}
+\begin{prop}[Wronskian as independence criterion]
+  Two solutions $y_1(x)$ and $y_2(x)$ are linearly independent (as functions) if and only if their Wronskian $W(x) \neq 0$ for some $x$.
+\end{prop}
 
-In our example, we have $W(x) = 2\cos^2 2x + 2\sin^2 2x = 2 \not= 0$ for all $x$.
-
-\begin{eg}[Wronskian of degenerate solutions]
-  In our earlier example, $y_1 = e^{2x}$ and $y_2 = xe^{2x}$. We have
+\begin{eg}[Wronskian for simple harmonic motion]
+  For $y'' + 4y = 0$ with solutions $y_1 = \cos 2x$ and $y_2 = \sin 2x$:
   \[
-    W = \left|\begin{matrix} e^{2x} & xe^{2x}\\ 2e^{2x} & e^{2x} + 2xe^{2x} \end{matrix}\right| = e^{4x}(1 + 2x - 2x) = e^{4x} \not= 0.
+    W(x) = \cos 2x \cdot 2\cos 2x - \sin 2x \cdot (-2\sin 2x) = 2\cos^2 2x + 2\sin^2 2x = 2 \neq 0.
   \]
 \end{eg}
 
-In both cases, the Wronskian is \emph{never} zero. Is it possible that it is zero for some $x$ while non-zero for others? The answer is no.
+\begin{eg}[Wronskian for repeated roots]
+  For $y'' - 4y' + 4y = 0$ with solutions $y_1 = e^{2x}$ and $y_2 = xe^{2x}$:
+  \[
+    W = \begin{vmatrix} e^{2x} & xe^{2x}\\ 2e^{2x} & (1 + 2x)e^{2x} \end{vmatrix} = e^{4x}(1 + 2x - 2x) = e^{4x} \neq 0.
+  \]
+\end{eg}
+
+\begin{remark}
+  In both examples above, the Wronskian is \emph{never} zero. This is not a coincidence: for solutions of a linear ODE, the Wronskian is either identically zero or never zero.
+\end{remark}
 
 \begin{thm}[Abel's Theorem]
   Given an equation $y'' + p(x)y' + q(x) y = 0$, either $W = 0$ for all $x$, or $W \not= 0$ for all $x$. i.e.\ iff two solutions are independent for some particular $x$, then they are independent for all $x$.
@@ -1660,22 +1753,30 @@ In both cases, the Wronskian is \emph{never} zero. Is it possible that it is zer
 \end{remark}
 
 \subsection{Particular integrals}
-Having found the complementary function for the homogeneous equation, we now turn to finding a \emph{particular integral} $y_p(x)$ that satisfies the full equation $ay'' + by' + cy = f(x)$. The general solution is then $y = y_c + y_p$.
+\begin{remark}[Goal]
+  Having found the complementary function $y_c$ for the homogeneous equation, we now seek a \emph{particular integral} $y_p(x)$ satisfying the full equation $ay'' + by' + cy = f(x)$. The general solution is then $y = y_c + y_p$.
+\end{remark}
 
 \subsubsection{Guessing (method of undetermined coefficients)}
-For simple forcing terms $f(x)$, we can ``guess'' the form of the particular integral based on the structure of $f(x)$, then determine the unknown coefficients by substitution. This is sometimes called the \emph{method of undetermined coefficients}.
-\begin{center}
-  \begin{tabular}{cc}
-    \toprule
-    $f(x)$ & $y_p(x)$\\
-    \midrule
-    $e^{mx}$ & $Ae^{mx}$\\
-    $\sin kx$ & \multirow{2}{*}{$A\sin kx + B\cos kx$}\\
-    $\cos kx$ & \\
-    polynomial $p_n(x)$ & $q_n(x) = a_nx^n + \cdots + a_1x + a_0$\\
-    \bottomrule
-  \end{tabular}
-\end{center}
+\begin{defi}[Method of undetermined coefficients]
+  For simple forcing terms $f(x)$, the \emph{method of undetermined coefficients} (or ``guessing'') assumes a particular integral of a form suggested by $f(x)$, with unknown coefficients determined by substitution.
+\end{defi}
+
+\begin{remark}[Standard guesses]
+  The following table gives the standard forms for the particular integral based on the forcing term:
+  \begin{center}
+    \begin{tabular}{cc}
+      \toprule
+      $f(x)$ & $y_p(x)$\\
+      \midrule
+      $e^{mx}$ & $Ae^{mx}$\\
+      $\sin kx$ & \multirow{2}{*}{$A\sin kx + B\cos kx$}\\
+      $\cos kx$ & \\
+      polynomial $p_n(x)$ & $q_n(x) = a_nx^n + \cdots + a_1x + a_0$\\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+\end{remark}
 \begin{remark}
   Since the equation is linear, we can superpose solutions and consider each forcing term separately. If $f(x) = f_1(x) + f_2(x)$, and $y_{p,1}$ is a particular integral for forcing $f_1$, and $y_{p,2}$ for $f_2$, then $y_p = y_{p,1} + y_{p,2}$ is a particular integral for $f$.
 \end{remark}
@@ -1702,125 +1803,100 @@ For simple forcing terms $f(x)$, we can ``guess'' the form of the particular int
   Note that any boundary condition to determine $A$ and $B$ must be applied to the full solution, not the complementary function
 \end{eg}
 \subsubsection{Resonance}
-\emph{Resonance} occurs when the forcing term is itself a solution to the homogeneous equation. In this case, the standard guess fails.
+\begin{defi}[Resonance]
+  \emph{Resonance} occurs when the forcing term $f(x)$ is itself a solution to the homogeneous equation. In this case, the standard guess fails and must be modified.
+\end{defi}
 
-Consider $\ddot y + \omega_0^2 y = \sin \omega_0 t$, where $\omega_0$ is the \emph{natural frequency} of the oscillator. The complementary solution is $y_c = A\sin \omega_0 t + B\cos \omega_0 t$. Since the forcing $\sin \omega_0 t$ is itself a complementary function, if we guess $y_p = C\sin \omega_0 t + D\cos \omega_0 t$, we get $\ddot y_p + \omega_0^2 y_p = 0$, which cannot balance the forcing.
+\begin{eg}[Resonance in simple harmonic motion]
+  Consider $\ddot{y} + \omega_0^2 y = \sin \omega_0 t$, where $\omega_0$ is the \emph{natural frequency}. The complementary function is $y_c = A\sin \omega_0 t + B\cos \omega_0 t$. Since the forcing $\sin \omega_0 t$ is a complementary function, the standard guess $y_p = C\sin \omega_0 t + D\cos \omega_0 t$ gives $\ddot{y}_p + \omega_0^2 y_p = 0$, which cannot balance the forcing.
+\end{eg}
 
-This is an example of a simple harmonic oscillator being forced at its natural frequency. To find the particular integral, we use detuning.
+\begin{remark}[Detuning approach]
+  To find the resonant particular integral, we \emph{detune} the forcing frequency away from resonance and take a limit. Consider $\ddot{y} + \omega_0^2 y = \sin \omega t$ with $\omega \neq \omega_0$. Trying $y_p = C(\sin \omega t - \sin \omega_0 t)$ and substituting gives $C(\omega_0^2 - \omega^2) = 1$, so
+  \[
+    y_p = \frac{\sin \omega t - \sin \omega_0 t}{\omega_0^2 - \omega^2}.
+  \]
+  Using the product-to-sum formula and setting $\Delta\omega = \omega_0 - \omega$:
+  \[
+    y_p = \frac{-2}{(2\omega + \Delta \omega)\Delta \omega}\cos \left[\left(\omega + \frac{\Delta \omega}{2}\right)t\right] \sin \left(\frac{\Delta \omega}{2}t\right).
+  \]
+\end{remark}
 
-We can \emph{detune} our forcing away from the natural frequency, and consider $\ddot y + \omega_0^2 y = \sin \omega t$ with $\omega \not= \omega_0$. Try
-\[
-  y_p = C(\sin \omega t - \sin \omega_0 t).
-\]
-We have
-\[
-  \ddot y_p = C(-\omega^2 \sin \omega t + \omega_0^2 \sin\omega_0 t).
-\]
-Substituting into the differential equation, we have $C(\omega_0^2 - \omega^2) = 1$. Then
-\[
-  y_p = \frac{\sin \omega t - \sin \omega_0t}{\omega_0^2 - \omega^2}.
-\]
-We can simplify this to
-\[
-  y_p = \frac{2}{\omega_0^2 - \omega^2} \cos \left(\frac{\omega_0 + \omega}{2}t\right) \sin \left(\frac{\omega - \omega_0}{2} t\right)
-\]
-We let $\omega_0 - \omega = \Delta \omega$. Then
-\[
-  y_p = \frac{-2}{(2\omega + \Delta \omega)\Delta \omega}\cos \left[\left(\omega + \frac{\Delta \omega}{2}\right)t\right] \sin \left(\frac{\Delta \omega}{2}t\right).
-\]
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (6.5, 0) node [right] {$t$};
-    \draw [->] (0, -2) -- (0, 2) node [above] {$y_p$};
+\begin{defi}[Beating]
+  \emph{Beating} is the oscillation in amplitude that occurs when the forcing frequency is close to (but not equal to) the natural frequency:
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (6.5, 0) node [right] {$t$};
+      \draw [->] (0, -2) -- (0, 2) node [above] {$y_p$};
 
-    \draw [semithick, mblue, domain=0:6,samples=600] plot(\x, {2 * cos(2000 * \x) * sin (90 * \x)});
-    \draw [semithick, morange] (0, 0) sin (1, 2) cos (2, 0) sin (3, -2) cos (4, 0) sin (5, 2) cos (6, 0);
-    \draw [semithick, mgreen] (0, 0) sin (1, -2) cos (2, 0) sin (3, 2) cos (4, 0) sin (5, -2) cos (6, 0);
+      \draw [semithick, mblue, domain=0:6,samples=600] plot(\x, {2 * cos(2000 * \x) * sin (90 * \x)});
+      \draw [semithick, morange] (0, 0) sin (1, 2) cos (2, 0) sin (3, -2) cos (4, 0) sin (5, 2) cos (6, 0);
+      \draw [semithick, mgreen] (0, 0) sin (1, -2) cos (2, 0) sin (3, 2) cos (4, 0) sin (5, -2) cos (6, 0);
 
-    \draw [semithick, mblue] (7.5, 0.7) -- (8, 0.7) node [black, right] {$y_p$};
-    \draw [semithick, morange] (7.5, 0) -- (8, 0) node [black, right] {$\sin\left(\frac{\Delta \omega}{2} t\right)$};
-    \draw [semithick, mgreen] (7.5, -0.7) -- (8, -0.7) node [black, right] {$-\sin\left(\frac{\Delta \omega}{2} t\right)$};
+      \draw [semithick, mblue] (7.5, 0.7) -- (8, 0.7) node [black, right] {$y_p$};
+      \draw [semithick, morange] (7.5, 0) -- (8, 0) node [black, right] {$\sin\left(\frac{\Delta \omega}{2} t\right)$};
+      \draw [semithick, mgreen] (7.5, -0.7) -- (8, -0.7) node [black, right] {$-\sin\left(\frac{\Delta \omega}{2} t\right)$};
 
-    \draw [<->] (1, -2.5) -- (5, -2.5) node [pos=0.5,fill=white] {$O\left(\frac{1}{\Delta \omega}\right)$};
-  \end{tikzpicture}
-\end{center}
-This oscillation in the amplitude of the $\cos$ wave is known as \emph{beating}. This happens when the forcing frequency is close to the natural frequency. The wavelength of the $\sin$ function has order $O(\frac{1}{\Delta \omega})$ and $\cos$ has wavelength $O(\frac{1}{\omega_0})$. As $\Delta\omega\to 0$, the wavelength of the beating envelope $\to \infty$ and we just have the initial linear growth.
+      \draw [<->] (1, -2.5) -- (5, -2.5) node [pos=0.5,fill=white] {$O\left(\frac{1}{\Delta \omega}\right)$};
+    \end{tikzpicture}
+  \end{center}
+  The beating envelope has wavelength $O(1/\Delta\omega)$, while the fast oscillation has wavelength $O(1/\omega_0)$.
+\end{defi}
 
-Mathematically, since $\sin\theta \approx \theta$ as $\theta \to 0$, as $\Delta\omega \to 0$, we have
-\[
-  y_p\to \frac{-t}{2\omega_0}\cos\omega_0 t.
-\]
-\begin{prop}[Resonant forcing]
-  If the forcing term of a linear differential equation is a solution of the corresponding homogeneous equation (i.e., a complementary function), then the particular integral is proportional to the independent variable times the non-resonant guess. For example, if $e^{\lambda x}$ is both a complementary function and the forcing, the particular integral has the form $Axe^{\lambda x}$.
+\begin{prop}[Resonant particular integral]
+  As $\Delta\omega \to 0$ (i.e., $\omega \to \omega_0$), using $\sin\theta \approx \theta$ for small $\theta$:
+  \[
+    y_p \to \frac{-t}{2\omega_0}\cos\omega_0 t.
+  \]
+  The amplitude grows linearly with time---this is the hallmark of resonance.
+\end{prop}
+
+\begin{prop}[General rule for resonance]
+  If the forcing term of a linear ODE is a complementary function, the particular integral is the non-resonant guess multiplied by the independent variable. For example:
+  \begin{itemize}
+    \item If $e^{\lambda x}$ is both a complementary function and the forcing, guess $y_p = Axe^{\lambda x}$.
+    \item If $\sin \omega_0 t$ is both a complementary function and the forcing, guess $y_p = t(A\sin \omega_0 t + B\cos \omega_0 t)$.
+  \end{itemize}
 \end{prop}
 
 \subsubsection{Variation of parameters}
-Guessing works well for simple forcing terms, but fails for more complicated functions $f(x)$. The method of \emph{variation of parameters} provides a systematic approach that works for any forcing term, provided we know the complementary functions. Since it is more involved than guessing, we prefer guessing when the form of the particular integral is obvious.
+\begin{remark}[Motivation]
+  The method of undetermined coefficients works well for simple forcing terms, but fails for more complicated functions $f(x)$. The method of \emph{variation of parameters} provides a systematic approach that works for any forcing term, given the complementary functions. Since it is more involved, we prefer guessing when the form of the particular integral is obvious.
+\end{remark}
 
-Suppose we have a second order differential equation
-\[
-  y'' + p(x)y' + q(x)y = f(x).
-\]
-We then know any particular solution vector can be written in the form
-\[
-  \mathbf{Y}(x) =
-  \begin{pmatrix}
-    y(x)\\
-    y'(x)
-  \end{pmatrix},
-\]
-and our job is to find one solution vector that satisfies the equation. We presuppose such a solution actually exists, and we will try to find out what it is.
-
-The trick is to pick a convenient basis for this space. Let $y_1(x)$ and $y_2(x)$ be linearly independent complementary functions of the ODE. Then for each $x$, the solution vectors $\mathbf{Y}_1(x) = (y_1(x), y_1'(x))$ and $\mathbf{Y}_2(x) = (y_2(x), y_2'(x))$ form a basis of the solution space. So for each particular $x$, we can find some constants $u, v$ (depending on $x$) such that the following equality holds:
-\[
-  \mathbf{Y}(x) = u(x) \mathbf{Y}_1(x) + v(x) \mathbf{Y}_2(x),
-\]
-since $\mathbf{Y}_1$ and $\mathbf{Y}_2$ are a basis.
-
-Component-wise, we have
-\begin{align*}
-  y_p &= uy_1 + vy_2 \tag{a}\\
-  y_p' &= uy_1' + vy_2' \tag{b}
-\end{align*}
-Differentiating the second equation, we obtain
-\[
-  y''_p = (uy_1'' + u'y_1') + (vy_2'' + v'y_2') \tag{c}
-\]
-If we consider (c) + $p$(b) + $q$(a), we have $y_1' u' + y_2'v' = f$.
-
-Now note that we derived the equation of $y_p'$ from the vector equation. This must be equal to what we get if we differentiate (a). By (a)$'$ - (b), we obtain $y_1u' + y_2v' = 0$. Now we have two simultaneous equations for $u'$ and $v'$, which we should be able to solve.
-
-We can, for example, write them in matrix form as
-\[
-  \begin{pmatrix}
-    y_1 & y_2\\
-    y_1' & y_2'
-  \end{pmatrix}
-  \begin{pmatrix}
-    u'\\
-    v'
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    0\\
-    f
-  \end{pmatrix}
-\]
-Inverting the left matrix, we have
-\[
-  \begin{pmatrix}
-    u'\\
-    v'
-  \end{pmatrix} = \frac{1}{W}
-  \begin{pmatrix}
-    y_2' & -y_2\\
-    -y_1' & y_1
-  \end{pmatrix}
-  \begin{pmatrix}
-    0\\f
-  \end{pmatrix}
-\]
-So $u' = -\frac{y_2}{W}f$ and $v' = \frac{y_1}{W}f$.
+\begin{thm}[Variation of parameters]
+  Consider the second-order linear ODE $y'' + p(x)y' + q(x)y = f(x)$, with linearly independent complementary functions $y_1(x)$ and $y_2(x)$. A particular integral is given by
+  \[
+    y_p = u(x)y_1(x) + v(x)y_2(x),
+  \]
+  where $u$ and $v$ satisfy
+  \[
+    u' = -\frac{y_2 f}{W}, \qquad v' = \frac{y_1 f}{W},
+  \]
+  and $W = y_1 y_2' - y_2 y_1'$ is the Wronskian.
+\end{thm}
+\begin{proof}
+  We seek a particular solution whose solution vector $\mathbf{Y}(x) = (y_p, y_p')^T$ lies in the span of the complementary function vectors $\mathbf{Y}_1 = (y_1, y_1')^T$ and $\mathbf{Y}_2 = (y_2, y_2')^T$. Write
+  \[
+    \mathbf{Y}(x) = u(x)\mathbf{Y}_1(x) + v(x)\mathbf{Y}_2(x).
+  \]
+  Component-wise:
+  \begin{align*}
+    y_p &= uy_1 + vy_2, \tag{a}\\
+    y_p' &= uy_1' + vy_2'. \tag{b}
+  \end{align*}
+  Differentiating (a) and comparing with (b) gives the constraint $y_1 u' + y_2 v' = 0$. Differentiating (b):
+  \[
+    y_p'' = uy_1'' + u'y_1' + vy_2'' + v'y_2'.
+  \]
+  Substituting into the ODE and using that $y_1, y_2$ are complementary functions yields $y_1'u' + y_2'v' = f$. In matrix form:
+  \[
+    \begin{pmatrix} y_1 & y_2 \\ y_1' & y_2' \end{pmatrix}
+    \begin{pmatrix} u' \\ v' \end{pmatrix}
+    = \begin{pmatrix} 0 \\ f \end{pmatrix}.
+  \]
+  Inverting (with determinant $W$): $u' = -y_2 f/W$ and $v' = y_1 f/W$.
+\end{proof}
 
 \begin{eg}[Variation of parameters]
   $y'' + 4y = \sin 2x$. We know that $y_1 = \sin 2x$ and $y_2 = \cos 2x$. $W = -2$. We write
