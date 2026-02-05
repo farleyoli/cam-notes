@@ -1923,39 +1923,95 @@ A \emph{second-order differential equation} involves the second derivative of th
 \end{remark}
 
 \subsection{Linear equidimensional equations}
-\emph{Equidimensional equations} (also called Euler equations or Cauchy--Euler equations) have coefficients that are powers of $x$ matching the order of the derivative. These equations arise naturally in problems with radial or scale symmetry. Note that they are sometimes called ``homogeneous equations'', but we avoid this terminology to prevent confusion with equations having no forcing term.
-
 \begin{defi}[Equidimensional equation]
-  An equation is \emph{equidimensional} if it has the form
+  A second-order linear ODE is \emph{equidimensional} (also called an \emph{Euler equation} or \emph{Cauchy--Euler equation}) if it has the form
   \[
     ax^2y'' + bxy' + cy = f(x),
   \]
-  where $a, b, c$ are constants.
+  where $a, b, c$ are constants with $a \neq 0$, and $f(x)$ is a given forcing term. The equation is \emph{homogeneous} if $f(x) = 0$.
 \end{defi}
-To understand the name ``equidimensional'', suppose we are doing physics and variables have dimensions. Say $y$ has dimensions $L$ and $x$ has dimensions $T$. Then $y'$ has dimensions $LT^{-1}$ and $y''$ has dimensions $LT^{-2}$. So all terms $x^2 y''$, $xy'$ and $y$ have the same dimensions.
 
-\subsubsection*{Solving by eigenfunctions}
-Note that $y = x^k$ is an eigenfunction of $x\frac{\d}{\d x}$. We can try an eigenfunction $y = x^k$. We have $y' = kx^{k - 1}$ and thus $xy' = kx^k = ky$; and $y'' = k(k - 1)x^{k - 2}$ and $x^2y'' = k(k - 1)x^k$.
+\begin{remark}[Terminology]
+  Equidimensional equations are sometimes called ``homogeneous equations'' in other texts, but we avoid this terminology to prevent confusion with equations having a zero forcing term.
+\end{remark}
 
-Substituting in, we have
-\[
-  ak(k - 1) + bk + c = 0,
-\]
-which we can solve, in general, to give two roots $k_1$ and $k_2$, and $y_c = Ax^{k_1} + Bx^{k_2}$.
+\begin{remark}[Origin of the name]
+  To understand the name ``equidimensional'', suppose we assign physical dimensions to the variables: let $y$ have dimensions $L$ and $x$ have dimensions $T$. Then $y'$ has dimensions $LT^{-1}$ and $y''$ has dimensions $LT^{-2}$, so all terms $x^2 y''$, $xy'$, and $y$ have the same dimensions $L$.
+\end{remark}
 
-\subsubsection*{Solving by substitution}
-Alternatively, we can make a substitution $z = \ln x$. Then we can show that
-\[
-  a\frac{\d ^2 y}{d z^2} + (b - a)\frac{\d y}{\d z} + cy = f(e^z).
-\]
-This turns an equidimensional equation into an equation with constant coefficients. The characteristic equation for solutions in the form $y = e^{\lambda z}$ is $a\lambda^2 + (b - a)\lambda + c = 0$, which can be rearranged to $a\lambda(\lambda - 1) + b\lambda + c = 0$. So $\lambda = k_1, k_2$.
+\subsubsection{Solving by eigenfunctions}
+\begin{remark}[Eigenfunction ansatz]
+  The function $y = x^k$ is an eigenfunction of the operator $x\frac{\d}{\d x}$, since $x\frac{\d}{\d x}(x^k) = kx^k$. This motivates seeking solutions to the homogeneous equidimensional equation of the form $y = x^k$.
+\end{remark}
 
-Then the complementary function is $y_c = Ae^{k_1z} + Be^{k_2z} = Ax^{k_1} + Bx^{k_2}$.
+\begin{prop}[Indicial equation]
+  The function $y = x^k$ is a solution of $ax^2y'' + bxy' + cy = 0$ if and only if $k$ satisfies the \emph{indicial equation}
+  \[
+    ak(k - 1) + bk + c = 0.
+  \]
+\end{prop}
+\begin{proof}
+  Substituting $y = x^k$ gives $y' = kx^{k - 1}$ and $y'' = k(k - 1)x^{k - 2}$. Thus
+  \[
+    ax^2 \cdot k(k - 1)x^{k - 2} + bx \cdot kx^{k - 1} + cx^k = x^k\bigl[ak(k - 1) + bk + c\bigr] = 0.
+  \]
+  Since $x^k \neq 0$, we require $ak(k - 1) + bk + c = 0$.
+\end{proof}
 
-\subsubsection*{Degenerate solutions}
-If the roots of the characteristic equation are equal, then $y_c = \{e^{kz}, ze^{kz}\} = \{x^k, x^k\ln x\}$. Similarly, if there is a resonant forcing proportional to $x^{k_1}$ (or $x^{k_2}$), then there is a particular integral of the form $x^{k_1}\ln x$.
+\begin{prop}[Complementary function with distinct roots]
+  Let $k_1$ and $k_2$ be the roots of the indicial equation. If $k_1 \neq k_2$, then the general complementary function is
+  \[
+    y_c = Ax^{k_1} + Bx^{k_2},
+  \]
+  where $A$ and $B$ are arbitrary constants.
+\end{prop}
 
-These results can be easily obtained by considering the substitution method of solving, and then applying our results from homogeneous linear equations with constant coefficients.
+\subsubsection{Solving by substitution}
+\begin{prop}[Reduction to constant coefficients]
+  The substitution $z = \ln x$ transforms the equidimensional equation $ax^2y'' + bxy' + cy = f(x)$ into the constant-coefficient equation
+  \[
+    a\frac{\d ^2 y}{\d z^2} + (b - a)\frac{\d y}{\d z} + cy = f(e^z).
+  \]
+\end{prop}
+\begin{proof}
+  Since $z = \ln x$, we have $\frac{\d z}{\d x} = \frac{1}{x}$. By the chain rule,
+  \[
+    \frac{\d y}{\d x} = \frac{1}{x}\frac{\d y}{\d z}, \quad\text{so}\quad xy' = \frac{\d y}{\d z}.
+  \]
+  Differentiating again,
+  \[
+    \frac{\d^2 y}{\d x^2} = \frac{\d}{\d x}\!\left(\frac{1}{x}\frac{\d y}{\d z}\right) = -\frac{1}{x^2}\frac{\d y}{\d z} + \frac{1}{x^2}\frac{\d^2 y}{\d z^2}, \quad\text{so}\quad x^2y'' = \frac{\d^2 y}{\d z^2} - \frac{\d y}{\d z}.
+  \]
+  Substituting into $ax^2y'' + bxy' + cy = f(x)$ gives
+  \[
+    a\!\left(\frac{\d^2 y}{\d z^2} - \frac{\d y}{\d z}\right) + b\frac{\d y}{\d z} + cy = f(e^z),
+  \]
+  which simplifies to $a\frac{\d^2 y}{\d z^2} + (b - a)\frac{\d y}{\d z} + cy = f(e^z)$.
+\end{proof}
+
+\begin{remark}[Consistency of the two methods]
+  The characteristic equation for the constant-coefficient form, with ansatz $y = e^{\lambda z}$, is $a\lambda^2 + (b - a)\lambda + c = 0$, which rearranges to $a\lambda(\lambda - 1) + b\lambda + c = 0$. This is exactly the indicial equation with $\lambda = k$. Since $y = e^{\lambda z} = e^{\lambda \ln x} = x^\lambda$, the two methods yield the same complementary function $y_c = Ax^{k_1} + Bx^{k_2}$.
+\end{remark}
+
+\subsubsection{Degenerate case}
+\begin{prop}[Repeated roots]
+  If the indicial equation has a repeated root $k$, then the general complementary function is
+  \[
+    y_c = (A + B\ln x)\, x^k,
+  \]
+  where $A$ and $B$ are arbitrary constants.
+\end{prop}
+\begin{proof}
+  Under the substitution $z = \ln x$, the repeated root gives the constant-coefficient complementary function $y_c = (A + Bz)e^{kz}$. Reverting to the original variable via $z = \ln x$ and $e^{kz} = x^k$ gives the result.
+\end{proof}
+
+\begin{prop}[Resonant forcing]
+  If the forcing term is proportional to $x^{k_1}$ (or $x^{k_2}$), where $k_1$ (or $k_2$) is a root of the indicial equation, then there is a particular integral of the form $Cx^{k_1}\ln x$ (or $Cx^{k_2}\ln x$) for some constant $C$.
+\end{prop}
+
+\begin{remark}
+  Both the repeated-root and resonant-forcing results follow immediately from the substitution method and the corresponding results for constant-coefficient equations established in Subsection~5.1.
+\end{remark}
 
 \subsection{Difference equations}
 A \emph{difference equation} (or \emph{recurrence relation}) relates values of a sequence $y_n$ at different indices. The techniques for solving difference equations closely parallel those for differential equations.
