@@ -357,7 +357,10 @@ Note that throughout the course (and lecture notes), summation convention is imp
   That is, the Jacobians of inverse functions are reciprocals of each other.
 \end{cor}
 \subsection{Coordinate systems}
-We now apply the preceding results to changes of coordinates in Euclidean space. Let $(x_1, \ldots, x_n)$ denote Cartesian coordinates with respect to an orthonormal basis $\{\mathbf{e}_1, \ldots, \mathbf{e}_n\}$. A new coordinate system $(u_1, \ldots, u_n)$ is defined by specifying smooth, invertible functions relating the two sets of coordinates.
+
+\begin{defi}[Curvilinear coordinates]
+  Let $(x_1, \ldots, x_n)$ denote Cartesian coordinates in $\R^n$ with respect to an orthonormal basis $\{\mathbf{e}_1, \ldots, \mathbf{e}_n\}$. A \emph{curvilinear coordinate system} $(u_1, \ldots, u_n)$ is defined by specifying smooth, invertible functions relating the two sets of coordinates.
+\end{defi}
 
 \begin{eg}[Plane polar coordinates]
   In two dimensions, \emph{plane polar coordinates} $(\rho, \varphi)$ are defined by
@@ -367,45 +370,47 @@ We now apply the preceding results to changes of coordinates in Euclidean space.
   where $\rho \geq 0$ is the radial distance from the origin and $\varphi \in [0, 2\pi)$ is the angle measured from the positive $x_1$-axis.
 \end{eg}
 
-It is important to note that the coordinates $\rho$ and $\varphi$ are not the components of the position vector in any basis; that is, we do not have $\mathbf{r} = \rho\,\mathbf{e}_\rho + \varphi\,\mathbf{e}_\varphi$ in the same way that $\mathbf{r} = x_1\mathbf{e}_1 + x_2\mathbf{e}_2$. Nevertheless, we can define associated basis vectors that point in the directions of increasing $\rho$ and $\varphi$, obtained by differentiating the position vector with respect to each coordinate and normalizing:
-\[
-  \mathbf{e}_\rho = \cos \varphi\, \mathbf{e}_1 + \sin \varphi\, \mathbf{e}_2,\quad \mathbf{e}_\varphi = -\sin \varphi\, \mathbf{e}_1 + \cos \varphi\, \mathbf{e}_2.
-\]
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (4, 0) node [right] {$\mathbf{e}_1$};
-    \draw [->] (0, 0) -- (0, 3) node [above] {$\mathbf{e}_2$};
-    \draw (0, 0) -- (2, 1.5) node [circ]{} node [pos = 0.5, anchor = south east] {$\rho$};
-    \draw [->] (2, 1.5) -- (2.5, 1.875) node [anchor = south west] {$\mathbf{e}_\rho$};
-    \draw [->] (2, 1.5) -- (1.625, 2) node [anchor = south east] {$\mathbf{e}_\varphi$};
-    \draw (0.7, 0) arc (0:36.87:0.7);
-    \node at (0.9, 0.3) {$\varphi$};
-  \end{tikzpicture}
-\end{center}
-\begin{rmk}
+\begin{rmk}[Basis vectors for curvilinear coordinates]
+  The coordinates $\rho$ and $\varphi$ are not the components of the position vector in any basis; that is, we do not have $\mathbf{r} = \rho\,\mathbf{e}_\rho + \varphi\,\mathbf{e}_\varphi$ in the same way that $\mathbf{r} = x_1\mathbf{e}_1 + x_2\mathbf{e}_2$. Nevertheless, we can define associated basis vectors that point in the directions of increasing $\rho$ and $\varphi$, obtained by differentiating the position vector with respect to each coordinate and normalizing:
+  \[
+    \mathbf{e}_\rho = \cos \varphi\, \mathbf{e}_1 + \sin \varphi\, \mathbf{e}_2,\quad \mathbf{e}_\varphi = -\sin \varphi\, \mathbf{e}_1 + \cos \varphi\, \mathbf{e}_2.
+  \]
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (4, 0) node [right] {$\mathbf{e}_1$};
+      \draw [->] (0, 0) -- (0, 3) node [above] {$\mathbf{e}_2$};
+      \draw (0, 0) -- (2, 1.5) node [circ]{} node [pos = 0.5, anchor = south east] {$\rho$};
+      \draw [->] (2, 1.5) -- (2.5, 1.875) node [anchor = south west] {$\mathbf{e}_\rho$};
+      \draw [->] (2, 1.5) -- (1.625, 2) node [anchor = south east] {$\mathbf{e}_\varphi$};
+      \draw (0.7, 0) arc (0:36.87:0.7);
+      \node at (0.9, 0.3) {$\varphi$};
+    \end{tikzpicture}
+  \end{center}
   Unlike the Cartesian basis vectors $\mathbf{e}_1, \mathbf{e}_2$, the polar basis vectors $\mathbf{e}_\rho, \mathbf{e}_\varphi$ vary with position and are undefined at the origin. Despite this, they are extremely useful for problems with rotational symmetry.
 \end{rmk}
 
-In three dimensions, the most commonly used curvilinear coordinate systems are cylindrical polar coordinates and spherical polar coordinates.
-\begin{center}
-  \begin{tabularx}{\textwidth}{XX}
-    \toprule
-    \multicolumn{1}{c}{Cylindrical polars} & \multicolumn{1}{c}{Spherical polars}\\
-    \midrule
-    \multicolumn{2}{c}{Conversion formulae}\\
-    \midrule
-    $x_1 = \rho \cos \varphi$ & $x_1 = r\sin \theta\cos \varphi$\\
-    $x_2 = \rho \sin \varphi$ & $x_2 = r\sin \theta \sin \varphi$\\
-    $x_3 = z$ & $x_3 = r\cos\theta$\\
-    \midrule
-    \multicolumn{2}{c}{Basis vectors}\\
-    \midrule
-    $\mathbf{e}_\rho = (\cos\varphi, \sin \varphi, 0)$ & $\mathbf{e}_r = (\sin\theta\cos\varphi, \sin \theta\sin \varphi , \cos \theta)$\\
-    $\mathbf{e}_\varphi = (-\sin \varphi, \cos \varphi, 0)$ & $\mathbf{e}_\varphi = (-\sin \varphi, \cos \varphi, 0)$\\
-    $\mathbf{e}_z = (0, 0, 1)$ & $\mathbf{e}_\theta = (\cos \theta\cos \varphi, \cos\theta\sin\varphi, -\sin \theta)$\\
-    \bottomrule
-  \end{tabularx}
-\end{center}
+\begin{eg}[Cylindrical and spherical polar coordinates]
+  In three dimensions, the most commonly used curvilinear coordinate systems are \emph{cylindrical polar coordinates} $(\rho, \varphi, z)$ and \emph{spherical polar coordinates} $(r, \theta, \varphi)$. Their conversion formulae and associated basis vectors are as follows.
+  \begin{center}
+    \begin{tabularx}{\textwidth}{XX}
+      \toprule
+      \multicolumn{1}{c}{Cylindrical polars} & \multicolumn{1}{c}{Spherical polars}\\
+      \midrule
+      \multicolumn{2}{c}{Conversion formulae}\\
+      \midrule
+      $x_1 = \rho \cos \varphi$ & $x_1 = r\sin \theta\cos \varphi$\\
+      $x_2 = \rho \sin \varphi$ & $x_2 = r\sin \theta \sin \varphi$\\
+      $x_3 = z$ & $x_3 = r\cos\theta$\\
+      \midrule
+      \multicolumn{2}{c}{Basis vectors}\\
+      \midrule
+      $\mathbf{e}_\rho = (\cos\varphi, \sin \varphi, 0)$ & $\mathbf{e}_r = (\sin\theta\cos\varphi, \sin \theta\sin \varphi , \cos \theta)$\\
+      $\mathbf{e}_\varphi = (-\sin \varphi, \cos \varphi, 0)$ & $\mathbf{e}_\varphi = (-\sin \varphi, \cos \varphi, 0)$\\
+      $\mathbf{e}_z = (0, 0, 1)$ & $\mathbf{e}_\theta = (\cos \theta\cos \varphi, \cos\theta\sin\varphi, -\sin \theta)$\\
+      \bottomrule
+    \end{tabularx}
+  \end{center}
+\end{eg}
 
 \section{Curves and Line}
 \subsection{Parametrised curves, lengths and arc length}
