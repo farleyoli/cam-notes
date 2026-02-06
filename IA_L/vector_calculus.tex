@@ -481,7 +481,6 @@ Note that throughout the course (and lecture notes), summation convention is imp
   \]
 \end{defi}
 \subsection{Line integrals of vector fields}
-We now define the integral of a vector field along a curve, which measures the cumulative effect of the field along the path.
 
 \begin{defi}[Line integral]
   Let $\mathbf{F}: \R^n \to \R^n$ be a continuous vector field and let $C$ be a curve parametrised by $\mathbf{r}: [\alpha, \beta] \to \R^n$. The \emph{line integral} of $\mathbf{F}$ along $C$ in the direction from $\mathbf{r}(\alpha)$ to $\mathbf{r}(\beta)$ is
@@ -498,8 +497,8 @@ We now define the integral of a vector field along a curve, which measures the c
   \]
 \end{rmk}
 
-\begin{eg}[Line integral, three paths]
-  Take $\mathbf{F}(\mathbf{r}) = (xe^y, z^2, xy)$ and we want to find the line integral from $\mathbf{a}=(0, 0, 0)$ to $\mathbf{b}=(1, 1, 1)$.
+\begin{eg}[Path dependence of line integrals]
+  Let $\mathbf{F}(\mathbf{r}) = (xe^y, z^2, xy)$ and consider the line integral of $\mathbf{F}$ from $\mathbf{a}=(0, 0, 0)$ to $\mathbf{b}=(1, 1, 1)$ along two different paths.
   \begin{center}
     \begin{tikzpicture}
       \node [circ] {};
@@ -511,20 +510,16 @@ We now define the integral of a vector field along a curve, which measures the c
       \draw [->-=0.6] (0, 0) -- (2, 2) node [pos = 0.5, anchor = south east] {$C_2$};
     \end{tikzpicture}
   \end{center}
-  We first integrate along the curve $C_1: \mathbf{r}(u) = (u, u^2, u^3)$. Then $\mathbf{r}'(u) = (1, 2u, 3u^2)$, and $\mathbf{F}(\mathbf{r}(u)) = (ue^{u^2}, u^6, u^3)$. So
+  \emph{Path $C_1$}: Parametrise by $\mathbf{r}(u) = (u, u^2, u^3)$ for $u \in [0,1]$. Then $\mathbf{r}'(u) = (1, 2u, 3u^2)$ and $\mathbf{F}(\mathbf{r}(u)) = (ue^{u^2}, u^6, u^3)$, so
   \begin{align*}
-    \int_{C_1} \mathbf{F}\cdot \d\mathbf{r} &= \int_0^1 \mathbf{F}\cdot\mathbf{r}'(u)\; \d u\\
-    &= \int_0^1 ue^{u^2} + 2u^7 + 3u^5\;\d u\\
-    &= \frac{e}{2} -\frac{1}{2} + \frac{1}{4} + \frac{1}{2}\\
-    &= \frac{e}{2} + \frac{1}{4}
+    \int_{C_1} \mathbf{F}\cdot \d\mathbf{r} &= \int_0^1 \mathbf{F}\cdot\mathbf{r}'(u)\; \d u = \int_0^1 ue^{u^2} + 2u^7 + 3u^5\;\d u\\
+    &= \frac{e}{2} -\frac{1}{2} + \frac{1}{4} + \frac{1}{2} = \frac{e}{2} + \frac{1}{4}.
   \end{align*}
-  Now we try to integrate along another curve $C_2: \mathbf{r}(t) = (t, t, t)$. So $\mathbf{r}'(t) = (1,1, 1)$.
+  \emph{Path $C_2$}: Parametrise by $\mathbf{r}(t) = (t, t, t)$ for $t \in [0,1]$. Then $\mathbf{r}'(t) = (1, 1, 1)$ and $\mathbf{F}(\mathbf{r}(t)) = (te^{t}, t^2, t^2)$, so
   \begin{align*}
-    \int_{C_2} \mathbf{F}\cdot \d \mathbf{r} &= \int \mathbf{F}\cdot \mathbf{r}'(t)\d t\\
-    &= \int_0^1 te^t + 2t^2\; \d t\\
-    &= \frac{5}{3}.
+    \int_{C_2} \mathbf{F}\cdot \d \mathbf{r} &= \int_0^1 te^t + 2t^2\; \d t = \frac{5}{3}.
   \end{align*}
-  We see that the line integral depends on the curve $C$ in general, not just $\mathbf{a}, \mathbf{b}$.
+  Since the two integrals differ, the line integral of $\mathbf{F}$ depends on the path, not just the endpoints $\mathbf{a}$ and $\mathbf{b}$.
 \end{eg}
 
 \begin{rmk}[Arclength parametrisation]
@@ -549,17 +544,16 @@ We now define the integral of a vector field along a curve, which measures the c
   A \emph{closed curve} is a curve whose start and end points coincide. The line integral of a vector field $\mathbf{F}$ around a closed curve $C$ is often written as $\oint_C \mathbf{F} \cdot \d\mathbf{r}$ and is called the \emph{circulation} of $\mathbf{F}$ around $C$.
 \end{defi}
 
-Many curves arising in applications are not smooth everywhere; for example, a polygonal path has corners where the tangent vector is undefined. Such curves can often be decomposed into finitely many smooth pieces.
-
 \begin{defi}[Piecewise smooth curve]
-  A \emph{piecewise smooth curve} is a curve $C = C_1 + C_2 + \cdots + C_n$ with all $C_i$ smooth with regular parametrisations. The line integral over a piecewise smooth $C$ is
+  A \emph{piecewise smooth curve} is a curve $C = C_1 + C_2 + \cdots + C_n$ where each $C_i$ is smooth with a regular parametrisation. The line integral over a piecewise smooth curve $C$ is
   \[
     \int_C \mathbf{F}\cdot \d \mathbf{r} = \int_{C_1} \mathbf{F}\cdot \d \mathbf{r} + \int_{C_2} \mathbf{F}\cdot \d \mathbf{r} + \cdots + \int_{C_n} \mathbf{F}\cdot \d \mathbf{r}.
   \]
+  If $C$ is a curve traversed from $\mathbf{a}$ to $\mathbf{b}$, we write $-C$ for the same curve traversed in the opposite direction, from $\mathbf{b}$ to $\mathbf{a}$.
 \end{defi}
 
 \begin{eg}[Piecewise smooth closed curve]
-  Take the example above, and let $C_3 = -C_2$. Then $C = C_1 + C_3$ is piecewise smooth but not smooth. Then
+  Continuing the previous example, let $C_3 = -C_2$ denote the straight-line path from $\mathbf{b}$ to $\mathbf{a}$. Then $C = C_1 + C_3$ is a piecewise smooth closed curve, and
   \begin{align*}
     \oint _C \mathbf{F}\cdot \d \mathbf{r} &= \int_{C_1} \mathbf{F}\cdot \d \mathbf{r} + \int_{C_3} \mathbf{F}\cdot \d \mathbf{r}\\
     &= \left(\frac{e}{2} + \frac{1}{4}\right) - \frac{5}{3}\\
