@@ -287,7 +287,6 @@ Note that throughout the course (and lecture notes), summation convention is imp
 \end{thm}
 
 \subsection{Inverse functions}
-We now examine the relationship between the derivatives of inverse functions.
 
 \begin{prop}[Derivative of inverse function]
   Let $f: \R^n \to \R^n$ and $g: \R^n \to \R^n$ be differentiable functions satisfying $g \circ f = f \circ g = \id$ (so that $g = f^{-1}$). If $f(\mathbf{x}) = \mathbf{u}$ and $g(\mathbf{u}) = \mathbf{x}$, then
@@ -316,9 +315,7 @@ We now examine the relationship between the derivatives of inverse functions.
 \end{rmk}
 
 \begin{eg}[Polar coordinates Jacobian]
-  For $n = 2$, write $u_1 = \rho$, $u_2 =\varphi$ and let $x_1 = \rho \cos \varphi$ and $x_2 = \rho \sin \varphi$. Then the function used to convert between the coordinate systems is $g(u_1, u_2) = (u_1\cos u_2, u_1\sin u_2)$
-
-  Then
+  Consider the case $n = 2$. Define coordinates $u_1 = \rho$, $u_2 = \varphi$ and Cartesian coordinates $x_1, x_2$ related by $x_1 = \rho \cos \varphi$ and $x_2 = \rho \sin \varphi$. The coordinate transformation is then given by the function $g(\rho, \varphi) = (\rho\cos \varphi,\; \rho\sin \varphi)$, with Jacobian matrix
   \[
     M(g) =
     \begin{pmatrix}
@@ -329,31 +326,35 @@ We now examine the relationship between the derivatives of inverse functions.
     \begin{pmatrix}
       \cos\varphi & -\rho\sin \varphi\\
       \sin \varphi & \rho \cos \varphi
-    \end{pmatrix}
+    \end{pmatrix}.
   \]
-  We can invert the relations between $(x_1, x_2)$ and $(\rho, \varphi)$ to obtain
+  Inverting the relations gives
   \begin{align*}
-    \varphi &= \tan^{-1} \frac{x_2}{x_1}\\
-    \rho &= \sqrt{x_1^2 + x_2^2}
+    \rho &= \sqrt{x_1^2 + x_2^2}, &
+    \varphi &= \tan^{-1} \frac{x_2}{x_1}.
   \end{align*}
-  We can calculate
+  The Jacobian matrix of the inverse function $f = g^{-1}$ is then
   \[
     M(f) =
     \begin{pmatrix}
       \partial\rho/\partial x_1 & \partial\rho/\partial x_2\\
       \partial\varphi/\partial x_1 & \partial\varphi/\partial x_2\\
     \end{pmatrix}
-    = M(g)^{-1}.
+    = M(g)^{-1},
   \]
-  The determinants of these Jacobian matrices are called the \emph{Jacobians}.
+  as guaranteed by the proposition above.
 \end{eg}
 
+\begin{defi}[Jacobian]
+  The \emph{Jacobian} of a differentiable function $f: \R^n \to \R^n$ is the determinant of its Jacobian matrix, $\det M(f)$.
+\end{defi}
+
 \begin{cor}[Jacobian product formula]
-  If $f$ and $g = f^{-1}$ are inverse functions, then
+  Let $f: \R^n \to \R^n$ and $g = f^{-1}: \R^n \to \R^n$ be differentiable inverse functions. Then
   \[
     \det M(f) \cdot \det M(g) = 1.
   \]
-  Equivalently, the Jacobians of inverse functions are reciprocals of each other.
+  That is, the Jacobians of inverse functions are reciprocals of each other.
 \end{cor}
 \subsection{Coordinate systems}
 We now apply the preceding results to changes of coordinates in Euclidean space. Let $(x_1, \ldots, x_n)$ denote Cartesian coordinates with respect to an orthonormal basis $\{\mathbf{e}_1, \ldots, \mathbf{e}_n\}$. A new coordinate system $(u_1, \ldots, u_n)$ is defined by specifying smooth, invertible functions relating the two sets of coordinates.
