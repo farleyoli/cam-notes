@@ -3342,82 +3342,93 @@ The sum is again a tensor, since $(T + S)_{ij}' = R_{ip}R_{jq}(T_{pq} + S_{pq})$
 
 \subsection{Tensors, multi-linear maps and the quotient rule}
 \subsubsection*{Tensors as multi-linear maps}
-Just as matrices correspond to linear maps, tensors correspond to multi-linear maps.
 
 \begin{defi}[Multilinear map]
-  A map $T$ that maps $n$ vectors $\mathbf{a}, \mathbf{b}, \cdots, \mathbf{c}$ to $\R$ is multi-linear if it is linear in each of the vectors $\mathbf{a}, \mathbf{b}, \cdots, \mathbf{c}$ individually.
+  A map $T: \underbrace{\R^3 \times \cdots \times \R^3}_{n} \to \R$ is \emph{multi-linear} if it is linear in each argument separately, i.e.\ for each $k = 1, \ldots, n$ and all scalars $\lambda, \mu$,
+  \[
+    T(\ldots, \lambda\mathbf{u} + \mu\mathbf{v}, \ldots) = \lambda\, T(\ldots, \mathbf{u}, \ldots) + \mu\, T(\ldots, \mathbf{v}, \ldots),
+  \]
+  where linearity is in the $k$th argument with all other arguments held fixed.
 \end{defi}
 
-We will show that a tensor $T$ of rank $n$ is a equivalent to a multi-linear map from $n$ vectors $\mathbf{a}, \mathbf{b}, \cdots, \mathbf{c}$ to $\R$ defined by
-\[
-  T(\mathbf{a}, \mathbf{b}, \cdots, \mathbf{c}) = T_{ij \cdots k} a_ib_j\cdots c_k.
-\]
-To show that tensors are \emph{equivalent} to multi-linear maps, we have to show the following:
-\begin{enumerate}
-  \item Defining a map with a tensor makes sense, i.e.\ the expression $T_{ij\cdots k}a_ib_j\cdots c_k$ is the same regardless of the basis chosen;
-  \item While it is always possible to write a multi-linear map as $T_{ij \cdots k} a_ib_j\cdots c_k$, we have to show that $T_{ij\cdots k}$ is indeed a tensor, i.e.\ transform according to the tensor transformation rules.
-\end{enumerate}
+\begin{thm}[Tensors are multilinear maps]
+  There is a one-to-one correspondence between rank-$n$ tensors and multi-linear maps from $n$ vectors to $\R$. Explicitly, a rank-$n$ tensor $T_{ij\cdots k}$ defines a multi-linear map by
+  \[
+    T(\mathbf{a}, \mathbf{b}, \ldots, \mathbf{c}) = T_{ij \cdots k}\, a_i\, b_j\cdots c_k,
+  \]
+  and conversely every multi-linear map arises in this way.
+\end{thm}
 
-To show the first property, just note that the $T_{ij \cdots k} a_ib_j\cdots c_k$ is a tensor product (followed by contraction), which retains tensor-ness. So it is also a tensor. In particular, it is a rank 0 tensor, i.e.\ a scalar, which is independent of the basis.
+\begin{proof}
+  We must show two things.
 
-To show the second property, assuming that $T$ is a multi-linear map, it must be independent of the basis, so
-\[
-  T_{ij \cdots k} a_ib_j\cdots c_k = T_{ij\cdots k}' a_i' b_j' \cdots c_k'.
-\]
-Since $v_p' = R_{pi}v_i$ by tensor transformation rules, multiplying both sides by $R_{pi}$ gives $v_i = R_{pi} v_p'$. Substituting in gives
-\[
-  T_{ij\cdots k} (R_{pi}a_p')(R_{qj}b_q')\cdots (R_{kr}c_r') = T_{pq\cdots r}' a_p' b_q' \cdots c_r'.
-\]
-Since this is true for all $\mathbf{a}, \mathbf{b}, \cdots \mathbf{c}$, we must have
-\[
-  T_{ij\cdots k}R_{pi}R_{qj}\cdots R_{rk} = T'_{pq\cdots r}
-\]
-Hence $T_{ij\cdots k}$ obeys the tensor transformation rule, and is a tensor.
+  \emph{(i) A tensor defines a well-defined multi-linear map.} The expression $T_{ij\cdots k}\,a_i\,b_j\cdots c_k$ is obtained from the tensor product of $T_{ij\cdots k}$ with $a_i$, $b_j$, \ldots, $c_k$, followed by contraction. Since tensor products and contractions preserve tensor-ness, the result is a rank-0 tensor, i.e.\ a scalar, which is independent of the basis chosen. Multi-linearity is immediate from the summation convention.
+
+  \emph{(ii) A multi-linear map determines a tensor.} Given a multi-linear map $T$, define $T_{ij\cdots k} = T(\mathbf{e}_i, \mathbf{e}_j, \ldots, \mathbf{e}_k)$ in any basis $\{\mathbf{e}_i\}$. We must show that $T_{ij\cdots k}$ obeys the tensor transformation rule. Since $T$ is a map independent of the basis, we have
+  \[
+    T_{ij \cdots k}\, a_i\, b_j\cdots c_k = T_{ij\cdots k}'\, a_i'\, b_j' \cdots c_k'.
+  \]
+  Since $a_i = R_{pi} a_p'$ (inverting the transformation rule $a_p' = R_{pi}a_i$), substituting gives
+  \[
+    T_{ij\cdots k}\, (R_{pi}a_p')\,(R_{qj}b_q')\cdots (R_{rk}c_r') = T_{pq\cdots r}'\, a_p'\, b_q' \cdots c_r'.
+  \]
+  Since this holds for all vectors $\mathbf{a}, \mathbf{b}, \ldots, \mathbf{c}$, we conclude
+  \[
+    T'_{pq\cdots r} = R_{pi}\,R_{qj}\cdots R_{rk}\, T_{ij\cdots k},
+  \]
+  which is the tensor transformation rule.
+\end{proof}
 
 \begin{rmk}
-  This establishes a one-to-one correspondence between rank-$n$ tensors and multi-linear maps from $n$ vectors to $\R$. This viewpoint defines tensors independently of any coordinate system; the transformation rule then emerges as a consequence. The same approach relates matrices to linear maps.
+  This viewpoint defines tensors independently of any coordinate system; the transformation rule then emerges as a consequence. The same approach relates matrices to linear maps.
 \end{rmk}
-\subsubsection*{The quotient rule}
-If $T_{\underbrace{i\cdots j}_n\underbrace{p\cdots q}_m}$ is a tensor of rank $n+ m$, and $u_{p\cdots q}$ is a tensor of rank $m$ then
-\[
-  v_{i\cdots j}= T_{i\cdots j p\cdots q}u_{p\cdots q}
-\]
-is a tensor of rank $n$, since it is a tensor product of $T$ and $u$, followed by contraction.
 
-The converse is also true:
-\begin{prop}[Quotient rule]
-  Suppose that $T_{i\cdots jp\cdots q}$ is an array defined in each coordinate system, and that $v_{i\cdots j} = T_{i\cdots jp\cdots q} u_{p\cdots q}$ is also a tensor for any tensor $u_{p \cdots q}$. Then $T_{i\cdots j p\cdots q}$ is also a tensor.
+\subsubsection*{The quotient rule}
+
+\begin{prop}[Contraction of tensors]
+  If $T_{i\cdots j\, p\cdots q}$ is a tensor of rank $n + m$ and $u_{p\cdots q}$ is a tensor of rank $m$, then
+  \[
+    v_{i\cdots j} = T_{i\cdots j\, p\cdots q}\, u_{p\cdots q}
+  \]
+  is a tensor of rank $n$, since it is a tensor product of $T$ and $u$ followed by contraction.
 \end{prop}
 
-Note that we have previously seen the special case of $n = m = 1$, which says that linear maps are tensors.
-\begin{proof}
-  We can check the tensor transformation rule directly. However, we can reuse the result above to save some writing.
+\begin{prop}[Quotient rule]
+  Suppose that $T_{i\cdots j\,p\cdots q}$ is an array of numbers defined in each coordinate system, and that $v_{i\cdots j} = T_{i\cdots j\,p\cdots q}\, u_{p\cdots q}$ is a tensor of rank $n$ for every tensor $u_{p \cdots q}$ of rank $m$. Then $T_{i\cdots j\, p\cdots q}$ is a tensor of rank $n + m$.
+\end{prop}
 
-  Consider the special form $u_{p \cdots q} = c_p \cdots d_q$ for any vectors $\mathbf{c}, \cdots \mathbf{d}$. By assumption,
+\begin{rmk}
+  The special case $n = m = 1$ recovers the earlier result that if $v_i = T_{ij}\,u_j$ is a vector for every vector $u_j$, then $T_{ij}$ is a rank-2 tensor. That is, linear maps are tensors.
+\end{rmk}
+
+\begin{proof}[Proof of the quotient rule]
+  Consider the special form $u_{p \cdots q} = c_p \cdots d_q$ for arbitrary vectors $\mathbf{c}, \ldots, \mathbf{d}$. By assumption,
   \[
-    v_{i\cdots j} = T_{i\cdots jp\cdots q}c_p\cdots d_q
+    v_{i\cdots j} = T_{i\cdots j\,p\cdots q}\,c_p\cdots d_q
   \]
-  is a tensor. Then
+  is a tensor. Then for any vectors $\mathbf{a}, \ldots, \mathbf{b}$,
   \[
-    v_{i\cdots j}a_i \cdots b_j = T_{i\cdots jp\cdots q}a_i\cdots b_jc_p\cdots d_q
+    v_{i\cdots j}\,a_i \cdots b_j = T_{i\cdots j\,p\cdots q}\,a_i\cdots b_j\,c_p\cdots d_q
   \]
-  is a scalar for any vectors $\mathbf{a}, \cdots, \mathbf{b}, \mathbf{c},\cdots, \mathbf{d}$. Since $T_{i\cdots jp\cdots q}a_i\cdots b_jc_p\cdots d_q$ is a scalar and hence gives the same result in every coordinate system, $T_{i\cdots jp\cdots q}$ is a multi-linear map. So $T_{i\cdots jp\cdots q}$ is a tensor.
+  is a scalar for all choices of $\mathbf{a}, \ldots, \mathbf{b}, \mathbf{c},\ldots, \mathbf{d}$. Since a scalar is basis-independent, $T_{i\cdots j\,p\cdots q}$ defines a multi-linear map. By the preceding theorem, $T_{i\cdots j\,p\cdots q}$ is a tensor.
 \end{proof}
 
 
 \subsection{Tensor calculus}
 \subsubsection*{Tensor fields and derivatives}
+
 \begin{defi}[Tensor field]
   A \emph{tensor field} assigns a tensor $T_{ij\cdots k}(\mathbf{x})$ to each point $\mathbf{x}$ in space.
 \end{defi}
 
-Assuming sufficient smoothness, tensor fields can be differentiated:
 \begin{prop}[Tensor field derivative rank]
+  Let $T_{ij\cdots k}(\mathbf{x})$ be a smooth tensor field of rank $n$. Then
   \[
-    \underbrace{\frac{\partial}{\partial x_p}\cdots \frac{\partial}{\partial x_q}}_{m}T_{\underbrace{ij\cdots k}_n},\tag{$*$}
+    \underbrace{\frac{\partial}{\partial x_p}\cdots \frac{\partial}{\partial x_q}}_{m}T_{\underbrace{ij\cdots k}_n}\tag{$*$}
   \]
   is a tensor of rank $n + m$.
 \end{prop}
+
 \begin{proof}
   It suffices to show that $\frac{\partial}{\partial x_p}$ transforms as a rank-1 tensor. Since $x_i' = R_{iq}x_q$, we have $\frac{\partial x_q}{\partial x_i'} = R_{iq}$. By the chain rule,
   \[
@@ -3425,20 +3436,22 @@ Assuming sufficient smoothness, tensor fields can be differentiated:
   \]
   Thus $\frac{\partial}{\partial x_p}$ obeys the vector transformation rule, and the result follows by the same argument as for tensor products.
 \end{proof}
+
 \subsubsection*{Integrals and the tensor divergence theorem}
-Tensor-valued integrals are defined component-wise. For a tensor field $T_{ij\cdots k}(\mathbf{x})$, the integral $\int_V T_{ij\cdots k}\,\d V$ is a tensor of the same rank.
+
+\begin{defi}[Tensor-valued integral]
+  Tensor-valued integrals are defined componentwise. For a tensor field $T_{ij\cdots k}(\mathbf{x})$ of rank $n$, the integral $\int_V T_{ij\cdots k}\,\d V$ is a tensor of the same rank.
+\end{defi}
 
 \begin{eg}[Momentum flux tensor]
-  For a fluid with velocity $\mathbf{u}(\mathbf{x})$ and density $\rho$, the flux of the $i$th component of momentum through a surface element is $\rho u_i u_j n_j \,\delta S = T_{ij}n_j \,\delta S$, where $T_{ij} = \rho u_iu_j$ is the momentum flux tensor.
+  For a fluid with velocity field $\mathbf{u}(\mathbf{x})$ and density $\rho$, the flux of the $i$th component of momentum through a surface element is $\rho u_i u_j n_j \,\delta S = T_{ij}n_j \,\delta S$, where $T_{ij} = \rho u_iu_j$ is the momentum flux tensor.
 \end{eg}
 
-The divergence theorem generalizes to tensor fields. Let $V$ be a volume bounded by surface $S = \partial V$, and let $T_{ij\cdots k\ell}$ be a smooth tensor field.
-
 \begin{thm}[Divergence theorem for tensors]
+  Let $V$ be a volume in $\R^3$ bounded by a surface $S = \partial V$ with outward unit normal $\mathbf{n}$, and let $T_{ij\cdots k\ell}(\mathbf{x})$ be a smooth tensor field. Then
   \[
-    \int_S T_{ij\cdots k\ell}n_\ell\;\d S = \int_V \frac{\partial}{\partial x_\ell}(T_{ij\cdots k\ell})\;\d V,
+    \int_S T_{ij\cdots k\ell}\,n_\ell\;\d S = \int_V \frac{\partial}{\partial x_\ell}(T_{ij\cdots k\ell})\;\d V.
   \]
-  where $\mathbf{n}$ is the outward unit normal.
 \end{thm}
 
 \begin{rmk}
@@ -3446,9 +3459,7 @@ The divergence theorem generalizes to tensor fields. Let $V$ be a volume bounded
 \end{rmk}
 
 \begin{proof}
-  Apply the usual divergence theorem to the vector field $\mathbf{v}$ defined by $v_\ell = a_i b_j \cdots c_k T_{ij\cdots k\ell}$, where $\mathbf{a}, \mathbf{b}, \cdots, \mathbf{c}$ are fixed constant vectors.
-
-  Then
+  Apply the usual divergence theorem to the vector field $\mathbf{v}$ defined by $v_\ell = a_i b_j \cdots c_k T_{ij\cdots k\ell}$, where $\mathbf{a}, \mathbf{b}, \ldots, \mathbf{c}$ are fixed constant vectors. Then
   \[
     \nabla\cdot \mathbf{v} = \frac{\partial v_\ell}{\partial x_\ell} = a_i b_j \cdots c_k \frac{\partial}{\partial x_\ell}T_{ij\cdots k\ell},
   \]
@@ -3456,106 +3467,121 @@ The divergence theorem generalizes to tensor fields. Let $V$ be a volume bounded
   \[
     \mathbf{n}\cdot \mathbf{v} = n_\ell v_\ell = a_i b_j \cdots c_k T_{ij\cdots k\ell }n_\ell.
   \]
-  Since $\mathbf{a}, \mathbf{b}, \cdots, \mathbf{c}$ are arbitrary, therefore they can be eliminated, and the tensor divergence theorem follows.
+  Since $\mathbf{a}, \mathbf{b}, \ldots, \mathbf{c}$ are arbitrary, they can be eliminated, and the tensor divergence theorem follows.
 \end{proof}
 \section{Tensors of rank 2}
 \subsection{Decomposition of a second-rank tensor}
-Any rank-2 tensor can be decomposed into symmetric and antisymmetric parts:
-\[
-  T_{ij} = S_{ij} + A_{ij},
-\]
-where
-\[
-  S_{ij} = \frac{1}{2}(T_{ij} + T_{ji}),\quad A_{ij} = \frac{1}{2}(T_{ij} - T_{ji}).
-\]
-Here $T_{ij}$ has 9 independent components, whereas $S_{ij}$ and $A_{ij}$ have 6 and 3 independent components, since they must be of the form
-\[
-  (S_{ij}) =
-  \begin{pmatrix}
-    a & d & e\\
-    d & b & f\\
-    e & f & c
-  \end{pmatrix}
-  ,\quad
-  (A_{ij}) =
-  \begin{pmatrix}
-    0 & a & b\\
-    -a & 0 & c\\
-    -b & -c & 0
-  \end{pmatrix}.
-\]
-The symmetric part can be further reduced to a \emph{traceless} part plus an \emph{isotropic} (i.e.\ multiple of $\delta_{ij}$) part:
-\[
-  S_{ij} = P_{ij} + \frac{1}{3}\delta_{ij} Q,
-\]
-where $Q = S_{ii}$ is the trace of $S_{ij}$ and $P_{ij} = P_{ji} = S_{ij} -\frac{1}{3}\delta_{ij}Q$ is traceless. Then $P_{ij}$ has 5 independent components while $Q$ has 1.
 
-Since the antisymmetric part has 3 independent components, it can be written in terms of a vector. Indeed,
-\[
-  A_{ij} = \varepsilon_{ijk}B_k
-\]
-for some vector $\mathbf{B}$. Contracting both sides with $\varepsilon_{ij\ell}$ and using $\varepsilon_{ijk}\varepsilon_{ij\ell} = 2\delta_{k\ell}$ gives
-\[
-  B_k = \frac{1}{2}\varepsilon_{ijk}A_{ij} = \frac{1}{2}\varepsilon_{ijk}T_{ij},
-\]
-where the last equality holds because the symmetric part of $T_{ij}$ does not contribute to the contraction with $\varepsilon_{ijk}$.
+\begin{prop}[Symmetric-antisymmetric decomposition]
+  Any rank-2 tensor $T_{ij}$ in $\R^3$ can be uniquely decomposed as
+  \[
+    T_{ij} = S_{ij} + A_{ij},
+  \]
+  where $S_{ij} = \frac{1}{2}(T_{ij} + T_{ji})$ is symmetric and $A_{ij} = \frac{1}{2}(T_{ij} - T_{ji})$ is antisymmetric.
+\end{prop}
 
-Then
-\[
-  (A_{ij}) =
-  \begin{pmatrix}
-    0 & B_3 & -B_2\\
-    -B_3 & 0 & B_1\\
-    B_2 & -B_1 & 0
-  \end{pmatrix}
-\]
-To summarize,
-\[
-  T_{ij} = P_{ij} + \varepsilon_{ijk}B_k + \frac{1}{3}\delta_{ij}Q,
-\]
-where $B_k = \frac{1}{2}\varepsilon_{pqk} T_{pq}$, $Q = T_{kk}$ and $P_{ij} = P_{ji} = \frac{T_{ij} + T_{ji}}{2} - \frac{1}{3}\delta_{ij}Q$.
+\begin{rmk}[Component counting]
+  A general rank-2 tensor $T_{ij}$ in $\R^3$ has 9 independent components. The symmetric part $S_{ij}$ has 6 and the antisymmetric part $A_{ij}$ has 3, since they must be of the form
+  \[
+    (S_{ij}) =
+    \begin{pmatrix}
+      a & d & e\\
+      d & b & f\\
+      e & f & c
+    \end{pmatrix}
+    ,\quad
+    (A_{ij}) =
+    \begin{pmatrix}
+      0 & a & b\\
+      -a & 0 & c\\
+      -b & -c & 0
+    \end{pmatrix}.
+  \]
+\end{rmk}
+
+\begin{prop}[Traceless-isotropic decomposition]
+  Any symmetric rank-2 tensor $S_{ij}$ can be further decomposed as
+  \[
+    S_{ij} = P_{ij} + \frac{1}{3}\delta_{ij} Q,
+  \]
+  where $Q = S_{ii}$ is the trace and $P_{ij} = S_{ij} - \frac{1}{3}\delta_{ij}Q$ is a symmetric traceless tensor. The isotropic part $\frac{1}{3}\delta_{ij}Q$ has 1 independent component, while the traceless part $P_{ij}$ has 5.
+\end{prop}
+
+\begin{prop}[Vector representation of antisymmetric tensors]
+  Any antisymmetric rank-2 tensor $A_{ij}$ in $\R^3$ can be written as
+  \[
+    A_{ij} = \varepsilon_{ijk}B_k, \quad\text{where}\quad B_k = \frac{1}{2}\varepsilon_{ijk}A_{ij}.
+  \]
+  In matrix form,
+  \[
+    (A_{ij}) =
+    \begin{pmatrix}
+      0 & B_3 & -B_2\\
+      -B_3 & 0 & B_1\\
+      B_2 & -B_1 & 0
+    \end{pmatrix}.
+  \]
+\end{prop}
+
+\begin{proof}
+  Contracting $A_{ij} = \varepsilon_{ijk}B_k$ with $\varepsilon_{ij\ell}$ and using $\varepsilon_{ijk}\varepsilon_{ij\ell} = 2\delta_{k\ell}$ gives $\varepsilon_{ij\ell}A_{ij} = 2B_\ell$, hence $B_k = \frac{1}{2}\varepsilon_{ijk}A_{ij}$. Since $\varepsilon_{ijk}$ is antisymmetric in $i,j$, we also have $B_k = \frac{1}{2}\varepsilon_{ijk}T_{ij}$, as the symmetric part of $T_{ij}$ does not contribute.
+\end{proof}
+
+\begin{thm}[Full decomposition of a rank-2 tensor]
+  Any rank-2 tensor $T_{ij}$ in $\R^3$ can be uniquely decomposed as
+  \[
+    T_{ij} = P_{ij} + \varepsilon_{ijk}B_k + \frac{1}{3}\delta_{ij}Q,
+  \]
+  where $Q = T_{kk}$ is the trace (1 component), $B_k = \frac{1}{2}\varepsilon_{pqk} T_{pq}$ is a vector (3 components), and $P_{ij} = \frac{1}{2}(T_{ij} + T_{ji}) - \frac{1}{3}\delta_{ij}Q$ is a symmetric traceless tensor (5 components).
+\end{thm}
 
 \begin{eg}[Strain rate tensor decomposition]
-  The derivative of a vector field $F_i (\mathbf{r})$ is a tensor $T_{ij} = \frac{\partial F_i}{\partial x_j}$, a tensor field. Our decomposition given above has the symmetric traceless piece
+  Let $\mathbf{F}(\mathbf{r})$ be a vector field in $\R^3$. Its derivative $T_{ij} = \frac{\partial F_i}{\partial x_j}$ is a rank-2 tensor field. Applying the decomposition above gives the symmetric traceless piece
   \[
-    P_{ij} = \frac{1}{2}\left(\frac{\partial F_i}{\partial x_j} + \frac{\partial F_j}{\partial x_i}\right) - \frac{1}{3}\delta_{ij}\frac{\partial F_k}{\partial x_k} = \frac{1}{2}\left(\frac{\partial F_i}{\partial x_j} + \frac{\partial F_j}{\partial x_i}\right) - \frac{1}{3}\delta_{ij}\nabla\cdot \mathbf{F},
+    P_{ij} = \frac{1}{2}\left(\frac{\partial F_i}{\partial x_j} + \frac{\partial F_j}{\partial x_i}\right) - \frac{1}{3}\delta_{ij}\nabla\cdot \mathbf{F},
   \]
-  an antisymmetric piece $A_{ij} = \varepsilon_{ijk}B_k$, where
+  the antisymmetric piece $A_{ij} = \varepsilon_{ijk}B_k$, where
   \[
-    B_k = \frac{1}{2}\varepsilon_{ijk}\frac{\partial F_i}{\partial x_j} = -\frac{1}{2}(\nabla\times \mathbf{F})_k.
+    B_k = \frac{1}{2}\varepsilon_{ijk}\frac{\partial F_i}{\partial x_j} = -\frac{1}{2}(\nabla\times \mathbf{F})_k,
   \]
-  and trace
+  and the trace
   \[
     Q = \frac{\partial F_k}{\partial x_k} = \nabla \cdot \mathbf{F}.
   \]
-  Hence a complete description involves a scalar $\nabla\cdot \mathbf{F}$, a vector $\nabla\times \mathbf{F}$, and a symmetric traceless tensor $P_{ij}$.
+  Hence a complete description of $T_{ij}$ involves a scalar $\nabla\cdot \mathbf{F}$, a vector $\nabla\times \mathbf{F}$, and a symmetric traceless tensor $P_{ij}$.
 \end{eg}
 
 \subsection{The inertia tensor}
-Consider point masses $m_\alpha$ at positions $\mathbf{r}_\alpha$, rotating with angular velocity $\boldsymbol\omega$ about the origin. The velocities are $\mathbf{v}_\alpha = \boldsymbol\omega\times \mathbf{r}_\alpha$, and the total angular momentum is
-\begin{align*}
-  \mathbf{L} &= \sum_{\alpha} m_\alpha \mathbf{r}_\alpha \times \mathbf{v}_\alpha = \sum_\alpha m_\alpha \mathbf{r}_\alpha \times (\boldsymbol\omega\times \mathbf{r}_\alpha)\\
-  &= \sum_\alpha m_\alpha( |\mathbf{r}_\alpha|^2\boldsymbol\omega - (\mathbf{r}_\alpha \cdot \boldsymbol\omega)\mathbf{r}_\alpha),
-\end{align*}
-using the vector identity $\mathbf{a}\times(\mathbf{b}\times\mathbf{a}) = |\mathbf{a}|^2\mathbf{b} - (\mathbf{a}\cdot\mathbf{b})\mathbf{a}$. In components,
-\[
-  L_i = I_{ij}\omega_j,
-\]
-where
+
 \begin{defi}[Inertia tensor]
-  The \emph{inertia tensor} is
+  Consider a system of point masses $m_\alpha$ at positions $\mathbf{r}_\alpha$ in $\R^3$. The \emph{inertia tensor} of the system about the origin is the symmetric rank-2 tensor
   \[
     I_{ij} = \sum_\alpha m_\alpha [|\mathbf{r}_\alpha|^2 \delta_{ij} - (\mathbf{r}_\alpha)_i (\mathbf{r}_\alpha)_j].
   \]
+  For a rigid body occupying a volume $V$ with mass density $\rho(\mathbf{r})$, the sum is replaced by an integral:
+  \[
+    I_{ij} = \int_V \rho (\mathbf{r})(x_kx_k \delta_{ij} - x_i x_j)\;\d V.
+  \]
 \end{defi}
-For a rigid body occupying volume $V$ with mass density $\rho(\mathbf{r})$, we replace the sum with an integral to obtain
-\[
-  I_{ij} = \int_V \rho (\mathbf{r})(x_kx_k \delta_{ij} - x_i x_j)\;\d V.
-\]
-By inspection, $I$ is a symmetric tensor.
 
-\begin{eg}[Inertia tensor of cylinder]
-  Consider a rotating cylinder with uniform density $\rho_0$. The total mass is $2\ell \pi a^2 \rho_0$.
+\begin{prop}[Angular momentum of a rotating body]
+  If the system rotates with angular velocity $\boldsymbol\omega$ about the origin, so that the velocity of mass $m_\alpha$ is $\mathbf{v}_\alpha = \boldsymbol\omega\times \mathbf{r}_\alpha$, then the total angular momentum satisfies
+  \[
+    L_i = I_{ij}\omega_j.
+  \]
+\end{prop}
+
+\begin{proof}
+  The total angular momentum is
+  \begin{align*}
+    \mathbf{L} &= \sum_{\alpha} m_\alpha \mathbf{r}_\alpha \times \mathbf{v}_\alpha = \sum_\alpha m_\alpha \mathbf{r}_\alpha \times (\boldsymbol\omega\times \mathbf{r}_\alpha)\\
+    &= \sum_\alpha m_\alpha( |\mathbf{r}_\alpha|^2\boldsymbol\omega - (\mathbf{r}_\alpha \cdot \boldsymbol\omega)\mathbf{r}_\alpha),
+  \end{align*}
+  using the vector identity $\mathbf{a}\times(\mathbf{b}\times\mathbf{a}) = |\mathbf{a}|^2\mathbf{b} - (\mathbf{a}\cdot\mathbf{b})\mathbf{a}$. Writing in components gives $L_i = I_{ij}\omega_j$.
+\end{proof}
+
+\begin{eg}[Inertia tensor of a cylinder]
+  Consider a cylinder of uniform density $\rho_0$, radius $a$, and half-length $\ell$, aligned along the $x_3$-axis. The total mass is $M = 2\ell \pi a^2 \rho_0$.
   \begin{center}
     \begin{tikzpicture}
       \draw [->] (0, 0) -- (2, 0) node [right] {$x_1$};
@@ -3569,43 +3595,23 @@ By inspection, $I$ is a symmetric tensor.
       \draw (0, 1.5) -- (0.7, 1.5) node [pos = 0.5, above] {$a$};
     \end{tikzpicture}
   \end{center}
-  Use cylindrical polar coordinates:
+  Using cylindrical polar coordinates $x_1 = r\cos \theta$, $x_2 = r\sin \theta$, $x_3 = x_3$, with volume element $\d V = r\;\d r\;\d \theta \;\d x_3$, the diagonal components are:
   \begin{align*}
-    x_1 &= r\cos \theta\\
-    x_2 &= r\sin \theta\\
-    x_3 &= x_3\\
-    \d V &= r\;\d r\;\d \theta \;\d x_3
+    I_{33} &= \int_V \rho_0 (x_1^2 + x_2^2)\;\d V = \rho_0 \int_0^a \int_0^{2\pi} \int_{-\ell}^\ell r^2 \cdot r\;\d r\;\d \theta \;\d x_3 = \rho_0 \pi \ell a^4 = \frac{1}{2}Ma^2.
   \end{align*}
-  We have
+  Similarly,
   \begin{align*}
-    I_{33} &= \int_V \rho_0 (x_1^2 + x_2^2)\;\d V\\
-    &= \rho_0 \int_0^a \int_0^{2\pi} \int_{-\ell}^\ell r^2 (r\;\d r\;\d \theta \;\d x_3)\\
-    &= \rho_0 \cdot 2\pi \cdot 2\ell \left[\frac{r^4}{4}\right]_0^a\\
-    &= \rho_0 \pi \ell a^4.
+    I_{11} &= \int_V \rho_0 (x_2^2 + x_3^2)\;\d V = \rho_0 \int_0^a \int_0^{2\pi}\int_{-\ell}^\ell (r^2 \sin^2 \theta + x_3^2) \, r\;\d r\;\d \theta \;\d x_3\\
+    &= \rho_0 \left(\pi a^2 \cdot \frac{2}{3}\ell^3 + 2\ell\int_0^a r^3 \;\d r\int_0^{2\pi}\sin^2 \theta \;\d\theta\right) = \rho_0 \pi a^2 \ell\left(\frac{a^2}{2} + \frac{2}{3}\ell^2\right) = M\left(\frac{a^2}{4} + \frac{\ell^2}{3}\right),
   \end{align*}
-  Similarly, we have
-  \begin{align*}
-    I_{11} &= \int_V \rho_0 (x_2^2 + x_3^2)\;\d V\\
-    &= \rho_0 \int_0^a \int_0^{2\pi}\int_{-\ell}^\ell (r^2 \sin^2 \theta + x_3^2) r\;\d r\;\d \theta \;\d x_3\\
-    &= \rho_0 \int_0^a \int_0^{2\pi} r\left(r^2 \sin^2 \theta\left[x_3\right]_{-\ell}^\ell + \left[\frac{x_3^3}{3}\right]^{\ell}_{-\ell}\right)\;\d \theta\;\d r\\
-    &= \rho_0 \int_0^a \int_0^{2\pi} r\left(r^2 \sin^2 \theta 2\ell + \frac{2}{3}\ell^3\right)\;\d \theta\;\d r\\
-    &= \rho_0 \left(\pi a^2 \cdot \frac{2}{3}\ell^3 + 2\ell\int_0^a r^3 \;\d r\int_0^{2\pi}\sin^2 \theta \;\d\theta\right)\\
-    &= \rho_0 \pi a^2 \ell\left(\frac{a^2}{2} + \frac{2}{3}\ell^2\right)
-  \end{align*}
-  By symmetry, $I_{22} = I_{11}$.
+  and by symmetry $I_{22} = I_{11}$.
 
-  For the off-diagonal elements:
+  For the off-diagonal elements, $I_{13} = -\int_V \rho_0 x_1 x_3 \;\d V = 0$ since $\int_0^{2\pi} \cos \theta\;\d \theta = 0$, and similarly all other off-diagonal elements vanish. Hence
   \begin{align*}
-    I_{13} &= -\int_V \rho_0 x_1 x_3 \;\d V\\
-    &= -\rho_0 \int_0^a \int_{-\ell}^\ell \int_0^{2\pi} r^2 \cos \theta x_3 \;\d r\;\d x_3 \;\d \theta\\
-    &= 0
+    I_{33} &= \frac{1}{2}Ma^2, &
+    I_{11} = I_{22} &= M\left(\frac{a^2}{4} + \frac{\ell^2}{3}\right).
   \end{align*}
-  Since $\int_0^{2\pi} \;\d \theta \cos \theta = 0$. Similarly, the other off-diagonal elements are all 0. So the non-zero components are
-  \begin{align*}
-    I_{33} &= \frac{1}{2}Ma^2\\
-    I_{11} = I_{22} &= M\left(\frac{a^2}{4} + \frac{\ell^2}{3}\right)
-  \end{align*}
-  In the particular case where $\ell = \frac{a\sqrt{3}}{2}$, we have $I_{ij} = \frac{1}{2}Ma^2 \delta_{ij}$. So in this case,
+  In the particular case $\ell = \frac{a\sqrt{3}}{2}$, we have $I_{ij} = \frac{1}{2}Ma^2 \delta_{ij}$, so that
   \[
     \mathbf{L} = \frac{1}{2}Ma^2 \boldsymbol\omega
   \]
