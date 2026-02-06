@@ -58,135 +58,136 @@ Note that throughout the course (and lecture notes), summation convention is imp
 
 \section{Derivatives and coordinates}
 \subsection{Derivative of functions}
-In single-variable calculus, the derivative of a function $f: \R \to \R$ at a point $x \in \R$ is defined as the limit
-\[
-  f'(x) = \lim_{\delta x \to 0} \frac{f(x + \delta x) - f(x)}{\delta x},
-\]
-provided the limit exists. However, this definition cannot be directly generalized to vector-valued functions, since division by a vector is not defined. We therefore seek an alternative characterization of differentiability that extends naturally to higher dimensions.
 
-Recall that if a function $f: \R \to \R$ is differentiable at $x$, then for a small perturbation $\delta x \in \R$, we have
-\[
-  \delta f \stackrel{\text{def}}{=} f(x + \delta x) - f(x) = f'(x) \delta x + o(\delta x),
-\]
-where $o(\delta x)$ denotes a quantity such that $o(\delta x)/\delta x \to 0$ as $\delta x \to 0$. This says that the change in $f$ is, to first order, proportional to the perturbation $\delta x$. Conversely, if $f$ satisfies this relation for some constant $f'(x)$, then $f$ is differentiable at $x$.
+\begin{rmk}[Motivation]
+  In single-variable calculus, the derivative of a function $f: \R \to \R$ at a point $x \in \R$ is defined as the limit
+  \[
+    f'(x) = \lim_{\delta x \to 0} \frac{f(x + \delta x) - f(x)}{\delta x},
+  \]
+  provided the limit exists. This definition cannot be directly generalized to vector-valued functions, since division by a vector is not defined. We therefore seek an alternative characterization of differentiability that extends naturally to higher dimensions.
 
-This characterization extends naturally to functions involving vectors. In the most general case, where both the domain and codomain are vector spaces, the perturbation $\delta \mathbf{x}$ is a vector, and the ``proportionality constant'' relating $\delta \mathbf{F}$ to $\delta \mathbf{x}$ is a matrix. This matrix is what we call the derivative.
+  Recall that if $f: \R \to \R$ is differentiable at $x$, then for a small perturbation $\delta x \in \R$, we have
+  \[
+    \delta f \stackrel{\text{def}}{=} f(x + \delta x) - f(x) = f'(x) \delta x + o(\delta x),
+  \]
+  where $o(\delta x)$ denotes a quantity such that $o(\delta x)/\delta x \to 0$ as $\delta x \to 0$. This says that the change in $f$ is, to first order, a linear function of the perturbation $\delta x$. Conversely, if $f$ satisfies this relation for some constant $f'(x)$, then $f$ is differentiable at $x$.
+
+  This characterization extends naturally to functions involving vectors. In the most general case, where both the domain and codomain are vector spaces, the perturbation $\delta \mathbf{x}$ is a vector, and the ``proportionality constant'' relating $\delta \mathbf{F}$ to $\delta \mathbf{x}$ is a matrix. This matrix is what we call the derivative.
+\end{rmk}
 
 \subsubsection*{Vector functions \tph{$\R \to \R^n$}{R to Rn}{&\#x211D; &rarr; &\#x211D;<sup>n</sup>}}
-We start with the simple case of vector functions.
+
 \begin{defi}[Vector function]
-  A \emph{vector function} is a function $\mathbf{F}: \R\to \R^n$.
+  A \emph{vector function} is a function $\mathbf{F}: \R\to \R^n$. It takes in a scalar and returns a vector. For example, it can map a time $t \in \R$ to the velocity of a particle at that time.
 \end{defi}
-This takes in a number and returns a vector. For example, it can map a time to the velocity of a particle at that time.
 
 \begin{defi}[Derivative of vector function]
-  A vector function $\mathbf{F}(x)$ is \emph{differentiable} if
+  A vector function $\mathbf{F}: \R \to \R^n$ is \emph{differentiable} at $x \in \R$ if there exists a vector $\mathbf{F}'(x) \in \R^n$ such that
   \[
-    \delta \mathbf{F} \stackrel{\text{def}}{=}\mathbf{F}(x + \delta x)- \mathbf{F}(x) = \mathbf{F}'(x)\delta x + o(\delta x)
+    \delta \mathbf{F} \stackrel{\text{def}}{=}\mathbf{F}(x + \delta x)- \mathbf{F}(x) = \mathbf{F}'(x)\delta x + o(\delta x).
   \]
-  for some $\mathbf{F}'(x)$. $\mathbf{F}'(x)$ is called the \emph{derivative} of $\mathbf{F}(x)$.
+  The vector $\mathbf{F}'(x)$ is called the \emph{derivative} of $\mathbf{F}$ at $x$.
 \end{defi}
-We don't have anything new and special here, since we might as well have defined $\mathbf{F}'(x)$ as
-\[
-  \mathbf{F}' = \frac{\d \mathbf{F}}{\d x} = \lim_{\delta x \to 0} \frac{1}{\delta x}[\mathbf{F}(x + \delta x) - \mathbf{F}(x)],
-\]
-which is easily shown to be equivalent to the above definition.
 
-Using differential notation, the differentiability condition can be written as
-\[
-  \d\mathbf{F} = \mathbf{F}'(x)\;\d x.
-\]
-Given a basis $\mathbf{e}_i$ that is independent of $x$, vector differentiation is performed componentwise, i.e.
+\begin{rmk}
+  Since $\delta x$ is a scalar, dividing by it is well-defined. The derivative can therefore equivalently be expressed as
+  \[
+    \mathbf{F}'(x) = \frac{\d \mathbf{F}}{\d x} = \lim_{\delta x \to 0} \frac{1}{\delta x}[\mathbf{F}(x + \delta x) - \mathbf{F}(x)].
+  \]
+  In differential notation, the differentiability condition becomes $\d\mathbf{F} = \mathbf{F}'(x)\;\d x$.
+\end{rmk}
+
 \begin{prop}[Componentwise derivative]
+  Let $\mathbf{F}: \R \to \R^n$ be a differentiable vector function, and let $\{\mathbf{e}_1, \ldots, \mathbf{e}_n\}$ be a basis for $\R^n$ that is independent of $x$. Writing $\mathbf{F}(x) = F_i(x)\mathbf{e}_i$, the derivative is given componentwise by
   \[
     \mathbf{F}'(x) = F'_i(x)\mathbf{e}_i.
   \]
 \end{prop}
-Leibniz identities hold for the products of scalar and vector functions.
+
 \begin{prop}[Leibniz rules for products]
+  Let $f: \R \to \R$ be a differentiable scalar function, and let $\mathbf{g}, \mathbf{h}: \R \to \R^3$ be differentiable vector functions. Then the following product rules hold:
   \begin{align*}
-    \frac{\d}{\d t}(f\mathbf{g}) &= \frac{\d f}{\d t}\mathbf{g} + f\frac{\d \mathbf{g}}{\d t}\\
-    \frac{\d}{\d t}(\mathbf{g}\cdot \mathbf{h}) &= \frac{\d \mathbf{g}}{\d t}\cdot \mathbf{h} + \mathbf{g}\cdot \frac{\d \mathbf{h}}{\d t}\\
-    \frac{\d}{\d t}(\mathbf{g}\times \mathbf{h}) &= \frac{\d \mathbf{g}}{\d t}\times \mathbf{h} + \mathbf{g}\times \frac{\d \mathbf{h}}{\d t}
+    \frac{\d}{\d t}(f\mathbf{g}) &= \frac{\d f}{\d t}\mathbf{g} + f\frac{\d \mathbf{g}}{\d t},\\
+    \frac{\d}{\d t}(\mathbf{g}\cdot \mathbf{h}) &= \frac{\d \mathbf{g}}{\d t}\cdot \mathbf{h} + \mathbf{g}\cdot \frac{\d \mathbf{h}}{\d t},\\
+    \frac{\d}{\d t}(\mathbf{g}\times \mathbf{h}) &= \frac{\d \mathbf{g}}{\d t}\times \mathbf{h} + \mathbf{g}\times \frac{\d \mathbf{h}}{\d t}.
   \end{align*}
-  Note that the order of multiplication must be retained in the case of the cross product.
+  In the case of the cross product, the order of multiplication must be retained.
 \end{prop}
 
 \begin{eg}[Particle momentum and torque]
-  Consider a particle with mass $m$. It has position $\mathbf{r}(t)$, velocity $\dot{\mathbf{r}}(t)$ and acceleration $\ddot{\mathbf{r}}$. Its momentum is $\mathbf{p} = m\dot{\mathbf{r}}(t)$.
+  Consider a particle of mass $m$ with position $\mathbf{r}(t)$, velocity $\dot{\mathbf{r}}(t)$, and acceleration $\ddot{\mathbf{r}}(t)$, where dots denote derivatives with respect to time $t$. Its momentum is $\mathbf{p} = m\dot{\mathbf{r}}(t)$.
 
-  Note that derivatives with respect to $t$ are usually denoted by dots instead of dashes.
-
-  If $\mathbf{F}(\mathbf{r})$ is the force on a particle, then Newton's second law states that
+  If $\mathbf{F}(\mathbf{r})$ is the force on the particle, then Newton's second law states that
   \[
     \dot{\mathbf{p}} = m\ddot{\mathbf{r}} = \mathbf{F}.
   \]
-  We can define the angular momentum about the origin to be
+  The \emph{angular momentum} about the origin is defined by
   \[
     \mathbf{L} = \mathbf{r}\times \mathbf{p} = m\mathbf{r} \times \dot{\mathbf{r}}.
   \]
-  If we want to know how the angular momentum changes over time, then
+  Differentiating and applying the Leibniz rule for the cross product gives
   \[
-    \dot{\mathbf{L}} = m\dot{\mathbf{r}}\times \dot{\mathbf{r}} + m\mathbf{r}\times \ddot{\mathbf{r}} = m\mathbf{r}\times \ddot{\mathbf{r}} = \mathbf{r}\times \mathbf{F}.
+    \dot{\mathbf{L}} = m\dot{\mathbf{r}}\times \dot{\mathbf{r}} + m\mathbf{r}\times \ddot{\mathbf{r}} = m\mathbf{r}\times \ddot{\mathbf{r}} = \mathbf{r}\times \mathbf{F},
   \]
-  which is the \emph{torque} of $\mathbf{F}$ about the origin.
+  where we used $\dot{\mathbf{r}} \times \dot{\mathbf{r}} = \mathbf{0}$. The quantity $\mathbf{r}\times \mathbf{F}$ is called the \emph{torque} of $\mathbf{F}$ about the origin.
 \end{eg}
 
 \subsubsection*{Scalar functions \tph{$\R^n \to \R$}{Rn to R}{&\#x211D;<sup>n</sup> &rarr; &\#x211D;}}
-We can also define derivatives for a different kind of function:
-\begin{defi}[Scalar function]
-  A \emph{scalar function} is a function $f: \R^n \to \R$.
-\end{defi}
-A scalar function takes in a position and gives you a number, e.g.\ the potential energy of a particle at different positions.
 
-Before we define the derivative of a scalar function, we have to first define what it means to take a limit of a vector.
-\begin{defi}[Limit of vector]
-  The \emph{limit of vectors} is defined using the norm. So $\mathbf{v}\to \mathbf{c}$ iff $|\mathbf{v} - \mathbf{c}| \to 0$. Similarly, $f(\mathbf{r}) = o(\mathbf{r})$ means $\frac{|f(\mathbf{r})|}{|\mathbf{r}|} \to 0$ as $\mathbf{r}\to \mathbf{0}$.
+\begin{defi}[Scalar function]
+  A \emph{scalar function} is a function $f: \R^n \to \R$. It takes in a position vector and returns a scalar. For example, a scalar function may assign to each point in space the temperature or the potential energy at that point.
+\end{defi}
+
+\begin{defi}[Limits involving vectors]
+  Let $\mathbf{v}$ and $\mathbf{c}$ be vectors in $\R^n$. We write $\mathbf{v}\to \mathbf{c}$ if $|\mathbf{v} - \mathbf{c}| \to 0$. For a scalar-valued function $f$, we write $f(\mathbf{r}) = o(\mathbf{r})$ to mean $\frac{|f(\mathbf{r})|}{|\mathbf{r}|} \to 0$ as $\mathbf{r}\to \mathbf{0}$.
 \end{defi}
 
 \begin{defi}[Gradient of scalar function]
-  A scalar function $f(\mathbf{r})$ is \emph{differentiable} at $\mathbf{r}$ if
+  A scalar function $f: \R^n \to \R$ is \emph{differentiable} at $\mathbf{r} \in \R^n$ if there exists a vector $\nabla f \in \R^n$ such that
   \[
     \delta f \stackrel{\text{def}}{=} f(\mathbf{r} + \delta \mathbf{r}) - f(\mathbf{r}) = (\nabla f)\cdot \delta \mathbf{r} + o(\delta \mathbf{r})
   \]
-  for some vector $\nabla f$, the \emph{gradient} of $f$ at $\mathbf{r}$.
+  for all perturbations $\delta \mathbf{r} \in \R^n$. The vector $\nabla f$ is called the \emph{gradient} of $f$ at $\mathbf{r}$.
 \end{defi}
-Here we have a fancy name ``gradient'' for the derivative. But we will soon give up on finding fancy names and just call everything the ``derivative''!
 
-Note also that here we genuinely need the new notion of derivative, since ``dividing by $\delta \mathbf{r}$'' makes no sense at all!
-
-The definition of the gradient considers perturbations $\delta \mathbf{r}$ in all directions. In many applications, however, we are interested in how $f$ changes along a particular direction. For instance, suppose $f$ represents the potential energy of a particle constrained to move along a straight line. In such cases, we restrict attention to perturbations of the form $\delta \mathbf{r} = h\mathbf{n}$, where $\mathbf{n}$ is a unit vector specifying the direction of motion and $h \in \R$ is a small scalar.
-
-Substituting into the definition of differentiability, we obtain
-\[
-  f(\mathbf{r} + h\mathbf{n}) - f(\mathbf{r}) = \nabla f \cdot (h\mathbf{n}) + o(h) = h(\nabla f\cdot \mathbf{n}) + o(h).
-\]
-This motivates the following definition.
+\begin{rmk}
+  Unlike the case of vector functions $\R \to \R^n$, the gradient cannot be defined simply by dividing $\delta f$ by $\delta \mathbf{r}$, since division by a vector is not defined. The definition above avoids this by characterizing the derivative through its linear action on perturbations.
+\end{rmk}
 
 \begin{defi}[Directional derivative]
-  Let $f: \R^n \to \R$ be a differentiable scalar function and let $\mathbf{n}$ be a unit vector. The \emph{directional derivative} of $f$ in the direction $\mathbf{n}$ at the point $\mathbf{r}$ is
+  Let $f: \R^n \to \R$ be a differentiable scalar function, let $\mathbf{r} \in \R^n$, and let $\mathbf{n}$ be a unit vector in $\R^n$. The \emph{directional derivative} of $f$ in the direction $\mathbf{n}$ at the point $\mathbf{r}$ is
   \[
     D_{\mathbf{n}} f(\mathbf{r}) = \mathbf{n}\cdot \nabla f = \lim_{h \to 0} \frac{1}{h}[f(\mathbf{r} + h\mathbf{n}) - f(\mathbf{r})].
   \]
   It measures the rate of change of $f$ with respect to displacement in the direction $\mathbf{n}$.
 \end{defi}
 
+\begin{rmk}
+  The directional derivative is obtained by restricting the perturbation in the definition of differentiability to the form $\delta \mathbf{r} = h\mathbf{n}$, where $h \in \R$ is a small scalar. Substituting into the definition gives
+  \[
+    f(\mathbf{r} + h\mathbf{n}) - f(\mathbf{r}) = \nabla f \cdot (h\mathbf{n}) + o(h) = h(\nabla f\cdot \mathbf{n}) + o(h),
+  \]
+  from which the formula $D_{\mathbf{n}} f = \mathbf{n} \cdot \nabla f$ follows upon dividing by $h$ and taking $h \to 0$.
+\end{rmk}
+
 \begin{rmk}[Geometric interpretation of the gradient]
   Since $\mathbf{n} \cdot \nabla f = |\nabla f| \cos \theta$, where $\theta$ is the angle between $\mathbf{n}$ and $\nabla f$, the directional derivative is maximized when $\mathbf{n}$ points in the same direction as $\nabla f$, giving $D_{\mathbf{n}} f = |\nabla f|$. Thus, $\nabla f$ points in the direction of steepest increase of $f$, and $|\nabla f|$ is the rate of increase in that direction.
 \end{rmk}
 
-To compute the gradient in terms of a coordinate system, let $\{\mathbf{e}_1, \ldots, \mathbf{e}_n\}$ be an orthonormal basis for $\R^n$, and let $(x_1, \ldots, x_n)$ denote the corresponding Cartesian coordinates. Setting $\mathbf{n} = \mathbf{e}_i$ in the definition of the directional derivative, we obtain
-\[
-  \mathbf{e}_i \cdot \nabla f = \lim_{h\to 0} \frac{1}{h}[f(\mathbf{r} + h\mathbf{e}_i) - f(\mathbf{r})] = \frac{\partial f}{\partial x_i}.
-\]
-Since $\nabla f = (\mathbf{e}_i \cdot \nabla f)\mathbf{e}_i$ (with summation over $i$), we obtain the following result.
-
-\begin{thm}[Gradient component formula]
-  Let $f: \R^n \to \R$ be a differentiable scalar function. In Cartesian coordinates with orthonormal basis $\{\mathbf{e}_i\}$, the gradient is given by
+\begin{thm}[Gradient in Cartesian coordinates]
+  Let $f: \R^n \to \R$ be a differentiable scalar function, and let $\{\mathbf{e}_1, \ldots, \mathbf{e}_n\}$ be an orthonormal basis for $\R^n$ with corresponding Cartesian coordinates $(x_1, \ldots, x_n)$. Then the gradient is given by
   \[
     \nabla f = \frac{\partial f}{\partial x_i}\mathbf{e}_i = \sum_{i=1}^{n} \frac{\partial f}{\partial x_i}\mathbf{e}_i.
   \]
 \end{thm}
+
+\begin{proof}
+  Setting $\mathbf{n} = \mathbf{e}_i$ in the definition of the directional derivative gives
+  \[
+    \mathbf{e}_i \cdot \nabla f = D_{\mathbf{e}_i} f = \lim_{h\to 0} \frac{1}{h}[f(\mathbf{r} + h\mathbf{e}_i) - f(\mathbf{r})] = \frac{\partial f}{\partial x_i}.
+  \]
+  Since $\{\mathbf{e}_i\}$ is an orthonormal basis, we can expand $\nabla f = (\mathbf{e}_i \cdot \nabla f)\mathbf{e}_i$ (with summation over $i$), which gives the result.
+\end{proof}
 
 \begin{rmk}[Differential notation]
   Using the gradient formula, the differentiability condition can be written as
@@ -201,74 +202,81 @@ Since $\nabla f = (\mathbf{e}_i \cdot \nabla f)\mathbf{e}_i$ (with summation ove
 \end{rmk}
 
 \begin{eg}[Computing a gradient]
-  Take $f(x, y, z) = x + e^{xy}\sin z$. Then
+  Let $f: \R^3 \to \R$ be defined by $f(x, y, z) = x + e^{xy}\sin z$. Then
   \begin{align*}
     \nabla f &= \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, \frac{\partial f}{\partial z}\right)\\
-    &= (1 + ye^{xy}\sin z, xe^{xy}\sin z, e^{xy}\cos z)
+    &= (1 + ye^{xy}\sin z,\; xe^{xy}\sin z,\; e^{xy}\cos z).
   \end{align*}
-  At $(x, y, z) = (0, 1, 0)$, $\nabla f = (1, 0, 1)$. So $f$ increases/decreases most rapidly for $\mathbf{n} = \pm \frac{1}{\sqrt{2}}(1, 0, 1)$ with a rate of change of $\pm \sqrt{2}$. There is no change in $f$ if $\mathbf{n}$ is perpendicular to $\pm \frac{1}{\sqrt{2}}(1, 0, 1)$.
+  At the point $(x, y, z) = (0, 1, 0)$, we find $\nabla f = (1, 0, 1)$. The function $f$ increases most rapidly in the direction $\mathbf{n} = \frac{1}{\sqrt{2}}(1, 0, 1)$, with a rate of change of $|\nabla f| = \sqrt{2}$. Conversely, $f$ decreases most rapidly in the direction $-\mathbf{n}$. There is no change in $f$ for directions perpendicular to $\nabla f$.
 \end{eg}
 
-We now consider the composition of a scalar function with a path. Let $f: \R^n \to \R$ be a differentiable scalar function and let $\mathbf{r}: \R \to \R^n$ be a differentiable path parametrized by $u$. A small change $\delta u$ produces a change $\delta \mathbf{r} = \mathbf{r}'(u) \delta u + o(\delta u)$ in the position. By the definition of differentiability of $f$,
-\[
-  \delta f = \nabla f\cdot \delta \mathbf{r} + o(|\delta \mathbf{r}|) = \nabla f\cdot \mathbf{r}'(u)\delta u + o(\delta u).
-\]
-This shows that the composition $f \circ \mathbf{r}$ is differentiable as a function of $u$, and we obtain the chain rule.
-
 \begin{thm}[Chain rule for scalar functions]
-  Let $f: \R^n \to \R$ be a differentiable scalar function and let $\mathbf{r}: \R \to \R^n$ be a differentiable path. Then the composition $f(\mathbf{r}(u))$ is differentiable and
+  Let $f: \R^n \to \R$ be a differentiable scalar function and let $\mathbf{r}: \R \to \R^n$ be a differentiable path parametrized by $u$. Then the composition $f(\mathbf{r}(u))$ is differentiable as a function of $u$, and
   \[
     \frac{\d f}{\d u} = \nabla f\cdot \frac{\d \mathbf{r}}{\d u} = \frac{\partial f}{\partial x_i} \frac{\d x_i}{\d u}.
   \]
 \end{thm}
 
+\begin{proof}
+  A small change $\delta u$ produces a change $\delta \mathbf{r} = \mathbf{r}'(u) \delta u + o(\delta u)$ in the position. By the differentiability of $f$,
+  \[
+    \delta f = \nabla f\cdot \delta \mathbf{r} + o(|\delta \mathbf{r}|) = \nabla f\cdot \mathbf{r}'(u)\delta u + o(\delta u).
+  \]
+  Dividing by $\delta u$ and taking $\delta u \to 0$ gives the result.
+\end{proof}
+
 \begin{rmk}
-  In differential notation, dividing both sides by $\d u$ and rearranging, we recover the formula $\d f = \nabla f \cdot \d\mathbf{r} = \frac{\partial f}{\partial x_i}\d x_i$ obtained earlier.
+  In differential notation, the chain rule can be written as $\d f = \nabla f \cdot \d\mathbf{r} = \frac{\partial f}{\partial x_i}\d x_i$, recovering the formula from the earlier remark.
 \end{rmk}
+
 \subsubsection*{Vector fields \tph{$\R^n\to \R^m$}{Rn to Rm}{&\#x211D;<sup>n</sup> &rarr; &\#x211D;<sup>m</sup>}}
-We now turn to the general case of functions between vector spaces.
 
 \begin{defi}[Vector field]
-  A \emph{vector field} is a function $\mathbf{F}: \R^n\to \R^m$.
+  A \emph{vector field} is a function $\mathbf{F}: \R^n\to \R^m$. It assigns a vector in $\R^m$ to each point of $\R^n$.
 \end{defi}
 
 \begin{defi}[Derivative of vector field]
-  A vector field $\mathbf{F}: \R^n \to \R^m$ is \emph{differentiable} at $\mathbf{x}$ if there exists an $m\times n$ matrix $M$ such that
+  A vector field $\mathbf{F}: \R^n \to \R^m$ is \emph{differentiable} at $\mathbf{x} \in \R^n$ if there exists an $m\times n$ matrix $M$ such that
   \[
     \delta \mathbf{F} \stackrel{\text{def}}{=} \mathbf{F}(\mathbf{x} + \delta\mathbf{x}) - \mathbf{F}(\mathbf{x}) = M\delta\mathbf{x} + o(\delta \mathbf{x}).
   \]
   The matrix $M$ is called the \emph{derivative} of $\mathbf{F}$ at $\mathbf{x}$.
 \end{defi}
 
-To express the derivative in coordinates, suppose $\mathbf{F}: \R^n \to \R^m$ maps $\mathbf{x} = (x_1, \ldots, x_n) \mapsto \mathbf{y} = (y_1, \ldots, y_m)$. We can write $\mathbf{F}$ in terms of its component functions $y_j = F_j(\mathbf{x})$ for $j = 1, \ldots, m$. For each component,
-\[
-  \d y_j = \frac{\partial F_j}{\partial x_i} \d x_i.
-\]
-This leads to the following formula for the derivative matrix.
-
-\begin{thm}[Jacobian derivative formula]
-  Let $\mathbf{F}: \R^n \to \R^m$ be differentiable. In Cartesian coordinates, the entries of the derivative matrix $M$ are given by
+\begin{thm}[Jacobian matrix]
+  Let $\mathbf{F}: \R^n \to \R^m$ be a differentiable vector field with component functions $F_j: \R^n \to \R$ for $j = 1, \ldots, m$, so that $\mathbf{F}(\mathbf{x}) = (F_1(\mathbf{x}), \ldots, F_m(\mathbf{x}))$. Writing $\mathbf{x} = (x_1, \ldots, x_n)$ and $\mathbf{y} = \mathbf{F}(\mathbf{x}) = (y_1, \ldots, y_m)$, the entries of the derivative matrix $M$ are given by
   \[
     M_{ji} = \frac{\partial y_j}{\partial x_i} = \frac{\partial F_j}{\partial x_i}.
   \]
   The matrix $M$ is called the \emph{Jacobian matrix} of $\mathbf{F}$.
 \end{thm}
 
+\begin{proof}
+  Each component $y_j = F_j(\mathbf{x})$ is a scalar function of $\mathbf{x}$. By the gradient formula,
+  \[
+    \d y_j = \frac{\partial F_j}{\partial x_i} \d x_i.
+  \]
+  Writing this in matrix form as $\d \mathbf{y} = M\,\d \mathbf{x}$, we read off $M_{ji} = \frac{\partial F_j}{\partial x_i}$.
+\end{proof}
+
 \begin{rmk}
   While the Jacobian formula could serve as an alternative definition of the derivative, the coordinate-free definition given above is preferable because it does not depend on the choice of coordinate system.
 \end{rmk}
 
 \begin{defi}[Smooth function]
-  A function is \emph{smooth} if it can be differentiated any number of times, i.e.\ all partial derivatives of all orders exist and are continuous. By Schwarz's theorem, this implies that mixed partial derivatives are symmetric (i.e.\ the order of differentiation does not matter).
+  A function is \emph{smooth} if all partial derivatives of all orders exist and are continuous. By Schwarz's theorem, this implies that mixed partial derivatives are symmetric, i.e.\ the order of differentiation does not matter.
 \end{defi}
-The functions we will consider will be smooth except where things obviously go wrong (e.g.\ $f(x) = 1/x$ at $x = 0$).
+
+\begin{rmk}
+  In this course, all functions will be assumed smooth except where they are obviously singular (e.g.\ $f(x) = 1/x$ at $x = 0$).
+\end{rmk}
 
 \begin{thm}[Chain rule]
-  Suppose $g: \R^p\to\R^n$ and $f: \R^n \to \R^m$. Suppose that the coordinates of the vectors in $\R^p, \R^n$ and $\R^m$ are $u_a, x_i$ and $y_r$ respectively. By the chain rule,
+  Let $g: \R^p\to\R^n$ and $f: \R^n \to \R^m$ be differentiable functions, and let the coordinates of $\R^p$, $\R^n$, and $\R^m$ be denoted by $u_a$, $x_i$, and $y_r$ respectively. Then the composition $f \circ g: \R^p \to \R^m$ is differentiable, and
   \[
     \frac{\partial y_r}{\partial u_a} = \frac{\partial y_r}{\partial x_i}\frac{\partial x_i}{\partial u_a},
   \]
-  with summation implied. Writing in matrix form,
+  with summation over $i$ implied. In matrix form,
   \[
     M(f\circ g)_{ra} = M(f)_{ri}M(g)_{ia}.
   \]
@@ -279,7 +287,6 @@ The functions we will consider will be smooth except where things obviously go w
 \end{thm}
 
 \subsection{Inverse functions}
-We now examine the relationship between the derivatives of inverse functions.
 
 \begin{prop}[Derivative of inverse function]
   Let $f: \R^n \to \R^n$ and $g: \R^n \to \R^n$ be differentiable functions satisfying $g \circ f = f \circ g = \id$ (so that $g = f^{-1}$). If $f(\mathbf{x}) = \mathbf{u}$ and $g(\mathbf{u}) = \mathbf{x}$, then
@@ -308,9 +315,7 @@ We now examine the relationship between the derivatives of inverse functions.
 \end{rmk}
 
 \begin{eg}[Polar coordinates Jacobian]
-  For $n = 2$, write $u_1 = \rho$, $u_2 =\varphi$ and let $x_1 = \rho \cos \varphi$ and $x_2 = \rho \sin \varphi$. Then the function used to convert between the coordinate systems is $g(u_1, u_2) = (u_1\cos u_2, u_1\sin u_2)$
-
-  Then
+  Consider the case $n = 2$. Define coordinates $u_1 = \rho$, $u_2 = \varphi$ and Cartesian coordinates $x_1, x_2$ related by $x_1 = \rho \cos \varphi$ and $x_2 = \rho \sin \varphi$. The coordinate transformation is then given by the function $g(\rho, \varphi) = (\rho\cos \varphi,\; \rho\sin \varphi)$, with Jacobian matrix
   \[
     M(g) =
     \begin{pmatrix}
@@ -321,34 +326,41 @@ We now examine the relationship between the derivatives of inverse functions.
     \begin{pmatrix}
       \cos\varphi & -\rho\sin \varphi\\
       \sin \varphi & \rho \cos \varphi
-    \end{pmatrix}
+    \end{pmatrix}.
   \]
-  We can invert the relations between $(x_1, x_2)$ and $(\rho, \varphi)$ to obtain
+  Inverting the relations gives
   \begin{align*}
-    \varphi &= \tan^{-1} \frac{x_2}{x_1}\\
-    \rho &= \sqrt{x_1^2 + x_2^2}
+    \rho &= \sqrt{x_1^2 + x_2^2}, &
+    \varphi &= \tan^{-1} \frac{x_2}{x_1}.
   \end{align*}
-  We can calculate
+  The Jacobian matrix of the inverse function $f = g^{-1}$ is then
   \[
     M(f) =
     \begin{pmatrix}
       \partial\rho/\partial x_1 & \partial\rho/\partial x_2\\
       \partial\varphi/\partial x_1 & \partial\varphi/\partial x_2\\
     \end{pmatrix}
-    = M(g)^{-1}.
+    = M(g)^{-1},
   \]
-  The determinants of these Jacobian matrices are called the \emph{Jacobians}.
+  as guaranteed by the proposition above.
 \end{eg}
 
+\begin{defi}[Jacobian]
+  The \emph{Jacobian} of a differentiable function $f: \R^n \to \R^n$ is the determinant of its Jacobian matrix, $\det M(f)$.
+\end{defi}
+
 \begin{cor}[Jacobian product formula]
-  If $f$ and $g = f^{-1}$ are inverse functions, then
+  Let $f: \R^n \to \R^n$ and $g = f^{-1}: \R^n \to \R^n$ be differentiable inverse functions. Then
   \[
     \det M(f) \cdot \det M(g) = 1.
   \]
-  Equivalently, the Jacobians of inverse functions are reciprocals of each other.
+  That is, the Jacobians of inverse functions are reciprocals of each other.
 \end{cor}
 \subsection{Coordinate systems}
-We now apply the preceding results to changes of coordinates in Euclidean space. Let $(x_1, \ldots, x_n)$ denote Cartesian coordinates with respect to an orthonormal basis $\{\mathbf{e}_1, \ldots, \mathbf{e}_n\}$. A new coordinate system $(u_1, \ldots, u_n)$ is defined by specifying smooth, invertible functions relating the two sets of coordinates.
+
+\begin{defi}[Curvilinear coordinates]
+  Let $(x_1, \ldots, x_n)$ denote Cartesian coordinates in $\R^n$ with respect to an orthonormal basis $\{\mathbf{e}_1, \ldots, \mathbf{e}_n\}$. A \emph{curvilinear coordinate system} $(u_1, \ldots, u_n)$ is defined by specifying smooth, invertible functions relating the two sets of coordinates.
+\end{defi}
 
 \begin{eg}[Plane polar coordinates]
   In two dimensions, \emph{plane polar coordinates} $(\rho, \varphi)$ are defined by
@@ -358,51 +370,56 @@ We now apply the preceding results to changes of coordinates in Euclidean space.
   where $\rho \geq 0$ is the radial distance from the origin and $\varphi \in [0, 2\pi)$ is the angle measured from the positive $x_1$-axis.
 \end{eg}
 
-It is important to note that the coordinates $\rho$ and $\varphi$ are not the components of the position vector in any basis; that is, we do not have $\mathbf{r} = \rho\,\mathbf{e}_\rho + \varphi\,\mathbf{e}_\varphi$ in the same way that $\mathbf{r} = x_1\mathbf{e}_1 + x_2\mathbf{e}_2$. Nevertheless, we can define associated basis vectors that point in the directions of increasing $\rho$ and $\varphi$, obtained by differentiating the position vector with respect to each coordinate and normalizing:
-\[
-  \mathbf{e}_\rho = \cos \varphi\, \mathbf{e}_1 + \sin \varphi\, \mathbf{e}_2,\quad \mathbf{e}_\varphi = -\sin \varphi\, \mathbf{e}_1 + \cos \varphi\, \mathbf{e}_2.
-\]
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (4, 0) node [right] {$\mathbf{e}_1$};
-    \draw [->] (0, 0) -- (0, 3) node [above] {$\mathbf{e}_2$};
-    \draw (0, 0) -- (2, 1.5) node [circ]{} node [pos = 0.5, anchor = south east] {$\rho$};
-    \draw [->] (2, 1.5) -- (2.5, 1.875) node [anchor = south west] {$\mathbf{e}_\rho$};
-    \draw [->] (2, 1.5) -- (1.625, 2) node [anchor = south east] {$\mathbf{e}_\varphi$};
-    \draw (0.7, 0) arc (0:36.87:0.7);
-    \node at (0.9, 0.3) {$\varphi$};
-  \end{tikzpicture}
-\end{center}
-\begin{rmk}
+\begin{rmk}[Basis vectors for curvilinear coordinates]
+  The coordinates $\rho$ and $\varphi$ are not the components of the position vector in any basis; that is, we do not have $\mathbf{r} = \rho\,\mathbf{e}_\rho + \varphi\,\mathbf{e}_\varphi$ in the same way that $\mathbf{r} = x_1\mathbf{e}_1 + x_2\mathbf{e}_2$. Nevertheless, we can define associated basis vectors that point in the directions of increasing $\rho$ and $\varphi$, obtained by differentiating the position vector with respect to each coordinate and normalizing:
+  \[
+    \mathbf{e}_\rho = \cos \varphi\, \mathbf{e}_1 + \sin \varphi\, \mathbf{e}_2,\quad \mathbf{e}_\varphi = -\sin \varphi\, \mathbf{e}_1 + \cos \varphi\, \mathbf{e}_2.
+  \]
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (4, 0) node [right] {$\mathbf{e}_1$};
+      \draw [->] (0, 0) -- (0, 3) node [above] {$\mathbf{e}_2$};
+      \draw (0, 0) -- (2, 1.5) node [circ]{} node [pos = 0.5, anchor = south east] {$\rho$};
+      \draw [->] (2, 1.5) -- (2.5, 1.875) node [anchor = south west] {$\mathbf{e}_\rho$};
+      \draw [->] (2, 1.5) -- (1.625, 2) node [anchor = south east] {$\mathbf{e}_\varphi$};
+      \draw (0.7, 0) arc (0:36.87:0.7);
+      \node at (0.9, 0.3) {$\varphi$};
+    \end{tikzpicture}
+  \end{center}
   Unlike the Cartesian basis vectors $\mathbf{e}_1, \mathbf{e}_2$, the polar basis vectors $\mathbf{e}_\rho, \mathbf{e}_\varphi$ vary with position and are undefined at the origin. Despite this, they are extremely useful for problems with rotational symmetry.
 \end{rmk}
 
-In three dimensions, the most commonly used curvilinear coordinate systems are cylindrical polar coordinates and spherical polar coordinates.
-\begin{center}
-  \begin{tabularx}{\textwidth}{XX}
-    \toprule
-    \multicolumn{1}{c}{Cylindrical polars} & \multicolumn{1}{c}{Spherical polars}\\
-    \midrule
-    \multicolumn{2}{c}{Conversion formulae}\\
-    \midrule
-    $x_1 = \rho \cos \varphi$ & $x_1 = r\sin \theta\cos \varphi$\\
-    $x_2 = \rho \sin \varphi$ & $x_2 = r\sin \theta \sin \varphi$\\
-    $x_3 = z$ & $x_3 = r\cos\theta$\\
-    \midrule
-    \multicolumn{2}{c}{Basis vectors}\\
-    \midrule
-    $\mathbf{e}_\rho = (\cos\varphi, \sin \varphi, 0)$ & $\mathbf{e}_r = (\sin\theta\cos\varphi, \sin \theta\sin \varphi , \cos \theta)$\\
-    $\mathbf{e}_\varphi = (-\sin \varphi, \cos \varphi, 0)$ & $\mathbf{e}_\varphi = (-\sin \varphi, \cos \varphi, 0)$\\
-    $\mathbf{e}_z = (0, 0, 1)$ & $\mathbf{e}_\theta = (\cos \theta\cos \varphi, \cos\theta\sin\varphi, -\sin \theta)$\\
-    \bottomrule
-  \end{tabularx}
-\end{center}
+\begin{eg}[Cylindrical and spherical polar coordinates]
+  In three dimensions, the most commonly used curvilinear coordinate systems are \emph{cylindrical polar coordinates} $(\rho, \varphi, z)$ and \emph{spherical polar coordinates} $(r, \theta, \varphi)$. Their conversion formulae and associated basis vectors are as follows.
+  \begin{center}
+    \begin{tabularx}{\textwidth}{XX}
+      \toprule
+      \multicolumn{1}{c}{Cylindrical polars} & \multicolumn{1}{c}{Spherical polars}\\
+      \midrule
+      \multicolumn{2}{c}{Conversion formulae}\\
+      \midrule
+      $x_1 = \rho \cos \varphi$ & $x_1 = r\sin \theta\cos \varphi$\\
+      $x_2 = \rho \sin \varphi$ & $x_2 = r\sin \theta \sin \varphi$\\
+      $x_3 = z$ & $x_3 = r\cos\theta$\\
+      \midrule
+      \multicolumn{2}{c}{Basis vectors}\\
+      \midrule
+      $\mathbf{e}_\rho = (\cos\varphi, \sin \varphi, 0)$ & $\mathbf{e}_r = (\sin\theta\cos\varphi, \sin \theta\sin \varphi , \cos \theta)$\\
+      $\mathbf{e}_\varphi = (-\sin \varphi, \cos \varphi, 0)$ & $\mathbf{e}_\varphi = (-\sin \varphi, \cos \varphi, 0)$\\
+      $\mathbf{e}_z = (0, 0, 1)$ & $\mathbf{e}_\theta = (\cos \theta\cos \varphi, \cos\theta\sin\varphi, -\sin \theta)$\\
+      \bottomrule
+    \end{tabularx}
+  \end{center}
+\end{eg}
 
 \section{Curves and Line}
 \subsection{Parametrised curves, lengths and arc length}
-A curve in $\R^n$ can be described in several ways. One approach is to specify an equation that points on the curve satisfy; for example, a circle can be described by $x^2 + y^2 = 1$. However, this implicit description is often difficult to work with computationally, and for many curves no simple closed-form equation exists.
 
-A more practical approach is to describe a curve parametrically, as the trajectory of a point moving through space. Formally, a curve is represented by a function $\mathbf{r}: D \to \R^n$, where $D \subseteq \R$ is an interval, and the curve itself is the image of this function. This parametric description has the additional benefit of assigning an \emph{orientation} to the curve, corresponding to the direction of increasing parameter.
+\begin{rmk}[Motivation]
+  A curve in $\R^n$ can be described in several ways. One approach is to specify an equation that points on the curve satisfy; for example, a circle can be described by $x^2 + y^2 = 1$. However, this implicit description is often difficult to work with computationally, and for many curves no simple closed-form equation exists.
+
+  A more practical approach is to describe a curve parametrically, as the trajectory of a point moving through space. This parametric description has the additional benefit of assigning an \emph{orientation} to the curve, corresponding to the direction of increasing parameter.
+\end{rmk}
 
 \begin{defi}[Parametrisation of curve]
   Let $C$ be a curve in $\R^n$. A \emph{parametrisation} of $C$ is a continuous, piecewise differentiable, and invertible function $\mathbf{r}: D \to \R^n$, where $D \subseteq \R$ is an interval, such that the image of $\mathbf{r}$ is $C$.
@@ -411,18 +428,16 @@ A more practical approach is to describe a curve parametrically, as the trajecto
 \end{defi}
 
 \begin{rmk}
-  A given curve admits infinitely many parametrisations. For instance, if $\mathbf{r}(u)$ parametrises $C$, then so does $\mathbf{r}(\phi(v))$ for any smooth, invertible function $\phi$.
+  A given curve admits infinitely many parametrisations. For instance, if $\mathbf{r}(u)$ parametrises $C$, then so does $\mathbf{r}(\phi(v))$ for any smooth, invertible function $\phi: D' \to D$.
 \end{rmk}
 
-\begin{eg}[Ellipse parametrization]
+\begin{eg}[Ellipse parametrisation]
   Consider the upper half of an ellipse lying in the plane $z = 3$:
   \[
     \frac{x^2}{4} + y^2 = 1, \quad y \geq 0, \quad z = 3.
   \]
   This curve can be parametrised by $\mathbf{r}(u) = 2\cos u\,\hat{\mathbf{i}} + \sin u\,\hat{\mathbf{j}} + 3\hat{\mathbf{k}}$ for $u \in [0, \pi]$.
 \end{eg}
-
-We now consider the relationship between a parametrisation and the arc length along a curve. If we change the parameter $u$ by a small amount $\delta u$, the position changes by $\delta \mathbf{r} = \mathbf{r}'(u)\delta u + o(\delta u)$. The corresponding change in arc length is approximately $\delta s \approx |\delta \mathbf{r}|$. This leads to the following result.
 
 \begin{prop}[Arclength derivative]
   Let $\mathbf{r}(u)$ be a regular parametrisation of a curve $C$, and let $s(u)$ denote the arc length measured along $C$ from some fixed reference point. Then
@@ -432,8 +447,12 @@ We now consider the relationship between a parametrisation and the arc length al
   where the sign is positive if $s$ increases with $u$ (i.e., arc length is measured in the direction of the parametrisation) and negative otherwise.
 \end{prop}
 
+\begin{proof}
+  A small change $\delta u$ in the parameter produces a change $\delta \mathbf{r} = \mathbf{r}'(u)\delta u + o(\delta u)$ in the position. The corresponding change in arc length is $\delta s = |\delta \mathbf{r}| = |\mathbf{r}'(u)|\,|\delta u| + o(\delta u)$. Dividing by $\delta u$ and taking the limit gives the result, with the sign determined by whether $s$ and $u$ increase in the same direction.
+\end{proof}
+
 \begin{eg}[Helix arclength]
-  Consider a helix described by $\mathbf{r}(u) = (3\cos u, 3\sin u, 4u)$ for $u \geq 0$. The tangent vector is
+  Consider a helix in $\R^3$ described by $\mathbf{r}(u) = (3\cos u, 3\sin u, 4u)$ for $u \geq 0$. The tangent vector is
   \[
     \mathbf{r}'(u) = (-3\sin u, 3\cos u, 4),
   \]
@@ -441,7 +460,7 @@ We now consider the relationship between a parametrisation and the arc length al
   \[
     |\mathbf{r}'(u)| = \sqrt{9\sin^2 u + 9\cos^2 u + 16} = \sqrt{9 + 16} = 5.
   \]
-  Thus, $\frac{\d s}{\d u} = 5$, and the arc length from $\mathbf{r}(0)$ to $\mathbf{r}(u)$ is $s = 5u$.
+  Thus $\frac{\d s}{\d u} = 5$, and the arc length from $\mathbf{r}(0)$ to $\mathbf{r}(u)$ is $s = 5u$.
 \end{eg}
 
 \begin{rmk}[Reparametrisation]
@@ -449,12 +468,11 @@ We now consider the relationship between a parametrisation and the arc length al
   \[
     \frac{\d \mathbf{r}}{\d \tilde{u}} = \frac{\d \mathbf{r}}{\d u} \cdot \frac{\d u}{\d \tilde{u}}.
   \]
+  A particularly convenient choice is to use the arc length $s$ itself as the parameter. In this case, the tangent vector has unit length, since by the arclength derivative proposition,
+  \[
+    |\mathbf{r}'(s)| = \left|\frac{\d \mathbf{r}}{\d s}\right| = 1.
+  \]
 \end{rmk}
-
-A particularly convenient choice is to use the arc length $s$ itself as the parameter. In this case, the tangent vector has unit length, since by the previous proposition,
-\[
-  |\mathbf{r}'(s)| = \left|\frac{\d \mathbf{r}}{\d s}\right| = 1.
-\]
 
 \begin{defi}[Scalar line element]
   The \emph{scalar line element} of a curve $C$ is the infinitesimal arc length $\d s$. For a curve parametrised by $\mathbf{r}(u)$, we have
@@ -463,7 +481,6 @@ A particularly convenient choice is to use the arc length $s$ itself as the para
   \]
 \end{defi}
 \subsection{Line integrals of vector fields}
-We now define the integral of a vector field along a curve, which measures the cumulative effect of the field along the path.
 
 \begin{defi}[Line integral]
   Let $\mathbf{F}: \R^n \to \R^n$ be a continuous vector field and let $C$ be a curve parametrised by $\mathbf{r}: [\alpha, \beta] \to \R^n$. The \emph{line integral} of $\mathbf{F}$ along $C$ in the direction from $\mathbf{r}(\alpha)$ to $\mathbf{r}(\beta)$ is
@@ -480,8 +497,8 @@ We now define the integral of a vector field along a curve, which measures the c
   \]
 \end{rmk}
 
-\begin{eg}[Line integral, three paths]
-  Take $\mathbf{F}(\mathbf{r}) = (xe^y, z^2, xy)$ and we want to find the line integral from $\mathbf{a}=(0, 0, 0)$ to $\mathbf{b}=(1, 1, 1)$.
+\begin{eg}[Path dependence of line integrals]
+  Let $\mathbf{F}(\mathbf{r}) = (xe^y, z^2, xy)$ and consider the line integral of $\mathbf{F}$ from $\mathbf{a}=(0, 0, 0)$ to $\mathbf{b}=(1, 1, 1)$ along two different paths.
   \begin{center}
     \begin{tikzpicture}
       \node [circ] {};
@@ -493,20 +510,16 @@ We now define the integral of a vector field along a curve, which measures the c
       \draw [->-=0.6] (0, 0) -- (2, 2) node [pos = 0.5, anchor = south east] {$C_2$};
     \end{tikzpicture}
   \end{center}
-  We first integrate along the curve $C_1: \mathbf{r}(u) = (u, u^2, u^3)$. Then $\mathbf{r}'(u) = (1, 2u, 3u^2)$, and $\mathbf{F}(\mathbf{r}(u)) = (ue^{u^2}, u^6, u^3)$. So
+  \emph{Path $C_1$}: Parametrise by $\mathbf{r}(u) = (u, u^2, u^3)$ for $u \in [0,1]$. Then $\mathbf{r}'(u) = (1, 2u, 3u^2)$ and $\mathbf{F}(\mathbf{r}(u)) = (ue^{u^2}, u^6, u^3)$, so
   \begin{align*}
-    \int_{C_1} \mathbf{F}\cdot \d\mathbf{r} &= \int_0^1 \mathbf{F}\cdot\mathbf{r}'(u)\; \d u\\
-    &= \int_0^1 ue^{u^2} + 2u^7 + 3u^5\;\d u\\
-    &= \frac{e}{2} -\frac{1}{2} + \frac{1}{4} + \frac{1}{2}\\
-    &= \frac{e}{2} + \frac{1}{4}
+    \int_{C_1} \mathbf{F}\cdot \d\mathbf{r} &= \int_0^1 \mathbf{F}\cdot\mathbf{r}'(u)\; \d u = \int_0^1 ue^{u^2} + 2u^7 + 3u^5\;\d u\\
+    &= \frac{e}{2} -\frac{1}{2} + \frac{1}{4} + \frac{1}{2} = \frac{e}{2} + \frac{1}{4}.
   \end{align*}
-  Now we try to integrate along another curve $C_2: \mathbf{r}(t) = (t, t, t)$. So $\mathbf{r}'(t) = (1,1, 1)$.
+  \emph{Path $C_2$}: Parametrise by $\mathbf{r}(t) = (t, t, t)$ for $t \in [0,1]$. Then $\mathbf{r}'(t) = (1, 1, 1)$ and $\mathbf{F}(\mathbf{r}(t)) = (te^{t}, t^2, t^2)$, so
   \begin{align*}
-    \int_{C_2} \mathbf{F}\cdot \d \mathbf{r} &= \int \mathbf{F}\cdot \mathbf{r}'(t)\d t\\
-    &= \int_0^1 te^t + 2t^2\; \d t\\
-    &= \frac{5}{3}.
+    \int_{C_2} \mathbf{F}\cdot \d \mathbf{r} &= \int_0^1 te^t + 2t^2\; \d t = \frac{5}{3}.
   \end{align*}
-  We see that the line integral depends on the curve $C$ in general, not just $\mathbf{a}, \mathbf{b}$.
+  Since the two integrals differ, the line integral of $\mathbf{F}$ depends on the path, not just the endpoints $\mathbf{a}$ and $\mathbf{b}$.
 \end{eg}
 
 \begin{rmk}[Arclength parametrisation]
@@ -531,17 +544,16 @@ We now define the integral of a vector field along a curve, which measures the c
   A \emph{closed curve} is a curve whose start and end points coincide. The line integral of a vector field $\mathbf{F}$ around a closed curve $C$ is often written as $\oint_C \mathbf{F} \cdot \d\mathbf{r}$ and is called the \emph{circulation} of $\mathbf{F}$ around $C$.
 \end{defi}
 
-Many curves arising in applications are not smooth everywhere; for example, a polygonal path has corners where the tangent vector is undefined. Such curves can often be decomposed into finitely many smooth pieces.
-
 \begin{defi}[Piecewise smooth curve]
-  A \emph{piecewise smooth curve} is a curve $C = C_1 + C_2 + \cdots + C_n$ with all $C_i$ smooth with regular parametrisations. The line integral over a piecewise smooth $C$ is
+  A \emph{piecewise smooth curve} is a curve $C = C_1 + C_2 + \cdots + C_n$ where each $C_i$ is smooth with a regular parametrisation. The line integral over a piecewise smooth curve $C$ is
   \[
     \int_C \mathbf{F}\cdot \d \mathbf{r} = \int_{C_1} \mathbf{F}\cdot \d \mathbf{r} + \int_{C_2} \mathbf{F}\cdot \d \mathbf{r} + \cdots + \int_{C_n} \mathbf{F}\cdot \d \mathbf{r}.
   \]
+  If $C$ is a curve traversed from $\mathbf{a}$ to $\mathbf{b}$, we write $-C$ for the same curve traversed in the opposite direction, from $\mathbf{b}$ to $\mathbf{a}$.
 \end{defi}
 
 \begin{eg}[Piecewise smooth closed curve]
-  Take the example above, and let $C_3 = -C_2$. Then $C = C_1 + C_3$ is piecewise smooth but not smooth. Then
+  Continuing the previous example, let $C_3 = -C_2$ denote the straight-line path from $\mathbf{b}$ to $\mathbf{a}$. Then $C = C_1 + C_3$ is a piecewise smooth closed curve, and
   \begin{align*}
     \oint _C \mathbf{F}\cdot \d \mathbf{r} &= \int_{C_1} \mathbf{F}\cdot \d \mathbf{r} + \int_{C_3} \mathbf{F}\cdot \d \mathbf{r}\\
     &= \left(\frac{e}{2} + \frac{1}{4}\right) - \frac{5}{3}\\
