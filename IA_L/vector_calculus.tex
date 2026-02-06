@@ -414,9 +414,12 @@ Note that throughout the course (and lecture notes), summation convention is imp
 
 \section{Curves and Line}
 \subsection{Parametrised curves, lengths and arc length}
-A curve in $\R^n$ can be described in several ways. One approach is to specify an equation that points on the curve satisfy; for example, a circle can be described by $x^2 + y^2 = 1$. However, this implicit description is often difficult to work with computationally, and for many curves no simple closed-form equation exists.
 
-A more practical approach is to describe a curve parametrically, as the trajectory of a point moving through space. Formally, a curve is represented by a function $\mathbf{r}: D \to \R^n$, where $D \subseteq \R$ is an interval, and the curve itself is the image of this function. This parametric description has the additional benefit of assigning an \emph{orientation} to the curve, corresponding to the direction of increasing parameter.
+\begin{rmk}[Motivation]
+  A curve in $\R^n$ can be described in several ways. One approach is to specify an equation that points on the curve satisfy; for example, a circle can be described by $x^2 + y^2 = 1$. However, this implicit description is often difficult to work with computationally, and for many curves no simple closed-form equation exists.
+
+  A more practical approach is to describe a curve parametrically, as the trajectory of a point moving through space. This parametric description has the additional benefit of assigning an \emph{orientation} to the curve, corresponding to the direction of increasing parameter.
+\end{rmk}
 
 \begin{defi}[Parametrisation of curve]
   Let $C$ be a curve in $\R^n$. A \emph{parametrisation} of $C$ is a continuous, piecewise differentiable, and invertible function $\mathbf{r}: D \to \R^n$, where $D \subseteq \R$ is an interval, such that the image of $\mathbf{r}$ is $C$.
@@ -425,18 +428,16 @@ A more practical approach is to describe a curve parametrically, as the trajecto
 \end{defi}
 
 \begin{rmk}
-  A given curve admits infinitely many parametrisations. For instance, if $\mathbf{r}(u)$ parametrises $C$, then so does $\mathbf{r}(\phi(v))$ for any smooth, invertible function $\phi$.
+  A given curve admits infinitely many parametrisations. For instance, if $\mathbf{r}(u)$ parametrises $C$, then so does $\mathbf{r}(\phi(v))$ for any smooth, invertible function $\phi: D' \to D$.
 \end{rmk}
 
-\begin{eg}[Ellipse parametrization]
+\begin{eg}[Ellipse parametrisation]
   Consider the upper half of an ellipse lying in the plane $z = 3$:
   \[
     \frac{x^2}{4} + y^2 = 1, \quad y \geq 0, \quad z = 3.
   \]
   This curve can be parametrised by $\mathbf{r}(u) = 2\cos u\,\hat{\mathbf{i}} + \sin u\,\hat{\mathbf{j}} + 3\hat{\mathbf{k}}$ for $u \in [0, \pi]$.
 \end{eg}
-
-We now consider the relationship between a parametrisation and the arc length along a curve. If we change the parameter $u$ by a small amount $\delta u$, the position changes by $\delta \mathbf{r} = \mathbf{r}'(u)\delta u + o(\delta u)$. The corresponding change in arc length is approximately $\delta s \approx |\delta \mathbf{r}|$. This leads to the following result.
 
 \begin{prop}[Arclength derivative]
   Let $\mathbf{r}(u)$ be a regular parametrisation of a curve $C$, and let $s(u)$ denote the arc length measured along $C$ from some fixed reference point. Then
@@ -446,8 +447,12 @@ We now consider the relationship between a parametrisation and the arc length al
   where the sign is positive if $s$ increases with $u$ (i.e., arc length is measured in the direction of the parametrisation) and negative otherwise.
 \end{prop}
 
+\begin{proof}
+  A small change $\delta u$ in the parameter produces a change $\delta \mathbf{r} = \mathbf{r}'(u)\delta u + o(\delta u)$ in the position. The corresponding change in arc length is $\delta s = |\delta \mathbf{r}| = |\mathbf{r}'(u)|\,|\delta u| + o(\delta u)$. Dividing by $\delta u$ and taking the limit gives the result, with the sign determined by whether $s$ and $u$ increase in the same direction.
+\end{proof}
+
 \begin{eg}[Helix arclength]
-  Consider a helix described by $\mathbf{r}(u) = (3\cos u, 3\sin u, 4u)$ for $u \geq 0$. The tangent vector is
+  Consider a helix in $\R^3$ described by $\mathbf{r}(u) = (3\cos u, 3\sin u, 4u)$ for $u \geq 0$. The tangent vector is
   \[
     \mathbf{r}'(u) = (-3\sin u, 3\cos u, 4),
   \]
@@ -455,7 +460,7 @@ We now consider the relationship between a parametrisation and the arc length al
   \[
     |\mathbf{r}'(u)| = \sqrt{9\sin^2 u + 9\cos^2 u + 16} = \sqrt{9 + 16} = 5.
   \]
-  Thus, $\frac{\d s}{\d u} = 5$, and the arc length from $\mathbf{r}(0)$ to $\mathbf{r}(u)$ is $s = 5u$.
+  Thus $\frac{\d s}{\d u} = 5$, and the arc length from $\mathbf{r}(0)$ to $\mathbf{r}(u)$ is $s = 5u$.
 \end{eg}
 
 \begin{rmk}[Reparametrisation]
@@ -463,12 +468,11 @@ We now consider the relationship between a parametrisation and the arc length al
   \[
     \frac{\d \mathbf{r}}{\d \tilde{u}} = \frac{\d \mathbf{r}}{\d u} \cdot \frac{\d u}{\d \tilde{u}}.
   \]
+  A particularly convenient choice is to use the arc length $s$ itself as the parameter. In this case, the tangent vector has unit length, since by the arclength derivative proposition,
+  \[
+    |\mathbf{r}'(s)| = \left|\frac{\d \mathbf{r}}{\d s}\right| = 1.
+  \]
 \end{rmk}
-
-A particularly convenient choice is to use the arc length $s$ itself as the parameter. In this case, the tangent vector has unit length, since by the previous proposition,
-\[
-  |\mathbf{r}'(s)| = \left|\frac{\d \mathbf{r}}{\d s}\right| = 1.
-\]
 
 \begin{defi}[Scalar line element]
   The \emph{scalar line element} of a curve $C$ is the infinitesimal arc length $\d s$. For a curve parametrised by $\mathbf{r}(u)$, we have
