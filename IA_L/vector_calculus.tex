@@ -3416,17 +3416,19 @@ The sum is again a tensor, since $(T + S)_{ij}' = R_{ip}R_{jq}(T_{pq} + S_{pq})$
 
 \subsection{Tensor calculus}
 \subsubsection*{Tensor fields and derivatives}
+
 \begin{defi}[Tensor field]
   A \emph{tensor field} assigns a tensor $T_{ij\cdots k}(\mathbf{x})$ to each point $\mathbf{x}$ in space.
 \end{defi}
 
-Assuming sufficient smoothness, tensor fields can be differentiated:
 \begin{prop}[Tensor field derivative rank]
+  Let $T_{ij\cdots k}(\mathbf{x})$ be a smooth tensor field of rank $n$. Then
   \[
-    \underbrace{\frac{\partial}{\partial x_p}\cdots \frac{\partial}{\partial x_q}}_{m}T_{\underbrace{ij\cdots k}_n},\tag{$*$}
+    \underbrace{\frac{\partial}{\partial x_p}\cdots \frac{\partial}{\partial x_q}}_{m}T_{\underbrace{ij\cdots k}_n}\tag{$*$}
   \]
   is a tensor of rank $n + m$.
 \end{prop}
+
 \begin{proof}
   It suffices to show that $\frac{\partial}{\partial x_p}$ transforms as a rank-1 tensor. Since $x_i' = R_{iq}x_q$, we have $\frac{\partial x_q}{\partial x_i'} = R_{iq}$. By the chain rule,
   \[
@@ -3434,20 +3436,22 @@ Assuming sufficient smoothness, tensor fields can be differentiated:
   \]
   Thus $\frac{\partial}{\partial x_p}$ obeys the vector transformation rule, and the result follows by the same argument as for tensor products.
 \end{proof}
+
 \subsubsection*{Integrals and the tensor divergence theorem}
-Tensor-valued integrals are defined component-wise. For a tensor field $T_{ij\cdots k}(\mathbf{x})$, the integral $\int_V T_{ij\cdots k}\,\d V$ is a tensor of the same rank.
+
+\begin{defi}[Tensor-valued integral]
+  Tensor-valued integrals are defined componentwise. For a tensor field $T_{ij\cdots k}(\mathbf{x})$ of rank $n$, the integral $\int_V T_{ij\cdots k}\,\d V$ is a tensor of the same rank.
+\end{defi}
 
 \begin{eg}[Momentum flux tensor]
-  For a fluid with velocity $\mathbf{u}(\mathbf{x})$ and density $\rho$, the flux of the $i$th component of momentum through a surface element is $\rho u_i u_j n_j \,\delta S = T_{ij}n_j \,\delta S$, where $T_{ij} = \rho u_iu_j$ is the momentum flux tensor.
+  For a fluid with velocity field $\mathbf{u}(\mathbf{x})$ and density $\rho$, the flux of the $i$th component of momentum through a surface element is $\rho u_i u_j n_j \,\delta S = T_{ij}n_j \,\delta S$, where $T_{ij} = \rho u_iu_j$ is the momentum flux tensor.
 \end{eg}
 
-The divergence theorem generalizes to tensor fields. Let $V$ be a volume bounded by surface $S = \partial V$, and let $T_{ij\cdots k\ell}$ be a smooth tensor field.
-
 \begin{thm}[Divergence theorem for tensors]
+  Let $V$ be a volume in $\R^3$ bounded by a surface $S = \partial V$ with outward unit normal $\mathbf{n}$, and let $T_{ij\cdots k\ell}(\mathbf{x})$ be a smooth tensor field. Then
   \[
-    \int_S T_{ij\cdots k\ell}n_\ell\;\d S = \int_V \frac{\partial}{\partial x_\ell}(T_{ij\cdots k\ell})\;\d V,
+    \int_S T_{ij\cdots k\ell}\,n_\ell\;\d S = \int_V \frac{\partial}{\partial x_\ell}(T_{ij\cdots k\ell})\;\d V.
   \]
-  where $\mathbf{n}$ is the outward unit normal.
 \end{thm}
 
 \begin{rmk}
@@ -3455,9 +3459,7 @@ The divergence theorem generalizes to tensor fields. Let $V$ be a volume bounded
 \end{rmk}
 
 \begin{proof}
-  Apply the usual divergence theorem to the vector field $\mathbf{v}$ defined by $v_\ell = a_i b_j \cdots c_k T_{ij\cdots k\ell}$, where $\mathbf{a}, \mathbf{b}, \cdots, \mathbf{c}$ are fixed constant vectors.
-
-  Then
+  Apply the usual divergence theorem to the vector field $\mathbf{v}$ defined by $v_\ell = a_i b_j \cdots c_k T_{ij\cdots k\ell}$, where $\mathbf{a}, \mathbf{b}, \ldots, \mathbf{c}$ are fixed constant vectors. Then
   \[
     \nabla\cdot \mathbf{v} = \frac{\partial v_\ell}{\partial x_\ell} = a_i b_j \cdots c_k \frac{\partial}{\partial x_\ell}T_{ij\cdots k\ell},
   \]
@@ -3465,7 +3467,7 @@ The divergence theorem generalizes to tensor fields. Let $V$ be a volume bounded
   \[
     \mathbf{n}\cdot \mathbf{v} = n_\ell v_\ell = a_i b_j \cdots c_k T_{ij\cdots k\ell }n_\ell.
   \]
-  Since $\mathbf{a}, \mathbf{b}, \cdots, \mathbf{c}$ are arbitrary, therefore they can be eliminated, and the tensor divergence theorem follows.
+  Since $\mathbf{a}, \mathbf{b}, \ldots, \mathbf{c}$ are arbitrary, they can be eliminated, and the tensor divergence theorem follows.
 \end{proof}
 \section{Tensors of rank 2}
 \subsection{Decomposition of a second-rank tensor}
