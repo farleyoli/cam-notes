@@ -3342,66 +3342,75 @@ The sum is again a tensor, since $(T + S)_{ij}' = R_{ip}R_{jq}(T_{pq} + S_{pq})$
 
 \subsection{Tensors, multi-linear maps and the quotient rule}
 \subsubsection*{Tensors as multi-linear maps}
-Just as matrices correspond to linear maps, tensors correspond to multi-linear maps.
 
 \begin{defi}[Multilinear map]
-  A map $T$ that maps $n$ vectors $\mathbf{a}, \mathbf{b}, \cdots, \mathbf{c}$ to $\R$ is multi-linear if it is linear in each of the vectors $\mathbf{a}, \mathbf{b}, \cdots, \mathbf{c}$ individually.
+  A map $T: \underbrace{\R^3 \times \cdots \times \R^3}_{n} \to \R$ is \emph{multi-linear} if it is linear in each argument separately, i.e.\ for each $k = 1, \ldots, n$ and all scalars $\lambda, \mu$,
+  \[
+    T(\ldots, \lambda\mathbf{u} + \mu\mathbf{v}, \ldots) = \lambda\, T(\ldots, \mathbf{u}, \ldots) + \mu\, T(\ldots, \mathbf{v}, \ldots),
+  \]
+  where linearity is in the $k$th argument with all other arguments held fixed.
 \end{defi}
 
-We will show that a tensor $T$ of rank $n$ is a equivalent to a multi-linear map from $n$ vectors $\mathbf{a}, \mathbf{b}, \cdots, \mathbf{c}$ to $\R$ defined by
-\[
-  T(\mathbf{a}, \mathbf{b}, \cdots, \mathbf{c}) = T_{ij \cdots k} a_ib_j\cdots c_k.
-\]
-To show that tensors are \emph{equivalent} to multi-linear maps, we have to show the following:
-\begin{enumerate}
-  \item Defining a map with a tensor makes sense, i.e.\ the expression $T_{ij\cdots k}a_ib_j\cdots c_k$ is the same regardless of the basis chosen;
-  \item While it is always possible to write a multi-linear map as $T_{ij \cdots k} a_ib_j\cdots c_k$, we have to show that $T_{ij\cdots k}$ is indeed a tensor, i.e.\ transform according to the tensor transformation rules.
-\end{enumerate}
+\begin{thm}[Tensors are multilinear maps]
+  There is a one-to-one correspondence between rank-$n$ tensors and multi-linear maps from $n$ vectors to $\R$. Explicitly, a rank-$n$ tensor $T_{ij\cdots k}$ defines a multi-linear map by
+  \[
+    T(\mathbf{a}, \mathbf{b}, \ldots, \mathbf{c}) = T_{ij \cdots k}\, a_i\, b_j\cdots c_k,
+  \]
+  and conversely every multi-linear map arises in this way.
+\end{thm}
 
-To show the first property, just note that the $T_{ij \cdots k} a_ib_j\cdots c_k$ is a tensor product (followed by contraction), which retains tensor-ness. So it is also a tensor. In particular, it is a rank 0 tensor, i.e.\ a scalar, which is independent of the basis.
+\begin{proof}
+  We must show two things.
 
-To show the second property, assuming that $T$ is a multi-linear map, it must be independent of the basis, so
-\[
-  T_{ij \cdots k} a_ib_j\cdots c_k = T_{ij\cdots k}' a_i' b_j' \cdots c_k'.
-\]
-Since $v_p' = R_{pi}v_i$ by tensor transformation rules, multiplying both sides by $R_{pi}$ gives $v_i = R_{pi} v_p'$. Substituting in gives
-\[
-  T_{ij\cdots k} (R_{pi}a_p')(R_{qj}b_q')\cdots (R_{kr}c_r') = T_{pq\cdots r}' a_p' b_q' \cdots c_r'.
-\]
-Since this is true for all $\mathbf{a}, \mathbf{b}, \cdots \mathbf{c}$, we must have
-\[
-  T_{ij\cdots k}R_{pi}R_{qj}\cdots R_{rk} = T'_{pq\cdots r}
-\]
-Hence $T_{ij\cdots k}$ obeys the tensor transformation rule, and is a tensor.
+  \emph{(i) A tensor defines a well-defined multi-linear map.} The expression $T_{ij\cdots k}\,a_i\,b_j\cdots c_k$ is obtained from the tensor product of $T_{ij\cdots k}$ with $a_i$, $b_j$, \ldots, $c_k$, followed by contraction. Since tensor products and contractions preserve tensor-ness, the result is a rank-0 tensor, i.e.\ a scalar, which is independent of the basis chosen. Multi-linearity is immediate from the summation convention.
+
+  \emph{(ii) A multi-linear map determines a tensor.} Given a multi-linear map $T$, define $T_{ij\cdots k} = T(\mathbf{e}_i, \mathbf{e}_j, \ldots, \mathbf{e}_k)$ in any basis $\{\mathbf{e}_i\}$. We must show that $T_{ij\cdots k}$ obeys the tensor transformation rule. Since $T$ is a map independent of the basis, we have
+  \[
+    T_{ij \cdots k}\, a_i\, b_j\cdots c_k = T_{ij\cdots k}'\, a_i'\, b_j' \cdots c_k'.
+  \]
+  Since $a_i = R_{pi} a_p'$ (inverting the transformation rule $a_p' = R_{pi}a_i$), substituting gives
+  \[
+    T_{ij\cdots k}\, (R_{pi}a_p')\,(R_{qj}b_q')\cdots (R_{rk}c_r') = T_{pq\cdots r}'\, a_p'\, b_q' \cdots c_r'.
+  \]
+  Since this holds for all vectors $\mathbf{a}, \mathbf{b}, \ldots, \mathbf{c}$, we conclude
+  \[
+    T'_{pq\cdots r} = R_{pi}\,R_{qj}\cdots R_{rk}\, T_{ij\cdots k},
+  \]
+  which is the tensor transformation rule.
+\end{proof}
 
 \begin{rmk}
-  This establishes a one-to-one correspondence between rank-$n$ tensors and multi-linear maps from $n$ vectors to $\R$. This viewpoint defines tensors independently of any coordinate system; the transformation rule then emerges as a consequence. The same approach relates matrices to linear maps.
+  This viewpoint defines tensors independently of any coordinate system; the transformation rule then emerges as a consequence. The same approach relates matrices to linear maps.
 \end{rmk}
-\subsubsection*{The quotient rule}
-If $T_{\underbrace{i\cdots j}_n\underbrace{p\cdots q}_m}$ is a tensor of rank $n+ m$, and $u_{p\cdots q}$ is a tensor of rank $m$ then
-\[
-  v_{i\cdots j}= T_{i\cdots j p\cdots q}u_{p\cdots q}
-\]
-is a tensor of rank $n$, since it is a tensor product of $T$ and $u$, followed by contraction.
 
-The converse is also true:
-\begin{prop}[Quotient rule]
-  Suppose that $T_{i\cdots jp\cdots q}$ is an array defined in each coordinate system, and that $v_{i\cdots j} = T_{i\cdots jp\cdots q} u_{p\cdots q}$ is also a tensor for any tensor $u_{p \cdots q}$. Then $T_{i\cdots j p\cdots q}$ is also a tensor.
+\subsubsection*{The quotient rule}
+
+\begin{prop}[Contraction of tensors]
+  If $T_{i\cdots j\, p\cdots q}$ is a tensor of rank $n + m$ and $u_{p\cdots q}$ is a tensor of rank $m$, then
+  \[
+    v_{i\cdots j} = T_{i\cdots j\, p\cdots q}\, u_{p\cdots q}
+  \]
+  is a tensor of rank $n$, since it is a tensor product of $T$ and $u$ followed by contraction.
 \end{prop}
 
-Note that we have previously seen the special case of $n = m = 1$, which says that linear maps are tensors.
-\begin{proof}
-  We can check the tensor transformation rule directly. However, we can reuse the result above to save some writing.
+\begin{prop}[Quotient rule]
+  Suppose that $T_{i\cdots j\,p\cdots q}$ is an array of numbers defined in each coordinate system, and that $v_{i\cdots j} = T_{i\cdots j\,p\cdots q}\, u_{p\cdots q}$ is a tensor of rank $n$ for every tensor $u_{p \cdots q}$ of rank $m$. Then $T_{i\cdots j\, p\cdots q}$ is a tensor of rank $n + m$.
+\end{prop}
 
-  Consider the special form $u_{p \cdots q} = c_p \cdots d_q$ for any vectors $\mathbf{c}, \cdots \mathbf{d}$. By assumption,
+\begin{rmk}
+  The special case $n = m = 1$ recovers the earlier result that if $v_i = T_{ij}\,u_j$ is a vector for every vector $u_j$, then $T_{ij}$ is a rank-2 tensor. That is, linear maps are tensors.
+\end{rmk}
+
+\begin{proof}[Proof of the quotient rule]
+  Consider the special form $u_{p \cdots q} = c_p \cdots d_q$ for arbitrary vectors $\mathbf{c}, \ldots, \mathbf{d}$. By assumption,
   \[
-    v_{i\cdots j} = T_{i\cdots jp\cdots q}c_p\cdots d_q
+    v_{i\cdots j} = T_{i\cdots j\,p\cdots q}\,c_p\cdots d_q
   \]
-  is a tensor. Then
+  is a tensor. Then for any vectors $\mathbf{a}, \ldots, \mathbf{b}$,
   \[
-    v_{i\cdots j}a_i \cdots b_j = T_{i\cdots jp\cdots q}a_i\cdots b_jc_p\cdots d_q
+    v_{i\cdots j}\,a_i \cdots b_j = T_{i\cdots j\,p\cdots q}\,a_i\cdots b_j\,c_p\cdots d_q
   \]
-  is a scalar for any vectors $\mathbf{a}, \cdots, \mathbf{b}, \mathbf{c},\cdots, \mathbf{d}$. Since $T_{i\cdots jp\cdots q}a_i\cdots b_jc_p\cdots d_q$ is a scalar and hence gives the same result in every coordinate system, $T_{i\cdots jp\cdots q}$ is a multi-linear map. So $T_{i\cdots jp\cdots q}$ is a tensor.
+  is a scalar for all choices of $\mathbf{a}, \ldots, \mathbf{b}, \mathbf{c},\ldots, \mathbf{d}$. Since a scalar is basis-independent, $T_{i\cdots j\,p\cdots q}$ defines a multi-linear map. By the preceding theorem, $T_{i\cdots j\,p\cdots q}$ is a tensor.
 \end{proof}
 
 
