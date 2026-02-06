@@ -3552,30 +3552,36 @@ The sum is again a tensor, since $(T + S)_{ij}' = R_{ip}R_{jq}(T_{pq} + S_{pq})$
 \end{eg}
 
 \subsection{The inertia tensor}
-Consider point masses $m_\alpha$ at positions $\mathbf{r}_\alpha$, rotating with angular velocity $\boldsymbol\omega$ about the origin. The velocities are $\mathbf{v}_\alpha = \boldsymbol\omega\times \mathbf{r}_\alpha$, and the total angular momentum is
-\begin{align*}
-  \mathbf{L} &= \sum_{\alpha} m_\alpha \mathbf{r}_\alpha \times \mathbf{v}_\alpha = \sum_\alpha m_\alpha \mathbf{r}_\alpha \times (\boldsymbol\omega\times \mathbf{r}_\alpha)\\
-  &= \sum_\alpha m_\alpha( |\mathbf{r}_\alpha|^2\boldsymbol\omega - (\mathbf{r}_\alpha \cdot \boldsymbol\omega)\mathbf{r}_\alpha),
-\end{align*}
-using the vector identity $\mathbf{a}\times(\mathbf{b}\times\mathbf{a}) = |\mathbf{a}|^2\mathbf{b} - (\mathbf{a}\cdot\mathbf{b})\mathbf{a}$. In components,
-\[
-  L_i = I_{ij}\omega_j,
-\]
-where
+
 \begin{defi}[Inertia tensor]
-  The \emph{inertia tensor} is
+  Consider a system of point masses $m_\alpha$ at positions $\mathbf{r}_\alpha$ in $\R^3$. The \emph{inertia tensor} of the system about the origin is the symmetric rank-2 tensor
   \[
     I_{ij} = \sum_\alpha m_\alpha [|\mathbf{r}_\alpha|^2 \delta_{ij} - (\mathbf{r}_\alpha)_i (\mathbf{r}_\alpha)_j].
   \]
+  For a rigid body occupying a volume $V$ with mass density $\rho(\mathbf{r})$, the sum is replaced by an integral:
+  \[
+    I_{ij} = \int_V \rho (\mathbf{r})(x_kx_k \delta_{ij} - x_i x_j)\;\d V.
+  \]
 \end{defi}
-For a rigid body occupying volume $V$ with mass density $\rho(\mathbf{r})$, we replace the sum with an integral to obtain
-\[
-  I_{ij} = \int_V \rho (\mathbf{r})(x_kx_k \delta_{ij} - x_i x_j)\;\d V.
-\]
-By inspection, $I$ is a symmetric tensor.
 
-\begin{eg}[Inertia tensor of cylinder]
-  Consider a rotating cylinder with uniform density $\rho_0$. The total mass is $2\ell \pi a^2 \rho_0$.
+\begin{prop}[Angular momentum of a rotating body]
+  If the system rotates with angular velocity $\boldsymbol\omega$ about the origin, so that the velocity of mass $m_\alpha$ is $\mathbf{v}_\alpha = \boldsymbol\omega\times \mathbf{r}_\alpha$, then the total angular momentum satisfies
+  \[
+    L_i = I_{ij}\omega_j.
+  \]
+\end{prop}
+
+\begin{proof}
+  The total angular momentum is
+  \begin{align*}
+    \mathbf{L} &= \sum_{\alpha} m_\alpha \mathbf{r}_\alpha \times \mathbf{v}_\alpha = \sum_\alpha m_\alpha \mathbf{r}_\alpha \times (\boldsymbol\omega\times \mathbf{r}_\alpha)\\
+    &= \sum_\alpha m_\alpha( |\mathbf{r}_\alpha|^2\boldsymbol\omega - (\mathbf{r}_\alpha \cdot \boldsymbol\omega)\mathbf{r}_\alpha),
+  \end{align*}
+  using the vector identity $\mathbf{a}\times(\mathbf{b}\times\mathbf{a}) = |\mathbf{a}|^2\mathbf{b} - (\mathbf{a}\cdot\mathbf{b})\mathbf{a}$. Writing in components gives $L_i = I_{ij}\omega_j$.
+\end{proof}
+
+\begin{eg}[Inertia tensor of a cylinder]
+  Consider a cylinder of uniform density $\rho_0$, radius $a$, and half-length $\ell$, aligned along the $x_3$-axis. The total mass is $M = 2\ell \pi a^2 \rho_0$.
   \begin{center}
     \begin{tikzpicture}
       \draw [->] (0, 0) -- (2, 0) node [right] {$x_1$};
@@ -3589,43 +3595,23 @@ By inspection, $I$ is a symmetric tensor.
       \draw (0, 1.5) -- (0.7, 1.5) node [pos = 0.5, above] {$a$};
     \end{tikzpicture}
   \end{center}
-  Use cylindrical polar coordinates:
+  Using cylindrical polar coordinates $x_1 = r\cos \theta$, $x_2 = r\sin \theta$, $x_3 = x_3$, with volume element $\d V = r\;\d r\;\d \theta \;\d x_3$, the diagonal components are:
   \begin{align*}
-    x_1 &= r\cos \theta\\
-    x_2 &= r\sin \theta\\
-    x_3 &= x_3\\
-    \d V &= r\;\d r\;\d \theta \;\d x_3
+    I_{33} &= \int_V \rho_0 (x_1^2 + x_2^2)\;\d V = \rho_0 \int_0^a \int_0^{2\pi} \int_{-\ell}^\ell r^2 \cdot r\;\d r\;\d \theta \;\d x_3 = \rho_0 \pi \ell a^4 = \frac{1}{2}Ma^2.
   \end{align*}
-  We have
+  Similarly,
   \begin{align*}
-    I_{33} &= \int_V \rho_0 (x_1^2 + x_2^2)\;\d V\\
-    &= \rho_0 \int_0^a \int_0^{2\pi} \int_{-\ell}^\ell r^2 (r\;\d r\;\d \theta \;\d x_3)\\
-    &= \rho_0 \cdot 2\pi \cdot 2\ell \left[\frac{r^4}{4}\right]_0^a\\
-    &= \rho_0 \pi \ell a^4.
+    I_{11} &= \int_V \rho_0 (x_2^2 + x_3^2)\;\d V = \rho_0 \int_0^a \int_0^{2\pi}\int_{-\ell}^\ell (r^2 \sin^2 \theta + x_3^2) \, r\;\d r\;\d \theta \;\d x_3\\
+    &= \rho_0 \left(\pi a^2 \cdot \frac{2}{3}\ell^3 + 2\ell\int_0^a r^3 \;\d r\int_0^{2\pi}\sin^2 \theta \;\d\theta\right) = \rho_0 \pi a^2 \ell\left(\frac{a^2}{2} + \frac{2}{3}\ell^2\right) = M\left(\frac{a^2}{4} + \frac{\ell^2}{3}\right),
   \end{align*}
-  Similarly, we have
-  \begin{align*}
-    I_{11} &= \int_V \rho_0 (x_2^2 + x_3^2)\;\d V\\
-    &= \rho_0 \int_0^a \int_0^{2\pi}\int_{-\ell}^\ell (r^2 \sin^2 \theta + x_3^2) r\;\d r\;\d \theta \;\d x_3\\
-    &= \rho_0 \int_0^a \int_0^{2\pi} r\left(r^2 \sin^2 \theta\left[x_3\right]_{-\ell}^\ell + \left[\frac{x_3^3}{3}\right]^{\ell}_{-\ell}\right)\;\d \theta\;\d r\\
-    &= \rho_0 \int_0^a \int_0^{2\pi} r\left(r^2 \sin^2 \theta 2\ell + \frac{2}{3}\ell^3\right)\;\d \theta\;\d r\\
-    &= \rho_0 \left(\pi a^2 \cdot \frac{2}{3}\ell^3 + 2\ell\int_0^a r^3 \;\d r\int_0^{2\pi}\sin^2 \theta \;\d\theta\right)\\
-    &= \rho_0 \pi a^2 \ell\left(\frac{a^2}{2} + \frac{2}{3}\ell^2\right)
-  \end{align*}
-  By symmetry, $I_{22} = I_{11}$.
+  and by symmetry $I_{22} = I_{11}$.
 
-  For the off-diagonal elements:
+  For the off-diagonal elements, $I_{13} = -\int_V \rho_0 x_1 x_3 \;\d V = 0$ since $\int_0^{2\pi} \cos \theta\;\d \theta = 0$, and similarly all other off-diagonal elements vanish. Hence
   \begin{align*}
-    I_{13} &= -\int_V \rho_0 x_1 x_3 \;\d V\\
-    &= -\rho_0 \int_0^a \int_{-\ell}^\ell \int_0^{2\pi} r^2 \cos \theta x_3 \;\d r\;\d x_3 \;\d \theta\\
-    &= 0
+    I_{33} &= \frac{1}{2}Ma^2, &
+    I_{11} = I_{22} &= M\left(\frac{a^2}{4} + \frac{\ell^2}{3}\right).
   \end{align*}
-  Since $\int_0^{2\pi} \;\d \theta \cos \theta = 0$. Similarly, the other off-diagonal elements are all 0. So the non-zero components are
-  \begin{align*}
-    I_{33} &= \frac{1}{2}Ma^2\\
-    I_{11} = I_{22} &= M\left(\frac{a^2}{4} + \frac{\ell^2}{3}\right)
-  \end{align*}
-  In the particular case where $\ell = \frac{a\sqrt{3}}{2}$, we have $I_{ij} = \frac{1}{2}Ma^2 \delta_{ij}$. So in this case,
+  In the particular case $\ell = \frac{a\sqrt{3}}{2}$, we have $I_{ij} = \frac{1}{2}Ma^2 \delta_{ij}$, so that
   \[
     \mathbf{L} = \frac{1}{2}Ma^2 \boldsymbol\omega
   \]
