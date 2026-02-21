@@ -268,92 +268,94 @@ Now a group is any set with an operation that satisfies the three rules above. I
   Otherwise, $H$ contains a nonzero element $a$, and since $-a \in H$ as well, $H$ contains a positive integer. Let $n$ be the smallest positive integer in $H$. We claim that $H = n\Z$. Since $n \in H$ and $H$ is closed under addition and inverses, all multiples of $n$ belong to $H$, so $n\Z \subseteq H$. Now suppose for contradiction that there exists $a\in H$ with $n \nmid a$. By the division algorithm, write $a = pn + q$ where $0 < q < n$. Since $a - pn\in H$, we have $q\in H$. But $0 < q < n$, contradicting the minimality of $n$. Hence every element of $H$ is divisible by $n$, so $H \subseteq n\Z$. Therefore $H = n\Z$.
 \end{proof}
 \subsection{Homomorphisms}
-It is often helpful to study functions between different groups. First, we need to define what a function is. These definitions should be familiar from IA Numbers and Sets.
+\begin{remark}
+  To study groups, it is essential to study structure-preserving functions between them. We first recall the basic definitions concerning functions.
+\end{remark}
 
 \begin{defi}[Function]
-  Given two sets $X$, $Y$, a \emph{function} $f: X \rightarrow Y$ sends each $x\in X$ to a particular $f(x)\in Y$. $X$ is called the domain and $Y$ is the co-domain.
+  Given two sets $X$ and $Y$, a \emph{function} $f\colon X \rightarrow Y$ sends each $x\in X$ to a particular element $f(x)\in Y$. The set $X$ is called the \emph{domain} and $Y$ is called the \emph{codomain}.
 \end{defi}
 \begin{eg}\leavevmode
   \begin{itemize}
-    \item Identity function: for any set $X$, $1_X: X \rightarrow X$ with $1_X(x) = x$ is a function. This is also written as $\mathrm{id}_X$.
-    \item Inclusion map: $\iota: \Z \rightarrow \Q$: $\iota(n) = n$. Note that this differs from the identity function as the domain and codomain are different in the inclusion map.
-    \item $f_1: \Z \rightarrow \Z$: $f_1(x) = x + 1$.
-    \item $f_2: \Z \rightarrow \Z$: $f_2(x) = 2x$.
-    \item $f_3: \Z \rightarrow \Z$: $f_3(x) = x^2$.
-    \item For $g: \{0, 1, 2, 3, 4\} \rightarrow \{0, 1, 2, 3, 4\}$, we have:
+    \item Identity function: for any set $X$, $1_X\colon X \rightarrow X$ with $1_X(x) = x$ is a function. This is also written as $\mathrm{id}_X$.
+    \item Inclusion map: $\iota\colon \Z \rightarrow \Q$ defined by $\iota(n) = n$. Note that this differs from the identity function, as the domain and codomain are different.
+    \item $f_1\colon \Z \rightarrow \Z$ defined by $f_1(x) = x + 1$.
+    \item $f_2\colon \Z \rightarrow \Z$ defined by $f_2(x) = 2x$.
+    \item $f_3\colon \Z \rightarrow \Z$ defined by $f_3(x) = x^2$.
+    \item Consider functions $\{0, 1, 2, 3, 4\} \rightarrow \{0, 1, 2, 3, 4\}$:
       \begin{itemize}
         \item $g_1(x) = x + 1$ if $x < 4$; $g_1(4) = 4$.
-        \item $g_2(x) = x + 1$ if $x < 4$; $g_1(4) = 0$.
+        \item $g_2(x) = x + 1$ if $x < 4$; $g_2(4) = 0$.
       \end{itemize}
   \end{itemize}
 \end{eg}
 \begin{defi}[Composition of functions]
-  The \emph{composition} of two functions is a function you get by applying one after another. In particular, if $f: X \rightarrow Y$ and $G: Y\rightarrow Z$, then $g\circ f: X \rightarrow Z$ with $g\circ f(x) = g(f(x))$.
+  Let $f\colon X \rightarrow Y$ and $g\colon Y\rightarrow Z$ be functions. The \emph{composition} of $g$ with $f$ is the function $g\circ f\colon X \rightarrow Z$ defined by $(g\circ f)(x) = g(f(x))$.
 \end{defi}
 \begin{eg}
-  $f_2\circ f_1(x) = 2x + 2$. $f_1\circ f_2 (x) = 2x + 1$. Note that function composition is not commutative.
+  Using $f_1$ and $f_2$ defined above, $(f_2\circ f_1)(x) = 2x + 2$ and $(f_1\circ f_2)(x) = 2x + 1$. Note that function composition is not commutative in general.
 \end{eg}
-\begin{defi}[Injective functions]
-  A function $f$ is \emph{injective} if it hits everything at most once, i.e.
+\begin{defi}[Injective function]
+  A function $f\colon X \to Y$ is \emph{injective} if distinct elements have distinct images, i.e.
   \[
     (\forall x, y\in X)\,f(x) = f(y)\Rightarrow x = y.
   \]
 \end{defi}
 
-\begin{defi}[Surjective functions]
-  A function is \emph{surjective} if it hits everything at least once, i.e.
+\begin{defi}[Surjective function]
+  A function $f\colon X \to Y$ is \emph{surjective} if every element of $Y$ is in the image of $f$, i.e.
   \[
     (\forall y\in Y)(\exists x\in X)\,f(x) = y.
   \]
 \end{defi}
 
-\begin{defi}[Bijective functions]
-  A function is \emph{bijective} if it is both injective and surjective. i.e.\ it hits everything exactly once. Note that a function has an inverse iff it is bijective.
+\begin{defi}[Bijective function]
+  A function $f\colon X \to Y$ is \emph{bijective} if it is both injective and surjective. A function has an inverse if and only if it is bijective.
 \end{defi}
 
 \begin{eg}
-  $\iota$ and $f_2$ are injective but not subjective. $f_3$ and $g_1$ are neither. $1_X$, $f_1$ and $g_2$ are bijective.
+  $\iota$ and $f_2$ are injective but not surjective. $f_3$ and $g_1$ are neither. $1_X$, $f_1$ and $g_2$ are bijective.
 \end{eg}
 
 \begin{lemma}
-  The composition of two bijective functions is bijective
+  The composition of two bijective functions is bijective.
 \end{lemma}
 
-When considering sets, functions are allowed to do all sorts of crazy things, and can send any element to any element without any restrictions. However, we are currently studying groups, and groups have additional structure on top of the set of elements. Hence we are not interested in arbitrary functions. Instead, we are interested in functions that ``respect'' the group structure. We call these \emph{homomorphisms}.
+\begin{remark}
+  When studying groups, we are not interested in arbitrary functions between the underlying sets. Instead, we consider functions that preserve the group structure, called \emph{homomorphisms}.
+\end{remark}
+
 \begin{defi}[Group homomorphism]
-  Let $(G, *)$ and $(H, \times)$ be groups. A function $f:G\rightarrow H$ is a \emph{group homomorphism} iff
+  Let $(G, *)$ and $(H, \times)$ be groups. A function $f\colon G\rightarrow H$ is a \emph{group homomorphism} if
   \[
-   ( \forall g_1, g_2 \in G)\, f(g_1)\times f(g_2) = f(g_1 * g_2),
+   ( \forall g_1, g_2 \in G)\, f(g_1)\times f(g_2) = f(g_1 * g_2).
   \]
 \end{defi}
 
 \begin{defi}[Group isomorphism]
-  \emph{Isomorphisms} are bijective homomorphisms. Two groups are \emph{isomorphic} if there exists an isomorphism between them. We write $G\cong H$.
+  A \emph{group isomorphism} is a bijective group homomorphism. Two groups $G$ and $H$ are \emph{isomorphic}, written $G\cong H$, if there exists an isomorphism between them.
 \end{defi}
-We will consider two isomorphic groups to be ``the same''. For example, when we say that there is only one group of order $2$, it means that any two groups of order $2$ must be isomorphic.
+
+\begin{remark}
+  Isomorphic groups are considered to be ``the same'' from a group-theoretic perspective. For example, when we say that there is only one group of order $2$, we mean that any two groups of order $2$ are isomorphic.
+\end{remark}
 
 \begin{eg}\leavevmode
   \begin{itemize}
-    \item $f: G \to H$ defined by $f(g) = e$, where $e$ is the identity of $H$, is a homomorphism.
-    \item $1_G: G \rightarrow G$ and $f_2: \Z \rightarrow 2\Z$ are isomorphisms. $\iota: \Z\rightarrow\Q$ and $f_2:\Z\rightarrow\Z$ are homomorphisms.
-    \item $\mathrm{exp}: (\R, +) \rightarrow (\R^+, \times)$ with $\mathrm{exp}(x) = e^x$ is an isomorphism.
-    \item Take $(\Z_4, +)$ and $H: (\{e^{ik\pi/2}:k=0, 1 ,2, 3\}, \times)$. Then $f: \Z_4 \rightarrow H$ by $f(a) = e^{i\pi a/2}$ is an isomorphism.
-    \item $f: \GL_2(\R) \rightarrow \R^*$ with $f(A) = \det(A)$ is a homomorphism, where $\GL_2(\R)$ is the set of $2\times 2$ invertible matrices.
+    \item For any groups $G$ and $H$, the function $f\colon G \to H$ defined by $f(g) = e_H$ for all $g \in G$ is a homomorphism (the \emph{trivial homomorphism}).
+    \item $1_G\colon G \rightarrow G$ and $f_2\colon \Z \rightarrow 2\Z$ are isomorphisms. $\iota\colon \Z\rightarrow\Q$ and $f_2\colon\Z\rightarrow\Z$ are homomorphisms.
+    \item $\exp\colon (\R, +) \rightarrow (\R^+, \times)$ defined by $\exp(x) = e^x$ is an isomorphism.
+    \item Let $H = (\{e^{ik\pi/2}:k=0, 1 ,2, 3\}, \times)$. Then $f\colon \Z_4 \rightarrow H$ defined by $f(a) = e^{i\pi a/2}$ is an isomorphism.
+    \item $\det\colon \GL_2(\R) \rightarrow \R^*$ is a homomorphism.
   \end{itemize}
 \end{eg}
 
 \begin{prop}
-  Suppose that $f: G\rightarrow H$ is a homomorphism. Then
+  Let $f\colon G\rightarrow H$ be a group homomorphism. Then
   \begin{enumerate}
-    \item Homomorphisms send the identity to the identity, i.e.
-      \[
-        f(e_G) = e_H
-      \]
-    \item Homomorphisms send inverses to inverses, i.e.
-      \[
-        f(a^{-1}) = f(a)^{-1}
-      \]
-    \item The composite of 2 group homomorphisms is a group homomorphism.
+    \item $f(e_G) = e_H$.
+    \item For all $a \in G$, $f(a^{-1}) = f(a)^{-1}$.
+    \item The composite of two group homomorphisms is a group homomorphism.
     \item The inverse of an isomorphism is an isomorphism.
   \end{enumerate}
 \end{prop}
@@ -370,8 +372,8 @@ We will consider two isomorphic groups to be ``the same''. For example, when we 
         &= f(a)f(a^{-1})
       \end{align*}
       Since inverses are unique, $f(a^{-1}) = f(a)^{-1}$.
-    \item Let $f:G_1 \rightarrow G_2$ and $g:G_2 \rightarrow G_3$. Then $g(f(ab)) = g(f(a)f(b)) = g(f(a))g(f(b))$.
-    \item Let $f:G \rightarrow H$ be an isomorphism. Then
+    \item Let $f\colon G_1 \rightarrow G_2$ and $g\colon G_2 \rightarrow G_3$ be homomorphisms. Then $g(f(ab)) = g(f(a)f(b)) = g(f(a))g(f(b))$.
+    \item Let $f\colon G \rightarrow H$ be an isomorphism and let $a, b \in H$. Then
       \begin{align*}
         f^{-1}(ab) &= f^{-1}\Big\{f\big[f^{-1}(a)\big]f\big[f^{-1}(b)\big]\Big\}\\
         &= f^{-1}\Big\{f\big[f^{-1}(a)f^{-1}(b)\big]\Big\}\\
@@ -382,66 +384,70 @@ We will consider two isomorphic groups to be ``the same''. For example, when we 
 \end{proof}
 
 \begin{defi}[Image of homomorphism]
-  If $f:G\rightarrow H$ is a homomorphism, then the \emph{image} of $f$ is
+  Let $f\colon G\rightarrow H$ be a group homomorphism. The \emph{image} of $f$ is
   \[
     \im f = f(G) = \{f(g):g\in G\}.
   \]
 \end{defi}
 
 \begin{defi}[Kernel of homomorphism]
-  The \emph{kernel} of $f$, written as
+  Let $f\colon G\rightarrow H$ be a group homomorphism. The \emph{kernel} of $f$ is
   \[
     \ker f = f^{-1}(\{e_H\}) = \{g\in G:f(g)=e_H\}.
   \]
 \end{defi}
 
 \begin{prop}
-  Both the image and the kernel are subgroups of the respective groups, i.e.\ $\im f\leq H$ and $\ker f \leq G$.
+  Let $f\colon G \to H$ be a group homomorphism. Then $\im f\leq H$ and $\ker f \leq G$.
 \end{prop}
 
 \begin{proof}
-  Since $e_H\in \im f$ and $e_G\in \ker f$, $\im f$ and $\ker f$ are non-empty. Moreover, suppose $b_1, b_2\in \im f$. Now $\exists a_1, a_2 \in G$ such that $f(a_i) = b_i$. Then $b_1b_2^{-1} = f(a_1)f(a_2^{-1}) = f(a_1a_2^{-1})\in \im f$.
+  Since $f(e_G) = e_H$, we have $e_H\in \im f$ and $e_G\in \ker f$, so both sets are non-empty. For the image, suppose $b_1, b_2\in \im f$, so there exist $a_1, a_2 \in G$ with $f(a_1) = b_1$ and $f(a_2) = b_2$. Then $b_1b_2^{-1} = f(a_1)f(a_2)^{-1} = f(a_1 a_2^{-1})\in \im f$.
 
-  Then consider $b_1,b_2\in \ker f$. We have $f(b_1b_2^{-1}) = f(b_1)f(b_2)^{-1} = e^2 = e$. So $b_1b_2^{-1}\in \ker f$.
+  For the kernel, suppose $b_1,b_2\in \ker f$. Then $f(b_1b_2^{-1}) = f(b_1)f(b_2)^{-1} = e_H e_H^{-1} = e_H$, so $b_1b_2^{-1}\in \ker f$.
 \end{proof}
 
 \begin{prop}
-  Given any homomorphism $f:G\rightarrow H$ and any $a\in G$, for all $k\in \ker f$, $aka^{-1}\in\ker f$.
+  Let $f\colon G\rightarrow H$ be a group homomorphism. Then for all $a\in G$ and all $k\in \ker f$, we have $aka^{-1}\in\ker f$.
 \end{prop}
-This proposition seems rather pointless. However, it is not. All subgroups that satisfy this property are known as \emph{normal subgroups}, and normal subgroups have very important properties. We will postpone the discussion of normal subgroups to later lectures.
 
 \begin{proof}
-  $f(aka^{-1}) = f(a)f(k)f(a)^{-1} = f(a)ef(a)^{-1} = e$. So $aka^{-1}\in \ker f$.
+  $f(aka^{-1}) = f(a)f(k)f(a)^{-1} = f(a)e_Hf(a)^{-1} = e_H$. So $aka^{-1}\in \ker f$.
 \end{proof}
+
+\begin{remark}
+  The above property---that $aka^{-1} \in \ker f$ for all $a \in G$ and $k \in \ker f$---is not special to kernels. Subgroups satisfying this property are called \emph{normal subgroups} and play a central role in the theory, as we will see later.
+\end{remark}
 
 \begin{eg}
-  Images and kernels for previously defined functions:
+  Images and kernels for previously defined homomorphisms:
   \begin{enumerate}
-    \item For the function that sends everything to $e$, $\im f = \{e\}$ and $\ker f = G$.
+    \item For the trivial homomorphism $f\colon G \to H$ with $f(g) = e_H$, we have $\im f = \{e_H\}$ and $\ker f = G$.
     \item For the identity function, $\im 1_G = G$ and $\ker 1_G = \{e\}$.
-    \item For the inclusion map $\iota: \Z\rightarrow\Q$, we have $\im \iota = \Z$ and $\ker \iota = \{0\}$
-    \item For $f_2:\Z\rightarrow\Z$ and $f_2(x) = 2x$, we have $\im f_2 = 2\Z$ and $\ker f_2 = \{0\}$.
-    \item For $\det: \GL_2(\R) \rightarrow \R^*$, we have $\im \det = \R^*$ and $\ker \det = \{A:\det A = 1\} = \mathrm{SL}_2(\R)$
+    \item For the inclusion map $\iota\colon \Z\rightarrow\Q$, we have $\im \iota = \Z$ and $\ker \iota = \{0\}$.
+    \item For $f_2\colon\Z\rightarrow\Z$ defined by $f_2(x) = 2x$, we have $\im f_2 = 2\Z$ and $\ker f_2 = \{0\}$.
+    \item For $\det\colon \GL_2(\R) \rightarrow \R^*$, we have $\im \det = \R^*$ and $\ker \det = \{A \in \GL_2(\R):\det A = 1\} = \SL_2(\R)$.
   \end{enumerate}
 \end{eg}
+
 \begin{prop}
-  For all homomorphisms $f:G\rightarrow H$, $f$ is
+  Let $f\colon G\rightarrow H$ be a group homomorphism. Then $f$ is
   \begin{enumerate}
-    \item surjective iff $\im f = H$
-    \item injective iff $\ker f = \{e\}$
+    \item surjective if and only if $\im f = H$;
+    \item injective if and only if $\ker f = \{e_G\}$.
   \end{enumerate}
 \end{prop}
 
 \begin{proof}\leavevmode
   \begin{enumerate}
-    \item By definition.
-    \item We know that $f(e) = e$. So if $f$ is injective, then by definition $\ker f = \{e\}$. If $\ker f = \{e\}$, then given $a, b$ such that $f(a) = f(b)$, $f(ab^{-1}) = f(a)f(b)^{-1} = e$. Thus $ab^{-1}\in \ker f = \{e\}$. Then $ab^{-1} = e$ and $a = b$.\qedhere
+    \item This follows directly from the definitions.
+    \item Since $f(e_G) = e_H$, we have $e_G \in \ker f$. If $f$ is injective, then $e_G$ is the only element mapping to $e_H$, so $\ker f = \{e_G\}$. Conversely, if $\ker f = \{e_G\}$, then given $a, b \in G$ with $f(a) = f(b)$, we have $f(ab^{-1}) = f(a)f(b)^{-1} = e_H$. Thus $ab^{-1}\in \ker f = \{e_G\}$, so $ab^{-1} = e_G$ and hence $a = b$.\qedhere
   \end{enumerate}
 \end{proof}
 
-So far, the definitions of images and kernels seem to be just convenient terminology to refer to things. However, we will later prove an important theorem, the \emph{first isomorphism theorem}, that relates these two objects and provides deep insights (hopefully).
-
-Before we get to that, we will first study some interesting classes of groups and develop some necessary theory.
+\begin{remark}
+  The image and kernel of a homomorphism are not merely convenient terminology. They are related by the \emph{first isomorphism theorem}, which we will prove after developing some further theory.
+\end{remark}
 
 \subsection{Cyclic groups}
 The simplest class of groups is \emph{cyclic groups}. A cyclic group is a group of the form $\{e, a, a^2, a^2, \cdots, a^{n - 1}\}$, where $a^n = e$. For example, if we consider the group of all rotations of a triangle, and write $r = $ rotation by $120^\circ$, the elements will be $\{e, r, r^2\}$ with $r^3 = e$.
