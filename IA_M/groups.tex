@@ -1324,52 +1324,63 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 
 \section{Group actions}
 \label{sec:action}
-Recall that we came up with groups to model symmetries and permutations. Intuitively, elements of groups are supposed to ``do things''. However, as we developed group theory, we abstracted these away and just looked at how elements combine to form new elements. \emph{Group actions} recapture this idea and make each group element correspond to some function.
+\begin{remark}
+  Recall that we introduced groups to model symmetries and permutations. Intuitively, elements of groups are supposed to ``do things.'' However, as we developed group theory, we abstracted these away and focused on how elements combine to form new elements. \emph{Group actions} recapture this idea and make each group element correspond to some function.
+\end{remark}
 
 \subsection{Group acting on sets}
 \begin{defi}[Group action]
-  Let $X$ be a set and $G$ be a group. An \emph{action} of $G$ on $X$ is a homomorphism $\varphi: G \to \Sym X$.
+  Let $X$ be a set and $G$ be a group. An \emph{action} of $G$ on $X$ is a homomorphism $\varphi \colon G \to \Sym X$.
 \end{defi}
-This means that the homomorphism $\varphi$ turns each element $g\in G$ into a permutation of $X$, in a way that respects the group structure.
 
-Instead of writing $\varphi(g)(x)$, we usually directly write $g(x)$ or $gx$.
+\begin{remark}
+  The homomorphism $\varphi$ turns each element $g \in G$ into a permutation of $X$, in a way that respects the group structure. Instead of writing $\varphi(g)(x)$, we usually write $g(x)$ or $gx$.
+\end{remark}
 
-Alternatively, we can define the group action as follows:
 \begin{prop}[Action axioms, equivalent formulation]
-  Let $X$ be a set and $G$ be a group. Then $\varphi: G \to \Sym X$ is a homomorphism (i.e.\ an action) iff $\theta: G\times X \to X$ defined by $\theta(g, x) = \varphi(g)(x)$ satisfies
+  Let $X$ be a set and $G$ be a group. Then $\varphi \colon G \to \Sym X$ is a homomorphism (i.e.\ an action) if and only if $\theta \colon G \times X \to X$ defined by $\theta(g, x) = \varphi(g)(x)$ satisfies
   \begin{enumerate}[label=\arabic{*}.]
       \setcounter{enumi}{-1}
-    \item $(\forall g\in G)(x\in X)\,\theta(g, x)\in X$.
-    \item $(\forall x\in X)\,\theta(e, x) = x$.
-    \item $(\forall g, h\in G)(\forall x\in X)\,\theta(g, \theta (h, x)) = \theta(gh, x)$.
+    \item $(\forall g \in G)(\forall x \in X)\,\theta(g, x) \in X$.
+    \item $(\forall x \in X)\,\theta(e, x) = x$.
+    \item $(\forall g, h \in G)(\forall x \in X)\,\theta(g, \theta(h, x)) = \theta(gh, x)$.
   \end{enumerate}
 \end{prop}
-This criteria is \emph{almost} the definition of a homomorphism. However, here we do not explicitly require $\theta(g, \cdot)$ to be a bijection, but require $\theta(e, \cdot)$ to be the identity function. This automatically ensures that $\theta(g, \cdot)$ is a bijection, since when composed with $\theta(g^{-1}, \cdot)$, it gives $\theta(e, \cdot)$, which is the identity. So $\theta(g, \cdot)$ has an inverse. This is usually an easier thing to show.
 
-\begin{eg}\leavevmode
+\begin{remark}
+  This criterion is \emph{almost} the definition of a homomorphism. Here we do not explicitly require $\theta(g, \cdot)$ to be a bijection, but instead require $\theta(e, \cdot)$ to be the identity function. This automatically ensures that $\theta(g, \cdot)$ is a bijection: composing with $\theta(g^{-1}, \cdot)$ gives $\theta(e, \cdot)$, which is the identity, so $\theta(g, \cdot)$ has an inverse. This is usually easier to verify in practice.
+\end{remark}
+
+\begin{eg}[Group actions]\leavevmode
   \begin{enumerate}
-    \item Trivial action: for any group $G$ acting on any set $X$, we can have $\varphi(g) = 1_X$ for all $g$, i.e.\ $G$ does nothing.
-    \item $S_n$ acts on $\{1, \cdots n\}$ by permutation.
-    \item $D_{2n}$ acts on the vertices of a regular $n$-gon (or the set $\{1, \cdots, n\}$).
-    \item The rotations of a cube act on the faces/vertices/diagonals/axes of the cube.
+    \item \emph{Trivial action:} For any group $G$ acting on any set $X$, we can define $\varphi(g) = 1_X$ for all $g$, i.e.\ $G$ does nothing.
+    \item $S_n$ acts on $\{1, \dotsc, n\}$ by permutation.
+    \item $D_{2n}$ acts on the vertices of a regular $n$-gon (or the set $\{1, \dotsc, n\}$).
+    \item The rotations of a cube act on the faces, vertices, diagonals, or axes of the cube.
   \end{enumerate}
 \end{eg}
-Note that different groups can act on the same sets, and the same group can act on different sets.
+
+\begin{remark}
+  Different groups can act on the same set, and the same group can act on different sets.
+\end{remark}
 
 \begin{defi}[Kernel of action]
-  The \emph{kernel} of an action $G$ on $X$ is the kernel of $\varphi$, i.e.\ all $g$ such that $\varphi(g) = 1_X$.
+  The \emph{kernel} of an action of $G$ on $X$ is $\ker \varphi = \{g \in G : \varphi(g) = 1_X\}$.
 \end{defi}
-Note that by the isomorphism theorem, $\ker \varphi\lhd G$ and $G/K$ is isomorphic to a subgroup of $\Sym X$.
 
-\begin{eg}\leavevmode
+\begin{remark}
+  By the Isomorphism Theorem, $\ker \varphi \lhd G$ and $G/\ker \varphi$ is isomorphic to a subgroup of $\Sym X$.
+\end{remark}
+
+\begin{eg}[Kernels of actions]\leavevmode
   \begin{enumerate}
-    \item $D_{2n}$ acting on $\{1, 2\cdots n\}$ gives $\varphi: D_{2n}\to S_n$ with kernel $\{e\}$.
-    \item Let $G$ be the rotations of a cube and let it act on the three axes $x, y, z$ through the faces. We have $\varphi: G\to S_3$. Then any rotation by $180^\circ$ doesn't change the axes, i.e.\ act as the identity. So the kernel of the action has at least 4 elements: $e$ and the three $180^\circ$ rotations. In fact, we'll see later that these 4 are exactly the kernel.
+    \item $D_{2n}$ acting on $\{1, 2, \dotsc, n\}$ gives $\varphi \colon D_{2n} \to S_n$ with kernel $\{e\}$.
+    \item Let $G$ be the rotations of a cube, acting on the three axes $x, y, z$ through the faces. This gives $\varphi \colon G \to S_3$. Any rotation by $180^\circ$ fixes every axis, so the kernel contains at least 4 elements: $e$ and the three $180^\circ$ rotations. We will see later that these are exactly the kernel.
   \end{enumerate}
 \end{eg}
 
 \begin{defi}[Faithful action]
-  An action is \emph{faithful} if the kernel is just $\{e\}$.
+  An action is \emph{faithful} if its kernel is $\{e\}$.
 \end{defi}
 
 \subsection{Orbits and Stabilizers}
