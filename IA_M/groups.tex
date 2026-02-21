@@ -1814,9 +1814,12 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 \end{remark}
 
 \section{Quaternions}
-In the remaining of the course, we will look at different important groups. Here, we will have a brief look at
-\begin{defi}[Quaternions]
-  The \emph{quaternions} is the set of matrices
+\begin{remark}
+  In the remainder of the course, we examine several important families of groups. We begin with the quaternion group.
+\end{remark}
+
+\begin{defi}[Quaternion group]
+  The \emph{quaternion group} $Q_8$ is the set of matrices
   \begin{gather*}
     \begin{pmatrix}
       1&0\\0&1
@@ -1852,7 +1855,7 @@ In the remaining of the course, we will look at different important groups. Here
   \[
     Q_8 = \bra a, b : a^4 = e, b^2 = a^2, bab^{-1} = a^{-1}\ket
   \]
-  Even better, we can write
+  Alternatively, we can write
   \[
     Q_8 = \{1, -1, i, -i, j, -j, k, -k\}
   \]
@@ -1901,7 +1904,7 @@ In the remaining of the course, we will look at different important groups. Here
   Consider the different possible cases:
   \begin{itemize}
     \item If $G$ contains an element of order 8, then $G\cong C_8$.
-    \item If all non-identity elements have order 2, then $G$ is abelian (Sheet 1, Q8). Let $a\not= b\in G\setminus\{e\}$. By the direct product theorem, $\bra a, b\ket = \bra a\ket\times\bra b\ket$. Then take $c\not\in \bra a, b\ket$. By the direct product theorem, we obtain $\bra a, b, c\ket = \bra a\ket\times\bra b\ket\times\bra c\ket = C_2\times C_2\times C_2$. Since $\bra a, b, c\ket\subseteq G$ and $|\bra a, b, c\ket| = |G|$, $G = \bra a, b, c\ket \cong C_2\times C_2\times C_2$.
+    \item If all non-identity elements have order $2$, then $G$ is abelian (cf.\ Example Sheet 1, Question 8). Let $a \neq b \in G \setminus \{e\}$. By the direct product theorem, $\langle a, b \rangle = \langle a \rangle \times \langle b \rangle$. Then take $c \notin \langle a, b \rangle$. By the direct product theorem, $\langle a, b, c \rangle = \langle a \rangle \times \langle b \rangle \times \langle c \rangle \cong C_2 \times C_2 \times C_2$. Since $|\langle a, b, c \rangle| = 8 = |G|$, we have $G \cong C_2 \times C_2 \times C_2$.
     \item $G$ has no element of order 8 but has an order 4 element $a\in G$. Let $H = \bra a\ket$. Since $H$ has index 2, it is normal in $G$. So $G/H \cong C_2$ since $|G/H| = 2$. This means that for any $b\not\in H$, $bH$ generates $G/H$. Then $(bH)^2 = b^2H = H$. So $b^2\in H$. Since $b^2\in \bra a\ket$ and $\bra a\ket$ is a cyclic group, $b^2$ commutes with $a$.
 
       If $b^2 = a$ or $a^3$, then $b$ has order 8. Contradiction. So $b^2 = e$ or $a^2$.
@@ -1909,17 +1912,17 @@ In the remaining of the course, we will look at different important groups. Here
       We also know that $H$ is normal, so $bab^{-1}\in H$. Let $bab^{-1} = a^\ell$. Since $a$ and $b^2$ commute, we know that $a = b^2 ab^{-2} = b(bab^{-1})b^{-1} = ba^\ell b^{-1} = (bab^{-1})^{\ell} = a^{\ell^2}$. So $\ell^2 \equiv 1\pmod 4$. So $\ell \equiv \pm 1 \pmod 4$.
 
       \begin{itemize}
-        \item When $l\equiv 1\pmod 4$, $bab^{-1} = a$, i.e.\ $ba = ab$. So $G$ is abelian.
+        \item When $\ell \equiv 1\pmod 4$, $bab^{-1} = a$, i.e.\ $ba = ab$. So $G$ is abelian.
           \begin{itemize}
             \item If $b^2 = e$, then $G = \bra a, b\ket \cong \bra a\ket \times \bra b\ket \cong C_4\times C_2$.
             \item If $b^2 = a^2$, then $(ba^{-1})^2 = e$. So $G = \bra a, ba^{-1}\ket \cong C_4\times C_2$.
           \end{itemize}
-        \item If $l \equiv -1\pmod 4$, then $bab^{-1} = a^{-1}$.
+        \item If $\ell \equiv -1\pmod 4$, then $bab^{-1} = a^{-1}$.
           \begin{itemize}
             \item If $b^2 = e$, then $G = \bra a, b: a^4 = e = b^2, bab^{-1} = a^{-1}\ket$. So $G\cong D_8$ by definition.
             \item If $b^2 = a^2$, then we have $G\cong Q_8$.\qedhere
           \end{itemize}
-      \end{itemize}%\qedhere
+      \end{itemize}
   \end{itemize}
 \end{proof}
 \section{Matrix groups}
