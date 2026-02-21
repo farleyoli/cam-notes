@@ -1927,49 +1927,43 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 \end{proof}
 \section{Matrix groups}
 \subsection{General and special linear groups}
-Consider $M_{n\times n}(F)$, i.e.\ the set of $n\times n$ matrices over the field $F = \R$ or $\C$ (or $\F_p$). We know that matrix multiplication is associative (since they represent functions) but are, in general, not commutative. To make this a group, we want the identity matrix $I$ to be the identity. To ensure everything has an inverse, we can only include invertible matrices.
+\begin{remark}
+  Consider $M_{n \times n}(F)$, the set of $n \times n$ matrices over a field $F$ (such as $\R$, $\C$, or $\F_p$). Matrix multiplication is associative but not, in general, commutative. To form a group, we take the identity matrix $I$ as the identity element and restrict to invertible matrices.
+\end{remark}
 
-(We do not necessarily need to take $I$ as the identity of the group. We can, for example, take $e =
-\begin{pmatrix}
-  0 & 0\\
-  0 & 1
-\end{pmatrix}$ and obtain a group in which every matrix is of the form $\begin{pmatrix}
-  0 & 0\\
-  0 & a
-\end{pmatrix}$ for some non-zero $a$. This forms a group, albeit a boring one (it is simply $\cong \R^*$))
 \begin{defi}[General linear group $\GL_n(F)$]
+  The \emph{general linear group} is
   \[
-    \GL_n(F) = \{A\in M_{n\times n}(F) : A\text{ is invertible}\}
+    \GL_n(F) = \{A \in M_{n \times n}(F) : A \text{ is invertible}\} = \{A \in M_{n \times n}(F) : \det A \neq 0\}.
   \]
-  is the \emph{general linear group}.
 \end{defi}
-Alternatively, we can define $\GL_n(F)$ as matrices with non-zero determinants.
 
 \begin{prop}[$\GL_n(F)$ is a group]
-  $\GL_n(F)$ is a group.
+  $\GL_n(F)$ is a group under matrix multiplication.
 \end{prop}
+
 \begin{proof}
-  Identity is $I$, which is in $\GL_n(F)$ by definition ($I$ is its self-inverse). The composition of invertible matrices is invertible, so is closed. Inverse exist by definition. Multiplication is associative.
+  The identity is $I \in \GL_n(F)$. The product of invertible matrices is invertible, so $\GL_n(F)$ is closed. Inverses exist by definition. Multiplication is associative.
 \end{proof}
 
 \begin{prop}[Determinant on $\GL_n(F)$]
-  $\det: \GL_n(F) \to F\setminus\{0\}$ is a surjective group homomorphism.
+  $\det \colon \GL_n(F) \to F \setminus \{0\}$ is a surjective group homomorphism.
 \end{prop}
 
 \begin{proof}
-  $\det AB = \det A\det B$. If $A$ is invertible, it has non-zero determinant and $\det A\in F\setminus\{0\}$.
-
-  To show it is surjective, for any $x\in F\setminus\{0\}$, if we take the identity matrix and replace $I_{11}$ with $x$, then the determinant is $x$. So it is surjective.
+  We have $\det(AB) = \det A \cdot \det B$, and $\det A \neq 0$ for $A \in \GL_n(F)$, so $\det$ is a homomorphism. It is surjective since for any $x \in F \setminus \{0\}$, the diagonal matrix with $(1,1)$-entry $x$ and all other diagonal entries $1$ has determinant $x$.
 \end{proof}
 
 \begin{defi}[Special linear group $\SL_n(F)$]
-  The \emph{special linear group} $\SL_n(F)$ is the kernel of the determinant, i.e.
+  The \emph{special linear group} $\SL_n(F)$ is the kernel of the determinant:
   \[
-    SL_n(F) = \{A\in \GL_n(F): \det A = 1\}.
+    \SL_n(F) = \{A \in \GL_n(F) : \det A = 1\}.
   \]
 \end{defi}
 
-So $\SL_n(F)\lhd \GL_n(F)$ as it is a kernel. Note that $Q_8\leq \SL_2(\C)$
+\begin{remark}
+  Since $\SL_n(F)$ is the kernel of a homomorphism, $\SL_n(F) \lhd \GL_n(F)$. Note also that $Q_8 \leq \SL_2(\C)$.
+\end{remark}
 \subsection{Actions of \texorpdfstring{$\GL_n(\C)$}{GLn(C)}}
 \begin{prop}[$\GL_n(\C)$ action on $\C^n$]
   $\GL_n(\C)$ acts faithfully on $\C^n$ by left multiplication to the vector, with two orbits ($\mathbf{0}$ and everything else).
