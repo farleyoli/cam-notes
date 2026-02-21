@@ -1099,58 +1099,83 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 \end{remark}
 
 \section{Quotient groups}
-In the previous section, when attempting to pretend that a $3\times 3\times 3$ Rubik's cube is a $2\times 2\times 2$ one, we came up with the cosets $aH$, and claimed that these form a group. We also said that this is not the case for arbitrary subgroup $H$, but only for subgroups that satisfy $aH = Ha$. Before we prove these, we first study these subgroups a bit.
+\begin{remark}
+  In the previous section, when attempting to pretend that a $3\times 3\times 3$ Rubik's cube is a $2\times 2\times 2$ one, we formed the cosets $aH$ and claimed that they form a group. We also noted that this is not the case for an arbitrary subgroup $H$, but only for subgroups satisfying $aH = Ha$ for all $a \in G$. We now study these special subgroups.
+\end{remark}
 
 \subsection{Normal subgroups}
 \begin{defi}[Normal subgroup]
-  A subgroup $K$ of $G$ is a \emph{normal subgroup} if
+  A subgroup $K$ of a group $G$ is a \emph{normal subgroup}, written $K \lhd G$, if
   \[
-    (\forall a\in G)(\forall k\in K)\,aka^{-1}\in K.
+    (\forall a \in G)(\forall k \in K)\, aka^{-1} \in K.
   \]
-  We write $K\lhd G$. This is equivalent to:
+  The following conditions are equivalent to normality:
   \begin{enumerate}
-    \item $(\forall a\in G)\,aK = Ka$, i.e.\ left coset $=$ right coset
-    \item $(\forall a\in G)\,aKa^{-1} = K$ (cf.\ conjugacy classes)
+    \item $(\forall a \in G)\, aK = Ka$ (every left coset equals the corresponding right coset);
+    \item $(\forall a \in G)\, aKa^{-1} = K$ (the subgroup is invariant under conjugation).
   \end{enumerate}
 \end{defi}
 
-From the example last time, $H=\bra s\ket\leq D_6$ is not a normal subgroup, but $K=\bra r\ket \lhd D_6$. We know that every group $G$ has at least two normal subgroups $\{e\}$ and $G$.
+\begin{eg}[Normal and non-normal subgroups of $D_6$]
+  Let $G = D_6 = \bra r, s \mid r^3 = s^2 = e,\, srs^{-1} = r^{-1}\ket$. We showed in the previous subsection that $a\bra r\ket = \bra r\ket a$ for all $a \in G$, so $\bra r\ket \lhd D_6$. On the other hand, $r\bra s\ket \neq \bra s\ket r$, so $\bra s\ket$ is not a normal subgroup of $D_6$.
+\end{eg}
+
+\begin{remark}
+  Every group $G$ has at least two normal subgroups: the trivial subgroup $\{e\} \lhd G$ and $G \lhd G$.
+\end{remark}
 
 \begin{lemma}[Normality criteria]\leavevmode
   \begin{enumerate}
     \item Every subgroup of index $2$ is normal.
-    \item Any subgroup of an abelian group is normal.
+    \item Every subgroup of an abelian group is normal.
   \end{enumerate}
 \end{lemma}
 
 \begin{proof}\leavevmode
   \begin{enumerate}
-    \item If $K\leq G$ has index $2$, then there are only two possible cosets $K$ and $G\setminus K$. As $eK = Ke$ and cosets partition $G$, the other left coset and right coset must be $G\setminus K$. So all left cosets and right cosets are the same.
-    \item For all $a\in G$ and $k\in K$, we have $aka^{-1} = aa^{-1}k = k\in K$.\qedhere
+    \item If $K \leq G$ has index $2$, then there are exactly two left cosets ($K$ and $G \setminus K$) and two right cosets ($K$ and $G \setminus K$). Since $eK = Ke = K$, the other left and right coset must both equal $G \setminus K$. Thus $aK = Ka$ for all $a \in G$.
+    \item For all $a \in G$ and $k \in K$, commutativity gives $aka^{-1} = aa^{-1}k = k \in K$.\qedhere
   \end{enumerate}
 \end{proof}
+
 \begin{prop}[Kernel normality]
-  Every kernel is a normal subgroup.
+  Let $f \colon G \to H$ be a group homomorphism. Then $\ker f \lhd G$.
 \end{prop}
 
 \begin{proof}
-  Given homomorphism $f:G\rightarrow H$ and some $a\in G$, for all $k\in \ker f$, we have $f(aka^{-1}) = f(a)f(k)f(a)^{-1} = f(a)ef(a)^{-1} = e$. Therefore $aka^{-1}\in\ker f$ by definition of the kernel.
+  For any $a \in G$ and $k \in \ker f$, we have
+  \[
+    f(aka^{-1}) = f(a)\,f(k)\,f(a)^{-1} = f(a)\,e_H\,f(a)^{-1} = e_H.
+  \]
+  Thus $aka^{-1} \in \ker f$, so $\ker f \lhd G$.
 \end{proof}
 
-In fact, we will see in the next section that all normal subgroups are kernels of some homomorphism.
+\begin{remark}
+  We will see in the next subsection that, conversely, every normal subgroup is the kernel of some homomorphism.
+\end{remark}
 
-\begin{eg}
-  Consider $G = D_8$. Let $K = \bra r^2\ket$ is normal. Check: Any element of $G$ is either $sr^\ell$ or $r^\ell$ for some $\ell$. Clearly $e$ satisfies $aka^{-1}\in K$. Now check $r^2$: For the case of $sr^\ell$, we have $sr^\ell r^2(sr^\ell)^{-1} = sr^\ell r^2 r^{-\ell}s^{-1} = sr^2 s = ssr^{-2} = r^2$. For the case of $r^\ell$, $r^\ell r^2r^{-\ell} = r^2$.
+\begin{eg}[Normal subgroup of $D_8$]
+  Consider $G = D_8 = \bra r, s \mid r^4 = s^2 = e,\, srs^{-1} = r^{-1}\ket$ and let $K = \bra r^2\ket = \{e, r^2\}$. We verify that $K \lhd G$. Every element of $G$ is of the form $r^\ell$ or $sr^\ell$ for some $\ell$. For $a = r^\ell$, we have $r^\ell r^2 r^{-\ell} = r^2 \in K$. For $a = sr^\ell$, we have
+  \[
+    sr^\ell \cdot r^2 \cdot (sr^\ell)^{-1} = sr^2 s^{-1} = (srs^{-1})^2 = (r^{-1})^2 = r^{-2} = r^2 \in K.
+  \]
+  Thus $aka^{-1} \in K$ for all $a \in G$ and $k \in K$, so $K \lhd G$.
 \end{eg}
 
-\begin{prop}[Classification of order 6 groups, with proof]
-  A group of order $6$ is either cyclic or dihedral (i.e.\ $\cong C_6$ or $D_6$).
+\begin{prop}[Classification of groups of order $6$]
+  Any group of order $6$ is isomorphic to either $C_6$ or $D_6 \cong S_3$.
 \end{prop}
 
 \begin{proof}
-  Let $|G| = 6$. By Lagrange theorem, possible element orders are $1, 2, 3$ and $6$. If there is an $a\in G$ of order $6$, then $G = \bra a\ket \cong C_6$. Otherwise, we can only have elements of orders $2$ and $3$ other than the identity. If $G$ only has elements of order 2, the order must be a power of 2 by Sheet 1 Q. 8, which is not the case. So there must be an element $r$ of order 3. So $\bra r\ket\lhd G$ as it has index $2$. Now $G$ must also have an element $s$ of order $2$ by Sheet 1 Q. 9.
+  Let $G$ be a group with $|G| = 6$. By Lagrange's theorem, the possible orders of elements are $1$, $2$, $3$ and $6$.
 
-  Since $\bra r\ket$ is normal, we know that $srs^{-1}\in \bra r\ket$. If $srs^{-1} = e$, then $r = e$, which is not true. If $srs^{-1} = r$, then $sr = rs$ and $sr$ has order $6$ (lcm of the orders of $s$ and $r$), which was ruled out above. Otherwise if $srs^{-1} = r^2 = r^{-1}$, then $G$ is dihedral by definition of the dihedral group.
+  If $G$ contains an element of order $6$, then $G$ is cyclic, so $G \cong C_6$.
+
+  Otherwise, every non-identity element has order $2$ or $3$. Not all non-identity elements can have order $2$: if they did, then $G$ would be abelian (as shown in the proof of the classification of groups of order $4$), and for any two distinct non-identity elements $a, b$, the set $\{e, a, b, ab\}$ would be a subgroup of order $4$, contradicting Lagrange's theorem since $4 \nmid 6$. So there exists an element $r \in G$ of order $3$.
+
+  The subgroup $\bra r\ket$ has index $|G : \bra r\ket| = 2$, so $\bra r\ket \lhd G$ by the normality criteria lemma. Furthermore, not all non-identity elements can have order $3$, since elements of order $3$ come in inverse pairs $\{g, g^{-1}\}$ (note $g \neq g^{-1}$ when $\ord(g) = 3$), contributing an even number of such elements, but $|G| - 1 = 5$ is odd. So there also exists an element $s \in G$ of order $2$.
+
+  Since $\bra r\ket$ is normal, $srs^{-1} \in \bra r\ket = \{e, r, r^2\}$. If $srs^{-1} = e$, then $r = e$, a contradiction. If $srs^{-1} = r$, then $sr = rs$, and since $\bra s\ket \cap \bra r\ket = \{e\}$ (as $\ord(s) = 2$ and $\ord(r) = 3$), the element $sr$ has order $\lcm(2, 3) = 6$, contradicting our assumption. Therefore $srs^{-1} = r^2 = r^{-1}$, so $G = \bra r, s \mid r^3 = s^2 = e,\, srs^{-1} = r^{-1}\ket \cong D_6$.
 \end{proof}
 
 \subsection{Quotient groups}
