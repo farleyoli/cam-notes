@@ -1384,19 +1384,20 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 \end{defi}
 
 \subsection{Orbits and Stabilizers}
-\begin{defi}[Orbit of action]
-  Given an action $G$ on $X$, the \emph{orbit} of an element $x\in X$ is
+\begin{defi}[Orbit]
+  Given an action of $G$ on $X$, the \emph{orbit} of an element $x \in X$ is
   \[
-    \orb (x) = G(x) = \{y\in X: (\exists g\in G)\,g(x) = y\}.
+    \orb(x) = G(x) = \{y \in X : (\exists g \in G)\, g(x) = y\}.
   \]
-  Intuitively, it is the elements that $x$ can possibly get mapped to.
+  Intuitively, this is the set of elements that $x$ can be mapped to.
 \end{defi}
-\begin{defi}[Stabilizer of action]
+
+\begin{defi}[Stabilizer]
   The \emph{stabilizer} of $x$ is
   \[
-    \stab(x) = G_x = \{g\in G: g(x) = x\}\subseteq G.
+    \stab(x) = G_x = \{g \in G : g(x) = x\} \subseteq G.
   \]
-  Intuitively, it is the elements in $G$ that do not change $x$.
+  Intuitively, this is the set of elements in $G$ that fix $x$.
 \end{defi}
 
 \begin{lemma}[Stabilizer subgroup]
@@ -1404,18 +1405,18 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 \end{lemma}
 
 \begin{proof}
-  We know that $e(x) = x$ by definition. So $\stab(x)$ is non-empty. Suppose $g, h\in \stab(x)$, then $gh^{-1}(x) = g(h^{-1}(x)) = g(x) = x$. So $gh^{-1}\in \stab (X)$. So $\stab (x)$ is a subgroup.
+  Since $e(x) = x$, we have $e \in \stab(x)$, so $\stab(x)$ is non-empty. If $g, h \in \stab(x)$, then $gh^{-1}(x) = g(h^{-1}(x)) = g(x) = x$, so $gh^{-1} \in \stab(x)$. Hence $\stab(x)$ is a subgroup.
 \end{proof}
 
-\begin{eg}\leavevmode
+\begin{eg}[Orbits and stabilizers]\leavevmode
   \begin{enumerate}
-    \item Consider $D_8$ acting on the corners of the square $X = \{1, 2, 3, 4\}$. Then $\orb(1) = X$ since $1$ can go anywhere by rotations. $\stab(1) = \{e, $ reflection in the line through 1$\}$
-    \item Consider the rotations of a cube acting on the three axes $x, y, z$. Then $\orb(x)$ is everything, and $\stab(x)$ contains $e$, $180^\circ$ rotations and rotations about the $x$ axis.
+    \item Consider $D_8$ acting on the corners of the square $X = \{1, 2, 3, 4\}$. Then $\orb(1) = X$ since $1$ can be sent anywhere by rotations, and $\stab(1) = \{e, s\}$ where $s$ is the reflection in the line through vertex $1$.
+    \item Consider the rotations of a cube acting on the three axes $x, y, z$. Then $\orb(x) = \{x, y, z\}$, and $\stab(x)$ consists of $e$, the $180^\circ$ rotations, and the rotations about the $x$-axis.
   \end{enumerate}
 \end{eg}
 
 \begin{defi}[Transitive action]
-  An action $G$ on $X$ is \emph{transitive} if $(\forall x)\,\orb(x) = X$, i.e.\ you can reach any element from any element.
+  An action of $G$ on $X$ is \emph{transitive} if $\orb(x) = X$ for all $x \in X$, i.e.\ any element of $X$ can be reached from any other.
 \end{defi}
 
 \begin{lemma}[Orbit partition]
@@ -1423,45 +1424,55 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 \end{lemma}
 
 \begin{proof}
-  Firstly, $(\forall x)(x\in \orb (x))$ as $e(x) = x$. So every $x$ is in some orbit.
+  Every $x \in X$ lies in $\orb(x)$, since $e(x) = x$. So the orbits cover $X$.
 
-  Then suppose $z\in \orb (x)$ and $z\in \orb (y)$, we have to show that $\orb(x) = \orb (y)$. We know that $z = g_1(x)$ and $z = g_2(y)$ for some $g_1, g_2$. Then $g_1(x) = g_2(y)$ and $y = g_2^{-1}g_1(x)$.
+  Now suppose $z \in \orb(x) \cap \orb(y)$. We show that $\orb(x) = \orb(y)$. Write $z = g_1(x)$ and $z = g_2(y)$ for some $g_1, g_2 \in G$. Then $y = g_2^{-1}g_1(x)$.
 
-  For any $w = g_3(y)\in \orb (y)$, we have $w = g_3g_2^{-1}g_1(x)$. So $w\in \orb (x)$. Thus $\orb (y) \subseteq \orb (x)$ and similarly $\orb (x) \subseteq \orb (y)$. Therefore $\orb (x) = \orb (y)$.
+  For any $w = g_3(y) \in \orb(y)$, we have $w = g_3 g_2^{-1} g_1(x) \in \orb(x)$. Thus $\orb(y) \subseteq \orb(x)$, and by symmetry $\orb(x) \subseteq \orb(y)$.
 \end{proof}
 
-Suppose a group $G$ acts on $X$. We fix an $x \in X$. Then by definition of the orbit, given any $g \in G$, we have $g(x) \in \orb(x)$. So each $g \in G$ gives us a member of $\orb(x)$. Conversely, every object in $\orb(x)$ arises this way, by definition of $\orb(x)$. However, different elements in $G$ can give us the same orbit. In particular, if $g \in \stab(x)$, then $hg$ and $h$ give us the same object in $\orb(x)$, since $hg(x) = h(g(x)) = h(x)$. So we have a correspondence between things in $\orb(x)$ and members of $G$, ``up to $\stab (x)$''.
+\begin{remark}
+  Suppose $G$ acts on $X$ and fix $x \in X$. Each $g \in G$ gives an element $g(x) \in \orb(x)$, and every element of $\orb(x)$ arises this way. However, different elements of $G$ can give the same element of $\orb(x)$: if $g \in \stab(x)$, then $hg$ and $h$ give the same element, since $hg(x) = h(g(x)) = h(x)$. So there is a correspondence between elements of $\orb(x)$ and elements of $G$ ``up to $\stab(x)$.''
+\end{remark}
 
 \begin{thm}[Orbit-stabilizer theorem]
   Let the group $G$ act on $X$. Then there is a bijection between $\orb(x)$ and cosets of $\stab(x)$ in $G$. In particular, if $G$ is finite, then
   \[
-    |\orb(x)||\stab(x)| = |G|.
+    |\orb(x)| \cdot |\stab(x)| = |G|.
   \]
 \end{thm}
 
 \begin{proof}
-  We biject the cosets of $\stab(x)$ with elements in the orbit of $x$. Recall that $G: \stab(x)$ is the set of cosets of $\stab(x)$. We can define
+  Define
   \begin{align*}
-    \theta: (G:\stab(x))& \to \orb(x)\\
-    g\stab(x) &\mapsto g(x).
+    \theta \colon (G : \stab(x)) &\to \orb(x) \\
+    g\,\stab(x) &\mapsto g(x).
   \end{align*}
-  This is well-defined --- if $g\stab(x) = h\stab(x)$, then $h = gk$ for some $k\in \stab(x)$. So $h(x) = g(k(x)) = g(x)$.
 
-  This map is surjective since for any $y\in \orb(x)$, there is some $g \in G$ such that $g(x) = y$, by definition. Then $\theta(g \stab(x)) = y$. It is injective since if $g(x) = h(x)$, then $h^{-1}g(x) = x$. So $h^{-1}g\in \stab (x)$. So $g\stab(x) = h\stab(x)$.
+  \emph{Well-defined:} If $g\,\stab(x) = h\,\stab(x)$, then $h = gk$ for some $k \in \stab(x)$, so $h(x) = g(k(x)) = g(x)$.
 
-  Hence the number of cosets is $|\orb(x)|$. Then the result follows from Lagrange's theorem.
+  \emph{Surjective:} For any $y \in \orb(x)$, there exists $g \in G$ with $g(x) = y$, so $\theta(g\,\stab(x)) = y$.
+
+  \emph{Injective:} If $g(x) = h(x)$, then $h^{-1}g(x) = x$, so $h^{-1}g \in \stab(x)$, hence $g\,\stab(x) = h\,\stab(x)$.
+
+  Thus $|\orb(x)|$ equals the number of cosets of $\stab(x)$, and the result follows from Lagrange's theorem.
 \end{proof}
-An important application of the orbit-stabilizer theorem is determining group sizes. To find the order of the symmetry group of, say, a pyramid, we find something for it to act on, pick a favorite element, and find the orbit and stabilizer sizes.
 
-\begin{eg}\leavevmode
+\begin{remark}
+  An important application of the orbit-stabilizer theorem is determining group sizes. To find the order of the symmetry group of, say, a pyramid, we find something for it to act on, pick a convenient element, and compute the orbit and stabilizer sizes.
+\end{remark}
+
+\begin{eg}[Orbit-stabilizer calculations]\leavevmode
   \begin{enumerate}
-    \item Suppose we want to know how big $D_{2n}$ is. $D_{2n}$ acts on the vertices $\{1, 2, 3, \cdots, n\}$ transitively. So $|\orb(1)| = n$. Also, $\stab(1) =\{e, $ reflection in the line through 1$\}$. So $|D_{2n}| = |\orb(1)||\stab(1)| = 2n$.
-
-      Note that if the action is transitive, then all orbits have size $|X|$ and thus all stabilizers have the same size.
-    \item Let $\bra (1\; 2)\ket$ act on $\{1, 2, 3\}$. Then $\orb(1) = \{1, 2\}$ and $\stab(1) = \{e\}$. $\orb(3) = \{3\}$ and $\stab(3) = \bra(1\; 2)\ket$.
-    \item Consider $S_4$ acting on $\{1, 2, 3, 4\}$. We know that $\orb(1) = X$ and $|S_4| = 24$. So $|\stab(1)| = \frac{24}{4} = 6$. That makes it easier to find $\stab(1)$. Clearly $S_{\{2, 3, 4\}} \cong S_3$ fix $1$. So $S_{\{2, 3, 4\}}\leq \stab(1)$. However, $|S_3| = 6 = |\stab(1)|$, so this is all of the stabilizer.
+    \item $D_{2n}$ acts on the vertices $\{1, 2, \dotsc, n\}$ transitively, so $|\orb(1)| = n$. Also $\stab(1) = \{e, s\}$ where $s$ is the reflection through vertex $1$. So $|D_{2n}| = |\orb(1)| \cdot |\stab(1)| = 2n$.
+    \item Let $\langle (1\; 2) \rangle$ act on $\{1, 2, 3\}$. Then $\orb(1) = \{1, 2\}$ and $\stab(1) = \{e\}$, while $\orb(3) = \{3\}$ and $\stab(3) = \langle (1\; 2) \rangle$.
+    \item Consider $S_4$ acting on $\{1, 2, 3, 4\}$. Since the action is transitive, $|\orb(1)| = 4$, so $|\stab(1)| = 24/4 = 6$. The subgroup $S_{\{2,3,4\}} \cong S_3$ fixes $1$, so $S_{\{2,3,4\}} \leq \stab(1)$. Since $|S_3| = 6 = |\stab(1)|$, we conclude $\stab(1) = S_{\{2,3,4\}}$.
   \end{enumerate}
 \end{eg}
+
+\begin{remark}
+  If the action is transitive, then every orbit has size $|X|$ and hence all stabilizers have the same size $|G|/|X|$.
+\end{remark}
 
 \subsection{Important actions}
 Given any group $G$, there are a few important actions we can define. In particular, we will define the \emph{conjugation} action, which is a very important concept on its own. In fact, the whole of the next chapter will be devoted to studying conjugation in the symmetric groups.
