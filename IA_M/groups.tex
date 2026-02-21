@@ -1242,68 +1242,85 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 \end{proof}
 
 \subsection{The Isomorphism Theorem}
-Now we come to the Really Important Theorem\textsuperscript{TM}.
+\begin{remark}
+  We now come to the central theorem of this chapter.
+\end{remark}
+
 \begin{thm}[The Isomorphism Theorem]
-  Let $f:G\to H$ be a group homomorphism with kernel $K$. Then $K\lhd G$ and $G/K\cong \im f$.
+  Let $f \colon G \to H$ be a group homomorphism with kernel $K$. Then $K \lhd G$ and $G/K \cong \im f$.
 \end{thm}
 
 \begin{proof}
-  We have proved that $K\lhd G$ before. We define a group homomorphism $\theta: G/K\to \im f$ by $\theta(aK) = f(a)$.
+  We have already proved that $K \lhd G$. Define $\theta \colon G/K \to \im f$ by $\theta(aK) = f(a)$.
 
-  First check that this is well-defined: If $a_1K = a_2K$, then $a_2^{-1}a_1\in K$. So
+  \emph{Well-defined:} If $a_1 K = a_2 K$, then $a_2^{-1}a_1 \in K$, so
   \[
     f(a_2)^{-1}f(a_1) = f(a_2^{-1}a_1) = e.
   \]
-  So $f(a_1) = f(a_2)$ and $\theta(a_1K) = \theta(a_2 K)$.
+  Thus $f(a_1) = f(a_2)$, and hence $\theta(a_1 K) = \theta(a_2 K)$.
 
-  Now we check that it is a group homomorphism:
+  \emph{Homomorphism:}
   \[
-    \theta(aKbK) = \theta(abK) = f(ab) = f(a)f(b) = \theta(aK) \theta(bK).
+    \theta(aK \cdot bK) = \theta(abK) = f(ab) = f(a)f(b) = \theta(aK)\,\theta(bK).
   \]
-  To show that it is injective, suppose $\theta(aK) = \theta(bK)$. Then $f(a) = f(b)$. Hence $f(b)^{-1}f(a) = e$. Hence $b^{-1}a \in K$. So $aK = bK$.
 
-  By definition, $\theta$ is surjective since $\im \theta = \im f$. So $\theta$ gives an isomorphism $G/K \cong \im f \leq H$.
+  \emph{Injective:} Suppose $\theta(aK) = \theta(bK)$. Then $f(a) = f(b)$, so $f(b)^{-1}f(a) = e$, hence $b^{-1}a \in K$, and therefore $aK = bK$.
+
+  \emph{Surjective:} For any $h \in \im f$, there exists $a \in G$ with $f(a) = h$, so $\theta(aK) = h$.
+
+  Thus $\theta$ is an isomorphism $G/K \cong \im f$.
 \end{proof}
-If $f$ is injective, then the kernel is $\{e\}$, so $G/K\cong G$ and $G$ is isomorphic to a subgroup of $H$. We can think of $f$ as an inclusion map. If $f$ is surjective, then $\im f = H$. In this case, $G/K \cong H$.
 
-\begin{eg}\leavevmode
+\begin{remark}\leavevmode
+  \begin{itemize}
+    \item If $f$ is injective, then $K = \{e\}$, so $G/\{e\} \cong G$ and $G$ is isomorphic to a subgroup of $H$. We can think of $f$ as an inclusion map.
+    \item If $f$ is surjective, then $\im f = H$, so $G/K \cong H$.
+  \end{itemize}
+\end{remark}
+
+\begin{eg}[Applications of the Isomorphism Theorem]\leavevmode
   \begin{enumerate}
-    \item Take $f: \GL_n(\R) \to \R^*$ with $A \mapsto \det A$, $\ker f = \SL_N(\R)$. $\im f = \R^*$ as for all $\lambda \in \R^*$, $\det
-      \begin{pmatrix}
-        \lambda & 0 & \cdots & 0 \\
-        0 &1 & \cdots & 0\\
-        \vdots &\vdots &\ddots & \vdots\\
-        0& 0 & 0 &1
-      \end{pmatrix}
-      = \lambda$. So we know that $\GL_n(\R)/\SL_n(\R) \cong \R^*$.
-    \item Define $\theta: (\R, +) \to (\C*, \times)$ with $r\mapsto \exp(2\pi ir)$. This is a group homomorphism since $\theta(r + s) = \exp(2\pi i(r + s)) = \exp (2\pi i r)\exp (2\pi i s) = \theta(r)\theta(s)$. We know that the kernel is $\Z\lhd \R$. Clearly the image is the unit circle $(S_1, \times)$. So $\R/\Z \cong (S_1, \times)$.
-    \item $G = (\Z_p^*, \times)$ for prime $p\not= 2$. We have $f: G\to G$ with $a\mapsto a^2$. This is a homomorphism since $(ab)^2 = a^2b^2$ ($\Z_p^*$ is abelian). The kernel is $\{\pm 1\} = \{1, p - 1\}$. We know that $\im f\cong G/\ker f$ with order $\frac{p - 1}{2}$. These are known as quadratic residues.
+    \item Consider $f \colon \GL_n(\R) \to \R^*$ defined by $A \mapsto \det A$. Then $\ker f = \SL_n(\R)$, and $f$ is surjective since for all $\lambda \in \R^*$,
+      \[
+        \det
+        \begin{pmatrix}
+          \lambda & 0 & \cdots & 0 \\
+          0 & 1 & \cdots & 0 \\
+          \vdots & \vdots & \ddots & \vdots \\
+          0 & 0 & 0 & 1
+        \end{pmatrix}
+        = \lambda.
+      \]
+      By the Isomorphism Theorem, $\GL_n(\R)/\SL_n(\R) \cong \R^*$.
+    \item Define $\theta \colon (\R, +) \to (\C^*, \times)$ by $r \mapsto \exp(2\pi i r)$. This is a homomorphism since $\theta(r + s) = \exp(2\pi i(r + s)) = \exp(2\pi i r)\exp(2\pi i s) = \theta(r)\,\theta(s)$. The kernel is $\Z \lhd \R$ and the image is the unit circle $(S^1, \times)$, so $\R/\Z \cong (S^1, \times)$.
+    \item Let $G = (\Z_p^*, \times)$ for an odd prime $p$, and define $f \colon G \to G$ by $a \mapsto a^2$. This is a homomorphism since $G$ is abelian: $(ab)^2 = a^2 b^2$. The kernel is $\{\pm 1\} = \{1, p - 1\}$, so $|\im f| = |G/\ker f| = \frac{p-1}{2}$. The elements of $\im f$ are called \emph{quadratic residues} modulo $p$.
   \end{enumerate}
 \end{eg}
 
 \begin{lemma}[Classification of cyclic groups]
-  Any cyclic group is isomorphic to either $\Z$ or $\Z/(n\Z)$ for some $n\in \N$.
+  Every cyclic group is isomorphic to either $\Z$ or $\Z/(n\Z)$ for some $n \in \N$.
 \end{lemma}
 
 \begin{proof}
-  Let $G = \bra c\ket$. Define $f: \Z \to G$ with $m\mapsto c^m$. This is a group homomorphism since $c^{m_1 + m_2} = c^{m_1}c^{m_2}$. $f$ is surjective since $G$ is by definition all $c^m$ for all $m$. We know that $\ker f\lhd \Z$. We have three possibilities. Either
+  Let $G = \bra c\ket$. Define $f \colon \Z \to G$ by $m \mapsto c^m$. This is a homomorphism since $c^{m_1 + m_2} = c^{m_1} c^{m_2}$, and it is surjective since $G = \{c^m : m \in \Z\}$ by definition. Since the only subgroups of $\Z$ are $n\Z$ for $n \geq 0$, there are three cases:
   \begin{enumerate}
-    \item $\ker f = \{e\}$, so $F$ is an isomorphism and $G\cong \Z$; or
-    \item $\ker f = \Z$, then $G\cong \Z/\Z = \{e\} = C_1$; or
-    \item $\ker f = n\Z$ (since these are the only proper subgroups of $\Z$), then $G\cong \Z/(n\Z)$.\qedhere
+    \item $\ker f = \{0\}$, so $f$ is an isomorphism and $G \cong \Z$;
+    \item $\ker f = \Z$, so $G \cong \Z/\Z = \{e\} \cong C_1$;
+    \item $\ker f = n\Z$ for some $n \geq 2$, so $G \cong \Z/(n\Z)$.\qedhere
   \end{enumerate}
 \end{proof}
 
 \begin{defi}[Simple group]
-  A group is \emph{simple} if it has no non-trivial proper normal subgroup, i.e.\ only $\{e\}$ and $G$ are normal subgroups.
+  A group $G$ is \emph{simple} if its only normal subgroups are $\{e\}$ and $G$ itself.
 \end{defi}
 
-\begin{eg}
-  $C_p$ for prime $p$ are simple groups since it has no proper subgroups at all, let alone normal ones.
-  $A_5$ is simple, which we will prove after Chapter~\ref{sec:sym2}.
+\begin{eg}[Simple groups]
+  The cyclic group $C_p$ is simple for any prime $p$, since $C_p$ has no proper subgroups at all, let alone normal ones. The alternating group $A_5$ is also simple, which we will prove after Chapter~\ref{sec:sym2}.
 \end{eg}
 
-The finite simple groups are the building blocks of all finite groups. All finite simple groups have been classified (The Atlas of Finite Groups). If we have $K\lhd G$ with $K\not= G$ or $\{e\}$, then we can ``quotient out'' $G$ into $G/K$. If $G/K$ is not simple, repeat. Then we can write $G$ as an ``inverse quotient'' of simple groups.
+\begin{remark}
+  The finite simple groups are the building blocks of all finite groups. If $K \lhd G$ with $K \neq \{e\}$ and $K \neq G$, we can form the quotient $G/K$; if $G/K$ is not simple, we repeat. In this way, every finite group can be decomposed into simple ``factors.'' All finite simple groups have been classified (see \emph{The Atlas of Finite Groups}).
+\end{remark}
 
 \section{Group actions}
 \label{sec:action}
