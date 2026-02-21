@@ -1621,46 +1621,52 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 \end{lemma}
 
 \subsection{Applications}
-\begin{eg}
-  Let $G^{+}$ be the rotations of a cube acting on the vertices. Let $X$ be the set of vertices. Then $|X| = 8$. Since the action is transitive, the orbit of element is the whole of $X$. The stabilizer of vertex $1$ is the set of rotations through $1$ and the diagonally opposite vertex, of which there are 3. So $|G^{+}| = |\orb(1)||\stab(1)| = 8\cdot 3 = 24$.
+\begin{eg}[Rotations of a cube]
+  Let $G^{+}$ be the group of rotations of a cube, acting on the set of vertices $X$. Then $|X| = 8$. Since the action is transitive, the orbit of any vertex is all of $X$. The stabilizer of vertex $1$ consists of the rotations about the diagonal through $1$ and the opposite vertex, of which there are $3$. So $|G^{+}| = |\orb(1)| \cdot |\stab(1)| = 8 \cdot 3 = 24$.
 \end{eg}
 
-\begin{eg}
-  Let $G$ be a finite simple group of order greater than 2, and $H\leq G$ have index $n\not= 1$. Then $|G| \leq n!/2$.
-\end{eg}
+\begin{prop}[Order bound for finite simple groups]
+  Let $G$ be a finite simple group of order greater than $2$, and let $H \leq G$ have index $n \neq 1$. Then $|G| \leq n!/2$.
+\end{prop}
 
 \begin{proof}
-  Consider the left coset action of $G$ on $H$. We get a group homomorphism $\varphi: G\to S_n$ since there are $n$ cosets of $H$. Since $H\not= G$, $\varphi$ is non-trivial and $\ker \varphi \not=G$. Now $\ker \varphi \lhd G$. Since $G$ is simple, $\ker\varphi = \{e\}$. So $G\cong \im \varphi \subseteq S_n$ by the isomorphism theorem. So $|G| \leq |S_n| = n!$.
+  Consider the left coset action of $G$ on the cosets of $H$. This gives a homomorphism $\varphi \colon G \to S_n$. Since $H \neq G$, the map $\varphi$ is non-trivial, so $\ker \varphi \neq G$. Since $\ker \varphi \lhd G$ and $G$ is simple, we must have $\ker \varphi = \{e\}$. By the Isomorphism Theorem, $G \cong \im \varphi \leq S_n$, so $|G| \leq n!$.
 
-  We can further refine this by considering $\sgn\circ \varphi: G \to \{\pm 1\}$. The kernel of this composite is normal in $G$. So $K = \ker(\sgn\circ\phi) = \{e\}$ or $G$. Since $G/K\cong \im (\sgn\circ\phi)$, we know that $|G|/|K| = 1$ or $2$ since $\im(\sgn\circ \phi)$ has at most two elements. Hence for $|G|> 2$, we cannot have $K = \{e\}$, or else $|G|/|K| > 2$. So we must have $K = G$, so $\sgn(\varphi(g)) = 1$ for all $g$ and $\im \varphi \leq A_n$. So $|G|\leq n!/2$
+  We refine this using $\sgn \circ\, \varphi \colon G \to \{\pm 1\}$. Let $K = \ker(\sgn \circ\, \varphi)$. Then $K \lhd G$, so $K = \{e\}$ or $K = G$. Since $G/K \cong \im(\sgn \circ\, \varphi)$ has at most $2$ elements, $|G|/|K| \leq 2$. For $|G| > 2$, we cannot have $K = \{e\}$, so $K = G$. Thus $\sgn(\varphi(g)) = 1$ for all $g$, giving $\im \varphi \leq A_n$ and hence $|G| \leq n!/2$.
 \end{proof}
 
-We have seen on Sheet 1 that if $|G|$ is even, then $G$ has an element of order 2. In fact,
+\begin{remark}
+  We have seen on Example Sheet 1 that if $|G|$ is even, then $G$ has an element of order $2$. Cauchy's theorem generalises this to arbitrary primes.
+\end{remark}
+
 \begin{thm}[Cauchy's Theorem]
-  Let $G$ be a finite group and prime $p$ dividing $|G|$. Then $G$ has an element of order $p$ (in fact there must be at least $p - 1$ elements of order $p$).
+  Let $G$ be a finite group and let $p$ be a prime dividing $|G|$. Then $G$ has an element of order $p$ (in fact, at least $p - 1$ such elements).
 \end{thm}
-It is important to remember that this only holds for prime $p$. For example, $A_4$ doesn't have an element of order $6$ even though $6 \mid 12 = |A_4|$. The converse, however, holds for any number trivially by Lagrange's theorem.
+
+\begin{remark}
+  The hypothesis that $p$ is prime is essential: $A_4$ has no element of order $6$ even though $6 \mid 12 = |A_4|$. The converse, however, holds for any divisor by Lagrange's theorem.
+\end{remark}
 
 \begin{proof}
-  Let $G$ and $p$ be fixed. Consider $G^p = G\times G\times \cdots \times G$, the set of $p$-tuples of $G$. Let $X \subseteq G^p$ be $X = \{(a_1, a_2, \cdots, a_p)\in G^p: a_1a_2\cdots a_p = e\}$.
-
-  In particular, if an element $b$ has order $p$, then $(b, b, \cdots, b)\in X$. In fact, if $(b, b, \cdots, b)\in X$ and $b\not= e$, then $b$ has order $p$, since $p$ is prime.
-
-  Now let $H = \bra h: h^p = e\ket\cong C_p$ be a cyclic group of order $p$ with generator $h$ (This $h$ is not related to $G$ in any way). Let $H$ act on $X$ by ``rotation'':
+  Consider $G^p = G \times G \times \dotsb \times G$ (the set of $p$-tuples) and let
   \[
-    h(a_1, a_2, \cdots, a_p) = (a_2, a_3, \cdots, a_p, a_1)
+    X = \{(a_1, a_2, \dotsc, a_p) \in G^p : a_1 a_2 \dotsm a_p = e\}.
   \]
-  This is an action:
+  Note that if $(b, b, \dotsc, b) \in X$ with $b \neq e$, then $b^p = e$, so $b$ has order $p$ (since $p$ is prime).
+
+  Let $H = \langle h : h^p = e \rangle \cong C_p$ (a cyclic group of order $p$, unrelated to $G$). Define an action of $H$ on $X$ by cyclic rotation:
+  \[
+    h(a_1, a_2, \dotsc, a_p) = (a_2, a_3, \dotsc, a_p, a_1).
+  \]
+  We verify this is an action:
   \begin{enumerate}[label=\arabic{*}.]
       \setcounter{enumi}{-1}
-    \item If $a_1\cdots a_p = e$, then $a_1^{-1} = a_2\cdots a_p$. So $a_2\cdots a_pa_1 = a_1^{-1}a_1 = e$. So $(a_2, a_3, \cdots, a_p, a_1)\in X$.
-    \item $e$ acts as an identity by construction
-    \item The ``associativity'' condition also works by construction.
+    \item \emph{Closure:} If $a_1 \dotsm a_p = e$, then $a_1^{-1} = a_2 \dotsm a_p$, so $a_2 \dotsm a_p a_1 = a_1^{-1} a_1 = e$.
+    \item The identity acts trivially by construction.
+    \item The composition condition holds by construction.
   \end{enumerate}
 
-  As orbits partition $X$, the sum of all orbit sizes must be $|X|$. We know that $|X| = |G|^{p - 1}$ since we can freely choose the first $p - 1$ entries and the last one must be the inverse of their product. Since $p$ divides $|G|$, $p$ also divides $|X|$. We have $|\orb(a_1, \cdots , a_p)||\stab_H(a_1, \cdots, a_p)| = |H| = p$. So all orbits have size 1 or $p$, and they sum to $|X| = p\times$ something. We know that there is one orbit of size 1, namely $(e, e, \cdots, e)$. So there must be at least $p - 1$ other orbits of size 1 for the sum to be divisible by $p$.
-
-  In order to have an orbit of size 1, they must look like ${(a, a, \cdots, a)}$ for some $a\in G$, which has order $p$.
+  Now $|X| = |G|^{p-1}$, since the first $p - 1$ entries can be chosen freely and the last is determined. Since $p \mid |G|$, we have $p \mid |X|$. By the orbit-stabilizer theorem, each orbit has size $|H|/|\stab| = p$ or $1$. Since orbits partition $X$ and $p \mid |X|$, the number of size-$1$ orbits must be divisible by $p$. The tuple $(e, e, \dotsc, e)$ is one such orbit, so there are at least $p - 1$ others. Each size-$1$ orbit has the form $(a, a, \dotsc, a)$ with $a^p = e$ and $a \neq e$, giving an element of order $p$.
 \end{proof}
 
 \section{Symmetric groups II}
