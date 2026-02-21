@@ -584,134 +584,142 @@ Now a group is any set with an operation that satisfies the three rules above. I
 \end{proof}
 
 \section{Symmetric group I}
-We will devote two full chapters to the study of symmetric groups, because it is really important. Recall that we defined a symmetry to be an operation that leaves some important property of the object intact. We can treat each such operation as a bijection. For example, a symmetry of $\R^2$ is a bijection $f: \R^2 \to \R^2$ that preserves distances. Note that we must require it to be a bijection, instead of a mere function, since we require each symmetry to be an inverse.
+\begin{remark}
+  Recall that a symmetry of an object is a bijection that preserves some structure. For example, a symmetry of $\R^2$ is a bijection $f\colon \R^2 \to \R^2$ that preserves distances. We now consider the case where no structure needs to be preserved: the group of \emph{all} bijections from a set to itself. This is the \emph{symmetric group}, and it is in some sense the most general symmetry group. We will later show (in Chapter~\ref{sec:action}) that every group is isomorphic to a subgroup of some symmetric group.
+\end{remark}
 
-We can consider the case where we don't care about anything at all. So a ``symmetry'' would be any arbitrary bijection $X \to X$, and the set of all bijections will form a group, known as the \emph{symmetric group}. Of course, we will no longer think of these as ``symmetries'' anymore, but just bijections.
-
-In some sense, the symmetric group is the most general case of a symmetry group. In fact, we will later (in Chapter~\ref{sec:action}) show that every group can be written as a subgroup of some symmetric group.
 \subsection{Symmetric groups}
 \begin{defi}[Permutation]
-  A \emph{permutation} of $X$ is a bijection from a set $X$ to $X$ itself. The set of all permutations on $X$ is $\Sym X$.
+  Let $X$ be a set. A \emph{permutation} of $X$ is a bijection $\sigma\colon X \to X$. The set of all permutations of $X$ is denoted $\Sym X$.
 \end{defi}
-When composing permutations, we treat them as functions. So if $\sigma$ and $\rho$ are permutations, $\sigma\circ \rho$ is given by first applying $\rho$, then applying $\sigma$.
+
+\begin{remark}
+  We compose permutations as functions: if $\sigma$ and $\tau$ are permutations, then $\sigma\circ \tau$ denotes first applying $\tau$, then applying $\sigma$.
+\end{remark}
 
 \begin{thm}
-  $\Sym X$ with composition forms a group.
+  $(\Sym X, \circ)$ is a group.
 \end{thm}
 
 \begin{proof}
-  The groups axioms are satisfied as follows:
+  The group axioms are verified as follows:
   \begin{enumerate}[label=\arabic{*}.]
       \setcounter{enumi}{-1}
-    \item If $\sigma: X\to X$ and $\tau: X\to X$, then $\sigma\circ\tau:X\to X$. If they are both bijections, then the composite is also bijective. So if $\sigma, \tau\in \Sym X$, then $\sigma\circ\tau\in\Sym X$.
-    \item The identity $1_X:X\to X$ is clearly a permutation, and gives the identity of the group.
-    \item Every bijective function has a bijective inverse. So if $\sigma\in \Sym X$, then $\sigma^{-1} \in \Sym X$.
+    \item If $\sigma, \tau\in \Sym X$, then $\sigma\circ\tau\colon X\to X$ is a bijection, so $\sigma\circ\tau\in\Sym X$.
+    \item The identity function $1_X\colon X\to X$ is a permutation and satisfies $\sigma \circ 1_X = 1_X \circ \sigma = \sigma$ for all $\sigma \in \Sym X$.
+    \item Every bijection has a bijective inverse, so if $\sigma\in \Sym X$, then $\sigma^{-1} \in \Sym X$.
     \item Composition of functions is associative.\qedhere
   \end{enumerate}
 \end{proof}
 
 \begin{defi}[Symmetric group $S_n$]
-  If $X$ is finite, say $|X| = n$ (usually use $X = \{1, 2, \cdots, n\}$), we write $\Sym X = S_n$. The is the \emph{symmetric group} of degree $n$.
+  If $X$ is a finite set with $|X| = n$ (we usually take $X = \{1, 2, \ldots, n\}$), we write $S_n = \Sym X$. This is the \emph{symmetric group} of degree $n$.
 \end{defi}
-It is important to note that the \emph{degree} of the symmetric group is different from the \emph{order} of the symmetric group. For example, $S_3$ has degree 3 but order 6. In general, the order of $S_n$ is $n!$.
 
-There are two ways to write out an element of the symmetric group. The first is the \emph{two row notation}.
-\begin{notation}
-  (Two row notation) We write $1, 2, 3, \cdots n$ on the top line and their images below, e.g.
+\begin{remark}
+  The \emph{degree} of $S_n$ is $n$, while the \emph{order} of $S_n$ is $|S_n| = n!$. For example, $S_3$ has degree $3$ but order $6$.
+\end{remark}
+
+\begin{notation}[Two row notation]
+  A permutation $\sigma \in S_n$ can be written by listing $1, 2, \ldots, n$ on the top row and their images below:
+  \[
+    \begin{pmatrix}
+      1 & 2 & 3 &\cdots& n\\
+      \sigma(1) & \sigma(2)&\sigma(3) &\cdots& \sigma(n)
+    \end{pmatrix}.
+  \]
+  For example,
   \[
     \begin{pmatrix}
       1 & 2 & 3\\
       2 & 3 & 1
-    \end{pmatrix}\in S_3 \text{ and }
+    \end{pmatrix}\in S_3 \quad\text{and}\quad
     \begin{pmatrix}
       1 & 2 & 3 & 4 & 5\\
       2 & 1 & 3 & 4 & 5
-    \end{pmatrix}\in S_5
-  \]
-  In general, if $\sigma: X\to X$, we write
-  \[
-    \begin{pmatrix}
-      1 & 2 & 3 &\cdots& n\\
-      \sigma(1) & \sigma(2)&\sigma(3) &\cdots& \sigma{(n)}
-    \end{pmatrix}
+    \end{pmatrix}\in S_5.
   \]
 \end{notation}
 
 \begin{eg}
-  For small $n$, we have
+  For small values of $n$:
   \begin{enumerate}
-    \item When $n = 1$, $S_n = \left\{\begin{pmatrix}1\\1\end{pmatrix}\right\} = \{e\}\cong C_1$.
-    \item When $n = 2$, $S_n = \left\{\begin{pmatrix}1 & 2\\ 1 & 2\end{pmatrix}, \begin{pmatrix}1 & 2\\2 & 1\end{pmatrix}\right\}\cong C_2$
-    \item When $n = 3$,
-      \[
-        S_n = \left\{\begin{matrix}\begin{pmatrix}1 & 2 & 3\\1 & 2 & 3\end{pmatrix}, &\begin{pmatrix}1 & 2 & 3\\ 2 & 3 & 1\end{pmatrix}, &\begin{pmatrix}1 & 2 & 3\\3 & 1 & 2\end{pmatrix}\\\\\begin{pmatrix}1 & 2 & 3\\2 & 1 & 3\end{pmatrix}, &\begin{pmatrix}1 & 2 & 3\\ 3 & 2 & 1\end{pmatrix}, &\begin{pmatrix}1 & 2 & 3\\1 & 3 & 2\end{pmatrix}\end{matrix}\right\}\cong D_6.
-      \]
-      Note that $S_3$ is not abelian. Thus $S_n$ is not abelian for $n \geq 3$ since we can always view $S_3$ as a subgroup of $S_n$ by fixing $4, 5, 6, \cdots n$.
+    \item $S_1 = \left\{\begin{pmatrix}1\\1\end{pmatrix}\right\} = \{e\}\cong C_1$.
+    \item $S_2 = \left\{\begin{pmatrix}1 & 2\\ 1 & 2\end{pmatrix}, \begin{pmatrix}1 & 2\\2 & 1\end{pmatrix}\right\}\cong C_2$.
+    \item $S_3 = \left\{\begin{matrix}\begin{pmatrix}1 & 2 & 3\\1 & 2 & 3\end{pmatrix}, &\begin{pmatrix}1 & 2 & 3\\ 2 & 3 & 1\end{pmatrix}, &\begin{pmatrix}1 & 2 & 3\\3 & 1 & 2\end{pmatrix}\\\\\begin{pmatrix}1 & 2 & 3\\2 & 1 & 3\end{pmatrix}, &\begin{pmatrix}1 & 2 & 3\\ 3 & 2 & 1\end{pmatrix}, &\begin{pmatrix}1 & 2 & 3\\1 & 3 & 2\end{pmatrix}\end{matrix}\right\}\cong D_6$.
   \end{enumerate}
 \end{eg}
-In general, we can view $D_{2n}$ as a subgroup of $S_n$ because each symmetry is a permutation of the corners.
 
-While the two row notation is fully general and can represent any (finite) permutation, it is clumsy to write and wastes a lot of space. It is also very annoying to type using \LaTeX. Hence, most of the time, we actually use the cycle notation.
+\begin{remark}
+  $S_3$ is not abelian, and hence $S_n$ is not abelian for any $n \geq 3$, since $S_3$ can be viewed as a subgroup of $S_n$ (by fixing $4, 5, \ldots, n$). More generally, $D_{2n}$ can be viewed as a subgroup of $S_n$, since each symmetry of a regular $n$-gon permutes its vertices.
+\end{remark}
 
 \begin{notation}[Cycle notation]
-  If a map sends $1 \mapsto 2$, $2\mapsto 3$, $3\mapsto 1$, then we write it as a cycle $(1\;2\;3)$. Alternatively, we can write $(2\;3\;1)$ or $(3\;1\;2)$, but by convention, we usually write the smallest number first. We leave out numbers that don't move. So we write $(1\; 2)$ instead of $(1\; 2)(3)$.
-
-  For more complicated maps, we can write them as products of cycles. For example, in $S_4$, we can have things like $(1\; 2)(3\; 4)$.
+  A permutation that sends $a_1 \mapsto a_2 \mapsto \cdots \mapsto a_k \mapsto a_1$ and fixes all other elements is written as the cycle $(a_1\; a_2\; \cdots\; a_k)$. By convention, we write the smallest element first and omit fixed points. More general permutations can be written as products of cycles; for example, $(1\; 2)(3\; 4) \in S_4$ denotes the permutation that swaps $1$ with $2$ and $3$ with $4$.
 \end{notation}
-The order of each cycle is the length of the cycle, and the inverse is the cycle written the other way round, e.g.\ $(1\; 2\; 3)^{-1} = (3\; 2\; 1) = (1\; 3\; 2)$.
+
+\begin{prop}
+  The inverse of a cycle is obtained by writing it in reverse order, e.g.\ $(1\; 2\; 3)^{-1} = (3\; 2\; 1) = (1\; 3\; 2)$.
+\end{prop}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-    \item Suppose we want to simplify $(1\; 2\; 3)(1\; 2)$. Recall that composition is from right to left. So $1$ gets mapped to $3$ ($(1\; 2)$ maps $1$ to $2$, and $(1\; 2\; 3)$ further maps it to $3$). Then $3$ gets mapped to $1$. $2$ is mapped to $2$ itself. So $(1\; 2\; 3)(1\; 2) = (1\;3)(2)$
-    \item $(1\; 2\; 3\; 4)(1\; 4) = (1)(2\; 3\; 4) = (2\; 3\; 4)$.
+    \item $(1\; 2\; 3)(1\; 2) = (1\;3)$, since (composing right to left) $1 \mapsto 2 \mapsto 3$, $3 \mapsto 3 \mapsto 1$, and $2 \mapsto 1 \mapsto 2$.
+    \item $(1\; 2\; 3\; 4)(1\; 4) = (2\; 3\; 4)$.
   \end{enumerate}
 \end{eg}
+
 \begin{defi}[$k$-cycles and transpositions]
-  We call $(a_1\; a_2\; a_3\cdots a_k)$ a \emph{$k$-cycle}. $2$-cycles are called \emph{transpositions}. Two cycles are \emph{disjoint} if no number appears in both cycles.
+  A cycle $(a_1\; a_2\; \cdots\; a_k)$ is called a \emph{$k$-cycle}. A $2$-cycle is called a \emph{transposition}. Two cycles are \emph{disjoint} if no element appears in both.
 \end{defi}
+
 \begin{eg}
-  $(1\; 2)$ and $(3\; 4)$ are disjoint but $(1\; 2\; 3)$ and $(1\; 2)$ are not.
+  $(1\; 2)$ and $(3\; 4)$ are disjoint, but $(1\; 2\; 3)$ and $(1\; 2)$ are not.
 \end{eg}
+
 \begin{lemma}
   Disjoint cycles commute.
 \end{lemma}
 \begin{proof}
-  If $\sigma, \tau\in S_n$ are disjoint cycles. Consider any $n$. Show that: $\sigma(\tau(a)) = \tau(\sigma(a))$. If $a$ is in neither of $\sigma$ and $\tau$, then $\sigma(\tau(a)) = \tau(\sigma(a)) = a$. Otherwise, wlog assume that $a$ is in $\tau$ but not in $\sigma$. Then $\tau(a)\in \tau$ and thus $\tau(a)\not\in \sigma$. Thus $\sigma(a) = a$ and $\sigma(\tau(a)) = \tau(a)$. Therefore we have $\sigma(\tau(a)) = \tau(\sigma(a)) = \tau(a)$. Therefore $\tau$ and $\sigma$ commute.
+  Let $\sigma, \tau\in S_n$ be disjoint cycles. We show that $\sigma(\tau(a)) = \tau(\sigma(a))$ for all $a \in \{1, \ldots, n\}$. If $a$ appears in neither $\sigma$ nor $\tau$, then both sides equal $a$. Otherwise, assume without loss of generality that $a$ appears in $\tau$ but not in $\sigma$. Then $\tau(a)$ also appears in $\tau$ and hence not in $\sigma$, so $\sigma(\tau(a)) = \tau(a)$. On the other hand, $\sigma(a) = a$, so $\tau(\sigma(a)) = \tau(a)$. Thus $\sigma \circ \tau = \tau \circ \sigma$.
 \end{proof}
-In general, non-disjoint cycles may not commute. For example, $(1\; 3)(2\; 3) = (1\; 3\; 2)$ while $(2\; 3)(1\; 3) = (1\; 2\; 3)$.
+
+\begin{remark}
+  Non-disjoint cycles need not commute. For example, $(1\; 3)(2\; 3) = (1\; 3\; 2)$ while $(2\; 3)(1\; 3) = (1\; 2\; 3)$.
+\end{remark}
 
 \begin{thm}
-  Any permutation in $S_n$ can be written (essentially) uniquely as a product of disjoint cycles. (Essentially unique means unique up to re-ordering of cycles and rotation within cycles, e.g.\ $(1\; 2)$ and $(2\; 1)$)
+  Every permutation in $S_n$ can be written as a product of disjoint cycles. This decomposition is unique up to the ordering of cycles and cyclic rotation within each cycle.
 \end{thm}
 
 \begin{proof}
-  Let $\sigma\in S_n$. Start with $(1\; \sigma(1)\; \sigma^2(1)\; \sigma^3(1)\;\cdots)$. As the set $\{1, 2, 3\cdots n\}$ is finite, for some $k$, we must have $\sigma^k(1)$ already in the list. If $\sigma^k(1) = \sigma^l(1)$, with $l < k$, then $\sigma^{k-l}(1) = 1$. So all $\sigma^i(1)$ are distinct until we get back to $1$. Thus we have the first cycle $(1\; \sigma(1)\; \sigma^2(1)\; \sigma^3(1)\;\cdots\;\sigma^{k-1}(1))$.
+  Let $\sigma\in S_n$. Form the sequence $1, \sigma(1), \sigma^2(1), \sigma^3(1), \ldots$ Since the set $\{1, 2, \ldots, n\}$ is finite, for some $k$ we must have $\sigma^k(1)$ equal to a previous term. If $\sigma^k(1) = \sigma^l(1)$ with $l < k$, then $\sigma^{k-l}(1) = 1$. So all terms $\sigma^i(1)$ are distinct until we return to $1$, giving the first cycle $(1\; \sigma(1)\; \sigma^2(1)\;\cdots\;\sigma^{k-1}(1))$.
 
-  Now choose the smallest number that is not yet in a cycle, say $j$. Repeat to obtain a cycle $(j\; \sigma(j)\; \sigma^2(j)\;\cdots\; \sigma^{l - 1}(j))$. Since $\sigma$ is a bijection, nothing in this cycle can be in previous cycles as well.
+  Now choose the smallest element not yet in any cycle, say $j$, and repeat to obtain a cycle $(j\; \sigma(j)\; \sigma^2(j)\;\cdots\; \sigma^{l - 1}(j))$. Since $\sigma$ is a bijection, no element of this cycle can appear in a previous cycle.
 
-  Repeat until all $\{1, 2, 3\cdots n\}$ are exhausted. This is essentially unique because every number $j$ completely determines the whole cycle it belongs to, and whichever number we start with, we'll end up with the same cycle.
+  Repeat until all elements of $\{1, 2, \ldots, n\}$ are exhausted. Uniqueness holds because each element $j$ determines the cycle it belongs to: it must be $(j\; \sigma(j)\; \sigma^2(j)\; \cdots)$, regardless of which element we start with.
 \end{proof}
 
 \begin{defi}[Cycle type]
-  Write a permutation $\sigma\in S_n$ in disjoint cycle notation. The \emph{cycle type} is the list of cycle lengths. This is unique up to re-ordering. We often (but not always) leave out singleton cycles.
+  Let $\sigma\in S_n$ and write $\sigma$ in disjoint cycle notation. The \emph{cycle type} of $\sigma$ is the list of cycle lengths, which is unique up to reordering. By convention, we often omit $1$-cycles (fixed points).
 \end{defi}
+
 \begin{eg}
-  $(1\; 2)$ has cycle type $2$ (transposition). $(1\; 2)(3\; 4)$ has cycle type $2, 2$ (double transposition). $(1\; 2\; 3)(4\; 5)$ has cycle type $3, 2$.
+  $(1\; 2)$ has cycle type $2$ (a transposition). $(1\; 2)(3\; 4)$ has cycle type $2, 2$ (a double transposition). $(1\; 2\; 3)(4\; 5)$ has cycle type $3, 2$.
 \end{eg}
+
 \begin{lemma}
-  For $\sigma\in S_n$, the order of $\sigma$ is the least common multiple of cycle lengths in the disjoint cycle notation. In particular, a $k$-cycle has order $k$.
+  Let $\sigma\in S_n$, and write $\sigma$ as a product of disjoint cycles. Then the order of $\sigma$ is the least common multiple of the cycle lengths. In particular, a $k$-cycle has order $k$.
 \end{lemma}
 
 \begin{proof}
-  As disjoint cycles commute, we can group together each cycle when we take powers. i.e.\ if $\sigma = \tau_1\tau_2\cdots\tau_l$ with $\tau_i$ all disjoint cycles, then $\sigma^m = \tau_1^m\tau_2^m\cdots\tau_l^m$.
+  Write $\sigma = \tau_1\tau_2\cdots\tau_l$ where the $\tau_i$ are disjoint cycles. Since disjoint cycles commute, $\sigma^m = \tau_1^m\tau_2^m\cdots\tau_l^m$ for all $m \geq 1$.
 
-  Now if cycle $\tau_i$ has length $k_i$, then $\tau_i^{k_i} = e$, and $\tau_i^m = e$ iff $k_i \mid m$. To get an $m$ such that $\sigma^m = e$, we need all $k_i$ to divide $m$. i.e.\ $m$ is a common multiple of $k_i$. Since the order is the least possible $m$ such that $\sigma^m = e$, the order is the least common multiple of $k_i$.
+  If $\tau_i$ has length $k_i$, then $\tau_i^m = e$ if and only if $k_i \mid m$. Thus $\sigma^m = e$ if and only if $k_i \mid m$ for all $i$, i.e.\ $m$ is a common multiple of $k_1, \ldots, k_l$. The order of $\sigma$ is therefore $\lcm(k_1, \ldots, k_l)$.
 \end{proof}
 
 \begin{eg}
-  Any transpositions and double transpositions have order 2.
-
-  $(1\; 2\; 3)(4\; 5)$ has order 6.
+  Any transposition or double transposition has order $2$. The permutation $(1\; 2\; 3)(4\; 5)$ has order $\lcm(3, 2) = 6$.
 \end{eg}
 
 \subsection{Sign of permutations}
