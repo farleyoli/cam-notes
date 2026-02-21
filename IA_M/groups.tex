@@ -78,20 +78,20 @@ Now a group is any set with an operation that satisfies the three rules above. I
 \section{Groups and homomorphisms}
 \subsection{Groups}
 \begin{defi}[Binary operation]
-  A \emph{(binary) operation} is a way of combining two elements to get a new element. Formally, it is a map $*: A \times A \rightarrow A$.
+  A \emph{(binary) operation} on a set $A$ is a map $*\colon A \times A \rightarrow A$.
 \end{defi}
 \begin{defi}[Group]
-  A \emph{group} is a set $G$ with a binary operation $*$ satisfying the following axioms:
+  A \emph{group} is a set $G$ together with a binary operation $*$ on $G$ satisfying the following axioms:
   \begin{enumerate}[label=\arabic{*}.]
-    \item There is some $e \in G$ such that for all $a$, we have
+    \item There exists an element $e \in G$ such that for all $a \in G$,
       \[
         a*e = e*a = a.\tag{identity}
       \]
-    \item For all $a \in G$, there is some $a^{-1} \in G$ such that
+    \item For all $a \in G$, there exists an element $a^{-1} \in G$ such that
       \[
         a*a^{-1} = a^{-1}*a = e.\tag{inverse}
       \]
-    \item For all $a, b, c\in G$, we have
+    \item For all $a, b, c\in G$,
       \[
         (a*b)*c = a*(b*c).\tag{associativity}
       \]
@@ -99,75 +99,86 @@ Now a group is any set with an operation that satisfies the three rules above. I
 \end{defi}
 
 \begin{defi}[Order of group]
-  The \emph{order} of the group, denoted by $|G|$, is the number of elements in $G$. A group is a finite group if the order is finite.
+  The \emph{order} of a group $G$, denoted by $|G|$, is the number of elements in $G$. A group is a \emph{finite group} if its order is finite.
 \end{defi}
 
-Note that \emph{technically}, the inverse axiom makes no sense, since we have not specified what $e$ is. Even if we take it to be the $e$ given by the identity axiom, the identity axiom only states there is \emph{some} $e$ that satisfies that property, but there could be many! We don't know which one $a * a^{-1}$ is supposed to be equal to! So we should technically take that to mean there is some $a^{-1}$ such that $a*a^{-1}$ and $a^{-1} * a$ satisfy the identity axiom. Of course, we will soon show that identities are indeed unique, and we will happily talk about ``the'' identity.
+\begin{remark}
+  Strictly speaking, the inverse axiom as stated is not yet well-defined, since we have not specified what $e$ is. The identity axiom only guarantees the existence of \emph{some} $e$ satisfying the identity property, but there could be many such elements. Thus, the inverse axiom should be interpreted as: for each $a \in G$, there exists $a^{-1} \in G$ such that $a*a^{-1}$ and $a^{-1} * a$ both satisfy the identity property. We will soon show that the identity is unique, after which this ambiguity is resolved.
+\end{remark}
 
-Some people put a zeroth axiom called ``closure'':
-\begin{enumerate}[label=\arabic{*}.]
-    \setcounter{enumi}{-1}
-  \item For all $a, b \in G$, we have $a * b \in G$.\hfill (closure)
-\end{enumerate}
-Technically speaking, this axiom also makes no sense --- when we say $*$ is a binary operation, by definition, $a * b$ \emph{must} be a member of $G$. However, in practice, we often have to check that this axiom actually holds. For example, if we let $G$ be the set of all matrices of the form
-\[
-  \begin{pmatrix}
-    1 & x & y\\
-    0 & 1 & z\\
-    0 & 0 & 1
-  \end{pmatrix}
-\]
-under matrix multiplication, we will have to check that the product of two such matrices is indeed a matrix of this form. Officially, we are checking that the binary operation is a well-defined operation on $G$.
+\begin{remark}
+  Some authors include a zeroth axiom called \emph{closure}:
+  \begin{enumerate}[label=\arabic{*}.]
+      \setcounter{enumi}{-1}
+    \item For all $a, b \in G$, we have $a * b \in G$.\hfill (closure)
+  \end{enumerate}
+  Since $*$ is defined to be a binary operation on $G$, this is automatically satisfied. However, in practice, one often needs to verify it explicitly. For example, if we let $G$ be the set of all matrices of the form
+  \[
+    \begin{pmatrix}
+      1 & x & y\\
+      0 & 1 & z\\
+      0 & 0 & 1
+    \end{pmatrix}
+  \]
+  under matrix multiplication, we must check that the product of two such matrices is again of this form. Formally, we are verifying that the binary operation is well-defined on $G$.
+\end{remark}
 
-It is important to know that it is generally \emph{not} true that $a*b = b*a$. There is no \emph{a priori} reason why this should be true. For example, if we are considering the symmetries of a triangle, rotating and then reflecting is different from reflecting and then rotating.
+\begin{remark}
+  In general, it is \emph{not} the case that $a*b = b*a$ for all elements $a, b$ of a group $G$. For example, in the group of symmetries of a triangle, rotating and then reflecting is different from reflecting and then rotating.
+\end{remark}
 
-However, for some groups, this happens to be true. We call such groups \emph{abelian groups}.
 \begin{defi}[Abelian group]
-  A group is \emph{abelian} if it satisfies
+  A group $(G, *)$ is \emph{abelian} if it additionally satisfies
   \begin{enumerate}[label=\arabic{*}.]
       \setcounter{enumi}{3}
     \item $(\forall a, b \in G)\, a*b = b*a$. \hfill (commutativity)
   \end{enumerate}
 \end{defi}
-If it is clear from context, we are lazy and leave out the operation $*$, and write $a*b$ as $ab$. We also write $a^2 = aa$, $a^n = \underbrace{aaa\cdots a}_{n \text{ copies}}$, $a^0 = e$, $a^{-n} = (a^{-1})^n$ etc.
+
+\begin{notation}
+  When the operation $*$ is clear from context, we write $ab$ in place of $a*b$. We also write $a^2 = aa$, $a^n = \underbrace{aaa\cdots a}_{n \text{ copies}}$, $a^0 = e$, and $a^{-n} = (a^{-1})^n$ for $n \geq 1$.
+\end{notation}
+
 \begin{eg}
   The following are abelian groups:
   \begin{enumerate}
-    \item $\Z$ with $+$
-    \item $\Q$ with $+$
-    \item $\Z_n$ (integers mod $n$) with $+_n$
-    \item $\Q^*$ with $\times$
-    \item $\{-1, 1\}$ with $\times$
+    \item $(\Z, +)$
+    \item $(\Q, +)$
+    \item $(\Z_n, +_n)$, the integers modulo $n$ under addition modulo $n$
+    \item $(\Q^*, \times)$, the nonzero rationals under multiplication
+    \item $(\{-1, 1\}, \times)$
   \end{enumerate}
   The following are non-abelian groups:
   \begin{enumerate}[resume]
-    \item Symmetries of an equilateral triangle (or any $n$-gon) with composition. ($D_{2n}$)
-    \item $2\times 2$ invertible matrices with matrix multiplication ($\GL_2(\R)$)
+    \item The symmetry group of a regular $n$-gon under composition, denoted $D_{2n}$
+    \item The group of $2\times 2$ invertible real matrices under matrix multiplication, denoted $\GL_2(\R)$
     \item Symmetry groups of 3D objects
   \end{enumerate}
 \end{eg}
 
-Recall that the first group axiom requires that there exists \emph{an} identity element, which we shall call $e$. Then the second requires that for each $a$, there is an inverse $a^{-1}$ such that $a^{-1}a = e$. This only makes sense if there is only one identity $e$, or else which identity should $a^{-1}a$ be equal to?
-
-We shall now show that there can only be one identity. It turns out that the inverses are also unique. So we will talk about \emph{the} identity and \emph{the} inverse.
 \begin{prop}
   Let $(G, *)$ be a group. Then
   \begin{enumerate}
-    \item The identity is unique.
-    \item Inverses are unique.
+    \item The identity element is unique.
+    \item For each $a \in G$, the inverse of $a$ is unique.
   \end{enumerate}
 \end{prop}
 \begin{proof}\leavevmode
   \begin{enumerate}[label=(\roman{*})]
-    \item Suppose $e$ and $e'$ are identities. Then we have $ee' = e'$, treating $e$ as an inverse, and $ee' = e$, treating $e'$ as an inverse. Thus $e = e'$.
+    \item Suppose $e$ and $e'$ are both identity elements. Then $ee' = e'$, using the fact that $e$ is an identity, and $ee' = e$, using the fact that $e'$ is an identity. Thus $e = e'$.
     \item Suppose $a^{-1}$ and $b$ both satisfy the inverse axiom for some $a\in G$. Then $b = be = b(aa^{-1}) = (ba)a^{-1} = ea^{-1} = a^{-1}$. Thus $b = a^{-1}$.\qedhere
   \end{enumerate}
 \end{proof}
+
+\begin{remark}
+  Since the identity is unique, it is now meaningful to speak of \emph{the} identity element $e$. Similarly, since inverses are unique, we may unambiguously write $a^{-1}$ for \emph{the} inverse of $a$.
+\end{remark}
+
 \begin{prop}
-  Let $(G, *)$ be a group and $a, b\in G$. Then
+  Let $(G, *)$ be a group and let $a, b\in G$. Then
   \begin{enumerate}
-    \item $(a^{-1})^{-1} = a$
-    \item $(ab)^{-1} = b^{-1}a^{-1}$
+    \item $(a^{-1})^{-1} = a$.
+    \item $(ab)^{-1} = b^{-1}a^{-1}$.
   \end{enumerate}
 \end{prop}
 \begin{proof}\leavevmode
@@ -188,69 +199,73 @@ We shall now show that there can only be one identity. It turns out that the inv
   \end{enumerate}
 \end{proof}
 
-Sometimes if we have a group $G$, we might want to discard some of the elements. For example if $G$ is the group of all symmetries of a triangle, we might one day decide that we hate reflections because they reverse orientation. So we only pick the rotations in $G$ and form a new, smaller group. We call this a \emph{subgroup} of $G$.
-
 \begin{defi}[Subgroup]
-  A $H$ is a \emph{subgroup} of $G$, written $H\leq G$, if $H\subseteq G$ and $H$ with the restricted operation $*$ from $G$ is also a group.
+  Let $(G, *)$ be a group. A subset $H \subseteq G$ is a \emph{subgroup} of $G$, written $H\leq G$, if $H$ with the restricted operation $*$ from $G$ is itself a group.
 \end{defi}
+
 \begin{eg}\leavevmode
   \begin{itemize}
-    \item $(\Z, +)\leq (\Q, +) \leq (\R, +)\leq (\C, +)$
-    \item $({e}, *) \leq (G, *)$ (trivial subgroup)
-    \item $G \leq G$
-    \item $(\{\pm 1\}, \times) \leq (\Q^*, \times)$
+    \item $(\Z, +)\leq (\Q, +) \leq (\R, +)\leq (\C, +)$.
+    \item $(\{e\}, *) \leq (G, *)$ for any group $G$ (the \emph{trivial subgroup}).
+    \item $G \leq G$.
+    \item $(\{\pm 1\}, \times) \leq (\Q^*, \times)$.
   \end{itemize}
 \end{eg}
 
-According to the definition, to prove that $H$ is a subgroup of $G$, we need to make sure $H$ satisfies all group axioms. However, this is often tedious. Instead, there are some simplified criteria to decide whether $H$ is a subgroup.
+\begin{remark}
+  To show that $H$ is a subgroup of $G$ directly from the definition, one must verify all the group axioms for $H$. The following two lemmas provide more convenient criteria.
+\end{remark}
+
 \begin{lemma}[Subgroup criteria I]
-  Let $(G, *)$ be a group and $H\subseteq G$. $H \leq G$ iff
+  Let $(G, *)$ be a group and let $H\subseteq G$. Then $H \leq G$ if and only if
   \begin{enumerate}
-    \item $e \in H$
-    \item $(\forall a, b\in H)\,ab \in H$
-    \item $(\forall a \in H)\,a^{-1} \in H$
+    \item $e \in H$;
+    \item $(\forall a, b\in H)\,ab \in H$;
+    \item $(\forall a \in H)\,a^{-1} \in H$.
   \end{enumerate}
 \end{lemma}
 \begin{proof}
-  The group axioms are satisfied as follows:
+  If $H \leq G$, then (i), (ii), and (iii) hold by the group axioms.
+
+  Conversely, suppose (i), (ii), and (iii) hold. The group axioms for $H$ are then verified as follows:
   \begin{enumerate}[label=\arabic{*}.]
       \setcounter{enumi}{-1}
-    \item Closure: (ii)
-    \item Identity: (i). Note that $H$ and $G$ must have the same identity. Suppose that $e_H$ and $e_G$ are the identities of $H$ and $G$ respectively. Then $e_He_H = e_H$. Now $e_H$ has an inverse in $G$. Thus we have $e_He_He_H^{-1} = e_He_H^{-1}$. So $e_He_G = e_G$. Thus $e_H = e_G$.
-    \item Inverse: (iii)
+    \item Closure: by (ii).
+    \item Identity: by (i). Note that $H$ and $G$ must have the same identity. Indeed, suppose $e_H$ and $e_G$ are the identities of $H$ and $G$ respectively. Then $e_He_H = e_H$. Since $e_H$ has an inverse $e_H^{-1}$ in $G$, multiplying on the right gives $e_H = e_G$.
+    \item Inverse: by (iii).
     \item Associativity: inherited from $G$.\qedhere
   \end{enumerate}
 \end{proof}
-Humans are lazy, and the test above is still too complicated. We thus come up with an even simpler test:
 
 \begin{lemma}[Subgroup criteria II]
-  A subset $H\subseteq G$ is a subgroup of $G$ iff:
+  Let $(G, *)$ be a group and let $H\subseteq G$. Then $H \leq G$ if and only if
   \begin{enumerate}[label=(\Roman{*})]
-    \item $H$ is non-empty
-    \item $(\forall a, b\in H)\,ab^{-1}\in H$
+    \item $H$ is non-empty;
+    \item $(\forall a, b\in H)\,ab^{-1}\in H$.
   \end{enumerate}
 \end{lemma}
 \begin{proof}
-  (I) and (II) follow trivially from (i), (ii) and (iii).
+  If $H \leq G$, then (I) and (II) follow immediately from (i), (ii), and (iii) of Subgroup criteria~I.
 
-  To prove that (I) and (II) imply (i), (ii) and (iii), we have
+  Conversely, suppose (I) and (II) hold. We verify conditions (i), (ii), and (iii):
   \begin{enumerate}
-    \item $H$ must contain at least one element $a$. Then $aa^{-1} = e \in H$.
+    \item Since $H$ is non-empty, it contains some element $a$. Then $aa^{-1} = e \in H$ by (II).
       \setcounter{enumi}{2}
-    \item $ea^{-1} = a^{-1} \in H$.
+    \item For any $a \in H$, we have $ea^{-1} = a^{-1} \in H$ by (II).
       \setcounter{enumi}{1}
-    \item $a(b^{-1})^{-1} = ab\in H$.
+    \item For any $a, b \in H$, since $b^{-1} \in H$ by (iii), we have $a(b^{-1})^{-1} = ab\in H$ by (II).
   \end{enumerate}
 \end{proof}
+
 \begin{prop}
-  The subgroups of $(\Z, +)$ are exactly $n\Z$, for $n\in \N$ ($n\Z$ is the integer multiples of $n$).
+  The subgroups of $(\Z, +)$ are exactly the sets $n\Z = \{nk : k \in \Z\}$ for $n\in \N$.
 \end{prop}
 \begin{proof}
-  Firstly, it is trivial to show that for any $n \in \N$, $n\Z$ is a subgroup. Now show that any subgroup must be in the form $n\Z$.
+  For any $n \in \N$, it is straightforward to verify that $n\Z$ is a subgroup of $(\Z, +)$.
 
-  Let $H\leq \Z$. We know $0\in H$. If there are no other elements in $H$, then $H = 0\Z$. Otherwise, pick the smallest positive integer $n$ in $H$. Then $H=n\Z$.
+  Conversely, let $H\leq \Z$. We have $0\in H$. If $H = \{0\}$, then $H = 0\Z$ and we are done.
 
-  Otherwise, suppose $(\exists a\in H)\,n \nmid a$. Let $a = pn + q$, where $0 < q < n$. Since $a - pn\in H$, $q\in H$. Yet $q < n$ but $n$ is the smallest member of $H$. Contradiction. So every $a\in H$ is divisible by $n$. Also, by closure, all multiples of $n$ must be in $H$. So $H = n\Z$.
+  Otherwise, $H$ contains a nonzero element $a$, and since $-a \in H$ as well, $H$ contains a positive integer. Let $n$ be the smallest positive integer in $H$. We claim that $H = n\Z$. Since $n \in H$ and $H$ is closed under addition and inverses, all multiples of $n$ belong to $H$, so $n\Z \subseteq H$. Now suppose for contradiction that there exists $a\in H$ with $n \nmid a$. By the division algorithm, write $a = pn + q$ where $0 < q < n$. Since $a - pn\in H$, we have $q\in H$. But $0 < q < n$, contradicting the minimality of $n$. Hence every element of $H$ is divisible by $n$, so $H \subseteq n\Z$. Therefore $H = n\Z$.
 \end{proof}
 \subsection{Homomorphisms}
 It is often helpful to study functions between different groups. First, we need to define what a function is. These definitions should be familiar from IA Numbers and Sets.
