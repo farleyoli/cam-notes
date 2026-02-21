@@ -2006,92 +2006,95 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
   There are three \emph{types} of orbits, but infinitely many orbits (e.g.\ one for each scalar matrix $\lambda I$).
 \end{remark}
 \subsection{Orthogonal groups}
-Recall that $A^T$ is defined by $A^{T}_{ij} = A_{ji}$, i.e.\ we reflect the matrix in the diagonal. They have the following properties:
-\begin{enumerate}
-  \item $(AB)^T = B^TA^T$
-  \item $(A^{-1})^T = (A^T)^{-1}$
-  \item $A^{T}A = I\Leftrightarrow AA^{T} = I\Leftrightarrow A^{-1} = A^{T}$. In this case $A$ is \emph{orthogonal}
-  \item $\det A^{T} = \det A$
-\end{enumerate}
-We are now in $\R$, because orthogonal matrices don't make sense with complex matrices.
-
-Note that a matrix is orthogonal if the columns (or rows) form an orthonormal basis of $\R^n$: $AA^T = I\Leftrightarrow a_{ik}a_{jk} = \delta_{ij} \Leftrightarrow \mathbf{a}_i\cdot \mathbf{a}_j = \delta_{ij}$, where $\mathbf{a}_i$ is the $i$th column of $A$.
-
-The importance of orthogonal matrices is that they are the isometries of $\R^n$.
-\begin{lemma}[Orthogonal matrices are isometries] For any orthogonal $A$ and $x, y\in \R^n$, we have
+\begin{remark}
+  Recall that the transpose $A^T$ is defined by $(A^T)_{ij} = A_{ji}$. Transposition has the following properties:
   \begin{enumerate}
-    \item $(A\mathbf{x})\cdot (A\mathbf{y}) = \mathbf{x\cdot y}$
-    \item $|A\mathbf{x}| = |\mathbf{x}|$
+    \item $(AB)^T = B^T A^T$.
+    \item $(A^{-1})^T = (A^T)^{-1}$.
+    \item $A^T A = I \Leftrightarrow AA^T = I \Leftrightarrow A^{-1} = A^T$. In this case, $A$ is called \emph{orthogonal}.
+    \item $\det A^T = \det A$.
+  \end{enumerate}
+  We work over $\R$ in this subsection; the complex analogue (unitary matrices) is treated later.
+\end{remark}
+
+\begin{remark}
+  A matrix is orthogonal if and only if its columns (equivalently, rows) form an orthonormal basis of $\R^n$: we have $AA^T = I$ if and only if $\sum_k a_{ik} a_{jk} = \delta_{ij}$, i.e.\ $\mathbf{a}_i \cdot \mathbf{a}_j = \delta_{ij}$, where $\mathbf{a}_i$ is the $i$th column of $A$.
+\end{remark}
+
+\begin{lemma}[Orthogonal matrices are isometries]
+  For any orthogonal matrix $A$ and $\mathbf{x}, \mathbf{y} \in \R^n$,
+  \begin{enumerate}
+    \item $(A\mathbf{x}) \cdot (A\mathbf{y}) = \mathbf{x} \cdot \mathbf{y}$.
+    \item $|A\mathbf{x}| = |\mathbf{x}|$.
   \end{enumerate}
 \end{lemma}
 
 \begin{proof}
-  Treat the dot product as a matrix multiplication. So
+  Writing the dot product as matrix multiplication,
   \[
-    (A\mathbf{x})^T(A\mathbf{y}) = \mathbf{x}^{T}A^TAy = \mathbf{x}^TI\mathbf{y} = \mathbf{x}^T\mathbf{y}
+    (A\mathbf{x})^T (A\mathbf{y}) = \mathbf{x}^T A^T A \mathbf{y} = \mathbf{x}^T I \mathbf{y} = \mathbf{x}^T \mathbf{y}.
   \]
-  Then we have $|A\mathbf{x}|^2 = (A\mathbf{x})\cdot (A\mathbf{x}) = \mathbf{x}\cdot \mathbf{x} = |\mathbf{x}|^2$. Since both are positive, we know that $|A\mathbf{x}| = |\mathbf{x}|$.
+  Then $|A\mathbf{x}|^2 = (A\mathbf{x}) \cdot (A\mathbf{x}) = \mathbf{x} \cdot \mathbf{x} = |\mathbf{x}|^2$, so $|A\mathbf{x}| = |\mathbf{x}|$.
 \end{proof}
-It is important to note that orthogonal matrices are isometries, but not all isometries are orthogonal. For example, translations are isometries but are not represented by orthogonal matrices, since they are not linear maps and cannot be represented by matrices at all! However, it is true that all linear isometries can be represented by orthogonal matrices.
+
+\begin{remark}
+  Orthogonal matrices are isometries, but not all isometries are orthogonal matrices. For example, translations are isometries but are not linear maps. However, every linear isometry of $\R^n$ is given by an orthogonal matrix.
+\end{remark}
 
 \begin{defi}[Orthogonal group $O(n)$]
   The \emph{orthogonal group} is
   \[
-    \Or(n) = \Or_n = \Or_n(\R) = \{A\in \GL_n(\R): A^TA = I\},
+    \Or(n) = \Or_n = \Or_n(\R) = \{A \in \GL_n(\R) : A^T A = I\}.
   \]
-  i.e.\ the group of orthogonal matrices.
 \end{defi}
-We will later show that this is the set of matrices that preserve distances in $\R^n$.
 
 \begin{lemma}[$\Or(n)$ is a group]
-  The orthogonal group is a group.
+  The orthogonal group is a subgroup of $\GL_n(\R)$.
 \end{lemma}
 
 \begin{proof}
-  We have to check that it is a subgroup of $\GL_n(\R)$: It is non-empty, since $I\in \Or(n)$. If $A, B\in \Or(n)$, then $(AB^{-1})(AB^{-1})^T = AB^{-1}(B^{-1})^TA^{T} = AB^{-1}BA^{-1} = I$, so $AB^{-1}\in \Or(n)$ and this is indeed a subgroup.
+  $\Or(n)$ is non-empty since $I \in \Or(n)$. If $A, B \in \Or(n)$, then $(AB^{-1})(AB^{-1})^T = AB^{-1}(B^{-1})^T A^T = AB^{-1} B A^{-1} = I$, so $AB^{-1} \in \Or(n)$.
 \end{proof}
 
-
 \begin{prop}[Determinant on $\Or(n)$]
-  $\det: \Or(n) \to \{\pm 1\}$ is a surjective group homomorphism.
+  $\det \colon \Or(n) \to \{\pm 1\}$ is a surjective group homomorphism.
 \end{prop}
 
 \begin{proof}
-  For $A\in \Or(n)$, we know that $A^TA = I$. So $\det A^TA = (\det A)^2 = 1$. So $\det A = \pm 1$. Since $\det(AB) = \det A\det B$, it is a homomorphism. We have
+  For $A \in \Or(n)$, we have $(\det A)^2 = \det(A^T A) = \det I = 1$, so $\det A = \pm 1$. Since $\det(AB) = \det A \cdot \det B$, the determinant is a homomorphism. It is surjective since $\det I = 1$ and
   \[
-    \det I = 1,\;\;\;\det
-    \begin{pmatrix}
-      -1 & 0 &\cdots & 0\\
-      0 & 1 & \cdots & 0\\
-      \vdots & \vdots & \ddots & 0\\
+    \det \begin{pmatrix}
+      -1 & 0 & \cdots & 0 \\
+      0 & 1 & \cdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
       0 & 0 & \cdots & 1
-    \end{pmatrix} = -1,
+    \end{pmatrix} = -1.
   \]
-  so it is surjective.
 \end{proof}
 
 \begin{defi}[Special orthogonal group $\SO(n)$]
-  The \emph{special orthogonal group} is the kernel of $\det: \Or(n) \to \{\pm 1\}$.
+  The \emph{special orthogonal group} is the kernel of $\det \colon \Or(n) \to \{\pm 1\}$:
   \[
-    \SO(n) =\SO_n = \SO_n(\R) = \{A\in \Or(n): \det A = 1\}.
+    \SO(n) = \SO_n = \SO_n(\R) = \{A \in \Or(n) : \det A = 1\}.
   \]
 \end{defi}
-By the isomorphism theorem, $\Or(n)/\SO(n) \cong C_2$.
 
-What's wrong with matrices with determinant $-1$? Why do we want to eliminate these? An important example of an orthogonal matrix with determinant $-1$ is a \emph{reflection}. These transformations reverse orientation, and is often unwanted.
+\begin{remark}
+  By the first isomorphism theorem, $\Or(n)/\SO(n) \cong C_2$. In particular, $\SO(n) \lhd \Or(n)$ with index $2$. Elements of $\Or(n) \setminus \SO(n)$ are orientation-reversing transformations such as reflections.
+\end{remark}
 
 \begin{lemma}[$\Or(n)$ coset decomposition]
   $\Or(n) = \SO(n) \cup
   \begin{pmatrix}
-    -1 & 0 &\cdots & 0\\
-    0 & 1 & \cdots & 0\\
-    \vdots & \vdots & \ddots & 0\\
-    0 & 0 & \cdots &1
-  \end{pmatrix}\SO(n)$
+    -1 & 0 & \cdots & 0 \\
+    0 & 1 & \cdots & 0 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & \cdots & 1
+  \end{pmatrix} \SO(n)$.
 \end{lemma}
 
 \begin{proof}
-  Cosets partition the group.
+  Since $|\Or(n) : \SO(n)| = 2$, there are exactly two cosets. The identity coset is $\SO(n)$, and the other is determined by any element of determinant $-1$.
 \end{proof}
 \subsection{Rotations and reflections in \texorpdfstring{$\R^2$}{R2} and \texorpdfstring{$\R^3$}{R3}}
 \begin{lemma}[$\SO(2)$ as rotations]
