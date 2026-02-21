@@ -1062,15 +1062,41 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 \end{remark}
 
 \subsection{Left and right cosets}
-As $|aH| = |H|$ and similarly $|H| = |Ha|$, left and right cosets have the same size. Are they necessarily the same? We've previously shown that they might \emph{not} be the same. In some other cases, they are.
-\begin{eg}\leavevmode
-  \begin{enumerate}
-    \item Take $G = (\Z, +)$ and $H = 2\Z$. We have $0 + 2\Z = 2\Z + 0 = $ even numbers and $1 + 2\Z = 2\Z + 1 = $ odd numbers. Since $G$ is abelian, $aH = Ha$ for all $a, \in G$, $H\leq G$.
-    \item Let $G = D_6 = \bra r, s \mid r^3 = e = s^2, rs = sr^{-1}\ket$. Let $U = \bra r\ket$. Since the cosets partition $G$, so one must be $U$ and the other $sU = \{s, sr = r^2s, sr^2 = rs\} = Us$. So for all $a\in G, aU = Ua$.
-    \item Let $G = D_6$ and take $H = \bra s\ket$ . We have $H = \{e, s\}$, $rH = \{r, rs = sr^{-1}\}$ and $r^2 H = \{r^2, r^s\}$; while $H = \{e, s\}, Hr = \{r, sr\}$ and $Hr^2=\{r^2, sr^2\}$. So the left and right subgroups do not coincide.
-  \end{enumerate}
+\begin{remark}
+  We have seen that $|aH| = |H| = |Ha|$ for any subgroup $H \leq G$ and any $a \in G$, so left and right cosets always have the same size. However, the sets $aH$ and $Ha$ need not be equal.
+\end{remark}
+
+\begin{prop}[Cosets in abelian groups]
+  If $G$ is an abelian group, then $aH = Ha$ for all $a \in G$ and all $H \leq G$.
+\end{prop}
+
+\begin{proof}
+  For any $ah \in aH$, commutativity gives $ah = ha \in Ha$, so $aH \subseteq Ha$. The reverse inclusion is identical, so $aH = Ha$.
+\end{proof}
+
+\begin{eg}
+  Let $G = (\Z, +)$ and $H = 2\Z$. Then $0 + 2\Z = 2\Z + 0$ is the set of even integers, and $1 + 2\Z = 2\Z + 1$ is the set of odd integers.
 \end{eg}
-This distinction will become useful in the next chapter.
+
+\begin{eg}[Left cosets equal right cosets in a non-abelian group]
+  Let $G = D_6 = \bra r, s \mid r^3 = s^2 = e,\, srs^{-1} = r^{-1}\ket$ and let $U = \bra r\ket = \{e, r, r^2\}$. Since $|G : U| = 2$, the cosets of $U$ partition $G$ into exactly two classes: $U$ itself and $sU = \{s, sr, sr^2\} = \{s, r^2s, rs\} = Us$. Thus $aU = Ua$ for all $a \in G$, even though $G$ is not abelian.
+\end{eg}
+
+\begin{eg}[Left cosets not equal to right cosets]
+  Let $G = D_6$ as above and let $H = \bra s\ket = \{e, s\}$. The left cosets are
+  \[
+    H = \{e, s\}, \quad rH = \{r, rs\}, \quad r^2 H = \{r^2, r^2s\},
+  \]
+  while the right cosets are
+  \[
+    H = \{e, s\}, \quad Hr = \{r, sr\} = \{r, r^2s\}, \quad Hr^2 = \{r^2, sr^2\} = \{r^2, rs\}.
+  \]
+  In particular, $rH = \{r, rs\} \neq \{r, r^2s\} = Hr$, so the left and right cosets do not coincide.
+\end{eg}
+
+\begin{remark}
+  The distinction between left and right cosets will play a central role in the next section, where we identify the subgroups for which $aH = Ha$ always holds.
+\end{remark}
 
 \section{Quotient groups}
 In the previous section, when attempting to pretend that a $3\times 3\times 3$ Rubik's cube is a $2\times 2\times 2$ one, we came up with the cosets $aH$, and claimed that these form a group. We also said that this is not the case for arbitrary subgroup $H$, but only for subgroups that satisfy $aH = Ha$. Before we prove these, we first study these subgroups a bit.
