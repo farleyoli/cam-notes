@@ -1180,55 +1180,65 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 
 \subsection{Quotient groups}
 \begin{prop}[Quotient group construction]
-  Let $K\lhd G$. Then the set of (left) cosets of $K$ in $G$ is a group under the operation $aK*bK = (ab)K$.
+  Let $K \lhd G$. Then the set of left cosets of $K$ in $G$ forms a group under the operation $aK \cdot bK = (ab)K$.
 \end{prop}
 
 \begin{proof}
-  First show that the operation is well-defined. If $aK = a'K$ and $bK = b'K$, we want to show that $aK*bK = a'K * b'K$. We know that $a' = ak_1$ and $b' = bk_2$ for some $k_1, k_2\in K$. Then $a'b' = ak_1bk_2$. We know that $b^{-1}k_1b\in K$. Let $b^{-1}k_1b = k_3$. Then $k_1 b = bk_3$. So $a'b' = abk_3k_2\in (ab)K$. So picking a different representative of the coset gives the same product.
+  We first show that the operation is well-defined. Suppose $aK = a'K$ and $bK = b'K$; we must show that $(ab)K = (a'b')K$. We have $a' = ak_1$ and $b' = bk_2$ for some $k_1, k_2 \in K$. Since $K \lhd G$, we have $b^{-1}k_1 b \in K$; call it $k_3$. Then $k_1 b = bk_3$, so $a'b' = ak_1 bk_2 = abk_3 k_2 \in (ab)K$. Thus the operation does not depend on the choice of coset representatives.
   \begin{enumerate}[label=\arabic{*}.]
-    \item Closure: If $aK, bK$ are cosets, then $(ab)K$ is also a coset
-    \item Identity: The identity is $eK = K$ (clear from definition)
-    \item Inverse: The inverse of $aK$ is $a^{-1}K$ (clear from definition)
-    \item Associativity: Follows from the associativity of $G$.\qedhere
+    \item Closure: if $aK$ and $bK$ are cosets, then $(ab)K$ is also a coset.
+    \item Identity: the identity is $eK = K$.
+    \item Inverses: the inverse of $aK$ is $a^{-1}K$.
+    \item Associativity: follows from the associativity of $G$.\qedhere
   \end{enumerate}
 \end{proof}
 
 \begin{defi}[Quotient group]
-  Given a group $G$ and a normal subgroup $K$, the \emph{quotient group} or \emph{factor group} of $G$ by $K$, written as $G/K$, is the set of (left) cosets of $K$ in $G$ under the operation $aK*bK = (ab)K$.
+  Given a group $G$ and a normal subgroup $K$, the \emph{quotient group} (or \emph{factor group}) of $G$ by $K$, written $G/K$, is the set of left cosets of $K$ in $G$ under the operation $aK \cdot bK = (ab)K$.
 \end{defi}
-Note that the \emph{set} of left cosets also exists for non-normal subgroups (abnormal subgroups?), but the group operation above is not well defined.
 
-\begin{eg}\leavevmode
+\begin{remark}
+  The \emph{set} of left cosets exists for any subgroup $H \leq G$, but the coset multiplication above is well-defined only when $H$ is normal.
+\end{remark}
+
+\begin{eg}[Quotient groups]\leavevmode
   \begin{enumerate}
-    \item Take $G = \Z$ and $n\Z$ (which must be normal since $G$ is abelian), the cosets are $k + n\Z$ for $0 \leq k < n$. The quotient group is $\Z_n$. So we can write $\Z/(n\Z) = \Z_n$. In fact these are the only quotient groups of $\Z$ since $n\Z$ are the only subgroups.
-
-      Note that if $G$ is abelian, $G/K$ is also abelian.
-    \item Take $K = \bra r\ket \lhd D_6$. We have two cosets $K$ and $sK$. So $D_6/K$ has order 2 and is isomorphic to $C_2$.
-    \item Take $K = \bra r^2\ket \lhd D_8$. We know that $G/K$ should have $\frac{8}{2} = 4$ elements. We have $G/K = \{ K, rK = r^3 K, sK = sr^2K, srK = sr^3K\}$. We see that all elements (except $K$) has order $2$, so $G/K\cong C_2\times C_2$.
+    \item Let $G = \Z$ and $K = n\Z$ (which is normal since $\Z$ is abelian). The cosets are $k + n\Z$ for $0 \leq k < n$, so $\Z/(n\Z) \cong \Z_n$. Since $n\Z$ are the only subgroups of $\Z$, these are the only quotient groups of $\Z$.
+    \item Let $K = \bra r\ket \lhd D_6$. There are two cosets, $K$ and $sK$, so $D_6/K$ has order $2$ and $D_6/K \cong C_2$.
+    \item Let $K = \bra r^2\ket \lhd D_8$. Then $|G/K| = |G|/|K| = 8/2 = 4$, and the four cosets are $G/K = \{K,\, rK = r^3K,\, sK = sr^2K,\, srK = sr^3K\}$. Every non-identity element of $G/K$ has order $2$, so $G/K \cong C_2 \times C_2$.
   \end{enumerate}
 \end{eg}
-Note that quotient groups are \emph{not} subgroups of $G$. They contain different kinds of elements. For example, $\Z/n\Z \cong C_n$ are finite, but all subgroups of $\Z$ infinite.
 
+\begin{remark}
+  If $G$ is abelian, then $G/K$ is also abelian for any $K \lhd G$.
+\end{remark}
 
-\begin{eg}
-  (Non-example) Consider $D_6$ with $H = \bra s\ket$. $H$ is not a normal subgroup. We have $rH * r^2 H = r^3 H = H$, but $rH = rsH$ and $r^2H = srH$ (by considering the individual elements). So we have $rsH * srH = r^2 H\not= H$, and the operation is not well-defined.
+\begin{remark}
+  Quotient groups are \emph{not} subgroups of $G$: their elements are cosets, not elements of $G$. For instance, $\Z/(n\Z) \cong C_n$ is finite, even though every subgroup of $\Z$ is infinite.
+\end{remark}
+
+\begin{eg}[Non-example: failure of well-definedness]
+  Consider $D_6$ with $H = \bra s\ket$, which is not a normal subgroup. We have $rH \cdot r^2 H = r^3 H = H$, but $rH = rsH$ and $r^2 H = srH$ (by examining the individual elements), so $rsH \cdot srH = r^2 H \neq H$. The coset multiplication depends on the choice of representatives, and is therefore not well-defined.
 \end{eg}
 
 \begin{lemma}[Quotient map]
-  Given $K\lhd G$, the \emph{quotient map} $q: G\rightarrow G/K$ with $g\mapsto gK$ is a surjective group homomorphism.
+  Let $K \lhd G$. The \emph{quotient map} $q \colon G \to G/K$ defined by $g \mapsto gK$ is a surjective group homomorphism.
 \end{lemma}
 
 \begin{proof}
-  $q(ab) = (ab)K = aKbK = q(a)q(b)$. So $q$ is a group homomorphism. Also for all $aK \in G/K$, $q(a) = aK$. So it is surjective.
+  For any $a, b \in G$, we have $q(ab) = (ab)K = (aK)(bK) = q(a)\,q(b)$, so $q$ is a homomorphism. Surjectivity is immediate: for any coset $aK \in G/K$, we have $q(a) = aK$.
 \end{proof}
-Note that the kernel of the quotient map is $K$ itself. So any normal subgroup is a kernel of some homomorphism.
+
+\begin{remark}
+  The kernel of the quotient map is $K$ itself, since $q(g) = K$ if and only if $gK = K$ if and only if $g \in K$. This shows that every normal subgroup is the kernel of some homomorphism, establishing the converse of the kernel normality proposition.
+\end{remark}
 
 \begin{prop}[Quotient of cyclic groups]
-  The quotient of a cyclic group is cyclic.
+  Every quotient of a cyclic group is cyclic.
 \end{prop}
 
 \begin{proof}
-  Let $G = C_n$ with $H\leq C_n$. We know that $H$ is also cyclic. Say $C_n = \bra c\ket$ and $H = \bra c^k \ket \cong C_\ell$, where $k\ell = n$. We have $C_n/H = \{H, cH, c^2H, \cdots c^{k - 1}H\}=\bra cH\ket \cong C_k$.
+  Let $G = C_n = \bra c\ket$ and let $H \leq C_n$. Since every subgroup of a cyclic group is cyclic, we have $H = \bra c^k\ket \cong C_\ell$ for some $k, \ell$ with $k\ell = n$. Then $C_n/H = \{H, cH, c^2H, \ldots, c^{k-1}H\} = \bra cH\ket \cong C_k$.
 \end{proof}
 
 \subsection{The Isomorphism Theorem}
