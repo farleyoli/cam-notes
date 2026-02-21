@@ -1728,78 +1728,77 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 \end{eg}
 
 \subsection{Conjugacy classes in \texorpdfstring{$A_n$}{An}}
-We have seen that $|S_n| = 2|A_n|$ and that conjugacy classes in $S_n$ are ``nice''. How about in $A_n$?
+\begin{remark}
+  We have seen that conjugacy classes in $S_n$ are classified by cycle type. For $A_n$, the situation is more delicate. We have
+  \begin{align*}
+    \ccl_{S_n}(\sigma) &= \{\tau \in S_n : (\exists \rho \in S_n)\, \tau = \rho\sigma\rho^{-1}\}, \\
+    \ccl_{A_n}(\sigma) &= \{\tau \in A_n : (\exists \rho \in A_n)\, \tau = \rho\sigma\rho^{-1}\}.
+  \end{align*}
+  Clearly $\ccl_{A_n}(\sigma) \subseteq \ccl_{S_n}(\sigma)$, but the inclusion may be strict, since the permutation needed to conjugate $\sigma$ to $\tau$ may be odd.
+\end{remark}
 
-The first thought is that we write it down:
-\begin{align*}
-  \ccl_{S_n}(\sigma) &= \{\tau\in S_n: (\exists \rho \in S_n)\, \tau = \rho\sigma\rho^{-1}\}\\
-  \ccl_{A_n}(\sigma) &= \{\tau\in A_n: (\exists \rho \in A_n)\, \tau = \rho\sigma\rho^{-1}\}
-\end{align*}
-Obviously $\ccl_{A_n}(\sigma)\subseteq \ccl_{S_n}(\sigma)$, but the converse need not be true since the conjugation need to map $\sigma$ to $\tau$ may be odd.
-
-\begin{eg}
-  Consider $(1\; 2\; 3)$ and $(1\; 3\; 2)$. They are conjugate in $S_3$ by $(2\; 3)$, but $(2\; 3)\not\in A_3$. (This does not automatically entail that they are not conjugate in $A_3$ because there might be another even permutation that conjugate $(1\; 2\; 3)$ and $(1\; 3\; 2)$. In $A_5$, $(2\; 3)(4\; 5)$ works (but not in $A_3$))
+\begin{eg}[Conjugacy in $A_n$ vs $S_n$]
+  The $3$-cycles $(1\; 2\; 3)$ and $(1\; 3\; 2)$ are conjugate in $S_3$ by $(2\; 3)$, but $(2\; 3) \notin A_3$. This does not automatically mean they are not conjugate in $A_3$: there might be another even permutation that conjugates them. Indeed, in $A_5$ the even permutation $(2\; 3)(4\; 5)$ works, but no such element exists in $A_3$.
 \end{eg}
 
-We can use the orbit-stabilizer theorem:
-\begin{align*}
-  |S_n| &= |\ccl_{S_n}(\sigma)||C_{S_n}(\sigma)|\\
-  |A_n| &= |\ccl_{A_n}(\sigma)||C_{A_n}(\sigma)|
-\end{align*}
-We know that $A_n$ is half of $S_n$ and $\ccl_{A_n}$ is contained in $\ccl_{S_n}$. So we have two options: either $\ccl_{S_n}(\sigma) = \ccl_{A_n}(\sigma)$ and $|C_{S_n}(\sigma)| = \frac{1}{2}|C_{A_n}(\sigma)|$; or $\frac{1}{2}|\ccl_{S_n}(\sigma)| = |\ccl_{A_n}(\sigma)|$ and $C_{A_n}(\sigma) = C_{S_n}(\sigma)$.
+\begin{remark}
+  By the orbit-stabilizer theorem applied to the conjugation action,
+  \begin{align*}
+    |S_n| &= |\ccl_{S_n}(\sigma)| \cdot |C_{S_n}(\sigma)|, \\
+    |A_n| &= |\ccl_{A_n}(\sigma)| \cdot |C_{A_n}(\sigma)|.
+  \end{align*}
+  Since $|A_n| = \frac{1}{2}|S_n|$ and $\ccl_{A_n}(\sigma) \subseteq \ccl_{S_n}(\sigma)$, there are exactly two possibilities: either $\ccl_{A_n}(\sigma) = \ccl_{S_n}(\sigma)$ (and $|C_{A_n}(\sigma)| = \frac{1}{2}|C_{S_n}(\sigma)|$), or $|\ccl_{A_n}(\sigma)| = \frac{1}{2}|\ccl_{S_n}(\sigma)|$ (and $C_{A_n}(\sigma) = C_{S_n}(\sigma)$).
+\end{remark}
 
 \begin{defi}[Splitting of conjugacy classes]
-  When $|\ccl_{A_n}(\sigma)| = \frac{1}{2}|\ccl_{S_n}(\sigma)|$, we say that the conjugacy class of $\sigma$ \emph{splits} in $A_n$.
+  When $|\ccl_{A_n}(\sigma)| = \frac{1}{2}|\ccl_{S_n}(\sigma)|$, we say that the conjugacy class of $\sigma$ \emph{splits} in $A_n$. Otherwise, the conjugacy class is \emph{retained}.
 \end{defi}
 
-So the conjugacy classes are either retained or split.
-
 \begin{prop}[Conjugacy class splitting in $A_n$]
-  For $\sigma\in A_n$, the conjugacy class of $\sigma$ splits in $A_n$ if and only if no odd permutation commutes with $\sigma$.
+  For $\sigma \in A_n$, the conjugacy class of $\sigma$ splits in $A_n$ if and only if no odd permutation commutes with $\sigma$.
 \end{prop}
 
 \begin{proof}
-  We have the conjugacy classes splitting if and only if the centralizer does not. So instead we check whether the centralizer splits. Clearly $C_{A_n}(\sigma) = C_{S_n}(\sigma)\cap A_n$. So splitting of centralizer occurs if and only if an odd permutation commutes with $\sigma$.
+  The conjugacy class splits if and only if the centralizer does not, i.e.\ $C_{A_n}(\sigma) = C_{S_n}(\sigma)$. Since $C_{A_n}(\sigma) = C_{S_n}(\sigma) \cap A_n$, the centralizer does not split if and only if $C_{S_n}(\sigma)$ contains no odd permutations.
 \end{proof}
 
-\begin{eg}
-  Conjugacy classes in $A_4$:
+\begin{eg}[Conjugacy classes in $A_4$]\leavevmode
   \begin{center}
     \begin{tabular}{lcccc}
       \toprule
       Cycle type & Example & $|\ccl_{S_4}|$ & Odd element in $C_{S_4}$? & $|\ccl_{A_4}|$ \\
       \midrule
-      (1, 1, 1, 1) & $e$ & 1 & Yes $(1\; 2)$ & 1 \\
-      (2, 2) & $(1\; 2)(3\; 4)$ & 3 & Yes $(1\; 2)$ & 3 \\
-      (3, 1) & $(1\; 2\; 3)$ & 8 & No & 4, 4 \\
+      $(1, 1, 1, 1)$ & $e$ & 1 & Yes: $(1\; 2)$ & 1 \\
+      $(2, 2)$ & $(1\; 2)(3\; 4)$ & 3 & Yes: $(1\; 2)$ & 3 \\
+      $(3, 1)$ & $(1\; 2\; 3)$ & 8 & No & 4, 4 \\
       \bottomrule
     \end{tabular}
   \end{center}
-  In the (3, 1) case, by the orbit stabilizer theorem, $|C_{S_4}((1\; 2\; 3))| = 3$, which is odd and cannot split.
+  In the $(3, 1)$ case, $|C_{S_4}((1\; 2\; 3))| = 24/8 = 3$. Since the centralizer has odd order, it contains no odd permutations, so the conjugacy class splits.
 \end{eg}
 
-\begin{eg}
-  Conjugacy classes in $A_5$:
+\begin{eg}[Conjugacy classes in $A_5$]\leavevmode
   \begin{center}
     \begin{tabular}{lcccc}
       \toprule
       Cycle type & Example & $|\ccl_{S_5}|$ & Odd element in $C_{S_5}$? & $|\ccl_{A_5}|$ \\
       \midrule
-      (1, 1, 1, 1, 1) & $e$ & 1 & Yes $(1\; 2)$ & 1 \\
-      (2, 2, 1) & $(1\; 2)(3\; 4)$ & 15 & Yes $(1\; 2)$ & 15 \\
-      (3, 1, 1) & $(1\; 2\; 3)$ & 20 & Yes $(4\; 5)$ & 20 \\
-      (5) & $(1\; 2\; 3\; 4\; 5)$ & 24 & No & 12, 12 \\
+      $(1, 1, 1, 1, 1)$ & $e$ & 1 & Yes: $(1\; 2)$ & 1 \\
+      $(2, 2, 1)$ & $(1\; 2)(3\; 4)$ & 15 & Yes: $(1\; 2)$ & 15 \\
+      $(3, 1, 1)$ & $(1\; 2\; 3)$ & 20 & Yes: $(4\; 5)$ & 20 \\
+      $(5)$ & $(1\; 2\; 3\; 4\; 5)$ & 24 & No & 12, 12 \\
       \bottomrule
     \end{tabular}
   \end{center}
-  Since the centralizer of $(1\; 2\; 3\; 4\; 5)$ has size $5$, it cannot split, so its conjugacy class must split.
+  The centralizer of $(1\; 2\; 3\; 4\; 5)$ has order $120/24 = 5$, which is odd, so the conjugacy class splits.
 \end{eg}
 
-\begin{lemma}[Centralizer of a 5-cycle in $S_5$]
-  $\sigma = (1\; 2\; 3\; 4\; 5)\in S_5$ has $C_{S_5}(\sigma) = \bra \sigma \ket$. \end{lemma}
+\begin{lemma}[Centralizer of a $5$-cycle in $S_5$]
+  For $\sigma = (1\; 2\; 3\; 4\; 5) \in S_5$, we have $C_{S_5}(\sigma) = \langle \sigma \rangle$.
+\end{lemma}
 
 \begin{proof}
-  $|\ccl_{S_n}(\sigma)| = 24$ and $|S_5| = 120$. So $|C_{S_5}(\sigma)| = 5$. Clearly $\bra \sigma \ket \subseteq C_{S_5}(\sigma)$. Since they both have size $5$, we know that $C_{S_5}(\sigma) = \bra \sigma\ket$
+  We have $|\ccl_{S_5}(\sigma)| = 24$ and $|S_5| = 120$, so $|C_{S_5}(\sigma)| = 5$. Since $\langle \sigma \rangle \subseteq C_{S_5}(\sigma)$ and $|\langle \sigma \rangle| = 5$, we conclude $C_{S_5}(\sigma) = \langle \sigma \rangle$.
 \end{proof}
 
 \begin{thm}[Simplicity of $A_5$]
@@ -1807,9 +1806,12 @@ So the conjugacy classes are either retained or split.
 \end{thm}
 
 \begin{proof}
-  We know that normal subgroups must be unions of the conjugacy classes, must contain $e$ and their order must divide 60. The possible orders are 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30. However, the conjugacy classes 1, 15, 20, 12, 12 cannot add up to any of the possible orders apart from 1 and 60. So we only have trivial normal subgroups.
+  Any normal subgroup of $A_5$ must be a union of conjugacy classes containing $e$, and its order must divide $|A_5| = 60$. The conjugacy class sizes are $1, 15, 20, 12, 12$. No sub-collection containing $1$ sums to a proper divisor of $60$, so the only normal subgroups are $\{e\}$ and $A_5$.
 \end{proof}
-In fact, all $A_n$ for $n\geq 5$ are simple, but the proof is horrible (cf.\ IB Groups, Rings and Modules).
+
+\begin{remark}
+  In fact, $A_n$ is simple for all $n \geq 5$, but the proof requires further techniques (cf.\ IB Groups, Rings and Modules).
+\end{remark}
 
 \section{Quaternions}
 In the remaining of the course, we will look at different important groups. Here, we will have a brief look at
