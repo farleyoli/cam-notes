@@ -78,20 +78,20 @@ Now a group is any set with an operation that satisfies the three rules above. I
 \section{Groups and homomorphisms}
 \subsection{Groups}
 \begin{defi}[Binary operation]
-  A \emph{(binary) operation} is a way of combining two elements to get a new element. Formally, it is a map $*: A \times A \rightarrow A$.
+  A \emph{(binary) operation} on a set $A$ is a map $*\colon A \times A \rightarrow A$.
 \end{defi}
 \begin{defi}[Group]
-  A \emph{group} is a set $G$ with a binary operation $*$ satisfying the following axioms:
+  A \emph{group} is a set $G$ together with a binary operation $*$ on $G$ satisfying the following axioms:
   \begin{enumerate}[label=\arabic{*}.]
-    \item There is some $e \in G$ such that for all $a$, we have
+    \item There exists an element $e \in G$ such that for all $a \in G$,
       \[
         a*e = e*a = a.\tag{identity}
       \]
-    \item For all $a \in G$, there is some $a^{-1} \in G$ such that
+    \item For all $a \in G$, there exists an element $a^{-1} \in G$ such that
       \[
         a*a^{-1} = a^{-1}*a = e.\tag{inverse}
       \]
-    \item For all $a, b, c\in G$, we have
+    \item For all $a, b, c\in G$,
       \[
         (a*b)*c = a*(b*c).\tag{associativity}
       \]
@@ -99,75 +99,86 @@ Now a group is any set with an operation that satisfies the three rules above. I
 \end{defi}
 
 \begin{defi}[Order of group]
-  The \emph{order} of the group, denoted by $|G|$, is the number of elements in $G$. A group is a finite group if the order is finite.
+  The \emph{order} of a group $G$, denoted by $|G|$, is the number of elements in $G$. A group is a \emph{finite group} if its order is finite.
 \end{defi}
 
-Note that \emph{technically}, the inverse axiom makes no sense, since we have not specified what $e$ is. Even if we take it to be the $e$ given by the identity axiom, the identity axiom only states there is \emph{some} $e$ that satisfies that property, but there could be many! We don't know which one $a * a^{-1}$ is supposed to be equal to! So we should technically take that to mean there is some $a^{-1}$ such that $a*a^{-1}$ and $a^{-1} * a$ satisfy the identity axiom. Of course, we will soon show that identities are indeed unique, and we will happily talk about ``the'' identity.
+\begin{remark}
+  Strictly speaking, the inverse axiom as stated is not yet well-defined, since we have not specified what $e$ is. The identity axiom only guarantees the existence of \emph{some} $e$ satisfying the identity property, but there could be many such elements. Thus, the inverse axiom should be interpreted as: for each $a \in G$, there exists $a^{-1} \in G$ such that $a*a^{-1}$ and $a^{-1} * a$ both satisfy the identity property. We will soon show that the identity is unique, after which this ambiguity is resolved.
+\end{remark}
 
-Some people put a zeroth axiom called ``closure'':
-\begin{enumerate}[label=\arabic{*}.]
-    \setcounter{enumi}{-1}
-  \item For all $a, b \in G$, we have $a * b \in G$.\hfill (closure)
-\end{enumerate}
-Technically speaking, this axiom also makes no sense --- when we say $*$ is a binary operation, by definition, $a * b$ \emph{must} be a member of $G$. However, in practice, we often have to check that this axiom actually holds. For example, if we let $G$ be the set of all matrices of the form
-\[
-  \begin{pmatrix}
-    1 & x & y\\
-    0 & 1 & z\\
-    0 & 0 & 1
-  \end{pmatrix}
-\]
-under matrix multiplication, we will have to check that the product of two such matrices is indeed a matrix of this form. Officially, we are checking that the binary operation is a well-defined operation on $G$.
+\begin{remark}
+  Some authors include a zeroth axiom called \emph{closure}:
+  \begin{enumerate}[label=\arabic{*}.]
+      \setcounter{enumi}{-1}
+    \item For all $a, b \in G$, we have $a * b \in G$.\hfill (closure)
+  \end{enumerate}
+  Since $*$ is defined to be a binary operation on $G$, this is automatically satisfied. However, in practice, one often needs to verify it explicitly. For example, if we let $G$ be the set of all matrices of the form
+  \[
+    \begin{pmatrix}
+      1 & x & y\\
+      0 & 1 & z\\
+      0 & 0 & 1
+    \end{pmatrix}
+  \]
+  under matrix multiplication, we must check that the product of two such matrices is again of this form. Formally, we are verifying that the binary operation is well-defined on $G$.
+\end{remark}
 
-It is important to know that it is generally \emph{not} true that $a*b = b*a$. There is no \emph{a priori} reason why this should be true. For example, if we are considering the symmetries of a triangle, rotating and then reflecting is different from reflecting and then rotating.
+\begin{remark}
+  In general, it is \emph{not} the case that $a*b = b*a$ for all elements $a, b$ of a group $G$. For example, in the group of symmetries of a triangle, rotating and then reflecting is different from reflecting and then rotating.
+\end{remark}
 
-However, for some groups, this happens to be true. We call such groups \emph{abelian groups}.
 \begin{defi}[Abelian group]
-  A group is \emph{abelian} if it satisfies
+  A group $(G, *)$ is \emph{abelian} if it additionally satisfies
   \begin{enumerate}[label=\arabic{*}.]
       \setcounter{enumi}{3}
     \item $(\forall a, b \in G)\, a*b = b*a$. \hfill (commutativity)
   \end{enumerate}
 \end{defi}
-If it is clear from context, we are lazy and leave out the operation $*$, and write $a*b$ as $ab$. We also write $a^2 = aa$, $a^n = \underbrace{aaa\cdots a}_{n \text{ copies}}$, $a^0 = e$, $a^{-n} = (a^{-1})^n$ etc.
+
+\begin{notation}
+  When the operation $*$ is clear from context, we write $ab$ in place of $a*b$. We also write $a^2 = aa$, $a^n = \underbrace{aaa\cdots a}_{n \text{ copies}}$, $a^0 = e$, and $a^{-n} = (a^{-1})^n$ for $n \geq 1$.
+\end{notation}
+
 \begin{eg}
   The following are abelian groups:
   \begin{enumerate}
-    \item $\Z$ with $+$
-    \item $\Q$ with $+$
-    \item $\Z_n$ (integers mod $n$) with $+_n$
-    \item $\Q^*$ with $\times$
-    \item $\{-1, 1\}$ with $\times$
+    \item $(\Z, +)$
+    \item $(\Q, +)$
+    \item $(\Z_n, +_n)$, the integers modulo $n$ under addition modulo $n$
+    \item $(\Q^*, \times)$, the nonzero rationals under multiplication
+    \item $(\{-1, 1\}, \times)$
   \end{enumerate}
   The following are non-abelian groups:
   \begin{enumerate}[resume]
-    \item Symmetries of an equilateral triangle (or any $n$-gon) with composition. ($D_{2n}$)
-    \item $2\times 2$ invertible matrices with matrix multiplication ($\GL_2(\R)$)
+    \item The symmetry group of a regular $n$-gon under composition, denoted $D_{2n}$
+    \item The group of $2\times 2$ invertible real matrices under matrix multiplication, denoted $\GL_2(\R)$
     \item Symmetry groups of 3D objects
   \end{enumerate}
 \end{eg}
 
-Recall that the first group axiom requires that there exists \emph{an} identity element, which we shall call $e$. Then the second requires that for each $a$, there is an inverse $a^{-1}$ such that $a^{-1}a = e$. This only makes sense if there is only one identity $e$, or else which identity should $a^{-1}a$ be equal to?
-
-We shall now show that there can only be one identity. It turns out that the inverses are also unique. So we will talk about \emph{the} identity and \emph{the} inverse.
 \begin{prop}
   Let $(G, *)$ be a group. Then
   \begin{enumerate}
-    \item The identity is unique.
-    \item Inverses are unique.
+    \item The identity element is unique.
+    \item For each $a \in G$, the inverse of $a$ is unique.
   \end{enumerate}
 \end{prop}
 \begin{proof}\leavevmode
   \begin{enumerate}[label=(\roman{*})]
-    \item Suppose $e$ and $e'$ are identities. Then we have $ee' = e'$, treating $e$ as an inverse, and $ee' = e$, treating $e'$ as an inverse. Thus $e = e'$.
+    \item Suppose $e$ and $e'$ are both identity elements. Then $ee' = e'$, using the fact that $e$ is an identity, and $ee' = e$, using the fact that $e'$ is an identity. Thus $e = e'$.
     \item Suppose $a^{-1}$ and $b$ both satisfy the inverse axiom for some $a\in G$. Then $b = be = b(aa^{-1}) = (ba)a^{-1} = ea^{-1} = a^{-1}$. Thus $b = a^{-1}$.\qedhere
   \end{enumerate}
 \end{proof}
+
+\begin{remark}
+  Since the identity is unique, it is now meaningful to speak of \emph{the} identity element $e$. Similarly, since inverses are unique, we may unambiguously write $a^{-1}$ for \emph{the} inverse of $a$.
+\end{remark}
+
 \begin{prop}
-  Let $(G, *)$ be a group and $a, b\in G$. Then
+  Let $(G, *)$ be a group and let $a, b\in G$. Then
   \begin{enumerate}
-    \item $(a^{-1})^{-1} = a$
-    \item $(ab)^{-1} = b^{-1}a^{-1}$
+    \item $(a^{-1})^{-1} = a$.
+    \item $(ab)^{-1} = b^{-1}a^{-1}$.
   \end{enumerate}
 \end{prop}
 \begin{proof}\leavevmode
@@ -188,157 +199,163 @@ We shall now show that there can only be one identity. It turns out that the inv
   \end{enumerate}
 \end{proof}
 
-Sometimes if we have a group $G$, we might want to discard some of the elements. For example if $G$ is the group of all symmetries of a triangle, we might one day decide that we hate reflections because they reverse orientation. So we only pick the rotations in $G$ and form a new, smaller group. We call this a \emph{subgroup} of $G$.
-
 \begin{defi}[Subgroup]
-  A $H$ is a \emph{subgroup} of $G$, written $H\leq G$, if $H\subseteq G$ and $H$ with the restricted operation $*$ from $G$ is also a group.
+  Let $(G, *)$ be a group. A subset $H \subseteq G$ is a \emph{subgroup} of $G$, written $H\leq G$, if $H$ with the restricted operation $*$ from $G$ is itself a group.
 \end{defi}
+
 \begin{eg}\leavevmode
   \begin{itemize}
-    \item $(\Z, +)\leq (\Q, +) \leq (\R, +)\leq (\C, +)$
-    \item $({e}, *) \leq (G, *)$ (trivial subgroup)
-    \item $G \leq G$
-    \item $(\{\pm 1\}, \times) \leq (\Q^*, \times)$
+    \item $(\Z, +)\leq (\Q, +) \leq (\R, +)\leq (\C, +)$.
+    \item $(\{e\}, *) \leq (G, *)$ for any group $G$ (the \emph{trivial subgroup}).
+    \item $G \leq G$.
+    \item $(\{\pm 1\}, \times) \leq (\Q^*, \times)$.
   \end{itemize}
 \end{eg}
 
-According to the definition, to prove that $H$ is a subgroup of $G$, we need to make sure $H$ satisfies all group axioms. However, this is often tedious. Instead, there are some simplified criteria to decide whether $H$ is a subgroup.
+\begin{remark}
+  To show that $H$ is a subgroup of $G$ directly from the definition, one must verify all the group axioms for $H$. The following two lemmas provide more convenient criteria.
+\end{remark}
+
 \begin{lemma}[Subgroup criteria I]
-  Let $(G, *)$ be a group and $H\subseteq G$. $H \leq G$ iff
+  Let $(G, *)$ be a group and let $H\subseteq G$. Then $H \leq G$ if and only if
   \begin{enumerate}
-    \item $e \in H$
-    \item $(\forall a, b\in H)\,ab \in H$
-    \item $(\forall a \in H)\,a^{-1} \in H$
+    \item $e \in H$;
+    \item $(\forall a, b\in H)\,ab \in H$;
+    \item $(\forall a \in H)\,a^{-1} \in H$.
   \end{enumerate}
 \end{lemma}
 \begin{proof}
-  The group axioms are satisfied as follows:
+  If $H \leq G$, then (i), (ii), and (iii) hold by the group axioms.
+
+  Conversely, suppose (i), (ii), and (iii) hold. The group axioms for $H$ are then verified as follows:
   \begin{enumerate}[label=\arabic{*}.]
       \setcounter{enumi}{-1}
-    \item Closure: (ii)
-    \item Identity: (i). Note that $H$ and $G$ must have the same identity. Suppose that $e_H$ and $e_G$ are the identities of $H$ and $G$ respectively. Then $e_He_H = e_H$. Now $e_H$ has an inverse in $G$. Thus we have $e_He_He_H^{-1} = e_He_H^{-1}$. So $e_He_G = e_G$. Thus $e_H = e_G$.
-    \item Inverse: (iii)
+    \item Closure: by (ii).
+    \item Identity: by (i). Note that $H$ and $G$ must have the same identity. Indeed, suppose $e_H$ and $e_G$ are the identities of $H$ and $G$ respectively. Then $e_He_H = e_H$. Since $e_H$ has an inverse $e_H^{-1}$ in $G$, multiplying on the right gives $e_H = e_G$.
+    \item Inverse: by (iii).
     \item Associativity: inherited from $G$.\qedhere
   \end{enumerate}
 \end{proof}
-Humans are lazy, and the test above is still too complicated. We thus come up with an even simpler test:
 
 \begin{lemma}[Subgroup criteria II]
-  A subset $H\subseteq G$ is a subgroup of $G$ iff:
+  Let $(G, *)$ be a group and let $H\subseteq G$. Then $H \leq G$ if and only if
   \begin{enumerate}[label=(\Roman{*})]
-    \item $H$ is non-empty
-    \item $(\forall a, b\in H)\,ab^{-1}\in H$
+    \item $H$ is non-empty;
+    \item $(\forall a, b\in H)\,ab^{-1}\in H$.
   \end{enumerate}
 \end{lemma}
 \begin{proof}
-  (I) and (II) follow trivially from (i), (ii) and (iii).
+  If $H \leq G$, then (I) and (II) follow immediately from (i), (ii), and (iii) of Subgroup criteria~I.
 
-  To prove that (I) and (II) imply (i), (ii) and (iii), we have
+  Conversely, suppose (I) and (II) hold. We verify conditions (i), (ii), and (iii):
   \begin{enumerate}
-    \item $H$ must contain at least one element $a$. Then $aa^{-1} = e \in H$.
+    \item Since $H$ is non-empty, it contains some element $a$. Then $aa^{-1} = e \in H$ by (II).
       \setcounter{enumi}{2}
-    \item $ea^{-1} = a^{-1} \in H$.
+    \item For any $a \in H$, we have $ea^{-1} = a^{-1} \in H$ by (II).
       \setcounter{enumi}{1}
-    \item $a(b^{-1})^{-1} = ab\in H$.
+    \item For any $a, b \in H$, since $b^{-1} \in H$ by (iii), we have $a(b^{-1})^{-1} = ab\in H$ by (II).
   \end{enumerate}
 \end{proof}
+
 \begin{prop}
-  The subgroups of $(\Z, +)$ are exactly $n\Z$, for $n\in \N$ ($n\Z$ is the integer multiples of $n$).
+  The subgroups of $(\Z, +)$ are exactly the sets $n\Z = \{nk : k \in \Z\}$ for $n\in \N$.
 \end{prop}
 \begin{proof}
-  Firstly, it is trivial to show that for any $n \in \N$, $n\Z$ is a subgroup. Now show that any subgroup must be in the form $n\Z$.
+  For any $n \in \N$, it is straightforward to verify that $n\Z$ is a subgroup of $(\Z, +)$.
 
-  Let $H\leq \Z$. We know $0\in H$. If there are no other elements in $H$, then $H = 0\Z$. Otherwise, pick the smallest positive integer $n$ in $H$. Then $H=n\Z$.
+  Conversely, let $H\leq \Z$. We have $0\in H$. If $H = \{0\}$, then $H = 0\Z$ and we are done.
 
-  Otherwise, suppose $(\exists a\in H)\,n \nmid a$. Let $a = pn + q$, where $0 < q < n$. Since $a - pn\in H$, $q\in H$. Yet $q < n$ but $n$ is the smallest member of $H$. Contradiction. So every $a\in H$ is divisible by $n$. Also, by closure, all multiples of $n$ must be in $H$. So $H = n\Z$.
+  Otherwise, $H$ contains a nonzero element $a$, and since $-a \in H$ as well, $H$ contains a positive integer. Let $n$ be the smallest positive integer in $H$. We claim that $H = n\Z$. Since $n \in H$ and $H$ is closed under addition and inverses, all multiples of $n$ belong to $H$, so $n\Z \subseteq H$. Now suppose for contradiction that there exists $a\in H$ with $n \nmid a$. By the division algorithm, write $a = pn + q$ where $0 < q < n$. Since $a - pn\in H$, we have $q\in H$. But $0 < q < n$, contradicting the minimality of $n$. Hence every element of $H$ is divisible by $n$, so $H \subseteq n\Z$. Therefore $H = n\Z$.
 \end{proof}
 \subsection{Homomorphisms}
-It is often helpful to study functions between different groups. First, we need to define what a function is. These definitions should be familiar from IA Numbers and Sets.
+\begin{remark}
+  To study groups, it is essential to study structure-preserving functions between them. We first recall the basic definitions concerning functions.
+\end{remark}
 
 \begin{defi}[Function]
-  Given two sets $X$, $Y$, a \emph{function} $f: X \rightarrow Y$ sends each $x\in X$ to a particular $f(x)\in Y$. $X$ is called the domain and $Y$ is the co-domain.
+  Given two sets $X$ and $Y$, a \emph{function} $f\colon X \rightarrow Y$ sends each $x\in X$ to a particular element $f(x)\in Y$. The set $X$ is called the \emph{domain} and $Y$ is called the \emph{codomain}.
 \end{defi}
 \begin{eg}\leavevmode
   \begin{itemize}
-    \item Identity function: for any set $X$, $1_X: X \rightarrow X$ with $1_X(x) = x$ is a function. This is also written as $\mathrm{id}_X$.
-    \item Inclusion map: $\iota: \Z \rightarrow \Q$: $\iota(n) = n$. Note that this differs from the identity function as the domain and codomain are different in the inclusion map.
-    \item $f_1: \Z \rightarrow \Z$: $f_1(x) = x + 1$.
-    \item $f_2: \Z \rightarrow \Z$: $f_2(x) = 2x$.
-    \item $f_3: \Z \rightarrow \Z$: $f_3(x) = x^2$.
-    \item For $g: \{0, 1, 2, 3, 4\} \rightarrow \{0, 1, 2, 3, 4\}$, we have:
+    \item Identity function: for any set $X$, $1_X\colon X \rightarrow X$ with $1_X(x) = x$ is a function. This is also written as $\mathrm{id}_X$.
+    \item Inclusion map: $\iota\colon \Z \rightarrow \Q$ defined by $\iota(n) = n$. Note that this differs from the identity function, as the domain and codomain are different.
+    \item $f_1\colon \Z \rightarrow \Z$ defined by $f_1(x) = x + 1$.
+    \item $f_2\colon \Z \rightarrow \Z$ defined by $f_2(x) = 2x$.
+    \item $f_3\colon \Z \rightarrow \Z$ defined by $f_3(x) = x^2$.
+    \item Consider functions $\{0, 1, 2, 3, 4\} \rightarrow \{0, 1, 2, 3, 4\}$:
       \begin{itemize}
         \item $g_1(x) = x + 1$ if $x < 4$; $g_1(4) = 4$.
-        \item $g_2(x) = x + 1$ if $x < 4$; $g_1(4) = 0$.
+        \item $g_2(x) = x + 1$ if $x < 4$; $g_2(4) = 0$.
       \end{itemize}
   \end{itemize}
 \end{eg}
 \begin{defi}[Composition of functions]
-  The \emph{composition} of two functions is a function you get by applying one after another. In particular, if $f: X \rightarrow Y$ and $G: Y\rightarrow Z$, then $g\circ f: X \rightarrow Z$ with $g\circ f(x) = g(f(x))$.
+  Let $f\colon X \rightarrow Y$ and $g\colon Y\rightarrow Z$ be functions. The \emph{composition} of $g$ with $f$ is the function $g\circ f\colon X \rightarrow Z$ defined by $(g\circ f)(x) = g(f(x))$.
 \end{defi}
 \begin{eg}
-  $f_2\circ f_1(x) = 2x + 2$. $f_1\circ f_2 (x) = 2x + 1$. Note that function composition is not commutative.
+  Using $f_1$ and $f_2$ defined above, $(f_2\circ f_1)(x) = 2x + 2$ and $(f_1\circ f_2)(x) = 2x + 1$. Note that function composition is not commutative in general.
 \end{eg}
-\begin{defi}[Injective functions]
-  A function $f$ is \emph{injective} if it hits everything at most once, i.e.
+\begin{defi}[Injective function]
+  A function $f\colon X \to Y$ is \emph{injective} if distinct elements have distinct images, i.e.
   \[
     (\forall x, y\in X)\,f(x) = f(y)\Rightarrow x = y.
   \]
 \end{defi}
 
-\begin{defi}[Surjective functions]
-  A function is \emph{surjective} if it hits everything at least once, i.e.
+\begin{defi}[Surjective function]
+  A function $f\colon X \to Y$ is \emph{surjective} if every element of $Y$ is in the image of $f$, i.e.
   \[
     (\forall y\in Y)(\exists x\in X)\,f(x) = y.
   \]
 \end{defi}
 
-\begin{defi}[Bijective functions]
-  A function is \emph{bijective} if it is both injective and surjective. i.e.\ it hits everything exactly once. Note that a function has an inverse iff it is bijective.
+\begin{defi}[Bijective function]
+  A function $f\colon X \to Y$ is \emph{bijective} if it is both injective and surjective. A function has an inverse if and only if it is bijective.
 \end{defi}
 
 \begin{eg}
-  $\iota$ and $f_2$ are injective but not subjective. $f_3$ and $g_1$ are neither. $1_X$, $f_1$ and $g_2$ are bijective.
+  $\iota$ and $f_2$ are injective but not surjective. $f_3$ and $g_1$ are neither. $1_X$, $f_1$ and $g_2$ are bijective.
 \end{eg}
 
 \begin{lemma}
-  The composition of two bijective functions is bijective
+  The composition of two bijective functions is bijective.
 \end{lemma}
 
-When considering sets, functions are allowed to do all sorts of crazy things, and can send any element to any element without any restrictions. However, we are currently studying groups, and groups have additional structure on top of the set of elements. Hence we are not interested in arbitrary functions. Instead, we are interested in functions that ``respect'' the group structure. We call these \emph{homomorphisms}.
+\begin{remark}
+  When studying groups, we are not interested in arbitrary functions between the underlying sets. Instead, we consider functions that preserve the group structure, called \emph{homomorphisms}.
+\end{remark}
+
 \begin{defi}[Group homomorphism]
-  Let $(G, *)$ and $(H, \times)$ be groups. A function $f:G\rightarrow H$ is a \emph{group homomorphism} iff
+  Let $(G, *)$ and $(H, \times)$ be groups. A function $f\colon G\rightarrow H$ is a \emph{group homomorphism} if
   \[
-   ( \forall g_1, g_2 \in G)\, f(g_1)\times f(g_2) = f(g_1 * g_2),
+   ( \forall g_1, g_2 \in G)\, f(g_1)\times f(g_2) = f(g_1 * g_2).
   \]
 \end{defi}
 
 \begin{defi}[Group isomorphism]
-  \emph{Isomorphisms} are bijective homomorphisms. Two groups are \emph{isomorphic} if there exists an isomorphism between them. We write $G\cong H$.
+  A \emph{group isomorphism} is a bijective group homomorphism. Two groups $G$ and $H$ are \emph{isomorphic}, written $G\cong H$, if there exists an isomorphism between them.
 \end{defi}
-We will consider two isomorphic groups to be ``the same''. For example, when we say that there is only one group of order $2$, it means that any two groups of order $2$ must be isomorphic.
+
+\begin{remark}
+  Isomorphic groups are considered to be ``the same'' from a group-theoretic perspective. For example, when we say that there is only one group of order $2$, we mean that any two groups of order $2$ are isomorphic.
+\end{remark}
 
 \begin{eg}\leavevmode
   \begin{itemize}
-    \item $f: G \to H$ defined by $f(g) = e$, where $e$ is the identity of $H$, is a homomorphism.
-    \item $1_G: G \rightarrow G$ and $f_2: \Z \rightarrow 2\Z$ are isomorphisms. $\iota: \Z\rightarrow\Q$ and $f_2:\Z\rightarrow\Z$ are homomorphisms.
-    \item $\mathrm{exp}: (\R, +) \rightarrow (\R^+, \times)$ with $\mathrm{exp}(x) = e^x$ is an isomorphism.
-    \item Take $(\Z_4, +)$ and $H: (\{e^{ik\pi/2}:k=0, 1 ,2, 3\}, \times)$. Then $f: \Z_4 \rightarrow H$ by $f(a) = e^{i\pi a/2}$ is an isomorphism.
-    \item $f: \GL_2(\R) \rightarrow \R^*$ with $f(A) = \det(A)$ is a homomorphism, where $\GL_2(\R)$ is the set of $2\times 2$ invertible matrices.
+    \item For any groups $G$ and $H$, the function $f\colon G \to H$ defined by $f(g) = e_H$ for all $g \in G$ is a homomorphism (the \emph{trivial homomorphism}).
+    \item $1_G\colon G \rightarrow G$ and $f_2\colon \Z \rightarrow 2\Z$ are isomorphisms. $\iota\colon \Z\rightarrow\Q$ and $f_2\colon\Z\rightarrow\Z$ are homomorphisms.
+    \item $\exp\colon (\R, +) \rightarrow (\R^+, \times)$ defined by $\exp(x) = e^x$ is an isomorphism.
+    \item Let $H = (\{e^{ik\pi/2}:k=0, 1 ,2, 3\}, \times)$. Then $f\colon \Z_4 \rightarrow H$ defined by $f(a) = e^{i\pi a/2}$ is an isomorphism.
+    \item $\det\colon \GL_2(\R) \rightarrow \R^*$ is a homomorphism.
   \end{itemize}
 \end{eg}
 
 \begin{prop}
-  Suppose that $f: G\rightarrow H$ is a homomorphism. Then
+  Let $f\colon G\rightarrow H$ be a group homomorphism. Then
   \begin{enumerate}
-    \item Homomorphisms send the identity to the identity, i.e.
-      \[
-        f(e_G) = e_H
-      \]
-    \item Homomorphisms send inverses to inverses, i.e.
-      \[
-        f(a^{-1}) = f(a)^{-1}
-      \]
-    \item The composite of 2 group homomorphisms is a group homomorphism.
+    \item $f(e_G) = e_H$.
+    \item For all $a \in G$, $f(a^{-1}) = f(a)^{-1}$.
+    \item The composite of two group homomorphisms is a group homomorphism.
     \item The inverse of an isomorphism is an isomorphism.
   \end{enumerate}
 \end{prop}
@@ -355,8 +372,8 @@ We will consider two isomorphic groups to be ``the same''. For example, when we 
         &= f(a)f(a^{-1})
       \end{align*}
       Since inverses are unique, $f(a^{-1}) = f(a)^{-1}$.
-    \item Let $f:G_1 \rightarrow G_2$ and $g:G_2 \rightarrow G_3$. Then $g(f(ab)) = g(f(a)f(b)) = g(f(a))g(f(b))$.
-    \item Let $f:G \rightarrow H$ be an isomorphism. Then
+    \item Let $f\colon G_1 \rightarrow G_2$ and $g\colon G_2 \rightarrow G_3$ be homomorphisms. Then $g(f(ab)) = g(f(a)f(b)) = g(f(a))g(f(b))$.
+    \item Let $f\colon G \rightarrow H$ be an isomorphism and let $a, b \in H$. Then
       \begin{align*}
         f^{-1}(ab) &= f^{-1}\Big\{f\big[f^{-1}(a)\big]f\big[f^{-1}(b)\big]\Big\}\\
         &= f^{-1}\Big\{f\big[f^{-1}(a)f^{-1}(b)\big]\Big\}\\
@@ -367,413 +384,443 @@ We will consider two isomorphic groups to be ``the same''. For example, when we 
 \end{proof}
 
 \begin{defi}[Image of homomorphism]
-  If $f:G\rightarrow H$ is a homomorphism, then the \emph{image} of $f$ is
+  Let $f\colon G\rightarrow H$ be a group homomorphism. The \emph{image} of $f$ is
   \[
     \im f = f(G) = \{f(g):g\in G\}.
   \]
 \end{defi}
 
 \begin{defi}[Kernel of homomorphism]
-  The \emph{kernel} of $f$, written as
+  Let $f\colon G\rightarrow H$ be a group homomorphism. The \emph{kernel} of $f$ is
   \[
     \ker f = f^{-1}(\{e_H\}) = \{g\in G:f(g)=e_H\}.
   \]
 \end{defi}
 
 \begin{prop}
-  Both the image and the kernel are subgroups of the respective groups, i.e.\ $\im f\leq H$ and $\ker f \leq G$.
+  Let $f\colon G \to H$ be a group homomorphism. Then $\im f\leq H$ and $\ker f \leq G$.
 \end{prop}
 
 \begin{proof}
-  Since $e_H\in \im f$ and $e_G\in \ker f$, $\im f$ and $\ker f$ are non-empty. Moreover, suppose $b_1, b_2\in \im f$. Now $\exists a_1, a_2 \in G$ such that $f(a_i) = b_i$. Then $b_1b_2^{-1} = f(a_1)f(a_2^{-1}) = f(a_1a_2^{-1})\in \im f$.
+  Since $f(e_G) = e_H$, we have $e_H\in \im f$ and $e_G\in \ker f$, so both sets are non-empty. For the image, suppose $b_1, b_2\in \im f$, so there exist $a_1, a_2 \in G$ with $f(a_1) = b_1$ and $f(a_2) = b_2$. Then $b_1b_2^{-1} = f(a_1)f(a_2)^{-1} = f(a_1 a_2^{-1})\in \im f$.
 
-  Then consider $b_1,b_2\in \ker f$. We have $f(b_1b_2^{-1}) = f(b_1)f(b_2)^{-1} = e^2 = e$. So $b_1b_2^{-1}\in \ker f$.
+  For the kernel, suppose $b_1,b_2\in \ker f$. Then $f(b_1b_2^{-1}) = f(b_1)f(b_2)^{-1} = e_H e_H^{-1} = e_H$, so $b_1b_2^{-1}\in \ker f$.
 \end{proof}
 
 \begin{prop}
-  Given any homomorphism $f:G\rightarrow H$ and any $a\in G$, for all $k\in \ker f$, $aka^{-1}\in\ker f$.
+  Let $f\colon G\rightarrow H$ be a group homomorphism. Then for all $a\in G$ and all $k\in \ker f$, we have $aka^{-1}\in\ker f$.
 \end{prop}
-This proposition seems rather pointless. However, it is not. All subgroups that satisfy this property are known as \emph{normal subgroups}, and normal subgroups have very important properties. We will postpone the discussion of normal subgroups to later lectures.
 
 \begin{proof}
-  $f(aka^{-1}) = f(a)f(k)f(a)^{-1} = f(a)ef(a)^{-1} = e$. So $aka^{-1}\in \ker f$.
+  $f(aka^{-1}) = f(a)f(k)f(a)^{-1} = f(a)e_Hf(a)^{-1} = e_H$. So $aka^{-1}\in \ker f$.
 \end{proof}
+
+\begin{remark}
+  The above property---that $aka^{-1} \in \ker f$ for all $a \in G$ and $k \in \ker f$---is not special to kernels. Subgroups satisfying this property are called \emph{normal subgroups} and play a central role in the theory, as we will see later.
+\end{remark}
 
 \begin{eg}
-  Images and kernels for previously defined functions:
+  Images and kernels for previously defined homomorphisms:
   \begin{enumerate}
-    \item For the function that sends everything to $e$, $\im f = \{e\}$ and $\ker f = G$.
+    \item For the trivial homomorphism $f\colon G \to H$ with $f(g) = e_H$, we have $\im f = \{e_H\}$ and $\ker f = G$.
     \item For the identity function, $\im 1_G = G$ and $\ker 1_G = \{e\}$.
-    \item For the inclusion map $\iota: \Z\rightarrow\Q$, we have $\im \iota = \Z$ and $\ker \iota = \{0\}$
-    \item For $f_2:\Z\rightarrow\Z$ and $f_2(x) = 2x$, we have $\im f_2 = 2\Z$ and $\ker f_2 = \{0\}$.
-    \item For $\det: \GL_2(\R) \rightarrow \R^*$, we have $\im \det = \R^*$ and $\ker \det = \{A:\det A = 1\} = \mathrm{SL}_2(\R)$
+    \item For the inclusion map $\iota\colon \Z\rightarrow\Q$, we have $\im \iota = \Z$ and $\ker \iota = \{0\}$.
+    \item For $f_2\colon\Z\rightarrow\Z$ defined by $f_2(x) = 2x$, we have $\im f_2 = 2\Z$ and $\ker f_2 = \{0\}$.
+    \item For $\det\colon \GL_2(\R) \rightarrow \R^*$, we have $\im \det = \R^*$ and $\ker \det = \{A \in \GL_2(\R):\det A = 1\} = \SL_2(\R)$.
   \end{enumerate}
 \end{eg}
+
 \begin{prop}
-  For all homomorphisms $f:G\rightarrow H$, $f$ is
+  Let $f\colon G\rightarrow H$ be a group homomorphism. Then $f$ is
   \begin{enumerate}
-    \item surjective iff $\im f = H$
-    \item injective iff $\ker f = \{e\}$
+    \item surjective if and only if $\im f = H$;
+    \item injective if and only if $\ker f = \{e_G\}$.
   \end{enumerate}
 \end{prop}
 
 \begin{proof}\leavevmode
   \begin{enumerate}
-    \item By definition.
-    \item We know that $f(e) = e$. So if $f$ is injective, then by definition $\ker f = \{e\}$. If $\ker f = \{e\}$, then given $a, b$ such that $f(a) = f(b)$, $f(ab^{-1}) = f(a)f(b)^{-1} = e$. Thus $ab^{-1}\in \ker f = \{e\}$. Then $ab^{-1} = e$ and $a = b$.\qedhere
+    \item This follows directly from the definitions.
+    \item Since $f(e_G) = e_H$, we have $e_G \in \ker f$. If $f$ is injective, then $e_G$ is the only element mapping to $e_H$, so $\ker f = \{e_G\}$. Conversely, if $\ker f = \{e_G\}$, then given $a, b \in G$ with $f(a) = f(b)$, we have $f(ab^{-1}) = f(a)f(b)^{-1} = e_H$. Thus $ab^{-1}\in \ker f = \{e_G\}$, so $ab^{-1} = e_G$ and hence $a = b$.\qedhere
   \end{enumerate}
 \end{proof}
 
-So far, the definitions of images and kernels seem to be just convenient terminology to refer to things. However, we will later prove an important theorem, the \emph{first isomorphism theorem}, that relates these two objects and provides deep insights (hopefully).
-
-Before we get to that, we will first study some interesting classes of groups and develop some necessary theory.
+\begin{remark}
+  The image and kernel of a homomorphism are not merely convenient terminology. They are related by the \emph{first isomorphism theorem}, which we will prove after developing some further theory.
+\end{remark}
 
 \subsection{Cyclic groups}
-The simplest class of groups is \emph{cyclic groups}. A cyclic group is a group of the form $\{e, a, a^2, a^2, \cdots, a^{n - 1}\}$, where $a^n = e$. For example, if we consider the group of all rotations of a triangle, and write $r = $ rotation by $120^\circ$, the elements will be $\{e, r, r^2\}$ with $r^3 = e$.
+\begin{remark}
+  The simplest class of groups is that of \emph{cyclic groups}. Informally, a cyclic group is a group of the form $\{e, a, a^2, a^3, \ldots, a^{n - 1}\}$, where $a^n = e$. For example, the group of rotations of an equilateral triangle is $\{e, r, r^2\}$ where $r$ denotes rotation by $120^\circ$ and $r^3 = e$.
+\end{remark}
 
-Officially, we define a cyclic group as follows:
-\begin{defi}[Cyclic group $C_n$]
+\begin{defi}[Cyclic group]
   A group $G$ is \emph{cyclic} if
   \[
-    (\exists a)(\forall b)(\exists n\in\Z)\, b = a^n,
+    (\exists a \in G)(\forall b \in G)(\exists n\in\Z)\, b = a^n,
   \]
-  i.e.\ every element is some power of $a$. Such an $a$ is called a generator of $G$.
+  i.e.\ every element of $G$ is a power of $a$. Such an element $a$ is called a \emph{generator} of $G$.
 
   We write $C_n$ for the cyclic group of order $n$.
 \end{defi}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-    \item $\Z$ is cyclic with generator $1$ or $-1$. It is \emph{the} infinite cyclic group.
+    \item $(\Z, +)$ is cyclic with generator $1$ (or $-1$). It is \emph{the} infinite cyclic group.
     \item $(\{+1, -1\}, \times)$ is cyclic with generator $-1$.
-    \item $(\Z_n, +)$ is cyclic with all numbers coprime with $n$ as generators.
+    \item $(\Z_n, +)$ is cyclic; its generators are precisely the elements coprime to $n$.
   \end{enumerate}
 \end{eg}
 
 \begin{notation}
-  Given a group $G$ and $a\in G$, we write $\bra a\ket$ for the cyclic group generated by $a$, i.e.\ the subgroup of all powers of $a$. It is the smallest subgroup containing $a$.
+  Given a group $G$ and an element $a\in G$, we write $\langle a\rangle$ for the \emph{cyclic subgroup generated by $a$}, i.e.\ the subgroup of all powers of $a$. It is the smallest subgroup of $G$ containing $a$.
 \end{notation}
 
 \begin{defi}[Order of element]
-  The \emph{order} of an element $a$ is the smallest integer $n$ such that $a^n = e$. If $n$ doesn't exist, $a$ has infinite order. Write $\ord(a)$ for the order of $a$.
+  Let $G$ be a group and let $a \in G$. The \emph{order} of $a$, denoted $\ord(a)$, is the smallest positive integer $n$ such that $a^n = e$. If no such $n$ exists, we say $a$ has \emph{infinite order}.
 \end{defi}
-We have given two different meanings to the word ``order''. One is the order of a group and the other is the order of an element. Since mathematicians are usually (but not always) sensible, the name wouldn't be used twice if they weren't related. In fact, we have
+
+\begin{remark}
+  The word ``order'' now has two meanings: the order of a group ($|G|$) and the order of an element ($\ord(a)$). The following lemma shows that these are closely related.
+\end{remark}
 
 \begin{lemma}
-  For $a$ in $g$, $\ord (a) = |\bra a\ket|$.
+  Let $G$ be a group and let $a \in G$. Then $\ord (a) = |\langle a\rangle|$.
 \end{lemma}
 \begin{proof}
-  If $\ord (a) = \infty$, $a^n \not= a^m$ for all $n\not= m$. Otherwise $a^{m-n} = e$. Thus $|\bra a\ket| = \infty = \ord (a)$.
+  If $\ord (a) = \infty$, then $a^n \neq a^m$ for all $n\neq m$ (otherwise $a^{m-n} = e$, contradicting infinite order). Thus $|\langle a\rangle| = \infty = \ord (a)$.
 
-  Otherwise, suppose $\ord (a) = k$. Thus $a^k = e$. We now claim that $\bra a\ket = \{e, a^1, a^2, \cdots a^{k-1}\}$. Note that $\bra a\ket$ does not contain higher powers of $a$ as $a^k = e$ and higher powers will loop back to existing elements. There are also no repeating elements in the list provided since $a^m = a^n \Rightarrow a^{m-n} = e$. So done.
+  Otherwise, suppose $\ord (a) = k$, so that $a^k = e$. We claim that $\langle a\rangle = \{e, a, a^2, \ldots, a^{k-1}\}$. Since $a^k = e$, every power of $a$ reduces to one of $e, a, \ldots, a^{k-1}$, so $\langle a \rangle$ contains no additional elements. Moreover, these $k$ elements are distinct: if $a^m = a^n$ for $0 \leq n < m \leq k - 1$, then $a^{m-n} = e$ with $0 < m - n < k$, contradicting the minimality of $k$. Hence $|\langle a\rangle| = k = \ord(a)$.
 \end{proof}
 
-It is trivial to show that
 \begin{prop}
-  Cyclic groups are abelian.
+  Every cyclic group is abelian.
 \end{prop}
+\begin{proof}
+  Let $G = \langle a \rangle$ be cyclic. For any $b, c \in G$, we have $b = a^m$ and $c = a^n$ for some $m, n \in \Z$. Then $bc = a^m a^n = a^{m+n} = a^n a^m = cb$.
+\end{proof}
 
 \begin{defi}[Exponent of group]
-  The \emph{exponent} of a group $G$ is the smallest integer $n$ such that $a^n = e$ for all $a \in G$.
+  The \emph{exponent} of a group $G$ is the smallest positive integer $n$ such that $a^n = e$ for all $a \in G$.
 \end{defi}
 
 \subsection{Dihedral groups}
-\begin{defi}[Dihedral groups $D_{2n}$]
-  Dihedral groups are the symmetries of a regular $n$-gon. It contains $n$ rotations (including the identity symmetry, i.e.\ rotation by $0^\circ$) and $n$ reflections.
-
-  We write the group as $D_{2n}$. Note that the subscript refers to the order of the group, not the number of sides of the polygon.
+\begin{defi}[Dihedral group $D_{2n}$]
+  For $n \geq 3$, the \emph{dihedral group} $D_{2n}$ is the group of symmetries of a regular $n$-gon. It has order $2n$, consisting of $n$ rotations (including the identity) and $n$ reflections, and admits the presentation
+  \begin{align*}
+    D_{2n} &= \langle r, s\mid r^n=s^2=e,\, srs^{-1} = r^{-1}\rangle\\
+    &= \{e, r, r^2, \ldots, r^{n-1}, s, rs, r^2s, \ldots, r^{n-1}s\}.
+  \end{align*}
+  The subscript in $D_{2n}$ refers to the order of the group, not the number of sides of the polygon.
 \end{defi}
 
-The dihedral group is not hard to define. However, we need to come up with a presentation of $D_{2n}$ that is easy to work with.
+\begin{remark}
+  Geometrically, $r$ represents rotation by $360^\circ/n$ (which has order $n$) and $s$ represents a fixed reflection (which has order $2$). The relation $srs^{-1} = r^{-1}$ expresses the fact that conjugating a rotation by a reflection reverses the direction of rotation. Every element of $D_{2n}$ can be written uniquely in the form $r^m$ (a rotation) or $r^m s$ (a reflection) for $0 \leq m \leq n - 1$.
+\end{remark}
 
-We first look at the rotations. The set of all rotations is generated by $r = \frac{360^\circ}{n}$. This $r$ has order $n$.
-
-How about the reflections? We know that each reflection has order $2$. Let $s$ be our favorite reflection. Then using some geometric arguments, we can show that any reflection can be written as a product of $r^m$ and $s$ for some $m$. We also have $srs = r^{-1}$.
-
-Hence we can define $D_{2n}$ as follows: $D_{2n}$ is a group generated by $r$ and $s$, and every element can be written as a product of $r$'s and $s$'s. Whenever we see $r^n$ and $s^2$, we replace it by $e$. When we see $srs$, we replace it by $r^{-1}$.
-
-It then follows that every element can be written in the form $r^m s$.
-
-Formally, we can write $D_{2n}$ as follows:
-\begin{align*}
-  D_{2n} &= \bra r, s\mid r^n=s^2=e, srs^{-1} = r^{-1}\ket\\
-  &= \{e, r, r^2, \cdots r^{n-1}, s, rs, r^2s, \cdots r^{n-1}s\}
-\end{align*}
-This is a notation we will commonly use to represent groups. For example, a cyclic group of order $n$ can be written as
-\[
-  C_n = \bra a\mid a^n =e \ket.
-\]
+\begin{notation}
+  The notation $\langle \text{generators} \mid \text{relations} \rangle$ is called a \emph{group presentation}. For example, the cyclic group of order $n$ can be written as
+  \[
+    C_n = \langle a\mid a^n = e \rangle.
+  \]
+\end{notation}
 
 \subsection{Direct products of groups}
-Recall that if we have to sets $X, Y$, then we can obtain the product $X\times Y = \{(x, y): x\in X, y\in Y\}$. We can do the same if $X$ and $Y$ are groups.
-
 \begin{defi}[Direct product of groups]
-  Given two groups $(G, \circ)$ and $(H, \bullet)$, we can define a set $G\times H = \{(g, h): g\in G, h\in H\}$ and an operation $(a_1, a_2)*(b_1, b_2) = (a_1\circ b_1, a_2\bullet b_2)$. This forms a group.
+  Given two groups $(G, \circ)$ and $(H, \bullet)$, the \emph{direct product} $G\times H$ is the set of ordered pairs $\{(g, h) : g\in G,\, h\in H\}$ equipped with the componentwise operation
+  \[
+    (a_1, a_2)*(b_1, b_2) = (a_1\circ b_1,\, a_2\bullet b_2).
+  \]
+  This is a group with identity $(e_G, e_H)$ and inverses $(g, h)^{-1} = (g^{-1}, h^{-1})$.
 \end{defi}
 
-Why would we want to take the product of two groups? Suppose we have two independent triangles. Then the symmetries of this system include, say rotating the first triangle, rotating the second, or rotating both. The symmetry group of this combined system would then be $D_6 \times D_6$.
+\begin{remark}
+  The direct product arises naturally when considering symmetries of independent objects. For example, the symmetry group of a system of two independent equilateral triangles is $D_6 \times D_6$.
+\end{remark}
 
 \begin{eg}
   \begin{align*}
     C_2\times C_2 &= \{(0, 0), (0, 1), (1, 0), (1, 1)\}\\
-    &= \{e, x, y, xy\} \text{ with everything order 2}\\
-    &= \bra x, y\mid x^2=y^2=e, xy = yx\ket
+    &= \{e, x, y, xy\} \text{ with every non-identity element of order 2}\\
+    &= \langle x, y\mid x^2=y^2=e,\, xy = yx\rangle.
   \end{align*}
 \end{eg}
 
 \begin{prop}
-  $C_n\times C_m\cong C_{nm}$ iff $\hcf(m, n) = 1$.
+  $C_n\times C_m\cong C_{nm}$ if and only if $\hcf(m, n) = 1$.
 \end{prop}
 
 \begin{proof}
-  Suppose that $\hcf(m, n) = 1$. Let $C_n = \bra a\ket$ and $C_m = \bra b \ket$. Let $k$ be the order of $(a, b)$. Then $(a, b)^k = (a^k, b^k) = e$. This is possible only if $n \mid k$ and $m \mid k$, i.e.\ $k$ is a common multiple $n$ and $m$. Since the order is the minimum value of $k$ that satisfies the above equation, $k = \lcm(n, m) = \frac{nm}{\hcf(n, m)} = nm$.
+  Suppose that $\hcf(m, n) = 1$. Let $C_n = \langle a\rangle$ and $C_m = \langle b \rangle$, and let $k = \ord((a, b))$ in $C_n \times C_m$. Then $(a, b)^k = (a^k, b^k) = (e, e)$, which requires $n \mid k$ and $m \mid k$, i.e.\ $k$ is a common multiple of $n$ and $m$. Since $k$ is the smallest such positive integer, $k = \lcm(n, m) = \frac{nm}{\hcf(n, m)} = nm$.
 
-  Now consider $\bra (a, b)\ket \leq C_n\times C_m$. Since $(a, b)$ has order $nm$, $\bra (a, b)\ket$ has $nm$ elements. Since $C_n\times C_m$ also has $nm$ elements, $\bra (a, b)\ket$ must be the whole of $C_n\times C_m$. And we know that $\bra (a, b)\ket\cong C_{nm}$. So $C_n\times C_m \cong C_{nm}$.
+  Now $\langle (a, b)\rangle \leq C_n\times C_m$, and since $(a, b)$ has order $nm = |C_n\times C_m|$, we have $\langle (a, b)\rangle = C_n\times C_m$. Thus $C_n\times C_m$ is cyclic of order $nm$, so $C_n\times C_m \cong C_{nm}$.
 
-  On the other hand, suppose $\hcf(m, n) \not= 1$. Then $k = \lcm(m, n) \not= mn$. Then for any $(a, b)\in C_n \times C_m$,we have $(a, b)^k = (a^k, b^k) = e$. So the order of any $(a, b)$ is at most $k < mn$. So there is no element of order $mn$. So $C_n\times C_m$ is not a cyclic group of order $nm$.
+  Conversely, suppose $\hcf(m, n) \neq 1$. Let $k = \lcm(m, n) < mn$. Then for any $(a, b)\in C_n \times C_m$, we have $(a, b)^k = (a^k, b^k) = (e, e)$, so the order of every element divides $k < mn$. In particular, no element has order $mn$, so $C_n\times C_m$ is not cyclic of order $mn$.
 \end{proof}
 
-Given a complicated group $G$, it is sometimes helpful to write it as a product $H\times K$, which could make things a bit simpler. We can do so by the following theorem:
+\begin{remark}
+  Given a group $G$, it is sometimes useful to recognise it as a direct product of two of its subgroups. The following proposition gives a criterion for doing so.
+\end{remark}
+
 \begin{prop}[Direct product theorem]
-  Let $H_1, H_2\leq G$. Suppose the following are true:
+  Let $G$ be a group and let $H_1, H_2\leq G$. Suppose:
   \begin{enumerate}
-    \item $H_1\cap H_2 = \{e\}$.
-    \item $(\forall a_i\in H_i)\, a_1a_2=a_2a_1$.
-    \item $(\forall a\in G)(\exists a_i\in H_i)\,a = a_1a_2$. We also write this as $G=H_1H_2$.
+    \item $H_1\cap H_2 = \{e\}$;
+    \item $(\forall a_1\in H_1)(\forall a_2 \in H_2)\, a_1a_2=a_2a_1$;
+    \item $(\forall a\in G)(\exists a_1\in H_1)(\exists a_2 \in H_2)\,a = a_1a_2$ (i.e.\ $G=H_1H_2$).
   \end{enumerate}
   Then $G\cong H_1\times H_2$.
 \end{prop}
 
 \begin{proof}
-  Define $f:H_1\times H_2\rightarrow G$ by $f(a_1, a_2) = a_1a_2$. Then it is a homomorphism since
+  Define $f\colon H_1\times H_2\rightarrow G$ by $f(a_1, a_2) = a_1a_2$. This is a homomorphism, since by (ii),
   \begin{align*}
     f((a_1, a_2)*(b_1,b_2)) &= f(a_1b_1, a_2b_2)\\
     &= a_1b_1a_2b_2\\
     &= a_1a_2b_1b_2\\
-    &= f(a_1, a_2)f(b_1,b_2).
+    &= f(a_1, a_2)\,f(b_1,b_2).
   \end{align*}
-  Surjectivity follows from (iii). We'll show injectivity by showing that the kernel is $\{e\}$. If $f(a_1, a_2)=e$, then we know that $a_1a_2 = e$. Then $a_1=a_2^{-1}$. Since $a_1 \in H_1$ and $a_2^{-1} \in H_2$, we have $a_1 = a_2^{-1} \in H_1\cap H_2 = \{e\}$. Thus $a_1 = a_2 = e$ and $\ker f = \{e\}$.
+  Surjectivity follows from (iii). For injectivity, suppose $f(a_1, a_2)=e$, i.e.\ $a_1a_2 = e$. Then $a_1=a_2^{-1}$. Since $a_1 \in H_1$ and $a_2^{-1} \in H_2$, we have $a_1 = a_2^{-1} \in H_1\cap H_2 = \{e\}$ by (i). Thus $a_1 = a_2 = e$, so $\ker f = \{e\}$ and $f$ is injective.
 \end{proof}
 
 \section{Symmetric group I}
-We will devote two full chapters to the study of symmetric groups, because it is really important. Recall that we defined a symmetry to be an operation that leaves some important property of the object intact. We can treat each such operation as a bijection. For example, a symmetry of $\R^2$ is a bijection $f: \R^2 \to \R^2$ that preserves distances. Note that we must require it to be a bijection, instead of a mere function, since we require each symmetry to be an inverse.
+\begin{remark}
+  Recall that a symmetry of an object is a bijection that preserves some structure. For example, a symmetry of $\R^2$ is a bijection $f\colon \R^2 \to \R^2$ that preserves distances. We now consider the case where no structure needs to be preserved: the group of \emph{all} bijections from a set to itself. This is the \emph{symmetric group}, and it is in some sense the most general symmetry group. We will later show (in Chapter~\ref{sec:action}) that every group is isomorphic to a subgroup of some symmetric group.
+\end{remark}
 
-We can consider the case where we don't care about anything at all. So a ``symmetry'' would be any arbitrary bijection $X \to X$, and the set of all bijections will form a group, known as the \emph{symmetric group}. Of course, we will no longer think of these as ``symmetries'' anymore, but just bijections.
-
-In some sense, the symmetric group is the most general case of a symmetry group. In fact, we will later (in Chapter~\ref{sec:action}) show that every group can be written as a subgroup of some symmetric group.
 \subsection{Symmetric groups}
 \begin{defi}[Permutation]
-  A \emph{permutation} of $X$ is a bijection from a set $X$ to $X$ itself. The set of all permutations on $X$ is $\Sym X$.
+  Let $X$ be a set. A \emph{permutation} of $X$ is a bijection $\sigma\colon X \to X$. The set of all permutations of $X$ is denoted $\Sym X$.
 \end{defi}
-When composing permutations, we treat them as functions. So if $\sigma$ and $\rho$ are permutations, $\sigma\circ \rho$ is given by first applying $\rho$, then applying $\sigma$.
+
+\begin{remark}
+  We compose permutations as functions: if $\sigma$ and $\tau$ are permutations, then $\sigma\circ \tau$ denotes first applying $\tau$, then applying $\sigma$.
+\end{remark}
 
 \begin{thm}
-  $\Sym X$ with composition forms a group.
+  $(\Sym X, \circ)$ is a group.
 \end{thm}
 
 \begin{proof}
-  The groups axioms are satisfied as follows:
+  The group axioms are verified as follows:
   \begin{enumerate}[label=\arabic{*}.]
       \setcounter{enumi}{-1}
-    \item If $\sigma: X\to X$ and $\tau: X\to X$, then $\sigma\circ\tau:X\to X$. If they are both bijections, then the composite is also bijective. So if $\sigma, \tau\in \Sym X$, then $\sigma\circ\tau\in\Sym X$.
-    \item The identity $1_X:X\to X$ is clearly a permutation, and gives the identity of the group.
-    \item Every bijective function has a bijective inverse. So if $\sigma\in \Sym X$, then $\sigma^{-1} \in \Sym X$.
+    \item If $\sigma, \tau\in \Sym X$, then $\sigma\circ\tau\colon X\to X$ is a bijection, so $\sigma\circ\tau\in\Sym X$.
+    \item The identity function $1_X\colon X\to X$ is a permutation and satisfies $\sigma \circ 1_X = 1_X \circ \sigma = \sigma$ for all $\sigma \in \Sym X$.
+    \item Every bijection has a bijective inverse, so if $\sigma\in \Sym X$, then $\sigma^{-1} \in \Sym X$.
     \item Composition of functions is associative.\qedhere
   \end{enumerate}
 \end{proof}
 
 \begin{defi}[Symmetric group $S_n$]
-  If $X$ is finite, say $|X| = n$ (usually use $X = \{1, 2, \cdots, n\}$), we write $\Sym X = S_n$. The is the \emph{symmetric group} of degree $n$.
+  If $X$ is a finite set with $|X| = n$ (we usually take $X = \{1, 2, \ldots, n\}$), we write $S_n = \Sym X$. This is the \emph{symmetric group} of degree $n$.
 \end{defi}
-It is important to note that the \emph{degree} of the symmetric group is different from the \emph{order} of the symmetric group. For example, $S_3$ has degree 3 but order 6. In general, the order of $S_n$ is $n!$.
 
-There are two ways to write out an element of the symmetric group. The first is the \emph{two row notation}.
-\begin{notation}
-  (Two row notation) We write $1, 2, 3, \cdots n$ on the top line and their images below, e.g.
+\begin{remark}
+  The \emph{degree} of $S_n$ is $n$, while the \emph{order} of $S_n$ is $|S_n| = n!$. For example, $S_3$ has degree $3$ but order $6$.
+\end{remark}
+
+\begin{notation}[Two row notation]
+  A permutation $\sigma \in S_n$ can be written by listing $1, 2, \ldots, n$ on the top row and their images below:
+  \[
+    \begin{pmatrix}
+      1 & 2 & 3 &\cdots& n\\
+      \sigma(1) & \sigma(2)&\sigma(3) &\cdots& \sigma(n)
+    \end{pmatrix}.
+  \]
+  For example,
   \[
     \begin{pmatrix}
       1 & 2 & 3\\
       2 & 3 & 1
-    \end{pmatrix}\in S_3 \text{ and }
+    \end{pmatrix}\in S_3 \quad\text{and}\quad
     \begin{pmatrix}
       1 & 2 & 3 & 4 & 5\\
       2 & 1 & 3 & 4 & 5
-    \end{pmatrix}\in S_5
-  \]
-  In general, if $\sigma: X\to X$, we write
-  \[
-    \begin{pmatrix}
-      1 & 2 & 3 &\cdots& n\\
-      \sigma(1) & \sigma(2)&\sigma(3) &\cdots& \sigma{(n)}
-    \end{pmatrix}
+    \end{pmatrix}\in S_5.
   \]
 \end{notation}
 
 \begin{eg}
-  For small $n$, we have
+  For small values of $n$:
   \begin{enumerate}
-    \item When $n = 1$, $S_n = \left\{\begin{pmatrix}1\\1\end{pmatrix}\right\} = \{e\}\cong C_1$.
-    \item When $n = 2$, $S_n = \left\{\begin{pmatrix}1 & 2\\ 1 & 2\end{pmatrix}, \begin{pmatrix}1 & 2\\2 & 1\end{pmatrix}\right\}\cong C_2$
-    \item When $n = 3$,
-      \[
-        S_n = \left\{\begin{matrix}\begin{pmatrix}1 & 2 & 3\\1 & 2 & 3\end{pmatrix}, &\begin{pmatrix}1 & 2 & 3\\ 2 & 3 & 1\end{pmatrix}, &\begin{pmatrix}1 & 2 & 3\\3 & 1 & 2\end{pmatrix}\\\\\begin{pmatrix}1 & 2 & 3\\2 & 1 & 3\end{pmatrix}, &\begin{pmatrix}1 & 2 & 3\\ 3 & 2 & 1\end{pmatrix}, &\begin{pmatrix}1 & 2 & 3\\1 & 3 & 2\end{pmatrix}\end{matrix}\right\}\cong D_6.
-      \]
-      Note that $S_3$ is not abelian. Thus $S_n$ is not abelian for $n \geq 3$ since we can always view $S_3$ as a subgroup of $S_n$ by fixing $4, 5, 6, \cdots n$.
+    \item $S_1 = \left\{\begin{pmatrix}1\\1\end{pmatrix}\right\} = \{e\}\cong C_1$.
+    \item $S_2 = \left\{\begin{pmatrix}1 & 2\\ 1 & 2\end{pmatrix}, \begin{pmatrix}1 & 2\\2 & 1\end{pmatrix}\right\}\cong C_2$.
+    \item $S_3 = \left\{\begin{matrix}\begin{pmatrix}1 & 2 & 3\\1 & 2 & 3\end{pmatrix}, &\begin{pmatrix}1 & 2 & 3\\ 2 & 3 & 1\end{pmatrix}, &\begin{pmatrix}1 & 2 & 3\\3 & 1 & 2\end{pmatrix}\\\\\begin{pmatrix}1 & 2 & 3\\2 & 1 & 3\end{pmatrix}, &\begin{pmatrix}1 & 2 & 3\\ 3 & 2 & 1\end{pmatrix}, &\begin{pmatrix}1 & 2 & 3\\1 & 3 & 2\end{pmatrix}\end{matrix}\right\}\cong D_6$.
   \end{enumerate}
 \end{eg}
-In general, we can view $D_{2n}$ as a subgroup of $S_n$ because each symmetry is a permutation of the corners.
 
-While the two row notation is fully general and can represent any (finite) permutation, it is clumsy to write and wastes a lot of space. It is also very annoying to type using \LaTeX. Hence, most of the time, we actually use the cycle notation.
+\begin{remark}
+  $S_3$ is not abelian, and hence $S_n$ is not abelian for any $n \geq 3$, since $S_3$ can be viewed as a subgroup of $S_n$ (by fixing $4, 5, \ldots, n$). More generally, $D_{2n}$ can be viewed as a subgroup of $S_n$, since each symmetry of a regular $n$-gon permutes its vertices.
+\end{remark}
 
 \begin{notation}[Cycle notation]
-  If a map sends $1 \mapsto 2$, $2\mapsto 3$, $3\mapsto 1$, then we write it as a cycle $(1\;2\;3)$. Alternatively, we can write $(2\;3\;1)$ or $(3\;1\;2)$, but by convention, we usually write the smallest number first. We leave out numbers that don't move. So we write $(1\; 2)$ instead of $(1\; 2)(3)$.
-
-  For more complicated maps, we can write them as products of cycles. For example, in $S_4$, we can have things like $(1\; 2)(3\; 4)$.
+  A permutation that sends $a_1 \mapsto a_2 \mapsto \cdots \mapsto a_k \mapsto a_1$ and fixes all other elements is written as the cycle $(a_1\; a_2\; \cdots\; a_k)$. By convention, we write the smallest element first and omit fixed points. More general permutations can be written as products of cycles; for example, $(1\; 2)(3\; 4) \in S_4$ denotes the permutation that swaps $1$ with $2$ and $3$ with $4$.
 \end{notation}
-The order of each cycle is the length of the cycle, and the inverse is the cycle written the other way round, e.g.\ $(1\; 2\; 3)^{-1} = (3\; 2\; 1) = (1\; 3\; 2)$.
+
+\begin{prop}
+  The inverse of a cycle is obtained by writing it in reverse order, e.g.\ $(1\; 2\; 3)^{-1} = (3\; 2\; 1) = (1\; 3\; 2)$.
+\end{prop}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-    \item Suppose we want to simplify $(1\; 2\; 3)(1\; 2)$. Recall that composition is from right to left. So $1$ gets mapped to $3$ ($(1\; 2)$ maps $1$ to $2$, and $(1\; 2\; 3)$ further maps it to $3$). Then $3$ gets mapped to $1$. $2$ is mapped to $2$ itself. So $(1\; 2\; 3)(1\; 2) = (1\;3)(2)$
-    \item $(1\; 2\; 3\; 4)(1\; 4) = (1)(2\; 3\; 4) = (2\; 3\; 4)$.
+    \item $(1\; 2\; 3)(1\; 2) = (1\;3)$, since (composing right to left) $1 \mapsto 2 \mapsto 3$, $3 \mapsto 3 \mapsto 1$, and $2 \mapsto 1 \mapsto 2$.
+    \item $(1\; 2\; 3\; 4)(1\; 4) = (2\; 3\; 4)$.
   \end{enumerate}
 \end{eg}
+
 \begin{defi}[$k$-cycles and transpositions]
-  We call $(a_1\; a_2\; a_3\cdots a_k)$ a \emph{$k$-cycle}. $2$-cycles are called \emph{transpositions}. Two cycles are \emph{disjoint} if no number appears in both cycles.
+  A cycle $(a_1\; a_2\; \cdots\; a_k)$ is called a \emph{$k$-cycle}. A $2$-cycle is called a \emph{transposition}. Two cycles are \emph{disjoint} if no element appears in both.
 \end{defi}
+
 \begin{eg}
-  $(1\; 2)$ and $(3\; 4)$ are disjoint but $(1\; 2\; 3)$ and $(1\; 2)$ are not.
+  $(1\; 2)$ and $(3\; 4)$ are disjoint, but $(1\; 2\; 3)$ and $(1\; 2)$ are not.
 \end{eg}
+
 \begin{lemma}
   Disjoint cycles commute.
 \end{lemma}
 \begin{proof}
-  If $\sigma, \tau\in S_n$ are disjoint cycles. Consider any $n$. Show that: $\sigma(\tau(a)) = \tau(\sigma(a))$. If $a$ is in neither of $\sigma$ and $\tau$, then $\sigma(\tau(a)) = \tau(\sigma(a)) = a$. Otherwise, wlog assume that $a$ is in $\tau$ but not in $\sigma$. Then $\tau(a)\in \tau$ and thus $\tau(a)\not\in \sigma$. Thus $\sigma(a) = a$ and $\sigma(\tau(a)) = \tau(a)$. Therefore we have $\sigma(\tau(a)) = \tau(\sigma(a)) = \tau(a)$. Therefore $\tau$ and $\sigma$ commute.
+  Let $\sigma, \tau\in S_n$ be disjoint cycles. We show that $\sigma(\tau(a)) = \tau(\sigma(a))$ for all $a \in \{1, \ldots, n\}$. If $a$ appears in neither $\sigma$ nor $\tau$, then both sides equal $a$. Otherwise, assume without loss of generality that $a$ appears in $\tau$ but not in $\sigma$. Then $\tau(a)$ also appears in $\tau$ and hence not in $\sigma$, so $\sigma(\tau(a)) = \tau(a)$. On the other hand, $\sigma(a) = a$, so $\tau(\sigma(a)) = \tau(a)$. Thus $\sigma \circ \tau = \tau \circ \sigma$.
 \end{proof}
-In general, non-disjoint cycles may not commute. For example, $(1\; 3)(2\; 3) = (1\; 3\; 2)$ while $(2\; 3)(1\; 3) = (1\; 2\; 3)$.
+
+\begin{remark}
+  Non-disjoint cycles need not commute. For example, $(1\; 3)(2\; 3) = (1\; 3\; 2)$ while $(2\; 3)(1\; 3) = (1\; 2\; 3)$.
+\end{remark}
 
 \begin{thm}
-  Any permutation in $S_n$ can be written (essentially) uniquely as a product of disjoint cycles. (Essentially unique means unique up to re-ordering of cycles and rotation within cycles, e.g.\ $(1\; 2)$ and $(2\; 1)$)
+  Every permutation in $S_n$ can be written as a product of disjoint cycles. This decomposition is unique up to the ordering of cycles and cyclic rotation within each cycle.
 \end{thm}
 
 \begin{proof}
-  Let $\sigma\in S_n$. Start with $(1\; \sigma(1)\; \sigma^2(1)\; \sigma^3(1)\;\cdots)$. As the set $\{1, 2, 3\cdots n\}$ is finite, for some $k$, we must have $\sigma^k(1)$ already in the list. If $\sigma^k(1) = \sigma^l(1)$, with $l < k$, then $\sigma^{k-l}(1) = 1$. So all $\sigma^i(1)$ are distinct until we get back to $1$. Thus we have the first cycle $(1\; \sigma(1)\; \sigma^2(1)\; \sigma^3(1)\;\cdots\;\sigma^{k-1}(1))$.
+  Let $\sigma\in S_n$. Form the sequence $1, \sigma(1), \sigma^2(1), \sigma^3(1), \ldots$ Since the set $\{1, 2, \ldots, n\}$ is finite, for some $k$ we must have $\sigma^k(1)$ equal to a previous term. If $\sigma^k(1) = \sigma^l(1)$ with $l < k$, then $\sigma^{k-l}(1) = 1$. So all terms $\sigma^i(1)$ are distinct until we return to $1$, giving the first cycle $(1\; \sigma(1)\; \sigma^2(1)\;\cdots\;\sigma^{k-1}(1))$.
 
-  Now choose the smallest number that is not yet in a cycle, say $j$. Repeat to obtain a cycle $(j\; \sigma(j)\; \sigma^2(j)\;\cdots\; \sigma^{l - 1}(j))$. Since $\sigma$ is a bijection, nothing in this cycle can be in previous cycles as well.
+  Now choose the smallest element not yet in any cycle, say $j$, and repeat to obtain a cycle $(j\; \sigma(j)\; \sigma^2(j)\;\cdots\; \sigma^{l - 1}(j))$. Since $\sigma$ is a bijection, no element of this cycle can appear in a previous cycle.
 
-  Repeat until all $\{1, 2, 3\cdots n\}$ are exhausted. This is essentially unique because every number $j$ completely determines the whole cycle it belongs to, and whichever number we start with, we'll end up with the same cycle.
+  Repeat until all elements of $\{1, 2, \ldots, n\}$ are exhausted. Uniqueness holds because each element $j$ determines the cycle it belongs to: it must be $(j\; \sigma(j)\; \sigma^2(j)\; \cdots)$, regardless of which element we start with.
 \end{proof}
 
 \begin{defi}[Cycle type]
-  Write a permutation $\sigma\in S_n$ in disjoint cycle notation. The \emph{cycle type} is the list of cycle lengths. This is unique up to re-ordering. We often (but not always) leave out singleton cycles.
+  Let $\sigma\in S_n$ and write $\sigma$ in disjoint cycle notation. The \emph{cycle type} of $\sigma$ is the list of cycle lengths, which is unique up to reordering. By convention, we often omit $1$-cycles (fixed points).
 \end{defi}
+
 \begin{eg}
-  $(1\; 2)$ has cycle type $2$ (transposition). $(1\; 2)(3\; 4)$ has cycle type $2, 2$ (double transposition). $(1\; 2\; 3)(4\; 5)$ has cycle type $3, 2$.
+  $(1\; 2)$ has cycle type $2$ (a transposition). $(1\; 2)(3\; 4)$ has cycle type $2, 2$ (a double transposition). $(1\; 2\; 3)(4\; 5)$ has cycle type $3, 2$.
 \end{eg}
+
 \begin{lemma}
-  For $\sigma\in S_n$, the order of $\sigma$ is the least common multiple of cycle lengths in the disjoint cycle notation. In particular, a $k$-cycle has order $k$.
+  Let $\sigma\in S_n$, and write $\sigma$ as a product of disjoint cycles. Then the order of $\sigma$ is the least common multiple of the cycle lengths. In particular, a $k$-cycle has order $k$.
 \end{lemma}
 
 \begin{proof}
-  As disjoint cycles commute, we can group together each cycle when we take powers. i.e.\ if $\sigma = \tau_1\tau_2\cdots\tau_l$ with $\tau_i$ all disjoint cycles, then $\sigma^m = \tau_1^m\tau_2^m\cdots\tau_l^m$.
+  Write $\sigma = \tau_1\tau_2\cdots\tau_l$ where the $\tau_i$ are disjoint cycles. Since disjoint cycles commute, $\sigma^m = \tau_1^m\tau_2^m\cdots\tau_l^m$ for all $m \geq 1$.
 
-  Now if cycle $\tau_i$ has length $k_i$, then $\tau_i^{k_i} = e$, and $\tau_i^m = e$ iff $k_i \mid m$. To get an $m$ such that $\sigma^m = e$, we need all $k_i$ to divide $m$. i.e.\ $m$ is a common multiple of $k_i$. Since the order is the least possible $m$ such that $\sigma^m = e$, the order is the least common multiple of $k_i$.
+  If $\tau_i$ has length $k_i$, then $\tau_i^m = e$ if and only if $k_i \mid m$. Thus $\sigma^m = e$ if and only if $k_i \mid m$ for all $i$, i.e.\ $m$ is a common multiple of $k_1, \ldots, k_l$. The order of $\sigma$ is therefore $\lcm(k_1, \ldots, k_l)$.
 \end{proof}
 
 \begin{eg}
-  Any transpositions and double transpositions have order 2.
-
-  $(1\; 2\; 3)(4\; 5)$ has order 6.
+  Any transposition or double transposition has order $2$. The permutation $(1\; 2\; 3)(4\; 5)$ has order $\lcm(3, 2) = 6$.
 \end{eg}
 
 \subsection{Sign of permutations}
-To classify different permutations, we can group different permutations according to their cycle type. While this is a very useful thing to do, it is a rather fine division. In this section, we will assign a ``sign'' to each permutation, and each permutation can either be odd or even. This high-level classification allows us to separate permutations into two sets, which is also a useful notion.
+\begin{remark}
+  While classifying permutations by cycle type is very useful, it is a rather fine division. In this section, we assign a coarser invariant---the \emph{sign}---to each permutation, classifying it as either even or odd.
+\end{remark}
 
-To define the sign, we first need to write permutations as products of transpositions.
 \begin{prop}
-  Every permutation is a product of transpositions.
+  Every permutation in $S_n$ is a product of transpositions.
 \end{prop}
-This is not a deep or mysterious fact. All it says is that you can rearrange things however you want just by swapping two objects at a time.
 
 \begin{proof}
-  As each permutation is a product of disjoint cycles, it suffices to prove that each cycle is a product of transpositions. Consider a cycle $(a_1\; a_2\; a_3\; \cdots\; a_k)$. This is in fact equal to $(a_1\; a_2)(a_2\; a_3)\cdots (a_{k-1}\; a_k)$. Thus a $k$-cycle can be written as a product of $k - 1$ transpositions.
+  Since every permutation is a product of disjoint cycles, it suffices to show that each cycle is a product of transpositions. Indeed, $(a_1\; a_2\; a_3\; \cdots\; a_k) = (a_1\; a_2)(a_2\; a_3)\cdots (a_{k-1}\; a_k)$, so a $k$-cycle is a product of $k - 1$ transpositions.
 \end{proof}
 
-Note that the product is not unique. For example,
-\[
-  (1\; 2\; 3\; 4\; 5) =(1\; 2)(2\; 3)(3\; 4)(4\; 5) = (1\; 2)(2\; 3)(1\; 2)(3\; 4)(1\; 2)(4\; 5).
-\]
-However, the number of terms in the product, mod 2, is always the same.
+\begin{remark}
+  The decomposition into transpositions is not unique. For example,
+  \[
+    (1\; 2\; 3\; 4\; 5) =(1\; 2)(2\; 3)(3\; 4)(4\; 5) = (1\; 2)(2\; 3)(1\; 2)(3\; 4)(1\; 2)(4\; 5).
+  \]
+  However, the parity (even or odd) of the number of transpositions is always the same, as the following theorem shows.
+\end{remark}
 
 \begin{thm}
-  Writing $\sigma\in S_n$ as a product of transpositions in different ways, $\sigma$ is either always composed of an even number of transpositions, or always an odd number of transpositions.
+  Let $\sigma\in S_n$. If $\sigma$ is written as a product of transpositions in two different ways, then the number of transpositions in each decomposition has the same parity (both even or both odd).
 \end{thm}
-The proof is rather magical.
 
 \begin{proof}
-  Write $\#(\sigma)$ for the number of cycles in disjoint cycle notation, including singleton cycles. So $\#(e) = n$ and $\#((1\; 2)) = n - 1$. When we multiply $\sigma$ by a transposition $\tau = (c\; d)$ (wlog assume $c < d$),
+  For $\sigma \in S_n$, write $\#(\sigma)$ for the number of cycles in the disjoint cycle notation of $\sigma$, including $1$-cycles. So $\#(e) = n$ and $\#((1\; 2)) = n - 1$. We claim that for any transposition $\tau$, $\#(\sigma\tau) \equiv \#(\sigma) + 1 \pmod 2$.
+
+  Let $\tau = (c\; d)$ with $c < d$.
   \begin{itemize}
-    \item If $c, d$ are in the same $\sigma$-cycle, say, $(c\; a_2\; \cdots \; a_{k - 1}\; d\; a_{k + 1}\; \cdots a_{k + l})(c\; d) = (c\; a_{k+1}\; a_{k+2}\;\cdots a_{k + l})(d\; a_2\; a_3\;\cdots\; a_{k - 1})$. So $\#(\sigma\tau) = \#(\sigma) + 1$ .
-    \item If $c, d$ are in different $\sigma$-cycles, say
-
-      $(d\; a_2\; a_3\;\cdots\;a_{k - 1})(c\; a_{k + 1}\; a_{k + 2}\;\cdots\; a_{k + l})(c\; d) $
-
-      $=(c\; a_2\; \cdots \; a_{k - 1}\; d\; a_{k + 1}\; \cdots a_{k + l})(c\; d)(c\; d)$
-
-      $= (c\; a_2\; \cdots \; a_{k - 1}\; d\; a_{k + 1}\; \cdots a_{k + l})$ and $\#(\sigma\tau) = \#(\sigma) - 1$.
-
+    \item If $c$ and $d$ are in the same cycle of $\sigma$, say $(c\; a_2\; \cdots \; a_{k - 1}\; d\; a_{k + 1}\; \cdots\; a_{k + l})$, then
+    \[
+      (c\; a_2\; \cdots \; a_{k - 1}\; d\; a_{k + 1}\; \cdots\; a_{k + l})(c\; d) = (c\; a_{k+1}\;\cdots\; a_{k + l})(d\; a_2\;\cdots\; a_{k - 1}),
+    \]
+    so $\#(\sigma\tau) = \#(\sigma) + 1$.
+    \item If $c$ and $d$ are in different cycles of $\sigma$, say $(d\; a_2\;\cdots\;a_{k - 1})$ and $(c\; a_{k + 1}\;\cdots\; a_{k + l})$, then
+    \[
+      (d\; a_2\;\cdots\;a_{k - 1})(c\; a_{k + 1}\;\cdots\; a_{k + l})(c\; d) = (c\; a_2\; \cdots \; a_{k - 1}\; d\; a_{k + 1}\; \cdots\; a_{k + l}),
+    \]
+    so $\#(\sigma\tau) = \#(\sigma) - 1$.
   \end{itemize}
-  Therefore for any transposition $\tau$, $\#(\sigma\tau) \equiv \#(\sigma) + 1 \pmod 2$.
+  In either case, $\#(\sigma\tau) \equiv \#(\sigma) + 1 \pmod 2$.
 
-  Now suppose $\sigma = \tau_1\cdots\tau_l = \tau_1'\cdots\tau_{k}'$. Since disjoint cycle notation is unique, $\#(\sigma)$ is uniquely determined by $\sigma$.
-
-  Now we can construct $\sigma$ by starting with $e$ and multiplying the transpositions one by one. Each time we add a transposition, we increase $\#(\sigma)$ by $1 \pmod 2$. So $\#(\sigma) \equiv \#(e) + l\pmod 2$. Similarly, $\#(\sigma) \equiv \#(e) + k \pmod 2$. So $l \equiv k \pmod 2$.
+  Now suppose $\sigma = \tau_1\cdots\tau_l = \tau_1'\cdots\tau_{k}'$. Since the disjoint cycle notation is unique, $\#(\sigma)$ is uniquely determined by $\sigma$. Building $\sigma$ from $e$ by multiplying transpositions one at a time, we get $\#(\sigma) \equiv \#(e) + l \equiv n + l\pmod 2$ from the first decomposition, and $\#(\sigma) \equiv n + k \pmod 2$ from the second. Thus $l \equiv k \pmod 2$.
 \end{proof}
 
 \begin{defi}[Sign of permutation]
-  Viewing $\sigma\in S_n$ as a product of transpositions, $\sigma = \tau_1\cdots \tau_l$, we call $\sgn(\sigma) = (-1)^l$. If $\sgn(\sigma) = 1$, we call $\sigma$ an even permutation. If $\sgn(\sigma) = -1$, we call $\sigma$ an odd permutation.
+  Let $\sigma\in S_n$ and write $\sigma = \tau_1\cdots \tau_l$ as a product of transpositions. The \emph{sign} of $\sigma$ is $\sgn(\sigma) = (-1)^l$. If $\sgn(\sigma) = 1$, we call $\sigma$ an \emph{even} permutation; if $\sgn(\sigma) = -1$, we call $\sigma$ an \emph{odd} permutation.
 \end{defi}
-While $l$ itself is not well-defined, it is either always odd or always even, and $(-1)^l$ is well-defined.
+
+\begin{remark}
+  The number $l$ depends on the choice of decomposition, but the previous theorem guarantees that its parity does not. Thus $\sgn(\sigma)$ is well-defined.
+\end{remark}
 
 \begin{thm}
-  For $n\geq 2$, $\sgn : S_n \rightarrow \{\pm 1\}$ is a surjective group homomorphism.
+  For $n\geq 2$, $\sgn \colon S_n \rightarrow \{\pm 1\}$ is a surjective group homomorphism.
 \end{thm}
 \begin{proof}
-  Suppose $\sigma_1 = \tau_1\cdots \tau_{l_1}$ and $\sigma_2 = \tau'_1\cdots \tau_{l_2}$. Then $\sgn(\sigma_1\sigma_2) = (-1)^{l_1 + l_2} = (-1)^{l_1}(-1)^{l_2} = \sgn(\sigma_1)\sgn(\sigma_2)$. So it is a homomorphism.
+  Let $\sigma_1 = \tau_1\cdots \tau_{l_1}$ and $\sigma_2 = \tau'_1\cdots \tau'_{l_2}$ be products of transpositions. Then $\sgn(\sigma_1\sigma_2) = (-1)^{l_1 + l_2} = (-1)^{l_1}(-1)^{l_2} = \sgn(\sigma_1)\sgn(\sigma_2)$, so $\sgn$ is a homomorphism.
 
   It is surjective since $\sgn(e) = 1$ and $\sgn((1\; 2)) = -1$.
 \end{proof}
 
-It is this was rather trivial to prove. The hard bit is showing that $\sgn$ is well defined. If a question asks you to show that $\sgn$ is a well-defined group homomorphism, you \emph{have} to show that it is well-defined.
+\begin{remark}
+  The fact that $\sgn$ is a homomorphism is straightforward; the hard part of the theory is showing that $\sgn$ is well-defined (i.e.\ independent of the choice of transposition decomposition).
+\end{remark}
 
 \begin{lemma}
-  $\sigma$ is an even permutation iff the number of cycles of even length is even.
+  A permutation $\sigma \in S_n$ is even if and only if the number of even-length cycles in its disjoint cycle notation is even.
 \end{lemma}
 
 \begin{proof}
-  A $k$-cycle can be written as $k - 1$ transpositions. Thus an even-length cycle is odd, vice versa.
+  A $k$-cycle is a product of $k - 1$ transpositions, so it is even if $k$ is odd and odd if $k$ is even.
 
-  Since $\sgn$ is a group homomorphism, writing $\sigma$ in disjoint cycle notation, $\sigma = \sigma_1\sigma_2\cdots\sigma_l$, we get $\sgn(\sigma) = \sgn(\sigma_1)\cdots \sgn(\sigma_l)$. Suppose there are $m$ even-length cycles and $n$ odd-length cycles, then $\sgn(\sigma) = (-1)^m 1^n$. This is equal to $1$ iff $(-1)^m = 1$, i.e.\ $m$ is even.
+  Since $\sgn$ is a homomorphism, writing $\sigma$ in disjoint cycle notation as $\sigma = \sigma_1\sigma_2\cdots\sigma_l$, we get $\sgn(\sigma) = \sgn(\sigma_1)\cdots \sgn(\sigma_l)$. If there are $m$ even-length cycles and $p$ odd-length cycles, then $\sgn(\sigma) = (-1)^m \cdot 1^p = (-1)^m$. Thus $\sgn(\sigma) = 1$ if and only if $m$ is even.
 \end{proof}
-Rather confusingly, odd length cycles are even, and even length cycles are odd.
+
+\begin{remark}
+  Note the potentially confusing convention: odd-length cycles are even permutations, and even-length cycles are odd permutations.
+\end{remark}
 
 \begin{defi}[Alternating group $A_n$]
-  The \emph{alternating group} $A_n$ is the kernel of $\sgn$, i.e.\ the even permutations.
-  Since $A_n$ is a kernel of a group homomorphism, $A_n \leq S_n$.
+  The \emph{alternating group} $A_n$ is the kernel of $\sgn \colon S_n \to \{\pm 1\}$, i.e.\ $A_n$ is the set of all even permutations in $S_n$.
 \end{defi}
-Among the many uses of the $\sgn$ homomorphism, it is used in the definition of the determinant of a matrix: if $A_{n\times n}$ is a square matrix, then
-\[
-  \det A = \sum_{\sigma\in S_n}\sgn(\sigma) a_{1\sigma(1)}\cdots a_{n\sigma(n)}.
-\]
+
+\begin{remark}
+  Since $A_n$ is the kernel of a group homomorphism, $A_n \leq S_n$. The sign homomorphism also appears in the definition of the determinant: for an $n \times n$ matrix $A = (a_{ij})$,
+  \[
+    \det A = \sum_{\sigma\in S_n}\sgn(\sigma)\, a_{1\sigma(1)}\cdots a_{n\sigma(n)}.
+  \]
+\end{remark}
 
 \begin{prop}
-  Any subgroup of $S_n$ contains either no odd permutations or exactly half.
+  Any subgroup of $S_n$ contains either no odd permutations or exactly half odd permutations.
 \end{prop}
 
 \begin{proof}
-  If $S_n$ has at least one odd permutation $\tau$, then there exists a bijection between the odd and even permutations by $\sigma \mapsto \sigma\tau$ (bijection since $\sigma \mapsto \sigma \tau^{-1}$ is a well-defined inverse). So there are as many odd permutations as even permutations.
+  Let $H \leq S_n$. If $H$ contains at least one odd permutation $\tau$, then the map $\sigma \mapsto \sigma\tau$ is a bijection from the set of even permutations in $H$ to the set of odd permutations in $H$ (with inverse $\sigma \mapsto \sigma \tau^{-1}$). Thus $H$ contains equally many even and odd permutations.
 \end{proof}
-After we prove the isomorphism theorem later, we can provide an even shorter proof of this.
 
 \section{Lagrange's Theorem}
 One can model a Rubik's cube with a group, with each possible move corresponding to a group element. Of course, Rubik's cubes of different sizes correspond to different groups.
