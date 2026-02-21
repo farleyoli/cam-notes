@@ -2098,41 +2098,41 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 \end{proof}
 \subsection{Rotations and reflections in \texorpdfstring{$\R^2$}{R2} and \texorpdfstring{$\R^3$}{R3}}
 \begin{lemma}[$\SO(2)$ as rotations]
-  $\SO(2)$ consists of all rotations of $\R^2$ around 0.
+  $\SO(2)$ consists of all rotations of $\R^2$ about the origin.
 \end{lemma}
 
 \begin{proof}
-  Let $A\in \SO(2)$. So $A^TA = I$ and $\det A = 1$. Suppose $A =
+  Let $A \in \SO(2)$, so $A^T A = I$ and $\det A = 1$. Write $A =
   \begin{pmatrix}
-    a & b\\c & d
+    a & b \\ c & d
   \end{pmatrix}$. Then $A^{-1} =
   \begin{pmatrix}
-    d & -b\\-c & a
-  \end{pmatrix}.$ So $A^T = A^{-1}$ implies $ad - bc = 1$, $c = -b$, $d = a$. Combining these equations we obtain $a^2 + c^2 = 1$. Set $a = \cos\theta = d$, and $c = \sin\theta = -b$. Then these satisfies all three equations. So
+    d & -b \\ -c & a
+  \end{pmatrix}$. The condition $A^T = A^{-1}$ gives $c = -b$ and $d = a$, together with $ad - bc = 1$. Combining, we get $a^2 + c^2 = 1$, so we may write $a = \cos\theta$ and $c = \sin\theta$ for some $\theta$. Then
   \[
     A =
     \begin{pmatrix}
-      \cos\theta & -\sin\theta\\
+      \cos\theta & -\sin\theta \\
       \sin\theta & \cos\theta
     \end{pmatrix}.
   \]
-  Note that $A$ maps $(1, 0)$ to $(\cos\theta, \sin \theta)$, and maps $(0, 1)= (-\sin\theta, \cos\theta)$, which are rotations by $\theta$ counterclockwise. So $A$ represents a rotation by $\theta$.
+  This maps $(1, 0)$ to $(\cos\theta, \sin\theta)$ and $(0, 1)$ to $(-\sin\theta, \cos\theta)$, which is rotation by $\theta$ counterclockwise.
 \end{proof}
 
 \begin{cor}[Classification of $\Or(2)$ elements]
-  Any matrix in $\Or(2)$ is either a rotation around $0$ or a reflection in a line through $0$.
+  Any matrix in $\Or(2)$ is either a rotation about the origin or a reflection in a line through the origin.
 \end{cor}
 
 \begin{proof}
-  If $A\in \SO(2)$, we've show that it is a rotation. Otherwise,
+  If $A \in \SO(2)$, then $A$ is a rotation. Otherwise, by the coset decomposition,
   \[
     A =
     \begin{pmatrix}
-      1 & 0\\
+      1 & 0 \\
       0 & -1
     \end{pmatrix}
     \begin{pmatrix}
-      \cos\theta & -\sin\theta\\
+      \cos\theta & -\sin\theta \\
       \sin\theta & \cos\theta
     \end{pmatrix} =
     \begin{pmatrix}
@@ -2140,90 +2140,86 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
       -\sin\theta & -\cos\theta
     \end{pmatrix}
   \]
-  since $\Or(2) = \SO(2)\cup
-  \begin{pmatrix}
-    1&0\\0&-1
-  \end{pmatrix}\SO(2)$. This has eigenvalues $1, -1$. So it is a reflection in the line of the eigenspace $E_1$. The line goes through $\mathbf{0}$ since the eigenspace is a subspace which must include $\mathbf{0}$.
+  for some $\theta$. This matrix has eigenvalues $1$ and $-1$, so it is a reflection in the eigenspace $E_1$, which is a line through the origin.
 \end{proof}
 
 \begin{lemma}[$\SO(3)$ rotation axis]
-  Every matrix in $\SO(3)$ is a rotation around some axis.
+  Every matrix in $\SO(3)$ is a rotation about some axis.
 \end{lemma}
 
 \begin{proof}
-  Let $A\in \SO(3)$. We know that $\det A = 1$ and $A$ is an isometry. The eigenvalues $\lambda$ must have $|\lambda| = 1$. They also multiply to $\det A = 1$. Since we are in $\R$, complex eigenvalues come in complex conjugate pairs. If there are complex eigenvalues $\lambda$ and $\bar\lambda$, then $\lambda\bar\lambda = |\lambda|^2 = 1$. The third eigenvalue must be real and has to be $+1$.
+  Let $A \in \SO(3)$. Since $A$ is orthogonal, its eigenvalues $\lambda$ satisfy $|\lambda| = 1$, and they multiply to $\det A = 1$. Since $A$ is real, complex eigenvalues come in conjugate pairs $\lambda, \bar\lambda$ with $\lambda\bar\lambda = |\lambda|^2 = 1$, and the remaining eigenvalue must be real and equal to $+1$.
 
-  If all eigenvalues are real. Then eigenvalues are either $1$ or $-1$, and must multiply to $1$. The possibilities are $1, 1, 1$ and $-1, -1, 1$, all of which contain an eigenvalue of $1$.
+  If all eigenvalues are real, then each is $\pm 1$ and their product is $1$, giving the possibilities $(1, 1, 1)$ and $(1, -1, -1)$. In either case, $1$ is an eigenvalue.
 
-  So pick an eigenvector for our eigenvalue $1$ as the third basis vector. Then in some orthonormal basis,
+  So in all cases $A$ has eigenvalue $1$. Pick a unit eigenvector for eigenvalue $1$ as the third basis vector. In the resulting orthonormal basis,
   \[
     A = \begin{pmatrix}
-      a & b & 0\\
-      c & d & 0\\
-      0 & 0 & 1
-    \end{pmatrix}
-  \]
-  Since the third column is the image of the third basis vector, and by orthogonality the third row is $0, 0, 1$. Now let
-  \[A' = \begin{pmatrix}
-      a & b\\
-      c & d
-    \end{pmatrix} \in \GL_2(\R)
-  \]
-  with $\det A' = 1$. $A'$ is still orthogonal, so $A'\in \SO(2)$. Therefore $A'$ is a rotation and
-  \[
-    A =
-    \begin{pmatrix}
-      \cos\theta & -\sin\theta & 0\\
-      \sin\theta & \cos\theta & 0\\
-      0 & 0 & 1
-    \end{pmatrix}
-  \]
-  in some basis, and this is exactly the rotation through an axis.
-\end{proof}
-
-\begin{lemma}[$\Or(3)$ reflection decomposition]
-  Every matrix in $\Or(3)$ is the product of at most three reflections in planes through 0.
-\end{lemma}
-Note that a rotation is a product of two reflections. This lemma effectively states that every matrix in $\Or(3)$ is a reflection, a rotation or a product of a reflection and a rotation.
-
-\begin{proof}
-  Recall $\Or(3) = \SO(3) \cup
-  \begin{pmatrix}
-    1 & 0 & 0\\
-    0 & 1 & 0\\
-    0 & 0 & -1
-  \end{pmatrix}SO(3)$.
-  So if $A\in \SO(3)$, we know that $A =
-  \begin{pmatrix}
-    \cos\theta & -\sin\theta & 0\\
-    \sin\theta & \cos\theta & 0\\
-    0 & 0 & 1
-  \end{pmatrix}$ in some basis, which is a composite of two reflections:
-  \[
-    A =
-    \begin{pmatrix}
-      1 & 0 & 0\\
-      0 & -1 & 0\\
-      0 & 0 & 1
-    \end{pmatrix}
-    \begin{pmatrix}
-      \cos\theta & \sin\theta & 0\\
-      \sin\theta & -\cos\theta & 0\\
+      a & b & 0 \\
+      c & d & 0 \\
       0 & 0 & 1
     \end{pmatrix},
   \]
-  Then if $A\in \begin{pmatrix}
-    1 & 0 & 0\\
-    0 & 1 & 0\\
-    0 & 0 & -1
-  \end{pmatrix}\SO(3)$, then it is automatically a product of three reflections.
+  since the third column is the image of this eigenvector, and orthogonality forces the third row to be $(0, 0, 1)$. The upper-left block
+  \[
+    A' = \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}
+  \]
+  satisfies $\det A' = 1$ and is orthogonal, so $A' \in \SO(2)$. Therefore
+  \[
+    A =
+    \begin{pmatrix}
+      \cos\theta & -\sin\theta & 0 \\
+      \sin\theta & \cos\theta & 0 \\
+      0 & 0 & 1
+    \end{pmatrix}
+  \]
+  in this basis, which is a rotation about the axis spanned by the eigenvector.
 \end{proof}
-In the last line we've shown that everything in $\Or(3)\setminus \SO(3)$ can be written as a product of three reflections, but it is possible that they need only 1 reflection. However, some matrices do genuinely need 3 reflections, e.g.
-$\begin{pmatrix}
-  -1 & 0 & 0\\
-  0 & -1 & 0\\
-  0 & 0 & -1
-\end{pmatrix}$
+
+\begin{lemma}[$\Or(3)$ reflection decomposition]
+  Every matrix in $\Or(3)$ is the product of at most three reflections in planes through the origin.
+\end{lemma}
+
+\begin{remark}
+  Since a rotation is a product of two reflections, this lemma says that every element of $\Or(3)$ is a rotation, a reflection, or the product of a rotation and a reflection.
+\end{remark}
+
+\begin{proof}
+  By the coset decomposition, $\Or(3) = \SO(3) \cup
+  \begin{pmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & -1
+  \end{pmatrix} \SO(3)$.
+
+  If $A \in \SO(3)$, then in some orthonormal basis $A =
+  \begin{pmatrix}
+    \cos\theta & -\sin\theta & 0 \\
+    \sin\theta & \cos\theta & 0 \\
+    0 & 0 & 1
+  \end{pmatrix}$, which is a product of two reflections:
+  \[
+    A =
+    \begin{pmatrix}
+      1 & 0 & 0 \\
+      0 & -1 & 0 \\
+      0 & 0 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+      \cos\theta & \sin\theta & 0 \\
+      \sin\theta & -\cos\theta & 0 \\
+      0 & 0 & 1
+    \end{pmatrix}.
+  \]
+  If $A$ lies in the other coset, it is the product of a reflection and an element of $\SO(3)$, hence a product of at most three reflections.
+\end{proof}
+
+\begin{remark}
+  Elements of $\Or(3) \setminus \SO(3)$ can always be written as a product of three reflections, but some may also be a single reflection. However, some genuinely require three, for example $-I = \begin{pmatrix} -1 & 0 & 0 \\ 0 & -1 & 0 \\ 0 & 0 & -1 \end{pmatrix}$.
+\end{remark}
 
 \subsection{Unitary groups}
 The concept of orthogonal matrices only make sense if we are talking about real matrices. If we are talking about complex, then instead we need \emph{unitary matrices}. To do so, we replace the transposition with the \emph{Hermitian conjugate}. It is defined by $A^\dagger = (A^*)^T$ with $(A^\dagger)_{ij} = A_{ji}^*$, where the asterisk is the complex conjugate. We still have
