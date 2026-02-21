@@ -156,7 +156,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   \end{enumerate}
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Uniqueness of identity and inverse]
   Let $(G, *)$ be a group. Then
   \begin{enumerate}
     \item The identity element is unique.
@@ -174,7 +174,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   Since the identity is unique, it is now meaningful to speak of \emph{the} identity element $e$. Similarly, since inverses are unique, we may unambiguously write $a^{-1}$ for \emph{the} inverse of $a$.
 \end{remark}
 
-\begin{prop}
+\begin{prop}[Inverse laws]
   Let $(G, *)$ be a group and let $a, b\in G$. Then
   \begin{enumerate}
     \item $(a^{-1})^{-1} = a$.
@@ -257,7 +257,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   \end{enumerate}
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Subgroups of $\Z$]
   The subgroups of $(\Z, +)$ are exactly the sets $n\Z = \{nk : k \in \Z\}$ for $n\in \N$.
 \end{prop}
 \begin{proof}
@@ -317,7 +317,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   $\iota$ and $f_2$ are injective but not surjective. $f_3$ and $g_1$ are neither. $1_X$, $f_1$ and $g_2$ are bijective.
 \end{eg}
 
-\begin{lemma}
+\begin{lemma}[Composition of bijections]
   The composition of two bijective functions is bijective.
 \end{lemma}
 
@@ -350,7 +350,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   \end{itemize}
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Elementary homomorphism properties]
   Let $f\colon G\rightarrow H$ be a group homomorphism. Then
   \begin{enumerate}
     \item $f(e_G) = e_H$.
@@ -397,7 +397,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   \]
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Image and kernel subgroup property]
   Let $f\colon G \to H$ be a group homomorphism. Then $\im f\leq H$ and $\ker f \leq G$.
 \end{prop}
 
@@ -407,7 +407,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   For the kernel, suppose $b_1,b_2\in \ker f$. Then $f(b_1b_2^{-1}) = f(b_1)f(b_2)^{-1} = e_H e_H^{-1} = e_H$, so $b_1b_2^{-1}\in \ker f$.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Kernel conjugation closure]
   Let $f\colon G\rightarrow H$ be a group homomorphism. Then for all $a\in G$ and all $k\in \ker f$, we have $aka^{-1}\in\ker f$.
 \end{prop}
 
@@ -430,7 +430,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   \end{enumerate}
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Injectivity and surjectivity criterion]
   Let $f\colon G\rightarrow H$ be a group homomorphism. Then $f$ is
   \begin{enumerate}
     \item surjective if and only if $\im f = H$;
@@ -484,7 +484,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   The word ``order'' now has two meanings: the order of a group ($|G|$) and the order of an element ($\ord(a)$). The following lemma shows that these are closely related.
 \end{remark}
 
-\begin{lemma}
+\begin{lemma}[Order equals cyclic subgroup size]
   Let $G$ be a group and let $a \in G$. Then $\ord (a) = |\langle a\rangle|$.
 \end{lemma}
 \begin{proof}
@@ -493,7 +493,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   Otherwise, suppose $\ord (a) = k$, so that $a^k = e$. We claim that $\langle a\rangle = \{e, a, a^2, \ldots, a^{k-1}\}$. Since $a^k = e$, every power of $a$ reduces to one of $e, a, \ldots, a^{k-1}$, so $\langle a \rangle$ contains no additional elements. Moreover, these $k$ elements are distinct: if $a^m = a^n$ for $0 \leq n < m \leq k - 1$, then $a^{m-n} = e$ with $0 < m - n < k$, contradicting the minimality of $k$. Hence $|\langle a\rangle| = k = \ord(a)$.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Cyclic group commutativity]
   Every cyclic group is abelian.
 \end{prop}
 \begin{proof}
@@ -546,7 +546,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   \end{align*}
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Cyclic direct product criterion]
   $C_n\times C_m\cong C_{nm}$ if and only if $\hcf(m, n) = 1$.
 \end{prop}
 
@@ -597,7 +597,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   We compose permutations as functions: if $\sigma$ and $\tau$ are permutations, then $\sigma\circ \tau$ denotes first applying $\tau$, then applying $\sigma$.
 \end{remark}
 
-\begin{thm}
+\begin{thm}[Symmetric group]
   $(\Sym X, \circ)$ is a group.
 \end{thm}
 
@@ -658,7 +658,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   A permutation that sends $a_1 \mapsto a_2 \mapsto \cdots \mapsto a_k \mapsto a_1$ and fixes all other elements is written as the cycle $(a_1\; a_2\; \cdots\; a_k)$. By convention, we write the smallest element first and omit fixed points. More general permutations can be written as products of cycles; for example, $(1\; 2)(3\; 4) \in S_4$ denotes the permutation that swaps $1$ with $2$ and $3$ with $4$.
 \end{notation}
 
-\begin{prop}
+\begin{prop}[Cycle inverse]
   The inverse of a cycle is obtained by writing it in reverse order, e.g.\ $(1\; 2\; 3)^{-1} = (3\; 2\; 1) = (1\; 3\; 2)$.
 \end{prop}
 
@@ -677,7 +677,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   $(1\; 2)$ and $(3\; 4)$ are disjoint, but $(1\; 2\; 3)$ and $(1\; 2)$ are not.
 \end{eg}
 
-\begin{lemma}
+\begin{lemma}[Disjoint cycle commutativity]
   Disjoint cycles commute.
 \end{lemma}
 \begin{proof}
@@ -688,7 +688,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   Non-disjoint cycles need not commute. For example, $(1\; 3)(2\; 3) = (1\; 3\; 2)$ while $(2\; 3)(1\; 3) = (1\; 2\; 3)$.
 \end{remark}
 
-\begin{thm}
+\begin{thm}[Disjoint cycle decomposition]
   Every permutation in $S_n$ can be written as a product of disjoint cycles. This decomposition is unique up to the ordering of cycles and cyclic rotation within each cycle.
 \end{thm}
 
@@ -708,7 +708,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   $(1\; 2)$ has cycle type $2$ (a transposition). $(1\; 2)(3\; 4)$ has cycle type $2, 2$ (a double transposition). $(1\; 2\; 3)(4\; 5)$ has cycle type $3, 2$.
 \end{eg}
 
-\begin{lemma}
+\begin{lemma}[Order of a permutation]
   Let $\sigma\in S_n$, and write $\sigma$ as a product of disjoint cycles. Then the order of $\sigma$ is the least common multiple of the cycle lengths. In particular, a $k$-cycle has order $k$.
 \end{lemma}
 
@@ -727,7 +727,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   While classifying permutations by cycle type is very useful, it is a rather fine division. In this section, we assign a coarser invariant---the \emph{sign}---to each permutation, classifying it as either even or odd.
 \end{remark}
 
-\begin{prop}
+\begin{prop}[Transposition generation]
   Every permutation in $S_n$ is a product of transpositions.
 \end{prop}
 
@@ -743,7 +743,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   However, the parity (even or odd) of the number of transpositions is always the same, as the following theorem shows.
 \end{remark}
 
-\begin{thm}
+\begin{thm}[Parity of transposition decomposition]
   Let $\sigma\in S_n$. If $\sigma$ is written as a product of transpositions in two different ways, then the number of transpositions in each decomposition has the same parity (both even or both odd).
 \end{thm}
 
@@ -776,7 +776,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   The number $l$ depends on the choice of decomposition, but the previous theorem guarantees that its parity does not. Thus $\sgn(\sigma)$ is well-defined.
 \end{remark}
 
-\begin{thm}
+\begin{thm}[Sign homomorphism]
   For $n\geq 2$, $\sgn \colon S_n \rightarrow \{\pm 1\}$ is a surjective group homomorphism.
 \end{thm}
 \begin{proof}
@@ -789,7 +789,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   The fact that $\sgn$ is a homomorphism is straightforward; the hard part of the theory is showing that $\sgn$ is well-defined (i.e.\ independent of the choice of transposition decomposition).
 \end{remark}
 
-\begin{lemma}
+\begin{lemma}[Sign via cycle lengths]
   A permutation $\sigma \in S_n$ is even if and only if the number of even-length cycles in its disjoint cycle notation is even.
 \end{lemma}
 
@@ -814,7 +814,7 @@ Now a group is any set with an operation that satisfies the three rules above. I
   \]
 \end{remark}
 
-\begin{prop}
+\begin{prop}[Odd permutation proportion]
   Any subgroup of $S_n$ contains either no odd permutations or exactly half odd permutations.
 \end{prop}
 
@@ -849,7 +849,7 @@ An immediate question one can ask is: why not $Ha = \{ha: h\in H\}$? In this par
   \end{enumerate}
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Coset equality test]
   $aH = bH \Leftrightarrow b^{-1}a\in H$.
 \end{prop}
 \begin{proof}
@@ -862,7 +862,7 @@ An immediate question one can ask is: why not $Ha = \{ha: h\in H\}$? In this par
   Let $X$ be a set, and $X_1, \cdots X_n$ be subsets of $X$. The $X_i$ are called a \emph{partition} of $X$ if $\bigcup X_i = X$ and $X_i\cap X_j = \emptyset$ for $i\not= j$. i.e.\ every element is in exactly one of $X_i$.
 \end{defi}
 
-\begin{lemma}
+\begin{lemma}[Coset partition]
   The left cosets of a subgroup $H\leq G$ partition $G$, and every coset has the same size.
 \end{lemma}
 
@@ -894,14 +894,14 @@ Note that the converse is not true. If $k$ divides $|G|$, there is not necessari
 \end{proof}
 Again, the hard part of this proof is to prove that the left cosets partition $G$ and have the same size. If you are asked to prove Lagrange's theorem in exams, that is what you actually have to prove.
 
-\begin{cor}
+\begin{cor}[Element order divisibility]
   The order of an element divides the order of the group, i.e.\ for any finite group $G$ and $a\in G$, $\ord(a)$ divides $|G|$.
 \end{cor}
 \begin{proof}
   Consider the subgroup generated by $a$, which has order $\ord(a)$. Then by Lagrange's theorem, $\ord(a)$ divides $|G|$.
 \end{proof}
 
-\begin{cor}
+\begin{cor}[Exponent divisibility]
   The exponent of a group divides the order of the group, i.e.\ for any finite group $G$ and $a\in G$, $a^{|G|} = e$.
 \end{cor}
 
@@ -909,7 +909,7 @@ Again, the hard part of this proof is to prove that the left cosets partition $G
   We know that $|G| = k\ord(a)$ for some $k\in \N$. Then $a^{|G|} = (a^{\ord(a)})^k = e^k = e$.
 \end{proof}
 
-\begin{cor}
+\begin{cor}[Prime order groups]
   Groups of prime order are cyclic and are generated by every non-identity element.
 \end{cor}
 
@@ -942,7 +942,7 @@ A useful way to think about cosets is to view them as equivalence classes. To do
   \]
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Equivalence class partition]
   The equivalence classes form a partition of $A$.
 \end{prop}
 
@@ -952,7 +952,7 @@ A useful way to think about cosets is to view them as equivalence classes. To do
   Suppose $[a]\cap[b]\not=\emptyset$. Then $\exists c\in [a]\cap[b]$. So $a\sim c, b\sim c$. By symmetry, $c\sim b$. By transitivity, we have $a\sim b$. Now for all $b'\in [b]$, we have $b\sim b'$. Thus by transitivity, we have $a\sim b'$. Thus $[b]\subseteq[a]$. Similarly, $[a]\subseteq[b]$ and $[a] = [b]$.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}[Cosets as equivalence classes]
   Given a group $G$ and a subgroup $H$, define the equivalence relation on $G$ with $a\sim b$ iff $b^{-1}a\in H$. The equivalence classes are the left cosets of $H$.
 \end{lemma}
 
@@ -981,7 +981,7 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
   If $p$ is a prime, $\phi(n) = p - 1$. $\phi(4) = 2$.
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Group of units mod $n$]
   $U_n$ is a group under multiplication mod $n$.
 \end{prop}
 
@@ -1034,7 +1034,7 @@ We will study the structures of certain small groups.
   \end{enumerate}
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Classification of order 4 groups]
   Any group of order 4 is either isomorphic to $C_4$ or $C_2\times C_2$.
 \end{prop}
 
@@ -1045,7 +1045,7 @@ We will study the structures of certain small groups.
   Pick $2$ elements of order 2, say $b, c\in G$, then $\bra b\ket=\{e, b\}$ and $\bra c\ket = \{e, c\}$. So $\bra b\ket\cap \bra c\ket = \{e\}$. As $G$ is abelian, $\bra b\ket$ and $\bra c\ket$ commute. We know that $bc = cb$ has order 2 as well, and is the only element of $G$ left. So $G \cong \bra b\ket\times \bra c\ket \cong C_2\times C_2$ by the direct product theorem.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Classification of order 6 groups]
   A group of order $6$ is either cyclic or dihedral (i.e.\ is isomorphic to $C_6$ or $D_6$). (See proof in next section)
 \end{prop}
 
@@ -1078,7 +1078,7 @@ In the previous section, when attempting to pretend that a $3\times 3\times 3$ R
 
 From the example last time, $H=\bra s\ket\leq D_6$ is not a normal subgroup, but $K=\bra r\ket \lhd D_6$. We know that every group $G$ has at least two normal subgroups $\{e\}$ and $G$.
 
-\begin{lemma}\leavevmode
+\begin{lemma}[Normality criteria]\leavevmode
   \begin{enumerate}
     \item Every subgroup of index $2$ is normal.
     \item Any subgroup of an abelian group is normal.
@@ -1091,7 +1091,7 @@ From the example last time, $H=\bra s\ket\leq D_6$ is not a normal subgroup, but
     \item For all $a\in G$ and $k\in K$, we have $aka^{-1} = aa^{-1}k = k\in K$.\qedhere
   \end{enumerate}
 \end{proof}
-\begin{prop}
+\begin{prop}[Kernel normality]
   Every kernel is a normal subgroup.
 \end{prop}
 
@@ -1105,7 +1105,7 @@ In fact, we will see in the next section that all normal subgroups are kernels o
   Consider $G = D_8$. Let $K = \bra r^2\ket$ is normal. Check: Any element of $G$ is either $sr^\ell$ or $r^\ell$ for some $\ell$. Clearly $e$ satisfies $aka^{-1}\in K$. Now check $r^2$: For the case of $sr^\ell$, we have $sr^\ell r^2(sr^\ell)^{-1} = sr^\ell r^2 r^{-\ell}s^{-1} = sr^2 s = ssr^{-2} = r^2$. For the case of $r^\ell$, $r^\ell r^2r^{-\ell} = r^2$.
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Classification of order 6 groups, with proof]
   A group of order $6$ is either cyclic or dihedral (i.e.\ $\cong C_6$ or $D_6$).
 \end{prop}
 
@@ -1116,7 +1116,7 @@ In fact, we will see in the next section that all normal subgroups are kernels o
 \end{proof}
 
 \subsection{Quotient groups}
-\begin{prop}
+\begin{prop}[Quotient group construction]
   Let $K\lhd G$. Then the set of (left) cosets of $K$ in $G$ is a group under the operation $aK*bK = (ab)K$.
 \end{prop}
 
@@ -1151,7 +1151,7 @@ Note that quotient groups are \emph{not} subgroups of $G$. They contain differen
   (Non-example) Consider $D_6$ with $H = \bra s\ket$. $H$ is not a normal subgroup. We have $rH * r^2 H = r^3 H = H$, but $rH = rsH$ and $r^2H = srH$ (by considering the individual elements). So we have $rsH * srH = r^2 H\not= H$, and the operation is not well-defined.
 \end{eg}
 
-\begin{lemma}
+\begin{lemma}[Quotient map]
   Given $K\lhd G$, the \emph{quotient map} $q: G\rightarrow G/K$ with $g\mapsto gK$ is a surjective group homomorphism.
 \end{lemma}
 
@@ -1160,7 +1160,7 @@ Note that quotient groups are \emph{not} subgroups of $G$. They contain differen
 \end{proof}
 Note that the kernel of the quotient map is $K$ itself. So any normal subgroup is a kernel of some homomorphism.
 
-\begin{prop}
+\begin{prop}[Quotient of cyclic groups]
   The quotient of a cyclic group is cyclic.
 \end{prop}
 
@@ -1208,7 +1208,7 @@ If $f$ is injective, then the kernel is $\{e\}$, so $G/K\cong G$ and $G$ is isom
   \end{enumerate}
 \end{eg}
 
-\begin{lemma}
+\begin{lemma}[Classification of cyclic groups]
   Any cyclic group is isomorphic to either $\Z$ or $\Z/(n\Z)$ for some $n\in \N$.
 \end{lemma}
 
@@ -1245,7 +1245,7 @@ This means that the homomorphism $\varphi$ turns each element $g\in G$ into a pe
 Instead of writing $\varphi(g)(x)$, we usually directly write $g(x)$ or $gx$.
 
 Alternatively, we can define the group action as follows:
-\begin{prop}
+\begin{prop}[Action axioms, equivalent formulation]
   Let $X$ be a set and $G$ be a group. Then $\varphi: G \to \Sym X$ is a homomorphism (i.e.\ an action) iff $\theta: G\times X \to X$ defined by $\theta(g, x) = \varphi(g)(x)$ satisfies
   \begin{enumerate}[label=\arabic{*}.]
       \setcounter{enumi}{-1}
@@ -1298,7 +1298,7 @@ Note that by the isomorphism theorem, $\ker \varphi\lhd G$ and $G/K$ is isomorph
   Intuitively, it is the elements in $G$ that do not change $x$.
 \end{defi}
 
-\begin{lemma}
+\begin{lemma}[Stabilizer subgroup]
   $\stab(x)$ is a subgroup of $G$.
 \end{lemma}
 
@@ -1317,7 +1317,7 @@ Note that by the isomorphism theorem, $\ker \varphi\lhd G$ and $G/K$ is isomorph
   An action $G$ on $X$ is \emph{transitive} if $(\forall x)\,\orb(x) = X$, i.e.\ you can reach any element from any element.
 \end{defi}
 
-\begin{lemma}
+\begin{lemma}[Orbit partition]
   The orbits of an action partition $X$.
 \end{lemma}
 
@@ -1450,7 +1450,7 @@ The centralizer is defined as the elements that commute with a particular elemen
 \end{defi}
 
 In many ways, conjugation is related to normal subgroups.
-\begin{lemma}
+\begin{lemma}[Conjugation action on normal subgroups]
   Let $K\lhd G$. Then $G$ acts by conjugation on $K$.
 \end{lemma}
 
@@ -1458,7 +1458,7 @@ In many ways, conjugation is related to normal subgroups.
   We only have to prove closure as the other properties follow from the conjugation action. However, by definition of a normal subgroup, for every $g \in G, k \in K$, we have $gkg^{-1}\in K$. So it is closed.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Normal subgroups and conjugacy classes]
   Normal subgroups are exactly those subgroups which are unions of conjugacy classes.
 \end{prop}
 
@@ -1468,7 +1468,7 @@ In many ways, conjugation is related to normal subgroups.
   Conversely, if $K$ is a union of conjugacy classes and a subgroup of $G$, then for all $k \in K, g \in G$, we have $gkg^{-1}\in K$. So $K$ is normal.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}[Conjugation action on subgroups]
   Let $X$ be the set of subgroups of $G$. Then $G$ acts by conjugation on $X$.
 \end{lemma}
 
@@ -1493,7 +1493,7 @@ We clearly have $H\subseteq N_G(H)$. It is easy to show that $N_G(H)$ is the lar
 
 There is a connection between actions in general and conjugation of subgroups.
 
-\begin{lemma}
+\begin{lemma}[Conjugate stabilizers]
   Stabilizers of the elements in the same orbit are conjugate, i.e.\ let $G$ act on $X$ and let $g\in G, x\in X$. Then $\stab(g(x)) = g\stab(x)g^{-1}$.
 \end{lemma}
 
@@ -1548,7 +1548,7 @@ In this chapter, we will look at conjugacy classes of $S_n$ and $A_n$. It turns 
 Recall $\sigma, \tau\in S_n$ are conjugate if $\exists \rho\in S_n$ such that $\rho \sigma\rho^{-1} = \tau$.
 
 We first investigate the special case, when $\sigma$ is a $k$-cycle.
-\begin{prop}
+\begin{prop}[Conjugation of cycles]
   If $(a_1\; a_2\; \cdots \; a_k)$ is a $k$-cycle and $\rho\in S_n$, then $\rho (a_1\; \cdots\; a_k)\rho^{-1}$ is the $k$-cycle $(\rho(a_1)\; \rho(a_2)\; \cdots \rho(a_3))$.
 \end{prop}
 
@@ -1556,7 +1556,7 @@ We first investigate the special case, when $\sigma$ is a $k$-cycle.
   Consider any $\rho(a_1)$ acted on by $\rho (a_1\; \cdots\; a_k)\rho^{-1}$. The three permutations send it to $\rho(a_1)\mapsto a_1 \mapsto a_2 \mapsto \rho(a_2)$ and similarly for other $a_i$s. Since $\rho$ is bijective, any $b$ can be written as $\rho(a)$ for some $a$. So the result is the $k$-cycle $(\rho(a_1)\; \rho(a_2)\; \cdots \rho(a_3))$.
 \end{proof}
 
-\begin{cor}
+\begin{cor}[Cycle type conjugacy criterion]
   Two elements in $S_n$ are conjugate iff they have the same cycle type.
 \end{cor}
 
@@ -1627,7 +1627,7 @@ We know that $A_n$ is half of $S_n$ and $\ccl_{A_n}$ is contained in $\ccl_{S_n}
 
 So the conjugacy classes are either retained or split.
 
-\begin{prop}
+\begin{prop}[Conjugacy class splitting in $A_n$]
   For $\sigma\in A_n$, the conjugacy class of $\sigma$ splits in $A_n$ if and only if no odd permutation commutes with $\sigma$.
 \end{prop}
 
@@ -1668,14 +1668,14 @@ So the conjugacy classes are either retained or split.
   Since the centralizer of $(1\; 2\; 3\; 4\; 5)$ has size $5$, it cannot split, so its conjugacy class must split.
 \end{eg}
 
-\begin{lemma}
+\begin{lemma}[Centralizer of a 5-cycle in $S_5$]
   $\sigma = (1\; 2\; 3\; 4\; 5)\in S_5$ has $C_{S_5}(\sigma) = \bra \sigma \ket$. \end{lemma}
 
 \begin{proof}
   $|\ccl_{S_n}(\sigma)| = 24$ and $|S_5| = 120$. So $|C_{S_5}(\sigma)| = 5$. Clearly $\bra \sigma \ket \subseteq C_{S_5}(\sigma)$. Since they both have size $5$, we know that $C_{S_5}(\sigma) = \bra \sigma\ket$
 \end{proof}
 
-\begin{thm}
+\begin{thm}[Simplicity of $A_5$]
   $A_5$ is simple.
 \end{thm}
 
@@ -1764,7 +1764,7 @@ In the remaining of the course, we will look at different important groups. Here
   \end{gather*}
 \end{notation}
 
-\begin{lemma}
+\begin{lemma}[Classification of order 8 groups]
   If $G$ has order 8, then either $G$ is abelian (i.e.\ $\cong C_8, C_4\times C_2$ or $C_2\times C_2\times C_2$), or $G$ is not abelian and isomorphic to $D_8$ or $Q_8$ (dihedral or quaternion).
 \end{lemma}
 
@@ -1813,14 +1813,14 @@ Consider $M_{n\times n}(F)$, i.e.\ the set of $n\times n$ matrices over the fiel
 \end{defi}
 Alternatively, we can define $\GL_n(F)$ as matrices with non-zero determinants.
 
-\begin{prop}
+\begin{prop}[$\GL_n(F)$ is a group]
   $\GL_n(F)$ is a group.
 \end{prop}
 \begin{proof}
   Identity is $I$, which is in $\GL_n(F)$ by definition ($I$ is its self-inverse). The composition of invertible matrices is invertible, so is closed. Inverse exist by definition. Multiplication is associative.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Determinant on $\GL_n(F)$]
   $\det: \GL_n(F) \to F\setminus\{0\}$ is a surjective group homomorphism.
 \end{prop}
 
@@ -1839,7 +1839,7 @@ Alternatively, we can define $\GL_n(F)$ as matrices with non-zero determinants.
 
 So $\SL_n(F)\lhd \GL_n(F)$ as it is a kernel. Note that $Q_8\leq \SL_2(\C)$
 \subsection{Actions of \texorpdfstring{$\GL_n(\C)$}{GLn(C)}}
-\begin{prop}
+\begin{prop}[$\GL_n(\C)$ action on $\C^n$]
   $\GL_n(\C)$ acts faithfully on $\C^n$ by left multiplication to the vector, with two orbits ($\mathbf{0}$ and everything else).
 \end{prop}
 
@@ -1859,7 +1859,7 @@ So $\SL_n(F)\lhd \GL_n(F)$ as it is a kernel. Note that $Q_8\leq \SL_2(\C)$
 
 Similarly, $\GL_n(\R)$ acts on $\R^n$.
 
-\begin{prop}
+\begin{prop}[$\GL_n(\C)$ conjugation action on matrices]
   $\GL_n(\C)$ acts on $M_{n\times n}(\C)$ by conjugation. (Proof is trivial)
 \end{prop}
 This action can be thought of as a ``change of basis'' action. Two matrices are conjugate if they represent the same map but with respect to different bases. The $P$ is the base change matrix.
@@ -1922,7 +1922,7 @@ It is important to note that orthogonal matrices are isometries, but not all iso
 \end{defi}
 We will later show that this is the set of matrices that preserve distances in $\R^n$.
 
-\begin{lemma}
+\begin{lemma}[$\Or(n)$ is a group]
   The orthogonal group is a group.
 \end{lemma}
 
@@ -1931,7 +1931,7 @@ We will later show that this is the set of matrices that preserve distances in $
 \end{proof}
 
 
-\begin{prop}
+\begin{prop}[Determinant on $\Or(n)$]
   $\det: \Or(n) \to \{\pm 1\}$ is a surjective group homomorphism.
 \end{prop}
 
@@ -1959,7 +1959,7 @@ By the isomorphism theorem, $\Or(n)/\SO(n) \cong C_2$.
 
 What's wrong with matrices with determinant $-1$? Why do we want to eliminate these? An important example of an orthogonal matrix with determinant $-1$ is a \emph{reflection}. These transformations reverse orientation, and is often unwanted.
 
-\begin{lemma}
+\begin{lemma}[$\Or(n)$ coset decomposition]
   $\Or(n) = \SO(n) \cup
   \begin{pmatrix}
     -1 & 0 &\cdots & 0\\
@@ -1973,7 +1973,7 @@ What's wrong with matrices with determinant $-1$? Why do we want to eliminate th
   Cosets partition the group.
 \end{proof}
 \subsection{Rotations and reflections in \texorpdfstring{$\R^2$}{R2} and \texorpdfstring{$\R^3$}{R3}}
-\begin{lemma}
+\begin{lemma}[$\SO(2)$ as rotations]
   $\SO(2)$ consists of all rotations of $\R^2$ around 0.
 \end{lemma}
 
@@ -1995,7 +1995,7 @@ What's wrong with matrices with determinant $-1$? Why do we want to eliminate th
   Note that $A$ maps $(1, 0)$ to $(\cos\theta, \sin \theta)$, and maps $(0, 1)= (-\sin\theta, \cos\theta)$, which are rotations by $\theta$ counterclockwise. So $A$ represents a rotation by $\theta$.
 \end{proof}
 
-\begin{cor}
+\begin{cor}[Classification of $\Or(2)$ elements]
   Any matrix in $\Or(2)$ is either a rotation around $0$ or a reflection in a line through $0$.
 \end{cor}
 
@@ -2022,7 +2022,7 @@ What's wrong with matrices with determinant $-1$? Why do we want to eliminate th
   \end{pmatrix}\SO(2)$. This has eigenvalues $1, -1$. So it is a reflection in the line of the eigenspace $E_1$. The line goes through $\mathbf{0}$ since the eigenspace is a subspace which must include $\mathbf{0}$.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}[$\SO(3)$ rotation axis]
   Every matrix in $\SO(3)$ is a rotation around some axis.
 \end{lemma}
 
@@ -2057,7 +2057,7 @@ What's wrong with matrices with determinant $-1$? Why do we want to eliminate th
   in some basis, and this is exactly the rotation through an axis.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}[$\Or(3)$ reflection decomposition]
   Every matrix in $\Or(3)$ is the product of at most three reflections in planes through 0.
 \end{lemma}
 Note that a rotation is a product of two reflections. This lemma effectively states that every matrix in $\Or(3)$ is a reflection, a rotation or a product of a reflection and a rotation.
@@ -2117,7 +2117,7 @@ The concept of orthogonal matrices only make sense if we are talking about real 
   \]
 \end{defi}
 
-\begin{lemma}
+\begin{lemma}[Determinant on $\U(n)$]
   $\det: \U(n)\to S^1$, where $S^1$ is the unit circle in the complex plane, is a surjective group homomorphism.
 \end{lemma}
 
@@ -2144,7 +2144,7 @@ In this section, we will look at the symmetry groups of the cube and the tetrahe
 \subsection{Symmetries of the cube}
 \subsubsection*{Rotations}
 Recall that there are $|G^+| = 24$ rotations of the group by the orbit-stabilizer theorem.
-\begin{prop}
+\begin{prop}[Cube rotation group]
   $G^+ \cong S_4$, where $G^+$ is the group of all rotations of the cube.
 \end{prop}
 
@@ -2154,7 +2154,7 @@ Recall that there are $|G^+| = 24$ rotations of the group by the orbit-stabilize
 
 \subsubsection*{All symmetries}
 Consider the reflection in the mid-point of the cube $\tau$, sending every point to its opposite. We can view this as $-I$ in $\R^3$. So it commutes with all other symmetries of the cube.
-\begin{prop}
+\begin{prop}[Cube full symmetry group]
   $G \cong S_4\times C_2$, where $G$ is the group of all symmetries of the cube.
 \end{prop}
 
@@ -2237,7 +2237,7 @@ If $c\not=0$, then $f(-\frac{d}{c})$ involves division by 0. So we add $\infty$ 
   where $a, b, c, d\in \C$ and $ad - bc\not= 0$, with $f(-\frac{d}{c}) = \infty$ and $f(\infty) = \frac{a}{c}$ when $c\not= 0$. (if $c = 0$, then $f(\infty)=\infty$)
 \end{defi}
 
-\begin{lemma}
+\begin{lemma}[M\"obius bijectivity]
   The M\"obius maps are bijections $\C_\infty \to \C_\infty$.
 \end{lemma}
 
@@ -2245,7 +2245,7 @@ If $c\not=0$, then $f(-\frac{d}{c})$ involves division by 0. So we add $\infty$ 
   The inverse of $f(z) = \frac{az + b}{cz+ d}$ is $g(z) = \frac{dz - b}{-cz + a}$, which we can check by composition both ways.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[M\"obius group]
   The M\"obius maps form a group $M$ under function composition. (The M\"obius group)
 \end{prop}
 \begin{proof}
@@ -2266,7 +2266,7 @@ Note that the point at ``infinity'' is not special. $\infty$ is no different to 
 
 Clearly $\frac{az + b}{cz + d} = \frac{\lambda az + \lambda b}{\lambda cz + \lambda d}$ for any $\lambda \not= 0$. So we do not have a unique representation of a map in terms of $a, b, c, d$. But $a, b, c, d$ does uniquely determine a M\"obius map.
 
-\begin{prop}
+\begin{prop}[$\GL_2(\C)$ to M\"obius group homomorphism]
   The map $\theta: \GL_2(\C)\to M$ sending $
   \displaystyle \begin{pmatrix}
     a & b\\
@@ -2311,7 +2311,7 @@ Since $f_A = f_B$ iff $B = \lambda A$ for some $\lambda\not= 0$ (where $A, B$ ar
 \]
 Clearly $\mathrm{PSL}_2(\C)\cong \mathrm{PGL}_2(\C)$ since both are isomorphic to the M\"obius group.
 
-\begin{prop}
+\begin{prop}[M\"obius map generators]
   Every M\"obius map is a composite of maps of the following form:
   \begin{enumerate}
     \item Dilation/rotation: $f(z) = az$, $a\not= 0$
@@ -2342,7 +2342,7 @@ Note that the non-calculation method above can be transformed into another (diff
 
 We know that any M\"obius map with $c = 0$ fixes $\infty$. We also know that $z\to z + b$ for any $b\not= 0$ fixes $\infty$ only, where as $z\mapsto az$ for $a\not= 0, 1$ fixes $0$ and $\infty$. It turns out that you cannot have more than two fixed points, unless you are the identity.
 
-\begin{prop}
+\begin{prop}[Three fixed points rigidity]
   Any M\"obius map with at least 3 fixed points must be the identity.
 \end{prop}
 
@@ -2352,7 +2352,7 @@ We know that any M\"obius map with $c = 0$ fixes $\infty$. We also know that $z\
   However, if $c = b= 0$ and $d = a$, then $f$ is just the identity.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[M\"obius map normal form]
   Any M\"obius map is conjugate to $f(z) = \nu z$ for some $\nu\not= 0$ or to $f(z) = z + 1$.
 \end{prop}
 
@@ -2385,7 +2385,7 @@ We know that any M\"obius map with $c = 0$ fixes $\infty$. We also know that $z\
 
 Now we see easily that (for $\nu \not= 0, 1$), $\nu z$ has $0$ and $\infty$ as fixed points, $z + 1$ only has $\infty$. Does this transfer to their conjugates?
 
-\begin{prop}
+\begin{prop}[M\"obius map fixed point count]
   Every non-identity has exactly 1 or 2 fixed points.
 \end{prop}
 
@@ -2399,7 +2399,7 @@ Intuitively, we can show that conjugation preserves fixed points because if we c
 \subsection{Permutation properties of M\texorpdfstring{\"o}{o}bius maps}
 We have seen that the M\"obius map with three fixed points is the identity. As a corollary, we obtain the following.
 
-\begin{prop}
+\begin{prop}[Three-point determination]
   Given $f, g\in M$. If $\exists z_1, z_2, z_3\in \C_{\infty}$ such that $f(z_i) = g(z_i)$, then $f = g$. i.e.\ every M\"obius map is uniquely determined by three points.
 \end{prop}
 
@@ -2416,7 +2416,7 @@ We have seen that the M\"obius map with three fixed points is the identity. As a
 \end{defi}
 This is a really weird definition. The reason we raise it here is that the M\"obius map satisfies this property.
 
-\begin{prop}
+\begin{prop}[Sharp three-transitivity of $M$]
   The M\"obius group $M$ acts sharply three-transitively on $\C_\infty$.
 \end{prop}
 
@@ -2438,7 +2438,7 @@ This is a really weird definition. The reason we raise it here is that the M\"ob
 
 We will see how M\"obius maps relate to lines and circles. We will first recap some knowledge about lines and circles in the complex plane.
 
-\begin{lemma}
+\begin{lemma}[Circle and line equation in $\C$]
   The general equation of a circle or straight line in $\C$ is
   \[
     Az\bar z + \bar Bz + B\bar z + C = 0,
@@ -2451,7 +2451,7 @@ $A = 0$ gives a straight line. If $A \not= 0, B = 0$, we have a circle centered 
   This comes from noting that $|z - B| = r$ for $r \in \R> 0$ is a circle; $|z - a| = |z - b|$ with $a\not= b $ is a line. The detailed proof can be found in Vectors and Matrices.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Circle preservation]
   M\"obius maps send circles/straight lines to circles/straight lines. Note that it can send circles to straight lines and vice versa.
 
   Alternatively, M\"obius maps send circles on the Riemann sphere to circles on the Riemann sphere.
@@ -2486,7 +2486,7 @@ We know that this exists and is uniquely defined because $M$ acts sharply three-
 
 Note that different authors use different permutations of $1, 2, 3, 4$, but they all lead to the same result as long as you are consistent.
 
-\begin{lemma}
+\begin{lemma}[Cross-ratio double transposition symmetry]
   For $z_1, z_2, z_3, z_4\in \C_\infty$ all distinct, then
   \[
     [z_1, z_2, z_3, z_4] = [z_2, z_1, z_4, z_3] = [z_3, z_4, z_1, z_2] = [z_4, z_3, z_2, z_1]
@@ -2498,7 +2498,7 @@ Note that different authors use different permutations of $1, 2, 3, 4$, but they
   By inspection of the formula.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Cross-ratio invariance]
   If $f\in M$, then $[z_1, z_2, z_3, z_4] = [f(z_1), f(z_2), f(z_3), f(z_4)]$.
 \end{prop}
 
@@ -2522,7 +2522,7 @@ Note that different authors use different permutations of $1, 2, 3, 4$, but they
 
 In fact, we can see from this proof that: given $z_1, z_2, z_3, z_4$ all distinct and $w_1, w_2, w_3, w_4$ distinct in $\C_\infty$, then $\exists f\in M$ with $f(z_i) = w_i$ iff $[z_1, z_2, z_3, z_4] = [w_1, w_2, w_3, w_4]$.
 
-\begin{cor}
+\begin{cor}[Concyclic criterion]
   $z_1, z_2, z_3, z_4$ lie on some circle/straight line iff $[z_1, z_2, z_3, z_4]\in \R$.
 \end{cor}
 
