@@ -1475,138 +1475,149 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 \end{remark}
 
 \subsection{Important actions}
-Given any group $G$, there are a few important actions we can define. In particular, we will define the \emph{conjugation} action, which is a very important concept on its own. In fact, the whole of the next chapter will be devoted to studying conjugation in the symmetric groups.
+\begin{remark}
+  Given any group $G$, there are several important actions we can define. In particular, we will define the \emph{conjugation} action, which is a central concept in group theory: the whole of the next chapter is devoted to studying conjugation in the symmetric groups. We begin with two simpler examples.
+\end{remark}
 
-First, we will study some less important examples of actions.
 \begin{lemma}[Left regular action]
   Any group $G$ acts on itself by left multiplication. This action is faithful and transitive.
 \end{lemma}
+
 \begin{proof}
-  We have
+  We verify the action axioms:
   \begin{enumerate}[label=\arabic{*}.]
-    \item $(\forall g\in G)(x\in G)\,g(x) = g\cdot x \in G$ by definition of a group.
-    \item $(\forall x\in G)\,e\cdot x = x$ by definition of a group.
+    \item $(\forall g \in G)(\forall x \in G)\, g(x) = gx \in G$ by closure.
+    \item $(\forall x \in G)\, ex = x$ by definition of identity.
     \item $g(hx) = (gh)x$ by associativity.
   \end{enumerate}
-  So it is an action.
 
-  To show that it is faithful, we want to know that $[(\forall x\in X)\,gx = x]\Rightarrow g = e$. This follows directly from the uniqueness of identity.
+  \emph{Faithful:} If $gx = x$ for all $x \in G$, then taking $x = e$ gives $g = e$.
 
-  To show that it is transitive, $\forall x, y\in G$, then $(yx^{-1})(x) = y$. So any $x$ can be sent to any $y$.
+  \emph{Transitive:} For any $x, y \in G$, we have $(yx^{-1})(x) = y$.
 \end{proof}
 
 \begin{thm}[Cayley's theorem]
-  Every group is isomorphic to some subgroup of some symmetric group.
+  Every group is isomorphic to a subgroup of some symmetric group.
 \end{thm}
 
 \begin{proof}
-  Take the left regular action of $G$ on itself. This gives a group homomorphism $\varphi: G\to \Sym G$ with $\ker \varphi = \{e\}$ as the action is faithful. By the isomorphism theorem, $G \cong \im \varphi \leq \Sym G$.
+  The left regular action gives a homomorphism $\varphi \colon G \to \Sym G$ with $\ker \varphi = \{e\}$, since the action is faithful. By the Isomorphism Theorem, $G \cong \im \varphi \leq \Sym G$.
 \end{proof}
 
 \begin{lemma}[Left coset action]
-  Let $H\leq G$. Then $G$ acts on the left cosets of $H$ by left multiplication transitively.
+  Let $H \leq G$. Then $G$ acts on the set of left cosets of $H$ by left multiplication, and this action is transitive.
 \end{lemma}
 
 \begin{proof}
-  First show that it is an action:
+  We verify the action axioms:
   \begin{enumerate}[label=\arabic{*}.]
       \setcounter{enumi}{-1}
     \item $g(aH) = (ga)H$ is a coset of $H$.
     \item $e(aH) = (ea)H = aH$.
-    \item $g_1(g_2(aH)) = g_1((g_2a)H) = (g_1g_2a)H = (g_1g_2)(aH)$.
+    \item $g_1(g_2(aH)) = g_1((g_2 a)H) = (g_1 g_2 a)H = (g_1 g_2)(aH)$.
   \end{enumerate}
 
-  To show that it is transitive, given $aH, bH$, we know that $(ba^{-1})(aH) = bH$. So any $aH$ can be mapped to $bH$.
+  \emph{Transitive:} Given $aH, bH$, we have $(ba^{-1})(aH) = bH$.
 \end{proof}
-In the boring case where $H = \{e\}$, then this is just the left regular action since $G/\{e\} \cong G$.
+
+\begin{remark}
+  When $H = \{e\}$, the left coset action reduces to the left regular action, since $G/\{e\} \cong G$.
+\end{remark}
 
 \begin{defi}[Conjugation of element]
-  The \emph{conjugation} of $a\in G$ by $b\in G$ is given by $bab^{-1}\in G$. Given any $a, c$, if there exists some $b$ such that $c = bab^{-1}$, then we say $a$ and $c$ are \emph{conjugate}.
+  The \emph{conjugation} of $a \in G$ by $b \in G$ is the element $bab^{-1} \in G$. If there exists $b \in G$ such that $c = bab^{-1}$, we say $a$ and $c$ are \emph{conjugate}.
 \end{defi}
-What is conjugation? This $bab^{-1}$ form looks familiar from Vectors and Matrices. It is the formula used for changing basis. If $b$ is the change-of-basis matrix and $a$ is a matrix, then the matrix in the new basis is given by $bab^{-1}$. In this case, $bab^{-1}$ is the same matrix viewed from a different basis.
 
-In general, two conjugate elements are ``the same'' in some sense. For example, we will later show that in $S_n$, two elements are conjugate if and only if they have the same cycle type. Conjugate elements in general have many properties in common, such as their order.
+\begin{remark}
+  The expression $bab^{-1}$ is familiar from linear algebra: if $b$ is a change-of-basis matrix and $a$ is a linear map, then $bab^{-1}$ is the same map viewed in the new basis. In general, conjugate elements are ``the same'' in an appropriate sense. For example, we will later show that in $S_n$, two elements are conjugate if and only if they have the same cycle type. Conjugate elements share many properties, such as their order.
+\end{remark}
 
 \begin{lemma}[Conjugation action]
-  Any group $G$ acts on itself by conjugation (i.e.\ $g(x) = gxg^{-1}$).
+  Any group $G$ acts on itself by conjugation, i.e.\ $g(x) = gxg^{-1}$.
 \end{lemma}
 
 \begin{proof}
-  To show that this is an action, we have
+  We verify the action axioms:
   \begin{enumerate}[label=\arabic{*}.]
       \setcounter{enumi}{-1}
-    \item $g(x) = gxg^{-1} \in G$ for all $g, x\in G$.
-    \item $e(x) = exe^{-1} = x$
-    \item $g(h(x)) = g(hxh^{-1}) = ghxh^{-1}g^{-1} = (gh)x(gh)^{-1} = (gh)(x)$\qedhere
+    \item $g(x) = gxg^{-1} \in G$ for all $g, x \in G$.
+    \item $e(x) = exe^{-1} = x$.
+    \item $g(h(x)) = g(hxh^{-1}) = ghxh^{-1}g^{-1} = (gh)x(gh)^{-1} = (gh)(x)$.\qedhere
   \end{enumerate}
 \end{proof}
 
-\begin{defi}[Conjugacy classes and centralizers]
-  The \emph{conjugacy classes} are the orbits of the conjugacy action.
+\begin{defi}[Conjugacy class and centralizer]
+  The \emph{conjugacy class} of $a \in G$ is the orbit of $a$ under the conjugation action:
   \[
-    \ccl(a) = \{b\in G: (\exists g\in G)\,gag^{-1} = b\}.
+    \ccl(a) = \{b \in G : (\exists g \in G)\, gag^{-1} = b\}.
   \]
-  The \emph{centralizers} are the stabilizers of this action, i.e.\ elements that commute with $a$.
+  The \emph{centralizer} of $a$ is the stabilizer of $a$ under conjugation:
   \[
-    C_G(a) = \{g\in G: gag^{-1} = a\} = \{g\in G: ga = ag\}.
+    C_G(a) = \{g \in G : gag^{-1} = a\} = \{g \in G : ga = ag\}.
   \]
 \end{defi}
-The centralizer is defined as the elements that commute with a particular element $a$. For the whole group $G$, we can define the \emph{center}.
+
+\begin{remark}
+  The centralizer $C_G(a)$ consists of all elements that commute with $a$. We can also consider the elements that commute with \emph{every} element.
+\end{remark}
 
 \begin{defi}[Center of group]
-  The \emph{center} of $G$ is the elements that commute with all other elements.
+  The \emph{center} of $G$ is
   \[
-    Z(G) = \{g\in G: (\forall a)\,gag^{-1} = a\} = \{g\in G: (\forall a)\,ga = ag\}.
+    Z(G) = \{g \in G : (\forall a \in G)\, ga = ag\} = \bigcap_{a \in G} C_G(a).
   \]
-  It is sometimes written as $C(G)$ instead of $Z(G)$.
+  It is sometimes written $C(G)$ instead of $Z(G)$.
 \end{defi}
 
-In many ways, conjugation is related to normal subgroups.
 \begin{lemma}[Conjugation action on normal subgroups]
-  Let $K\lhd G$. Then $G$ acts by conjugation on $K$.
+  Let $K \lhd G$. Then $G$ acts by conjugation on $K$.
 \end{lemma}
 
 \begin{proof}
-  We only have to prove closure as the other properties follow from the conjugation action. However, by definition of a normal subgroup, for every $g \in G, k \in K$, we have $gkg^{-1}\in K$. So it is closed.
+  The only axiom that requires checking is closure: by definition of a normal subgroup, $gkg^{-1} \in K$ for all $g \in G$ and $k \in K$. The remaining axioms follow from the conjugation action on $G$.
 \end{proof}
 
 \begin{prop}[Normal subgroups and conjugacy classes]
-  Normal subgroups are exactly those subgroups which are unions of conjugacy classes.
+  A subgroup is normal if and only if it is a union of conjugacy classes.
 \end{prop}
 
 \begin{proof}
-  Let $K\lhd G$. If $k\in K$, then by definition for every $g \in G$, we get $gkg^{-1}\in K$. So $\ccl(k)\subseteq K$. So $K$ is the union of the conjugacy classes of all its elements.
+  Let $K \lhd G$. For any $k \in K$ and $g \in G$, we have $gkg^{-1} \in K$, so $\ccl(k) \subseteq K$. Hence $K$ is a union of conjugacy classes.
 
-  Conversely, if $K$ is a union of conjugacy classes and a subgroup of $G$, then for all $k \in K, g \in G$, we have $gkg^{-1}\in K$. So $K$ is normal.
+  Conversely, suppose $K \leq G$ is a union of conjugacy classes. Then for all $k \in K$ and $g \in G$, we have $gkg^{-1} \in \ccl(k) \subseteq K$, so $K \lhd G$.
 \end{proof}
 
 \begin{lemma}[Conjugation action on subgroups]
-  Let $X$ be the set of subgroups of $G$. Then $G$ acts by conjugation on $X$.
+  Let $X$ be the set of subgroups of $G$. Then $G$ acts on $X$ by conjugation: $g(H) = gHg^{-1}$.
 \end{lemma}
 
 \begin{proof}
-  To show that it is an action, we have
+  We verify the action axioms:
   \begin{enumerate}[label=\arabic{*}.]
       \setcounter{enumi}{-1}
-    \item If $H\leq G$, then we have to show that $gHg^{-1}$ is also a subgroup. We know that $e\in H$ and thus $geg^{-1} = e\in gHg^{-1}$, so $gHg^{-1}$ is non-empty. For any two elements $gag^{-1}$ and $gbg^{-1}\in gHg^{-1}$, $(gag^{-1})(gbg^{-1})^{-1} = g(ab^{-1})g^{-1}\in gHg^{-1}$. So $gHg^{-1}$ is a subgroup.
+    \item If $H \leq G$, then $gHg^{-1}$ is a subgroup: $e = geg^{-1} \in gHg^{-1}$, and for $gag^{-1}, gbg^{-1} \in gHg^{-1}$, we have $(gag^{-1})(gbg^{-1})^{-1} = g(ab^{-1})g^{-1} \in gHg^{-1}$.
     \item $eHe^{-1} = H$.
-    \item $g_1(g_2Hg_2^{-1})g_1^{-1} = (g_1g_2)H(g_1g_2)^{-1}$.\qedhere
+    \item $g_1(g_2 H g_2^{-1})g_1^{-1} = (g_1 g_2)H(g_1 g_2)^{-1}$.\qedhere
   \end{enumerate}
 \end{proof}
-Under this action, normal subgroups have singleton orbits.
 
-\begin{defi}[Normalizer of subgroup]
-  The \emph{normalizer} of a subgroup is the stabilizer of the (group) conjugation action.
+\begin{remark}
+  Under this action, the normal subgroups of $G$ are precisely the subgroups with singleton orbits (i.e.\ $gKg^{-1} = K$ for all $g$).
+\end{remark}
+
+\begin{defi}[Normalizer]
+  The \emph{normalizer} of a subgroup $H \leq G$ is the stabilizer of $H$ under the conjugation action on subgroups:
   \[
-    N_G(H) = \{g\in G: gHg^{-1} = H\}.
+    N_G(H) = \{g \in G : gHg^{-1} = H\}.
   \]
 \end{defi}
-We clearly have $H\subseteq N_G(H)$. It is easy to show that $N_G(H)$ is the largest subgroup of $G$ in which $H$ is a normal subgroup, hence the name.
 
-There is a connection between actions in general and conjugation of subgroups.
+\begin{remark}
+  We always have $H \leq N_G(H)$, and $N_G(H)$ is the largest subgroup of $G$ in which $H$ is normal, hence the name.
+\end{remark}
 
 \begin{lemma}[Conjugate stabilizers]
-  Stabilizers of the elements in the same orbit are conjugate, i.e.\ let $G$ act on $X$ and let $g\in G, x\in X$. Then $\stab(g(x)) = g\stab(x)g^{-1}$.
+  Let $G$ act on $X$ and let $g \in G$, $x \in X$. Then $\stab(g(x)) = g\,\stab(x)\,g^{-1}$. In particular, stabilizers of elements in the same orbit are conjugate subgroups.
 \end{lemma}
 
 \subsection{Applications}
