@@ -723,93 +723,104 @@ Now a group is any set with an operation that satisfies the three rules above. I
 \end{eg}
 
 \subsection{Sign of permutations}
-To classify different permutations, we can group different permutations according to their cycle type. While this is a very useful thing to do, it is a rather fine division. In this section, we will assign a ``sign'' to each permutation, and each permutation can either be odd or even. This high-level classification allows us to separate permutations into two sets, which is also a useful notion.
+\begin{remark}
+  While classifying permutations by cycle type is very useful, it is a rather fine division. In this section, we assign a coarser invariant---the \emph{sign}---to each permutation, classifying it as either even or odd.
+\end{remark}
 
-To define the sign, we first need to write permutations as products of transpositions.
 \begin{prop}
-  Every permutation is a product of transpositions.
+  Every permutation in $S_n$ is a product of transpositions.
 \end{prop}
-This is not a deep or mysterious fact. All it says is that you can rearrange things however you want just by swapping two objects at a time.
 
 \begin{proof}
-  As each permutation is a product of disjoint cycles, it suffices to prove that each cycle is a product of transpositions. Consider a cycle $(a_1\; a_2\; a_3\; \cdots\; a_k)$. This is in fact equal to $(a_1\; a_2)(a_2\; a_3)\cdots (a_{k-1}\; a_k)$. Thus a $k$-cycle can be written as a product of $k - 1$ transpositions.
+  Since every permutation is a product of disjoint cycles, it suffices to show that each cycle is a product of transpositions. Indeed, $(a_1\; a_2\; a_3\; \cdots\; a_k) = (a_1\; a_2)(a_2\; a_3)\cdots (a_{k-1}\; a_k)$, so a $k$-cycle is a product of $k - 1$ transpositions.
 \end{proof}
 
-Note that the product is not unique. For example,
-\[
-  (1\; 2\; 3\; 4\; 5) =(1\; 2)(2\; 3)(3\; 4)(4\; 5) = (1\; 2)(2\; 3)(1\; 2)(3\; 4)(1\; 2)(4\; 5).
-\]
-However, the number of terms in the product, mod 2, is always the same.
+\begin{remark}
+  The decomposition into transpositions is not unique. For example,
+  \[
+    (1\; 2\; 3\; 4\; 5) =(1\; 2)(2\; 3)(3\; 4)(4\; 5) = (1\; 2)(2\; 3)(1\; 2)(3\; 4)(1\; 2)(4\; 5).
+  \]
+  However, the parity (even or odd) of the number of transpositions is always the same, as the following theorem shows.
+\end{remark}
 
 \begin{thm}
-  Writing $\sigma\in S_n$ as a product of transpositions in different ways, $\sigma$ is either always composed of an even number of transpositions, or always an odd number of transpositions.
+  Let $\sigma\in S_n$. If $\sigma$ is written as a product of transpositions in two different ways, then the number of transpositions in each decomposition has the same parity (both even or both odd).
 \end{thm}
-The proof is rather magical.
 
 \begin{proof}
-  Write $\#(\sigma)$ for the number of cycles in disjoint cycle notation, including singleton cycles. So $\#(e) = n$ and $\#((1\; 2)) = n - 1$. When we multiply $\sigma$ by a transposition $\tau = (c\; d)$ (wlog assume $c < d$),
+  For $\sigma \in S_n$, write $\#(\sigma)$ for the number of cycles in the disjoint cycle notation of $\sigma$, including $1$-cycles. So $\#(e) = n$ and $\#((1\; 2)) = n - 1$. We claim that for any transposition $\tau$, $\#(\sigma\tau) \equiv \#(\sigma) + 1 \pmod 2$.
+
+  Let $\tau = (c\; d)$ with $c < d$.
   \begin{itemize}
-    \item If $c, d$ are in the same $\sigma$-cycle, say, $(c\; a_2\; \cdots \; a_{k - 1}\; d\; a_{k + 1}\; \cdots a_{k + l})(c\; d) = (c\; a_{k+1}\; a_{k+2}\;\cdots a_{k + l})(d\; a_2\; a_3\;\cdots\; a_{k - 1})$. So $\#(\sigma\tau) = \#(\sigma) + 1$ .
-    \item If $c, d$ are in different $\sigma$-cycles, say
-
-      $(d\; a_2\; a_3\;\cdots\;a_{k - 1})(c\; a_{k + 1}\; a_{k + 2}\;\cdots\; a_{k + l})(c\; d) $
-
-      $=(c\; a_2\; \cdots \; a_{k - 1}\; d\; a_{k + 1}\; \cdots a_{k + l})(c\; d)(c\; d)$
-
-      $= (c\; a_2\; \cdots \; a_{k - 1}\; d\; a_{k + 1}\; \cdots a_{k + l})$ and $\#(\sigma\tau) = \#(\sigma) - 1$.
-
+    \item If $c$ and $d$ are in the same cycle of $\sigma$, say $(c\; a_2\; \cdots \; a_{k - 1}\; d\; a_{k + 1}\; \cdots\; a_{k + l})$, then
+    \[
+      (c\; a_2\; \cdots \; a_{k - 1}\; d\; a_{k + 1}\; \cdots\; a_{k + l})(c\; d) = (c\; a_{k+1}\;\cdots\; a_{k + l})(d\; a_2\;\cdots\; a_{k - 1}),
+    \]
+    so $\#(\sigma\tau) = \#(\sigma) + 1$.
+    \item If $c$ and $d$ are in different cycles of $\sigma$, say $(d\; a_2\;\cdots\;a_{k - 1})$ and $(c\; a_{k + 1}\;\cdots\; a_{k + l})$, then
+    \[
+      (d\; a_2\;\cdots\;a_{k - 1})(c\; a_{k + 1}\;\cdots\; a_{k + l})(c\; d) = (c\; a_2\; \cdots \; a_{k - 1}\; d\; a_{k + 1}\; \cdots\; a_{k + l}),
+    \]
+    so $\#(\sigma\tau) = \#(\sigma) - 1$.
   \end{itemize}
-  Therefore for any transposition $\tau$, $\#(\sigma\tau) \equiv \#(\sigma) + 1 \pmod 2$.
+  In either case, $\#(\sigma\tau) \equiv \#(\sigma) + 1 \pmod 2$.
 
-  Now suppose $\sigma = \tau_1\cdots\tau_l = \tau_1'\cdots\tau_{k}'$. Since disjoint cycle notation is unique, $\#(\sigma)$ is uniquely determined by $\sigma$.
-
-  Now we can construct $\sigma$ by starting with $e$ and multiplying the transpositions one by one. Each time we add a transposition, we increase $\#(\sigma)$ by $1 \pmod 2$. So $\#(\sigma) \equiv \#(e) + l\pmod 2$. Similarly, $\#(\sigma) \equiv \#(e) + k \pmod 2$. So $l \equiv k \pmod 2$.
+  Now suppose $\sigma = \tau_1\cdots\tau_l = \tau_1'\cdots\tau_{k}'$. Since the disjoint cycle notation is unique, $\#(\sigma)$ is uniquely determined by $\sigma$. Building $\sigma$ from $e$ by multiplying transpositions one at a time, we get $\#(\sigma) \equiv \#(e) + l \equiv n + l\pmod 2$ from the first decomposition, and $\#(\sigma) \equiv n + k \pmod 2$ from the second. Thus $l \equiv k \pmod 2$.
 \end{proof}
 
 \begin{defi}[Sign of permutation]
-  Viewing $\sigma\in S_n$ as a product of transpositions, $\sigma = \tau_1\cdots \tau_l$, we call $\sgn(\sigma) = (-1)^l$. If $\sgn(\sigma) = 1$, we call $\sigma$ an even permutation. If $\sgn(\sigma) = -1$, we call $\sigma$ an odd permutation.
+  Let $\sigma\in S_n$ and write $\sigma = \tau_1\cdots \tau_l$ as a product of transpositions. The \emph{sign} of $\sigma$ is $\sgn(\sigma) = (-1)^l$. If $\sgn(\sigma) = 1$, we call $\sigma$ an \emph{even} permutation; if $\sgn(\sigma) = -1$, we call $\sigma$ an \emph{odd} permutation.
 \end{defi}
-While $l$ itself is not well-defined, it is either always odd or always even, and $(-1)^l$ is well-defined.
+
+\begin{remark}
+  The number $l$ depends on the choice of decomposition, but the previous theorem guarantees that its parity does not. Thus $\sgn(\sigma)$ is well-defined.
+\end{remark}
 
 \begin{thm}
-  For $n\geq 2$, $\sgn : S_n \rightarrow \{\pm 1\}$ is a surjective group homomorphism.
+  For $n\geq 2$, $\sgn \colon S_n \rightarrow \{\pm 1\}$ is a surjective group homomorphism.
 \end{thm}
 \begin{proof}
-  Suppose $\sigma_1 = \tau_1\cdots \tau_{l_1}$ and $\sigma_2 = \tau'_1\cdots \tau_{l_2}$. Then $\sgn(\sigma_1\sigma_2) = (-1)^{l_1 + l_2} = (-1)^{l_1}(-1)^{l_2} = \sgn(\sigma_1)\sgn(\sigma_2)$. So it is a homomorphism.
+  Let $\sigma_1 = \tau_1\cdots \tau_{l_1}$ and $\sigma_2 = \tau'_1\cdots \tau'_{l_2}$ be products of transpositions. Then $\sgn(\sigma_1\sigma_2) = (-1)^{l_1 + l_2} = (-1)^{l_1}(-1)^{l_2} = \sgn(\sigma_1)\sgn(\sigma_2)$, so $\sgn$ is a homomorphism.
 
   It is surjective since $\sgn(e) = 1$ and $\sgn((1\; 2)) = -1$.
 \end{proof}
 
-It is this was rather trivial to prove. The hard bit is showing that $\sgn$ is well defined. If a question asks you to show that $\sgn$ is a well-defined group homomorphism, you \emph{have} to show that it is well-defined.
+\begin{remark}
+  The fact that $\sgn$ is a homomorphism is straightforward; the hard part of the theory is showing that $\sgn$ is well-defined (i.e.\ independent of the choice of transposition decomposition).
+\end{remark}
 
 \begin{lemma}
-  $\sigma$ is an even permutation iff the number of cycles of even length is even.
+  A permutation $\sigma \in S_n$ is even if and only if the number of even-length cycles in its disjoint cycle notation is even.
 \end{lemma}
 
 \begin{proof}
-  A $k$-cycle can be written as $k - 1$ transpositions. Thus an even-length cycle is odd, vice versa.
+  A $k$-cycle is a product of $k - 1$ transpositions, so it is even if $k$ is odd and odd if $k$ is even.
 
-  Since $\sgn$ is a group homomorphism, writing $\sigma$ in disjoint cycle notation, $\sigma = \sigma_1\sigma_2\cdots\sigma_l$, we get $\sgn(\sigma) = \sgn(\sigma_1)\cdots \sgn(\sigma_l)$. Suppose there are $m$ even-length cycles and $n$ odd-length cycles, then $\sgn(\sigma) = (-1)^m 1^n$. This is equal to $1$ iff $(-1)^m = 1$, i.e.\ $m$ is even.
+  Since $\sgn$ is a homomorphism, writing $\sigma$ in disjoint cycle notation as $\sigma = \sigma_1\sigma_2\cdots\sigma_l$, we get $\sgn(\sigma) = \sgn(\sigma_1)\cdots \sgn(\sigma_l)$. If there are $m$ even-length cycles and $p$ odd-length cycles, then $\sgn(\sigma) = (-1)^m \cdot 1^p = (-1)^m$. Thus $\sgn(\sigma) = 1$ if and only if $m$ is even.
 \end{proof}
-Rather confusingly, odd length cycles are even, and even length cycles are odd.
+
+\begin{remark}
+  Note the potentially confusing convention: odd-length cycles are even permutations, and even-length cycles are odd permutations.
+\end{remark}
 
 \begin{defi}[Alternating group $A_n$]
-  The \emph{alternating group} $A_n$ is the kernel of $\sgn$, i.e.\ the even permutations.
-  Since $A_n$ is a kernel of a group homomorphism, $A_n \leq S_n$.
+  The \emph{alternating group} $A_n$ is the kernel of $\sgn \colon S_n \to \{\pm 1\}$, i.e.\ $A_n$ is the set of all even permutations in $S_n$.
 \end{defi}
-Among the many uses of the $\sgn$ homomorphism, it is used in the definition of the determinant of a matrix: if $A_{n\times n}$ is a square matrix, then
-\[
-  \det A = \sum_{\sigma\in S_n}\sgn(\sigma) a_{1\sigma(1)}\cdots a_{n\sigma(n)}.
-\]
+
+\begin{remark}
+  Since $A_n$ is the kernel of a group homomorphism, $A_n \leq S_n$. The sign homomorphism also appears in the definition of the determinant: for an $n \times n$ matrix $A = (a_{ij})$,
+  \[
+    \det A = \sum_{\sigma\in S_n}\sgn(\sigma)\, a_{1\sigma(1)}\cdots a_{n\sigma(n)}.
+  \]
+\end{remark}
 
 \begin{prop}
-  Any subgroup of $S_n$ contains either no odd permutations or exactly half.
+  Any subgroup of $S_n$ contains either no odd permutations or exactly half odd permutations.
 \end{prop}
 
 \begin{proof}
-  If $S_n$ has at least one odd permutation $\tau$, then there exists a bijection between the odd and even permutations by $\sigma \mapsto \sigma\tau$ (bijection since $\sigma \mapsto \sigma \tau^{-1}$ is a well-defined inverse). So there are as many odd permutations as even permutations.
+  Let $H \leq S_n$. If $H$ contains at least one odd permutation $\tau$, then the map $\sigma \mapsto \sigma\tau$ is a bijection from the set of even permutations in $H$ to the set of odd permutations in $H$ (with inverse $\sigma \mapsto \sigma \tau^{-1}$). Thus $H$ contains equally many even and odd permutations.
 \end{proof}
-After we prove the isomorphism theorem later, we can provide an even shorter proof of this.
 
 \section{Lagrange's Theorem}
 One can model a Rubik's cube with a group, with each possible move corresponding to a group element. Of course, Rubik's cubes of different sizes correspond to different groups.
