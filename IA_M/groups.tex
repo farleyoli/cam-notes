@@ -526,54 +526,61 @@ Now a group is any set with an operation that satisfies the three rules above. I
 \end{notation}
 
 \subsection{Direct products of groups}
-Recall that if we have to sets $X, Y$, then we can obtain the product $X\times Y = \{(x, y): x\in X, y\in Y\}$. We can do the same if $X$ and $Y$ are groups.
-
 \begin{defi}[Direct product of groups]
-  Given two groups $(G, \circ)$ and $(H, \bullet)$, we can define a set $G\times H = \{(g, h): g\in G, h\in H\}$ and an operation $(a_1, a_2)*(b_1, b_2) = (a_1\circ b_1, a_2\bullet b_2)$. This forms a group.
+  Given two groups $(G, \circ)$ and $(H, \bullet)$, the \emph{direct product} $G\times H$ is the set of ordered pairs $\{(g, h) : g\in G,\, h\in H\}$ equipped with the componentwise operation
+  \[
+    (a_1, a_2)*(b_1, b_2) = (a_1\circ b_1,\, a_2\bullet b_2).
+  \]
+  This is a group with identity $(e_G, e_H)$ and inverses $(g, h)^{-1} = (g^{-1}, h^{-1})$.
 \end{defi}
 
-Why would we want to take the product of two groups? Suppose we have two independent triangles. Then the symmetries of this system include, say rotating the first triangle, rotating the second, or rotating both. The symmetry group of this combined system would then be $D_6 \times D_6$.
+\begin{remark}
+  The direct product arises naturally when considering symmetries of independent objects. For example, the symmetry group of a system of two independent equilateral triangles is $D_6 \times D_6$.
+\end{remark}
 
 \begin{eg}
   \begin{align*}
     C_2\times C_2 &= \{(0, 0), (0, 1), (1, 0), (1, 1)\}\\
-    &= \{e, x, y, xy\} \text{ with everything order 2}\\
-    &= \bra x, y\mid x^2=y^2=e, xy = yx\ket
+    &= \{e, x, y, xy\} \text{ with every non-identity element of order 2}\\
+    &= \langle x, y\mid x^2=y^2=e,\, xy = yx\rangle.
   \end{align*}
 \end{eg}
 
 \begin{prop}
-  $C_n\times C_m\cong C_{nm}$ iff $\hcf(m, n) = 1$.
+  $C_n\times C_m\cong C_{nm}$ if and only if $\hcf(m, n) = 1$.
 \end{prop}
 
 \begin{proof}
-  Suppose that $\hcf(m, n) = 1$. Let $C_n = \bra a\ket$ and $C_m = \bra b \ket$. Let $k$ be the order of $(a, b)$. Then $(a, b)^k = (a^k, b^k) = e$. This is possible only if $n \mid k$ and $m \mid k$, i.e.\ $k$ is a common multiple $n$ and $m$. Since the order is the minimum value of $k$ that satisfies the above equation, $k = \lcm(n, m) = \frac{nm}{\hcf(n, m)} = nm$.
+  Suppose that $\hcf(m, n) = 1$. Let $C_n = \langle a\rangle$ and $C_m = \langle b \rangle$, and let $k = \ord((a, b))$ in $C_n \times C_m$. Then $(a, b)^k = (a^k, b^k) = (e, e)$, which requires $n \mid k$ and $m \mid k$, i.e.\ $k$ is a common multiple of $n$ and $m$. Since $k$ is the smallest such positive integer, $k = \lcm(n, m) = \frac{nm}{\hcf(n, m)} = nm$.
 
-  Now consider $\bra (a, b)\ket \leq C_n\times C_m$. Since $(a, b)$ has order $nm$, $\bra (a, b)\ket$ has $nm$ elements. Since $C_n\times C_m$ also has $nm$ elements, $\bra (a, b)\ket$ must be the whole of $C_n\times C_m$. And we know that $\bra (a, b)\ket\cong C_{nm}$. So $C_n\times C_m \cong C_{nm}$.
+  Now $\langle (a, b)\rangle \leq C_n\times C_m$, and since $(a, b)$ has order $nm = |C_n\times C_m|$, we have $\langle (a, b)\rangle = C_n\times C_m$. Thus $C_n\times C_m$ is cyclic of order $nm$, so $C_n\times C_m \cong C_{nm}$.
 
-  On the other hand, suppose $\hcf(m, n) \not= 1$. Then $k = \lcm(m, n) \not= mn$. Then for any $(a, b)\in C_n \times C_m$,we have $(a, b)^k = (a^k, b^k) = e$. So the order of any $(a, b)$ is at most $k < mn$. So there is no element of order $mn$. So $C_n\times C_m$ is not a cyclic group of order $nm$.
+  Conversely, suppose $\hcf(m, n) \neq 1$. Let $k = \lcm(m, n) < mn$. Then for any $(a, b)\in C_n \times C_m$, we have $(a, b)^k = (a^k, b^k) = (e, e)$, so the order of every element divides $k < mn$. In particular, no element has order $mn$, so $C_n\times C_m$ is not cyclic of order $mn$.
 \end{proof}
 
-Given a complicated group $G$, it is sometimes helpful to write it as a product $H\times K$, which could make things a bit simpler. We can do so by the following theorem:
+\begin{remark}
+  Given a group $G$, it is sometimes useful to recognise it as a direct product of two of its subgroups. The following proposition gives a criterion for doing so.
+\end{remark}
+
 \begin{prop}[Direct product theorem]
-  Let $H_1, H_2\leq G$. Suppose the following are true:
+  Let $G$ be a group and let $H_1, H_2\leq G$. Suppose:
   \begin{enumerate}
-    \item $H_1\cap H_2 = \{e\}$.
-    \item $(\forall a_i\in H_i)\, a_1a_2=a_2a_1$.
-    \item $(\forall a\in G)(\exists a_i\in H_i)\,a = a_1a_2$. We also write this as $G=H_1H_2$.
+    \item $H_1\cap H_2 = \{e\}$;
+    \item $(\forall a_1\in H_1)(\forall a_2 \in H_2)\, a_1a_2=a_2a_1$;
+    \item $(\forall a\in G)(\exists a_1\in H_1)(\exists a_2 \in H_2)\,a = a_1a_2$ (i.e.\ $G=H_1H_2$).
   \end{enumerate}
   Then $G\cong H_1\times H_2$.
 \end{prop}
 
 \begin{proof}
-  Define $f:H_1\times H_2\rightarrow G$ by $f(a_1, a_2) = a_1a_2$. Then it is a homomorphism since
+  Define $f\colon H_1\times H_2\rightarrow G$ by $f(a_1, a_2) = a_1a_2$. This is a homomorphism, since by (ii),
   \begin{align*}
     f((a_1, a_2)*(b_1,b_2)) &= f(a_1b_1, a_2b_2)\\
     &= a_1b_1a_2b_2\\
     &= a_1a_2b_1b_2\\
-    &= f(a_1, a_2)f(b_1,b_2).
+    &= f(a_1, a_2)\,f(b_1,b_2).
   \end{align*}
-  Surjectivity follows from (iii). We'll show injectivity by showing that the kernel is $\{e\}$. If $f(a_1, a_2)=e$, then we know that $a_1a_2 = e$. Then $a_1=a_2^{-1}$. Since $a_1 \in H_1$ and $a_2^{-1} \in H_2$, we have $a_1 = a_2^{-1} \in H_1\cap H_2 = \{e\}$. Thus $a_1 = a_2 = e$ and $\ker f = \{e\}$.
+  Surjectivity follows from (iii). For injectivity, suppose $f(a_1, a_2)=e$, i.e.\ $a_1a_2 = e$. Then $a_1=a_2^{-1}$. Since $a_1 \in H_1$ and $a_2^{-1} \in H_2$, we have $a_1 = a_2^{-1} \in H_1\cap H_2 = \{e\}$ by (i). Thus $a_1 = a_2 = e$, so $\ker f = \{e\}$ and $f$ is injective.
 \end{proof}
 
 \section{Symmetric group I}
