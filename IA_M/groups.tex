@@ -1966,50 +1966,45 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 \end{remark}
 \subsection{Actions of \texorpdfstring{$\GL_n(\C)$}{GLn(C)}}
 \begin{prop}[$\GL_n(\C)$ action on $\C^n$]
-  $\GL_n(\C)$ acts faithfully on $\C^n$ by left multiplication to the vector, with two orbits ($\mathbf{0}$ and everything else).
+  $\GL_n(\C)$ acts faithfully on $\C^n$ by left multiplication, with two orbits: $\{\mathbf{0}\}$ and $\C^n \setminus \{\mathbf{0}\}$.
 \end{prop}
 
 \begin{proof}
-  First show that it is a group action:
-  \begin{enumerate}[label=\arabic{*}.]
-      \setcounter{enumi}{0}
-    \item If $A\in \GL_n(\C)$ and $\mathbf{v}\in \C^n$, then $A\mathbf{v}\in \C^n$. So it is closed.
-    \item $I\mathbf{v} = \mathbf{v}$ for all $\mathbf{v}\in \C^n$.
+  We first verify the group action axioms:
+  \begin{enumerate}
+    \item If $A \in \GL_n(\C)$ and $\mathbf{v} \in \C^n$, then $A\mathbf{v} \in \C^n$.
+    \item $I\mathbf{v} = \mathbf{v}$ for all $\mathbf{v} \in \C^n$.
     \item $A(B\mathbf{v}) = (AB)\mathbf{v}$.
   \end{enumerate}
 
-  Now prove that it is faithful: a linear map is determined by what it does on a basis. Take the standard basis $\mathbf{e}_1 = (1, 0, \cdots, 0), \cdots \mathbf{e}_n = (0, \cdots, 1)$. Any matrix which maps each $\mathbf{e}_k$ to itself must be $I$ (since the columns of a matrix are the images of the basis vectors)
+  To show faithfulness, note that a linear map is determined by its action on a basis. If $A$ fixes each standard basis vector $\mathbf{e}_k$, then $A = I$ (since the columns of $A$ are the images of the basis vectors).
 
-  To show that there are 2 orbits, we know that $A\mathbf{0} = \mathbf{0}$ for all $A$. Also, as $A$ is invertible, $A\mathbf{v} = \mathbf{0}\Leftrightarrow \mathbf{v} = \mathbf{0}$. So $\mathbf{0}$ forms a singleton orbit. Then given any two vectors $\mathbf{v}\not= \mathbf{w}\in \C^n\setminus\{0\}$, there is a matrix $A\in \GL_n(\C)$ such that $A\mathbf{v} = \mathbf{w}$ (cf.\ Vectors and Matrices).
+  For the orbits: $A\mathbf{0} = \mathbf{0}$ for all $A$, and since $A$ is invertible, $A\mathbf{v} = \mathbf{0}$ if and only if $\mathbf{v} = \mathbf{0}$. So $\{\mathbf{0}\}$ is an orbit. For any $\mathbf{v}, \mathbf{w} \in \C^n \setminus \{\mathbf{0}\}$, there exists $A \in \GL_n(\C)$ with $A\mathbf{v} = \mathbf{w}$ (cf.\ Vectors and Matrices), so $\C^n \setminus \{\mathbf{0}\}$ is a single orbit.
 \end{proof}
 
-Similarly, $\GL_n(\R)$ acts on $\R^n$.
+\begin{remark}
+  Similarly, $\GL_n(\R)$ acts faithfully on $\R^n$ with two orbits.
+\end{remark}
 
 \begin{prop}[$\GL_n(\C)$ conjugation action on matrices]
-  $\GL_n(\C)$ acts on $M_{n\times n}(\C)$ by conjugation. (Proof is trivial)
+  $\GL_n(\C)$ acts on $M_{n \times n}(\C)$ by conjugation: $P \cdot A = PAP^{-1}$.
 \end{prop}
-This action can be thought of as a ``change of basis'' action. Two matrices are conjugate if they represent the same map but with respect to different bases. The $P$ is the base change matrix.
 
-From Vectors and Matrices, we know that there are three different types of orbits for $\GL_2(\C)$: $A$ is conjugate to a matrix of one of these forms:
-\begin{enumerate}
-  \item $
-    \begin{pmatrix}
-      \lambda & 0\\
-      0 & \mu
-    \end{pmatrix}
-    $, with $\lambda \not= \mu$, i.e.\ two distinct eigenvalues
-  \item $
-    \begin{pmatrix}
-      \lambda & 0\\
-      0 & \lambda\\
-    \end{pmatrix}$, i.e.\ a repeated eigenvalue with 2-dimensional eigenspace
-  \item $
-    \begin{pmatrix}
-      \lambda & 1\\
-      0 & \lambda
-    \end{pmatrix}$, i.e.\ a repeated eigenvalue with a 1-dimensional eigenspace
-\end{enumerate}
-Note that we said there are three \emph{types} of orbits, not three orbits. There are infinitely many orbits, e.g.\ one for each of $\lambda I$.
+\begin{proof}
+  This follows directly from the definitions.
+\end{proof}
+
+\begin{remark}
+  This action corresponds to change of basis: two matrices are conjugate if and only if they represent the same linear map with respect to different bases, with $P$ being the change-of-basis matrix.
+
+  From Vectors and Matrices, the orbits of the conjugation action of $\GL_2(\C)$ on $M_{2 \times 2}(\C)$ are classified by Jordan normal form. Every $A \in M_{2 \times 2}(\C)$ is conjugate to a matrix of one of the following forms:
+  \begin{enumerate}
+    \item $\begin{pmatrix} \lambda & 0 \\ 0 & \mu \end{pmatrix}$ with $\lambda \neq \mu$: two distinct eigenvalues.
+    \item $\begin{pmatrix} \lambda & 0 \\ 0 & \lambda \end{pmatrix}$: a repeated eigenvalue with $2$-dimensional eigenspace.
+    \item $\begin{pmatrix} \lambda & 1 \\ 0 & \lambda \end{pmatrix}$: a repeated eigenvalue with $1$-dimensional eigenspace.
+  \end{enumerate}
+  There are three \emph{types} of orbits, but infinitely many orbits (e.g.\ one for each scalar matrix $\lambda I$).
+\end{remark}
 \subsection{Orthogonal groups}
 Recall that $A^T$ is defined by $A^{T}_{ij} = A_{ji}$, i.e.\ we reflect the matrix in the diagonal. They have the following properties:
 \begin{enumerate}
