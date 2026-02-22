@@ -849,77 +849,85 @@ To achieve higher space efficiency, we seek a recurrence relation for coefficien
 \end{exercise}
 
 \section{Counting and integers}
-This chapter exists because experience shows that mathematicians do not know how to count.
-
 \subsection{Basic counting}
-A useful theorem is the pigeonhole principle.
 \begin{thm}[Pigeonhole Principle]
-  If we put $mn + 1$ pigeons into $n$ pigeonholes, then some pigeonhole has at least $m + 1$ pigeons.
+  If $mn + 1$ objects are placed into $n$ boxes, then some box contains at least $m + 1$ objects.
 \end{thm}
 
 \begin{eg}
-  In Cambridge, there are 2 people who have the same number of hairs.
+  In Cambridge, there exist two people with the same number of hairs.
 \end{eg}
 
-Another useful tool for counting is the indicator function.
-\begin{defi}[Indicator function/characteristic function]
-  Let $X$ be a set. For each $A\subseteq X$, the \emph{indicator function} or \emph{characteristic function} of $A$ is the function $i_A: X\to \{0, 1\}$ with $i_A(x) = 1$ if $x\in A$, $0$ otherwise. It is sometimes written as $\chi_A$.
+\begin{defi}[Indicator function]
+  Let $X$ be a set and let $A\subseteq X$. The \emph{indicator function} (or \emph{characteristic function}) of $A$ is the function $i_A: X\to \{0, 1\}$ defined by
+  \[
+    i_A(x) = \begin{cases} 1 & \text{if } x \in A, \\ 0 & \text{if } x \notin A. \end{cases}
+  \]
+  It is sometimes written $\chi_A$.
 \end{defi}
+
 \begin{prop}\leavevmode
   \begin{enumerate}
-    \item $i_A = i_B \Leftrightarrow A = B$
-    \item $i_{A\cap B} = i_A i_B$
-    \item $i_{\bar{A}} = 1 - i_A$
-    \item $i_{A\cup B} = 1 - i_{\overline{A\cup B}} = 1 - i_{\bar A\cap \bar B} = 1 - i_{\bar{A}}i_{\bar{B}} = 1 - (1 - i_A)(1 - i_B) = i_A + i_B - i_{A\cap B}$.
-    \item $i_{A\setminus B} = i_{A\cap \bar B} = i_Ai_{\bar B} = i_A(1 - i_B) = i_A - i_{A\cap B}$
+    \item $i_A = i_B \Leftrightarrow A = B$.
+    \item $i_{A\cap B} = i_A i_B$.
+    \item $i_{\bar{A}} = 1 - i_A$.
+    \item $i_{A\cup B} = i_A + i_B - i_{A\cap B}$.
+    \item $i_{A\setminus B} = i_A - i_{A\cap B}$.
   \end{enumerate}
 \end{prop}
 
-\begin{eg}
-  We can use the indicator function to prove certain properties about sets:
-  \begin{enumerate}
-    \item Proof that $A\cap(B\cup C) = (A\cap B)\cup (A\cap C)$:
-      \begin{align*}
-        i_{A\cap (B\cup C)} &= i_Ai_{B\cup C}\\
-        &= i_A(i_B + i_C - i_Bi_C)\\
-        &= i_Ai_B + i_Ai_C - i_Ai_Bi_C\\
-        i_{(A\cap B)\cup (A\cap C)} &= i_{A\cap B} + i_{A\cap C} - i_{A\cap C}i_{A\cap B}\\
-        &= i_Ai_B + i_Ai_C - i_Ai_Ci_Ai_B\\
-        &= i_Ai_B + i_Ai_C - i_Ai_Bi_C \qedhere
-      \end{align*}
-      Therefore $i_{A\cap (B\cup C)} = i_{(A\cap B)\cup (A\cap C)}$ and thus $A\cap(B\cup C) = (A\cap B)\cup (A\cap C)$.
+\begin{proof}
+  Parts (i)--(iii) follow directly from the definition. For (iv):
+  \[
+    i_{A\cup B} = 1 - i_{\overline{A\cup B}} = 1 - i_{\bar A \cap \bar B} = 1 - (1 - i_A)(1 - i_B) = i_A + i_B - i_A i_B = i_A + i_B - i_{A \cap B}.
+  \]
+  Part (v) follows similarly: $i_{A\setminus B} = i_{A\cap \bar B} = i_A(1 - i_B) = i_A - i_{A\cap B}$.
+\end{proof}
 
-      Note that $i_A = i_A^2$ since $i_A = 0 $ or $1$, and $0^2 = 0$ and $1^2 = 1$.
-    \item Proof that the symmetric difference is associative: Observe that $i_{A\Delta B} \equiv i_A + i_B \pmod 2$. Thus $i_{(A\Delta B)\Delta C} = i_{A\Delta(B\Delta C)} \equiv i_A + i_B + i_C \pmod2$.
+\begin{eg}
+  Indicator functions give algebraic proofs of set identities.
+  \begin{enumerate}
+    \item \emph{Distributivity: $A\cap(B\cup C) = (A\cap B)\cup (A\cap C)$.} Since $i_A^2 = i_A$ (as $i_A$ takes values in $\{0,1\}$), we have
+      \begin{align*}
+        i_{A\cap (B\cup C)} &= i_A(i_B + i_C - i_Bi_C) = i_Ai_B + i_Ai_C - i_Ai_Bi_C,\\
+        i_{(A\cap B)\cup (A\cap C)} &= i_Ai_B + i_Ai_C - i_Ai_B \cdot i_Ai_C = i_Ai_B + i_Ai_C - i_A^2 i_Bi_C.
+      \end{align*}
+      Since $i_A^2 = i_A$, both expressions agree, so $A\cap(B\cup C) = (A\cap B)\cup (A\cap C)$.
+    \item \emph{Associativity of symmetric difference.} Observe that $i_{A\Delta B} \equiv i_A + i_B \pmod 2$. Thus $i_{(A\Delta B)\Delta C} \equiv i_A + i_B + i_C \equiv i_{A\Delta(B\Delta C)} \pmod 2$.
   \end{enumerate}
 \end{eg}
-Indicator functions are handy for computing the sizes of finite sets because if $A\subseteq X$, then $|A| = \sum\limits_{x\in X}i_A(x)$.
+
+\begin{remark}
+  If $X$ is a finite set and $A\subseteq X$, then $|A| = \sum_{x\in X}i_A(x)$. This makes indicator functions a powerful tool for counting.
+\end{remark}
 
 \begin{prop}
-  $|A\cup B| = |A| + |B| - |A\cap B|$
+  Let $A, B$ be subsets of a finite set $X$. Then $|A\cup B| = |A| + |B| - |A\cap B|$.
 \end{prop}
 
 \begin{proof}
   \begin{align*}
-    |A\cup B| &= \sum_{x\in X} i_{A(x)\cup B(x)}\\
-    &= \sum (i_A(x) + i_B(x) - i_{A\cap B}(x))\\
-    &= \sum i_A(x) + \sum i_B(x) - \sum i_{A\cap B}(x)\\
-    &= |A| + |B| - |A\cap B|\qedhere
+    |A\cup B| &= \sum_{x\in X} i_{A\cup B}(x)\\
+    &= \sum_{x \in X} (i_A(x) + i_B(x) - i_{A\cap B}(x))\\
+    &= \sum_{x \in X} i_A(x) + \sum_{x \in X} i_B(x) - \sum_{x \in X} i_{A\cap B}(x)\\
+    &= |A| + |B| - |A\cap B|.\qedhere
   \end{align*}
 \end{proof}
 
-More importantly, we will use indicator functions to prove a powerful result.
 \begin{thm}[Inclusion-Exclusion Principle]
-  Let $A_i$ be subsets of a finite set $X$, for $1 \leq i\leq n$. Then
+  Let $A_1, \ldots, A_n$ be subsets of a finite set $X$. Then
   \[
-    |\bar A_1\cap \cdots \cap \bar A_n| = |X| - \sum_i |A_i| + \sum_{i < j}|A_i\cap A_j| - \cdots + (-1)^n|A_1\cap \cdots A_n|.
+    |\bar A_1\cap \cdots \cap \bar A_n| = |X| - \sum_i |A_i| + \sum_{i < j}|A_i\cap A_j| - \cdots + (-1)^n|A_1\cap \cdots \cap A_n|.
   \]
   Equivalently,
   \[
     |A_1\cup \cdots \cup A_n| = \sum_i|A_i| - \sum_{i < j}|A_i\cap A_j| + \cdots +(-1)^{n-1}|A_1\cap \cdots \cap A_n|.
   \]
-  The two forms are equivalent since $|A_1\cup\cdots\cup A_n| = |X| - |\bar A_1\cap \cdots \cap \bar A_n|$.
 \end{thm}
+
+\begin{remark}
+  The two forms are equivalent since $|A_1\cup\cdots\cup A_n| = |X| - |\bar A_1\cap \cdots \cap \bar A_n|$.
+\end{remark}
 
 \begin{proof}
   Using indicator functions,
@@ -927,30 +935,28 @@ More importantly, we will use indicator functions to prove a powerful result.
     i_{\bar A_1\cap \bar A_2\cap \cdots \cap \bar A_n} &= \prod_j i_{\bar A_j}\\
     &= \prod_j (1 - i_{A_j})\\
     &= 1 - \sum_i i_{A_i} + \sum _{i < j}i_{A_i}i_{A_j} - \cdots + (-1)^ni_{A_1}i_{A_2}\cdots i_{A_n}\\
-    &= 1 - \sum_i i_{A_i} + \sum_{i < j}i_{A_i\cap A_j} - \cdots + (-1)^ni_{A_1\cap A_2\cap A_3\cap \cdots \cap A_n}
-    \intertext{Thus}
+    &= 1 - \sum_i i_{A_i} + \sum_{i < j}i_{A_i\cap A_j} - \cdots + (-1)^ni_{A_1\cap A_2\cap \cdots \cap A_n}.
+    \intertext{Summing over $x \in X$:}
     |\bar A_1\cap \cdots \cap \bar A_n| &= \sum_{x\in X} i_{\bar A_1\cap \bar A_2\cap \cdots \cap \bar A_n}(x)\\
-    &= \sum_x 1 - \sum_i\sum_x i_{A_i}(x) + \sum_{i < j}\sum_x i_{A_i\cap A_j}(x) - \cdots\\
-    & + \sum_x (-1)^ni_{A_1\cap A_2\cap A_3\cap \cdots \cap A_n}(x)\\
     &= |X| - \sum_i |A_i| + \sum_{i < j}|A_i\cap A_j|\\
-    & - \sum_{i < j < k}|A_i\cap A_j\cap A_k| + \cdots + (-1)^n|A_1\cap A_2\cap \cdots A_n|\qedhere
+    & - \sum_{i < j < k}|A_i\cap A_j\cap A_k| + \cdots + (-1)^n|A_1\cap A_2\cap \cdots \cap A_n|.\qedhere
   \end{align*}
 \end{proof}
 
 \begin{eg}
-  How many numbers $\leq 200$ are coprime to 110?
+  How many integers in $\{1, 2, \ldots, 200\}$ are coprime to $110$?
 
-  Let $X = \{ 1, \cdots 200\}$, and $A_1 = \{x: 2 \mid x\}$, $A_2 = \{x: 5\mid x\}$, $A_3 = \{x: 11\mid x\}$. We know that
+  Since $110 = 2 \times 5 \times 11$, let $X = \{1, \ldots, 200\}$ and define $A_1 = \{x \in X : 2 \mid x\}$, $A_2 = \{x \in X : 5\mid x\}$, $A_3 = \{x \in X : 11\mid x\}$. Then
   \begin{align*}
-    |A_1| &= \lfloor 200/2\rfloor = 100\\
-    |A_2| &= \lfloor 200/5\rfloor = 40\\
-    |A_3| &= \lfloor 200/11\rfloor = 18\\
-    |A_1\cap A_2| &= \lfloor 200/10\rfloor = 20\\
-    |A_1\cap A_3| &= \lfloor 200/22\rfloor = 9\\
-    |A_2\cap A_3| &= \lfloor 200/55\rfloor = 3\\
-    |A_1 \cap A_2\cap A_3| &= \lfloor 200/110\rfloor = 1
+    |A_1| &= \lfloor 200/2\rfloor = 100, &
+    |A_1\cap A_2| &= \lfloor 200/10\rfloor = 20,\\
+    |A_2| &= \lfloor 200/5\rfloor = 40, &
+    |A_1\cap A_3| &= \lfloor 200/22\rfloor = 9,\\
+    |A_3| &= \lfloor 200/11\rfloor = 18, &
+    |A_2\cap A_3| &= \lfloor 200/55\rfloor = 3,\\
+    && |A_1 \cap A_2\cap A_3| &= \lfloor 200/110\rfloor = 1.
   \end{align*}
-  Then the answer is $200 - 100 - 40 - 18 + 20 + 9 + 3 - 1 = 73$.
+  By inclusion-exclusion, $|\bar A_1 \cap \bar A_2 \cap \bar A_3| = 200 - 100 - 40 - 18 + 20 + 9 + 3 - 1 = 73$.
 \end{eg}
 
 \subsection{Combinations}
