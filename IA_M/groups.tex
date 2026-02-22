@@ -2591,63 +2591,57 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
   Since M\"obius maps are continuous, the upper half-plane maps either to the interior or exterior of the unit circle. Evaluating at $i$ gives $f(i) = 0$, so the upper half-plane maps to the open unit disc.
 \end{eg}
 \subsection{Cross-ratios}
-  Finally, we'll look at an important concept known as \emph{cross-ratios}. Roughly speaking, this is a quantity that is preserved by M\"obius transforms.
 
-\begin{defi}[Cross-ratios]
-  Given four distinct points $z_1, z_2, z_3, z_4\in \C_\infty,$ their \emph{cross-ratio} is $[z_1, z_2, z_3, z_4] = g(z_4)$, with $g$ being the unique M\"obius map that maps $z_1\mapsto \infty, z_2\mapsto 0, z_3\mapsto 1$. So $[\infty, 0, 1, \lambda] = \lambda$ for any $\lambda\not= \infty, 0, 1$. We have
+\begin{defi}[Cross-ratio]
+  Given four distinct points $z_1, z_2, z_3, z_4 \in \C_\infty$, their \emph{cross-ratio} is
   \[
-    [z_1, z_2, z_3, z_4] = \frac{z_4 - z_2}{z_4 - z_1} \cdot \frac{z_3 - z_1}{z_3 - z_2}
+    [z_1, z_2, z_3, z_4] = g(z_4),
   \]
-  (with special cases as above).
+  where $g$ is the unique M\"obius map sending $z_1 \mapsto \infty$, $z_2 \mapsto 0$, $z_3 \mapsto 1$. In particular, $[\infty, 0, 1, \lambda] = \lambda$ for any $\lambda \neq \infty, 0, 1$. Explicitly,
+  \[
+    [z_1, z_2, z_3, z_4] = \frac{z_4 - z_2}{z_4 - z_1} \cdot \frac{z_3 - z_1}{z_3 - z_2},
+  \]
+  with the obvious modifications when some $z_i = \infty$.
 \end{defi}
-We know that this exists and is uniquely defined because $M$ acts sharply three-transitively on $\C_\infty$.
 
-Note that different authors use different permutations of $1, 2, 3, 4$, but they all lead to the same result as long as you are consistent.
+\begin{remark}
+  The cross-ratio is well-defined because $M$ acts sharply three-transitively on $\C_\infty$. Different authors use different orderings of $z_1, z_2, z_3, z_4$ in the definition; the choice does not matter as long as one is consistent.
+\end{remark}
 
 \begin{lemma}[Cross-ratio double transposition symmetry]
-  For $z_1, z_2, z_3, z_4\in \C_\infty$ all distinct, then
+  For distinct $z_1, z_2, z_3, z_4 \in \C_\infty$,
   \[
-    [z_1, z_2, z_3, z_4] = [z_2, z_1, z_4, z_3] = [z_3, z_4, z_1, z_2] = [z_4, z_3, z_2, z_1]
+    [z_1, z_2, z_3, z_4] = [z_2, z_1, z_4, z_3] = [z_3, z_4, z_1, z_2] = [z_4, z_3, z_2, z_1].
   \]
-  i.e.\ if we perform a double transposition on the entries, the cross-ratio is retained.
+  That is, the cross-ratio is preserved by any double transposition of the entries.
 \end{lemma}
 
 \begin{proof}
-  By inspection of the formula.
+  Direct computation from the formula.
 \end{proof}
 
 \begin{prop}[Cross-ratio invariance]
-  If $f\in M$, then $[z_1, z_2, z_3, z_4] = [f(z_1), f(z_2), f(z_3), f(z_4)]$.
+  If $f \in M$, then $[z_1, z_2, z_3, z_4] = [f(z_1), f(z_2), f(z_3), f(z_4)]$.
 \end{prop}
 
 \begin{proof}
-  Use our original definition of the cross ratio (instead of the formula). Let $g$ be the unique M\"obius map such that $[z_1, z_2, z_3, z_4] = g(z_4) = \lambda$, i.e.
-  \begin{align*}
-    z_1 &\xmapsto{g} \infty\\
-    z_2 &\mapsto 0\\
-    z_3 &\mapsto 1\\
-    z_4 &\mapsto \lambda
-  \end{align*}
-  We know that $gf^{-1}$ sends
-  \begin{align*}
-    f(z_1)\xmapsto{f^{-1}} z_1 &\xmapsto{g} \infty\\
-    f(z_2)\xmapsto{f^{-1}} z_2 &\xmapsto{g} 0\\
-    f(z_3)\xmapsto{f^{-1}} z_3 &\xmapsto{g} 1\\
-    f(z_4)\xmapsto{f^{-1}} z_4 &\xmapsto{g} \lambda
-  \end{align*}
-  So $[f(z_1), f(z_2), f(z_3), f(z_4)] = gf^{-1}f(z_4) = g(z_4) = \lambda$.
+  Let $g$ be the unique M\"obius map with $g(z_1) = \infty$, $g(z_2) = 0$, $g(z_3) = 1$, so that $g(z_4) = [z_1, z_2, z_3, z_4] = \lambda$. Then $g \circ f^{-1}$ sends
+  \[
+    f(z_1) \mapsto \infty, \quad f(z_2) \mapsto 0, \quad f(z_3) \mapsto 1, \quad f(z_4) \mapsto \lambda,
+  \]
+  so $[f(z_1), f(z_2), f(z_3), f(z_4)] = g \circ f^{-1}(f(z_4)) = g(z_4) = \lambda$.
 \end{proof}
 
-In fact, we can see from this proof that: given $z_1, z_2, z_3, z_4$ all distinct and $w_1, w_2, w_3, w_4$ distinct in $\C_\infty$, then $\exists f\in M$ with $f(z_i) = w_i$ iff $[z_1, z_2, z_3, z_4] = [w_1, w_2, w_3, w_4]$.
+\begin{remark}
+  The proof shows more generally that for distinct $z_1, z_2, z_3, z_4$ and distinct $w_1, w_2, w_3, w_4$ in $\C_\infty$, there exists $f \in M$ with $f(z_i) = w_i$ for all $i$ if and only if $[z_1, z_2, z_3, z_4] = [w_1, w_2, w_3, w_4]$.
+\end{remark}
 
 \begin{cor}[Concyclic criterion]
-  $z_1, z_2, z_3, z_4$ lie on some circle/straight line iff $[z_1, z_2, z_3, z_4]\in \R$.
+  Distinct $z_1, z_2, z_3, z_4 \in \C_\infty$ lie on a common circle or straight line if and only if $[z_1, z_2, z_3, z_4] \in \R$.
 \end{cor}
 
 \begin{proof}
-  Let $C$ be the circle/line through $z_1, z_2, z_3$. Let $g$ be the unique M\"obius map with $g(z_1) = \infty$, $g(z_2) = 0$, $g(z_3) = 1$. Then $g(z_4) = [z_1, z_2, z_3, z_4]$ by definition.
-
-  Since we know that M\"obius maps preserve circle/lines, $z_4\in C \Leftrightarrow g(z_4)$ is on the line through $\infty, 0, 1$, i.e.\ $g(z_4) \in \R$.
+  Let $C$ be the circle/line through $z_1, z_2, z_3$, and let $g$ be the unique M\"obius map with $g(z_1) = \infty$, $g(z_2) = 0$, $g(z_3) = 1$. Then $g(z_4) = [z_1, z_2, z_3, z_4]$ by definition. Since M\"obius maps preserve circles and lines, $z_4 \in C$ if and only if $g(z_4)$ lies on the line through $\infty, 0, 1$, i.e.\ $g(z_4) \in \R$.
 \end{proof}
 
 \section{Projective line (non-examinable)}
