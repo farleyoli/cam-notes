@@ -2360,117 +2360,119 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 
 \section{M\texorpdfstring{\"o}{o}bius group}
 \subsection{M\texorpdfstring{\"o}{o}bius maps}
-We want to study maps $f: \C \to \C$ in the form $f(z) = \frac{az + b}{cz + d}$ with $a, b, c, d\in \C$ and $ad - bc \not= 0$.
-
-We impose $ad - bc\not= 0$ or else the map will be constant: for any $z, w\in \C$, $f(z) - f(w) = \frac{(az + b)(cw + d) - (aw + b)(cz + d)}{(cw + d)(cz + d)} = \frac{(ad - bc)(z - w)}{(cw + d)(cz + d)}$. If $ad - bc = 0$, then $f$ is constant and boring (more importantly, it will not be invertible).
-
-If $c\not=0$, then $f(-\frac{d}{c})$ involves division by 0. So we add $\infty$ to $\C$ to form the extended complex plane (Riemann sphere) $\C\cup \{\infty\}= \C_\infty$ (cf.\ Vectors and Matrices). Then we define $f(-\frac{d}{c}) = \infty$. We call $\C_\infty$ a one-point compactification of $\C$ (because it adds one point to $\C$ to make it compact, cf.\ Metric and Topology).
+\begin{remark}
+  We study maps $f \colon \C \to \C$ of the form $f(z) = \frac{az + b}{cz + d}$ with $a, b, c, d \in \C$ and $ad - bc \neq 0$. The condition $ad - bc \neq 0$ ensures $f$ is non-constant, since
+  \[
+    f(z) - f(w) = \frac{(ad - bc)(z - w)}{(cz + d)(cw + d)}.
+  \]
+  When $c \neq 0$, the expression $f(-d/c)$ involves division by zero. To handle this, we work on the \emph{extended complex plane} (or Riemann sphere) $\C_\infty = \C \cup \{\infty\}$ (cf.\ Vectors and Matrices), defining $f(-d/c) = \infty$.
+\end{remark}
 
 \begin{defi}[M\"obius map]
-  A \emph{M\"obius map} is a map from $\C_\infty \to \C_\infty$ of the form
+  A \emph{M\"obius map} is a map $f \colon \C_\infty \to \C_\infty$ of the form
   \[
     f(z) = \frac{az + b}{cz + d},
   \]
-  where $a, b, c, d\in \C$ and $ad - bc\not= 0$, with $f(-\frac{d}{c}) = \infty$ and $f(\infty) = \frac{a}{c}$ when $c\not= 0$. (if $c = 0$, then $f(\infty)=\infty$)
+  where $a, b, c, d \in \C$ and $ad - bc \neq 0$, with $f(-d/c) = \infty$ and $f(\infty) = a/c$ when $c \neq 0$. If $c = 0$, then $f(\infty) = \infty$.
 \end{defi}
 
 \begin{lemma}[M\"obius bijectivity]
-  The M\"obius maps are bijections $\C_\infty \to \C_\infty$.
+  Every M\"obius map is a bijection $\C_\infty \to \C_\infty$.
 \end{lemma}
 
 \begin{proof}
-  The inverse of $f(z) = \frac{az + b}{cz+ d}$ is $g(z) = \frac{dz - b}{-cz + a}$, which we can check by composition both ways.
+  The inverse of $f(z) = \frac{az + b}{cz + d}$ is $g(z) = \frac{dz - b}{-cz + a}$, as one verifies by composition in both directions.
 \end{proof}
 
 \begin{prop}[M\"obius group]
-  The M\"obius maps form a group $M$ under function composition. (The M\"obius group)
+  The set $M$ of all M\"obius maps forms a group under composition, called the \emph{M\"obius group}.
 \end{prop}
-\begin{proof}
-  The group axioms are shown as follows:
-  \begin{enumerate}[label=\arabic{*}.]
-      \setcounter{enumi}{-1}
-    \item If $f_1(z) = \frac{a_1z + b_1}{c_1z + d_1}$ and $f_2(z) = \frac{a_2z + b_2}{c_2 z + d_2}$, then $\displaystyle f_2\circ f_1 (z) = \frac{a_2\left(\frac{a_1z + b_1}{c_1z + d_1}\right) + b_2}{c_2\left(\frac{a_1z + b_1}{c_1z + d_1}\right) + d_2} = \frac{(a_1a_2 + b_2c_1)z + (a_2b_1 + b_2d_1)}{(c_2a_1 + d_2c_1)z + (c_2b_1 + d_1d_2)}$. Now we have to check that $ad - bc \not = 0$: we have $(a_1a_2 + b_2c_1)(c_2b_1 + d_1d_2) - (a_2b_1 + b_2d_1)(c_2a_1 + d_2c_1) = (a_1d_1 - b_1c_1)(a_2d_2 - b_2c_2)\not =0 $.
 
-      (This works for $z\not= \infty, -\frac{d_1}{c_1}$. We have to manually check the special cases, which is simply yet more tedious algebra)
-    \item The identity function is $1(z) = \frac{1z + 0}{0 + 1}$ which satisfies $ad - bc \not= 0$.
-    \item We have shown above that $f^{-1}(z) = \frac{dz - b}{-cz + a}$ with $da - bc\not= 0$, which are also M\"obius maps
-    \item Composition of functions is always associative
+\begin{proof}
+  We verify the group axioms.
+  \begin{enumerate}
+    \item \emph{Closure.} If $f_1(z) = \frac{a_1 z + b_1}{c_1 z + d_1}$ and $f_2(z) = \frac{a_2 z + b_2}{c_2 z + d_2}$, then
+    \[
+      f_2 \circ f_1(z) = \frac{(a_2 a_1 + b_2 c_1)z + (a_2 b_1 + b_2 d_1)}{(c_2 a_1 + d_2 c_1)z + (c_2 b_1 + d_2 d_1)}.
+    \]
+    The determinant of the composite is $(a_2 a_1 + b_2 c_1)(c_2 b_1 + d_2 d_1) - (a_2 b_1 + b_2 d_1)(c_2 a_1 + d_2 c_1) = (a_1 d_1 - b_1 c_1)(a_2 d_2 - b_2 c_2) \neq 0$.
+    \item \emph{Identity.} The identity map $\id(z) = \frac{1 \cdot z + 0}{0 \cdot z + 1}$ is a M\"obius map.
+    \item \emph{Inverses.} $f^{-1}(z) = \frac{dz - b}{-cz + a}$ is a M\"obius map with determinant $da - (-b)(-c) = ad - bc \neq 0$.
+    \item \emph{Associativity.} Composition of functions is always associative.
   \end{enumerate}
 \end{proof}
-$M$ is not abelian. e.g.\ $f_1(z) = 2z$ and $f_2(z) = z + 1$ are not commutative: $f_1\circ f_2(z) = 2z+2$ and $f_2\circ f_1(z) = 2z + 1$.
 
-Note that the point at ``infinity'' is not special. $\infty$ is no different to any other point of the Riemann sphere. However, from the way we write down the M\"obius map, we have to check infinity specially. In this particular case, we can get quite far with conventions such as $\frac{1}{\infty} = 0$, $\frac{1}{0} = \infty$ and $\frac{a\cdot \infty}{c\cdot \infty} = \frac{a}{c}$.
+\begin{remark}
+  $M$ is not abelian: for example, $f_1(z) = 2z$ and $f_2(z) = z + 1$ give $f_1 \circ f_2(z) = 2z + 2$ but $f_2 \circ f_1(z) = 2z + 1$.
+\end{remark}
 
-Clearly $\frac{az + b}{cz + d} = \frac{\lambda az + \lambda b}{\lambda cz + \lambda d}$ for any $\lambda \not= 0$. So we do not have a unique representation of a map in terms of $a, b, c, d$. But $a, b, c, d$ does uniquely determine a M\"obius map.
+\begin{remark}
+  On the Riemann sphere, $\infty$ is no more special than any other point. The conventions $\frac{1}{\infty} = 0$, $\frac{1}{0} = \infty$, and $\frac{a \cdot \infty}{c \cdot \infty} = \frac{a}{c}$ allow one to evaluate M\"obius maps at $\infty$ without separate case analysis.
+\end{remark}
+
+\begin{remark}
+  Since $\frac{az + b}{cz + d} = \frac{\lambda az + \lambda b}{\lambda cz + \lambda d}$ for any $\lambda \neq 0$, the coefficients $a, b, c, d$ do not uniquely determine a M\"obius map. However, a choice of $a, b, c, d$ does uniquely determine one.
+\end{remark}
 
 \begin{prop}[$\GL_2(\C)$ to M\"obius group homomorphism]
-  The map $\theta: \GL_2(\C)\to M$ sending $
-  \displaystyle \begin{pmatrix}
-    a & b\\
-    c & d
-  \end{pmatrix} \mapsto \frac{az + b}{cz + d}$ is a surjective group homomorphism.
+  The map $\theta \colon \GL_2(\C) \to M$ sending $\begin{pmatrix} a & b \\ c & d \end{pmatrix} \mapsto \frac{az + b}{cz + d}$ is a surjective group homomorphism.
 \end{prop}
 
 \begin{proof}
-  Firstly, since the determinant $ad - bc$ of any matrix in $\GL_2(\C)$ is non-zero, it does map to a M\"obius map. This also shows that $\theta$ is surjective.
-
-  We have previously calculated that
-  \[
-    \theta(A_2)\circ \theta(A_1) = \frac{(a_1a_2 + b_2c_1)z + (a_2b_1 + b_2d_1)}{(c_2a_1 + d_2c_1)z + (c_2b_1 + d_1d_2)} = \theta(A_2A_1)
-  \]
-  So it is a homomorphism.
+  Since $ad - bc \neq 0$ for any matrix in $\GL_2(\C)$, the map $\theta$ is well-defined. It is surjective by definition of $M$. The closure computation above shows that $\theta(A_2) \circ \theta(A_1) = \theta(A_2 A_1)$, so $\theta$ is a homomorphism.
 \end{proof}
 
-The kernel of $\theta$ is
-\[
-  \ker(\theta) = \left\{A\in \GL_2(\C): (\forall z)\,z = \frac{az + b}{cz + d}\right\}
-\]
-We can try different values of $z$: $z = \infty \Rightarrow c = 0$; $z = 0 \Rightarrow b = 0$; $z = 1\Rightarrow d = a$. So
-\[
-  \ker\theta = Z = \{\lambda I: \lambda \in \C, \lambda\not= 0\},
-\]
-where $I$ is the identity matrix and $Z$ is the centre of $\GL_2(\C)$.
+\begin{lemma}[Kernel of $\theta$]
+  $\ker \theta = Z = \{\lambda I : \lambda \in \C \setminus \{0\}\}$, the centre of $\GL_2(\C)$.
+\end{lemma}
 
-By the isomorphism theorem, we have
-\[
-  M \cong \GL_2(\C)/Z
-\]
+\begin{proof}
+  We need $\frac{az + b}{cz + d} = z$ for all $z \in \C_\infty$. Setting $z = \infty$ gives $c = 0$; $z = 0$ gives $b = 0$; $z = 1$ gives $d = a$. So $\ker \theta = \{\lambda I : \lambda \neq 0\} = Z$.
+\end{proof}
+
+\begin{remark}
+  By the first isomorphism theorem, $M \cong \GL_2(\C)/Z$.
+\end{remark}
 
 \begin{defi}[Projective general linear group $\mathrm{PGL}_2(\C)$]
-  (Non-examinable) The projective general linear group is
-  \[
-    \mathrm{PGL}_2(\C) = \GL_2(\C)/Z.
-  \]
+  The \emph{projective general linear group} is $\mathrm{PGL}_2(\C) = \GL_2(\C)/Z$.
 \end{defi}
-Since $f_A = f_B$ iff $B = \lambda A$ for some $\lambda\not= 0$ (where $A, B$ are the corresponding matrices of the maps), if we restrict $\theta$ to $\SL_2(\C)$, we have $\left.\theta\right|_{\SL_2(\C)}: \SL_2(\C)\to M$ is also surjective. The kernel is now just $\{\pm I\}$. So
-\[
-  M \cong \SL_2(\C)/\{\pm I\} = \mathrm{PSL_2}(\C)
-\]
-Clearly $\mathrm{PSL}_2(\C)\cong \mathrm{PGL}_2(\C)$ since both are isomorphic to the M\"obius group.
+
+\begin{remark}
+  Since $f_A = f_B$ if and only if $B = \lambda A$ for some $\lambda \neq 0$, the restriction $\theta|_{\SL_2(\C)} \colon \SL_2(\C) \to M$ is also surjective, with kernel $\{\pm I\}$. So
+  \[
+    M \cong \SL_2(\C)/\{\pm I\} = \mathrm{PSL}_2(\C).
+  \]
+  In particular, $\mathrm{PSL}_2(\C) \cong \mathrm{PGL}_2(\C)$.
+\end{remark}
 
 \begin{prop}[M\"obius map generators]
-  Every M\"obius map is a composite of maps of the following form:
+  Every M\"obius map is a composition of maps of the following three types:
   \begin{enumerate}
-    \item Dilation/rotation: $f(z) = az$, $a\not= 0$
-    \item Translation: $f(z) = z + b$
-    \item Inversion: $f(z) = \frac{1}{z}$
+    \item Dilation/rotation: $f(z) = az$, $a \neq 0$.
+    \item Translation: $f(z) = z + b$.
+    \item Inversion: $f(z) = 1/z$.
   \end{enumerate}
 \end{prop}
+
 \begin{proof}
-  Let $\frac{az + b}{cz + d}\in M$.
+  Let $g(z) = \frac{az + b}{cz + d} \in M$.
 
-  If $c = 0$, i.e.\ $g(\infty) = \infty$, then $g(z) = \frac{a}{d}z + \frac{b}{d}$, i.e.
+  If $c = 0$, then $g(z) = \frac{a}{d}z + \frac{b}{d}$, which is a dilation followed by a translation:
   \[
-    z\mapsto \frac{a}{d} z\mapsto \frac{a}{d}z + \frac{b}{d}.
+    z \mapsto \frac{a}{d}\, z \mapsto \frac{a}{d}\, z + \frac{b}{d}.
   \]
-  If $c\not= 0$, let $g(\infty)=z_0$, Let $h(z) = \frac{1}{z - z_0}$. Then $hg(\infty) = \infty$ is of the above form. We have $h^{-1}(w) = \frac{1}{w} + z_0$being of type (iii) followed by (ii). So $g = h^{-1} (hg)$ is a composition of maps of the three forms listed above.
+  If $c \neq 0$, let $z_0 = g(\infty) = a/c$ and $h(z) = \frac{1}{z - z_0}$. Then $h \circ g$ fixes $\infty$, so it is of the first type. Since $h^{-1}(w) = \frac{1}{w} + z_0$ is an inversion followed by a translation, $g = h^{-1} \circ (h \circ g)$ is a composition of maps of the three types.
 
-  Alternatively, with sufficient magic, we have
+  Alternatively, one can verify the explicit decomposition
   \[
-    z\mapsto z + \frac{d}{c} \mapsto \frac{1}{z + \frac{d}{c}} \mapsto -\frac{ad + bc}{c^2(z + \frac{d}{c})}\mapsto \frac{a}{c} -\frac{ad + bc}{c^2(z + \frac{d}{c})} = \frac{az + b}{cz + d}.\qedhere
+    z \mapsto z + \frac{d}{c} \mapsto \frac{1}{z + \frac{d}{c}} \mapsto \frac{-(ad - bc)}{c^2\!\left(z + \frac{d}{c}\right)} \mapsto \frac{a}{c} - \frac{ad - bc}{c^2\!\left(z + \frac{d}{c}\right)} = \frac{az + b}{cz + d}.\qedhere
   \]
 \end{proof}
-Note that the non-calculation method above can be transformed into another (different) composition with the same end result. So the way we compose a M\"obius map from the ``elementary'' maps are not unique.
+
+\begin{remark}
+  The decomposition of a M\"obius map into elementary maps is not unique: different methods yield different compositions with the same end result.
+\end{remark}
 
 \subsection{Fixed points of M\texorpdfstring{\"o}{o}bius maps}
 \begin{defi}[Fixed point]
