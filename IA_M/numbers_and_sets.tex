@@ -748,89 +748,105 @@ To achieve higher space efficiency, we seek a recurrence relation for coefficien
 \end{remark}
 
 \subsection{Primes}
-There are a lot of ways we can define prime numbers in $\N$. The definition we will use is the following:
 \begin{defi}[Prime number]
-  $p\in \N$ is a \emph{prime} if $p > 1$ and the only factors of $p$ (in $\Z$) are $\pm 1$ and $\pm p$.
+  A natural number $p$ is \emph{prime} if $p > 1$ and the only factors of $p$ in $\Z$ are $\pm 1$ and $\pm p$.
 \end{defi}
-In this chapter, the objective is to prove things we already know and think are obvious.
-\begin{thm}
-  Every number can be written as a product of primes.
-\end{thm}
+
+\begin{prop}
+  Every natural number $n \geq 2$ can be written as a product of primes.
+\end{prop}
 
 \begin{proof}
-  If $n\in \N$ is not a prime itself, then by definition $n = ab$. If either $a$ or $b$ is not prime, then that number can be written as a product, say $b = cd$. Then $n = acd$ and so on. Since these numbers are getting smaller, and the process will stop when they are all prime.
+  If $n$ is prime, we are done. Otherwise, $n = ab$ where $1 < a, b < n$. If either factor is not prime, we factor it further. Since the factors are strictly decreasing, the process terminates with all factors prime.
 \end{proof}
-In the proof, we handwaved a bit when we said ``and so on''. We will later come up with the principle of (strong) induction that rigorously justifies this. This is the case for many proofs we will have here.
+
+\begin{remark}
+  The phrase ``and the process terminates'' is justified rigorously by the principle of strong induction, which we will establish later.
+\end{remark}
 
 \begin{thm}
   There are infinitely many primes.
 \end{thm}
 
-\begin{proof}
-  (Euclid's proof) Suppose there are finitely many primes, say $p_1, p_2 \cdots p_n$. Then $N = p_1p_2\cdots p_n + 1$ is divisible by none of the primes. Otherwise, $p_j\mid (N - p_1p_2\cdots p_n)$, i.e.\ $p_j\mid 1$, which is impossible. However, $N$ is a product of primes, so there must be primes not amongst $p_1, p_2\cdots p_n$.
+\begin{proof}[Proof (Euclid)]
+  Suppose there are finitely many primes, say $p_1, p_2, \ldots, p_n$. Consider $N = p_1 p_2 \cdots p_n + 1$. Then $N$ is not divisible by any $p_j$, since $p_j \mid N$ would imply $p_j \mid (N - p_1 p_2 \cdots p_n) = 1$, which is impossible. But $N \geq 2$, so $N$ has a prime factor, which must lie outside the list $p_1, \ldots, p_n$. Contradiction.
 \end{proof}
 
-\begin{proof}
-  (Erd\"{o}s 1930) Suppose that there are finitely many primes, $p_1, p_2\cdots p_k$. Consider all numbers that are the products of these primes, i.e.\ $p_1^{j_1}p_2^{j_2}\cdots p_k^{j_k}$, where $j_i \geq 0$. Factor out all squares to obtain the form $m^2p_1^{i_1}p_2^{i_2}\cdots p_k^{i_k}$, where $m\in \N$ and $i_j = 0$ or $1$.
+\begin{proof}[Proof (Erd\"{o}s)]
+  Suppose there are finitely many primes, $p_1, p_2, \ldots, p_k$. Every natural number can be written as $p_1^{j_1} p_2^{j_2} \cdots p_k^{j_k}$ for some $j_i \geq 0$. Factoring out the largest square, we can write any such number in the form $m^2 p_1^{i_1} p_2^{i_2} \cdots p_k^{i_k}$, where $m \in \N$ and each $i_j \in \{0, 1\}$.
 
-  Let $N\in\N$. Given any number $x \leq N$, when put in the above form, we have $m \leq \sqrt{N}$. So there are at most $\sqrt{N}$ possible values of $m$. For each $m$, there are $2^k$ numbers of the form $m^2p_1^{i_1}p_2^{i_2}\cdots p_k^{i_k}$. So there are only $\sqrt{N}\times 2^k$ possible values of $x$ of this kind.
+  For any $N \in \N$, each number $x \leq N$ in this form satisfies $m \leq \sqrt{N}$, so there are at most $\sqrt{N}$ choices for $m$ and $2^k$ choices for the exponents $i_j$. Hence there are at most $\sqrt{N} \cdot 2^k$ numbers of this form up to $N$.
 
-  Now pick $N\geq 4^k$. Then $N > \sqrt{N}\times 2^k$. So there must be a number $\leq N$ not of this form, i.e.\ it has a prime factor not in this list.
-\end{proof}
-Historically, many people have came up with ``new'' proofs that there are infinitely many primes. However, most of these proofs were just Euclid's proof in disguise. Erd\"os' proof is genuinely a new proof. For example, Euclid's proof comes up with a \emph{particular} number $N$, and says \emph{all} its factors are not in the list of primes. On the other hand, Erd\"os' proof says that there is \emph{some} number, which we don't know, with \emph{at least one} factor not in the list.
-
-Also, the proofs give different bounds on when we should expect to see the $k$th prime. For example, Euclid tells us that the $k$th prime must be less than $2^{2^k}$, while Erd\"os tells us it is less than $4^k$.
-
-\begin{thm}
-  If $a\mid bc$ and $(a, b) = 1$, then $a \mid c$.
-\end{thm}
-
-\begin{proof}
-  From Euclid's algorithm, there exist integers $u, v\in \Z$ such that $ua + vb = 1$. So multiplying by $c$, we have $uac + vbc = c$. Since $a \mid bc$, $a \mid $LHS. So $a \mid c$.
+  Choosing $N \geq 4^k$ gives $N > \sqrt{N} \cdot 2^k$, so some number $\leq N$ cannot be written in this form. Contradiction.
 \end{proof}
 
-\begin{defi}[Coprime numbers]
-  We say $a, b$ are \emph{coprime} if $(a, b) = 1$.
+\begin{remark}
+  The two proofs are structurally different. Euclid's proof exhibits a \emph{particular} number $N$ and shows that \emph{all} its prime factors lie outside the given list. Erd\"{o}s' proof shows that \emph{some} number (which we do not identify) must have \emph{at least one} prime factor outside the list. The proofs also give different bounds: Euclid's argument shows the $k$th prime is at most $2^{2^k}$, while Erd\"{o}s' gives the bound $4^k$.
+\end{remark}
+
+\begin{defi}[Coprime integers]
+  Two integers $a, b$ are \emph{coprime} if $(a, b) = 1$.
 \end{defi}
 
-\begin{cor}
-  If $p$ is a prime and $p\mid ab$, then $p\mid a$ or $p\mid b$. (True for all $p, a, b$)
+\begin{prop}
+  If $a\mid bc$ and $a$ is coprime to $b$, then $a \mid c$.
+\end{prop}
+
+\begin{proof}
+  By B\'{e}zout's identity, there exist $u, v\in \Z$ such that $ua + vb = 1$. Multiplying by $c$ gives $uac + vbc = c$. Since $a \mid uac$ and $a \mid vbc$ (as $a \mid bc$), we have $a \mid c$.
+\end{proof}
+
+\begin{cor}[Euclid's lemma]
+  If $p$ is prime and $p\mid ab$, then $p\mid a$ or $p\mid b$.
 \end{cor}
 
 \begin{proof}
-  We know that $(p, a) = p$ or $1$ because $p$ is a prime. If $(p, a) = p$, then $p \mid a$. Otherwise, $(p, a) = 1$ and $p \mid b$ by the theorem above.
+  Since $p$ is prime, $(p, a) = p$ or $(p, a) = 1$. In the first case, $p \mid a$. In the second, $p$ and $a$ are coprime, so $p \mid b$ by the preceding proposition.
 \end{proof}
 
 \begin{cor}
-  If $p$ is a prime and $p\mid n_1n_2\cdots n_i$, then $p \mid n_i$ for some $i$.
+  If $p$ is prime and $p\mid n_1 n_2 \cdots n_k$, then $p \mid n_j$ for some $j$.
 \end{cor}
-Note that when we defined primes, we defined it in terms of factors of $p$. This corollary is the opposite --- it is about how $p$ behaves as a factor of other numbers.
+
+\begin{remark}
+  The definition of primality concerns the factors \emph{of} $p$. The corollaries above give a complementary characterisation: they describe how $p$ behaves as a factor \emph{of other numbers}.
+\end{remark}
 
 \begin{thm}[Fundamental Theorem of Arithmetic]
-  Every natural number is expressible as a product of primes in exactly one way. In particular, if $p_1p_2\cdots p_k = q_1q_2\cdots q_l$, where $p_i, q_i$ are primes but not necessarily distinct, then $k = l$. $q_1, \cdots q_l$ are $p_1, \cdots p_k$ in some order.
+  Every natural number $n \geq 2$ can be expressed as a product of primes in exactly one way. More precisely, if $p_1 p_2 \cdots p_k = q_1 q_2 \cdots q_l$, where the $p_i$ and $q_j$ are primes (not necessarily distinct), then $k = l$ and, after reordering, $q_j = p_j$ for all $j$.
 \end{thm}
 
 \begin{proof}
-  Since we already showed that there is at least one way above, we only need to show uniqueness.
-
-  Let $p_1\cdots p_k = q_1\cdots q_l$. We know that $p_1 \mid q_1\cdots q_l$. Then $p_1 \mid q_1(q_2q_3\cdots q_l)$. Thus $p_1 \mid q_i$ for some $i$. wlog assume $i = 1$. Then $p_1 = q_1$ since both are primes. Thus $p_2p_3 \cdots p_k = q_2q_3\cdots q_l$. Likewise, we have $p_2 = q_2, \cdots$ and so on.
+  Existence was shown above. For uniqueness, suppose $p_1 \cdots p_k = q_1 \cdots q_l$. Since $p_1 \mid q_1 \cdots q_l$, Euclid's lemma gives $p_1 \mid q_j$ for some $j$. Since $q_j$ is prime, $p_1 = q_j$. Reordering, we may assume $p_1 = q_1$. Cancelling gives $p_2 \cdots p_k = q_2 \cdots q_l$. Repeating this argument (formally, by strong induction) yields $k = l$ and $p_j = q_j$ for all $j$.
 \end{proof}
 
 \begin{cor}
-  If $a = p_1^{i_1}p_2^{i_2}\cdots p_r^{i_r}$ and $b = p_1^{j_1}p_2^{j_2}\cdots p_r^{j_r}$, where $p_i$ are distinct primes (exponents can be zero). Then $(a, b)=\prod p_k^{\min\{i_k, j_k\}}$. Likewise, $\lcm(a, b) = \prod p_k^{\max\{i_k, j_k\}}$. We have $\hcf(a, b)\times\lcm(a, b) = ab$.
+  Let $p_1, \ldots, p_r$ be distinct primes and write $a = p_1^{i_1} p_2^{i_2} \cdots p_r^{i_r}$ and $b = p_1^{j_1} p_2^{j_2} \cdots p_r^{j_r}$, where the exponents are non-negative integers. Then
+  \[
+    (a, b) = \prod_{k=1}^{r} p_k^{\min\{i_k, j_k\}}, \qquad \lcm(a, b) = \prod_{k=1}^{r} p_k^{\max\{i_k, j_k\}}.
+  \]
+  In particular, $\hcf(a, b) \cdot \lcm(a, b) = ab$.
 \end{cor}
-However, this is not an efficient way to calculate $(a, b)$, since prime factorization is very hard.
 
-Note that this is a property peculiar to natural numbers. There are ``arithmetical systems'' (permitting addition, multiplication and subtraction) where factorization is not unique, e.g.\ even numbers.
+\begin{remark}
+  While this gives a clean formula, it is not an efficient method for computing $(a, b)$ in practice, since prime factorisation is computationally hard. Euclid's algorithm is far more efficient.
+\end{remark}
+
+\begin{remark}
+  Unique factorisation is a special property of $\Z$. There exist other algebraic systems admitting addition, multiplication and subtraction where factorisation is not unique.
+\end{remark}
 
 \begin{eg}
-  The following systems have no prime unique factorization
+  The following systems do not have unique prime factorisation.
   \begin{enumerate}
-    \item Even numbers. ``Primes'' are twice of odd numbers. So 6 is a prime (NOT divisible by 2!) while 8 is not. We have $60 = 2\times 30 = 6\times 10$, where $2, 6, 10, 30$ are primes. However, this example is not ``proper'' since there is no identity element. (i.e.\ not a ring)
-    \item Consider $\Z[\sqrt{-5}] = \{a + b\sqrt{-5} : a, b\in \Z\}$. We have $6 = 2\times 3 = (1 - \sqrt{-5})(1 + \sqrt{-5})$. It can be shown that these are primes (see IB Groups, Rings and Modules).
+    \item \emph{Even numbers.} In this system, the ``primes'' are the numbers $2p$ for odd primes $p$, together with $2$ itself. For instance, $6$ is prime (it is not divisible by $2$ in this system!) while $8 = 2 \times 4$ is not. We have $60 = 2\times 30 = 6\times 10$, where $2, 6, 10, 30$ are all prime. However, this system lacks a multiplicative identity, so it is not a ring.
+    \item \emph{The ring $\Z[\sqrt{-5}] = \{a + b\sqrt{-5} : a, b\in \Z\}$.} We have $6 = 2\times 3 = (1 - \sqrt{-5})(1 + \sqrt{-5})$, and it can be shown that all four factors are prime (see IB Groups, Rings and Modules).
   \end{enumerate}
 \end{eg}
-Exercise: Where does the proof of the Fundamental Theorem of Arithmetic fail in these examples?
+
+\begin{exercise}
+  Where does the proof of the Fundamental Theorem of Arithmetic fail in these examples?
+\end{exercise}
 
 \section{Counting and integers}
 This chapter exists because experience shows that mathematicians do not know how to count.
