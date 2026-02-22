@@ -458,14 +458,14 @@ In this chapter, we will look at the basic building blocks of mathematics, namel
 
 \subsection{Relations}
 \begin{defi}[Relation]
-  A \emph{relation} $R$ on $A$ specifies that some elements of $A$ are related to some others. Formally, a relation is a subset $R\subseteq A\times A$. We write $aRb$ iff $(a, b)\in R$.
+  Let $A$ be a set. A \emph{relation} $R$ on $A$ is a subset $R\subseteq A\times A$. We write $aRb$ if and only if $(a, b)\in R$.
 \end{defi}
 
 \begin{eg}
-  The following are examples of relations on natural numbers:
+  The following are relations on the natural numbers:
   \begin{enumerate}
-    \item $aRb$ iff $a$ and $b$ have the same final digit. e.g.\ $(37)R(57)$.
-    \item $aRb$ iff $a$ divides $b$. e.g.\ $2R6$ and $2\not \!\!R 7$.
+    \item $aRb$ iff $a$ and $b$ have the same final digit, e.g.\ $37R57$.
+    \item $aRb$ iff $a$ divides $b$, e.g.\ $2R6$ and $2\not \!\!R 7$.
     \item $aRb$ iff $a\not= b$.
     \item $aRb$ iff $a = b = 1$.
     \item $aRb$ iff $|a - b|\leq 3$.
@@ -473,34 +473,33 @@ In this chapter, we will look at the basic building blocks of mathematics, namel
   \end{enumerate}
 \end{eg}
 
-Again, we wish to classify different relations.
 \begin{defi}[Reflexive relation]
-  A relation $R$ is \emph{reflexive} if
+  A relation $R$ on $A$ is \emph{reflexive} if
   \[
-    (\forall a)\,aRa.
+    (\forall a \in A)\;aRa.
   \]
 \end{defi}
 
 \begin{defi}[Symmetric relation]
-  A relation $R$ is \emph{symmetric} iff
+  A relation $R$ on $A$ is \emph{symmetric} if
   \[
-    (\forall a, b)\,aRb\Leftrightarrow bRa.
+    (\forall a, b \in A)\;aRb \Rightarrow bRa.
   \]
 \end{defi}
 
 \begin{defi}[Transitive relation]
-  A relation $R$ is \emph{transitive} iff
+  A relation $R$ on $A$ is \emph{transitive} if
   \[
-    (\forall a, b, c)\,aRb\wedge bRc \Rightarrow aRc.
+    (\forall a, b, c \in A)\;aRb\wedge bRc \Rightarrow aRc.
   \]
 \end{defi}
 
 \begin{eg}
-  With regards to the examples above,
+  We can classify the examples above as follows.
   \begin{center}
     \begin{tabular}{lcccccc}
       \toprule
-      Examples & (i) & (ii) & (iii) & (iv) & (v) & (vi) \\
+      & (i) & (ii) & (iii) & (iv) & (v) & (vi) \\
       \midrule
       Reflexive & \checkmark & \checkmark & $\times$ & $\times$ & \checkmark & \checkmark \\
       Symmetric & \checkmark & $\times$ & \checkmark & \checkmark & \checkmark & \checkmark \\
@@ -511,41 +510,60 @@ Again, we wish to classify different relations.
 \end{eg}
 
 \begin{defi}[Equivalence relation]
-  A relation is an \emph{equivalence relation} if it is reflexive, symmetric and transitive. e.g.\ (i) and (vi) in the above examples are equivalence relations.
+  A relation on $A$ is an \emph{equivalence relation} if it is reflexive, symmetric and transitive.
 \end{defi}
-If it is an equivalence relation, we usually write $\sim$ instead of $R$. As the name suggests, equivalence relations are used to describe relations that are similar to equality. For example, if we want to represent rational numbers as a pair of integers, we might have an equivalence relation defined by $(n, m)\sim (p, q)$ iff $nq = mp$, such that two pairs are equivalent if they represent the same rational number.
 
 \begin{eg}
-  If we consider a deck of cards, define two cards to be related if they have the same suite.
+  In the examples above, (i) and (vi) are equivalence relations.
 \end{eg}
 
-As mentioned, we like to think of things related by $\sim$ as equal. Hence we want to identify all ``equal'' things together and form one new object.
+\begin{remark}
+  If $\sim$ is an equivalence relation, we think of $a \sim b$ as saying that $a$ and $b$ are ``essentially the same''. For instance, on $\Z \times (\Z \setminus \{0\})$, we can define $(n, m) \sim (p, q)$ iff $nq = mp$. Two pairs are equivalent precisely when they represent the same rational number.
+\end{remark}
+
+\begin{eg}
+  Consider a deck of cards. Define a relation $\sim$ by declaring two cards equivalent if they have the same suit. This is an equivalence relation.
+\end{eg}
+
 \begin{defi}[Equivalence class]
-  If $\sim$ is an equivalence relation, then the \emph{equivalence class} $[x]$ is the set of all elements that are related via $\sim$ to $x$.
+  Let $\sim$ be an equivalence relation on $A$. The \emph{equivalence class} of $x \in A$ is the set
+  \[
+    [x] = \{a \in A : a \sim x\}.
+  \]
 \end{defi}
 
 \begin{eg}
   In the cards example, $[8\heartsuit]$ is the set of all hearts.
 \end{eg}
 
-\begin{defi}[Partition of set]
-  A \emph{partition} of a set $X$ is a collection of subsets $A_\alpha$ of $X$ such that each element of $X$ is in exactly one of $A_\alpha$.
+\begin{defi}[Partition]
+  A \emph{partition} of a set $A$ is a collection of non-empty subsets $(A_i)_{i \in I}$ of $A$ such that every element of $A$ belongs to exactly one $A_i$. Equivalently, the sets $A_i$ are pairwise disjoint and $\bigcup_{i \in I} A_i = A$.
 \end{defi}
 
-\begin{thm}
-  If $\sim$ is an equivalence relation on $A$, then the equivalence classes of $\sim$ form a partition of $A$.
-\end{thm}
+\begin{prop}
+  Let $\sim$ be an equivalence relation on $A$. Then the equivalence classes of $\sim$ form a partition of $A$.
+\end{prop}
 
 \begin{proof}
-  By reflexivity, we have $a\in [a]$. Thus the equivalence classes cover the whole set. We must now show that for all $a, b\in A$, either $[a] = [b]$ or $[a]\cap [b]=\emptyset$.
+  Each equivalence class is non-empty: by reflexivity, $a \in [a]$ for every $a \in A$. Moreover, every element of $A$ belongs to at least one equivalence class. It remains to show that any two equivalence classes are either equal or disjoint.
 
-  Suppose $[a]\cap[b]\not=\emptyset$. Then $\exists c\in [a]\cap[b]$. So $a\sim c, b\sim c$. By symmetry, $c\sim b$. By transitivity, we have $a\sim b$. For all $b'\in [b]$, we have $b\sim b'$. Thus by transitivity, we have $a\sim b'$. Thus $[b]\subseteq[a]$. By symmetry, $[a]\subseteq[b]$ and $[a] = [b]$.
+  Suppose $[a]\cap[b]\not=\emptyset$, so there exists $c \in [a]\cap[b]$. Then $a\sim c$ and $b\sim c$. By symmetry, $c\sim b$, and by transitivity, $a\sim b$. Now for any $b'\in [b]$, we have $b\sim b'$, so by transitivity $a\sim b'$, giving $b' \in [a]$. Hence $[b]\subseteq[a]$. By a symmetric argument, $[a]\subseteq[b]$, so $[a] = [b]$.
 \end{proof}
 
-On the other hand, each partition defines an equivalence relation in which two elements are related iff they are in the same partition. Thus partitions and equivalence relations are ``the same thing''.
+\begin{prop}
+  Conversely, every partition of $A$ determines an equivalence relation on $A$, by declaring $a \sim b$ if and only if $a$ and $b$ belong to the same part.
+\end{prop}
+\begin{proof}
+  Reflexivity, symmetry and transitivity follow immediately from the definition.
+\end{proof}
+
 \begin{defi}[Quotient map]
-  The \emph{quotient map} $q$ maps each element in $A$ to the equivalence class containing $a$, i.e.\ $a\mapsto [a]$. e.g.\ $q(8\heartsuit) = \{\heartsuit\}$.
+  Let $\sim$ be an equivalence relation on $A$. The \emph{quotient map} is the function $q: A \to A/{\sim}$ defined by $q(a) = [a]$, where $A/{\sim} = \{[a] : a \in A\}$ denotes the set of equivalence classes.
 \end{defi}
+
+\begin{eg}
+  In the cards example, $q(8\heartsuit) = \{\text{all hearts}\}$.
+\end{eg}
 
 \section{Division}
 If you think you already know how to divide, well perhaps you are right. However, in this chapter, we will define these notions formally and properly prove things we already know (plus maybe some new things).
