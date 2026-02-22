@@ -207,82 +207,126 @@ Quantifiers are negated as follows:
 In this chapter, we will look at the basic building blocks of mathematics, namely sets, functions and relations. Most of mathematics can be expressed in terms of these notions, and it is helpful to be familiar with the relevant terms.
 \subsection{Sets}
 \begin{defi}[Set]
-  A \emph{set} is a collection of stuff, without regards to order. Elements in a set are only counted once. For example, if $a = 2, b = c = 1$, then $A = \{a, b, c\}$ has only two members. We write $x\in X$ if $x$ is a member of the set $X$.
+  A \emph{set} is a collection of objects, called its \emph{elements} or \emph{members}, without regard to order and without repetition. We write $x \in X$ to mean that $x$ is an element of the set $X$, and $x \notin X$ to mean that it is not.
 \end{defi}
 
 \begin{eg}
-  Common sets and the symbols used to denote them:
-  \begin{itemize}
-    \item $\N = \{1, 2, 3, \cdots \}$ is the natural numbers
-    \item $\N_0 = \{0, 1, 2, \cdots \}$ is the natural numbers with $0$
-    \item $\Z = \{\cdots, -2, -1, 0, 1, 2, \cdots \}$ is the integers
-    \item $\Q = \{\frac{a}{b}: a, b\in \Z, b \not= 0\}$ is the rational numbers
-    \item $\R$ is the real numbers
-    \item $\C$ is the complex numbers
-  \end{itemize}
-  It is still debated whether $0$ is a natural number. Those who believe that $0$ is a natural number usually write $\N$ for $\{0, 1, 2, \cdots\}$, and $\N^+$ for the positive natural numbers. However, most of the time, it doesn't matter, and when it does, you should specify it explicitly.
+  If $a = 2$, $b = 1$ and $c = 1$, then the set $\{a, b, c\} = \{1, 2\}$ has only two elements, since $b = c$ and elements are not repeated.
 \end{eg}
-\begin{defi}[Equality of sets]
-  $A$ is equal to $B$, written as $A = B$, if
-  \[
-    (\forall x)\,x\in A \Leftrightarrow x\in B,
-  \]
-  i.e.\ two sets are equal if they have the same elements.
-\end{defi}
-
-\begin{defi}[Subsets]
-  $A$ is a \emph{subset} of $B$, written as $A\subseteq B$ or $A\subset B$, if all elements in $A$ are in $B$. i.e.
-  \[
-    (\forall x)\,x\in A\Rightarrow x\in B.
-  \]
-\end{defi}
-
-\begin{thm}
-  $(A=B)\Leftrightarrow (A\subseteq B \text{ and }B\subseteq A)$
-\end{thm}
-
-Suppose $X$ is a set and $P$ is the property of some elements in $x$, we can write a set $\{x\in X:P(x)\}$ for the subset of $x$ comprising of the elements for which $P(x)$ is true. e.g.\ $\{n\in \N : n \text{ is prime}\}$ is the set of all primes.
-
-\begin{defi}[Intersection, union, set difference, symmetric difference and power set]
-  Given two sets $A$ and $B$, we define the following:
-  \begin{itemize}
-    \item Intersection: $A\cap B = \{x:x\in A \text{ and } x\in B\}$
-    \item Union: $A\cup B = \{x:x\in A\text{ or }x\in B\}$
-    \item Set difference: $A\setminus B = \{x\in A: x\not\in B\}$
-    \item Symmetric difference: $A\Delta B = \{x: x\in A\text{ xor } x\in B\}$, i.e.\ the elements in exactly one of the two sets
-    \item Power set: $\mathcal{P}(A) = \{ X : X\subseteq A\}$, i.e.\ the set of all subsets
-  \end{itemize}
-\end{defi}
-
-New sets can only be created via the above operations on old sets (plus replacement, which says that you can replace an element of a set with another element). One cannot arbitrarily create sets such as $X=\{x:x\text{ is a set and }x\not\in x\}$. Otherwise paradoxes will arise.
-
-We have several rules regarding how these set operations behave, which should be intuitively obvious.
-\begin{prop}\leavevmode
-  \begin{itemize}
-    \item $(A\cap B)\cap C = A \cap (B\cap C)$
-    \item $(A\cup B)\cup C = A\cup (B\cup C)$
-    \item $A\cap(B\cup C) = (A\cap B)\cup (A\cap C)$
-  \end{itemize}
-\end{prop}
 
 \begin{notation}
-  If $A_\alpha$ are sets for all $\alpha \in I$, then
+  The following are standard symbols for commonly used number sets:
+  \begin{itemize}
+    \item $\N = \{1, 2, 3, \cdots \}$, the natural numbers
+    \item $\N_0 = \{0, 1, 2, \cdots \}$, the natural numbers together with $0$
+    \item $\Z = \{\cdots, -2, -1, 0, 1, 2, \cdots \}$, the integers
+    \item $\Q = \left\{\dfrac{a}{b}: a, b\in \Z,\; b \not= 0\right\}$, the rational numbers
+    \item $\R$, the real numbers
+    \item $\C$, the complex numbers
+  \end{itemize}
+\end{notation}
+
+\begin{remark}
+  It is a matter of convention whether $0$ is considered a natural number. Those who include $0$ usually write $\N$ for $\{0, 1, 2, \cdots\}$ and $\N^+$ for the positive natural numbers. In this course, $\N = \{1, 2, 3, \cdots\}$.
+\end{remark}
+
+\begin{defi}[Equality of sets]
+  Two sets $A$ and $B$ are \emph{equal}, written $A = B$, if they have the same elements:
   \[
-    \bigcap_{\alpha\in I}A_\alpha = \{x: (\forall\alpha\in I) x\in A_\alpha\}
+    A = B \iff (\forall x)\;x\in A \Leftrightarrow x\in B.
+  \]
+\end{defi}
+
+\begin{defi}[Subset]
+  Let $A$ and $B$ be sets. We say $A$ is a \emph{subset} of $B$, written $A\subseteq B$, if every element of $A$ is also an element of $B$:
+  \[
+    A \subseteq B \iff (\forall x)\;x\in A\Rightarrow x\in B.
+  \]
+\end{defi}
+
+\begin{prop}
+  Let $A$ and $B$ be sets. Then $A=B$ if and only if $A\subseteq B$ and $B\subseteq A$.
+\end{prop}
+\begin{proof}
+  If $A = B$, then for every $x$, $x \in A \Leftrightarrow x \in B$. In particular, $x \in A \Rightarrow x \in B$, so $A \subseteq B$, and $x \in B \Rightarrow x \in A$, so $B \subseteq A$.
+
+  Conversely, if $A \subseteq B$ and $B \subseteq A$, then for every $x$, $x \in A \Rightarrow x \in B$ and $x \in B \Rightarrow x \in A$. Hence $x \in A \Leftrightarrow x \in B$, so $A = B$.
+\end{proof}
+
+\begin{notation}[Set-builder notation]
+  Let $X$ be a set and let $P$ be a property that elements of $X$ may or may not satisfy. We write
+  \[
+    \{x \in X : P(x)\}
+  \]
+  for the subset of $X$ consisting of those elements $x$ for which $P(x)$ is true.
+\end{notation}
+
+\begin{eg}
+  $\{n\in \N : n \text{ is prime}\} = \{2, 3, 5, 7, 11, \ldots\}$ is the set of all prime numbers.
+\end{eg}
+
+\begin{defi}[Intersection, union, set difference, symmetric difference and power set]
+  Let $A$ and $B$ be sets. We define:
+  \begin{itemize}
+    \item \emph{Intersection}: $A\cap B = \{x : x\in A \text{ and } x\in B\}$.
+    \item \emph{Union}: $A\cup B = \{x : x\in A\text{ or }x\in B\}$.
+    \item \emph{Set difference}: $A\setminus B = \{x\in A : x\not\in B\}$.
+    \item \emph{Symmetric difference}: $A\Delta B = (A \setminus B) \cup (B \setminus A)$, i.e.\ the set of elements belonging to exactly one of $A$ and $B$.
+    \item \emph{Power set}: $\mathcal{P}(A) = \{ X : X\subseteq A\}$, the set of all subsets of $A$.
+  \end{itemize}
+\end{defi}
+
+\begin{remark}[Russell's paradox]
+  One cannot form sets by unrestricted comprehension. For instance, the expression $\{x : x \text{ is a set and } x \notin x\}$ does not define a set, since its existence leads to a contradiction. New sets must be constructed from existing ones via operations such as union, intersection, power set, replacement, and set-builder notation applied to a given set.
+\end{remark}
+
+\begin{prop}[Associativity and distributivity]
+  Let $A$, $B$ and $C$ be sets. Then:
+  \begin{itemize}
+    \item $(A\cap B)\cap C = A \cap (B\cap C)$,
+    \item $(A\cup B)\cup C = A\cup (B\cup C)$,
+    \item $A\cap(B\cup C) = (A\cap B)\cup (A\cap C)$.
+  \end{itemize}
+\end{prop}
+\begin{proof}
+  Each identity is proved by showing that an arbitrary element belongs to the left-hand side if and only if it belongs to the right-hand side, using the definitions of $\cap$ and $\cup$.
+\end{proof}
+
+\begin{notation}[Arbitrary unions and intersections]
+  Let $I$ be a set (called an \emph{index set}) and suppose that for each $\alpha \in I$ we have a set $A_\alpha$. We define
+  \[
+    \bigcap_{\alpha\in I}A_\alpha = \{x: (\forall\alpha\in I)\; x\in A_\alpha\}
   \]
   and
   \[
-    \bigcup_{\alpha\in I}A_\alpha = \{x: (\exists\alpha\in I) x\in A_\alpha\}.
+    \bigcup_{\alpha\in I}A_\alpha = \{x: (\exists\alpha\in I)\; x\in A_\alpha\}.
   \]
 \end{notation}
 
 \begin{defi}[Ordered pair]
-  An \emph{ordered pair} $(a, b)$ is a pair of two items in which order matters. Formally, it is defined as $\{\{a\}, \{a, b\}\}$. We have $(a, b) = (a', b')$ iff $a = a'$ and $b = b'$.
+  An \emph{ordered pair} $(a, b)$ is a pair of two objects in which order matters. Formally, $(a, b)$ is defined as the set $\{\{a\}, \{a, b\}\}$.
 \end{defi}
 
+\begin{prop}
+  Let $a, a', b, b'$ be objects. Then $(a, b) = (a', b')$ if and only if $a = a'$ and $b = b'$.
+\end{prop}
+\begin{proof}
+  If $a = a'$ and $b = b'$, then clearly $\{\{a\},\{a,b\}\} = \{\{a'\},\{a',b'\}\}$.
+
+  Conversely, suppose $\{\{a\},\{a,b\}\} = \{\{a'\},\{a',b'\}\}$. Then $\{a\} \in \{\{a'\},\{a',b'\}\}$, so $\{a\} = \{a'\}$ or $\{a\} = \{a',b'\}$. In either case, $a = a'$. It then follows that $\{a,b\} = \{a,b'\}$, so $b = b'$.
+\end{proof}
+
 \begin{defi}[Cartesian product]
-  Given two sets $A, B$, the \emph{Cartesian product} of $A$ and $B$ is $A\times B = \{(a, b):a\in A, b\in B\}$. This can be extended to $n$ products, e.g.\ $\R^3 = \R\times\R\times\R = \{(x,y,z): x, y, z\in \R\}$ (which is officially $\{(x, (y, z)): x, y, z\in \R\}$).
+  Let $A$ and $B$ be sets. The \emph{Cartesian product} of $A$ and $B$ is
+  \[
+    A\times B = \{(a, b) : a\in A,\; b\in B\}.
+  \]
+  More generally, for sets $A_1, \ldots, A_n$, we define $A_1 \times \cdots \times A_n$ inductively by $A_1 \times \cdots \times A_n = (A_1 \times \cdots \times A_{n-1}) \times A_n$.
 \end{defi}
+
+\begin{eg}
+  $\R^3 = \R\times\R\times\R = \{(x,y,z): x, y, z\in \R\}$.
+\end{eg}
 
 \subsection{Functions}
 \begin{defi}[Function/map]
