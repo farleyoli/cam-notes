@@ -2331,20 +2331,32 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 
 \subsection{Symmetries of the tetrahedron}
 \subsubsection*{Rotations}
-Let $1, 2, 3, 4$ be the vertices (in any order). $G^+$ is just the rotations. Let it act on the vertices. Then $\orb(1) = \{1, 2, 3, 4\}$ and $\stab(1) = \{$ rotations in the axis through 1 and the center of the opposite face $\} = \{e, \frac{2\pi}{3}, \frac{4\pi}{3}\}$
+\begin{prop}[Tetrahedron rotation group]
+  $G^+ \cong A_4$, where $G^+$ is the group of rotational symmetries of the tetrahedron.
+\end{prop}
 
-So $|G^+| = 4\cdot 3 = 12$ by the orbit-stabilizer theorem.
+\begin{proof}
+  Label the vertices $1, 2, 3, 4$. The rotation group $G^+$ acts on the vertices. We have $\orb(1) = \{1, 2, 3, 4\}$ and $\stab(1)$ consists of the rotations about the axis through vertex $1$ and the centre of the opposite face, giving $|\stab(1)| = 3$. By the orbit-stabilizer theorem, $|G^+| = 4 \cdot 3 = 12$.
 
-The action gives a group homomorphism $\varphi: G^+ \to S_4$. Clearly $\ker \varphi = \{e\}$. So $G^+ \leq S_4$ and $G^+$ has size 12. We ``guess'' it is $A_4$ (actually it \emph{must} be $A_4$ since that is the only subgroup of $S_4$ of order 12, but it's nice to see why that's the case).
+  The action on vertices gives a group homomorphism $\varphi \colon G^+ \to S_4$. Since a rotation fixing all four vertices must be the identity, $\ker \varphi = \{e\}$, so $G^+$ embeds in $S_4$ as a subgroup of order $12$.
 
-If we rotate in an axis through 1, we get $(2\; 3\; 4), (2\; 4\; 3)$. Similarly, rotating through other axes through vertices gives all 3-cycles.
+  To identify which subgroup, note that rotation about the axis through vertex $1$ gives the $3$-cycles $(2\; 3\; 4)$ and $(2\; 4\; 3)$. Similarly, axes through other vertices yield all $3$-cycles. Rotation by $\pi$ about the axis through the midpoints of edges $1$--$2$ and $3$--$4$ gives the double transposition $(1\; 2)(3\; 4)$, and similarly we obtain all double transpositions. These are precisely the even permutations, so $G^+ \cong A_4$.
+\end{proof}
 
-If we rotate through an axis that passes through two opposite edges, e.g.\ through 1-2 edge and 3-4 edge, then we have $(1\; 2)(3\; 4)$ and similarly we obtain all double transpositions. So $G^+ \cong A_4$. This shows that there is no \emph{rotation} that fixes two vertices and swaps the other two.
+\begin{remark}
+  In particular, there is no rotation of the tetrahedron that fixes two vertices and swaps the other two, since transpositions are odd.
+\end{remark}
 
 \subsubsection*{All symmetries}
-Now consider the plane that goes through 1, 2 and the mid-point of 3 and 4. Reflection through this plane swaps 3 and 4, but doesn't change $1, 2$. So now $\stab(1) = \bra (2\; 3\; 4), (3, 4)\ket \cong D_6$ (alternatively, if we want to fix 1, we just move 2, 3, 4 around which is the symmetries of the triangular base)
+\begin{prop}[Tetrahedron full symmetry group]
+  $G \cong S_4$, where $G$ is the group of all symmetries of the tetrahedron.
+\end{prop}
 
-So $|G| = 4\cdot 6 = 24$ and $G\cong S_4$ (which makes sense since we can move any of its vertices around in any way and still be a tetrahedron, so we have all permutations of vertices as the symmetry group)
+\begin{proof}
+  The plane through vertices $1$, $2$ and the midpoint of edge $3$--$4$ is a plane of reflective symmetry. Reflection in this plane gives the transposition $(3\; 4)$. Now $\stab(1)$ contains both $(2\; 3\; 4)$ (from a rotation) and $(3\; 4)$ (from this reflection), so $\stab(1) = \langle (2\; 3\; 4), (3\; 4) \rangle \cong S_3$. By the orbit-stabilizer theorem, $|G| = 4 \cdot 6 = 24$.
+
+  The action on the four vertices gives an injective homomorphism $G \hookrightarrow S_4$, and since $|G| = 24 = |S_4|$, it is an isomorphism. This reflects the fact that every permutation of the vertices extends to a symmetry of the tetrahedron.
+\end{proof}
 
 \section{M\texorpdfstring{\"o}{o}bius group}
 \subsection{M\texorpdfstring{\"o}{o}bius maps}
