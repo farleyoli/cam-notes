@@ -1483,89 +1483,109 @@ We can now give a proof of the inclusion-exclusion principle by induction.
 \end{remark}
 
 \subsection{Prime moduli}
-Modular arithmetic has some nice properties when the modulus is a prime number.
 \begin{thm}[Wilson's theorem]
-  $(p - 1)! \equiv -1\pmod p$ if $p$ is a prime.
+  Let $p$ be a prime. Then $(p - 1)! \equiv -1\pmod p$.
 \end{thm}
 
 \begin{proof}
-  If $p$ is a prime, then $1, 2, \cdots, p - 1$ are units. Among these, we can pair each number up with its inverse (e.g.\ 3 with 4 in modulo 11). The only elements that cannot be paired with a different number are $1$ and $-1$, who are self-inverses, as show below:
-  \begin{align*}
-    &\;x^2 \equiv 1\pmod p\\
-    \Leftrightarrow&\; p \mid (x^2 - 1)\\
-    \Leftrightarrow&\; p \mid (x - 1)(x + 1)\\
-    \Leftrightarrow&\; p \mid x - 1 \text{ or } p \mid x + 1\\
-    \Leftrightarrow&\; x \equiv \pm 1\pmod p
-  \end{align*}
-  Now $(p - 1)!$ is a product of $(p - 3)/2$ inverse pairs together with 1 and $-1$. So the product is $-1$.
+  Since $p$ is prime, the elements $1, 2, \ldots, p - 1$ are all units modulo $p$. We first determine which elements are their own inverses: $x^2 \equiv 1 \pmod p$ if and only if $p \mid (x-1)(x+1)$, i.e.\ $x \equiv \pm 1 \pmod p$.
+
+  So among $1, 2, \ldots, p-1$, only $1$ and $p - 1 \equiv -1$ are self-inverse. The remaining $p - 3$ elements pair off into $(p - 3)/2$ inverse pairs, each contributing $1$ to the product. Hence $(p - 1)! \equiv 1 \cdot (-1) = -1 \pmod p$.
 \end{proof}
 
 \begin{thm}[Fermat's little theorem]
-  Let $p$ be a prime. Then $a^p \equiv a\pmod p$ for all $a\in \Z$. Equivalently, $a^{p - 1}\equiv 1\pmod p$ if $a\not\equiv 0 \pmod p$.
+  Let $p$ be a prime. Then $a^p \equiv a\pmod p$ for all $a\in \Z$. Equivalently, $a^{p - 1}\equiv 1\pmod p$ for all $a\not\equiv 0 \pmod p$.
 \end{thm}
 
 \begin{proof}
-  Two proofs are offered:
-  \begin{enumerate}
-    \item The numbers $\{1, 2, \cdots p - 1\}$ are units modulo $p$ and form a group of order $p - 1$. So $a^{p - 1} \equiv 1$ by Lagrange's theorem.
-    \item If $a\not\equiv 0$, then $a$ is a unit. So $ax \equiv ay$ iff $x\equiv y$. Then $a, 2a, 3a, \cdots (p - 1)a$ are distinct mod $p$. So they are congruent to $1, 2, \cdots p -1$ in some order. Hence $a\cdot 2a\cdots 3a\cdots (p - 1)a\equiv 1\cdot 2\cdot 3 \cdots (p - 1)$. So $a^{p - 1}(p - 1)! \equiv (p - 1)!$. So $a^{p - 1} \equiv 1\pmod p$.\qedhere
-  \end{enumerate}
-\end{proof}
-Neither Wilson nor Fermat's theorem hold if the modulus is non-prime. However, Fermat's theorem can be generalized:
-\begin{thm}[Fermat-Euler Theorem]
-  Let $a, m$ be coprime. Then
+  We give two proofs of the second form.
+
+  \emph{First proof.} The elements $\{1, 2, \ldots, p - 1\}$ form a multiplicative group of order $p - 1$ modulo $p$. So $a^{p - 1} \equiv 1$ by Lagrange's theorem.
+
+  \emph{Second proof.} If $a\not\equiv 0\pmod p$, then $a$ is a unit, so $ax \equiv ay \pmod p$ implies $x\equiv y\pmod p$. Hence $a, 2a, 3a, \ldots, (p - 1)a$ are distinct modulo $p$, and therefore form a permutation of $1, 2, \ldots, p -1$. Multiplying:
   \[
-    a^{\phi(m)} \equiv 1\pmod m.
+    a \cdot 2a \cdot 3a \cdots (p - 1)a \equiv 1 \cdot 2 \cdot 3 \cdots (p - 1) \pmod p.
   \]
+  Hence $a^{p - 1}(p - 1)! \equiv (p - 1)! \pmod p$, and since $(p-1)!$ is a unit, $a^{p - 1} \equiv 1$.
+\end{proof}
+
+\begin{remark}
+  Neither Wilson's nor Fermat's theorem holds when the modulus is not prime. However, Fermat's theorem admits the following generalisation.
+\end{remark}
+
+\begin{thm}[Fermat--Euler theorem]
+  Let $a, m \in \N$ with $(a, m) = 1$. Then $a^{\phi(m)} \equiv 1\pmod m$.
 \end{thm}
 
 \begin{proof}
-  Lagrange's theorem: The units mod $m$ form a group of size $\phi(m)$.
-
-  Alternatively, let $U = \{x\in \N: 0 < x < m, (x, m) = 1\}$. These are the $\phi(m)$ units. Since $a$ is a unit, $ax\equiv ay \pmod m$ only if $x\equiv y\pmod m$. So if $U = \{u_1, u_2, \cdots , u_{\phi(m)}\}$, then $\{au_1, au_2, \cdots au_{\phi(m)}\}$ are distinct and are units. So they must be $u_1, \cdots u_{\phi(m)}$ in some order. Then $au_1au_2\cdots au_{\phi(m)} \equiv u_1u_2\cdots u_{\phi(m)}$. So $a^{\phi(m)}z \equiv z$, where $z = u_1u_2\cdots u_{\phi(m)}$. Since $z$ is a unit, we can multiply by its inverse and obtain $a^{\phi(m)} \equiv 1$.
+  Let $U = \{u_1, u_2, \ldots, u_{\phi(m)}\}$ be the set of units modulo $m$. Since $a$ is a unit, multiplication by $a$ permutes $U$: the elements $au_1, au_2, \ldots, au_{\phi(m)}$ are distinct units, hence equal to $u_1, \ldots, u_{\phi(m)}$ in some order. Multiplying:
+  \[
+    a^{\phi(m)} \cdot u_1 u_2 \cdots u_{\phi(m)} \equiv u_1 u_2 \cdots u_{\phi(m)} \pmod m.
+  \]
+  Since the product $z = u_1 u_2 \cdots u_{\phi(m)}$ is a unit, we may cancel to obtain $a^{\phi(m)} \equiv 1$.
 \end{proof}
 
-\begin{defi}[Quadratic residues]
-  The \emph{quadratic residues} are the ``squares'' mod $p$, i.e.\ $1^2, 2^2, \cdots, (p - 1)^2$.
+\begin{defi}[Quadratic residue]
+  Let $p$ be an odd prime. An integer $a \not\equiv 0 \pmod p$ is a \emph{quadratic residue} modulo $p$ if $a \equiv x^2 \pmod p$ for some $x$. Otherwise, $a$ is a \emph{quadratic non-residue}.
 \end{defi}
 
-Note that if $a^2 \equiv b^2\pmod p$, then $p \mid a^2 - b^2 = (a - b)(a + b)$. Then $p \mid a - b$ or $p \mid a + b$. So $a\equiv \pm b\pmod p$. Thus every square is a square of exactly two numbers.
+\begin{remark}
+  If $a^2 \equiv b^2\pmod p$, then $p \mid (a - b)(a + b)$, so $a\equiv \pm b\pmod p$. Thus each quadratic residue is the square of exactly two elements of $\{1, 2, \ldots, p-1\}$, and there are exactly $(p-1)/2$ quadratic residues modulo $p$.
+\end{remark}
 
 \begin{eg}
-  If $p = 7$, then $1^2 \equiv 6^2 \equiv 1$, $2^2 \equiv 5^2 \equiv 4$, $3^2 \equiv 4^2 \equiv 2$. So $1, 2, 4$ are quadratic residues. $3, 5, 6$ are not.
+  For $p = 7$: $1^2 \equiv 6^2 \equiv 1$, $2^2 \equiv 5^2 \equiv 4$, $3^2 \equiv 4^2 \equiv 2$. So $1, 2, 4$ are quadratic residues and $3, 5, 6$ are not.
 \end{eg}
 
 \begin{prop}
-  If $p$ is an odd prime, then $-1$ is a quadratic residue if and only if $p\equiv 1\pmod 4$.
+  Let $p$ be an odd prime. Then $-1$ is a quadratic residue modulo $p$ if and only if $p\equiv 1\pmod 4$.
 \end{prop}
 
 \begin{proof}
-  If $p \equiv 1 \pmod 4$, say $p = 4k + 1$, then by Wilson's theorem, $-1 \equiv (p - 1)!\equiv 1\cdot 2\cdots \left(\frac{p - 1}{2}\right)\left(-\frac{p - 1}{2}\right)\cdots (-2)(-1)\equiv (-1)^{\frac{p - 1}{2}}\left(\frac{p - 1}{2}\right)!^2 = (-1)^{2k}(2k!)^2 \equiv (2k!)^2$. So $-1$ is a quadratic residue.
+  Suppose $p \equiv 1 \pmod 4$, say $p = 4k + 1$. By Wilson's theorem:
+  \begin{align*}
+    -1 &\equiv (p - 1)! = 1 \cdot 2 \cdots (2k) \cdot (2k+1) \cdots (4k) \pmod p.
+  \end{align*}
+  Now $4k \equiv -1$, $4k - 1 \equiv -2$, \ldots, $2k + 1 \equiv -2k$, so
+  \[
+    -1 \equiv (2k)! \cdot (-1)^{2k} (2k)! = ((2k)!)^2 \pmod p.
+  \]
+  Hence $-1$ is a quadratic residue.
 
-  When $p \equiv -1\pmod 4$, i.e.\ $p = 4k + 3$, suppose $-1$ is a square, i.e.\ $-1 \equiv z^2$. Then by Fermat's little theorem, $1\equiv z^{p - 1} \equiv z^{4k+ 2}\equiv (z^2)^{2k + 1} \equiv (-1)^{2k + 1}\equiv -1$. Contradiction.
+  Conversely, suppose $p = 4k + 3$ and $-1 \equiv z^2 \pmod p$ for some $z$. By Fermat's little theorem:
+  \[
+    1 \equiv z^{p - 1} = (z^2)^{2k + 1} \equiv (-1)^{2k + 1} = -1 \pmod p,
+  \]
+  giving $p \mid 2$, which is impossible for an odd prime.
 \end{proof}
-\begin{prop}
-  (Unproven) A prime $p$ is the sum of two squares if and only if $p\equiv 1\pmod 4$.
+
+\begin{prop}[stated without proof]
+  A prime $p$ is the sum of two squares if and only if $p = 2$ or $p\equiv 1\pmod 4$.
 \end{prop}
 
 \begin{prop}
-  There are infinitely many primes $\equiv 1\pmod 4$.
+  There are infinitely many primes $p \equiv 1\pmod 4$.
 \end{prop}
 
 \begin{proof}
-  Suppose not, and $p_1, \cdots p_k$ are all the primes $\equiv 1\pmod 4$. Let $N = (2p_1\cdots p_k)^2 + 1$. Then $N$ is not divisible by $2$ or $p_1,\cdots, p_k$. Let $q$ be a prime $q \mid N$. Then $q \equiv -1\pmod 4$. Then $N \equiv 0\pmod q$ and hence $(2p_1\cdots p_k)^2 + 1\equiv 0\pmod q$, i.e.\ $(2p_1\cdots p_k)^2 \equiv -1\pmod q$. So $-1$ is a quadratic residue mod $q$, which is a contradiction since $q \equiv -1\pmod 4$.
+  Suppose not, and let $p_1, \ldots, p_k$ be all such primes. Let $N = (2p_1 \cdots p_k)^2 + 1$. Then $N$ is odd and not divisible by any $p_i$. Let $q$ be a prime factor of $N$. Then $q \not\equiv 1 \pmod 4$, so $q \equiv -1 \pmod 4$ (since $q$ is odd). But $(2p_1 \cdots p_k)^2 \equiv -1\pmod q$, so $-1$ is a quadratic residue modulo $q$, contradicting $q \equiv -1 \pmod 4$.
 \end{proof}
 
 \begin{prop}
-  Let $p = 4k + 3$ be a prime. Then if $a$ is a quadratic residue, i.e.\ $a \equiv z^2 \pmod p$ for some $z$, then $z = \pm a^{k + 1}$.
+  Let $p = 4k + 3$ be a prime and let $a$ be a quadratic residue modulo $p$. Then $a \equiv (\pm a^{k + 1})^2 \pmod p$.
 \end{prop}
 
 \begin{proof}
-  By Fermat's little theorem, $a^{2k + 1} \equiv z^{4k + 2} \equiv z^{p - 1} \equiv 1$. If we multiply by $a$, then $a^{2k + 2} \equiv a \pmod p$. So $(\pm a^{k + 1})^2 \equiv a \pmod p$.
+  Write $a \equiv z^2 \pmod p$. By Fermat's little theorem, $a^{2k + 1} \equiv z^{4k + 2} = z^{p - 1} \equiv 1$. Multiplying by $a$ gives $a^{2(k+1)} \equiv a \pmod p$, i.e.\ $(\pm a^{k + 1})^2 \equiv a \pmod p$.
 \end{proof}
-This allows us to take square roots efficiently. This efficiency requires an effective way of computing powers of $a$ efficiently. This can be done by repeated squaring. For example, to find $a^{37}$, we can calculate this by $a^{37} = a^{32}a^4a^1 = ((((a^2)^2)^2)^2)^2 \cdot (a^2)^2\cdot a$. Thus calculation of $a^n$ has time complexity $O(\log n)$, as opposed to $O(n)$ if you take powers manually.
 
-Suppose $a$ is a square mod $n$, where $n = pq$ and $p, q$ are distinct primes. Then $a$ is a square mod $p$ and a square mod $q$. So there exists some $s$ with $(\pm s)^2 \equiv a\pmod p$ and some $t$ with $(\pm t)^2\equiv a\pmod q$. By the Chinese remainder theorem, we can find a unique solution of each case, so we get 4 square roots of $a$ modulo $n$.
+\begin{remark}[Efficient computation]
+  The preceding proposition allows us to compute square roots modulo $p \equiv 3 \pmod 4$ efficiently, provided we can compute large powers efficiently. This is achieved by \emph{repeated squaring}: to compute $a^n$, write $n$ in binary and square-and-multiply. For example, $a^{37} = a^{32} \cdot a^{4} \cdot a$. This gives time complexity $O(\log n)$.
+\end{remark}
+
+\begin{remark}
+  If $n = pq$ is a product of two distinct primes, and $a$ is a quadratic residue modulo $n$, then $a$ is a square modulo both $p$ and $q$. There are two square roots modulo $p$ (say $\pm s$) and two modulo $q$ (say $\pm t$). By the Chinese remainder theorem, these give $4$ distinct square roots of $a$ modulo $n$.
+\end{remark}
 
 \subsection{Public-key (asymmetric) cryptography}
 \subsubsection*{Tossing a coin over a phone}
