@@ -2222,42 +2222,38 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 \end{remark}
 
 \subsection{Unitary groups}
-The concept of orthogonal matrices only make sense if we are talking about real matrices. If we are talking about complex, then instead we need \emph{unitary matrices}. To do so, we replace the transposition with the \emph{Hermitian conjugate}. It is defined by $A^\dagger = (A^*)^T$ with $(A^\dagger)_{ij} = A_{ji}^*$, where the asterisk is the complex conjugate. We still have
-\begin{enumerate}
-  \item $(AB)^\dagger = B^\dagger A^\dagger$
-  \item $(A^{-1})^\dagger = (A^\dagger)^{-1}$
-  \item $A^\dagger A = I \Leftrightarrow AA^\dagger = I \Leftrightarrow A^\dagger = A^{-1}$. We say $A$ is a \emph{unitary matrix}
-  \item $\det A^{\dagger} = (\det A)^*$
-\end{enumerate}
+\begin{remark}
+  For complex matrices, the appropriate analogue of orthogonality uses the \emph{Hermitian conjugate} (or conjugate transpose), defined by $A^\dagger = (\overline{A})^T$, so that $(A^\dagger)_{ij} = \overline{A_{ji}}$. It has the following properties:
+  \begin{enumerate}
+    \item $(AB)^\dagger = B^\dagger A^\dagger$.
+    \item $(A^{-1})^\dagger = (A^\dagger)^{-1}$.
+    \item $A^\dagger A = I \Leftrightarrow AA^\dagger = I \Leftrightarrow A^\dagger = A^{-1}$. In this case, $A$ is called \emph{unitary}.
+    \item $\det A^\dagger = \overline{\det A}$.
+  \end{enumerate}
+\end{remark}
 
 \begin{defi}[Unitary group $U(n)$]
   The \emph{unitary group} is
   \[
-    \U(n) = \U_n = \{A\in \GL_n(\C): A^\dagger A = I\}.
+    \U(n) = \U_n = \{A \in \GL_n(\C) : A^\dagger A = I\}.
   \]
 \end{defi}
 
 \begin{lemma}[Determinant on $\U(n)$]
-  $\det: \U(n)\to S^1$, where $S^1$ is the unit circle in the complex plane, is a surjective group homomorphism.
+  $\det \colon \U(n) \to S^1$, where $S^1$ is the unit circle in $\C$, is a surjective group homomorphism.
 \end{lemma}
 
 \begin{proof}
-  We know that $1 = \det I = \det A^\dagger A = |\det A|^2$. So $|\det A| = 1$. Since $\det AB = \det A\det B$, it is a group homomorphism.
-
-  Now given $\lambda\in S_1$, we have
-  $\begin{pmatrix}
-    \lambda & 0 & \cdots & 0\\
-    0 & 1 & \cdots & 0\\
-    \vdots & \vdots & \ddots & 0\\
-    0 & 0 & 0 & 1
-  \end{pmatrix}\in \U(n)$. So it is surjective.
+  For $A \in \U(n)$, we have $1 = \det I = \det(A^\dagger A) = |\det A|^2$, so $|\det A| = 1$. Since $\det(AB) = \det A \cdot \det B$, the determinant is a homomorphism. For surjectivity, given $\lambda \in S^1$, the diagonal matrix with $(1,1)$-entry $\lambda$ and all other diagonal entries $1$ is unitary and has determinant $\lambda$.
 \end{proof}
 
-\begin{defi}[Special unitary group $SU(n)$]
-  The \emph{special unitary group} $\SU(n) = \SU_n$ is the kernel of $\det U(n)\to S^1$.
+\begin{defi}[Special unitary group $\SU(n)$]
+  The \emph{special unitary group} $\SU(n) = \SU_n$ is the kernel of $\det \colon \U(n) \to S^1$.
 \end{defi}
 
-Similarly, unitary matrices preserve the complex dot product: $(A\mathbf{x})\cdot (A\mathbf{y}) = \mathbf{x}\cdot \mathbf{y}$.
+\begin{remark}
+  Unitary matrices preserve the Hermitian inner product: $(A\mathbf{x}) \cdot (A\mathbf{y}) = \mathbf{x} \cdot \mathbf{y}$ for all $\mathbf{x}, \mathbf{y} \in \C^n$.
+\end{remark}
 
 \section{More on regular polyhedra}
 In this section, we will look at the symmetry groups of the cube and the tetrahedron.
