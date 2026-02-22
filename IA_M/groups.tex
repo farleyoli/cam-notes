@@ -2518,80 +2518,77 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 \end{proof}
 
 \subsection{Permutation properties of M\texorpdfstring{\"o}{o}bius maps}
-We have seen that the M\"obius map with three fixed points is the identity. As a corollary, we obtain the following.
-
 \begin{prop}[Three-point determination]
-  Given $f, g\in M$. If $\exists z_1, z_2, z_3\in \C_{\infty}$ such that $f(z_i) = g(z_i)$, then $f = g$. i.e.\ every M\"obius map is uniquely determined by three points.
+  If $f, g \in M$ agree at three distinct points of $\C_\infty$, then $f = g$. That is, every M\"obius map is uniquely determined by its values at three points.
 \end{prop}
 
 \begin{proof}
-  As M\"obius maps are invertible, write $f(z_i) = g(z_i)$ as $g^{-1}f(z_i) = z_i$. So $g^{-1}f$ has three fixed points. So $g^{-1}f$ must be the identity. So $f = g$.
+  If $f(z_i) = g(z_i)$ for distinct $z_1, z_2, z_3$, then $g^{-1} \circ f$ has three fixed points, so $g^{-1} \circ f = \id$ by the three fixed points rigidity proposition, giving $f = g$.
 \end{proof}
 
 \begin{defi}[Three-transitive action]
-  An action of $G$ on $X$ is called \emph{three-transitive} if the induced action on $\{(x_1, x_2, x_3)\in X^3: x_i\text{ pairwise disjoint}\}$, given by $g(x_1, x_2, x_3) = (g(x_1), g(x_2), g(x_3))$, is transitive.
+  An action of $G$ on $X$ is called \emph{three-transitive} if the induced action on $\{(x_1, x_2, x_3) \in X^3 : x_i \text{ pairwise distinct}\}$, given by $g(x_1, x_2, x_3) = (g(x_1), g(x_2), g(x_3))$, is transitive.
 
-  This means that for any two triples $x_1, x_2, x_3$ and $y_1, y_2, y_3$ of distinct elements of $X$, there exists $g\in G$ such that $g(x_i) = y_i$.
+  Equivalently, for any two triples $(x_1, x_2, x_3)$ and $(y_1, y_2, y_3)$ of distinct elements of $X$, there exists $g \in G$ such that $g(x_i) = y_i$ for each $i$.
 
-  If this $g$ is always unique, then the action is called \emph{sharply three transitive}
+  If this $g$ is always unique, the action is called \emph{sharply three-transitive}.
 \end{defi}
-This is a really weird definition. The reason we raise it here is that the M\"obius map satisfies this property.
 
 \begin{prop}[Sharp three-transitivity of $M$]
   The M\"obius group $M$ acts sharply three-transitively on $\C_\infty$.
 \end{prop}
 
 \begin{proof}
-  We want to show that we can send any three points to any other three points. However, it is easier to show that we can send any three points to $0, 1, \infty$.
-
-  Suppose we want to send $z_1\to \infty, z_2\mapsto 0, z_3 \mapsto 1$. Then the following works:
+  It suffices to show that any three distinct points can be sent to $\infty, 0, 1$. Given distinct $z_1, z_2, z_3 \in \C_\infty$, the map
   \[
     f(z) = \frac{(z - z_2)(z_3 - z_1)}{(z - z_1)(z_3 - z_2)}
   \]
-  If any term $z_i$ is $\infty$, we simply remove the terms with $z_i$, e.g.\ if $z_1 = \infty$, we have $f(z) = \frac{z - z_2}{z_3 - z_2}$.
+  sends $z_1 \mapsto \infty$, $z_2 \mapsto 0$, $z_3 \mapsto 1$. (If some $z_i = \infty$, we remove the factors involving $z_i$; e.g.\ if $z_1 = \infty$, then $f(z) = \frac{z - z_2}{z_3 - z_2}$.)
 
-  So given also $w_1, w_2, w_3$ distinct in $\C_\infty$ and $g\in M$ sending $w_1\mapsto \infty, w_2\mapsto 0, w_3\mapsto 1$, then we have $g^{-1}f(z_i) = w_i$.
-
-  The uniqueness of the map follows from the fact that a M\"obius map is uniquely determined by 3 points.
+  Now given another triple $w_1, w_2, w_3$ of distinct points, let $g \in M$ send $w_1 \mapsto \infty$, $w_2 \mapsto 0$, $w_3 \mapsto 1$. Then $g^{-1} \circ f$ sends $z_i \mapsto w_i$. Uniqueness follows from three-point determination.
 \end{proof}
 
-3 points not only define a M\"obius map uniquely. They also uniquely define a line or circle. Note that on the Riemann sphere, we can think of a line as a circle through infinity, and it would be technically correct to refer to both of them as ``circles''. However, we would rather be clearer and say ``line/circle''.
-
-We will see how M\"obius maps relate to lines and circles. We will first recap some knowledge about lines and circles in the complex plane.
+\begin{remark}
+  Three distinct points also uniquely determine a circle or line in $\C$. On the Riemann sphere, a straight line can be viewed as a circle through $\infty$, but we will use the phrase ``circle/line'' for clarity when working in $\C$.
+\end{remark}
 
 \begin{lemma}[Circle and line equation in $\C$]
   The general equation of a circle or straight line in $\C$ is
   \[
     Az\bar z + \bar Bz + B\bar z + C = 0,
   \]
-  where $A, C\in \R$ and $|B|^2 > AC$.
+  where $A, C \in \R$ and $|B|^2 > AC$.
 \end{lemma}
-$A = 0$ gives a straight line. If $A \not= 0, B = 0$, we have a circle centered at the origin. If $C = 0$, the circle passes through 0.
 
 \begin{proof}
-  This comes from noting that $|z - B| = r$ for $r \in \R> 0$ is a circle; $|z - a| = |z - b|$ with $a\not= b $ is a line. The detailed proof can be found in Vectors and Matrices.
+  A circle $|z - w| = r$ ($r > 0$) and a line $|z - a| = |z - b|$ ($a \neq b$) can both be expanded into this form. See Vectors and Matrices for the full derivation.
 \end{proof}
+
+\begin{remark}
+  Setting $A = 0$ gives a straight line. If $A \neq 0$ and $B = 0$, the equation describes a circle centred at the origin. If $C = 0$, the circle passes through $0$.
+\end{remark}
 
 \begin{prop}[Circle preservation]
-  M\"obius maps send circles/straight lines to circles/straight lines. Note that it can send circles to straight lines and vice versa.
-
-  Alternatively, M\"obius maps send circles on the Riemann sphere to circles on the Riemann sphere.
+  M\"obius maps send circles and straight lines to circles and straight lines. Equivalently, M\"obius maps send circles on the Riemann sphere to circles on the Riemann sphere.
 \end{prop}
 
-\begin{proof}
-  We can either calculate it directly using $w = \frac{az + b}{cz + d}\Leftrightarrow z = \frac{dw - b}{-cw + a}$ and substituting $z$ into the circle equation, which gives $A' w\bar w + \bar B' w + B'\bar w + C' = 0$ with $A', C'\in \R$.
+\begin{remark}
+  In particular, a M\"obius map may send a circle to a straight line or vice versa.
+\end{remark}
 
-  Alternatively, we know that each M\"obius map is a composition of translation, dilation/rotation and inversion. We can check for each of the three types. Clearly dilation/rotation and translation maps a circle/line to a circle/line. So we simply do inversion: if $w = z^{-1}$
+\begin{proof}
+  Since every M\"obius map is a composition of translations, dilations/rotations, and inversions, it suffices to check each type. Translations and dilations/rotations clearly preserve circles and lines. For inversion, if $w = z^{-1}$, then
   \begin{align*}
-    &\; Az\bar z + \bar Bz + B\bar z + C = 0\\
-    \Leftrightarrow &\; Cw\bar w + Bw + \bar B\bar w + A = 0\qedhere
+    &\; Az\bar z + \bar Bz + B\bar z + C = 0 \\
+    \Leftrightarrow\; &\; Cw\bar w + Bw + \bar B\bar w + A = 0,
   \end{align*}
+  which is again of the required form.
 \end{proof}
 
-\begin{eg}
-  Consider $f(z) = \frac{z - i}{z + i}$. Where does the real line go? The real line is simply a circle through $0, 1, \infty$. $f$ maps this circle to the circle containing $f(\infty) = 1$, $f(0) = -1$ and $f(1) = -i$, which is the unit circle.
+\begin{eg}[Cayley transform]\leavevmode
+  Consider $f(z) = \frac{z - i}{z + i}$. The real line is a circle through $0, 1, \infty$. Its image is the circle through $f(\infty) = 1$, $f(0) = -1$, and $f(1) = \frac{1-i}{1+i} = -i$, which is the unit circle.
 
-  Where does the upper half plane go? We know that the M\"obius map is smooth. So the upper-half plane either maps to the inside of the circle or the outside of the circle. We try the point $i$, which maps to $0$. So the upper half plane is mapped to the inside of the circle.
+  Since M\"obius maps are continuous, the upper half-plane maps either to the interior or exterior of the unit circle. Evaluating at $i$ gives $f(i) = 0$, so the upper half-plane maps to the open unit disc.
 \end{eg}
 \subsection{Cross-ratios}
   Finally, we'll look at an important concept known as \emph{cross-ratios}. Roughly speaking, this is a quantity that is preserved by M\"obius transforms.
