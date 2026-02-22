@@ -1076,19 +1076,22 @@ To achieve higher space efficiency, we seek a recurrence relation for coefficien
   \end{align*}
 \end{eg}
 \subsection{Well-ordering and induction}
-Several proofs so far involved ``take the least integer such that'', e.g.\ division algorithm; or involved a sequence of moves ``and so on\ldots'' e.g.\ Euclid's algorithm, every number is a product of primes. We rely on the following:
+\begin{remark}
+  Several proofs so far have relied on ``taking the least integer such that\ldots'' (e.g.\ the division algorithm) or on a sequence of steps that ``continues until\ldots'' (e.g.\ Euclid's algorithm, every number is a product of primes). The following principle makes such arguments rigorous.
+\end{remark}
+
 \begin{thm}[Weak Principle of Induction]
   Let $P(n)$ be a statement about the natural number $n$. Suppose that
   \begin{enumerate}
-    \item $P(1)$ is true
-    \item $(\forall n)\,P(n)\Rightarrow P(n + 1)$
+    \item $P(1)$ is true, and
+    \item $(\forall n \in \N)\;P(n)\Rightarrow P(n + 1)$.
   \end{enumerate}
-  Then $P(n)$ is true for all $n\geq 1$.
+  Then $P(n)$ is true for all $n \in \N$.
 \end{thm}
 
 
 \begin{eg}[Tower of Hanoi]
-  Referring to the image below,
+  Consider the following setup.
   \begin{center}
     \usetikzlibrary{shapes}
     \definecolor{darkbrown}{rgb}{0.375,0.25,0.125}
@@ -1118,61 +1121,71 @@ Several proofs so far involved ``take the least integer such that'', e.g.\ divis
       \node at (6.4, -.25) {C};
     \end{tikzpicture}
   \end{center}
-  The objective is to move the $n$ rings on peg A to peg B, with the constraints that you can only move one ring at a time, and you can never place a larger ring onto a smaller ring.
+  The objective is to move $n$ rings from peg A to peg B, subject to the constraints that only one ring may be moved at a time, and a larger ring may never be placed on a smaller one.
 
-  Now claim that this needs exactly $2^n - 1$ moves.
+  \emph{Claim:} this requires exactly $2^n - 1$ moves. Let $P(n)$ be the statement ``$n$ rings require exactly $2^n - 1$ moves''. This contains two assertions: (1) we can do it in $2^n - 1$ moves; (2) we cannot do it in fewer.
 
-  Let $P(n)$ be ``$n$ rings needs $2^n - 1$ moves''. Note that this statement contains two assertions --- (1) we can do it in $2^n - 1$ moves; (2) We can't do it in fewer.
+  \emph{Base case.} $P(1)$ is clear: one ring requires one move.
 
-  First consider $P(1)$. We simply have to move the ring from A to B.
+  \emph{Inductive step.} Suppose $P(n)$ holds. Given $n + 1$ rings, move the top $n$ rings to peg C ($2^n - 1$ moves by $P(n)$), move the bottom ring to B ($1$ move), then move the $n$ rings from C to B ($2^n - 1$ moves). This gives $2(2^n - 1) + 1 = 2^{n+1} - 1$ moves.
 
-  Suppose we have $n + 1$ rings. We can move the top $n$ rings to peg C, then move the bottom ring to peg B, then move the $n$ rings from $C$ back to $B$. Assuming $P(n)$ is true, this needs at most $2\times (2^n - 1) + 1 = 2^{n + 1} -1 $ moves.
+  Conversely, to move the bottom ring we must first clear the $n$ rings above it (at least $2^n - 1$ moves by $P(n)$), then move the bottom ring ($1$ move), then reassemble the $n$ rings (at least $2^n - 1$ moves). So at least $2^{n+1} - 1$ moves are needed.
 
-  Can we do it in fewer moves? To succeed, we must free the bottom ring, so we must shift the top $n$ rings to another pe.g.\ This needs $\geq 2^n - 1$ moves by $P(n)$. Then we need to shift the bottom ring. Then we need to shift the $n$ smaller rings to the big one. This needs $\geq 2^n - 1$ moves by $P(n)$. So this needs $\geq 2^{n + 1} - 1$ moves altogether.
-
-  So we showed that $P(n)\Rightarrow P(n + 1)$ (we used $P(n)$ four times). By the WPI, $P(n)$ is true for all $n$.
+  Hence $P(n) \Rightarrow P(n+1)$, and by the WPI, $P(n)$ holds for all $n$.
 \end{eg}
 
-\begin{eg}
-  All numbers are equal. Let $P(n)$ be ``if $\{a_1, \cdots a_n\}$ is a set of $n$ numbers, then $a_1 = a_2 = \cdots a_n$''. $P(1)$ is trivially true. Suppose we have $\{a_1, a_2\cdots a_{n+1}\}$. Assuming $P(n)$, apply it to $\{a_1, a_2\cdots a_n\}$ and $\{a_2, \cdots , a_{n + 1}\}$, then $a_1 = \cdots = a_n$ and $a_2 = a_3 = \cdots = a_{n + 1}$. So $a_1 = a_2 = \cdots = a_{n + 1}$. Hence $P(n)\Rightarrow P(n + 1)$. So $P(n)$ is true for all $n\in \N$.
+\begin{eg}[A false proof]
+  \emph{Claim:} all numbers are equal. Let $P(n)$ be the statement ``in any set of $n$ numbers, all elements are equal''. $P(1)$ is trivially true. Suppose $P(n)$ holds. Given $\{a_1, a_2, \ldots, a_{n+1}\}$, apply $P(n)$ to $\{a_1, \ldots, a_n\}$ and to $\{a_2, \ldots, a_{n+1}\}$ to conclude $a_1 = \cdots = a_n$ and $a_2 = \cdots = a_{n+1}$. Hence $a_1 = a_2 = \cdots = a_{n+1}$.
 \end{eg}
 
-\begin{thm}
-  Inclusion-exclusion principle.
+\begin{remark}
+  The error is in the step $P(1) \Rightarrow P(2)$. When $n = 1$, the sets $\{a_1\}$ and $\{a_2\}$ do not overlap, so we cannot conclude $a_1 = a_2$. The inductive step is valid only for $n \geq 2$.
+\end{remark}
+
+We can now give a proof of the inclusion-exclusion principle by induction.
+\begin{thm}[Inclusion-exclusion principle, by induction]
+  Let $A_1, \ldots, A_n$ be subsets of a finite set $X$. Then
+  \[
+    |A_1\cup \cdots \cup A_n| = \sum_i|A_i| - \sum_{i < j} |A_i\cap A_j| + \cdots + (-1)^{n-1} |A_1\cap A_2\cap \cdots \cap A_n|.
+  \]
 \end{thm}
 
 \begin{proof}
-  Let $P(n)$ be the statement ``for any sets $A_1\cdots A_n$'', we have $|A_1\cup \cdots \cup A_n| = \sum_i|A_i| - \sum_{i < j} |A_i\cap A_j| + \cdots \pm |A_i\cap A_2\cap \cdots \cap A_n|$''.
+  Let $P(n)$ be the statement that the inclusion-exclusion formula holds for any $n$ subsets of a finite set.
 
-  $P(1)$ is trivially true. $P(2)$ is also true (see above). Now given $A_1 \cdots A_{n + 1}$, Let $B_i = A_i\cap A_{n + 1}$ for $1 \leq i\leq n$. We apply $P(n)$ both to the $A_i$ and $B_i$.
-
-  Now observe that $B_i\cap B_j = A_i\cap A_j \cap A_{n + 1}$. Likewise, $B_i\cap B_j\cap B_k = A_i\cap A_j\cap A_k\cap A_{n + 1}$. Now
+  $P(1)$ is trivially true, and $P(2)$ was proved above. Given $A_1, \ldots, A_{n+1}$, let $B_i = A_i\cap A_{n+1}$ for $1 \leq i\leq n$. Note that $B_i\cap B_j = A_i\cap A_j \cap A_{n+1}$, and similarly for higher-order intersections. By $P(2)$:
+  \[
+    |A_1\cup \cdots \cup A_{n+1}| = |A_1\cup \cdots \cup A_n| + |A_{n+1}| - |B_1\cup \cdots \cup B_n|.
+  \]
+  Applying $P(n)$ to both $A_1, \ldots, A_n$ and $B_1, \ldots, B_n$:
   \begin{align*}
-    |A_1\cup A_2\cup \cdots \cup A_{n + 1}| &= |A_1\cup \cdots \cup A_n| + |A_{n + 1}| - |(A_1\cup\cdots\cup A_n)\cap A_{n + 1}|\\
-    &= |A_1\cup \cdots \cup A_n| + |A_{n + 1}| - |B_{1}\cup \cdots \cup B_n|\\
-    &= \sum_{i\leq n}|A_i| - \sum_{i < j\leq n}|A_i\cap A_j| + \cdots + |A_{n + 1}| \\
-    &-\sum_{i \leq n}|B_i| + \sum_{i < j\leq n}|B_i\cap B_j| - \cdots \\
-    \intertext{Note $\sum\limits_{i\leq n}|B_i| = \sum\limits_{i\leq n}|A_i\cap A_{n + 1}|$. So $\sum\limits_{i < j\leq n}|A_i\cap A_j| + \sum\limits_{i\leq n}|B_i| = \sum\limits_{i< j \leq n + 1}|A_i \cap A_j|$, and similarly for the other terms. So}
-    &= \sum_{i \leq n + 1}|A_i| - \sum_{i< j \leq n + 1}|A_i \cap A_j| + \cdots
+    |A_1\cup \cdots \cup A_{n + 1}| &= \sum_{i\leq n}|A_i| - \sum_{i < j\leq n}|A_i\cap A_j| + \cdots + |A_{n + 1}| \\
+    &\quad -\sum_{i \leq n}|B_i| + \sum_{i < j\leq n}|B_i\cap B_j| - \cdots
   \end{align*}
-  So $P(n)\Rightarrow P(n + 1)$ for $n\geq 2$. By WPI, $P(n)$ is true for all $n$.
+  Since $\sum_{i\leq n}|B_i| = \sum_{i\leq n}|A_i\cap A_{n+1}|$, we can combine $\sum_{i < j\leq n}|A_i\cap A_j|$ and $\sum_{i\leq n}|B_i|$ to obtain $\sum_{i< j \leq n+1}|A_i \cap A_j|$, and similarly for the higher-order terms. This gives the inclusion-exclusion formula for $n+1$ sets.
+
+  Hence $P(n)\Rightarrow P(n + 1)$ for $n\geq 2$, and by the WPI, $P(n)$ holds for all $n$.
 \end{proof}
 
-However, WPI is not quite what we want for ``every number is a product of primes''. We need a different form of induction.
+\begin{remark}
+  The WPI is not sufficient for arguments like ``every number is a product of primes'', where the inductive step decomposes $n$ into factors that may be much smaller than $n - 1$. We need a stronger form of induction.
+\end{remark}
 
-\begin{thm}[Strong principle of induction]
+\begin{thm}[Strong Principle of Induction]
   Let $P(n)$ be a statement about $n\in \N$. Suppose that
   \begin{enumerate}
-    \item $P(1)$ is true
-    \item $\forall n\in N$, if $P(k)$ is true $\forall k < n$ then $P(n)$ is true.
+    \item $P(1)$ is true, and
+    \item $(\forall n \in \N)\;[P(k) \text{ true } \forall k < n] \Rightarrow P(n)$.
   \end{enumerate}
-  Then $P(n)$ is true for all $n\in N$.
+  Then $P(n)$ is true for all $n\in \N$.
 \end{thm}
-Note that (i) is redundant as it follows from (ii), but we state it for clarity.
 
-\begin{eg}
-  ``Evolutionary trees'' Imagine that we have a mutant that can produce two offsprings. Each offspring is either an animal or another mutant. A possible evolutionary tree is as follows:
+\begin{remark}
+  Condition (i) is redundant, since it follows from (ii) by taking $n = 1$ (the hypothesis ``$P(k)$ true for all $k < 1$'' is vacuously true). We state it for clarity.
+\end{remark}
 
+\begin{eg}[Evolutionary trees]
+  A mutant organism produces exactly two offspring, each of which is either an animal or another mutant. A possible tree:
   \tikzstyle{level 1}=[level distance=1cm, sibling distance=3.5cm]
   \tikzstyle{level 2}=[level distance=1cm, sibling distance=2cm]
   \begin{center}
@@ -1204,83 +1217,82 @@ Note that (i) is redundant as it follows from (ii), but we state it for clarity.
       };
     \end{tikz}
   \end{center}
-  Let $P(n)$ be the statement $n - 1$ mutants produces $n$ animals. Given some tree with $n$ animals, remove the top mutant to get two sub-trees, with $n_1$ and $n_2$ animals, where $n_1 + n_2 = n$. If $P(k)$ is true $\forall k < n$, then $P(n_1)$ and $P(n_2)$ are true. So the total number of mutants is $1 + (n_1 - 1) + (n_2 - 1) = n - 1$. So $P(n)$ is true. Hence by strong principle of induction, $P(n)$ is true for all $n$.
+  \emph{Claim:} a tree with $n$ animals has exactly $n - 1$ mutants. Let $P(n)$ be this statement. $P(1)$ is clear. Given a tree with $n \geq 2$ animals, removing the root mutant yields two sub-trees with $n_1$ and $n_2$ animals, where $n_1 + n_2 = n$ and $n_1, n_2 < n$. By the strong inductive hypothesis, these sub-trees have $n_1 - 1$ and $n_2 - 1$ mutants respectively. So the total number of mutants is $1 + (n_1 - 1) + (n_2 - 1) = n - 1$. By the strong principle of induction, $P(n)$ holds for all $n$.
 \end{eg}
 
-\begin{thm}
+\begin{prop}
   The strong principle of induction is equivalent to the weak principle of induction.
-\end{thm}
+\end{prop}
 
 \begin{proof}
-  Clearly the strong principle implies the weak principle since if $P(n)\Rightarrow P(n + 1)$, then $(P(1)\wedge P(2)\wedge \cdots \wedge P(n))\Rightarrow P(n + 1)$.
+  The strong principle clearly implies the weak, since $P(n) \Rightarrow P(n+1)$ implies $[P(k) \text{ true } \forall k \leq n] \Rightarrow P(n+1)$.
 
-  Now show that the weak principle implies the strong principle. Suppose that $P(1)$ is true and $(\forall n)\,P(1)\wedge P(2)\wedge \cdots \wedge P(n - 1)\Rightarrow P(n)$. We want to show that $P(n)$ is true for all $n$ using the weak principle.
-
-  Let $Q(n) = $ ``$P(k)$ is true $\forall k\leq n$''. Then $Q(1)$ is true. Suppose that $Q(n)$ is true. Then $P(1)\wedge P(2)\wedge\cdots \wedge P(n)$ is true. So $P(n+1)$ is true. Hence $Q(n + 1)$ is true. By the weak principle, $Q(n)$ is true for all $n$. So $P(n)$ is true for all $n$.
+  Conversely, suppose the weak principle holds, and assume the hypotheses of the strong principle. Define $Q(n) = $ ``$P(k)$ is true for all $k\leq n$''. Then $Q(1)$ is true. If $Q(n)$ is true, then $P(1), \ldots, P(n)$ all hold, so by hypothesis (ii), $P(n+1)$ is true, giving $Q(n + 1)$. By the weak principle, $Q(n)$ holds for all $n$, and therefore so does $P(n)$.
 \end{proof}
-While strong and weak induction are practically equivalent, they are rather distinct conceptually. Weak induction is expressed in terms of ``adding 1'', while strong induction is based on the ordering of natural numbers.
 
-It turns out that there is another statement about the natural numbers that can be stated in terms of orders. We first formally define what it means to be an order.
+\begin{remark}
+  Although equivalent, the two principles are conceptually distinct. Weak induction is based on the successor operation (``adding 1''), while strong induction exploits the ordering of the natural numbers.
+\end{remark}
 
 \begin{defi}[Partial order]
-  A \emph{partial order} on a set is a reflexive, antisymmetric ($(aRb) \wedge (bRa) \Leftrightarrow a = b$) and transitive relation.
+  A \emph{partial order} on a set $A$ is a relation $\leq$ on $A$ that is:
+  \begin{enumerate}
+    \item \emph{reflexive:} $a \leq a$ for all $a \in A$,
+    \item \emph{antisymmetric:} if $a \leq b$ and $b \leq a$, then $a = b$,
+    \item \emph{transitive:} if $a \leq b$ and $b \leq c$, then $a \leq c$.
+  \end{enumerate}
 \end{defi}
 
 \begin{eg}
-  The ordinary ordering of $\N$ $a\leq b$ is a partial order of $\N$. Also, $a\mid b$ on $\N$ is also a partial order.
+  The usual ordering $\leq$ on $\N$ is a partial order. The divisibility relation $a \mid b$ on $\N$ is also a partial order.
 \end{eg}
 
 \begin{defi}[Total order]
-  A \emph{total order} is a partial order where $\forall a\not= b$, exactly one of $aRb$ or $bRa$ holds. This means that every two things must be related.
+  A \emph{total order} is a partial order $\leq$ on $A$ such that for all $a, b \in A$, either $a \leq b$ or $b \leq a$.
 \end{defi}
 
-\begin{defi}[Well-ordered total order]
-  A total order is \emph{well-ordered} if every non-empty subset has a minimal element, i.e.\ if $S\not= \emptyset$, then $\exists m\in S$ such that $x < m \Rightarrow x\not\in S$.
+\begin{defi}[Well-ordering]
+  A total order $\leq$ on $A$ is a \emph{well-ordering} if every non-empty subset of $A$ has a least element, i.e.\ for every non-empty $S \subseteq A$, there exists $m \in S$ such that $m \leq x$ for all $x \in S$.
 \end{defi}
 
 \begin{eg}
-  $\Z$ with the usual order is not well-ordered since the set of even integers has no minimum. The positive rationals are also not well-ordered under the usual order.
+  $\Z$ with the usual order is not well-ordered: the set of even integers has no least element. The positive rationals $\Q^+$ are also not well-ordered under the usual order.
 \end{eg}
 
 \begin{thm}[Well-ordering principle]
-  $\N$ is well-ordered under the usual order, i.e.\ every non-empty subset of $\N$ has a minimal element.
+  $\N$ is well-ordered under the usual ordering, i.e.\ every non-empty subset of $\N$ has a least element.
 \end{thm}
 
-\begin{thm}
+\begin{prop}
   The well-ordering principle is equivalent to the strong principle of induction.
-\end{thm}
+\end{prop}
 
 \begin{proof}
-  First prove that well-ordering implies strong induction. Consider a proposition $P(n)$. Suppose $P(k)$ is true $\forall k < n$ implies $P(n)$.
+  \emph{Well-ordering implies strong induction.} Suppose $P(k)$ true for all $k < n$ implies $P(n)$. If $P$ fails for some $n$, then the set $S = \{n\in \N : \neg P(n)\}$ is non-empty. By well-ordering, $S$ has a least element $m$. Since $m$ is the smallest counterexample, $P(k)$ holds for all $k < m$. But then $P(m)$ must hold by hypothesis, contradicting $m \in S$. Hence $P(n)$ is true for all $n$.
 
-  Assume the contrary. Consider the set $S = \{n\in \N : \neg P(n)\}$. Then $S$ has a minimal element $m$. Since $m$ is the minimal counterexample to $P$, $P(k)$ is true for all $k < m$. However, this implies that $P(m)$ is true, which is a contradiction. Therefore $P(n)$ must be true for all $n$.
-
-  To show that strong induction implies well-ordering, let $S\subseteq \N$. Suppose that $S$ has no minimal element. We need to show that $S$ is empty. Let $P(n)$ be the statement $n\not\in S$.
-
-  Certainly $1\not\in S$, or else it will be the minimal element. So $P(1)$ is true. Suppose we know that $P(k)$ is true for all $k < n$, i.e.\ $k\not\in S$ for all $k < n$. Now $n\not\in S$, or else $n$ will be the minimal element. So $P(n)$ is true. By strong induction, $P(n)$ is true for all $n$, i.e.\ $S$ is empty.
+  \emph{Strong induction implies well-ordering.} Let $S\subseteq \N$ be non-empty and suppose $S$ has no least element. Let $P(n)$ be the statement ``$n \notin S$''. Then $P(1)$ is true (otherwise $1$ would be the least element of $S$). If $P(k)$ holds for all $k < n$, then no element less than $n$ belongs to $S$, so $n \notin S$ (otherwise $n$ would be the least element). Hence $P(n)$ holds. By strong induction, $P(n)$ is true for all $n$, i.e.\ $S = \emptyset$, a contradiction.
 \end{proof}
-The well-ordering principle enables us to show that $P(n)$ is true as follows: if $P(n)$ fails for some $n$, then there is a minimal counterexample $m$. Then we try to show that this leads to a contradiction.
+
+\begin{remark}
+  The well-ordering principle provides a useful proof technique: the \emph{method of minimal counterexample}. To prove $P(n)$ for all $n$, assume it fails and consider the smallest $n$ for which $P(n)$ is false. Then derive a contradiction.
+\end{remark}
 
 \begin{eg}
-  Proof that every number is a product of primes by strong induction: Assume the contrary. Then there exists a minimal $n$ that cannot be written as a product of prime (by the well-ordering principle). If $n$ is a prime, then $n$ is a product of primes. Otherwise, write $n = ab$, where $1 < a, b < n$. By minimality of $n$, both $a$ and $b$ are products of primes. Hence so is $n$. Contradiction.
+  \emph{Every $n \geq 2$ is a product of primes} (by minimal counterexample). Suppose not. By well-ordering, there exists a smallest $n$ that cannot be written as a product of primes. Then $n$ is not prime, so $n = ab$ with $1 < a, b < n$. By minimality of $n$, both $a$ and $b$ are products of primes. Hence so is $n$, a contradiction.
 \end{eg}
 
 \begin{eg}
-  All numbers are interesting. Suppose that there are uninteresting numbers. Then there exists a smallest uninteresting number. Then the property of being the smallest uninteresting number is itself interesting. Contradiction.
+  All natural numbers are interesting. Suppose not. Then there exists a smallest uninteresting number. But the property of being the smallest uninteresting number is itself interesting --- contradiction.
 \end{eg}
 
-\begin{eg}
-  Consider a total order on $\N\times \N$ by ``lexicographic'' or ``dictionary'' order, i.e.\ $(a, b) \leq (c, d)$ if $a < c$ or $(a = c\wedge b\leq d)$.
-
-  The Ackermann function is a function $a:\N_0\times \N_0 \to \N$ is defined by
+\begin{eg}[Ackermann function]
+  Consider the lexicographic order on $\N_0\times \N_0$: define $(a, b) \leq (c, d)$ if $a < c$, or $a = c$ and $b\leq d$. This is a total order. The Ackermann function $A:\N_0\times \N_0 \to \N$ is defined by
   \[
-    a(m, n) =\begin{cases}n+1 & \mbox{if } m = 0 \\a(m-1, 1) & \mbox{if } m > 0 \mbox{ and } n = 0 \\a(m-1, a(m, n-1)) & \mbox{if } m > 0 \mbox{ and } n > 0.\end{cases}
+    A(m, n) =\begin{cases}n+1 & \text{if } m = 0, \\A(m-1, 1) & \text{if } m > 0 \text{ and } n = 0, \\A(m-1, A(m, n-1)) & \text{if } m > 0 \text{ and } n > 0.\end{cases}
   \]
-  We want to show that this is well-defined.
+  Each recursive call evaluates $A$ at a lexicographically smaller argument, so $A$ is well-defined provided the lexicographic order on $\N_0 \times \N_0$ is a well-ordering.
 
-  Note that $a(m, n)$ is expressed in terms of $a$ at points $(x, y) < (m, n)$. So $a$ is well-defined if lexicographic order is well-ordered, i.e.\ every non-empty subset has a minimal element (if $a$ were not well-defined, then would be a smallest place where the definition is bad. But definition of that point is defined in terms of smaller points which are well defined).
-
-  We can see that $\N_0\times \N_0$ is well-ordered: if $S\subseteq \N_0\times \N_0$ is non-empty, let $S_x$ be the set of $\{x\in \N: (\exists y)\,(x, y)\in S\}$, i.e.\ the set of all $x$-coordinates of $S$. By the well-ordering principle, $S_x$ has a minimal element $m$. Then let $S_y = \{y\in \N_0: (m, y)\in S\}$. Then $S_y$ has a minimal element $n$. Then $(m, n)$ is the minimal element of $S$.
+  To see this, let $S\subseteq \N_0\times \N_0$ be non-empty. Let $m$ be the least first coordinate appearing in $S$ (exists by well-ordering of $\N_0$), and let $n$ be the least second coordinate among pairs in $S$ with first coordinate $m$. Then $(m, n)$ is the least element of $S$.
 \end{eg}
 
 \section{Modular arithmetic}
