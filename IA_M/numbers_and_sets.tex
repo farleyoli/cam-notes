@@ -1589,38 +1589,28 @@ We can now give a proof of the inclusion-exclusion principle by induction.
 
 \subsection{Public-key (asymmetric) cryptography}
 \subsubsection*{Tossing a coin over a phone}
-Suppose we have Alice and Bob who wish to toss a coin fairly over the phone. Alice chooses two 100 digit primes with $p, q\equiv 3\pmod 4$. Then she tells Bob the product $n = pq$. Bob picks a number $u$ coprime to $n$, computes $a\equiv u^2\pmod n$ and tells Alice the value of $a$.
+Alice and Bob wish to toss a fair coin over the phone. Alice chooses two large primes $p, q\equiv 3\pmod 4$ and tells Bob the product $n = pq$. Bob picks a number $u$ coprime to $n$, computes $a\equiv u^2\pmod n$, and tells Alice the value of $a$.
 
-Alice can compute the square roots of $a$ by the above algorithm ($O(\log n)$), obtain $\pm u, \pm v$ and tells Bob one of these pairs.
+Alice computes the four square roots of $a$ modulo $n$ (in time $O(\log n)$), obtaining $\pm u$ and $\pm v$, and tells Bob one of these pairs. If Alice picks $\pm u$, Bob says ``you win''; otherwise, Bob says ``you lose''.
 
-Now if Alice picks $\pm u$, Bob says ``you win''. Otherwise, Bob says ``you lose''.
+Can Bob cheat? To claim Alice lost when she announced $\pm u$, Bob must produce the other pair $\pm v$. But knowing both $\pm u$ and $\pm v$ allows factorisation of $n$: since $u^2 \equiv v^2\pmod n$, we have $n \mid (u - v)(u + v)$ with $n\nmid (u - v)$ and $n\nmid (u + v)$, so $p = (n, u - v)$ and $q = (n, u + v)$. Thus cheating is as hard as factorisation.
 
-Can Bob cheat? If he says ``you lose'' when Alice says $\pm u$, Bob must produce the other pair $\pm v$, but he can't know $\pm v$ without factorizing $n$. (If he knows $\pm u$ and $\pm v$, then $u^2 \equiv v^2\pmod n$, then $n \mid (u - v)(u + v)$. But $n\nmid (u - v)$ and $n\nmid (u + v)$. So $p \mid (u - v)$ and $q \mid (u + v)$. Then $p = (n, u - v)$ and $q = (n, u + v)$ which we can calculate efficiently by Euclid's algorithm)
+\begin{remark}[Generating large primes]
+  The protocol requires large primes. To find them, we repeatedly choose random numbers and test for primality. Primality can be tested efficiently using Fermat-like checks: for random bases $a$, compute $a^{p-1} \pmod p$. If the result is not $1$, then $p$ is definitely composite. Sufficiently many tests passing gives high (though not absolute) confidence that $p$ is prime.
+\end{remark}
 
-Thus cheating is as hard as prime factorization.
-
-Note that a difficult part is to generate the 100-digit prime. While there are sufficiently many primes to keep trying random numbers until we get one, we need an efficient method to test whether a number is prime. We cannot do this by factorization since it is slow. So we need an efficient prime-checking function.
-
-We can test whether a large number is prime by doing Fermat-like checks. We choose random numbers and take it to the $(p - 1)$th power and see if they become 1. If it is not 1, then it is definitely not a prime. If we do sufficiently many tests that all result in 1, we can be sufficiently certain that it is a prime (even though not with 100\% certainty).
-
-(Recent advancements in algorithms have found efficient ways of deterministic prime test, but they are generally slower than the above algorithm and is not widely used)
-
-It is currently believed that it is hard to prime factorize a number, so this is secure as far as we know.
 \subsubsection*{RSA encryption}
+In \emph{asymmetric} (or \emph{public-key}) encryption, anyone can encrypt a message, but only the intended recipient can decrypt it. The RSA cryptosystem (Rivest, Shamir, Adleman) achieves this as follows.
 
-\begin{thm}[RSA Encryption]
-  We want people to be able to send a message to Bob without Eve eavesdropping. So the message must be encrypted. We want an algorithm that allows anyone to encrypt, but only Bob to decrypt (e.g.\ many parties sending passwords with the bank).
+\emph{Key generation.} Bob chooses two large primes $p, q$ and computes $n = pq$. He picks $e$ coprime to $\phi(n) = (p - 1)(q - 1)$ and computes $d$ with $de \equiv 1\pmod {\phi(n)}$. Bob publishes the \emph{public key} $(n, e)$ and keeps the \emph{private key} $d$ secret.
 
-  Let us first agree to write messages as sequences of numbers, e.g.\ in ASCII or UTF-8.
+\emph{Encryption.} To send a message $M < n$ to Bob, Alice computes $C \equiv M^e \pmod n$ and sends $C$.
 
-  After encoding, the encryption part is often done with RSA encryption (Rivest, Shamier, Adleman). Bob thinks of two large primes $p, q$. Let $n = pq$ and pick $e$ coprime to $\phi(n) = (p - 1)(q - 1)$. Then work out $d$ with $de \equiv 1\pmod {\phi(n)}$ (i.e.\ $de = k\phi(n) + 1$). Bob then publishes the pair $(n, e)$.
+\emph{Decryption.} Bob computes $C^d \equiv M^{ed} = M^{k\phi(n) + 1} \equiv M\pmod n$ by the Fermat--Euler theorem.
 
-  For Alice to encrypt a message, Alice splits the message into numbers $M < n$. Alice sends $M^e \pmod n$ to Bob.
-
-  Bob then computes $(M^e)^d = M^{k\phi(n) + 1} \equiv M\pmod n$ by Fermat-Euler theorem.
-
-  How can Eve find $M$? We can, of course, factorize $n$, find $d$ efficiently, and be in the same position as Bob. However, it is currently assumed that this is hard. Is there any other way? Currently we do not know if RSA can be broken without factorizing (cf.\ RSA problem).
-\end{thm}
+\begin{remark}[Security]
+  An eavesdropper Eve can recover $M$ by factorising $n$ (which gives $\phi(n)$ and hence $d$). However, factorisation of large integers is believed to be computationally hard. Whether RSA can be broken \emph{without} factorising $n$ remains an open question.
+\end{remark}
 
 \section{Real numbers}
 So far, we have only worked with natural numbers and integers. Unfortunately the real world often involves rational numbers and even real numbers. In this chapter, our goal is to study real numbers. To do so, we will first have to define the real numbers. To do so, we will start from the natural numbers.
