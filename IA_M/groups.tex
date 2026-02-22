@@ -2256,31 +2256,40 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 \end{remark}
 
 \section{More on regular polyhedra}
-In this section, we will look at the symmetry groups of the cube and the tetrahedron.
+\begin{remark}
+  In this section, we determine the symmetry groups of the cube and the tetrahedron.
+\end{remark}
+
 \subsection{Symmetries of the cube}
 \subsubsection*{Rotations}
-Recall that there are $|G^+| = 24$ rotations of the group by the orbit-stabilizer theorem.
+\begin{remark}
+  Recall that by the orbit-stabilizer theorem, the cube has $|G^+| = 24$ rotational symmetries.
+\end{remark}
+
 \begin{prop}[Cube rotation group]
   $G^+ \cong S_4$, where $G^+$ is the group of all rotations of the cube.
 \end{prop}
 
 \begin{proof}
-  Consider $G^+$ acting on the 4 diagonals of the cube. This gives a group homomorphism $\varphi: G^+ \to S_4$. We have $(1\; 2\; 3\; 4)\in\im \varphi$ by rotation around the axis through the top and bottom face. We also $(1\; 2)\in \im \varphi$ by rotation around the axis through the mid-point of the edge connect $1$ and $2$. Since $(1\; 2)$ and $(1\; 2\; 3\; 4)$ generate $S_4$ (Sheet 2 Q. 5d), $\im\varphi = S_4$, i.e.\ $\phi$ is surjective. Since $|S_4| = |G^+|$, $\varphi$ must be an isomorphism.
+  Consider $G^+$ acting on the $4$ diagonals of the cube. This gives a group homomorphism $\varphi \colon G^+ \to S_4$. Rotation by $\frac{\pi}{2}$ about the axis through the centres of the top and bottom faces gives $(1\; 2\; 3\; 4) \in \im \varphi$. Rotation by $\pi$ about the axis through the midpoints of two opposite edges connecting diagonals $1$ and $2$ gives $(1\; 2) \in \im \varphi$. Since $(1\; 2)$ and $(1\; 2\; 3\; 4)$ generate $S_4$ (cf.\ Example Sheet 2, Question 5d), $\varphi$ is surjective. Since $|S_4| = 24 = |G^+|$, $\varphi$ is an isomorphism.
 \end{proof}
 
 \subsubsection*{All symmetries}
-Consider the reflection in the mid-point of the cube $\tau$, sending every point to its opposite. We can view this as $-I$ in $\R^3$. So it commutes with all other symmetries of the cube.
+\begin{remark}
+  Consider the inversion $\tau$ through the centre of the cube, sending every point to its antipodal point. This is the map $-I$ on $\R^3$, so it commutes with every linear symmetry of the cube.
+\end{remark}
+
 \begin{prop}[Cube full symmetry group]
-  $G \cong S_4\times C_2$, where $G$ is the group of all symmetries of the cube.
+  $G \cong S_4 \times C_2$, where $G$ is the group of all symmetries of the cube.
 \end{prop}
 
 \begin{proof}
-  Let $\tau$ be ``reflection in mid-point'' as shown above. This commutes with everything. (Actually it is enough to check that it commutes with rotations only)
-
-  We have to show that $G = G^+\bra \tau\ket$. This can be deduced using sizes: since $G^+$ and $\bra\tau\ket$ intersect at $e$ only, (i) and (ii) of the Direct Product Theorem gives an injective group homomorphism $G^+\times \bra\tau\ket \to G$. Since both sides have the same size, the homomorphism must be surjective as well. So $G\cong G^+\times \bra \tau\ket \cong S_4\times C_2$.
+  The inversion $\tau$ commutes with every element of $G$ (since it suffices to check it commutes with the rotations $G^+$, which generate $G$ together with $\tau$). We have $G^+ \cap \langle \tau \rangle = \{e\}$, so by the direct product theorem, $G^+ \times \langle \tau \rangle \hookrightarrow G$. Since $|G^+ \times \langle \tau \rangle| = 48 = |G|$, this is an isomorphism, giving $G \cong S_4 \times C_2$.
 \end{proof}
 
-In fact, we have also proved that the group of symmetries of an octahedron is $S_4\times C_2$ since the octahedron is the dual of the cube. (if you join the centers of each face of the cube, you get an octahedron)
+\begin{remark}
+  Since the octahedron is the dual of the cube (its vertices are the centres of the cube's faces), the symmetry group of the octahedron is also $S_4 \times C_2$.
+\end{remark}
 \begin{center}
   \begin{tikzpicture}[z = -5.5, scale = 1.5]
     \coordinate (O1) at (0, 0, -1);
@@ -2322,360 +2331,348 @@ In fact, we have also proved that the group of symmetries of an octahedron is $S
 
 \subsection{Symmetries of the tetrahedron}
 \subsubsection*{Rotations}
-Let $1, 2, 3, 4$ be the vertices (in any order). $G^+$ is just the rotations. Let it act on the vertices. Then $\orb(1) = \{1, 2, 3, 4\}$ and $\stab(1) = \{$ rotations in the axis through 1 and the center of the opposite face $\} = \{e, \frac{2\pi}{3}, \frac{4\pi}{3}\}$
+\begin{prop}[Tetrahedron rotation group]
+  $G^+ \cong A_4$, where $G^+$ is the group of rotational symmetries of the tetrahedron.
+\end{prop}
 
-So $|G^+| = 4\cdot 3 = 12$ by the orbit-stabilizer theorem.
+\begin{proof}
+  Label the vertices $1, 2, 3, 4$. The rotation group $G^+$ acts on the vertices. We have $\orb(1) = \{1, 2, 3, 4\}$ and $\stab(1)$ consists of the rotations about the axis through vertex $1$ and the centre of the opposite face, giving $|\stab(1)| = 3$. By the orbit-stabilizer theorem, $|G^+| = 4 \cdot 3 = 12$.
 
-The action gives a group homomorphism $\varphi: G^+ \to S_4$. Clearly $\ker \varphi = \{e\}$. So $G^+ \leq S_4$ and $G^+$ has size 12. We ``guess'' it is $A_4$ (actually it \emph{must} be $A_4$ since that is the only subgroup of $S_4$ of order 12, but it's nice to see why that's the case).
+  The action on vertices gives a group homomorphism $\varphi \colon G^+ \to S_4$. Since a rotation fixing all four vertices must be the identity, $\ker \varphi = \{e\}$, so $G^+$ embeds in $S_4$ as a subgroup of order $12$.
 
-If we rotate in an axis through 1, we get $(2\; 3\; 4), (2\; 4\; 3)$. Similarly, rotating through other axes through vertices gives all 3-cycles.
+  To identify which subgroup, note that rotation about the axis through vertex $1$ gives the $3$-cycles $(2\; 3\; 4)$ and $(2\; 4\; 3)$. Similarly, axes through other vertices yield all $3$-cycles. Rotation by $\pi$ about the axis through the midpoints of edges $1$--$2$ and $3$--$4$ gives the double transposition $(1\; 2)(3\; 4)$, and similarly we obtain all double transpositions. These are precisely the even permutations, so $G^+ \cong A_4$.
+\end{proof}
 
-If we rotate through an axis that passes through two opposite edges, e.g.\ through 1-2 edge and 3-4 edge, then we have $(1\; 2)(3\; 4)$ and similarly we obtain all double transpositions. So $G^+ \cong A_4$. This shows that there is no \emph{rotation} that fixes two vertices and swaps the other two.
+\begin{remark}
+  In particular, there is no rotation of the tetrahedron that fixes two vertices and swaps the other two, since transpositions are odd.
+\end{remark}
 
 \subsubsection*{All symmetries}
-Now consider the plane that goes through 1, 2 and the mid-point of 3 and 4. Reflection through this plane swaps 3 and 4, but doesn't change $1, 2$. So now $\stab(1) = \bra (2\; 3\; 4), (3, 4)\ket \cong D_6$ (alternatively, if we want to fix 1, we just move 2, 3, 4 around which is the symmetries of the triangular base)
+\begin{prop}[Tetrahedron full symmetry group]
+  $G \cong S_4$, where $G$ is the group of all symmetries of the tetrahedron.
+\end{prop}
 
-So $|G| = 4\cdot 6 = 24$ and $G\cong S_4$ (which makes sense since we can move any of its vertices around in any way and still be a tetrahedron, so we have all permutations of vertices as the symmetry group)
+\begin{proof}
+  The plane through vertices $1$, $2$ and the midpoint of edge $3$--$4$ is a plane of reflective symmetry. Reflection in this plane gives the transposition $(3\; 4)$. Now $\stab(1)$ contains both $(2\; 3\; 4)$ (from a rotation) and $(3\; 4)$ (from this reflection), so $\stab(1) = \langle (2\; 3\; 4), (3\; 4) \rangle \cong S_3$. By the orbit-stabilizer theorem, $|G| = 4 \cdot 6 = 24$.
+
+  The action on the four vertices gives an injective homomorphism $G \hookrightarrow S_4$, and since $|G| = 24 = |S_4|$, it is an isomorphism. This reflects the fact that every permutation of the vertices extends to a symmetry of the tetrahedron.
+\end{proof}
 
 \section{M\texorpdfstring{\"o}{o}bius group}
 \subsection{M\texorpdfstring{\"o}{o}bius maps}
-We want to study maps $f: \C \to \C$ in the form $f(z) = \frac{az + b}{cz + d}$ with $a, b, c, d\in \C$ and $ad - bc \not= 0$.
-
-We impose $ad - bc\not= 0$ or else the map will be constant: for any $z, w\in \C$, $f(z) - f(w) = \frac{(az + b)(cw + d) - (aw + b)(cz + d)}{(cw + d)(cz + d)} = \frac{(ad - bc)(z - w)}{(cw + d)(cz + d)}$. If $ad - bc = 0$, then $f$ is constant and boring (more importantly, it will not be invertible).
-
-If $c\not=0$, then $f(-\frac{d}{c})$ involves division by 0. So we add $\infty$ to $\C$ to form the extended complex plane (Riemann sphere) $\C\cup \{\infty\}= \C_\infty$ (cf.\ Vectors and Matrices). Then we define $f(-\frac{d}{c}) = \infty$. We call $\C_\infty$ a one-point compactification of $\C$ (because it adds one point to $\C$ to make it compact, cf.\ Metric and Topology).
+\begin{remark}
+  We study maps $f \colon \C \to \C$ of the form $f(z) = \frac{az + b}{cz + d}$ with $a, b, c, d \in \C$ and $ad - bc \neq 0$. The condition $ad - bc \neq 0$ ensures $f$ is non-constant, since
+  \[
+    f(z) - f(w) = \frac{(ad - bc)(z - w)}{(cz + d)(cw + d)}.
+  \]
+  When $c \neq 0$, the expression $f(-d/c)$ involves division by zero. To handle this, we work on the \emph{extended complex plane} (or Riemann sphere) $\C_\infty = \C \cup \{\infty\}$ (cf.\ Vectors and Matrices), defining $f(-d/c) = \infty$.
+\end{remark}
 
 \begin{defi}[M\"obius map]
-  A \emph{M\"obius map} is a map from $\C_\infty \to \C_\infty$ of the form
+  A \emph{M\"obius map} is a map $f \colon \C_\infty \to \C_\infty$ of the form
   \[
     f(z) = \frac{az + b}{cz + d},
   \]
-  where $a, b, c, d\in \C$ and $ad - bc\not= 0$, with $f(-\frac{d}{c}) = \infty$ and $f(\infty) = \frac{a}{c}$ when $c\not= 0$. (if $c = 0$, then $f(\infty)=\infty$)
+  where $a, b, c, d \in \C$ and $ad - bc \neq 0$, with $f(-d/c) = \infty$ and $f(\infty) = a/c$ when $c \neq 0$. If $c = 0$, then $f(\infty) = \infty$.
 \end{defi}
 
 \begin{lemma}[M\"obius bijectivity]
-  The M\"obius maps are bijections $\C_\infty \to \C_\infty$.
+  Every M\"obius map is a bijection $\C_\infty \to \C_\infty$.
 \end{lemma}
 
 \begin{proof}
-  The inverse of $f(z) = \frac{az + b}{cz+ d}$ is $g(z) = \frac{dz - b}{-cz + a}$, which we can check by composition both ways.
+  The inverse of $f(z) = \frac{az + b}{cz + d}$ is $g(z) = \frac{dz - b}{-cz + a}$, as one verifies by composition in both directions.
 \end{proof}
 
 \begin{prop}[M\"obius group]
-  The M\"obius maps form a group $M$ under function composition. (The M\"obius group)
+  The set $M$ of all M\"obius maps forms a group under composition, called the \emph{M\"obius group}.
 \end{prop}
-\begin{proof}
-  The group axioms are shown as follows:
-  \begin{enumerate}[label=\arabic{*}.]
-      \setcounter{enumi}{-1}
-    \item If $f_1(z) = \frac{a_1z + b_1}{c_1z + d_1}$ and $f_2(z) = \frac{a_2z + b_2}{c_2 z + d_2}$, then $\displaystyle f_2\circ f_1 (z) = \frac{a_2\left(\frac{a_1z + b_1}{c_1z + d_1}\right) + b_2}{c_2\left(\frac{a_1z + b_1}{c_1z + d_1}\right) + d_2} = \frac{(a_1a_2 + b_2c_1)z + (a_2b_1 + b_2d_1)}{(c_2a_1 + d_2c_1)z + (c_2b_1 + d_1d_2)}$. Now we have to check that $ad - bc \not = 0$: we have $(a_1a_2 + b_2c_1)(c_2b_1 + d_1d_2) - (a_2b_1 + b_2d_1)(c_2a_1 + d_2c_1) = (a_1d_1 - b_1c_1)(a_2d_2 - b_2c_2)\not =0 $.
 
-      (This works for $z\not= \infty, -\frac{d_1}{c_1}$. We have to manually check the special cases, which is simply yet more tedious algebra)
-    \item The identity function is $1(z) = \frac{1z + 0}{0 + 1}$ which satisfies $ad - bc \not= 0$.
-    \item We have shown above that $f^{-1}(z) = \frac{dz - b}{-cz + a}$ with $da - bc\not= 0$, which are also M\"obius maps
-    \item Composition of functions is always associative
+\begin{proof}
+  We verify the group axioms.
+  \begin{enumerate}
+    \item \emph{Closure.} If $f_1(z) = \frac{a_1 z + b_1}{c_1 z + d_1}$ and $f_2(z) = \frac{a_2 z + b_2}{c_2 z + d_2}$, then
+    \[
+      f_2 \circ f_1(z) = \frac{(a_2 a_1 + b_2 c_1)z + (a_2 b_1 + b_2 d_1)}{(c_2 a_1 + d_2 c_1)z + (c_2 b_1 + d_2 d_1)}.
+    \]
+    The determinant of the composite is $(a_2 a_1 + b_2 c_1)(c_2 b_1 + d_2 d_1) - (a_2 b_1 + b_2 d_1)(c_2 a_1 + d_2 c_1) = (a_1 d_1 - b_1 c_1)(a_2 d_2 - b_2 c_2) \neq 0$.
+    \item \emph{Identity.} The identity map $\id(z) = \frac{1 \cdot z + 0}{0 \cdot z + 1}$ is a M\"obius map.
+    \item \emph{Inverses.} $f^{-1}(z) = \frac{dz - b}{-cz + a}$ is a M\"obius map with determinant $da - (-b)(-c) = ad - bc \neq 0$.
+    \item \emph{Associativity.} Composition of functions is always associative.
   \end{enumerate}
 \end{proof}
-$M$ is not abelian. e.g.\ $f_1(z) = 2z$ and $f_2(z) = z + 1$ are not commutative: $f_1\circ f_2(z) = 2z+2$ and $f_2\circ f_1(z) = 2z + 1$.
 
-Note that the point at ``infinity'' is not special. $\infty$ is no different to any other point of the Riemann sphere. However, from the way we write down the M\"obius map, we have to check infinity specially. In this particular case, we can get quite far with conventions such as $\frac{1}{\infty} = 0$, $\frac{1}{0} = \infty$ and $\frac{a\cdot \infty}{c\cdot \infty} = \frac{a}{c}$.
+\begin{remark}
+  $M$ is not abelian: for example, $f_1(z) = 2z$ and $f_2(z) = z + 1$ give $f_1 \circ f_2(z) = 2z + 2$ but $f_2 \circ f_1(z) = 2z + 1$.
+\end{remark}
 
-Clearly $\frac{az + b}{cz + d} = \frac{\lambda az + \lambda b}{\lambda cz + \lambda d}$ for any $\lambda \not= 0$. So we do not have a unique representation of a map in terms of $a, b, c, d$. But $a, b, c, d$ does uniquely determine a M\"obius map.
+\begin{remark}
+  On the Riemann sphere, $\infty$ is no more special than any other point. The conventions $\frac{1}{\infty} = 0$, $\frac{1}{0} = \infty$, and $\frac{a \cdot \infty}{c \cdot \infty} = \frac{a}{c}$ allow one to evaluate M\"obius maps at $\infty$ without separate case analysis.
+\end{remark}
+
+\begin{remark}
+  Since $\frac{az + b}{cz + d} = \frac{\lambda az + \lambda b}{\lambda cz + \lambda d}$ for any $\lambda \neq 0$, the coefficients $a, b, c, d$ do not uniquely determine a M\"obius map. However, a choice of $a, b, c, d$ does uniquely determine one.
+\end{remark}
 
 \begin{prop}[$\GL_2(\C)$ to M\"obius group homomorphism]
-  The map $\theta: \GL_2(\C)\to M$ sending $
-  \displaystyle \begin{pmatrix}
-    a & b\\
-    c & d
-  \end{pmatrix} \mapsto \frac{az + b}{cz + d}$ is a surjective group homomorphism.
+  The map $\theta \colon \GL_2(\C) \to M$ sending $\begin{pmatrix} a & b \\ c & d \end{pmatrix} \mapsto \frac{az + b}{cz + d}$ is a surjective group homomorphism.
 \end{prop}
 
 \begin{proof}
-  Firstly, since the determinant $ad - bc$ of any matrix in $\GL_2(\C)$ is non-zero, it does map to a M\"obius map. This also shows that $\theta$ is surjective.
-
-  We have previously calculated that
-  \[
-    \theta(A_2)\circ \theta(A_1) = \frac{(a_1a_2 + b_2c_1)z + (a_2b_1 + b_2d_1)}{(c_2a_1 + d_2c_1)z + (c_2b_1 + d_1d_2)} = \theta(A_2A_1)
-  \]
-  So it is a homomorphism.
+  Since $ad - bc \neq 0$ for any matrix in $\GL_2(\C)$, the map $\theta$ is well-defined. It is surjective by definition of $M$. The closure computation above shows that $\theta(A_2) \circ \theta(A_1) = \theta(A_2 A_1)$, so $\theta$ is a homomorphism.
 \end{proof}
 
-The kernel of $\theta$ is
-\[
-  \ker(\theta) = \left\{A\in \GL_2(\C): (\forall z)\,z = \frac{az + b}{cz + d}\right\}
-\]
-We can try different values of $z$: $z = \infty \Rightarrow c = 0$; $z = 0 \Rightarrow b = 0$; $z = 1\Rightarrow d = a$. So
-\[
-  \ker\theta = Z = \{\lambda I: \lambda \in \C, \lambda\not= 0\},
-\]
-where $I$ is the identity matrix and $Z$ is the centre of $\GL_2(\C)$.
+\begin{lemma}[Kernel of $\theta$]
+  $\ker \theta = Z = \{\lambda I : \lambda \in \C \setminus \{0\}\}$, the centre of $\GL_2(\C)$.
+\end{lemma}
 
-By the isomorphism theorem, we have
-\[
-  M \cong \GL_2(\C)/Z
-\]
+\begin{proof}
+  We need $\frac{az + b}{cz + d} = z$ for all $z \in \C_\infty$. Setting $z = \infty$ gives $c = 0$; $z = 0$ gives $b = 0$; $z = 1$ gives $d = a$. So $\ker \theta = \{\lambda I : \lambda \neq 0\} = Z$.
+\end{proof}
+
+\begin{remark}
+  By the first isomorphism theorem, $M \cong \GL_2(\C)/Z$.
+\end{remark}
 
 \begin{defi}[Projective general linear group $\mathrm{PGL}_2(\C)$]
-  (Non-examinable) The projective general linear group is
-  \[
-    \mathrm{PGL}_2(\C) = \GL_2(\C)/Z.
-  \]
+  The \emph{projective general linear group} is $\mathrm{PGL}_2(\C) = \GL_2(\C)/Z$.
 \end{defi}
-Since $f_A = f_B$ iff $B = \lambda A$ for some $\lambda\not= 0$ (where $A, B$ are the corresponding matrices of the maps), if we restrict $\theta$ to $\SL_2(\C)$, we have $\left.\theta\right|_{\SL_2(\C)}: \SL_2(\C)\to M$ is also surjective. The kernel is now just $\{\pm I\}$. So
-\[
-  M \cong \SL_2(\C)/\{\pm I\} = \mathrm{PSL_2}(\C)
-\]
-Clearly $\mathrm{PSL}_2(\C)\cong \mathrm{PGL}_2(\C)$ since both are isomorphic to the M\"obius group.
+
+\begin{remark}
+  Since $f_A = f_B$ if and only if $B = \lambda A$ for some $\lambda \neq 0$, the restriction $\theta|_{\SL_2(\C)} \colon \SL_2(\C) \to M$ is also surjective, with kernel $\{\pm I\}$. So
+  \[
+    M \cong \SL_2(\C)/\{\pm I\} = \mathrm{PSL}_2(\C).
+  \]
+  In particular, $\mathrm{PSL}_2(\C) \cong \mathrm{PGL}_2(\C)$.
+\end{remark}
 
 \begin{prop}[M\"obius map generators]
-  Every M\"obius map is a composite of maps of the following form:
+  Every M\"obius map is a composition of maps of the following three types:
   \begin{enumerate}
-    \item Dilation/rotation: $f(z) = az$, $a\not= 0$
-    \item Translation: $f(z) = z + b$
-    \item Inversion: $f(z) = \frac{1}{z}$
+    \item Dilation/rotation: $f(z) = az$, $a \neq 0$.
+    \item Translation: $f(z) = z + b$.
+    \item Inversion: $f(z) = 1/z$.
   \end{enumerate}
 \end{prop}
+
 \begin{proof}
-  Let $\frac{az + b}{cz + d}\in M$.
+  Let $g(z) = \frac{az + b}{cz + d} \in M$.
 
-  If $c = 0$, i.e.\ $g(\infty) = \infty$, then $g(z) = \frac{a}{d}z + \frac{b}{d}$, i.e.
+  If $c = 0$, then $g(z) = \frac{a}{d}z + \frac{b}{d}$, which is a dilation followed by a translation:
   \[
-    z\mapsto \frac{a}{d} z\mapsto \frac{a}{d}z + \frac{b}{d}.
+    z \mapsto \frac{a}{d}\, z \mapsto \frac{a}{d}\, z + \frac{b}{d}.
   \]
-  If $c\not= 0$, let $g(\infty)=z_0$, Let $h(z) = \frac{1}{z - z_0}$. Then $hg(\infty) = \infty$ is of the above form. We have $h^{-1}(w) = \frac{1}{w} + z_0$being of type (iii) followed by (ii). So $g = h^{-1} (hg)$ is a composition of maps of the three forms listed above.
+  If $c \neq 0$, let $z_0 = g(\infty) = a/c$ and $h(z) = \frac{1}{z - z_0}$. Then $h \circ g$ fixes $\infty$, so it is of the first type. Since $h^{-1}(w) = \frac{1}{w} + z_0$ is an inversion followed by a translation, $g = h^{-1} \circ (h \circ g)$ is a composition of maps of the three types.
 
-  Alternatively, with sufficient magic, we have
+  Alternatively, one can verify the explicit decomposition
   \[
-    z\mapsto z + \frac{d}{c} \mapsto \frac{1}{z + \frac{d}{c}} \mapsto -\frac{ad + bc}{c^2(z + \frac{d}{c})}\mapsto \frac{a}{c} -\frac{ad + bc}{c^2(z + \frac{d}{c})} = \frac{az + b}{cz + d}.\qedhere
+    z \mapsto z + \frac{d}{c} \mapsto \frac{1}{z + \frac{d}{c}} \mapsto \frac{-(ad - bc)}{c^2\!\left(z + \frac{d}{c}\right)} \mapsto \frac{a}{c} - \frac{ad - bc}{c^2\!\left(z + \frac{d}{c}\right)} = \frac{az + b}{cz + d}.\qedhere
   \]
 \end{proof}
-Note that the non-calculation method above can be transformed into another (different) composition with the same end result. So the way we compose a M\"obius map from the ``elementary'' maps are not unique.
+
+\begin{remark}
+  The decomposition of a M\"obius map into elementary maps is not unique: different methods yield different compositions with the same end result.
+\end{remark}
 
 \subsection{Fixed points of M\texorpdfstring{\"o}{o}bius maps}
 \begin{defi}[Fixed point]
-  A \emph{fixed point} of $f$ is a $z$ such that $f(z) = z$.
+  A \emph{fixed point} of $f$ is a point $z \in \C_\infty$ such that $f(z) = z$.
 \end{defi}
 
-We know that any M\"obius map with $c = 0$ fixes $\infty$. We also know that $z\to z + b$ for any $b\not= 0$ fixes $\infty$ only, where as $z\mapsto az$ for $a\not= 0, 1$ fixes $0$ and $\infty$. It turns out that you cannot have more than two fixed points, unless you are the identity.
+\begin{remark}
+  Any M\"obius map with $c = 0$ fixes $\infty$. The translation $z \mapsto z + b$ ($b \neq 0$) fixes $\infty$ only, whereas the dilation $z \mapsto az$ ($a \neq 0, 1$) fixes both $0$ and $\infty$. As we shall see, a non-identity M\"obius map can have at most two fixed points.
+\end{remark}
 
 \begin{prop}[Three fixed points rigidity]
-  Any M\"obius map with at least 3 fixed points must be the identity.
+  Any M\"obius map with at least $3$ fixed points is the identity.
 \end{prop}
 
 \begin{proof}
-  Consider $f(z) = \frac{az + b}{cz + d}$. This has fixed points at those $z$ which satisfy $\frac{az + b}{cz + d} = z \Leftrightarrow cz^2 + (d - a)z - b = 0$. A quadratic has at most two roots, unless $c = b = 0$ and $d = a$, in which the equation just says $0 = 0$.
-
-  However, if $c = b= 0$ and $d = a$, then $f$ is just the identity.
+  The fixed points of $f(z) = \frac{az + b}{cz + d}$ in $\C$ satisfy $cz^2 + (d - a)z - b = 0$. This quadratic has at most two roots, unless $c = b = 0$ and $d = a$, in which case $f$ is the identity.
 \end{proof}
 
 \begin{prop}[M\"obius map normal form]
-  Any M\"obius map is conjugate to $f(z) = \nu z$ for some $\nu\not= 0$ or to $f(z) = z + 1$.
+  Every M\"obius map is conjugate to $f(z) = \nu z$ for some $\nu \neq 0$, or to $f(z) = z + 1$.
 \end{prop}
 
 \begin{proof}
-  We have the surjective group homomorphism $\theta: \GL_2(\C) \to M$. The conjugacy classes of $\GL_2(\C)$ are of types
+  The surjective homomorphism $\theta \colon \GL_2(\C) \to M$ sends conjugacy classes in $\GL_2(\C)$ to conjugacy classes in $M$. By Jordan normal form, every matrix in $\GL_2(\C)$ is conjugate to one of the following types:
   \begin{align*}
-    \begin{pmatrix}
-      \lambda & 0\\
-      0 & \mu
-    \end{pmatrix} &\mapsto g(z) = \frac{\lambda z + 0}{0z + \mu} = \frac{\lambda}{\mu}z\\
-    \begin{pmatrix}
-      \lambda & 0\\
-      0 & \lambda
-    \end{pmatrix} &\mapsto g(z) = \frac{\lambda z + 0}{0z + \lambda} = 1 z\\
-    \begin{pmatrix}
-      \lambda & 1\\
-      0 & \lambda
-    \end{pmatrix} &\mapsto g(z) = \frac{\lambda z + 1}{\lambda} = z + \frac{1}{\lambda}
+    \begin{pmatrix} \lambda & 0 \\ 0 & \mu \end{pmatrix} &\mapsto g(z) = \frac{\lambda}{\mu}\, z, \\
+    \begin{pmatrix} \lambda & 0 \\ 0 & \lambda \end{pmatrix} &\mapsto g(z) = z, \\
+    \begin{pmatrix} \lambda & 1 \\ 0 & \lambda \end{pmatrix} &\mapsto g(z) = z + \frac{1}{\lambda}.
   \end{align*}
-  But the last one is not in the form $z + 1$. We know that the last $g(z)$ can also be represented by $
-  \begin{pmatrix}
-    1 & \frac{1}{\lambda}\\
-    0 & 1
-  \end{pmatrix}$, which is conjugate to $
-  \begin{pmatrix}
-    1 & 1\\
-    0 & 1
-  \end{pmatrix}$ (since that's its Jordan-normal form). So $z + \frac{1}{\lambda}$ is also conjugate to $z + 1$.
+  In the last case, $g$ is also represented by $\begin{pmatrix} 1 & 1/\lambda \\ 0 & 1 \end{pmatrix}$, which is conjugate to $\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$ in $\GL_2(\C)$. So $z + \frac{1}{\lambda}$ is conjugate to $z + 1$ in $M$.
 \end{proof}
 
-Now we see easily that (for $\nu \not= 0, 1$), $\nu z$ has $0$ and $\infty$ as fixed points, $z + 1$ only has $\infty$. Does this transfer to their conjugates?
+\begin{remark}
+  For $\nu \neq 0, 1$, the map $z \mapsto \nu z$ has exactly two fixed points ($0$ and $\infty$), while $z \mapsto z + 1$ has exactly one ($\infty$). Conjugation preserves the number of fixed points, since $f(w) = w$ if and only if $hfh^{-1}(h(w)) = h(w)$, and $h$ is a bijection.
+\end{remark}
 
 \begin{prop}[M\"obius map fixed point count]
-  Every non-identity has exactly 1 or 2 fixed points.
+  Every non-identity M\"obius map has exactly $1$ or $2$ fixed points.
 \end{prop}
 
 \begin{proof}
-  Given $f\in M$ and $f\not= \mathrm{id}$. So $\exists h\in M$ such that $hfh^{-1}(z) = \nu{z}$. Now $f(w) = w \Leftrightarrow hf(w) = h(w) \Leftrightarrow hfh^{-1}(h(w)) = h(w)$. So $h(w)$ is a fixed point of $hfh^{-1}$. Since $h$ is a bijection, $f$ and $hfh^{-1}$ have the same number of fixed points.
-
-  So $f$ has exactly $2$ fixed points if $f$ is conjugate to $\nu z$, and exactly 1 fixed point if $f$ is conjugate to $z + 1$.
+  Let $f \in M$ with $f \neq \id$. By the normal form proposition, there exists $h \in M$ such that $hfh^{-1}$ is either $z \mapsto \nu z$ (with $\nu \neq 1$) or $z \mapsto z + 1$. Now $f(w) = w$ if and only if $hfh^{-1}(h(w)) = h(w)$, so $h$ gives a bijection between the fixed points of $f$ and those of $hfh^{-1}$. The result follows since $\nu z$ has $2$ fixed points and $z + 1$ has $1$.
 \end{proof}
-Intuitively, we can show that conjugation preserves fixed points because if we conjugate by $h$, we first move the Riemann sphere around by $h$, apply $f$ (that fixes the fixed points) then restore the Riemann sphere to its original orientation. So we have simply moved the fixed point around by $h$.
 
 \subsection{Permutation properties of M\texorpdfstring{\"o}{o}bius maps}
-We have seen that the M\"obius map with three fixed points is the identity. As a corollary, we obtain the following.
-
 \begin{prop}[Three-point determination]
-  Given $f, g\in M$. If $\exists z_1, z_2, z_3\in \C_{\infty}$ such that $f(z_i) = g(z_i)$, then $f = g$. i.e.\ every M\"obius map is uniquely determined by three points.
+  If $f, g \in M$ agree at three distinct points of $\C_\infty$, then $f = g$. That is, every M\"obius map is uniquely determined by its values at three points.
 \end{prop}
 
 \begin{proof}
-  As M\"obius maps are invertible, write $f(z_i) = g(z_i)$ as $g^{-1}f(z_i) = z_i$. So $g^{-1}f$ has three fixed points. So $g^{-1}f$ must be the identity. So $f = g$.
+  If $f(z_i) = g(z_i)$ for distinct $z_1, z_2, z_3$, then $g^{-1} \circ f$ has three fixed points, so $g^{-1} \circ f = \id$ by the three fixed points rigidity proposition, giving $f = g$.
 \end{proof}
 
 \begin{defi}[Three-transitive action]
-  An action of $G$ on $X$ is called \emph{three-transitive} if the induced action on $\{(x_1, x_2, x_3)\in X^3: x_i\text{ pairwise disjoint}\}$, given by $g(x_1, x_2, x_3) = (g(x_1), g(x_2), g(x_3))$, is transitive.
+  An action of $G$ on $X$ is called \emph{three-transitive} if the induced action on $\{(x_1, x_2, x_3) \in X^3 : x_i \text{ pairwise distinct}\}$, given by $g(x_1, x_2, x_3) = (g(x_1), g(x_2), g(x_3))$, is transitive.
 
-  This means that for any two triples $x_1, x_2, x_3$ and $y_1, y_2, y_3$ of distinct elements of $X$, there exists $g\in G$ such that $g(x_i) = y_i$.
+  Equivalently, for any two triples $(x_1, x_2, x_3)$ and $(y_1, y_2, y_3)$ of distinct elements of $X$, there exists $g \in G$ such that $g(x_i) = y_i$ for each $i$.
 
-  If this $g$ is always unique, then the action is called \emph{sharply three transitive}
+  If this $g$ is always unique, the action is called \emph{sharply three-transitive}.
 \end{defi}
-This is a really weird definition. The reason we raise it here is that the M\"obius map satisfies this property.
 
 \begin{prop}[Sharp three-transitivity of $M$]
   The M\"obius group $M$ acts sharply three-transitively on $\C_\infty$.
 \end{prop}
 
 \begin{proof}
-  We want to show that we can send any three points to any other three points. However, it is easier to show that we can send any three points to $0, 1, \infty$.
-
-  Suppose we want to send $z_1\to \infty, z_2\mapsto 0, z_3 \mapsto 1$. Then the following works:
+  It suffices to show that any three distinct points can be sent to $\infty, 0, 1$. Given distinct $z_1, z_2, z_3 \in \C_\infty$, the map
   \[
     f(z) = \frac{(z - z_2)(z_3 - z_1)}{(z - z_1)(z_3 - z_2)}
   \]
-  If any term $z_i$ is $\infty$, we simply remove the terms with $z_i$, e.g.\ if $z_1 = \infty$, we have $f(z) = \frac{z - z_2}{z_3 - z_2}$.
+  sends $z_1 \mapsto \infty$, $z_2 \mapsto 0$, $z_3 \mapsto 1$. (If some $z_i = \infty$, we remove the factors involving $z_i$; e.g.\ if $z_1 = \infty$, then $f(z) = \frac{z - z_2}{z_3 - z_2}$.)
 
-  So given also $w_1, w_2, w_3$ distinct in $\C_\infty$ and $g\in M$ sending $w_1\mapsto \infty, w_2\mapsto 0, w_3\mapsto 1$, then we have $g^{-1}f(z_i) = w_i$.
-
-  The uniqueness of the map follows from the fact that a M\"obius map is uniquely determined by 3 points.
+  Now given another triple $w_1, w_2, w_3$ of distinct points, let $g \in M$ send $w_1 \mapsto \infty$, $w_2 \mapsto 0$, $w_3 \mapsto 1$. Then $g^{-1} \circ f$ sends $z_i \mapsto w_i$. Uniqueness follows from three-point determination.
 \end{proof}
 
-3 points not only define a M\"obius map uniquely. They also uniquely define a line or circle. Note that on the Riemann sphere, we can think of a line as a circle through infinity, and it would be technically correct to refer to both of them as ``circles''. However, we would rather be clearer and say ``line/circle''.
-
-We will see how M\"obius maps relate to lines and circles. We will first recap some knowledge about lines and circles in the complex plane.
+\begin{remark}
+  Three distinct points also uniquely determine a circle or line in $\C$. On the Riemann sphere, a straight line can be viewed as a circle through $\infty$, but we will use the phrase ``circle/line'' for clarity when working in $\C$.
+\end{remark}
 
 \begin{lemma}[Circle and line equation in $\C$]
   The general equation of a circle or straight line in $\C$ is
   \[
     Az\bar z + \bar Bz + B\bar z + C = 0,
   \]
-  where $A, C\in \R$ and $|B|^2 > AC$.
+  where $A, C \in \R$ and $|B|^2 > AC$.
 \end{lemma}
-$A = 0$ gives a straight line. If $A \not= 0, B = 0$, we have a circle centered at the origin. If $C = 0$, the circle passes through 0.
 
 \begin{proof}
-  This comes from noting that $|z - B| = r$ for $r \in \R> 0$ is a circle; $|z - a| = |z - b|$ with $a\not= b $ is a line. The detailed proof can be found in Vectors and Matrices.
+  A circle $|z - w| = r$ ($r > 0$) and a line $|z - a| = |z - b|$ ($a \neq b$) can both be expanded into this form. See Vectors and Matrices for the full derivation.
 \end{proof}
+
+\begin{remark}
+  Setting $A = 0$ gives a straight line. If $A \neq 0$ and $B = 0$, the equation describes a circle centred at the origin. If $C = 0$, the circle passes through $0$.
+\end{remark}
 
 \begin{prop}[Circle preservation]
-  M\"obius maps send circles/straight lines to circles/straight lines. Note that it can send circles to straight lines and vice versa.
-
-  Alternatively, M\"obius maps send circles on the Riemann sphere to circles on the Riemann sphere.
+  M\"obius maps send circles and straight lines to circles and straight lines. Equivalently, M\"obius maps send circles on the Riemann sphere to circles on the Riemann sphere.
 \end{prop}
 
-\begin{proof}
-  We can either calculate it directly using $w = \frac{az + b}{cz + d}\Leftrightarrow z = \frac{dw - b}{-cw + a}$ and substituting $z$ into the circle equation, which gives $A' w\bar w + \bar B' w + B'\bar w + C' = 0$ with $A', C'\in \R$.
+\begin{remark}
+  In particular, a M\"obius map may send a circle to a straight line or vice versa.
+\end{remark}
 
-  Alternatively, we know that each M\"obius map is a composition of translation, dilation/rotation and inversion. We can check for each of the three types. Clearly dilation/rotation and translation maps a circle/line to a circle/line. So we simply do inversion: if $w = z^{-1}$
+\begin{proof}
+  Since every M\"obius map is a composition of translations, dilations/rotations, and inversions, it suffices to check each type. Translations and dilations/rotations clearly preserve circles and lines. For inversion, if $w = z^{-1}$, then
   \begin{align*}
-    &\; Az\bar z + \bar Bz + B\bar z + C = 0\\
-    \Leftrightarrow &\; Cw\bar w + Bw + \bar B\bar w + A = 0\qedhere
+    &\; Az\bar z + \bar Bz + B\bar z + C = 0 \\
+    \Leftrightarrow\; &\; Cw\bar w + Bw + \bar B\bar w + A = 0,
   \end{align*}
+  which is again of the required form.
 \end{proof}
 
-\begin{eg}
-  Consider $f(z) = \frac{z - i}{z + i}$. Where does the real line go? The real line is simply a circle through $0, 1, \infty$. $f$ maps this circle to the circle containing $f(\infty) = 1$, $f(0) = -1$ and $f(1) = -i$, which is the unit circle.
+\begin{eg}[Cayley transform]\leavevmode
+  Consider $f(z) = \frac{z - i}{z + i}$. The real line is a circle through $0, 1, \infty$. Its image is the circle through $f(\infty) = 1$, $f(0) = -1$, and $f(1) = \frac{1-i}{1+i} = -i$, which is the unit circle.
 
-  Where does the upper half plane go? We know that the M\"obius map is smooth. So the upper-half plane either maps to the inside of the circle or the outside of the circle. We try the point $i$, which maps to $0$. So the upper half plane is mapped to the inside of the circle.
+  Since M\"obius maps are continuous, the upper half-plane maps either to the interior or exterior of the unit circle. Evaluating at $i$ gives $f(i) = 0$, so the upper half-plane maps to the open unit disc.
 \end{eg}
 \subsection{Cross-ratios}
-  Finally, we'll look at an important concept known as \emph{cross-ratios}. Roughly speaking, this is a quantity that is preserved by M\"obius transforms.
 
-\begin{defi}[Cross-ratios]
-  Given four distinct points $z_1, z_2, z_3, z_4\in \C_\infty,$ their \emph{cross-ratio} is $[z_1, z_2, z_3, z_4] = g(z_4)$, with $g$ being the unique M\"obius map that maps $z_1\mapsto \infty, z_2\mapsto 0, z_3\mapsto 1$. So $[\infty, 0, 1, \lambda] = \lambda$ for any $\lambda\not= \infty, 0, 1$. We have
+\begin{defi}[Cross-ratio]
+  Given four distinct points $z_1, z_2, z_3, z_4 \in \C_\infty$, their \emph{cross-ratio} is
   \[
-    [z_1, z_2, z_3, z_4] = \frac{z_4 - z_2}{z_4 - z_1} \cdot \frac{z_3 - z_1}{z_3 - z_2}
+    [z_1, z_2, z_3, z_4] = g(z_4),
   \]
-  (with special cases as above).
+  where $g$ is the unique M\"obius map sending $z_1 \mapsto \infty$, $z_2 \mapsto 0$, $z_3 \mapsto 1$. In particular, $[\infty, 0, 1, \lambda] = \lambda$ for any $\lambda \neq \infty, 0, 1$. Explicitly,
+  \[
+    [z_1, z_2, z_3, z_4] = \frac{z_4 - z_2}{z_4 - z_1} \cdot \frac{z_3 - z_1}{z_3 - z_2},
+  \]
+  with the obvious modifications when some $z_i = \infty$.
 \end{defi}
-We know that this exists and is uniquely defined because $M$ acts sharply three-transitively on $\C_\infty$.
 
-Note that different authors use different permutations of $1, 2, 3, 4$, but they all lead to the same result as long as you are consistent.
+\begin{remark}
+  The cross-ratio is well-defined because $M$ acts sharply three-transitively on $\C_\infty$. Different authors use different orderings of $z_1, z_2, z_3, z_4$ in the definition; the choice does not matter as long as one is consistent.
+\end{remark}
 
 \begin{lemma}[Cross-ratio double transposition symmetry]
-  For $z_1, z_2, z_3, z_4\in \C_\infty$ all distinct, then
+  For distinct $z_1, z_2, z_3, z_4 \in \C_\infty$,
   \[
-    [z_1, z_2, z_3, z_4] = [z_2, z_1, z_4, z_3] = [z_3, z_4, z_1, z_2] = [z_4, z_3, z_2, z_1]
+    [z_1, z_2, z_3, z_4] = [z_2, z_1, z_4, z_3] = [z_3, z_4, z_1, z_2] = [z_4, z_3, z_2, z_1].
   \]
-  i.e.\ if we perform a double transposition on the entries, the cross-ratio is retained.
+  That is, the cross-ratio is preserved by any double transposition of the entries.
 \end{lemma}
 
 \begin{proof}
-  By inspection of the formula.
+  Direct computation from the formula.
 \end{proof}
 
 \begin{prop}[Cross-ratio invariance]
-  If $f\in M$, then $[z_1, z_2, z_3, z_4] = [f(z_1), f(z_2), f(z_3), f(z_4)]$.
+  If $f \in M$, then $[z_1, z_2, z_3, z_4] = [f(z_1), f(z_2), f(z_3), f(z_4)]$.
 \end{prop}
 
 \begin{proof}
-  Use our original definition of the cross ratio (instead of the formula). Let $g$ be the unique M\"obius map such that $[z_1, z_2, z_3, z_4] = g(z_4) = \lambda$, i.e.
-  \begin{align*}
-    z_1 &\xmapsto{g} \infty\\
-    z_2 &\mapsto 0\\
-    z_3 &\mapsto 1\\
-    z_4 &\mapsto \lambda
-  \end{align*}
-  We know that $gf^{-1}$ sends
-  \begin{align*}
-    f(z_1)\xmapsto{f^{-1}} z_1 &\xmapsto{g} \infty\\
-    f(z_2)\xmapsto{f^{-1}} z_2 &\xmapsto{g} 0\\
-    f(z_3)\xmapsto{f^{-1}} z_3 &\xmapsto{g} 1\\
-    f(z_4)\xmapsto{f^{-1}} z_4 &\xmapsto{g} \lambda
-  \end{align*}
-  So $[f(z_1), f(z_2), f(z_3), f(z_4)] = gf^{-1}f(z_4) = g(z_4) = \lambda$.
+  Let $g$ be the unique M\"obius map with $g(z_1) = \infty$, $g(z_2) = 0$, $g(z_3) = 1$, so that $g(z_4) = [z_1, z_2, z_3, z_4] = \lambda$. Then $g \circ f^{-1}$ sends
+  \[
+    f(z_1) \mapsto \infty, \quad f(z_2) \mapsto 0, \quad f(z_3) \mapsto 1, \quad f(z_4) \mapsto \lambda,
+  \]
+  so $[f(z_1), f(z_2), f(z_3), f(z_4)] = g \circ f^{-1}(f(z_4)) = g(z_4) = \lambda$.
 \end{proof}
 
-In fact, we can see from this proof that: given $z_1, z_2, z_3, z_4$ all distinct and $w_1, w_2, w_3, w_4$ distinct in $\C_\infty$, then $\exists f\in M$ with $f(z_i) = w_i$ iff $[z_1, z_2, z_3, z_4] = [w_1, w_2, w_3, w_4]$.
+\begin{remark}
+  The proof shows more generally that for distinct $z_1, z_2, z_3, z_4$ and distinct $w_1, w_2, w_3, w_4$ in $\C_\infty$, there exists $f \in M$ with $f(z_i) = w_i$ for all $i$ if and only if $[z_1, z_2, z_3, z_4] = [w_1, w_2, w_3, w_4]$.
+\end{remark}
 
 \begin{cor}[Concyclic criterion]
-  $z_1, z_2, z_3, z_4$ lie on some circle/straight line iff $[z_1, z_2, z_3, z_4]\in \R$.
+  Distinct $z_1, z_2, z_3, z_4 \in \C_\infty$ lie on a common circle or straight line if and only if $[z_1, z_2, z_3, z_4] \in \R$.
 \end{cor}
 
 \begin{proof}
-  Let $C$ be the circle/line through $z_1, z_2, z_3$. Let $g$ be the unique M\"obius map with $g(z_1) = \infty$, $g(z_2) = 0$, $g(z_3) = 1$. Then $g(z_4) = [z_1, z_2, z_3, z_4]$ by definition.
-
-  Since we know that M\"obius maps preserve circle/lines, $z_4\in C \Leftrightarrow g(z_4)$ is on the line through $\infty, 0, 1$, i.e.\ $g(z_4) \in \R$.
+  Let $C$ be the circle/line through $z_1, z_2, z_3$, and let $g$ be the unique M\"obius map with $g(z_1) = \infty$, $g(z_2) = 0$, $g(z_3) = 1$. Then $g(z_4) = [z_1, z_2, z_3, z_4]$ by definition. Since M\"obius maps preserve circles and lines, $z_4 \in C$ if and only if $g(z_4)$ lies on the line through $\infty, 0, 1$, i.e.\ $g(z_4) \in \R$.
 \end{proof}
 
 \section{Projective line (non-examinable)}
-We have seen in matrix groups that $\GL_2(\C)$ acts on $\C^2$, the column vectors. Instead, we can also have $\GL_2(\C)$ acting on the set of 1-dimensional subspaces (i.e.\ lines) of $\C^2$.
 
-For any $\mathbf{v}\in \C^2$, write the line generated by $\mathbf{v}$ as $\bra \mathbf{v}\ket$. Then clearly $\bra \mathbf{v} \ket = \{\lambda \mathbf{v}: \lambda\in \C\}$. Now for any $A\in \GL_2(\C)$, define the action as $A\bra \mathbf{v}\ket = \bra A\mathbf{v}\ket$. Check that this is well-defined: for any $\bra \mathbf{v} \ket = \bra \mathbf{w}\ket$, we want to show that $\bra A\mathbf{v}\ket = \bra A\mathbf{w}\ket$. This is true because $\bra \mathbf{v} \ket = \bra \mathbf{w}\ket$ if and only if $\mathbf{w} = \lambda \mathbf{v}$ for some $\lambda\in \C\setminus\{0\}$, and then $\bra A\mathbf{w}\ket = \bra A\lambda\mathbf{v}\ket = \bra \lambda (A\mathbf{v})\ket = \bra A\mathbf{v}\ket$.
+\begin{defi}[Projective line]
+  For a non-zero vector $\mathbf{v} \in \C^2$, write $\bra \mathbf{v} \ket = \{\lambda \mathbf{v} : \lambda \in \C\}$ for the $1$-dimensional subspace generated by $\mathbf{v}$. The \emph{projective line} $\CP^1$ is the set of all $1$-dimensional subspaces of $\C^2$.
+\end{defi}
 
-What is the kernel of this action? By definition the kernel has to fix all lines. In particular, it has to fix our magic lines generated by $\binom{1}{0}, \binom{0}{1}$ and $\binom{1}{1}$. Since we want $A\bra \binom{1}{0}\ket = \bra \binom{1}{0}\ket$, so we must have $A\binom{1}{0} = \binom{\lambda}{0}$ for some $\lambda$. Similarly, $A\binom{0}{1} = \binom{0}{\mu}$. So we can write $A =
-\begin{pmatrix}
-  \lambda & 0\\
-  0 & \mu
-\end{pmatrix}$. However, also need $A\bra \binom{1}{1}\ket = \bra\binom{1}{1}\ket$. Since $A$ is a linear function, we know that $A \binom{1}{1} = A \binom{1}{0} + A \binom{0}{1} = \binom{\lambda }{\mu}$. For the final vector to be parallel to $\binom{1}{1}$, we must have $\lambda = \mu$. So $A = \lambda I$ for some $I$. Clearly any matrix of this form fixes any line. So the kernel $Z = \{\lambda I: \lambda\in \C\setminus\{0\}\}$.
+\begin{prop}[Action of $\GL_2(\C)$ on $\CP^1$]
+  The map $A \cdot \bra \mathbf{v} \ket = \bra A\mathbf{v} \ket$ defines an action of $\GL_2(\C)$ on $\CP^1$.
+\end{prop}
 
-Note that every line is uniquely determined by its slope. For any $\mathbf{v} = (v_1, v_2), \mathbf{w} = (w_1, w_2)$, we have $\bra \mathbf{v}\ket = \bra \mathbf{w}\ket$ iff $z_1/z_2 = w_1/w_2$. So we have a one-to-one correspondence from our lines to $\C_\infty$, that maps $\bra \binom{z_1}{z_2}\ket\leftrightarrow z_1/z_2$.
+\begin{proof}
+  We check well-definedness: if $\bra \mathbf{v} \ket = \bra \mathbf{w} \ket$, then $\mathbf{w} = \lambda \mathbf{v}$ for some $\lambda \in \C \setminus \{0\}$, so $\bra A\mathbf{w} \ket = \bra A(\lambda \mathbf{v}) \ket = \bra \lambda(A\mathbf{v}) \ket = \bra A\mathbf{v} \ket$. The group action axioms are immediate.
+\end{proof}
 
-Finally, for each $A\in \GL_2(\C)$, given any line $\bra \binom{z}{1}\ket$, we have
-\[
-  \begin{pmatrix}
-    a & b\\
-    c & d
-  \end{pmatrix}
-  \left\bra
-  \begin{pmatrix}
-    z\\1
-  \end{pmatrix}\right\ket = \left\bra
-  \begin{pmatrix}
-    az + b\\
-    cz + d
-  \end{pmatrix}
-  \right\ket \leftrightarrow \frac{az + b}{cz + d}
-\]
-So $\GL_2(\C)$ acting on the lines is just ``the same'' as the M\"obius groups acting on points.
+\begin{prop}[Kernel of the action]
+  The kernel of this action is $Z = \{\lambda I : \lambda \in \C \setminus \{0\}\}$, the scalar matrices.
+\end{prop}
+
+\begin{proof}
+  Suppose $A$ fixes every line. In particular, $A \bra \binom{1}{0} \ket = \bra \binom{1}{0} \ket$ forces $A\binom{1}{0} = \binom{\lambda}{0}$ for some $\lambda$, and $A \bra \binom{0}{1} \ket = \bra \binom{0}{1} \ket$ forces $A\binom{0}{1} = \binom{0}{\mu}$, so $A = \begin{psmallmatrix} \lambda & 0 \\ 0 & \mu \end{psmallmatrix}$. Now $A \bra \binom{1}{1} \ket = \bra \binom{1}{1} \ket$ requires $A\binom{1}{1} = \binom{\lambda}{\mu}$ to be a scalar multiple of $\binom{1}{1}$, so $\lambda = \mu$. Thus $A = \lambda I$. Conversely, every scalar matrix clearly fixes every line.
+\end{proof}
+
+\begin{remark}
+  Every line in $\C^2$ is determined by the ratio of its coordinates: $\bra \binom{v_1}{v_2} \ket = \bra \binom{w_1}{w_2} \ket$ if and only if $v_1/v_2 = w_1/w_2$ (as elements of $\C_\infty$). This gives a bijection $\CP^1 \leftrightarrow \C_\infty$ via $\bra \binom{z_1}{z_2} \ket \leftrightarrow z_1/z_2$.
+
+  Under this identification, for $A = \begin{psmallmatrix} a & b \\ c & d \end{psmallmatrix} \in \GL_2(\C)$,
+  \[
+    A \cdot \left\bra \begin{pmatrix} z \\ 1 \end{pmatrix} \right\ket = \left\bra \begin{pmatrix} az + b \\ cz + d \end{pmatrix} \right\ket \leftrightarrow \frac{az + b}{cz + d},
+  \]
+  so the action of $\GL_2(\C)$ on $\CP^1$ corresponds precisely to the M\"obius group acting on $\C_\infty$.
+\end{remark}
 \end{document}
