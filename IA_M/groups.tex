@@ -2256,31 +2256,40 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 \end{remark}
 
 \section{More on regular polyhedra}
-In this section, we will look at the symmetry groups of the cube and the tetrahedron.
+\begin{remark}
+  In this section, we determine the symmetry groups of the cube and the tetrahedron.
+\end{remark}
+
 \subsection{Symmetries of the cube}
 \subsubsection*{Rotations}
-Recall that there are $|G^+| = 24$ rotations of the group by the orbit-stabilizer theorem.
+\begin{remark}
+  Recall that by the orbit-stabilizer theorem, the cube has $|G^+| = 24$ rotational symmetries.
+\end{remark}
+
 \begin{prop}[Cube rotation group]
   $G^+ \cong S_4$, where $G^+$ is the group of all rotations of the cube.
 \end{prop}
 
 \begin{proof}
-  Consider $G^+$ acting on the 4 diagonals of the cube. This gives a group homomorphism $\varphi: G^+ \to S_4$. We have $(1\; 2\; 3\; 4)\in\im \varphi$ by rotation around the axis through the top and bottom face. We also $(1\; 2)\in \im \varphi$ by rotation around the axis through the mid-point of the edge connect $1$ and $2$. Since $(1\; 2)$ and $(1\; 2\; 3\; 4)$ generate $S_4$ (Sheet 2 Q. 5d), $\im\varphi = S_4$, i.e.\ $\phi$ is surjective. Since $|S_4| = |G^+|$, $\varphi$ must be an isomorphism.
+  Consider $G^+$ acting on the $4$ diagonals of the cube. This gives a group homomorphism $\varphi \colon G^+ \to S_4$. Rotation by $\frac{\pi}{2}$ about the axis through the centres of the top and bottom faces gives $(1\; 2\; 3\; 4) \in \im \varphi$. Rotation by $\pi$ about the axis through the midpoints of two opposite edges connecting diagonals $1$ and $2$ gives $(1\; 2) \in \im \varphi$. Since $(1\; 2)$ and $(1\; 2\; 3\; 4)$ generate $S_4$ (cf.\ Example Sheet 2, Question 5d), $\varphi$ is surjective. Since $|S_4| = 24 = |G^+|$, $\varphi$ is an isomorphism.
 \end{proof}
 
 \subsubsection*{All symmetries}
-Consider the reflection in the mid-point of the cube $\tau$, sending every point to its opposite. We can view this as $-I$ in $\R^3$. So it commutes with all other symmetries of the cube.
+\begin{remark}
+  Consider the inversion $\tau$ through the centre of the cube, sending every point to its antipodal point. This is the map $-I$ on $\R^3$, so it commutes with every linear symmetry of the cube.
+\end{remark}
+
 \begin{prop}[Cube full symmetry group]
-  $G \cong S_4\times C_2$, where $G$ is the group of all symmetries of the cube.
+  $G \cong S_4 \times C_2$, where $G$ is the group of all symmetries of the cube.
 \end{prop}
 
 \begin{proof}
-  Let $\tau$ be ``reflection in mid-point'' as shown above. This commutes with everything. (Actually it is enough to check that it commutes with rotations only)
-
-  We have to show that $G = G^+\bra \tau\ket$. This can be deduced using sizes: since $G^+$ and $\bra\tau\ket$ intersect at $e$ only, (i) and (ii) of the Direct Product Theorem gives an injective group homomorphism $G^+\times \bra\tau\ket \to G$. Since both sides have the same size, the homomorphism must be surjective as well. So $G\cong G^+\times \bra \tau\ket \cong S_4\times C_2$.
+  The inversion $\tau$ commutes with every element of $G$ (since it suffices to check it commutes with the rotations $G^+$, which generate $G$ together with $\tau$). We have $G^+ \cap \langle \tau \rangle = \{e\}$, so by the direct product theorem, $G^+ \times \langle \tau \rangle \hookrightarrow G$. Since $|G^+ \times \langle \tau \rangle| = 48 = |G|$, this is an isomorphism, giving $G \cong S_4 \times C_2$.
 \end{proof}
 
-In fact, we have also proved that the group of symmetries of an octahedron is $S_4\times C_2$ since the octahedron is the dual of the cube. (if you join the centers of each face of the cube, you get an octahedron)
+\begin{remark}
+  Since the octahedron is the dual of the cube (its vertices are the centres of the cube's faces), the symmetry group of the octahedron is also $S_4 \times C_2$.
+\end{remark}
 \begin{center}
   \begin{tikzpicture}[z = -5.5, scale = 1.5]
     \coordinate (O1) at (0, 0, -1);
