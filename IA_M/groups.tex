@@ -1180,185 +1180,224 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 
 \subsection{Quotient groups}
 \begin{prop}[Quotient group construction]
-  Let $K\lhd G$. Then the set of (left) cosets of $K$ in $G$ is a group under the operation $aK*bK = (ab)K$.
+  Let $K \lhd G$. Then the set of left cosets of $K$ in $G$ forms a group under the operation $aK \cdot bK = (ab)K$.
 \end{prop}
 
 \begin{proof}
-  First show that the operation is well-defined. If $aK = a'K$ and $bK = b'K$, we want to show that $aK*bK = a'K * b'K$. We know that $a' = ak_1$ and $b' = bk_2$ for some $k_1, k_2\in K$. Then $a'b' = ak_1bk_2$. We know that $b^{-1}k_1b\in K$. Let $b^{-1}k_1b = k_3$. Then $k_1 b = bk_3$. So $a'b' = abk_3k_2\in (ab)K$. So picking a different representative of the coset gives the same product.
+  We first show that the operation is well-defined. Suppose $aK = a'K$ and $bK = b'K$; we must show that $(ab)K = (a'b')K$. We have $a' = ak_1$ and $b' = bk_2$ for some $k_1, k_2 \in K$. Since $K \lhd G$, we have $b^{-1}k_1 b \in K$; call it $k_3$. Then $k_1 b = bk_3$, so $a'b' = ak_1 bk_2 = abk_3 k_2 \in (ab)K$. Thus the operation does not depend on the choice of coset representatives.
   \begin{enumerate}[label=\arabic{*}.]
-    \item Closure: If $aK, bK$ are cosets, then $(ab)K$ is also a coset
-    \item Identity: The identity is $eK = K$ (clear from definition)
-    \item Inverse: The inverse of $aK$ is $a^{-1}K$ (clear from definition)
-    \item Associativity: Follows from the associativity of $G$.\qedhere
+    \item Closure: if $aK$ and $bK$ are cosets, then $(ab)K$ is also a coset.
+    \item Identity: the identity is $eK = K$.
+    \item Inverses: the inverse of $aK$ is $a^{-1}K$.
+    \item Associativity: follows from the associativity of $G$.\qedhere
   \end{enumerate}
 \end{proof}
 
 \begin{defi}[Quotient group]
-  Given a group $G$ and a normal subgroup $K$, the \emph{quotient group} or \emph{factor group} of $G$ by $K$, written as $G/K$, is the set of (left) cosets of $K$ in $G$ under the operation $aK*bK = (ab)K$.
+  Given a group $G$ and a normal subgroup $K$, the \emph{quotient group} (or \emph{factor group}) of $G$ by $K$, written $G/K$, is the set of left cosets of $K$ in $G$ under the operation $aK \cdot bK = (ab)K$.
 \end{defi}
-Note that the \emph{set} of left cosets also exists for non-normal subgroups (abnormal subgroups?), but the group operation above is not well defined.
 
-\begin{eg}\leavevmode
+\begin{remark}
+  The \emph{set} of left cosets exists for any subgroup $H \leq G$, but the coset multiplication above is well-defined only when $H$ is normal.
+\end{remark}
+
+\begin{eg}[Quotient groups]\leavevmode
   \begin{enumerate}
-    \item Take $G = \Z$ and $n\Z$ (which must be normal since $G$ is abelian), the cosets are $k + n\Z$ for $0 \leq k < n$. The quotient group is $\Z_n$. So we can write $\Z/(n\Z) = \Z_n$. In fact these are the only quotient groups of $\Z$ since $n\Z$ are the only subgroups.
-
-      Note that if $G$ is abelian, $G/K$ is also abelian.
-    \item Take $K = \bra r\ket \lhd D_6$. We have two cosets $K$ and $sK$. So $D_6/K$ has order 2 and is isomorphic to $C_2$.
-    \item Take $K = \bra r^2\ket \lhd D_8$. We know that $G/K$ should have $\frac{8}{2} = 4$ elements. We have $G/K = \{ K, rK = r^3 K, sK = sr^2K, srK = sr^3K\}$. We see that all elements (except $K$) has order $2$, so $G/K\cong C_2\times C_2$.
+    \item Let $G = \Z$ and $K = n\Z$ (which is normal since $\Z$ is abelian). The cosets are $k + n\Z$ for $0 \leq k < n$, so $\Z/(n\Z) \cong \Z_n$. Since $n\Z$ are the only subgroups of $\Z$, these are the only quotient groups of $\Z$.
+    \item Let $K = \bra r\ket \lhd D_6$. There are two cosets, $K$ and $sK$, so $D_6/K$ has order $2$ and $D_6/K \cong C_2$.
+    \item Let $K = \bra r^2\ket \lhd D_8$. Then $|G/K| = |G|/|K| = 8/2 = 4$, and the four cosets are $G/K = \{K,\, rK = r^3K,\, sK = sr^2K,\, srK = sr^3K\}$. Every non-identity element of $G/K$ has order $2$, so $G/K \cong C_2 \times C_2$.
   \end{enumerate}
 \end{eg}
-Note that quotient groups are \emph{not} subgroups of $G$. They contain different kinds of elements. For example, $\Z/n\Z \cong C_n$ are finite, but all subgroups of $\Z$ infinite.
 
+\begin{remark}
+  If $G$ is abelian, then $G/K$ is also abelian for any $K \lhd G$.
+\end{remark}
 
-\begin{eg}
-  (Non-example) Consider $D_6$ with $H = \bra s\ket$. $H$ is not a normal subgroup. We have $rH * r^2 H = r^3 H = H$, but $rH = rsH$ and $r^2H = srH$ (by considering the individual elements). So we have $rsH * srH = r^2 H\not= H$, and the operation is not well-defined.
+\begin{remark}
+  Quotient groups are \emph{not} subgroups of $G$: their elements are cosets, not elements of $G$. For instance, $\Z/(n\Z) \cong C_n$ is finite, even though every subgroup of $\Z$ is infinite.
+\end{remark}
+
+\begin{eg}[Non-example: failure of well-definedness]
+  Consider $D_6$ with $H = \bra s\ket$, which is not a normal subgroup. We have $rH \cdot r^2 H = r^3 H = H$, but $rH = rsH$ and $r^2 H = srH$ (by examining the individual elements), so $rsH \cdot srH = r^2 H \neq H$. The coset multiplication depends on the choice of representatives, and is therefore not well-defined.
 \end{eg}
 
 \begin{lemma}[Quotient map]
-  Given $K\lhd G$, the \emph{quotient map} $q: G\rightarrow G/K$ with $g\mapsto gK$ is a surjective group homomorphism.
+  Let $K \lhd G$. The \emph{quotient map} $q \colon G \to G/K$ defined by $g \mapsto gK$ is a surjective group homomorphism.
 \end{lemma}
 
 \begin{proof}
-  $q(ab) = (ab)K = aKbK = q(a)q(b)$. So $q$ is a group homomorphism. Also for all $aK \in G/K$, $q(a) = aK$. So it is surjective.
+  For any $a, b \in G$, we have $q(ab) = (ab)K = (aK)(bK) = q(a)\,q(b)$, so $q$ is a homomorphism. Surjectivity is immediate: for any coset $aK \in G/K$, we have $q(a) = aK$.
 \end{proof}
-Note that the kernel of the quotient map is $K$ itself. So any normal subgroup is a kernel of some homomorphism.
+
+\begin{remark}
+  The kernel of the quotient map is $K$ itself, since $q(g) = K$ if and only if $gK = K$ if and only if $g \in K$. This shows that every normal subgroup is the kernel of some homomorphism, establishing the converse of the kernel normality proposition.
+\end{remark}
 
 \begin{prop}[Quotient of cyclic groups]
-  The quotient of a cyclic group is cyclic.
+  Every quotient of a cyclic group is cyclic.
 \end{prop}
 
 \begin{proof}
-  Let $G = C_n$ with $H\leq C_n$. We know that $H$ is also cyclic. Say $C_n = \bra c\ket$ and $H = \bra c^k \ket \cong C_\ell$, where $k\ell = n$. We have $C_n/H = \{H, cH, c^2H, \cdots c^{k - 1}H\}=\bra cH\ket \cong C_k$.
+  Let $G = C_n = \bra c\ket$ and let $H \leq C_n$. Since every subgroup of a cyclic group is cyclic, we have $H = \bra c^k\ket \cong C_\ell$ for some $k, \ell$ with $k\ell = n$. Then $C_n/H = \{H, cH, c^2H, \ldots, c^{k-1}H\} = \bra cH\ket \cong C_k$.
 \end{proof}
 
 \subsection{The Isomorphism Theorem}
-Now we come to the Really Important Theorem\textsuperscript{TM}.
+\begin{remark}
+  We now come to the central theorem of this chapter.
+\end{remark}
+
 \begin{thm}[The Isomorphism Theorem]
-  Let $f:G\to H$ be a group homomorphism with kernel $K$. Then $K\lhd G$ and $G/K\cong \im f$.
+  Let $f \colon G \to H$ be a group homomorphism with kernel $K$. Then $K \lhd G$ and $G/K \cong \im f$.
 \end{thm}
 
 \begin{proof}
-  We have proved that $K\lhd G$ before. We define a group homomorphism $\theta: G/K\to \im f$ by $\theta(aK) = f(a)$.
+  We have already proved that $K \lhd G$. Define $\theta \colon G/K \to \im f$ by $\theta(aK) = f(a)$.
 
-  First check that this is well-defined: If $a_1K = a_2K$, then $a_2^{-1}a_1\in K$. So
+  \emph{Well-defined:} If $a_1 K = a_2 K$, then $a_2^{-1}a_1 \in K$, so
   \[
     f(a_2)^{-1}f(a_1) = f(a_2^{-1}a_1) = e.
   \]
-  So $f(a_1) = f(a_2)$ and $\theta(a_1K) = \theta(a_2 K)$.
+  Thus $f(a_1) = f(a_2)$, and hence $\theta(a_1 K) = \theta(a_2 K)$.
 
-  Now we check that it is a group homomorphism:
+  \emph{Homomorphism:}
   \[
-    \theta(aKbK) = \theta(abK) = f(ab) = f(a)f(b) = \theta(aK) \theta(bK).
+    \theta(aK \cdot bK) = \theta(abK) = f(ab) = f(a)f(b) = \theta(aK)\,\theta(bK).
   \]
-  To show that it is injective, suppose $\theta(aK) = \theta(bK)$. Then $f(a) = f(b)$. Hence $f(b)^{-1}f(a) = e$. Hence $b^{-1}a \in K$. So $aK = bK$.
 
-  By definition, $\theta$ is surjective since $\im \theta = \im f$. So $\theta$ gives an isomorphism $G/K \cong \im f \leq H$.
+  \emph{Injective:} Suppose $\theta(aK) = \theta(bK)$. Then $f(a) = f(b)$, so $f(b)^{-1}f(a) = e$, hence $b^{-1}a \in K$, and therefore $aK = bK$.
+
+  \emph{Surjective:} For any $h \in \im f$, there exists $a \in G$ with $f(a) = h$, so $\theta(aK) = h$.
+
+  Thus $\theta$ is an isomorphism $G/K \cong \im f$.
 \end{proof}
-If $f$ is injective, then the kernel is $\{e\}$, so $G/K\cong G$ and $G$ is isomorphic to a subgroup of $H$. We can think of $f$ as an inclusion map. If $f$ is surjective, then $\im f = H$. In this case, $G/K \cong H$.
 
-\begin{eg}\leavevmode
+\begin{remark}\leavevmode
+  \begin{itemize}
+    \item If $f$ is injective, then $K = \{e\}$, so $G/\{e\} \cong G$ and $G$ is isomorphic to a subgroup of $H$. We can think of $f$ as an inclusion map.
+    \item If $f$ is surjective, then $\im f = H$, so $G/K \cong H$.
+  \end{itemize}
+\end{remark}
+
+\begin{eg}[Applications of the Isomorphism Theorem]\leavevmode
   \begin{enumerate}
-    \item Take $f: \GL_n(\R) \to \R^*$ with $A \mapsto \det A$, $\ker f = \SL_N(\R)$. $\im f = \R^*$ as for all $\lambda \in \R^*$, $\det
-      \begin{pmatrix}
-        \lambda & 0 & \cdots & 0 \\
-        0 &1 & \cdots & 0\\
-        \vdots &\vdots &\ddots & \vdots\\
-        0& 0 & 0 &1
-      \end{pmatrix}
-      = \lambda$. So we know that $\GL_n(\R)/\SL_n(\R) \cong \R^*$.
-    \item Define $\theta: (\R, +) \to (\C*, \times)$ with $r\mapsto \exp(2\pi ir)$. This is a group homomorphism since $\theta(r + s) = \exp(2\pi i(r + s)) = \exp (2\pi i r)\exp (2\pi i s) = \theta(r)\theta(s)$. We know that the kernel is $\Z\lhd \R$. Clearly the image is the unit circle $(S_1, \times)$. So $\R/\Z \cong (S_1, \times)$.
-    \item $G = (\Z_p^*, \times)$ for prime $p\not= 2$. We have $f: G\to G$ with $a\mapsto a^2$. This is a homomorphism since $(ab)^2 = a^2b^2$ ($\Z_p^*$ is abelian). The kernel is $\{\pm 1\} = \{1, p - 1\}$. We know that $\im f\cong G/\ker f$ with order $\frac{p - 1}{2}$. These are known as quadratic residues.
+    \item Consider $f \colon \GL_n(\R) \to \R^*$ defined by $A \mapsto \det A$. Then $\ker f = \SL_n(\R)$, and $f$ is surjective since for all $\lambda \in \R^*$,
+      \[
+        \det
+        \begin{pmatrix}
+          \lambda & 0 & \cdots & 0 \\
+          0 & 1 & \cdots & 0 \\
+          \vdots & \vdots & \ddots & \vdots \\
+          0 & 0 & 0 & 1
+        \end{pmatrix}
+        = \lambda.
+      \]
+      By the Isomorphism Theorem, $\GL_n(\R)/\SL_n(\R) \cong \R^*$.
+    \item Define $\theta \colon (\R, +) \to (\C^*, \times)$ by $r \mapsto \exp(2\pi i r)$. This is a homomorphism since $\theta(r + s) = \exp(2\pi i(r + s)) = \exp(2\pi i r)\exp(2\pi i s) = \theta(r)\,\theta(s)$. The kernel is $\Z \lhd \R$ and the image is the unit circle $(S^1, \times)$, so $\R/\Z \cong (S^1, \times)$.
+    \item Let $G = (\Z_p^*, \times)$ for an odd prime $p$, and define $f \colon G \to G$ by $a \mapsto a^2$. This is a homomorphism since $G$ is abelian: $(ab)^2 = a^2 b^2$. The kernel is $\{\pm 1\} = \{1, p - 1\}$, so $|\im f| = |G/\ker f| = \frac{p-1}{2}$. The elements of $\im f$ are called \emph{quadratic residues} modulo $p$.
   \end{enumerate}
 \end{eg}
 
 \begin{lemma}[Classification of cyclic groups]
-  Any cyclic group is isomorphic to either $\Z$ or $\Z/(n\Z)$ for some $n\in \N$.
+  Every cyclic group is isomorphic to either $\Z$ or $\Z/(n\Z)$ for some $n \in \N$.
 \end{lemma}
 
 \begin{proof}
-  Let $G = \bra c\ket$. Define $f: \Z \to G$ with $m\mapsto c^m$. This is a group homomorphism since $c^{m_1 + m_2} = c^{m_1}c^{m_2}$. $f$ is surjective since $G$ is by definition all $c^m$ for all $m$. We know that $\ker f\lhd \Z$. We have three possibilities. Either
+  Let $G = \bra c\ket$. Define $f \colon \Z \to G$ by $m \mapsto c^m$. This is a homomorphism since $c^{m_1 + m_2} = c^{m_1} c^{m_2}$, and it is surjective since $G = \{c^m : m \in \Z\}$ by definition. Since the only subgroups of $\Z$ are $n\Z$ for $n \geq 0$, there are three cases:
   \begin{enumerate}
-    \item $\ker f = \{e\}$, so $F$ is an isomorphism and $G\cong \Z$; or
-    \item $\ker f = \Z$, then $G\cong \Z/\Z = \{e\} = C_1$; or
-    \item $\ker f = n\Z$ (since these are the only proper subgroups of $\Z$), then $G\cong \Z/(n\Z)$.\qedhere
+    \item $\ker f = \{0\}$, so $f$ is an isomorphism and $G \cong \Z$;
+    \item $\ker f = \Z$, so $G \cong \Z/\Z = \{e\} \cong C_1$;
+    \item $\ker f = n\Z$ for some $n \geq 2$, so $G \cong \Z/(n\Z)$.\qedhere
   \end{enumerate}
 \end{proof}
 
 \begin{defi}[Simple group]
-  A group is \emph{simple} if it has no non-trivial proper normal subgroup, i.e.\ only $\{e\}$ and $G$ are normal subgroups.
+  A group $G$ is \emph{simple} if its only normal subgroups are $\{e\}$ and $G$ itself.
 \end{defi}
 
-\begin{eg}
-  $C_p$ for prime $p$ are simple groups since it has no proper subgroups at all, let alone normal ones.
-  $A_5$ is simple, which we will prove after Chapter~\ref{sec:sym2}.
+\begin{eg}[Simple groups]
+  The cyclic group $C_p$ is simple for any prime $p$, since $C_p$ has no proper subgroups at all, let alone normal ones. The alternating group $A_5$ is also simple, which we will prove after Chapter~\ref{sec:sym2}.
 \end{eg}
 
-The finite simple groups are the building blocks of all finite groups. All finite simple groups have been classified (The Atlas of Finite Groups). If we have $K\lhd G$ with $K\not= G$ or $\{e\}$, then we can ``quotient out'' $G$ into $G/K$. If $G/K$ is not simple, repeat. Then we can write $G$ as an ``inverse quotient'' of simple groups.
+\begin{remark}
+  The finite simple groups are the building blocks of all finite groups. If $K \lhd G$ with $K \neq \{e\}$ and $K \neq G$, we can form the quotient $G/K$; if $G/K$ is not simple, we repeat. In this way, every finite group can be decomposed into simple ``factors.'' All finite simple groups have been classified (see \emph{The Atlas of Finite Groups}).
+\end{remark}
 
 \section{Group actions}
 \label{sec:action}
-Recall that we came up with groups to model symmetries and permutations. Intuitively, elements of groups are supposed to ``do things''. However, as we developed group theory, we abstracted these away and just looked at how elements combine to form new elements. \emph{Group actions} recapture this idea and make each group element correspond to some function.
+\begin{remark}
+  Recall that we introduced groups to model symmetries and permutations. Intuitively, elements of groups are supposed to ``do things.'' However, as we developed group theory, we abstracted these away and focused on how elements combine to form new elements. \emph{Group actions} recapture this idea and make each group element correspond to some function.
+\end{remark}
 
 \subsection{Group acting on sets}
 \begin{defi}[Group action]
-  Let $X$ be a set and $G$ be a group. An \emph{action} of $G$ on $X$ is a homomorphism $\varphi: G \to \Sym X$.
+  Let $X$ be a set and $G$ be a group. An \emph{action} of $G$ on $X$ is a homomorphism $\varphi \colon G \to \Sym X$.
 \end{defi}
-This means that the homomorphism $\varphi$ turns each element $g\in G$ into a permutation of $X$, in a way that respects the group structure.
 
-Instead of writing $\varphi(g)(x)$, we usually directly write $g(x)$ or $gx$.
+\begin{remark}
+  The homomorphism $\varphi$ turns each element $g \in G$ into a permutation of $X$, in a way that respects the group structure. Instead of writing $\varphi(g)(x)$, we usually write $g(x)$ or $gx$.
+\end{remark}
 
-Alternatively, we can define the group action as follows:
 \begin{prop}[Action axioms, equivalent formulation]
-  Let $X$ be a set and $G$ be a group. Then $\varphi: G \to \Sym X$ is a homomorphism (i.e.\ an action) iff $\theta: G\times X \to X$ defined by $\theta(g, x) = \varphi(g)(x)$ satisfies
+  Let $X$ be a set and $G$ be a group. Then $\varphi \colon G \to \Sym X$ is a homomorphism (i.e.\ an action) if and only if $\theta \colon G \times X \to X$ defined by $\theta(g, x) = \varphi(g)(x)$ satisfies
   \begin{enumerate}[label=\arabic{*}.]
       \setcounter{enumi}{-1}
-    \item $(\forall g\in G)(x\in X)\,\theta(g, x)\in X$.
-    \item $(\forall x\in X)\,\theta(e, x) = x$.
-    \item $(\forall g, h\in G)(\forall x\in X)\,\theta(g, \theta (h, x)) = \theta(gh, x)$.
+    \item $(\forall g \in G)(\forall x \in X)\,\theta(g, x) \in X$.
+    \item $(\forall x \in X)\,\theta(e, x) = x$.
+    \item $(\forall g, h \in G)(\forall x \in X)\,\theta(g, \theta(h, x)) = \theta(gh, x)$.
   \end{enumerate}
 \end{prop}
-This criteria is \emph{almost} the definition of a homomorphism. However, here we do not explicitly require $\theta(g, \cdot)$ to be a bijection, but require $\theta(e, \cdot)$ to be the identity function. This automatically ensures that $\theta(g, \cdot)$ is a bijection, since when composed with $\theta(g^{-1}, \cdot)$, it gives $\theta(e, \cdot)$, which is the identity. So $\theta(g, \cdot)$ has an inverse. This is usually an easier thing to show.
 
-\begin{eg}\leavevmode
+\begin{remark}
+  This criterion is \emph{almost} the definition of a homomorphism. Here we do not explicitly require $\theta(g, \cdot)$ to be a bijection, but instead require $\theta(e, \cdot)$ to be the identity function. This automatically ensures that $\theta(g, \cdot)$ is a bijection: composing with $\theta(g^{-1}, \cdot)$ gives $\theta(e, \cdot)$, which is the identity, so $\theta(g, \cdot)$ has an inverse. This is usually easier to verify in practice.
+\end{remark}
+
+\begin{eg}[Group actions]\leavevmode
   \begin{enumerate}
-    \item Trivial action: for any group $G$ acting on any set $X$, we can have $\varphi(g) = 1_X$ for all $g$, i.e.\ $G$ does nothing.
-    \item $S_n$ acts on $\{1, \cdots n\}$ by permutation.
-    \item $D_{2n}$ acts on the vertices of a regular $n$-gon (or the set $\{1, \cdots, n\}$).
-    \item The rotations of a cube act on the faces/vertices/diagonals/axes of the cube.
+    \item \emph{Trivial action:} For any group $G$ acting on any set $X$, we can define $\varphi(g) = 1_X$ for all $g$, i.e.\ $G$ does nothing.
+    \item $S_n$ acts on $\{1, \dotsc, n\}$ by permutation.
+    \item $D_{2n}$ acts on the vertices of a regular $n$-gon (or the set $\{1, \dotsc, n\}$).
+    \item The rotations of a cube act on the faces, vertices, diagonals, or axes of the cube.
   \end{enumerate}
 \end{eg}
-Note that different groups can act on the same sets, and the same group can act on different sets.
+
+\begin{remark}
+  Different groups can act on the same set, and the same group can act on different sets.
+\end{remark}
 
 \begin{defi}[Kernel of action]
-  The \emph{kernel} of an action $G$ on $X$ is the kernel of $\varphi$, i.e.\ all $g$ such that $\varphi(g) = 1_X$.
+  The \emph{kernel} of an action of $G$ on $X$ is $\ker \varphi = \{g \in G : \varphi(g) = 1_X\}$.
 \end{defi}
-Note that by the isomorphism theorem, $\ker \varphi\lhd G$ and $G/K$ is isomorphic to a subgroup of $\Sym X$.
 
-\begin{eg}\leavevmode
+\begin{remark}
+  By the Isomorphism Theorem, $\ker \varphi \lhd G$ and $G/\ker \varphi$ is isomorphic to a subgroup of $\Sym X$.
+\end{remark}
+
+\begin{eg}[Kernels of actions]\leavevmode
   \begin{enumerate}
-    \item $D_{2n}$ acting on $\{1, 2\cdots n\}$ gives $\varphi: D_{2n}\to S_n$ with kernel $\{e\}$.
-    \item Let $G$ be the rotations of a cube and let it act on the three axes $x, y, z$ through the faces. We have $\varphi: G\to S_3$. Then any rotation by $180^\circ$ doesn't change the axes, i.e.\ act as the identity. So the kernel of the action has at least 4 elements: $e$ and the three $180^\circ$ rotations. In fact, we'll see later that these 4 are exactly the kernel.
+    \item $D_{2n}$ acting on $\{1, 2, \dotsc, n\}$ gives $\varphi \colon D_{2n} \to S_n$ with kernel $\{e\}$.
+    \item Let $G$ be the rotations of a cube, acting on the three axes $x, y, z$ through the faces. This gives $\varphi \colon G \to S_3$. Any rotation by $180^\circ$ fixes every axis, so the kernel contains at least 4 elements: $e$ and the three $180^\circ$ rotations. We will see later that these are exactly the kernel.
   \end{enumerate}
 \end{eg}
 
 \begin{defi}[Faithful action]
-  An action is \emph{faithful} if the kernel is just $\{e\}$.
+  An action is \emph{faithful} if its kernel is $\{e\}$.
 \end{defi}
 
 \subsection{Orbits and Stabilizers}
-\begin{defi}[Orbit of action]
-  Given an action $G$ on $X$, the \emph{orbit} of an element $x\in X$ is
+\begin{defi}[Orbit]
+  Given an action of $G$ on $X$, the \emph{orbit} of an element $x \in X$ is
   \[
-    \orb (x) = G(x) = \{y\in X: (\exists g\in G)\,g(x) = y\}.
+    \orb(x) = G(x) = \{y \in X : (\exists g \in G)\, g(x) = y\}.
   \]
-  Intuitively, it is the elements that $x$ can possibly get mapped to.
+  Intuitively, this is the set of elements that $x$ can be mapped to.
 \end{defi}
-\begin{defi}[Stabilizer of action]
+
+\begin{defi}[Stabilizer]
   The \emph{stabilizer} of $x$ is
   \[
-    \stab(x) = G_x = \{g\in G: g(x) = x\}\subseteq G.
+    \stab(x) = G_x = \{g \in G : g(x) = x\} \subseteq G.
   \]
-  Intuitively, it is the elements in $G$ that do not change $x$.
+  Intuitively, this is the set of elements in $G$ that fix $x$.
 \end{defi}
 
 \begin{lemma}[Stabilizer subgroup]
@@ -1366,18 +1405,18 @@ Note that by the isomorphism theorem, $\ker \varphi\lhd G$ and $G/K$ is isomorph
 \end{lemma}
 
 \begin{proof}
-  We know that $e(x) = x$ by definition. So $\stab(x)$ is non-empty. Suppose $g, h\in \stab(x)$, then $gh^{-1}(x) = g(h^{-1}(x)) = g(x) = x$. So $gh^{-1}\in \stab (X)$. So $\stab (x)$ is a subgroup.
+  Since $e(x) = x$, we have $e \in \stab(x)$, so $\stab(x)$ is non-empty. If $g, h \in \stab(x)$, then $gh^{-1}(x) = g(h^{-1}(x)) = g(x) = x$, so $gh^{-1} \in \stab(x)$. Hence $\stab(x)$ is a subgroup.
 \end{proof}
 
-\begin{eg}\leavevmode
+\begin{eg}[Orbits and stabilizers]\leavevmode
   \begin{enumerate}
-    \item Consider $D_8$ acting on the corners of the square $X = \{1, 2, 3, 4\}$. Then $\orb(1) = X$ since $1$ can go anywhere by rotations. $\stab(1) = \{e, $ reflection in the line through 1$\}$
-    \item Consider the rotations of a cube acting on the three axes $x, y, z$. Then $\orb(x)$ is everything, and $\stab(x)$ contains $e$, $180^\circ$ rotations and rotations about the $x$ axis.
+    \item Consider $D_8$ acting on the corners of the square $X = \{1, 2, 3, 4\}$. Then $\orb(1) = X$ since $1$ can be sent anywhere by rotations, and $\stab(1) = \{e, s\}$ where $s$ is the reflection in the line through vertex $1$.
+    \item Consider the rotations of a cube acting on the three axes $x, y, z$. Then $\orb(x) = \{x, y, z\}$, and $\stab(x)$ consists of $e$, the $180^\circ$ rotations, and the rotations about the $x$-axis.
   \end{enumerate}
 \end{eg}
 
 \begin{defi}[Transitive action]
-  An action $G$ on $X$ is \emph{transitive} if $(\forall x)\,\orb(x) = X$, i.e.\ you can reach any element from any element.
+  An action of $G$ on $X$ is \emph{transitive} if $\orb(x) = X$ for all $x \in X$, i.e.\ any element of $X$ can be reached from any other.
 \end{defi}
 
 \begin{lemma}[Orbit partition]
@@ -1385,357 +1424,381 @@ Note that by the isomorphism theorem, $\ker \varphi\lhd G$ and $G/K$ is isomorph
 \end{lemma}
 
 \begin{proof}
-  Firstly, $(\forall x)(x\in \orb (x))$ as $e(x) = x$. So every $x$ is in some orbit.
+  Every $x \in X$ lies in $\orb(x)$, since $e(x) = x$. So the orbits cover $X$.
 
-  Then suppose $z\in \orb (x)$ and $z\in \orb (y)$, we have to show that $\orb(x) = \orb (y)$. We know that $z = g_1(x)$ and $z = g_2(y)$ for some $g_1, g_2$. Then $g_1(x) = g_2(y)$ and $y = g_2^{-1}g_1(x)$.
+  Now suppose $z \in \orb(x) \cap \orb(y)$. We show that $\orb(x) = \orb(y)$. Write $z = g_1(x)$ and $z = g_2(y)$ for some $g_1, g_2 \in G$. Then $y = g_2^{-1}g_1(x)$.
 
-  For any $w = g_3(y)\in \orb (y)$, we have $w = g_3g_2^{-1}g_1(x)$. So $w\in \orb (x)$. Thus $\orb (y) \subseteq \orb (x)$ and similarly $\orb (x) \subseteq \orb (y)$. Therefore $\orb (x) = \orb (y)$.
+  For any $w = g_3(y) \in \orb(y)$, we have $w = g_3 g_2^{-1} g_1(x) \in \orb(x)$. Thus $\orb(y) \subseteq \orb(x)$, and by symmetry $\orb(x) \subseteq \orb(y)$.
 \end{proof}
 
-Suppose a group $G$ acts on $X$. We fix an $x \in X$. Then by definition of the orbit, given any $g \in G$, we have $g(x) \in \orb(x)$. So each $g \in G$ gives us a member of $\orb(x)$. Conversely, every object in $\orb(x)$ arises this way, by definition of $\orb(x)$. However, different elements in $G$ can give us the same orbit. In particular, if $g \in \stab(x)$, then $hg$ and $h$ give us the same object in $\orb(x)$, since $hg(x) = h(g(x)) = h(x)$. So we have a correspondence between things in $\orb(x)$ and members of $G$, ``up to $\stab (x)$''.
+\begin{remark}
+  Suppose $G$ acts on $X$ and fix $x \in X$. Each $g \in G$ gives an element $g(x) \in \orb(x)$, and every element of $\orb(x)$ arises this way. However, different elements of $G$ can give the same element of $\orb(x)$: if $g \in \stab(x)$, then $hg$ and $h$ give the same element, since $hg(x) = h(g(x)) = h(x)$. So there is a correspondence between elements of $\orb(x)$ and elements of $G$ ``up to $\stab(x)$.''
+\end{remark}
 
 \begin{thm}[Orbit-stabilizer theorem]
   Let the group $G$ act on $X$. Then there is a bijection between $\orb(x)$ and cosets of $\stab(x)$ in $G$. In particular, if $G$ is finite, then
   \[
-    |\orb(x)||\stab(x)| = |G|.
+    |\orb(x)| \cdot |\stab(x)| = |G|.
   \]
 \end{thm}
 
 \begin{proof}
-  We biject the cosets of $\stab(x)$ with elements in the orbit of $x$. Recall that $G: \stab(x)$ is the set of cosets of $\stab(x)$. We can define
+  Define
   \begin{align*}
-    \theta: (G:\stab(x))& \to \orb(x)\\
-    g\stab(x) &\mapsto g(x).
+    \theta \colon (G : \stab(x)) &\to \orb(x) \\
+    g\,\stab(x) &\mapsto g(x).
   \end{align*}
-  This is well-defined --- if $g\stab(x) = h\stab(x)$, then $h = gk$ for some $k\in \stab(x)$. So $h(x) = g(k(x)) = g(x)$.
 
-  This map is surjective since for any $y\in \orb(x)$, there is some $g \in G$ such that $g(x) = y$, by definition. Then $\theta(g \stab(x)) = y$. It is injective since if $g(x) = h(x)$, then $h^{-1}g(x) = x$. So $h^{-1}g\in \stab (x)$. So $g\stab(x) = h\stab(x)$.
+  \emph{Well-defined:} If $g\,\stab(x) = h\,\stab(x)$, then $h = gk$ for some $k \in \stab(x)$, so $h(x) = g(k(x)) = g(x)$.
 
-  Hence the number of cosets is $|\orb(x)|$. Then the result follows from Lagrange's theorem.
+  \emph{Surjective:} For any $y \in \orb(x)$, there exists $g \in G$ with $g(x) = y$, so $\theta(g\,\stab(x)) = y$.
+
+  \emph{Injective:} If $g(x) = h(x)$, then $h^{-1}g(x) = x$, so $h^{-1}g \in \stab(x)$, hence $g\,\stab(x) = h\,\stab(x)$.
+
+  Thus $|\orb(x)|$ equals the number of cosets of $\stab(x)$, and the result follows from Lagrange's theorem.
 \end{proof}
-An important application of the orbit-stabilizer theorem is determining group sizes. To find the order of the symmetry group of, say, a pyramid, we find something for it to act on, pick a favorite element, and find the orbit and stabilizer sizes.
 
-\begin{eg}\leavevmode
+\begin{remark}
+  An important application of the orbit-stabilizer theorem is determining group sizes. To find the order of the symmetry group of, say, a pyramid, we find something for it to act on, pick a convenient element, and compute the orbit and stabilizer sizes.
+\end{remark}
+
+\begin{eg}[Orbit-stabilizer calculations]\leavevmode
   \begin{enumerate}
-    \item Suppose we want to know how big $D_{2n}$ is. $D_{2n}$ acts on the vertices $\{1, 2, 3, \cdots, n\}$ transitively. So $|\orb(1)| = n$. Also, $\stab(1) =\{e, $ reflection in the line through 1$\}$. So $|D_{2n}| = |\orb(1)||\stab(1)| = 2n$.
-
-      Note that if the action is transitive, then all orbits have size $|X|$ and thus all stabilizers have the same size.
-    \item Let $\bra (1\; 2)\ket$ act on $\{1, 2, 3\}$. Then $\orb(1) = \{1, 2\}$ and $\stab(1) = \{e\}$. $\orb(3) = \{3\}$ and $\stab(3) = \bra(1\; 2)\ket$.
-    \item Consider $S_4$ acting on $\{1, 2, 3, 4\}$. We know that $\orb(1) = X$ and $|S_4| = 24$. So $|\stab(1)| = \frac{24}{4} = 6$. That makes it easier to find $\stab(1)$. Clearly $S_{\{2, 3, 4\}} \cong S_3$ fix $1$. So $S_{\{2, 3, 4\}}\leq \stab(1)$. However, $|S_3| = 6 = |\stab(1)|$, so this is all of the stabilizer.
+    \item $D_{2n}$ acts on the vertices $\{1, 2, \dotsc, n\}$ transitively, so $|\orb(1)| = n$. Also $\stab(1) = \{e, s\}$ where $s$ is the reflection through vertex $1$. So $|D_{2n}| = |\orb(1)| \cdot |\stab(1)| = 2n$.
+    \item Let $\langle (1\; 2) \rangle$ act on $\{1, 2, 3\}$. Then $\orb(1) = \{1, 2\}$ and $\stab(1) = \{e\}$, while $\orb(3) = \{3\}$ and $\stab(3) = \langle (1\; 2) \rangle$.
+    \item Consider $S_4$ acting on $\{1, 2, 3, 4\}$. Since the action is transitive, $|\orb(1)| = 4$, so $|\stab(1)| = 24/4 = 6$. The subgroup $S_{\{2,3,4\}} \cong S_3$ fixes $1$, so $S_{\{2,3,4\}} \leq \stab(1)$. Since $|S_3| = 6 = |\stab(1)|$, we conclude $\stab(1) = S_{\{2,3,4\}}$.
   \end{enumerate}
 \end{eg}
 
-\subsection{Important actions}
-Given any group $G$, there are a few important actions we can define. In particular, we will define the \emph{conjugation} action, which is a very important concept on its own. In fact, the whole of the next chapter will be devoted to studying conjugation in the symmetric groups.
+\begin{remark}
+  If the action is transitive, then every orbit has size $|X|$ and hence all stabilizers have the same size $|G|/|X|$.
+\end{remark}
 
-First, we will study some less important examples of actions.
+\subsection{Important actions}
+\begin{remark}
+  Given any group $G$, there are several important actions we can define. In particular, we will define the \emph{conjugation} action, which is a central concept in group theory: the whole of the next chapter is devoted to studying conjugation in the symmetric groups. We begin with two simpler examples.
+\end{remark}
+
 \begin{lemma}[Left regular action]
   Any group $G$ acts on itself by left multiplication. This action is faithful and transitive.
 \end{lemma}
+
 \begin{proof}
-  We have
+  We verify the action axioms:
   \begin{enumerate}[label=\arabic{*}.]
-    \item $(\forall g\in G)(x\in G)\,g(x) = g\cdot x \in G$ by definition of a group.
-    \item $(\forall x\in G)\,e\cdot x = x$ by definition of a group.
+    \item $(\forall g \in G)(\forall x \in G)\, g(x) = gx \in G$ by closure.
+    \item $(\forall x \in G)\, ex = x$ by definition of identity.
     \item $g(hx) = (gh)x$ by associativity.
   \end{enumerate}
-  So it is an action.
 
-  To show that it is faithful, we want to know that $[(\forall x\in X)\,gx = x]\Rightarrow g = e$. This follows directly from the uniqueness of identity.
+  \emph{Faithful:} If $gx = x$ for all $x \in G$, then taking $x = e$ gives $g = e$.
 
-  To show that it is transitive, $\forall x, y\in G$, then $(yx^{-1})(x) = y$. So any $x$ can be sent to any $y$.
+  \emph{Transitive:} For any $x, y \in G$, we have $(yx^{-1})(x) = y$.
 \end{proof}
 
 \begin{thm}[Cayley's theorem]
-  Every group is isomorphic to some subgroup of some symmetric group.
+  Every group is isomorphic to a subgroup of some symmetric group.
 \end{thm}
 
 \begin{proof}
-  Take the left regular action of $G$ on itself. This gives a group homomorphism $\varphi: G\to \Sym G$ with $\ker \varphi = \{e\}$ as the action is faithful. By the isomorphism theorem, $G \cong \im \varphi \leq \Sym G$.
+  The left regular action gives a homomorphism $\varphi \colon G \to \Sym G$ with $\ker \varphi = \{e\}$, since the action is faithful. By the Isomorphism Theorem, $G \cong \im \varphi \leq \Sym G$.
 \end{proof}
 
 \begin{lemma}[Left coset action]
-  Let $H\leq G$. Then $G$ acts on the left cosets of $H$ by left multiplication transitively.
+  Let $H \leq G$. Then $G$ acts on the set of left cosets of $H$ by left multiplication, and this action is transitive.
 \end{lemma}
 
 \begin{proof}
-  First show that it is an action:
+  We verify the action axioms:
   \begin{enumerate}[label=\arabic{*}.]
       \setcounter{enumi}{-1}
     \item $g(aH) = (ga)H$ is a coset of $H$.
     \item $e(aH) = (ea)H = aH$.
-    \item $g_1(g_2(aH)) = g_1((g_2a)H) = (g_1g_2a)H = (g_1g_2)(aH)$.
+    \item $g_1(g_2(aH)) = g_1((g_2 a)H) = (g_1 g_2 a)H = (g_1 g_2)(aH)$.
   \end{enumerate}
 
-  To show that it is transitive, given $aH, bH$, we know that $(ba^{-1})(aH) = bH$. So any $aH$ can be mapped to $bH$.
+  \emph{Transitive:} Given $aH, bH$, we have $(ba^{-1})(aH) = bH$.
 \end{proof}
-In the boring case where $H = \{e\}$, then this is just the left regular action since $G/\{e\} \cong G$.
+
+\begin{remark}
+  When $H = \{e\}$, the left coset action reduces to the left regular action, since $G/\{e\} \cong G$.
+\end{remark}
 
 \begin{defi}[Conjugation of element]
-  The \emph{conjugation} of $a\in G$ by $b\in G$ is given by $bab^{-1}\in G$. Given any $a, c$, if there exists some $b$ such that $c = bab^{-1}$, then we say $a$ and $c$ are \emph{conjugate}.
+  The \emph{conjugation} of $a \in G$ by $b \in G$ is the element $bab^{-1} \in G$. If there exists $b \in G$ such that $c = bab^{-1}$, we say $a$ and $c$ are \emph{conjugate}.
 \end{defi}
-What is conjugation? This $bab^{-1}$ form looks familiar from Vectors and Matrices. It is the formula used for changing basis. If $b$ is the change-of-basis matrix and $a$ is a matrix, then the matrix in the new basis is given by $bab^{-1}$. In this case, $bab^{-1}$ is the same matrix viewed from a different basis.
 
-In general, two conjugate elements are ``the same'' in some sense. For example, we will later show that in $S_n$, two elements are conjugate if and only if they have the same cycle type. Conjugate elements in general have many properties in common, such as their order.
+\begin{remark}
+  The expression $bab^{-1}$ is familiar from linear algebra: if $b$ is a change-of-basis matrix and $a$ is a linear map, then $bab^{-1}$ is the same map viewed in the new basis. In general, conjugate elements are ``the same'' in an appropriate sense. For example, we will later show that in $S_n$, two elements are conjugate if and only if they have the same cycle type. Conjugate elements share many properties, such as their order.
+\end{remark}
 
 \begin{lemma}[Conjugation action]
-  Any group $G$ acts on itself by conjugation (i.e.\ $g(x) = gxg^{-1}$).
+  Any group $G$ acts on itself by conjugation, i.e.\ $g(x) = gxg^{-1}$.
 \end{lemma}
 
 \begin{proof}
-  To show that this is an action, we have
+  We verify the action axioms:
   \begin{enumerate}[label=\arabic{*}.]
       \setcounter{enumi}{-1}
-    \item $g(x) = gxg^{-1} \in G$ for all $g, x\in G$.
-    \item $e(x) = exe^{-1} = x$
-    \item $g(h(x)) = g(hxh^{-1}) = ghxh^{-1}g^{-1} = (gh)x(gh)^{-1} = (gh)(x)$\qedhere
+    \item $g(x) = gxg^{-1} \in G$ for all $g, x \in G$.
+    \item $e(x) = exe^{-1} = x$.
+    \item $g(h(x)) = g(hxh^{-1}) = ghxh^{-1}g^{-1} = (gh)x(gh)^{-1} = (gh)(x)$.\qedhere
   \end{enumerate}
 \end{proof}
 
-\begin{defi}[Conjugacy classes and centralizers]
-  The \emph{conjugacy classes} are the orbits of the conjugacy action.
+\begin{defi}[Conjugacy class and centralizer]
+  The \emph{conjugacy class} of $a \in G$ is the orbit of $a$ under the conjugation action:
   \[
-    \ccl(a) = \{b\in G: (\exists g\in G)\,gag^{-1} = b\}.
+    \ccl(a) = \{b \in G : (\exists g \in G)\, gag^{-1} = b\}.
   \]
-  The \emph{centralizers} are the stabilizers of this action, i.e.\ elements that commute with $a$.
+  The \emph{centralizer} of $a$ is the stabilizer of $a$ under conjugation:
   \[
-    C_G(a) = \{g\in G: gag^{-1} = a\} = \{g\in G: ga = ag\}.
+    C_G(a) = \{g \in G : gag^{-1} = a\} = \{g \in G : ga = ag\}.
   \]
 \end{defi}
-The centralizer is defined as the elements that commute with a particular element $a$. For the whole group $G$, we can define the \emph{center}.
+
+\begin{remark}
+  The centralizer $C_G(a)$ consists of all elements that commute with $a$. We can also consider the elements that commute with \emph{every} element.
+\end{remark}
 
 \begin{defi}[Center of group]
-  The \emph{center} of $G$ is the elements that commute with all other elements.
+  The \emph{center} of $G$ is
   \[
-    Z(G) = \{g\in G: (\forall a)\,gag^{-1} = a\} = \{g\in G: (\forall a)\,ga = ag\}.
+    Z(G) = \{g \in G : (\forall a \in G)\, ga = ag\} = \bigcap_{a \in G} C_G(a).
   \]
-  It is sometimes written as $C(G)$ instead of $Z(G)$.
+  It is sometimes written $C(G)$ instead of $Z(G)$.
 \end{defi}
 
-In many ways, conjugation is related to normal subgroups.
 \begin{lemma}[Conjugation action on normal subgroups]
-  Let $K\lhd G$. Then $G$ acts by conjugation on $K$.
+  Let $K \lhd G$. Then $G$ acts by conjugation on $K$.
 \end{lemma}
 
 \begin{proof}
-  We only have to prove closure as the other properties follow from the conjugation action. However, by definition of a normal subgroup, for every $g \in G, k \in K$, we have $gkg^{-1}\in K$. So it is closed.
+  The only axiom that requires checking is closure: by definition of a normal subgroup, $gkg^{-1} \in K$ for all $g \in G$ and $k \in K$. The remaining axioms follow from the conjugation action on $G$.
 \end{proof}
 
 \begin{prop}[Normal subgroups and conjugacy classes]
-  Normal subgroups are exactly those subgroups which are unions of conjugacy classes.
+  A subgroup is normal if and only if it is a union of conjugacy classes.
 \end{prop}
 
 \begin{proof}
-  Let $K\lhd G$. If $k\in K$, then by definition for every $g \in G$, we get $gkg^{-1}\in K$. So $\ccl(k)\subseteq K$. So $K$ is the union of the conjugacy classes of all its elements.
+  Let $K \lhd G$. For any $k \in K$ and $g \in G$, we have $gkg^{-1} \in K$, so $\ccl(k) \subseteq K$. Hence $K$ is a union of conjugacy classes.
 
-  Conversely, if $K$ is a union of conjugacy classes and a subgroup of $G$, then for all $k \in K, g \in G$, we have $gkg^{-1}\in K$. So $K$ is normal.
+  Conversely, suppose $K \leq G$ is a union of conjugacy classes. Then for all $k \in K$ and $g \in G$, we have $gkg^{-1} \in \ccl(k) \subseteq K$, so $K \lhd G$.
 \end{proof}
 
 \begin{lemma}[Conjugation action on subgroups]
-  Let $X$ be the set of subgroups of $G$. Then $G$ acts by conjugation on $X$.
+  Let $X$ be the set of subgroups of $G$. Then $G$ acts on $X$ by conjugation: $g(H) = gHg^{-1}$.
 \end{lemma}
 
 \begin{proof}
-  To show that it is an action, we have
+  We verify the action axioms:
   \begin{enumerate}[label=\arabic{*}.]
       \setcounter{enumi}{-1}
-    \item If $H\leq G$, then we have to show that $gHg^{-1}$ is also a subgroup. We know that $e\in H$ and thus $geg^{-1} = e\in gHg^{-1}$, so $gHg^{-1}$ is non-empty. For any two elements $gag^{-1}$ and $gbg^{-1}\in gHg^{-1}$, $(gag^{-1})(gbg^{-1})^{-1} = g(ab^{-1})g^{-1}\in gHg^{-1}$. So $gHg^{-1}$ is a subgroup.
+    \item If $H \leq G$, then $gHg^{-1}$ is a subgroup: $e = geg^{-1} \in gHg^{-1}$, and for $gag^{-1}, gbg^{-1} \in gHg^{-1}$, we have $(gag^{-1})(gbg^{-1})^{-1} = g(ab^{-1})g^{-1} \in gHg^{-1}$.
     \item $eHe^{-1} = H$.
-    \item $g_1(g_2Hg_2^{-1})g_1^{-1} = (g_1g_2)H(g_1g_2)^{-1}$.\qedhere
+    \item $g_1(g_2 H g_2^{-1})g_1^{-1} = (g_1 g_2)H(g_1 g_2)^{-1}$.\qedhere
   \end{enumerate}
 \end{proof}
-Under this action, normal subgroups have singleton orbits.
 
-\begin{defi}[Normalizer of subgroup]
-  The \emph{normalizer} of a subgroup is the stabilizer of the (group) conjugation action.
+\begin{remark}
+  Under this action, the normal subgroups of $G$ are precisely the subgroups with singleton orbits (i.e.\ $gKg^{-1} = K$ for all $g$).
+\end{remark}
+
+\begin{defi}[Normalizer]
+  The \emph{normalizer} of a subgroup $H \leq G$ is the stabilizer of $H$ under the conjugation action on subgroups:
   \[
-    N_G(H) = \{g\in G: gHg^{-1} = H\}.
+    N_G(H) = \{g \in G : gHg^{-1} = H\}.
   \]
 \end{defi}
-We clearly have $H\subseteq N_G(H)$. It is easy to show that $N_G(H)$ is the largest subgroup of $G$ in which $H$ is a normal subgroup, hence the name.
 
-There is a connection between actions in general and conjugation of subgroups.
+\begin{remark}
+  We always have $H \leq N_G(H)$, and $N_G(H)$ is the largest subgroup of $G$ in which $H$ is normal, hence the name.
+\end{remark}
 
 \begin{lemma}[Conjugate stabilizers]
-  Stabilizers of the elements in the same orbit are conjugate, i.e.\ let $G$ act on $X$ and let $g\in G, x\in X$. Then $\stab(g(x)) = g\stab(x)g^{-1}$.
+  Let $G$ act on $X$ and let $g \in G$, $x \in X$. Then $\stab(g(x)) = g\,\stab(x)\,g^{-1}$. In particular, stabilizers of elements in the same orbit are conjugate subgroups.
 \end{lemma}
 
 \subsection{Applications}
-\begin{eg}
-  Let $G^{+}$ be the rotations of a cube acting on the vertices. Let $X$ be the set of vertices. Then $|X| = 8$. Since the action is transitive, the orbit of element is the whole of $X$. The stabilizer of vertex $1$ is the set of rotations through $1$ and the diagonally opposite vertex, of which there are 3. So $|G^{+}| = |\orb(1)||\stab(1)| = 8\cdot 3 = 24$.
+\begin{eg}[Rotations of a cube]
+  Let $G^{+}$ be the group of rotations of a cube, acting on the set of vertices $X$. Then $|X| = 8$. Since the action is transitive, the orbit of any vertex is all of $X$. The stabilizer of vertex $1$ consists of the rotations about the diagonal through $1$ and the opposite vertex, of which there are $3$. So $|G^{+}| = |\orb(1)| \cdot |\stab(1)| = 8 \cdot 3 = 24$.
 \end{eg}
 
-\begin{eg}
-  Let $G$ be a finite simple group of order greater than 2, and $H\leq G$ have index $n\not= 1$. Then $|G| \leq n!/2$.
-\end{eg}
+\begin{prop}[Order bound for finite simple groups]
+  Let $G$ be a finite simple group of order greater than $2$, and let $H \leq G$ have index $n \neq 1$. Then $|G| \leq n!/2$.
+\end{prop}
 
 \begin{proof}
-  Consider the left coset action of $G$ on $H$. We get a group homomorphism $\varphi: G\to S_n$ since there are $n$ cosets of $H$. Since $H\not= G$, $\varphi$ is non-trivial and $\ker \varphi \not=G$. Now $\ker \varphi \lhd G$. Since $G$ is simple, $\ker\varphi = \{e\}$. So $G\cong \im \varphi \subseteq S_n$ by the isomorphism theorem. So $|G| \leq |S_n| = n!$.
+  Consider the left coset action of $G$ on the cosets of $H$. This gives a homomorphism $\varphi \colon G \to S_n$. Since $H \neq G$, the map $\varphi$ is non-trivial, so $\ker \varphi \neq G$. Since $\ker \varphi \lhd G$ and $G$ is simple, we must have $\ker \varphi = \{e\}$. By the Isomorphism Theorem, $G \cong \im \varphi \leq S_n$, so $|G| \leq n!$.
 
-  We can further refine this by considering $\sgn\circ \varphi: G \to \{\pm 1\}$. The kernel of this composite is normal in $G$. So $K = \ker(\sgn\circ\phi) = \{e\}$ or $G$. Since $G/K\cong \im (\sgn\circ\phi)$, we know that $|G|/|K| = 1$ or $2$ since $\im(\sgn\circ \phi)$ has at most two elements. Hence for $|G|> 2$, we cannot have $K = \{e\}$, or else $|G|/|K| > 2$. So we must have $K = G$, so $\sgn(\varphi(g)) = 1$ for all $g$ and $\im \varphi \leq A_n$. So $|G|\leq n!/2$
+  We refine this using $\sgn \circ\, \varphi \colon G \to \{\pm 1\}$. Let $K = \ker(\sgn \circ\, \varphi)$. Then $K \lhd G$, so $K = \{e\}$ or $K = G$. Since $G/K \cong \im(\sgn \circ\, \varphi)$ has at most $2$ elements, $|G|/|K| \leq 2$. For $|G| > 2$, we cannot have $K = \{e\}$, so $K = G$. Thus $\sgn(\varphi(g)) = 1$ for all $g$, giving $\im \varphi \leq A_n$ and hence $|G| \leq n!/2$.
 \end{proof}
 
-We have seen on Sheet 1 that if $|G|$ is even, then $G$ has an element of order 2. In fact,
+\begin{remark}
+  We have seen on Example Sheet 1 that if $|G|$ is even, then $G$ has an element of order $2$. Cauchy's theorem generalises this to arbitrary primes.
+\end{remark}
+
 \begin{thm}[Cauchy's Theorem]
-  Let $G$ be a finite group and prime $p$ dividing $|G|$. Then $G$ has an element of order $p$ (in fact there must be at least $p - 1$ elements of order $p$).
+  Let $G$ be a finite group and let $p$ be a prime dividing $|G|$. Then $G$ has an element of order $p$ (in fact, at least $p - 1$ such elements).
 \end{thm}
-It is important to remember that this only holds for prime $p$. For example, $A_4$ doesn't have an element of order $6$ even though $6 \mid 12 = |A_4|$. The converse, however, holds for any number trivially by Lagrange's theorem.
+
+\begin{remark}
+  The hypothesis that $p$ is prime is essential: $A_4$ has no element of order $6$ even though $6 \mid 12 = |A_4|$. The converse, however, holds for any divisor by Lagrange's theorem.
+\end{remark}
 
 \begin{proof}
-  Let $G$ and $p$ be fixed. Consider $G^p = G\times G\times \cdots \times G$, the set of $p$-tuples of $G$. Let $X \subseteq G^p$ be $X = \{(a_1, a_2, \cdots, a_p)\in G^p: a_1a_2\cdots a_p = e\}$.
-
-  In particular, if an element $b$ has order $p$, then $(b, b, \cdots, b)\in X$. In fact, if $(b, b, \cdots, b)\in X$ and $b\not= e$, then $b$ has order $p$, since $p$ is prime.
-
-  Now let $H = \bra h: h^p = e\ket\cong C_p$ be a cyclic group of order $p$ with generator $h$ (This $h$ is not related to $G$ in any way). Let $H$ act on $X$ by ``rotation'':
+  Consider $G^p = G \times G \times \dotsb \times G$ (the set of $p$-tuples) and let
   \[
-    h(a_1, a_2, \cdots, a_p) = (a_2, a_3, \cdots, a_p, a_1)
+    X = \{(a_1, a_2, \dotsc, a_p) \in G^p : a_1 a_2 \dotsm a_p = e\}.
   \]
-  This is an action:
+  Note that if $(b, b, \dotsc, b) \in X$ with $b \neq e$, then $b^p = e$, so $b$ has order $p$ (since $p$ is prime).
+
+  Let $H = \langle h : h^p = e \rangle \cong C_p$ (a cyclic group of order $p$, unrelated to $G$). Define an action of $H$ on $X$ by cyclic rotation:
+  \[
+    h(a_1, a_2, \dotsc, a_p) = (a_2, a_3, \dotsc, a_p, a_1).
+  \]
+  We verify this is an action:
   \begin{enumerate}[label=\arabic{*}.]
       \setcounter{enumi}{-1}
-    \item If $a_1\cdots a_p = e$, then $a_1^{-1} = a_2\cdots a_p$. So $a_2\cdots a_pa_1 = a_1^{-1}a_1 = e$. So $(a_2, a_3, \cdots, a_p, a_1)\in X$.
-    \item $e$ acts as an identity by construction
-    \item The ``associativity'' condition also works by construction.
+    \item \emph{Closure:} If $a_1 \dotsm a_p = e$, then $a_1^{-1} = a_2 \dotsm a_p$, so $a_2 \dotsm a_p a_1 = a_1^{-1} a_1 = e$.
+    \item The identity acts trivially by construction.
+    \item The composition condition holds by construction.
   \end{enumerate}
 
-  As orbits partition $X$, the sum of all orbit sizes must be $|X|$. We know that $|X| = |G|^{p - 1}$ since we can freely choose the first $p - 1$ entries and the last one must be the inverse of their product. Since $p$ divides $|G|$, $p$ also divides $|X|$. We have $|\orb(a_1, \cdots , a_p)||\stab_H(a_1, \cdots, a_p)| = |H| = p$. So all orbits have size 1 or $p$, and they sum to $|X| = p\times$ something. We know that there is one orbit of size 1, namely $(e, e, \cdots, e)$. So there must be at least $p - 1$ other orbits of size 1 for the sum to be divisible by $p$.
-
-  In order to have an orbit of size 1, they must look like ${(a, a, \cdots, a)}$ for some $a\in G$, which has order $p$.
+  Now $|X| = |G|^{p-1}$, since the first $p - 1$ entries can be chosen freely and the last is determined. Since $p \mid |G|$, we have $p \mid |X|$. By the orbit-stabilizer theorem, each orbit has size $|H|/|\stab| = p$ or $1$. Since orbits partition $X$ and $p \mid |X|$, the number of size-$1$ orbits must be divisible by $p$. The tuple $(e, e, \dotsc, e)$ is one such orbit, so there are at least $p - 1$ others. Each size-$1$ orbit has the form $(a, a, \dotsc, a)$ with $a^p = e$ and $a \neq e$, giving an element of order $p$.
 \end{proof}
 
 \section{Symmetric groups II}
 \label{sec:sym2}
-In this chapter, we will look at conjugacy classes of $S_n$ and $A_n$. It turns out this is easy for $S_n$, since two elements are conjugate if and only if they have the same cycle type. However, it is slightly more complicated in $A_n$. This is since while $(1\; 2\; 3)$ and $(1\; 3\; 2)$ might be conjugate in $S_4$, the element needed to perform the conjugation might be odd and not in $A_n$.
+\begin{remark}
+  In this chapter, we study conjugacy classes of $S_n$ and $A_n$. For $S_n$, the classification is straightforward: two elements are conjugate if and only if they have the same cycle type. For $A_n$, the situation is more subtle, because the permutation needed to conjugate one element to another may be odd and hence not in $A_n$.
+\end{remark}
 
 \subsection{Conjugacy classes in \texorpdfstring{$S_n$}{Sn}}
-Recall $\sigma, \tau\in S_n$ are conjugate if $\exists \rho\in S_n$ such that $\rho \sigma\rho^{-1} = \tau$.
+\begin{remark}
+  Recall that $\sigma, \tau \in S_n$ are conjugate if there exists $\rho \in S_n$ such that $\rho \sigma \rho^{-1} = \tau$. We first investigate the special case when $\sigma$ is a $k$-cycle.
+\end{remark}
 
-We first investigate the special case, when $\sigma$ is a $k$-cycle.
 \begin{prop}[Conjugation of cycles]
-  If $(a_1\; a_2\; \cdots \; a_k)$ is a $k$-cycle and $\rho\in S_n$, then $\rho (a_1\; \cdots\; a_k)\rho^{-1}$ is the $k$-cycle $(\rho(a_1)\; \rho(a_2)\; \cdots \rho(a_3))$.
+  If $(a_1\; a_2\; \cdots\; a_k)$ is a $k$-cycle and $\rho \in S_n$, then $\rho(a_1\; \cdots\; a_k)\rho^{-1}$ is the $k$-cycle $(\rho(a_1)\; \rho(a_2)\; \cdots\; \rho(a_k))$.
 \end{prop}
 
 \begin{proof}
-  Consider any $\rho(a_1)$ acted on by $\rho (a_1\; \cdots\; a_k)\rho^{-1}$. The three permutations send it to $\rho(a_1)\mapsto a_1 \mapsto a_2 \mapsto \rho(a_2)$ and similarly for other $a_i$s. Since $\rho$ is bijective, any $b$ can be written as $\rho(a)$ for some $a$. So the result is the $k$-cycle $(\rho(a_1)\; \rho(a_2)\; \cdots \rho(a_3))$.
+  Consider $\rho(a_i)$ acted on by $\rho(a_1\; \cdots\; a_k)\rho^{-1}$. The three permutations send $\rho(a_i) \mapsto a_i \mapsto a_{i+1} \mapsto \rho(a_{i+1})$ (indices modulo $k$). Since $\rho$ is bijective, every element of $\{1, \dotsc, n\}$ not in the image $\{\rho(a_1), \dotsc, \rho(a_k)\}$ is fixed. So the result is the $k$-cycle $(\rho(a_1)\; \rho(a_2)\; \cdots\; \rho(a_k))$.
 \end{proof}
 
 \begin{cor}[Cycle type conjugacy criterion]
-  Two elements in $S_n$ are conjugate iff they have the same cycle type.
+  Two elements in $S_n$ are conjugate if and only if they have the same cycle type.
 \end{cor}
 
 \begin{proof}
-  Suppose $\sigma = \sigma_1\sigma_2\cdots \sigma_\ell$, where $\sigma_i$ are disjoint cycles. Then $\rho\sigma\rho^{-1} = \rho\sigma_1\rho^{-1}\rho\sigma_2\rho^{-1}\cdots \rho\sigma_\ell\rho^{-1}$. Since the conjugation of a cycle conserves its length, $\rho\sigma\rho^{-1}$ has the same cycle type.
+  Suppose $\sigma = \sigma_1 \sigma_2 \cdots \sigma_\ell$, where the $\sigma_i$ are disjoint cycles. Then $\rho \sigma \rho^{-1} = \rho \sigma_1 \rho^{-1} \rho \sigma_2 \rho^{-1} \cdots \rho \sigma_\ell \rho^{-1}$. Since conjugation preserves cycle length, $\rho \sigma \rho^{-1}$ has the same cycle type as $\sigma$.
 
-  Conversely, if $\sigma, \tau$ have the same cycle type, say
+  Conversely, if $\sigma$ and $\tau$ have the same cycle type, say
   \[
-    \sigma = (a_1\; a_2\;\cdots\; a_k)(a_{k + 1}\; \cdots \;a_{k + \ell}),\quad \tau = (b_1\; b_2\;\cdots\; b_k)(b_{k + 1}\; \cdots \;b_{k + \ell}),
+    \sigma = (a_1\; a_2\; \cdots\; a_k)(a_{k+1}\; \cdots\; a_{k+\ell}) \cdots, \quad \tau = (b_1\; b_2\; \cdots\; b_k)(b_{k+1}\; \cdots\; b_{k+\ell}) \cdots,
   \]
-  if we let $\rho(a_i) = b_i$, then $\rho\sigma\rho^{-1} = \tau$.
+  then defining $\rho(a_i) = b_i$ for all $i$ gives $\rho \sigma \rho^{-1} = \tau$.
 \end{proof}
 
-\begin{eg}
-  Conjugacy classes of $S_4$:
+\begin{eg}[Conjugacy classes of $S_4$]\leavevmode
   \begin{center}
     \begin{tabular}{lcccc}
       \toprule
-      Cycle type & Example element & Size of ccl & Size of centralizer & Sign \\
+      Cycle type & Example & $|\ccl|$ & $|C_{S_4}|$ & Sign \\
       \midrule
-      (1, 1, 1, 1) & e & 1 & 24 & $+1$ \\
-      (2, 1, 1) & (1\; 2) & 6 & 4 & $-1$ \\
-      (2, 2) & (1\; 2)(3\; 4) & 3 & 8 & $+1$ \\
-      (3, 1) & (1\; 2\; 3) & 8 & 3 & $+1$ \\
-      (4) & (1\; 2\; 3\; 4) & 6 & 4 & $-1$ \\
+      $(1, 1, 1, 1)$ & $e$ & 1 & 24 & $+1$ \\
+      $(2, 1, 1)$ & $(1\; 2)$ & 6 & 4 & $-1$ \\
+      $(2, 2)$ & $(1\; 2)(3\; 4)$ & 3 & 8 & $+1$ \\
+      $(3, 1)$ & $(1\; 2\; 3)$ & 8 & 3 & $+1$ \\
+      $(4)$ & $(1\; 2\; 3\; 4)$ & 6 & 4 & $-1$ \\
       \bottomrule
     \end{tabular}
   \end{center}
 
-  \noindent We know that a normal subgroup is a union of conjugacy classes. We can now find all normal subgroups by finding possible union of conjugacy classes whose cardinality divides 24. Note that the normal subgroup must contain $e$.
+  Since a normal subgroup must be a union of conjugacy classes containing $e$ and its order must divide $24$, we can enumerate all normal subgroups:
   \begin{enumerate}
-    \item Order 1: $\{e\}$
-    \item Order 2: None
-    \item Order 3: None
-    \item Order 4: $\{e, (1\; 2)(3\; 4), (1\; 3)(2\; 4), (1\; 4)(2\; 3)\}\cong C_2\times C_2 = V_4$ is a possible candidate. We can check the group axioms and find that it is really a subgroup
-    \item Order 6: None
-    \item Order 8: None
-    \item Order 12: $A_4$ (We know it is a normal subgroup since it is the kernel of the signature and/or it has index 2)
-    \item Order 24: $S_4$
+    \item Order 1: $\{e\}$.
+    \item Order 4: $\{e, (1\; 2)(3\; 4), (1\; 3)(2\; 4), (1\; 4)(2\; 3)\} \cong C_2 \times C_2 = V_4$. One checks that this is indeed a subgroup.
+    \item Order 12: $A_4$ (normal since it is the kernel of $\sgn$, or equivalently has index $2$).
+    \item Order 24: $S_4$.
   \end{enumerate}
-  We can also obtain the quotients of $S_4$: $S_4/\{e\} \cong S_4$, $S_4/V_4 \cong S_3\cong D_6$, $S_4/A_4 \cong C_2$, $S_4/S_4 = \{e\}$.
+  No other unions of conjugacy classes (containing $e$) have order dividing $24$. The corresponding quotients are $S_4/\{e\} \cong S_4$, $S_4/V_4 \cong S_3 \cong D_6$, $S_4/A_4 \cong C_2$, and $S_4/S_4 = \{e\}$.
 \end{eg}
 
 \subsection{Conjugacy classes in \texorpdfstring{$A_n$}{An}}
-We have seen that $|S_n| = 2|A_n|$ and that conjugacy classes in $S_n$ are ``nice''. How about in $A_n$?
+\begin{remark}
+  We have seen that conjugacy classes in $S_n$ are classified by cycle type. For $A_n$, the situation is more delicate. We have
+  \begin{align*}
+    \ccl_{S_n}(\sigma) &= \{\tau \in S_n : (\exists \rho \in S_n)\, \tau = \rho\sigma\rho^{-1}\}, \\
+    \ccl_{A_n}(\sigma) &= \{\tau \in A_n : (\exists \rho \in A_n)\, \tau = \rho\sigma\rho^{-1}\}.
+  \end{align*}
+  Clearly $\ccl_{A_n}(\sigma) \subseteq \ccl_{S_n}(\sigma)$, but the inclusion may be strict, since the permutation needed to conjugate $\sigma$ to $\tau$ may be odd.
+\end{remark}
 
-The first thought is that we write it down:
-\begin{align*}
-  \ccl_{S_n}(\sigma) &= \{\tau\in S_n: (\exists \rho \in S_n)\, \tau = \rho\sigma\rho^{-1}\}\\
-  \ccl_{A_n}(\sigma) &= \{\tau\in A_n: (\exists \rho \in A_n)\, \tau = \rho\sigma\rho^{-1}\}
-\end{align*}
-Obviously $\ccl_{A_n}(\sigma)\subseteq \ccl_{S_n}(\sigma)$, but the converse need not be true since the conjugation need to map $\sigma$ to $\tau$ may be odd.
-
-\begin{eg}
-  Consider $(1\; 2\; 3)$ and $(1\; 3\; 2)$. They are conjugate in $S_3$ by $(2\; 3)$, but $(2\; 3)\not\in A_3$. (This does not automatically entail that they are not conjugate in $A_3$ because there might be another even permutation that conjugate $(1\; 2\; 3)$ and $(1\; 3\; 2)$. In $A_5$, $(2\; 3)(4\; 5)$ works (but not in $A_3$))
+\begin{eg}[Conjugacy in $A_n$ vs $S_n$]
+  The $3$-cycles $(1\; 2\; 3)$ and $(1\; 3\; 2)$ are conjugate in $S_3$ by $(2\; 3)$, but $(2\; 3) \notin A_3$. This does not automatically mean they are not conjugate in $A_3$: there might be another even permutation that conjugates them. Indeed, in $A_5$ the even permutation $(2\; 3)(4\; 5)$ works, but no such element exists in $A_3$.
 \end{eg}
 
-We can use the orbit-stabilizer theorem:
-\begin{align*}
-  |S_n| &= |\ccl_{S_n}(\sigma)||C_{S_n}(\sigma)|\\
-  |A_n| &= |\ccl_{A_n}(\sigma)||C_{A_n}(\sigma)|
-\end{align*}
-We know that $A_n$ is half of $S_n$ and $\ccl_{A_n}$ is contained in $\ccl_{S_n}$. So we have two options: either $\ccl_{S_n}(\sigma) = \ccl_{A_n}(\sigma)$ and $|C_{S_n}(\sigma)| = \frac{1}{2}|C_{A_n}(\sigma)|$; or $\frac{1}{2}|\ccl_{S_n}(\sigma)| = |\ccl_{A_n}(\sigma)|$ and $C_{A_n}(\sigma) = C_{S_n}(\sigma)$.
+\begin{remark}
+  By the orbit-stabilizer theorem applied to the conjugation action,
+  \begin{align*}
+    |S_n| &= |\ccl_{S_n}(\sigma)| \cdot |C_{S_n}(\sigma)|, \\
+    |A_n| &= |\ccl_{A_n}(\sigma)| \cdot |C_{A_n}(\sigma)|.
+  \end{align*}
+  Since $|A_n| = \frac{1}{2}|S_n|$ and $\ccl_{A_n}(\sigma) \subseteq \ccl_{S_n}(\sigma)$, there are exactly two possibilities: either $\ccl_{A_n}(\sigma) = \ccl_{S_n}(\sigma)$ (and $|C_{A_n}(\sigma)| = \frac{1}{2}|C_{S_n}(\sigma)|$), or $|\ccl_{A_n}(\sigma)| = \frac{1}{2}|\ccl_{S_n}(\sigma)|$ (and $C_{A_n}(\sigma) = C_{S_n}(\sigma)$).
+\end{remark}
 
 \begin{defi}[Splitting of conjugacy classes]
-  When $|\ccl_{A_n}(\sigma)| = \frac{1}{2}|\ccl_{S_n}(\sigma)|$, we say that the conjugacy class of $\sigma$ \emph{splits} in $A_n$.
+  When $|\ccl_{A_n}(\sigma)| = \frac{1}{2}|\ccl_{S_n}(\sigma)|$, we say that the conjugacy class of $\sigma$ \emph{splits} in $A_n$. Otherwise, the conjugacy class is \emph{retained}.
 \end{defi}
 
-So the conjugacy classes are either retained or split.
-
 \begin{prop}[Conjugacy class splitting in $A_n$]
-  For $\sigma\in A_n$, the conjugacy class of $\sigma$ splits in $A_n$ if and only if no odd permutation commutes with $\sigma$.
+  For $\sigma \in A_n$, the conjugacy class of $\sigma$ splits in $A_n$ if and only if no odd permutation commutes with $\sigma$.
 \end{prop}
 
 \begin{proof}
-  We have the conjugacy classes splitting if and only if the centralizer does not. So instead we check whether the centralizer splits. Clearly $C_{A_n}(\sigma) = C_{S_n}(\sigma)\cap A_n$. So splitting of centralizer occurs if and only if an odd permutation commutes with $\sigma$.
+  The conjugacy class splits if and only if the centralizer does not, i.e.\ $C_{A_n}(\sigma) = C_{S_n}(\sigma)$. Since $C_{A_n}(\sigma) = C_{S_n}(\sigma) \cap A_n$, the centralizer does not split if and only if $C_{S_n}(\sigma)$ contains no odd permutations.
 \end{proof}
 
-\begin{eg}
-  Conjugacy classes in $A_4$:
+\begin{eg}[Conjugacy classes in $A_4$]\leavevmode
   \begin{center}
     \begin{tabular}{lcccc}
       \toprule
       Cycle type & Example & $|\ccl_{S_4}|$ & Odd element in $C_{S_4}$? & $|\ccl_{A_4}|$ \\
       \midrule
-      (1, 1, 1, 1) & $e$ & 1 & Yes $(1\; 2)$ & 1 \\
-      (2, 2) & $(1\; 2)(3\; 4)$ & 3 & Yes $(1\; 2)$ & 3 \\
-      (3, 1) & $(1\; 2\; 3)$ & 8 & No & 4, 4 \\
+      $(1, 1, 1, 1)$ & $e$ & 1 & Yes: $(1\; 2)$ & 1 \\
+      $(2, 2)$ & $(1\; 2)(3\; 4)$ & 3 & Yes: $(1\; 2)$ & 3 \\
+      $(3, 1)$ & $(1\; 2\; 3)$ & 8 & No & 4, 4 \\
       \bottomrule
     \end{tabular}
   \end{center}
-  In the (3, 1) case, by the orbit stabilizer theorem, $|C_{S_4}((1\; 2\; 3))| = 3$, which is odd and cannot split.
+  In the $(3, 1)$ case, $|C_{S_4}((1\; 2\; 3))| = 24/8 = 3$. Since the centralizer has odd order, it contains no odd permutations, so the conjugacy class splits.
 \end{eg}
 
-\begin{eg}
-  Conjugacy classes in $A_5$:
+\begin{eg}[Conjugacy classes in $A_5$]\leavevmode
   \begin{center}
     \begin{tabular}{lcccc}
       \toprule
       Cycle type & Example & $|\ccl_{S_5}|$ & Odd element in $C_{S_5}$? & $|\ccl_{A_5}|$ \\
       \midrule
-      (1, 1, 1, 1, 1) & $e$ & 1 & Yes $(1\; 2)$ & 1 \\
-      (2, 2, 1) & $(1\; 2)(3\; 4)$ & 15 & Yes $(1\; 2)$ & 15 \\
-      (3, 1, 1) & $(1\; 2\; 3)$ & 20 & Yes $(4\; 5)$ & 20 \\
-      (5) & $(1\; 2\; 3\; 4\; 5)$ & 24 & No & 12, 12 \\
+      $(1, 1, 1, 1, 1)$ & $e$ & 1 & Yes: $(1\; 2)$ & 1 \\
+      $(2, 2, 1)$ & $(1\; 2)(3\; 4)$ & 15 & Yes: $(1\; 2)$ & 15 \\
+      $(3, 1, 1)$ & $(1\; 2\; 3)$ & 20 & Yes: $(4\; 5)$ & 20 \\
+      $(5)$ & $(1\; 2\; 3\; 4\; 5)$ & 24 & No & 12, 12 \\
       \bottomrule
     \end{tabular}
   \end{center}
-  Since the centralizer of $(1\; 2\; 3\; 4\; 5)$ has size $5$, it cannot split, so its conjugacy class must split.
+  The centralizer of $(1\; 2\; 3\; 4\; 5)$ has order $120/24 = 5$, which is odd, so the conjugacy class splits.
 \end{eg}
 
-\begin{lemma}[Centralizer of a 5-cycle in $S_5$]
-  $\sigma = (1\; 2\; 3\; 4\; 5)\in S_5$ has $C_{S_5}(\sigma) = \bra \sigma \ket$. \end{lemma}
+\begin{lemma}[Centralizer of a $5$-cycle in $S_5$]
+  For $\sigma = (1\; 2\; 3\; 4\; 5) \in S_5$, we have $C_{S_5}(\sigma) = \langle \sigma \rangle$.
+\end{lemma}
 
 \begin{proof}
-  $|\ccl_{S_n}(\sigma)| = 24$ and $|S_5| = 120$. So $|C_{S_5}(\sigma)| = 5$. Clearly $\bra \sigma \ket \subseteq C_{S_5}(\sigma)$. Since they both have size $5$, we know that $C_{S_5}(\sigma) = \bra \sigma\ket$
+  We have $|\ccl_{S_5}(\sigma)| = 24$ and $|S_5| = 120$, so $|C_{S_5}(\sigma)| = 5$. Since $\langle \sigma \rangle \subseteq C_{S_5}(\sigma)$ and $|\langle \sigma \rangle| = 5$, we conclude $C_{S_5}(\sigma) = \langle \sigma \rangle$.
 \end{proof}
 
 \begin{thm}[Simplicity of $A_5$]
@@ -1743,14 +1806,20 @@ So the conjugacy classes are either retained or split.
 \end{thm}
 
 \begin{proof}
-  We know that normal subgroups must be unions of the conjugacy classes, must contain $e$ and their order must divide 60. The possible orders are 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30. However, the conjugacy classes 1, 15, 20, 12, 12 cannot add up to any of the possible orders apart from 1 and 60. So we only have trivial normal subgroups.
+  Any normal subgroup of $A_5$ must be a union of conjugacy classes containing $e$, and its order must divide $|A_5| = 60$. The conjugacy class sizes are $1, 15, 20, 12, 12$. No sub-collection containing $1$ sums to a proper divisor of $60$, so the only normal subgroups are $\{e\}$ and $A_5$.
 \end{proof}
-In fact, all $A_n$ for $n\geq 5$ are simple, but the proof is horrible (cf.\ IB Groups, Rings and Modules).
+
+\begin{remark}
+  In fact, $A_n$ is simple for all $n \geq 5$, but the proof requires further techniques (cf.\ IB Groups, Rings and Modules).
+\end{remark}
 
 \section{Quaternions}
-In the remaining of the course, we will look at different important groups. Here, we will have a brief look at
-\begin{defi}[Quaternions]
-  The \emph{quaternions} is the set of matrices
+\begin{remark}
+  In the remainder of the course, we examine several important families of groups. We begin with the quaternion group.
+\end{remark}
+
+\begin{defi}[Quaternion group]
+  The \emph{quaternion group} $Q_8$ is the set of matrices
   \begin{gather*}
     \begin{pmatrix}
       1&0\\0&1
@@ -1786,7 +1855,7 @@ In the remaining of the course, we will look at different important groups. Here
   \[
     Q_8 = \bra a, b : a^4 = e, b^2 = a^2, bab^{-1} = a^{-1}\ket
   \]
-  Even better, we can write
+  Alternatively, we can write
   \[
     Q_8 = \{1, -1, i, -i, j, -j, k, -k\}
   \]
@@ -1835,7 +1904,7 @@ In the remaining of the course, we will look at different important groups. Here
   Consider the different possible cases:
   \begin{itemize}
     \item If $G$ contains an element of order 8, then $G\cong C_8$.
-    \item If all non-identity elements have order 2, then $G$ is abelian (Sheet 1, Q8). Let $a\not= b\in G\setminus\{e\}$. By the direct product theorem, $\bra a, b\ket = \bra a\ket\times\bra b\ket$. Then take $c\not\in \bra a, b\ket$. By the direct product theorem, we obtain $\bra a, b, c\ket = \bra a\ket\times\bra b\ket\times\bra c\ket = C_2\times C_2\times C_2$. Since $\bra a, b, c\ket\subseteq G$ and $|\bra a, b, c\ket| = |G|$, $G = \bra a, b, c\ket \cong C_2\times C_2\times C_2$.
+    \item If all non-identity elements have order $2$, then $G$ is abelian (cf.\ Example Sheet 1, Question 8). Let $a \neq b \in G \setminus \{e\}$. By the direct product theorem, $\langle a, b \rangle = \langle a \rangle \times \langle b \rangle$. Then take $c \notin \langle a, b \rangle$. By the direct product theorem, $\langle a, b, c \rangle = \langle a \rangle \times \langle b \rangle \times \langle c \rangle \cong C_2 \times C_2 \times C_2$. Since $|\langle a, b, c \rangle| = 8 = |G|$, we have $G \cong C_2 \times C_2 \times C_2$.
     \item $G$ has no element of order 8 but has an order 4 element $a\in G$. Let $H = \bra a\ket$. Since $H$ has index 2, it is normal in $G$. So $G/H \cong C_2$ since $|G/H| = 2$. This means that for any $b\not\in H$, $bH$ generates $G/H$. Then $(bH)^2 = b^2H = H$. So $b^2\in H$. Since $b^2\in \bra a\ket$ and $\bra a\ket$ is a cyclic group, $b^2$ commutes with $a$.
 
       If $b^2 = a$ or $a^3$, then $b$ has order 8. Contradiction. So $b^2 = e$ or $a^2$.
@@ -1843,235 +1912,227 @@ In the remaining of the course, we will look at different important groups. Here
       We also know that $H$ is normal, so $bab^{-1}\in H$. Let $bab^{-1} = a^\ell$. Since $a$ and $b^2$ commute, we know that $a = b^2 ab^{-2} = b(bab^{-1})b^{-1} = ba^\ell b^{-1} = (bab^{-1})^{\ell} = a^{\ell^2}$. So $\ell^2 \equiv 1\pmod 4$. So $\ell \equiv \pm 1 \pmod 4$.
 
       \begin{itemize}
-        \item When $l\equiv 1\pmod 4$, $bab^{-1} = a$, i.e.\ $ba = ab$. So $G$ is abelian.
+        \item When $\ell \equiv 1\pmod 4$, $bab^{-1} = a$, i.e.\ $ba = ab$. So $G$ is abelian.
           \begin{itemize}
             \item If $b^2 = e$, then $G = \bra a, b\ket \cong \bra a\ket \times \bra b\ket \cong C_4\times C_2$.
             \item If $b^2 = a^2$, then $(ba^{-1})^2 = e$. So $G = \bra a, ba^{-1}\ket \cong C_4\times C_2$.
           \end{itemize}
-        \item If $l \equiv -1\pmod 4$, then $bab^{-1} = a^{-1}$.
+        \item If $\ell \equiv -1\pmod 4$, then $bab^{-1} = a^{-1}$.
           \begin{itemize}
             \item If $b^2 = e$, then $G = \bra a, b: a^4 = e = b^2, bab^{-1} = a^{-1}\ket$. So $G\cong D_8$ by definition.
             \item If $b^2 = a^2$, then we have $G\cong Q_8$.\qedhere
           \end{itemize}
-      \end{itemize}%\qedhere
+      \end{itemize}
   \end{itemize}
 \end{proof}
 \section{Matrix groups}
 \subsection{General and special linear groups}
-Consider $M_{n\times n}(F)$, i.e.\ the set of $n\times n$ matrices over the field $F = \R$ or $\C$ (or $\F_p$). We know that matrix multiplication is associative (since they represent functions) but are, in general, not commutative. To make this a group, we want the identity matrix $I$ to be the identity. To ensure everything has an inverse, we can only include invertible matrices.
+\begin{remark}
+  Consider $M_{n \times n}(F)$, the set of $n \times n$ matrices over a field $F$ (such as $\R$, $\C$, or $\F_p$). Matrix multiplication is associative but not, in general, commutative. To form a group, we take the identity matrix $I$ as the identity element and restrict to invertible matrices.
+\end{remark}
 
-(We do not necessarily need to take $I$ as the identity of the group. We can, for example, take $e =
-\begin{pmatrix}
-  0 & 0\\
-  0 & 1
-\end{pmatrix}$ and obtain a group in which every matrix is of the form $\begin{pmatrix}
-  0 & 0\\
-  0 & a
-\end{pmatrix}$ for some non-zero $a$. This forms a group, albeit a boring one (it is simply $\cong \R^*$))
 \begin{defi}[General linear group $\GL_n(F)$]
+  The \emph{general linear group} is
   \[
-    \GL_n(F) = \{A\in M_{n\times n}(F) : A\text{ is invertible}\}
+    \GL_n(F) = \{A \in M_{n \times n}(F) : A \text{ is invertible}\} = \{A \in M_{n \times n}(F) : \det A \neq 0\}.
   \]
-  is the \emph{general linear group}.
 \end{defi}
-Alternatively, we can define $\GL_n(F)$ as matrices with non-zero determinants.
 
 \begin{prop}[$\GL_n(F)$ is a group]
-  $\GL_n(F)$ is a group.
+  $\GL_n(F)$ is a group under matrix multiplication.
 \end{prop}
+
 \begin{proof}
-  Identity is $I$, which is in $\GL_n(F)$ by definition ($I$ is its self-inverse). The composition of invertible matrices is invertible, so is closed. Inverse exist by definition. Multiplication is associative.
+  The identity is $I \in \GL_n(F)$. The product of invertible matrices is invertible, so $\GL_n(F)$ is closed. Inverses exist by definition. Multiplication is associative.
 \end{proof}
 
 \begin{prop}[Determinant on $\GL_n(F)$]
-  $\det: \GL_n(F) \to F\setminus\{0\}$ is a surjective group homomorphism.
+  $\det \colon \GL_n(F) \to F \setminus \{0\}$ is a surjective group homomorphism.
 \end{prop}
 
 \begin{proof}
-  $\det AB = \det A\det B$. If $A$ is invertible, it has non-zero determinant and $\det A\in F\setminus\{0\}$.
-
-  To show it is surjective, for any $x\in F\setminus\{0\}$, if we take the identity matrix and replace $I_{11}$ with $x$, then the determinant is $x$. So it is surjective.
+  We have $\det(AB) = \det A \cdot \det B$, and $\det A \neq 0$ for $A \in \GL_n(F)$, so $\det$ is a homomorphism. It is surjective since for any $x \in F \setminus \{0\}$, the diagonal matrix with $(1,1)$-entry $x$ and all other diagonal entries $1$ has determinant $x$.
 \end{proof}
 
 \begin{defi}[Special linear group $\SL_n(F)$]
-  The \emph{special linear group} $\SL_n(F)$ is the kernel of the determinant, i.e.
+  The \emph{special linear group} $\SL_n(F)$ is the kernel of the determinant:
   \[
-    SL_n(F) = \{A\in \GL_n(F): \det A = 1\}.
+    \SL_n(F) = \{A \in \GL_n(F) : \det A = 1\}.
   \]
 \end{defi}
 
-So $\SL_n(F)\lhd \GL_n(F)$ as it is a kernel. Note that $Q_8\leq \SL_2(\C)$
+\begin{remark}
+  Since $\SL_n(F)$ is the kernel of a homomorphism, $\SL_n(F) \lhd \GL_n(F)$. Note also that $Q_8 \leq \SL_2(\C)$.
+\end{remark}
 \subsection{Actions of \texorpdfstring{$\GL_n(\C)$}{GLn(C)}}
 \begin{prop}[$\GL_n(\C)$ action on $\C^n$]
-  $\GL_n(\C)$ acts faithfully on $\C^n$ by left multiplication to the vector, with two orbits ($\mathbf{0}$ and everything else).
+  $\GL_n(\C)$ acts faithfully on $\C^n$ by left multiplication, with two orbits: $\{\mathbf{0}\}$ and $\C^n \setminus \{\mathbf{0}\}$.
 \end{prop}
 
 \begin{proof}
-  First show that it is a group action:
-  \begin{enumerate}[label=\arabic{*}.]
-      \setcounter{enumi}{0}
-    \item If $A\in \GL_n(\C)$ and $\mathbf{v}\in \C^n$, then $A\mathbf{v}\in \C^n$. So it is closed.
-    \item $I\mathbf{v} = \mathbf{v}$ for all $\mathbf{v}\in \C^n$.
+  We first verify the group action axioms:
+  \begin{enumerate}
+    \item If $A \in \GL_n(\C)$ and $\mathbf{v} \in \C^n$, then $A\mathbf{v} \in \C^n$.
+    \item $I\mathbf{v} = \mathbf{v}$ for all $\mathbf{v} \in \C^n$.
     \item $A(B\mathbf{v}) = (AB)\mathbf{v}$.
   \end{enumerate}
 
-  Now prove that it is faithful: a linear map is determined by what it does on a basis. Take the standard basis $\mathbf{e}_1 = (1, 0, \cdots, 0), \cdots \mathbf{e}_n = (0, \cdots, 1)$. Any matrix which maps each $\mathbf{e}_k$ to itself must be $I$ (since the columns of a matrix are the images of the basis vectors)
+  To show faithfulness, note that a linear map is determined by its action on a basis. If $A$ fixes each standard basis vector $\mathbf{e}_k$, then $A = I$ (since the columns of $A$ are the images of the basis vectors).
 
-  To show that there are 2 orbits, we know that $A\mathbf{0} = \mathbf{0}$ for all $A$. Also, as $A$ is invertible, $A\mathbf{v} = \mathbf{0}\Leftrightarrow \mathbf{v} = \mathbf{0}$. So $\mathbf{0}$ forms a singleton orbit. Then given any two vectors $\mathbf{v}\not= \mathbf{w}\in \C^n\setminus\{0\}$, there is a matrix $A\in \GL_n(\C)$ such that $A\mathbf{v} = \mathbf{w}$ (cf.\ Vectors and Matrices).
+  For the orbits: $A\mathbf{0} = \mathbf{0}$ for all $A$, and since $A$ is invertible, $A\mathbf{v} = \mathbf{0}$ if and only if $\mathbf{v} = \mathbf{0}$. So $\{\mathbf{0}\}$ is an orbit. For any $\mathbf{v}, \mathbf{w} \in \C^n \setminus \{\mathbf{0}\}$, there exists $A \in \GL_n(\C)$ with $A\mathbf{v} = \mathbf{w}$ (cf.\ Vectors and Matrices), so $\C^n \setminus \{\mathbf{0}\}$ is a single orbit.
 \end{proof}
 
-Similarly, $\GL_n(\R)$ acts on $\R^n$.
+\begin{remark}
+  Similarly, $\GL_n(\R)$ acts faithfully on $\R^n$ with two orbits.
+\end{remark}
 
 \begin{prop}[$\GL_n(\C)$ conjugation action on matrices]
-  $\GL_n(\C)$ acts on $M_{n\times n}(\C)$ by conjugation. (Proof is trivial)
+  $\GL_n(\C)$ acts on $M_{n \times n}(\C)$ by conjugation: $P \cdot A = PAP^{-1}$.
 \end{prop}
-This action can be thought of as a ``change of basis'' action. Two matrices are conjugate if they represent the same map but with respect to different bases. The $P$ is the base change matrix.
 
-From Vectors and Matrices, we know that there are three different types of orbits for $\GL_2(\C)$: $A$ is conjugate to a matrix of one of these forms:
-\begin{enumerate}
-  \item $
-    \begin{pmatrix}
-      \lambda & 0\\
-      0 & \mu
-    \end{pmatrix}
-    $, with $\lambda \not= \mu$, i.e.\ two distinct eigenvalues
-  \item $
-    \begin{pmatrix}
-      \lambda & 0\\
-      0 & \lambda\\
-    \end{pmatrix}$, i.e.\ a repeated eigenvalue with 2-dimensional eigenspace
-  \item $
-    \begin{pmatrix}
-      \lambda & 1\\
-      0 & \lambda
-    \end{pmatrix}$, i.e.\ a repeated eigenvalue with a 1-dimensional eigenspace
-\end{enumerate}
-Note that we said there are three \emph{types} of orbits, not three orbits. There are infinitely many orbits, e.g.\ one for each of $\lambda I$.
-\subsection{Orthogonal groups}
-Recall that $A^T$ is defined by $A^{T}_{ij} = A_{ji}$, i.e.\ we reflect the matrix in the diagonal. They have the following properties:
-\begin{enumerate}
-  \item $(AB)^T = B^TA^T$
-  \item $(A^{-1})^T = (A^T)^{-1}$
-  \item $A^{T}A = I\Leftrightarrow AA^{T} = I\Leftrightarrow A^{-1} = A^{T}$. In this case $A$ is \emph{orthogonal}
-  \item $\det A^{T} = \det A$
-\end{enumerate}
-We are now in $\R$, because orthogonal matrices don't make sense with complex matrices.
+\begin{proof}
+  This follows directly from the definitions.
+\end{proof}
 
-Note that a matrix is orthogonal if the columns (or rows) form an orthonormal basis of $\R^n$: $AA^T = I\Leftrightarrow a_{ik}a_{jk} = \delta_{ij} \Leftrightarrow \mathbf{a}_i\cdot \mathbf{a}_j = \delta_{ij}$, where $\mathbf{a}_i$ is the $i$th column of $A$.
+\begin{remark}
+  This action corresponds to change of basis: two matrices are conjugate if and only if they represent the same linear map with respect to different bases, with $P$ being the change-of-basis matrix.
 
-The importance of orthogonal matrices is that they are the isometries of $\R^n$.
-\begin{lemma}[Orthogonal matrices are isometries] For any orthogonal $A$ and $x, y\in \R^n$, we have
+  From Vectors and Matrices, the orbits of the conjugation action of $\GL_2(\C)$ on $M_{2 \times 2}(\C)$ are classified by Jordan normal form. Every $A \in M_{2 \times 2}(\C)$ is conjugate to a matrix of one of the following forms:
   \begin{enumerate}
-    \item $(A\mathbf{x})\cdot (A\mathbf{y}) = \mathbf{x\cdot y}$
-    \item $|A\mathbf{x}| = |\mathbf{x}|$
+    \item $\begin{pmatrix} \lambda & 0 \\ 0 & \mu \end{pmatrix}$ with $\lambda \neq \mu$: two distinct eigenvalues.
+    \item $\begin{pmatrix} \lambda & 0 \\ 0 & \lambda \end{pmatrix}$: a repeated eigenvalue with $2$-dimensional eigenspace.
+    \item $\begin{pmatrix} \lambda & 1 \\ 0 & \lambda \end{pmatrix}$: a repeated eigenvalue with $1$-dimensional eigenspace.
+  \end{enumerate}
+  There are three \emph{types} of orbits, but infinitely many orbits (e.g.\ one for each scalar matrix $\lambda I$).
+\end{remark}
+\subsection{Orthogonal groups}
+\begin{remark}
+  Recall that the transpose $A^T$ is defined by $(A^T)_{ij} = A_{ji}$. Transposition has the following properties:
+  \begin{enumerate}
+    \item $(AB)^T = B^T A^T$.
+    \item $(A^{-1})^T = (A^T)^{-1}$.
+    \item $A^T A = I \Leftrightarrow AA^T = I \Leftrightarrow A^{-1} = A^T$. In this case, $A$ is called \emph{orthogonal}.
+    \item $\det A^T = \det A$.
+  \end{enumerate}
+  We work over $\R$ in this subsection; the complex analogue (unitary matrices) is treated later.
+\end{remark}
+
+\begin{remark}
+  A matrix is orthogonal if and only if its columns (equivalently, rows) form an orthonormal basis of $\R^n$: we have $AA^T = I$ if and only if $\sum_k a_{ik} a_{jk} = \delta_{ij}$, i.e.\ $\mathbf{a}_i \cdot \mathbf{a}_j = \delta_{ij}$, where $\mathbf{a}_i$ is the $i$th column of $A$.
+\end{remark}
+
+\begin{lemma}[Orthogonal matrices are isometries]
+  For any orthogonal matrix $A$ and $\mathbf{x}, \mathbf{y} \in \R^n$,
+  \begin{enumerate}
+    \item $(A\mathbf{x}) \cdot (A\mathbf{y}) = \mathbf{x} \cdot \mathbf{y}$.
+    \item $|A\mathbf{x}| = |\mathbf{x}|$.
   \end{enumerate}
 \end{lemma}
 
 \begin{proof}
-  Treat the dot product as a matrix multiplication. So
+  Writing the dot product as matrix multiplication,
   \[
-    (A\mathbf{x})^T(A\mathbf{y}) = \mathbf{x}^{T}A^TAy = \mathbf{x}^TI\mathbf{y} = \mathbf{x}^T\mathbf{y}
+    (A\mathbf{x})^T (A\mathbf{y}) = \mathbf{x}^T A^T A \mathbf{y} = \mathbf{x}^T I \mathbf{y} = \mathbf{x}^T \mathbf{y}.
   \]
-  Then we have $|A\mathbf{x}|^2 = (A\mathbf{x})\cdot (A\mathbf{x}) = \mathbf{x}\cdot \mathbf{x} = |\mathbf{x}|^2$. Since both are positive, we know that $|A\mathbf{x}| = |\mathbf{x}|$.
+  Then $|A\mathbf{x}|^2 = (A\mathbf{x}) \cdot (A\mathbf{x}) = \mathbf{x} \cdot \mathbf{x} = |\mathbf{x}|^2$, so $|A\mathbf{x}| = |\mathbf{x}|$.
 \end{proof}
-It is important to note that orthogonal matrices are isometries, but not all isometries are orthogonal. For example, translations are isometries but are not represented by orthogonal matrices, since they are not linear maps and cannot be represented by matrices at all! However, it is true that all linear isometries can be represented by orthogonal matrices.
+
+\begin{remark}
+  Orthogonal matrices are isometries, but not all isometries are orthogonal matrices. For example, translations are isometries but are not linear maps. However, every linear isometry of $\R^n$ is given by an orthogonal matrix.
+\end{remark}
 
 \begin{defi}[Orthogonal group $O(n)$]
   The \emph{orthogonal group} is
   \[
-    \Or(n) = \Or_n = \Or_n(\R) = \{A\in \GL_n(\R): A^TA = I\},
+    \Or(n) = \Or_n = \Or_n(\R) = \{A \in \GL_n(\R) : A^T A = I\}.
   \]
-  i.e.\ the group of orthogonal matrices.
 \end{defi}
-We will later show that this is the set of matrices that preserve distances in $\R^n$.
 
 \begin{lemma}[$\Or(n)$ is a group]
-  The orthogonal group is a group.
+  The orthogonal group is a subgroup of $\GL_n(\R)$.
 \end{lemma}
 
 \begin{proof}
-  We have to check that it is a subgroup of $\GL_n(\R)$: It is non-empty, since $I\in \Or(n)$. If $A, B\in \Or(n)$, then $(AB^{-1})(AB^{-1})^T = AB^{-1}(B^{-1})^TA^{T} = AB^{-1}BA^{-1} = I$, so $AB^{-1}\in \Or(n)$ and this is indeed a subgroup.
+  $\Or(n)$ is non-empty since $I \in \Or(n)$. If $A, B \in \Or(n)$, then $(AB^{-1})(AB^{-1})^T = AB^{-1}(B^{-1})^T A^T = AB^{-1} B A^{-1} = I$, so $AB^{-1} \in \Or(n)$.
 \end{proof}
 
-
 \begin{prop}[Determinant on $\Or(n)$]
-  $\det: \Or(n) \to \{\pm 1\}$ is a surjective group homomorphism.
+  $\det \colon \Or(n) \to \{\pm 1\}$ is a surjective group homomorphism.
 \end{prop}
 
 \begin{proof}
-  For $A\in \Or(n)$, we know that $A^TA = I$. So $\det A^TA = (\det A)^2 = 1$. So $\det A = \pm 1$. Since $\det(AB) = \det A\det B$, it is a homomorphism. We have
+  For $A \in \Or(n)$, we have $(\det A)^2 = \det(A^T A) = \det I = 1$, so $\det A = \pm 1$. Since $\det(AB) = \det A \cdot \det B$, the determinant is a homomorphism. It is surjective since $\det I = 1$ and
   \[
-    \det I = 1,\;\;\;\det
-    \begin{pmatrix}
-      -1 & 0 &\cdots & 0\\
-      0 & 1 & \cdots & 0\\
-      \vdots & \vdots & \ddots & 0\\
+    \det \begin{pmatrix}
+      -1 & 0 & \cdots & 0 \\
+      0 & 1 & \cdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
       0 & 0 & \cdots & 1
-    \end{pmatrix} = -1,
+    \end{pmatrix} = -1.
   \]
-  so it is surjective.
 \end{proof}
 
 \begin{defi}[Special orthogonal group $\SO(n)$]
-  The \emph{special orthogonal group} is the kernel of $\det: \Or(n) \to \{\pm 1\}$.
+  The \emph{special orthogonal group} is the kernel of $\det \colon \Or(n) \to \{\pm 1\}$:
   \[
-    \SO(n) =\SO_n = \SO_n(\R) = \{A\in \Or(n): \det A = 1\}.
+    \SO(n) = \SO_n = \SO_n(\R) = \{A \in \Or(n) : \det A = 1\}.
   \]
 \end{defi}
-By the isomorphism theorem, $\Or(n)/\SO(n) \cong C_2$.
 
-What's wrong with matrices with determinant $-1$? Why do we want to eliminate these? An important example of an orthogonal matrix with determinant $-1$ is a \emph{reflection}. These transformations reverse orientation, and is often unwanted.
+\begin{remark}
+  By the first isomorphism theorem, $\Or(n)/\SO(n) \cong C_2$. In particular, $\SO(n) \lhd \Or(n)$ with index $2$. Elements of $\Or(n) \setminus \SO(n)$ are orientation-reversing transformations such as reflections.
+\end{remark}
 
 \begin{lemma}[$\Or(n)$ coset decomposition]
   $\Or(n) = \SO(n) \cup
   \begin{pmatrix}
-    -1 & 0 &\cdots & 0\\
-    0 & 1 & \cdots & 0\\
-    \vdots & \vdots & \ddots & 0\\
-    0 & 0 & \cdots &1
-  \end{pmatrix}\SO(n)$
+    -1 & 0 & \cdots & 0 \\
+    0 & 1 & \cdots & 0 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & \cdots & 1
+  \end{pmatrix} \SO(n)$.
 \end{lemma}
 
 \begin{proof}
-  Cosets partition the group.
+  Since $|\Or(n) : \SO(n)| = 2$, there are exactly two cosets. The identity coset is $\SO(n)$, and the other is determined by any element of determinant $-1$.
 \end{proof}
 \subsection{Rotations and reflections in \texorpdfstring{$\R^2$}{R2} and \texorpdfstring{$\R^3$}{R3}}
 \begin{lemma}[$\SO(2)$ as rotations]
-  $\SO(2)$ consists of all rotations of $\R^2$ around 0.
+  $\SO(2)$ consists of all rotations of $\R^2$ about the origin.
 \end{lemma}
 
 \begin{proof}
-  Let $A\in \SO(2)$. So $A^TA = I$ and $\det A = 1$. Suppose $A =
+  Let $A \in \SO(2)$, so $A^T A = I$ and $\det A = 1$. Write $A =
   \begin{pmatrix}
-    a & b\\c & d
+    a & b \\ c & d
   \end{pmatrix}$. Then $A^{-1} =
   \begin{pmatrix}
-    d & -b\\-c & a
-  \end{pmatrix}.$ So $A^T = A^{-1}$ implies $ad - bc = 1$, $c = -b$, $d = a$. Combining these equations we obtain $a^2 + c^2 = 1$. Set $a = \cos\theta = d$, and $c = \sin\theta = -b$. Then these satisfies all three equations. So
+    d & -b \\ -c & a
+  \end{pmatrix}$. The condition $A^T = A^{-1}$ gives $c = -b$ and $d = a$, together with $ad - bc = 1$. Combining, we get $a^2 + c^2 = 1$, so we may write $a = \cos\theta$ and $c = \sin\theta$ for some $\theta$. Then
   \[
     A =
     \begin{pmatrix}
-      \cos\theta & -\sin\theta\\
+      \cos\theta & -\sin\theta \\
       \sin\theta & \cos\theta
     \end{pmatrix}.
   \]
-  Note that $A$ maps $(1, 0)$ to $(\cos\theta, \sin \theta)$, and maps $(0, 1)= (-\sin\theta, \cos\theta)$, which are rotations by $\theta$ counterclockwise. So $A$ represents a rotation by $\theta$.
+  This maps $(1, 0)$ to $(\cos\theta, \sin\theta)$ and $(0, 1)$ to $(-\sin\theta, \cos\theta)$, which is rotation by $\theta$ counterclockwise.
 \end{proof}
 
 \begin{cor}[Classification of $\Or(2)$ elements]
-  Any matrix in $\Or(2)$ is either a rotation around $0$ or a reflection in a line through $0$.
+  Any matrix in $\Or(2)$ is either a rotation about the origin or a reflection in a line through the origin.
 \end{cor}
 
 \begin{proof}
-  If $A\in \SO(2)$, we've show that it is a rotation. Otherwise,
+  If $A \in \SO(2)$, then $A$ is a rotation. Otherwise, by the coset decomposition,
   \[
     A =
     \begin{pmatrix}
-      1 & 0\\
+      1 & 0 \\
       0 & -1
     \end{pmatrix}
     \begin{pmatrix}
-      \cos\theta & -\sin\theta\\
+      \cos\theta & -\sin\theta \\
       \sin\theta & \cos\theta
     \end{pmatrix} =
     \begin{pmatrix}
@@ -2079,128 +2140,120 @@ What's wrong with matrices with determinant $-1$? Why do we want to eliminate th
       -\sin\theta & -\cos\theta
     \end{pmatrix}
   \]
-  since $\Or(2) = \SO(2)\cup
-  \begin{pmatrix}
-    1&0\\0&-1
-  \end{pmatrix}\SO(2)$. This has eigenvalues $1, -1$. So it is a reflection in the line of the eigenspace $E_1$. The line goes through $\mathbf{0}$ since the eigenspace is a subspace which must include $\mathbf{0}$.
+  for some $\theta$. This matrix has eigenvalues $1$ and $-1$, so it is a reflection in the eigenspace $E_1$, which is a line through the origin.
 \end{proof}
 
 \begin{lemma}[$\SO(3)$ rotation axis]
-  Every matrix in $\SO(3)$ is a rotation around some axis.
+  Every matrix in $\SO(3)$ is a rotation about some axis.
 \end{lemma}
 
 \begin{proof}
-  Let $A\in \SO(3)$. We know that $\det A = 1$ and $A$ is an isometry. The eigenvalues $\lambda$ must have $|\lambda| = 1$. They also multiply to $\det A = 1$. Since we are in $\R$, complex eigenvalues come in complex conjugate pairs. If there are complex eigenvalues $\lambda$ and $\bar\lambda$, then $\lambda\bar\lambda = |\lambda|^2 = 1$. The third eigenvalue must be real and has to be $+1$.
+  Let $A \in \SO(3)$. Since $A$ is orthogonal, its eigenvalues $\lambda$ satisfy $|\lambda| = 1$, and they multiply to $\det A = 1$. Since $A$ is real, complex eigenvalues come in conjugate pairs $\lambda, \bar\lambda$ with $\lambda\bar\lambda = |\lambda|^2 = 1$, and the remaining eigenvalue must be real and equal to $+1$.
 
-  If all eigenvalues are real. Then eigenvalues are either $1$ or $-1$, and must multiply to $1$. The possibilities are $1, 1, 1$ and $-1, -1, 1$, all of which contain an eigenvalue of $1$.
+  If all eigenvalues are real, then each is $\pm 1$ and their product is $1$, giving the possibilities $(1, 1, 1)$ and $(1, -1, -1)$. In either case, $1$ is an eigenvalue.
 
-  So pick an eigenvector for our eigenvalue $1$ as the third basis vector. Then in some orthonormal basis,
+  So in all cases $A$ has eigenvalue $1$. Pick a unit eigenvector for eigenvalue $1$ as the third basis vector. In the resulting orthonormal basis,
   \[
     A = \begin{pmatrix}
-      a & b & 0\\
-      c & d & 0\\
-      0 & 0 & 1
-    \end{pmatrix}
-  \]
-  Since the third column is the image of the third basis vector, and by orthogonality the third row is $0, 0, 1$. Now let
-  \[A' = \begin{pmatrix}
-      a & b\\
-      c & d
-    \end{pmatrix} \in \GL_2(\R)
-  \]
-  with $\det A' = 1$. $A'$ is still orthogonal, so $A'\in \SO(2)$. Therefore $A'$ is a rotation and
-  \[
-    A =
-    \begin{pmatrix}
-      \cos\theta & -\sin\theta & 0\\
-      \sin\theta & \cos\theta & 0\\
-      0 & 0 & 1
-    \end{pmatrix}
-  \]
-  in some basis, and this is exactly the rotation through an axis.
-\end{proof}
-
-\begin{lemma}[$\Or(3)$ reflection decomposition]
-  Every matrix in $\Or(3)$ is the product of at most three reflections in planes through 0.
-\end{lemma}
-Note that a rotation is a product of two reflections. This lemma effectively states that every matrix in $\Or(3)$ is a reflection, a rotation or a product of a reflection and a rotation.
-
-\begin{proof}
-  Recall $\Or(3) = \SO(3) \cup
-  \begin{pmatrix}
-    1 & 0 & 0\\
-    0 & 1 & 0\\
-    0 & 0 & -1
-  \end{pmatrix}SO(3)$.
-  So if $A\in \SO(3)$, we know that $A =
-  \begin{pmatrix}
-    \cos\theta & -\sin\theta & 0\\
-    \sin\theta & \cos\theta & 0\\
-    0 & 0 & 1
-  \end{pmatrix}$ in some basis, which is a composite of two reflections:
-  \[
-    A =
-    \begin{pmatrix}
-      1 & 0 & 0\\
-      0 & -1 & 0\\
-      0 & 0 & 1
-    \end{pmatrix}
-    \begin{pmatrix}
-      \cos\theta & \sin\theta & 0\\
-      \sin\theta & -\cos\theta & 0\\
+      a & b & 0 \\
+      c & d & 0 \\
       0 & 0 & 1
     \end{pmatrix},
   \]
-  Then if $A\in \begin{pmatrix}
-    1 & 0 & 0\\
-    0 & 1 & 0\\
-    0 & 0 & -1
-  \end{pmatrix}\SO(3)$, then it is automatically a product of three reflections.
+  since the third column is the image of this eigenvector, and orthogonality forces the third row to be $(0, 0, 1)$. The upper-left block
+  \[
+    A' = \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}
+  \]
+  satisfies $\det A' = 1$ and is orthogonal, so $A' \in \SO(2)$. Therefore
+  \[
+    A =
+    \begin{pmatrix}
+      \cos\theta & -\sin\theta & 0 \\
+      \sin\theta & \cos\theta & 0 \\
+      0 & 0 & 1
+    \end{pmatrix}
+  \]
+  in this basis, which is a rotation about the axis spanned by the eigenvector.
 \end{proof}
-In the last line we've shown that everything in $\Or(3)\setminus \SO(3)$ can be written as a product of three reflections, but it is possible that they need only 1 reflection. However, some matrices do genuinely need 3 reflections, e.g.
-$\begin{pmatrix}
-  -1 & 0 & 0\\
-  0 & -1 & 0\\
-  0 & 0 & -1
-\end{pmatrix}$
+
+\begin{lemma}[$\Or(3)$ reflection decomposition]
+  Every matrix in $\Or(3)$ is the product of at most three reflections in planes through the origin.
+\end{lemma}
+
+\begin{remark}
+  Since a rotation is a product of two reflections, this lemma says that every element of $\Or(3)$ is a rotation, a reflection, or the product of a rotation and a reflection.
+\end{remark}
+
+\begin{proof}
+  By the coset decomposition, $\Or(3) = \SO(3) \cup
+  \begin{pmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & -1
+  \end{pmatrix} \SO(3)$.
+
+  If $A \in \SO(3)$, then in some orthonormal basis $A =
+  \begin{pmatrix}
+    \cos\theta & -\sin\theta & 0 \\
+    \sin\theta & \cos\theta & 0 \\
+    0 & 0 & 1
+  \end{pmatrix}$, which is a product of two reflections:
+  \[
+    A =
+    \begin{pmatrix}
+      1 & 0 & 0 \\
+      0 & -1 & 0 \\
+      0 & 0 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+      \cos\theta & \sin\theta & 0 \\
+      \sin\theta & -\cos\theta & 0 \\
+      0 & 0 & 1
+    \end{pmatrix}.
+  \]
+  If $A$ lies in the other coset, it is the product of a reflection and an element of $\SO(3)$, hence a product of at most three reflections.
+\end{proof}
+
+\begin{remark}
+  Elements of $\Or(3) \setminus \SO(3)$ can always be written as a product of three reflections, but some may also be a single reflection. However, some genuinely require three, for example $-I = \begin{pmatrix} -1 & 0 & 0 \\ 0 & -1 & 0 \\ 0 & 0 & -1 \end{pmatrix}$.
+\end{remark}
 
 \subsection{Unitary groups}
-The concept of orthogonal matrices only make sense if we are talking about real matrices. If we are talking about complex, then instead we need \emph{unitary matrices}. To do so, we replace the transposition with the \emph{Hermitian conjugate}. It is defined by $A^\dagger = (A^*)^T$ with $(A^\dagger)_{ij} = A_{ji}^*$, where the asterisk is the complex conjugate. We still have
-\begin{enumerate}
-  \item $(AB)^\dagger = B^\dagger A^\dagger$
-  \item $(A^{-1})^\dagger = (A^\dagger)^{-1}$
-  \item $A^\dagger A = I \Leftrightarrow AA^\dagger = I \Leftrightarrow A^\dagger = A^{-1}$. We say $A$ is a \emph{unitary matrix}
-  \item $\det A^{\dagger} = (\det A)^*$
-\end{enumerate}
+\begin{remark}
+  For complex matrices, the appropriate analogue of orthogonality uses the \emph{Hermitian conjugate} (or conjugate transpose), defined by $A^\dagger = (\overline{A})^T$, so that $(A^\dagger)_{ij} = \overline{A_{ji}}$. It has the following properties:
+  \begin{enumerate}
+    \item $(AB)^\dagger = B^\dagger A^\dagger$.
+    \item $(A^{-1})^\dagger = (A^\dagger)^{-1}$.
+    \item $A^\dagger A = I \Leftrightarrow AA^\dagger = I \Leftrightarrow A^\dagger = A^{-1}$. In this case, $A$ is called \emph{unitary}.
+    \item $\det A^\dagger = \overline{\det A}$.
+  \end{enumerate}
+\end{remark}
 
 \begin{defi}[Unitary group $U(n)$]
   The \emph{unitary group} is
   \[
-    \U(n) = \U_n = \{A\in \GL_n(\C): A^\dagger A = I\}.
+    \U(n) = \U_n = \{A \in \GL_n(\C) : A^\dagger A = I\}.
   \]
 \end{defi}
 
 \begin{lemma}[Determinant on $\U(n)$]
-  $\det: \U(n)\to S^1$, where $S^1$ is the unit circle in the complex plane, is a surjective group homomorphism.
+  $\det \colon \U(n) \to S^1$, where $S^1$ is the unit circle in $\C$, is a surjective group homomorphism.
 \end{lemma}
 
 \begin{proof}
-  We know that $1 = \det I = \det A^\dagger A = |\det A|^2$. So $|\det A| = 1$. Since $\det AB = \det A\det B$, it is a group homomorphism.
-
-  Now given $\lambda\in S_1$, we have
-  $\begin{pmatrix}
-    \lambda & 0 & \cdots & 0\\
-    0 & 1 & \cdots & 0\\
-    \vdots & \vdots & \ddots & 0\\
-    0 & 0 & 0 & 1
-  \end{pmatrix}\in \U(n)$. So it is surjective.
+  For $A \in \U(n)$, we have $1 = \det I = \det(A^\dagger A) = |\det A|^2$, so $|\det A| = 1$. Since $\det(AB) = \det A \cdot \det B$, the determinant is a homomorphism. For surjectivity, given $\lambda \in S^1$, the diagonal matrix with $(1,1)$-entry $\lambda$ and all other diagonal entries $1$ is unitary and has determinant $\lambda$.
 \end{proof}
 
-\begin{defi}[Special unitary group $SU(n)$]
-  The \emph{special unitary group} $\SU(n) = \SU_n$ is the kernel of $\det U(n)\to S^1$.
+\begin{defi}[Special unitary group $\SU(n)$]
+  The \emph{special unitary group} $\SU(n) = \SU_n$ is the kernel of $\det \colon \U(n) \to S^1$.
 \end{defi}
 
-Similarly, unitary matrices preserve the complex dot product: $(A\mathbf{x})\cdot (A\mathbf{y}) = \mathbf{x}\cdot \mathbf{y}$.
+\begin{remark}
+  Unitary matrices preserve the Hermitian inner product: $(A\mathbf{x}) \cdot (A\mathbf{y}) = \mathbf{x} \cdot \mathbf{y}$ for all $\mathbf{x}, \mathbf{y} \in \C^n$.
+\end{remark}
 
 \section{More on regular polyhedra}
 In this section, we will look at the symmetry groups of the cube and the tetrahedron.
