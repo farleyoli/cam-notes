@@ -1296,111 +1296,122 @@ We can now give a proof of the inclusion-exclusion principle by induction.
 \end{eg}
 
 \section{Modular arithmetic}
-We are going to study \emph{modular arithmetic}. In modular arithmetic, we first pick a particular natural number to be the \emph{modulus}, say 7. Then we consider two numbers to be ``equal'' if their difference is a multiple of the modulus. For example, modulo 7, we will think that 3 and 10 are ``the same'', while 2 and 4 are different.
-
-We will study arithmetic under this number system. Like the integers, we are allowed to add and multiply numbers. However, while in $\Z$, we can only divide by 1 and -1, in modular arithmetic, more numbers can be divided. For example, modulo 10, we are allowed to divide by 3.
-
-An important application of modular arithmetic is RSA encryption. This is a widely deployed asymmetric encryption algorithm. By asymmetric, we mean that the key for encryption is different from the key for decryption. This is very useful in real life, since we can broadcast the encryption key to the world, and keep the decryption key to ourselves. This way anyone can send you encrypted messages that only you can decrypt.
-
 \subsection{Modular arithmetic}
-\begin{defi}[Modulo]
-  If $a, b\in \Z$ have the same remainder after division by $m$, i.e.\ $m \mid (a - b)$, we say $a$ and $b$ are \emph{congruent modulo} $m$, and write
+\begin{defi}[Congruence]
+  Let $a, b\in \Z$ and $m \in \N$. We say $a$ and $b$ are \emph{congruent modulo} $m$, written
   \[
-    a\equiv b\pmod m
+    a\equiv b\pmod m,
   \]
+  if $m \mid (a - b)$. Equivalently, $a$ and $b$ have the same remainder upon division by $m$.
 \end{defi}
 
 \begin{eg}
-  The check digits of the ISBN (or Hong Kong ID Card Number) are calculated modulo 11.
+  $9 \equiv 0\pmod 3$, \quad $11\equiv 6\pmod 5$.
 \end{eg}
 
 \begin{eg}
-  $9 \equiv 0\pmod 3$, $11\equiv 6\pmod 5$.
+  The check digits of the ISBN are calculated modulo 11.
 \end{eg}
 
 \begin{prop}
-  If $a\equiv b\pmod m$, and $d \mid m$, then $a \equiv b\pmod d$.
+  If $a\equiv b\pmod m$ and $d \mid m$, then $a \equiv b\pmod d$.
 \end{prop}
 
 \begin{proof}
-  $a\equiv b\pmod m$ if and only if $m \mid (a - b)$, hence $d \mid (a - b)$, i.e.\ $a \equiv b\pmod d$.
+  Since $m \mid (a - b)$ and $d \mid m$, we have $d \mid (a - b)$, i.e.\ $a \equiv b\pmod d$.
 \end{proof}
 
-Observe that with $m$ fixed, $a\equiv b\pmod m$ is an equivalence relation. The set of equivalence classes is written as $\Z_m$ or $\Z/(m\Z)$.
+\begin{remark}
+  For fixed $m$, congruence modulo $m$ is an equivalence relation on $\Z$. The set of equivalence classes is denoted $\Z_m$ or $\Z/m\Z$.
+\end{remark}
 
 \begin{eg}
-  $\Z_3 = \{[0], [1], [2]\}$
+  $\Z_3 = \{[0], [1], [2]\}$.
 \end{eg}
 
 \begin{prop}
-  If $a\equiv b\pmod m$ and $u\equiv v \pmod m$, then $a + u\equiv b + v\pmod m$ and $au \equiv bv \pmod m$.
+  If $a\equiv b\pmod m$ and $u\equiv v \pmod m$, then
+  \[
+    a + u\equiv b + v\pmod m \quad \text{and} \quad au \equiv bv \pmod m.
+  \]
 \end{prop}
 
 \begin{proof}
-  Since $a\equiv b\pmod m$ and $u\equiv v \pmod m$, we have $m \mid (a - b) + (u - v) = (a + u) - (b + v)$. So $a + u\equiv b + v\pmod m$
+  For addition: $m \mid (a - b) + (u - v) = (a + u) - (b + v)$, so $a + u\equiv b + v\pmod m$.
 
-  Since $a\equiv b\pmod m$ and $u\equiv v \pmod m$, we have $m \mid (a - b)u + b(u - v) = au - bv$. So $au \equiv bv \pmod m$.
+  For multiplication: $m \mid (a - b)u + b(u - v) = au - bv$, so $au \equiv bv \pmod m$.
 \end{proof}
 
-This means that we can do arithmetic modulo $n$. Formally, we are doing arithmetic with the congruence classes, i.e $\Z_m$. For example, in $\Z_7$, $[4] + [5] = [9] = [2]$.
+\begin{remark}
+  This shows that addition and multiplication are well-defined on the congruence classes $\Z_m$. For example, in $\Z_7$, $[4] + [5] = [9] = [2]$.
+\end{remark}
 
-Modular arithmetic can sometimes be used to show that equations have no solutions.
 \begin{eg}
-  $2a^2 + 3b^3 = 1$ has no solutions in $\Z$. If there were a solution, then $2a^2 \equiv 1\pmod 3$. But $2\cdot 0^2 \equiv 0$, $2\cdot 1^2\equiv 2$ and $2\cdot 2^2 \equiv 2$. So there is no solution to the congruence, and hence none to the original equation.
+  The equation $2a^2 + 3b^3 = 1$ has no solutions in $\Z$. Working modulo $3$: if a solution existed, then $2a^2 \equiv 1\pmod 3$. But checking all residues, $2\cdot 0^2 \equiv 0$, $2\cdot 1^2\equiv 2$ and $2\cdot 2^2 \equiv 2 \pmod 3$. So the congruence has no solution, and hence neither does the original equation.
 \end{eg}
 
-Observe that all odd numbers are either $\equiv 1\pmod 4$ or $\equiv 3\equiv -1\pmod 4$. So we can classify primes depending on their value modulo $4$.
+\begin{remark}
+  Every odd number is congruent to either $1$ or $-1$ modulo $4$. In particular, every odd prime $p$ satisfies $p \equiv 1$ or $p \equiv -1 \pmod 4$.
+\end{remark}
 
 \begin{thm}
-  There are infinitely many primes that are $\equiv -1 \pmod 4$.
+  There are infinitely many primes $p \equiv -1 \pmod 4$.
 \end{thm}
 
 \begin{proof}
-  Suppose not. So let $p_1, \cdots p_k$ be all primes $\equiv -1 \pmod 4$. Let $N = 4p_1p_2\cdots p_k - 1$. Then $N\equiv -1\pmod 4$. Now $N$ is a product of primes, say $N= q_1q_2\cdots q_\ell$. But $2\nmid N$ and $p_i\nmid N$ for all $i$. So $q_i \equiv 1\pmod 4$ for all $i$. But then that implies $N = q_1q_2\cdots q_\ell \equiv 1\pmod 4$, which is a contradiction.
+  Suppose not, and let $p_1, \ldots, p_k$ be all primes congruent to $-1$ modulo $4$. Let $N = 4p_1 p_2 \cdots p_k - 1$. Then $N\equiv -1\pmod 4$. Write $N = q_1 q_2 \cdots q_\ell$ as a product of primes. Since $N$ is odd, $2 \nmid N$, and $p_i\nmid N$ for all $i$. So every $q_j \equiv 1\pmod 4$, which gives $N = q_1 q_2 \cdots q_\ell \equiv 1\pmod 4$, a contradiction.
 \end{proof}
 
 \begin{eg}
-  Solve $7x \equiv 2 \pmod {10}$. Note that $3\cdot 7\equiv 1\pmod {10}$. If we multiply the equation by $3$, then we get $3\cdot 7\cdot x \equiv 3\cdot 2\pmod {10}$. So $x\equiv 6\pmod {10}$. Effectively, we divided by $7$.
+  Solve $7x \equiv 2 \pmod {10}$. Since $3\cdot 7 = 21 \equiv 1\pmod {10}$, multiplying both sides by $3$ gives $x \equiv 3\cdot 2 = 6\pmod {10}$.
 \end{eg}
-``Division'' doesn't always work for all numbers, e.g.\ you cannot divide by $2$ mod 10. We give a name to numbers we can divide.
 
-\begin{defi}[Unit (modular arithmetic)]
-  $u$ is a \emph{unit} if $\exists v$ such that $uv \equiv 1\pmod m$.
+\begin{defi}[Unit]
+  Let $m \in \N$. An integer $u$ is a \emph{unit modulo $m$} if there exists $v \in \Z$ such that $uv \equiv 1\pmod m$. We call $v$ the \emph{inverse} of $u$ modulo $m$.
 \end{defi}
 
-\begin{thm}
+\begin{remark}
+  Not every integer has an inverse modulo $m$. For instance, $2$ is not a unit modulo $10$.
+\end{remark}
+
+\begin{prop}
   $u$ is a unit modulo $m$ if and only if $(u, m) = 1$.
-\end{thm}
+\end{prop}
 
 \begin{proof}
-  $(\Rightarrow)$ Suppose $u$ is a unit. Then $\exists v$ such that $uv \equiv 1\pmod m$. Then $uv = 1 + mn$ for some $n$, or $uv - mn = 1$. So $1$ can be written as a linear combination of $u$ and $m$. So $(u, m) = 1$.
+  ($\Rightarrow$) If $uv \equiv 1\pmod m$, then $uv - mn = 1$ for some $n \in \Z$. Hence $1$ is a linear combination of $u$ and $m$, so $(u, m) = 1$.
 
-  $(\Leftarrow)$ Suppose that $(u, m) = 1$. Then there exists $a, b$ with $ua + mb = 1$. Thus $ua \equiv 1\pmod m$.
+  ($\Leftarrow$) If $(u, m) = 1$, then by B\'{e}zout's identity there exist $a, b \in \Z$ with $ua + mb = 1$. Hence $ua \equiv 1\pmod m$, so $u$ is a unit with inverse $a$.
 \end{proof}
-Using the above proof, we can find the inverse of a unit efficiently by Euclid's algorithm.
+
+\begin{remark}
+  The inverse of a unit can be computed efficiently using Euclid's algorithm.
+\end{remark}
 
 \begin{cor}
-  If $(a, m) = 1$, then the congruence $ax \equiv b\pmod m$ has a unique solution (mod $m$).
+  If $(a, m) = 1$, then the congruence $ax \equiv b\pmod m$ has a unique solution modulo $m$.
 \end{cor}
 
 \begin{proof}
-  If $ax\equiv b\pmod m$, and $(a, m) = 1$, then $\exists a^{-1}$ such that $a^{-1}a\equiv 1\pmod m$. So $a^{-1}ax\equiv a^{-1}b\pmod m$ and thus $x\equiv a^{-1}b\pmod m$. Finally we check that $x \equiv a^{-1}b \pmod m$ is indeed a solution: $ax \equiv aa^{-1}b \equiv b \pmod m$.
+  Since $(a, m) = 1$, the inverse $a^{-1}$ exists modulo $m$. Multiplying $ax\equiv b$ by $a^{-1}$ gives $x\equiv a^{-1}b\pmod m$. Conversely, if $x \equiv a^{-1}b$, then $ax \equiv aa^{-1}b \equiv b \pmod m$.
 \end{proof}
 
 \begin{prop}
-  There is a solution to $ax \equiv b\pmod m$ if and only if $(a, m) \mid b$.
-
-  If $d = (a, m) \mid b$, then the solution is the unique solution to $\frac{a}{d}x \equiv \frac{b}{d} \pmod {\frac{m}{d}}$
+  The congruence $ax \equiv b\pmod m$ has a solution if and only if $(a, m) \mid b$. If $d = (a, m)$ divides $b$, then the solutions are precisely the solutions to $\frac{a}{d}x \equiv \frac{b}{d} \pmod {\frac{m}{d}}$.
 \end{prop}
 
 \begin{proof}
-  Let $d = (a, m)$. If there is a solution to $ax \equiv b\pmod m$, then $m \mid ax - b$. So $d \mid ax - b$ and $d \mid b$.
+  Let $d = (a, m)$. If $ax \equiv b\pmod m$ has a solution, then $m \mid (ax - b)$, so $d \mid (ax - b)$. Since $d \mid a$, we have $d \mid b$.
 
-  On the contrary, if $d \mid b$, we have $ax \equiv b\pmod m \Leftrightarrow ax - b = km$ for some $k\in Z$. Write $a = da'$, $b = db'$ and $m = dm'$. So $ax\equiv b\pmod m \Leftrightarrow da'x - db' = dkm'\Leftrightarrow a'x - b' = km'\Leftrightarrow a'x \equiv b'\pmod {m'}$. Note that $(a', m') = 1$ since we divided by their greatest common factor. Then this has a unique solution modulo $m'$.
+  Conversely, suppose $d \mid b$. Write $a = da'$, $b = db'$ and $m = dm'$. Then
+  \[
+    ax \equiv b\pmod m \;\Leftrightarrow\; da'x \equiv db'\pmod{dm'} \;\Leftrightarrow\; a'x \equiv b'\pmod{m'}.
+  \]
+  Since $(a', m') = 1$, this has a unique solution modulo $m'$.
 \end{proof}
 
 \begin{eg}
-  $2x \equiv 3 \pmod 4$ has no solution since $(2, 4) = 2$ which does not divide $3$.
+  $2x \equiv 3 \pmod 4$ has no solution since $(2, 4) = 2$ does not divide $3$.
 \end{eg}
 
 \subsection{Multiple moduli}
