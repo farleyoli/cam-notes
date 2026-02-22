@@ -2476,64 +2476,46 @@ We have seen that $(\Z_n, +_n)$ is a group. What happens with multiplication? We
 
 \subsection{Fixed points of M\texorpdfstring{\"o}{o}bius maps}
 \begin{defi}[Fixed point]
-  A \emph{fixed point} of $f$ is a $z$ such that $f(z) = z$.
+  A \emph{fixed point} of $f$ is a point $z \in \C_\infty$ such that $f(z) = z$.
 \end{defi}
 
-We know that any M\"obius map with $c = 0$ fixes $\infty$. We also know that $z\to z + b$ for any $b\not= 0$ fixes $\infty$ only, where as $z\mapsto az$ for $a\not= 0, 1$ fixes $0$ and $\infty$. It turns out that you cannot have more than two fixed points, unless you are the identity.
+\begin{remark}
+  Any M\"obius map with $c = 0$ fixes $\infty$. The translation $z \mapsto z + b$ ($b \neq 0$) fixes $\infty$ only, whereas the dilation $z \mapsto az$ ($a \neq 0, 1$) fixes both $0$ and $\infty$. As we shall see, a non-identity M\"obius map can have at most two fixed points.
+\end{remark}
 
 \begin{prop}[Three fixed points rigidity]
-  Any M\"obius map with at least 3 fixed points must be the identity.
+  Any M\"obius map with at least $3$ fixed points is the identity.
 \end{prop}
 
 \begin{proof}
-  Consider $f(z) = \frac{az + b}{cz + d}$. This has fixed points at those $z$ which satisfy $\frac{az + b}{cz + d} = z \Leftrightarrow cz^2 + (d - a)z - b = 0$. A quadratic has at most two roots, unless $c = b = 0$ and $d = a$, in which the equation just says $0 = 0$.
-
-  However, if $c = b= 0$ and $d = a$, then $f$ is just the identity.
+  The fixed points of $f(z) = \frac{az + b}{cz + d}$ in $\C$ satisfy $cz^2 + (d - a)z - b = 0$. This quadratic has at most two roots, unless $c = b = 0$ and $d = a$, in which case $f$ is the identity.
 \end{proof}
 
 \begin{prop}[M\"obius map normal form]
-  Any M\"obius map is conjugate to $f(z) = \nu z$ for some $\nu\not= 0$ or to $f(z) = z + 1$.
+  Every M\"obius map is conjugate to $f(z) = \nu z$ for some $\nu \neq 0$, or to $f(z) = z + 1$.
 \end{prop}
 
 \begin{proof}
-  We have the surjective group homomorphism $\theta: \GL_2(\C) \to M$. The conjugacy classes of $\GL_2(\C)$ are of types
+  The surjective homomorphism $\theta \colon \GL_2(\C) \to M$ sends conjugacy classes in $\GL_2(\C)$ to conjugacy classes in $M$. By Jordan normal form, every matrix in $\GL_2(\C)$ is conjugate to one of the following types:
   \begin{align*}
-    \begin{pmatrix}
-      \lambda & 0\\
-      0 & \mu
-    \end{pmatrix} &\mapsto g(z) = \frac{\lambda z + 0}{0z + \mu} = \frac{\lambda}{\mu}z\\
-    \begin{pmatrix}
-      \lambda & 0\\
-      0 & \lambda
-    \end{pmatrix} &\mapsto g(z) = \frac{\lambda z + 0}{0z + \lambda} = 1 z\\
-    \begin{pmatrix}
-      \lambda & 1\\
-      0 & \lambda
-    \end{pmatrix} &\mapsto g(z) = \frac{\lambda z + 1}{\lambda} = z + \frac{1}{\lambda}
+    \begin{pmatrix} \lambda & 0 \\ 0 & \mu \end{pmatrix} &\mapsto g(z) = \frac{\lambda}{\mu}\, z, \\
+    \begin{pmatrix} \lambda & 0 \\ 0 & \lambda \end{pmatrix} &\mapsto g(z) = z, \\
+    \begin{pmatrix} \lambda & 1 \\ 0 & \lambda \end{pmatrix} &\mapsto g(z) = z + \frac{1}{\lambda}.
   \end{align*}
-  But the last one is not in the form $z + 1$. We know that the last $g(z)$ can also be represented by $
-  \begin{pmatrix}
-    1 & \frac{1}{\lambda}\\
-    0 & 1
-  \end{pmatrix}$, which is conjugate to $
-  \begin{pmatrix}
-    1 & 1\\
-    0 & 1
-  \end{pmatrix}$ (since that's its Jordan-normal form). So $z + \frac{1}{\lambda}$ is also conjugate to $z + 1$.
+  In the last case, $g$ is also represented by $\begin{pmatrix} 1 & 1/\lambda \\ 0 & 1 \end{pmatrix}$, which is conjugate to $\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$ in $\GL_2(\C)$. So $z + \frac{1}{\lambda}$ is conjugate to $z + 1$ in $M$.
 \end{proof}
 
-Now we see easily that (for $\nu \not= 0, 1$), $\nu z$ has $0$ and $\infty$ as fixed points, $z + 1$ only has $\infty$. Does this transfer to their conjugates?
+\begin{remark}
+  For $\nu \neq 0, 1$, the map $z \mapsto \nu z$ has exactly two fixed points ($0$ and $\infty$), while $z \mapsto z + 1$ has exactly one ($\infty$). Conjugation preserves the number of fixed points, since $f(w) = w$ if and only if $hfh^{-1}(h(w)) = h(w)$, and $h$ is a bijection.
+\end{remark}
 
 \begin{prop}[M\"obius map fixed point count]
-  Every non-identity has exactly 1 or 2 fixed points.
+  Every non-identity M\"obius map has exactly $1$ or $2$ fixed points.
 \end{prop}
 
 \begin{proof}
-  Given $f\in M$ and $f\not= \mathrm{id}$. So $\exists h\in M$ such that $hfh^{-1}(z) = \nu{z}$. Now $f(w) = w \Leftrightarrow hf(w) = h(w) \Leftrightarrow hfh^{-1}(h(w)) = h(w)$. So $h(w)$ is a fixed point of $hfh^{-1}$. Since $h$ is a bijection, $f$ and $hfh^{-1}$ have the same number of fixed points.
-
-  So $f$ has exactly $2$ fixed points if $f$ is conjugate to $\nu z$, and exactly 1 fixed point if $f$ is conjugate to $z + 1$.
+  Let $f \in M$ with $f \neq \id$. By the normal form proposition, there exists $h \in M$ such that $hfh^{-1}$ is either $z \mapsto \nu z$ (with $\nu \neq 1$) or $z \mapsto z + 1$. Now $f(w) = w$ if and only if $hfh^{-1}(h(w)) = h(w)$, so $h$ gives a bijection between the fixed points of $f$ and those of $hfh^{-1}$. The result follows since $\nu z$ has $2$ fixed points and $z + 1$ has $1$.
 \end{proof}
-Intuitively, we can show that conjugation preserves fixed points because if we conjugate by $h$, we first move the Riemann sphere around by $h$, apply $f$ (that fixes the fixed points) then restore the Riemann sphere to its original orientation. So we have simply moved the fixed point around by $h$.
 
 \subsection{Permutation properties of M\texorpdfstring{\"o}{o}bius maps}
 We have seen that the M\"obius map with three fixed points is the identity. As a corollary, we obtain the following.
