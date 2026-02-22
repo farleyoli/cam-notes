@@ -960,91 +960,119 @@ To achieve higher space efficiency, we seek a recurrence relation for coefficien
 \end{eg}
 
 \subsection{Combinations}
-``Combinations'' is about counting the ways we can pick things without regards to order. We can formulate these problems in the language of sets: given a set $X$, how many subsets of $X$ are there that satisfy some particular properties? For example, if we want to pick 3 people from 10, we can let $X$ be the set of the 10 people. Then the number of ways of picking the 3 people is the number of subsets of size three.
-
 \begin{eg}
-  How many subsets of $\{1, 2, \cdots n\}$ are there? There are $2\times 2\times \cdots \times 2 = 2^n$. Since for each subset, every element is either in or out of the subset, and there are two choices for each element. Equivalently, there are $2^n$ possible indicator functions, i.e.\ functions $\{1, 2, 3, \cdots, n\} \to \{0, 1\}$.
+  How many subsets of $\{1, 2, \ldots, n\}$ are there? Each element is either in or out, giving $2$ independent choices per element, so the answer is $2^n$. Equivalently, there are $2^n$ indicator functions $\{1, 2, \ldots, n\} \to \{0, 1\}$.
 \end{eg}
 
-\begin{defi}[Combination $\binom{n}{r}$]
-  The number of subsets of $\{1, 2, 3, \cdots, n\}$ of size $r$ is denoted by $\binom{n}{r}$. The symbol is pronounced as ``$n$ choose $r$''.
+\begin{defi}[Binomial coefficient]
+  The number of subsets of $\{1, 2, \ldots, n\}$ of size $r$ is denoted $\binom{n}{r}$, pronounced ``$n$ choose $r$''.
 \end{defi}
-This is the \emph{definition} of $\binom{n}{r}$. This does not in any way specify how we can actually calculate the value of $\binom{n}{r}$.
+
+\begin{remark}
+  This is a \emph{definition} of $\binom{n}{r}$, not a formula for computing it. A closed-form expression will be derived below.
+\end{remark}
 
 \begin{prop}
-  By definition,
-  \[
-    \binom{n}{0} + \binom{n}{1} + \cdots + \binom{n}{n} = 2^n
-  \]
+  $\displaystyle\sum_{r=0}^{n} \binom{n}{r} = 2^n$.
 \end{prop}
+\begin{proof}
+  Both sides count the total number of subsets of $\{1, 2, \ldots, n\}$.
+\end{proof}
 
 \begin{thm}[Binomial theorem]
-  For $n\in \N$ with $a, b\in \R$, we have
+  Let $n\in \N$ and $a, b\in \R$. Then
   \[
-    (a + b)^n = \binom{n}{0}a^n b^0 + \binom{n}{1}a^{n-1}b^1 + \cdots + \binom{n}{r}a^{n - r}b^r + \cdots + \binom{n}{n}a^0b^n
+    (a + b)^n = \sum_{r=0}^{n}\binom{n}{r}a^{n - r}b^r.
   \]
 \end{thm}
 
 \begin{proof}
-  We have $(a + b)^n = (a + b)(a + b)\cdots (a + b)$. When we expand the product, we get all terms attained by choosing $b$ from some brackets, $a$ from the rest. The term $a^{n - r}b^r$ comes from choosing $b$ from $r$ brackets, $a$ from the rest, and there are $\binom{n}{r}$ ways to make such a choice.
+  Expanding $(a + b)^n = (a + b)(a + b)\cdots (a + b)$, each term is obtained by choosing $b$ from some of the $n$ factors and $a$ from the rest. The term $a^{n - r}b^r$ arises from choosing $b$ in exactly $r$ of the $n$ factors, which can be done in $\binom{n}{r}$ ways.
 \end{proof}
-This theorem is not immediately useful since we do not know the value of $\binom{n }{r}$!
 
-Because of this theorem, $\binom{n }{r}$ is sometimes called a ``binomial coefficient''.
+\begin{remark}
+  The binomial theorem is not immediately useful for computation, since we do not yet have a formula for $\binom{n}{r}$.
+\end{remark}
 
-\begin{prop}\leavevmode
-  \begin{enumerate}
-    \item $\displaystyle\binom{n}{r} = \binom{n}{n - r}$. This is because choosing $r$ things to keep is the same as choosing $n - r$ things to throw away.
-    \item $\displaystyle\binom{n }{r - 1} + \binom{n}{r} = \binom{n + 1}{r}$ (Pascal's identity) The RHS counts the number of ways to choose a team of $r$ players from $n + 1$ available players, one of whom is Pietersen. If Pietersen is chosen, there are $\binom{n}{r - 1}$ ways to choose the remaining players. Otherwise, there are $\binom{n}{r}$ ways. The total number of ways is thus $\binom{n}{r - 1} + \binom{n}{r}$.
-
-      Now given that $\binom{n}{0} =\binom{n}{n}= 1$, since there is only one way to choose nothing or everything, we can construct \emph{Pascal's triangle}:
-      \begin{center}
-        \begin{tabular}{lllllllll}
-          & & & & 1 & & & & \\
-          & & & 1 & & 1 & & & \\
-          & & 1 & & 2 & & 1 & & \\
-          & 1 & & 3 & & 3 & & 1 & \\
-          1 & & 4 & & 6 & & 4 & & 1 \\
-        \end{tabular}
-      \end{center}
-      where each number is the sum of the two numbers above it, and the $r$th item of the $n$th row is $\binom{n}{r}$ (first row is row $0$).
-    \item $\displaystyle\binom{n }{k}\binom{k }{r} = \binom{n}{r}\binom{n - r}{k - r}$. We are counting the number of pairs of sets $(Y, Z)$ with $|Y| = k$ and $|Z| = r$ with $Z\subseteq Y$. In the LHS, we first choose $Y$ then choose $Z\subseteq Y$. The RHS chooses $Z$ first and then choose the remaining $Y\setminus Z$ from $\{1, 2, \cdots n\}\setminus Z$.
-    \item $\displaystyle \binom{a}{r}\binom{b}{0} + \binom{a}{r - 1}\binom{b}{1} + \cdots + \binom{a }{r - k}\binom{b}{k} + \cdots \binom{a}{0}\binom{b}{r} = \binom{a + b}{r}$ (Vandermonde's convolution) Suppose we have $a$ men and $b$ women, and we need to choose a committee of $r$ people. The right hand side is the total number of choices. The left hand side breaks the choices up according to the number of men vs women.
-  \end{enumerate}
+\begin{prop}[Symmetry]
+  $\displaystyle\binom{n}{r} = \binom{n}{n - r}$.
 \end{prop}
+\begin{proof}
+  Choosing $r$ elements to include is the same as choosing $n - r$ elements to exclude.
+\end{proof}
 
-\begin{eg}
-  A greengrocer stocks $n$ kinds of fruit. In how many ways can we choose a bag of $r$ fruits? If we are only allowed to choose one of each kind, then the answer is $\binom{n}{r}$. But we might have $r = 4$, and we want to allow picking $2$ apples, $1$ plum and $1$ quince. The total number of ways to choose is $\binom{n + r - 1}{r}$. Why?
+\begin{prop}[Pascal's identity]
+  $\displaystyle\binom{n}{r - 1} + \binom{n}{r} = \binom{n + 1}{r}$.
+\end{prop}
+\begin{proof}
+  The right-hand side counts the subsets of size $r$ from $\{1, 2, \ldots, n+1\}$. Partition these into those containing $n+1$ (there are $\binom{n}{r-1}$, since we must choose the remaining $r - 1$ elements from $\{1, \ldots, n\}$) and those not containing $n+1$ (there are $\binom{n}{r}$).
+\end{proof}
 
-  Each choice can be represented by a binary string of length $n + r - 1$, with $r$ 0's and $n - 1$ 1's. The string can be constructed as follows (by example): when $n = 5$ and $r=8$, a possible binary string $000100110010$. The block of zeros corresponds to the number of each fruit chosen, and the 1s separate the choices. In the string above, we have $3$ of type 1, $2$ of type 2, $0$ of type 3, $2$ of type 4 and $1$ of type 5.
+\begin{remark}
+  Since $\binom{n}{0} = \binom{n}{n} = 1$, Pascal's identity allows us to construct \emph{Pascal's triangle}:
+  \begin{center}
+    \begin{tabular}{lllllllll}
+      & & & & 1 & & & & \\
+      & & & 1 & & 1 & & & \\
+      & & 1 & & 2 & & 1 & & \\
+      & 1 & & 3 & & 3 & & 1 & \\
+      1 & & 4 & & 6 & & 4 & & 1 \\
+    \end{tabular}
+  \end{center}
+  where each entry is the sum of the two entries above it, and the $r$th entry of the $n$th row (starting from row $0$) is $\binom{n}{r}$.
+\end{remark}
 
-  Then clearly the number of possible strings is $\binom{n + r - 1}{r}$.
+\begin{prop}
+  $\displaystyle\binom{n}{k}\binom{k}{r} = \binom{n}{r}\binom{n - r}{k - r}$.
+\end{prop}
+\begin{proof}
+  Both sides count the number of pairs $(Y, Z)$ of subsets of $\{1, \ldots, n\}$ with $|Y| = k$, $|Z| = r$, and $Z\subseteq Y$. The left-hand side first chooses $Y$, then $Z \subseteq Y$. The right-hand side first chooses $Z$, then the remaining $k - r$ elements of $Y$ from $\{1, \ldots, n\}\setminus Z$.
+\end{proof}
+
+\begin{prop}[Vandermonde's identity]
+  $\displaystyle\sum_{k=0}^{r} \binom{a}{k}\binom{b}{r - k} = \binom{a + b}{r}$.
+\end{prop}
+\begin{proof}
+  The right-hand side counts the subsets of size $r$ from a set of $a + b$ elements. Partition this set into a group of $a$ and a group of $b$. If exactly $k$ elements are chosen from the first group, the remaining $r - k$ must come from the second, giving $\binom{a}{k}\binom{b}{r-k}$ choices. Summing over $k$ gives the result.
+\end{proof}
+
+\begin{eg}[Stars and bars]
+  A greengrocer stocks $n$ kinds of fruit. In how many ways can we choose a bag of $r$ fruits, allowing repetition?
+
+  Each selection can be encoded as a binary string of $r$ zeros and $n - 1$ ones, of total length $n + r - 1$: the zeros represent fruits and the ones act as dividers between types. For instance, with $n = 5$ and $r = 8$, the string $000100110010$ encodes $3$ of type 1, $1$ of type 2, $0$ of type 3, $2$ of type 4, and $2$ of type 5.
+
+  The number of such strings is $\binom{n + r - 1}{r}$.
 \end{eg}
 
 \begin{prop}
-  $\displaystyle\binom{n}{r} = \frac{n!}{(n - r)!r!}$.
+  $\displaystyle\binom{n}{r} = \frac{n!}{(n - r)!\,r!}$.
 \end{prop}
 
 \begin{proof}
-  There are $n(n - 1)(n - 2)\cdots (n - r + 1) = \frac{n!}{(n - r)!}$ ways to choose $r$ elements in order. Each choice of subsets is chosen this way in $r!$ orders, so the number of subsets is $\frac{n!}{(n - r)!r!}$.
+  There are $n(n - 1)\cdots (n - r + 1) = \frac{n!}{(n - r)!}$ ways to choose an ordered sequence of $r$ elements from $\{1, \ldots, n\}$. Each subset of size $r$ is counted $r!$ times (once per ordering), so $\binom{n}{r} = \frac{n!}{(n - r)!\,r!}$.
 \end{proof}
 
-We might write $x^{\underline{r}}$ for the polynomial $x(x - 1)\cdots (x - r + 1)$. We call this ``$x$ to the $r$ falling''. We can write $\displaystyle \binom{n}{r} = \frac{n^{\underline{r}}}{r!}$. Multiplying Vandermonde by $r!$, we obtain the ``falling binomial theorem''
-\[
-  \binom{r}{0}a^{\underline{r}}b^{\underline{0}} + \binom{r}{1}a^{\underline{r - 1}}b^{\underline{1}} + \cdots + \binom{r}{r}a^{\underline{0}}b^{\underline{r}} = (a + b)^{\underline{r}}.
-\]
+\begin{defi}[Falling factorial]
+  For $x \in \R$ and $r \in \N$, the \emph{falling factorial} is defined by $x^{\underline{r}} = x(x - 1)\cdots (x - r + 1)$.
+\end{defi}
 
-\begin{eg}
-  A bank prepares a letter for each of its $n$ customers, saying how much it cares. (Each of these letters costs the customer $\pounds 40$) There are $n!$ ways to put the letters in the envelopes. In how many ways can this be done so that no one gets the right letter (i.e.\ how many \emph{derangements} are there of $n$ elements)?
+\begin{remark}
+  With this notation, $\binom{n}{r} = \frac{n^{\underline{r}}}{r!}$. Multiplying Vandermonde's identity by $r!$ gives the \emph{falling factorial binomial theorem}:
+  \[
+    (a + b)^{\underline{r}} = \sum_{k=0}^{r}\binom{r}{k}\,a^{\underline{r - k}}\,b^{\underline{k}}.
+  \]
+\end{remark}
 
-  We let $X$ be the set of all envelopings (permutation of $n$). $|X| = n!$. For each $i$, let $A_i = \{x\in X: x \text{ assigns the correct letter to customer }i\}$. We want to know $|\bigcap_i \bar A_i|$. We know that $|A_i| = (n - 1)!$ since $i$'s letter gets in $i$'s envelopes and all others can be placed randomly. We have $|A_i\cap A_j| = (n - 2)!$ as well. Similarly, $|A_i\cap A_j \cap A_k| = (n - 3)!$.
+\begin{eg}[Derangements]
+  A bank prepares a personalised letter for each of its $n$ customers and places them into envelopes. In how many ways can every letter end up in the wrong envelope?
 
-  By the inclusion-exclusion formula, we have
+  Let $X$ be the set of all permutations of $\{1, \ldots, n\}$, so $|X| = n!$. For each $i$, let $A_i = \{x \in X : x(i) = i\}$ be the set of permutations fixing customer $i$. We seek $|\bar A_1 \cap \cdots \cap \bar A_n|$, the number of \emph{derangements}.
+
+  For any set $S \subseteq \{1, \ldots, n\}$ of size $s$, the number of permutations fixing every element of $S$ is $(n - s)!$. Hence $\sum_{|S|=s}|{\textstyle\bigcap_{i \in S}} A_i| = \binom{n}{s}(n-s)!$. By inclusion-exclusion:
   \begin{align*}
-    \left|\bigcap_i \bar A_i\right| &= |X| - \sum |A_i| + \sum |A_i\cap A_j| + \cdots\\
-    &= n! - \binom{n}{1}(n - 1)! + \binom{n}{2}(n - 2)! - \cdots\\
+    \left|\bigcap_{i=1}^n \bar A_i\right| &= n! - \binom{n}{1}(n - 1)! + \binom{n}{2}(n - 2)! - \cdots + (-1)^n\binom{n}{n}\cdot 0!\\
     &= n!\left(1 - \frac{1}{1!} + \frac{1}{2!} - \cdots + \frac{(-1)^n}{n!}\right)\\
-    &\approx n! e^{-1}
+    &\approx \frac{n!}{e}.
   \end{align*}
 \end{eg}
 \subsection{Well-ordering and induction}
