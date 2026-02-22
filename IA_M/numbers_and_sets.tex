@@ -566,100 +566,117 @@ In this chapter, we will look at the basic building blocks of mathematics, namel
 \end{eg}
 
 \section{Division}
-If you think you already know how to divide, well perhaps you are right. However, in this chapter, we will define these notions formally and properly prove things we already know (plus maybe some new things).
 \subsection{Euclid's Algorithm}
-\begin{defi}[Factor of integers]
-  Given $a, b\in \Z$, we say $a$ \emph{divides} $b$, $a$ is a \emph{factor} of $b$ or $a\mid b$ if $(\exists c\in \Z)\,b = ac$. For any $b$, $\pm 1$ and $\pm b$ are always factors of $b$. The other factors are called \emph{proper factors}.
+\begin{defi}[Divisibility]
+  Let $a, b\in \Z$. We say $a$ \emph{divides} $b$, or $a$ is a \emph{factor} of $b$, written $a\mid b$, if there exists $c\in \Z$ such that $b = ac$.
 \end{defi}
+
+\begin{remark}
+  For any $b \in \Z$, the integers $\pm 1$ and $\pm b$ always divide $b$. These are the \emph{trivial factors}. Any other factor is called a \emph{proper factor}.
+\end{remark}
 
 \begin{thm}[Division Algorithm]
-  Given $a, b\in \Z$, $b \not= 0$, there are unique $q, r\in \Z$ with $a = qb + r$ and $0\leq r < b$.
+  Let $a\in \Z$ and $b\in \Z$ with $b > 0$. Then there exist unique $q, r\in \Z$ with $a = qb + r$ and $0\leq r < b$.
 \end{thm}
-Despite the name, the division algorithm is not an algorithm in the usual sense. Instead, it merely states that you can divide. Even the proof does not specify a (non-brute force) way of how to divide.
+
+\begin{remark}
+  Despite the name, the division algorithm is not an algorithm in the usual sense. It merely asserts the existence and uniqueness of the quotient $q$ and remainder $r$.
+\end{remark}
 
 \begin{proof}
-  Choose $q = \max\{q : qb \leq a\}$. This maximum exists because the set of all $q$ such that $qb\leq a$ is finite. Now write $r = a - qb$. We have $0\leq r < b$ and thus $q$ and $r$ are found.
+  Let $q = \max\{n \in \Z : nb \leq a\}$. This set is non-empty and bounded above, so the maximum exists. Set $r = a - qb$. By definition of $q$, we have $qb \leq a < (q+1)b$, so $0\leq r < b$.
 
-  To show that they are unique, suppose that $a = qb + r = q'b + r'$. We have $(q - q')b = (r' - r)$. Since both $r$ and $r'$ are between $0$ and $b$, we have $-b < r - r' < b$. However, $r' - r$ is a multiple of $b$. Thus $q - q' = r' - r = 0$. Consequently, $q = q'$ and $r = r'$.
+  For uniqueness, suppose $a = qb + r = q'b + r'$ with $0 \leq r, r' < b$. Then $(q - q')b = r' - r$. Since $-b < r' - r < b$ and $r' - r$ is a multiple of $b$, we must have $r' - r = 0$, so $q = q'$ and $r = r'$.
 \end{proof}
 
-\begin{defi}[Common factor of integers]
-  A \emph{common factor} of $a$ and $b$ is a number $c\in\Z$ such that $c\mid a$ and $c\mid b$.
+\begin{defi}[Common factor]
+  A \emph{common factor} of $a, b \in \Z$ is an integer $c$ such that $c\mid a$ and $c\mid b$.
 \end{defi}
 
-\begin{defi}[Highest common factor/greatest common divisor]
-  The \emph{highest common factor} or \emph{greatest common divisor} of two numbers $a, b\in \N$ is a number $d\in \N$ such that $d$ is a common factor of $a$ and $b$, and if $c$ is also a common factor, $c\mid d$.
+\begin{defi}[Highest common factor]
+  Let $a, b\in \N$. The \emph{highest common factor} (or \emph{greatest common divisor}) of $a$ and $b$ is a natural number $d$ such that:
+  \begin{enumerate}
+    \item $d$ is a common factor of $a$ and $b$, and
+    \item every common factor $c$ of $a$ and $b$ satisfies $c\mid d$.
+  \end{enumerate}
 \end{defi}
-Clearly if the hcf exists, it must be the largest common factor, since all other common factors divide it, and thus necessarily unique.
 
-You might think reasonably it is more natural to define $\hcf(a, b)$ to be the largest common factor. Then show that it has the property that all common factors divide it. But the above definition is superior because it does not require a prior ordering of the natural numbers (and can be extended to any ring even if they are not ordered, as we will do in IB Groups, Rings and Modules).
+\begin{remark}
+  If the highest common factor $d$ exists, it is necessarily the largest common factor of $a$ and $b$, since every common factor divides $d$. In particular, it is unique.
+\end{remark}
 
+\begin{remark}
+  One might instead define $\hcf(a, b)$ as the largest common factor, and then prove that all common factors divide it. The definition above is preferable because it does not require a prior ordering, and generalises to arbitrary rings (see IB Groups, Rings and Modules).
+\end{remark}
 
 \begin{notation}
-  We write $d = \hcf(a, b) = \gcd(a, b) = (a, b)$.
-
-  Here we use $(a, b)$ to stand for a number, and has nothing to do with an ordered pair.
+  We write $\hcf(a, b) = \gcd(a, b) = (a, b)$ for the highest common factor. The notation $(a, b)$ should not be confused with the ordered pair.
 \end{notation}
 
 \begin{prop}
-  If $c\mid a$ and $c\mid b$, $c\mid (ua + vb)$ for all $u, v\in \Z$.
+  If $c\mid a$ and $c\mid b$, then $c\mid (ua + vb)$ for all $u, v\in \Z$.
 \end{prop}
 
 \begin{proof}
-  By definition, we have $a = kc$ and $b = lc$. Then $ua + vb = ukc + vlc = (uk + vl)c$. So $c\mid (ua + vb)$.
+  Write $a = kc$ and $b = lc$. Then $ua + vb = ukc + vlc = (uk + vl)c$, so $c\mid (ua + vb)$.
 \end{proof}
 
 \begin{thm}
-  Let $a,b\in \N$. Then $(a, b)$ exists.
+  Let $a, b\in \N$. Then $(a, b)$ exists.
 \end{thm}
 
 \begin{proof}
-  Let $S=\{ua + vb: u, v\in\Z\}$ be the set of all linear combinations of $a, b$. Let $d$ be the smallest positive member of $S$. Say $d = xa + yb$. Hence if $c\mid a, c\mid b$, then $c\mid d$. So we need to show that $d\mid a$ and $d\mid b$, and thus $d=(a, b)$.
+  Let $S=\{ua + vb : u, v\in\Z\}$ be the set of all integer linear combinations of $a$ and $b$. Let $d$ be the smallest positive element of $S$, say $d = xa + yb$. If $c\mid a$ and $c\mid b$, then $c\mid d$ by the preceding proposition, so condition (ii) is satisfied. It remains to show that $d\mid a$ and $d\mid b$.
 
-  By the division algorithm, there exist numbers $q, r\in\Z$ with $a = qd + r$ with $0\leq r < d$. Then $r = a - qd = a(1 - qx) - qyb$. Therefore $r$ is a linear combination of $a$ and $b$. Since $d$ is the smallest positive member of $S$ and $0\leq r < d$, we have $r = 0$ and thus $d\mid a$. Similarly, we can show that $d\mid b$.
+  By the division algorithm, write $a = qd + r$ with $0\leq r < d$. Then $r = a - qd = a(1 - qx) - qyb \in S$. Since $d$ is the smallest positive element of $S$ and $0\leq r < d$, we must have $r = 0$, so $d\mid a$. Similarly, $d\mid b$.
 \end{proof}
 
 \begin{cor}
-  (from the proof) Let $d = (a, b)$, then $d$ is the smallest positive linear combination of $a$ and $b$.
+  Let $d = (a, b)$. Then $d$ is the smallest positive integer linear combination of $a$ and $b$.
 \end{cor}
 
 \begin{cor}[B\'{e}zout's identity]
-  Let $a, b\in\N$ and $c\in \Z$. Then there exists $u, v\in \Z$ with $c=ua + vb$ iff $(a, b)\mid c$.
+  Let $a, b\in\N$ and $c\in \Z$. Then there exist $u, v\in \Z$ with $c=ua + vb$ if and only if $(a, b)\mid c$.
 \end{cor}
 
 \begin{proof}
-  ($\Rightarrow$) Let $d=(a, b)$. If $c$ is a linear combination of $a$ and $b$, then $d\mid c$ because $d\mid a$ and $d\mid b$.
+  ($\Rightarrow$) Let $d=(a, b)$. Since $d\mid a$ and $d\mid b$, we have $d\mid (ua + vb) = c$.
 
-  ($\Leftarrow$) Suppose that $d\mid c$. Let $d = xa + yb$ and $c = kd$. Then $c = (kx)a + (ky)b$. Thus $c$ is a linear combination of $a$ and $b$.
+  ($\Leftarrow$) Suppose $d\mid c$. Write $d = xa + yb$ and $c = kd$. Then $c = (kx)a + (ky)b$.
 \end{proof}
 
-Note that the proof that $(a, b)$ exists is existential, not constructive. How can we actually find $d$, and how can we find $x, y$ such that $d = xa + yb$?
+\begin{remark}
+  The proof that $(a, b)$ exists is non-constructive: it shows that $d$ exists but does not provide an efficient method for computing it. Euclid's algorithm, given below, provides such a method.
+\end{remark}
 
-While it might be easy to simply inspect $d$ for small numbers, how would you find common factors of, say, 4931 and 3795? We cannot use primes because (a) prime factorization is hard; and (b) primes are not yet defined.
-
-You might spot if $c\mid 4931$ and $c\mid 3795$, then $c\mid (4931 - 3795)=1136$. The process is also reversible --- if $c\mid 1136$ and $c\mid 3795$, then $c\mid (1136 + 3795) = 4931$. Thus the problem is equivalent to finding common factors of $3795$ and $1136$. The process can be repeated until we have small numbers.
+The key observation is that for any $q \in \Z$, the integers $a$ and $b$ have the same set of common factors as $b$ and $a - qb$. In particular, $(a, b) = (b, a - qb)$.
 
 \begin{prop}[Euclid's Algorithm]
-  If we continuously break down $a$ and $b$ by the following procedure:
+  Let $a, b \in \N$ with $b > 0$. Apply the division algorithm repeatedly:
   \begin{align*}
     a &= q_1b + r_1\\
     b &= q_2r_1 + r_2\\
     r_1 &= q_3r_2 + r_3\\
-    &\vdots\\
-    r_{n-2} &= q_nr_{n-1}
+    &\;\;\vdots\\
+    r_{n-2} &= q_nr_{n-1}.
   \end{align*}
-  then the highest common factor is $r_{n-1}$.
+  This process terminates since $b > r_1 > r_2 > \cdots \geq 0$. Then $\hcf(a, b) = r_{n-1}$, the last non-zero remainder.
 \end{prop}
 
 \begin{proof}
-  We have $($common factors of $a, b)=($common factors of $b, r_1)=($common factors of $r_1, r_2 )= \cdots = ($factors of $r_{n-1})$.
+  At each step, the set of common factors is preserved:
+  \[
+    \{\text{common factors of } a, b\} = \{\text{common factors of } b, r_1\} = \cdots = \{\text{factors of } r_{n-1}\}.
+  \]
+  In particular, $r_{n-1}$ is a common factor of $a$ and $b$, and every common factor of $a$ and $b$ divides $r_{n-1}$, so $r_{n-1} = (a, b)$.
 \end{proof}
-This gives an alternative proof that hcfs exist.
 
-How efficient is this algorithm? For every step, we have $a\geq b + r_1 > 2r_1$. Thus every two steps, the number on the left goes down by at least half. Hence the number of digits goes down every 8 steps. Thus the time needed is $\leq 8\times$ number of digits and has time complexity $O(\log b)$.
+\begin{remark}
+  This gives an alternative proof that highest common factors exist. Moreover, the algorithm is efficient: since $a \geq b + r_1 > 2r_1$, the remainders decrease by at least half every two steps. Hence the number of digits decreases at a constant rate, and the algorithm terminates in $O(\log b)$ steps.
+\end{remark}
 
 \begin{eg}
-  Suppose $a = 57$ and $b = 42$.
+  Let $a = 57$ and $b = 42$.
   \begin{center}
     \begin{tabular}{l l l}
       common factors of $57$ and $42$ & & $57 = 1\times 42 + 15$ \\
@@ -670,61 +687,65 @@ How efficient is this algorithm? For every step, we have $a\geq b + r_1 > 2r_1$.
       = factors of $3$.
     \end{tabular}
   \end{center}
-  So the hcf is $3$.
+  So $\hcf(57, 42) = 3$.
 \end{eg}
 
-By reversing Euclid's Algorithm, we can find the hcf of two numbers as a linear combination of $a$ and $b$.
+By reversing the steps of Euclid's algorithm, we can express $(a, b)$ as a linear combination of $a$ and $b$.
 \begin{eg}
-  Consider $57$ and $21$.
+  Consider $a = 57$ and $b = 21$.
   \begin{align*}
     57 &= 2\times 21 + 15\\
     21 &= 1\times 15 + 6\\
     15 &= 2\times 6 + 3\\
     6 &= 2\times 3
   \end{align*}
-  In the opposite direction, we have
+  Reversing:
   \begin{align*}
     3 &= 15 - 2\times 6\\
     &= 15 - 2\times (21 - 15)\\
     &= 3\times 15 - 2\times 21\\
     &= 3\times (57 - 2\times 21) - 2\times 21\\
-    &= 3\times 57 - 8\times 21
+    &= 3\times 57 - 8\times 21.
   \end{align*}
 \end{eg}
 
-This gives an alternative constructive proof of B\'{e}zout's identity. Moreover, it gives us a quick way of expressing $(a, b) = ax + by$. However, this algorithm requires storing the whole process of Euclid's Algorithm and is not efficient space-wise.
+\begin{remark}
+  This back-substitution gives a constructive proof of B\'{e}zout's identity and a method for expressing $(a, b) = xa + yb$. However, it requires storing all intermediate steps and is therefore not space-efficient.
+\end{remark}
 
-To achieve higher space efficiency, we attempt to find a recurrence relation for the coefficients $A_j, B_j$ such that $a\times B_j - b \times A_j = (-1)^{j}r_j$. The possible factor of $-1$ is there just so that the recurrence relation will look nicer. Suppose that this is satisfied for all indices less than $j$. Then we have
-\begin{align*}
-  (-1)^jr_{j} &= (-1)^j(r_{j - 2} - q_jr_{j - 1})\\
-  &= (-1)^{j - 2} r_{j - 2} + q_j (-1)^{j - 1} r_{j - 1}\\
-  &= a (B_{j - 2} + q_j B_{j - 1}) - b (A_{j - 2} + q_j A_{j - 1}).
-\end{align*}
-Hence we can obtain the following recurrence relation:
-\begin{align*}
-  A_j &= q_jA_{j-1} + A_{j-2}\\
-  B_j &= q_jB_{j-1} + B_{j-2}
-\end{align*}
-with
-\[
-  a\times B_j - b\times A_j = (-1)^{j}r_j.
-\]
-In particular, $a\times B_{n-1} - b\times A_{n-1} = (-1)^{n-1}r_{n - 1} = (a, b)$.
+To achieve higher space efficiency, we seek a recurrence relation for coefficients $A_j, B_j$ satisfying $a B_j - b A_j = (-1)^{j}r_j$, where the sign factor $(-1)^j$ is introduced to simplify the recurrence.
 
-Also, by an easy induction, $A_jB_{j - 1} - B_jA_{j-1} = (-1)^j$. So $(A_j, B_j) = 1$.
+\begin{prop}
+  The coefficients $A_j, B_j$ satisfy the recurrence
+  \begin{align*}
+    A_j &= q_jA_{j-1} + A_{j-2},\\
+    B_j &= q_jB_{j-1} + B_{j-2},
+  \end{align*}
+  with $a B_j - b A_j = (-1)^{j}r_j$.
+  In particular, $|a B_{n-1} - b A_{n-1}| = r_{n - 1} = (a, b)$.
+\end{prop}
 
-These coefficients also play another role. We can put the Euclid's Algorithm's equations in the following form:
-\begin{align*}
-  \frac{57}{21} &= 2 + \frac{15}{21}\\
-  \frac{21}{15} &= 1 + \frac{6}{15}\\
-  \frac{15}{6} &= 2 + \frac{3}{6}\\
-  \frac{6}{3} &= 2
-\end{align*}
-Then we can write out the fraction $\frac{57}{21}$ in continued fraction form
-\[
-  \frac{57}{21} = 2 + \cfrac{1}{1 + \cfrac{1}{2 + \cfrac{1}{2}}}
-\]
-Expanding this continued fractions term by term, we can have the sequence $2, 2 + \frac{1}{1} = 3$, $2 + \frac{1}{1 + \frac{1}{2}} = \frac{8}{3}$. These are called the ``convergents''. The sequence happens to be $\frac{A_i}{B_i}$.
+\begin{proof}
+  Suppose the identity $a B_i - b A_i = (-1)^i r_i$ holds for all $i < j$. Then
+  \begin{align*}
+    (-1)^jr_{j} &= (-1)^j(r_{j - 2} - q_jr_{j - 1})\\
+    &= (-1)^{j - 2} r_{j - 2} + q_j (-1)^{j - 1} r_{j - 1}\\
+    &= a (B_{j - 2} + q_j B_{j - 1}) - b (A_{j - 2} + q_j A_{j - 1}).
+  \end{align*}
+  Setting $A_j = q_j A_{j-1} + A_{j-2}$ and $B_j = q_j B_{j-1} + B_{j-2}$ gives $a B_j - b A_j = (-1)^j r_j$.
+\end{proof}
+
+\begin{remark}
+  By an easy induction, $A_jB_{j - 1} - B_jA_{j-1} = (-1)^j$, so in particular $(A_j, B_j) = 1$.
+\end{remark}
+
+\begin{remark}[Continued fractions]
+  Euclid's algorithm can be expressed in terms of continued fractions. For example, with $a = 57$ and $b = 21$:
+  \[
+    \frac{57}{21} = 2 + \cfrac{1}{1 + \cfrac{1}{2 + \cfrac{1}{2}}}.
+  \]
+  The successive \emph{convergents} obtained by truncating this expansion are $2$, $2 + \frac{1}{1} = 3$, $2 + \frac{1}{1 + \frac{1}{2}} = \frac{8}{3}$. These are precisely the ratios $\frac{A_j}{B_j}$.
+\end{remark}
 
 \subsection{Primes}
 There are a lot of ways we can define prime numbers in $\N$. The definition we will use is the following:
