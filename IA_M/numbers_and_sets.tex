@@ -330,109 +330,131 @@ In this chapter, we will look at the basic building blocks of mathematics, namel
 
 \subsection{Functions}
 \begin{defi}[Function/map]
-  A \emph{function} (or \emph{map}) $f: A\to B$ is a ``rule'' that assigns, for each $a\in A$, precisely one element $f(a)\in B$. We can write $a\mapsto f(a)$. $A$ and $B$ are called the \emph{domain} and \emph{co-domain} respectively.
+  Let $A$ and $B$ be sets. A \emph{function} (or \emph{map}) $f: A\to B$ is a rule that assigns to each element $a\in A$ precisely one element $f(a)\in B$. We write $a\mapsto f(a)$. The set $A$ is called the \emph{domain} and $B$ the \emph{codomain} of $f$.
 \end{defi}
-If we wish to be very formal, we can define a function to be a subset $f\subseteq A\times B$ such that for any $a\in A$, there exists a unique $b\in B$ such that $(a, b)\in f$. We then think of $(a, b) \in f$ as saying $f(a) = b$. However, while this might act as a formal definition of a function, it is a terrible way to think about functions.
 
-\begin{eg}
-  $x^2: \R \to \R$ is a function that sends $x$ to $x^2$. $\frac{1}{x}:\R\to\R$ is not a function since $f(0)$ is not defined. $\pm x: \R\to\R$ is also not a function since it is multi-valued.
+\begin{remark}
+  Formally, a function $f: A \to B$ can be defined as a subset $f\subseteq A\times B$ such that for every $a\in A$, there exists a unique $b\in B$ with $(a, b)\in f$. We then interpret $(a, b) \in f$ as $f(a) = b$. While this is rigorous, it is usually better to think of a function as a rule or assignment.
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+    \item The rule $f: \R \to \R$ defined by $f(x) = x^2$ is a function.
+    \item The rule $g: \R \to \R$ defined by $g(x) = 1/x$ is \emph{not} a function, since $g(0)$ is not defined.
+    \item The rule $h: \R \to \R$ defined by $h(x) = \pm\sqrt{x}$ is \emph{not} a function, since it is multi-valued.
+  \end{enumerate}
 \end{eg}
 
-It is often helpful to categorize functions into different categories.
 \begin{defi}[Injective function]
-  A function $f: X \to Y$ is \emph{injective} if it hits everything at most once, i.e.
+  A function $f: A \to B$ is \emph{injective} (or \emph{one-to-one}) if distinct elements of $A$ are mapped to distinct elements of $B$:
   \[
-    (\forall x, y\in X)\,f(x) = f(y)\Rightarrow x = y.
+    (\forall x, y\in A)\;f(x) = f(y)\Rightarrow x = y.
   \]
 \end{defi}
 
 \begin{defi}[Surjective function]
-  A function $f: X \to Y$ is \emph{surjective} if it hits everything at least once, i.e.
+  A function $f: A \to B$ is \emph{surjective} (or \emph{onto}) if every element of $B$ is in the image of $f$:
   \[
-    (\forall y\in Y)(\exists x\in X)\,f(x) = y
+    (\forall b\in B)(\exists a\in A)\;f(a) = b.
   \]
 \end{defi}
 
 \begin{eg}
-  $f: \R \to\R^+\cup\{0\}$ with $x \mapsto x^2$ is surjective but not injective.
+  The function $f: \R \to\R^+\cup\{0\}$ defined by $f(x) = x^2$ is surjective but not injective.
 \end{eg}
 
 \begin{defi}[Bijective function]
-  A function is \emph{bijective} if it is both injective and surjective. i.e.\ it hits everything exactly once.
+  A function $f: A \to B$ is \emph{bijective} if it is both injective and surjective, i.e.\ every element of $B$ is hit exactly once.
 \end{defi}
 
 \begin{defi}[Permutation]
-  A \emph{permutation} of $A$ is a bijection $A\to A$.
+  Let $A$ be a set. A \emph{permutation} of $A$ is a bijection $A\to A$.
 \end{defi}
 
 \begin{defi}[Composition of functions]
-  The \emph{composition} of two functions is a function you get by applying one after another. In particular, if $f: X \rightarrow Y$ and $G: Y\rightarrow Z$, then $g\circ f: X \rightarrow Z$ is defined by $g\circ f(x) = g(f(x))$. Note that function composition is associative.
+  Let $f: A \to B$ and $g: B\to C$ be functions. The \emph{composition} of $g$ with $f$ is the function $g\circ f: A \to C$ defined by $(g\circ f)(a) = g(f(a))$ for all $a \in A$.
 \end{defi}
 
-\begin{defi}[Image of function]
-  If $f: A\to B$ and $U\subseteq A$, then $f(U) = \{f(u):u\in U\}$. $f(A)$ is the \emph{image} of $A$.
-\end{defi}
-By definition, $f$ is surjective iff $f(A) = B$.
+\begin{prop}
+  Let $f: A \to B$, $g: B \to C$ and $h: C \to D$ be functions. Then $h \circ (g \circ f) = (h \circ g) \circ f$.
+\end{prop}
+\begin{proof}
+  For every $a \in A$, we have $(h \circ (g \circ f))(a) = h(g(f(a))) = ((h \circ g) \circ f)(a)$.
+\end{proof}
 
-\begin{defi}[Pre-image of function]
-  If $f: A\to B$ and $V\subseteq B$, then $f^{-1}(V) = \{a\in A: f(a)\in V\}$.
+\begin{defi}[Image]
+  Let $f: A\to B$ be a function and let $U\subseteq A$. The \emph{image} of $U$ under $f$ is the set $f(U) = \{f(u) : u\in U\}$. The \emph{image} of $f$ is the set $f(A) = \{f(a) : a \in A\}$.
 \end{defi}
-This is the \emph{pre-image} of the function $f$, and acts on \emph{subsets} of $B$. This is defined for any function $f$. It is important to note that we use the same symbol $f^{-1}$ to denote the \emph{inverse function}, which we will define later, but they are very distinct entities. For example, we will see that the inverse function exists only for bijective functions.
 
-To define the inverse function, we will first need some preliminary definitions.
+\begin{remark}
+  By definition, $f$ is surjective if and only if $f(A) = B$.
+\end{remark}
+
+\begin{defi}[Pre-image]
+  Let $f: A\to B$ be a function and let $V\subseteq B$. The \emph{pre-image} of $V$ under $f$ is the set $f^{-1}(V) = \{a\in A: f(a)\in V\}$.
+\end{defi}
+
+\begin{warning}
+  The pre-image $f^{-1}(V)$ is defined for any function $f$ and any subset $V \subseteq B$. The same notation $f^{-1}$ is also used for the inverse function (defined below), which exists only when $f$ is bijective. These are distinct concepts despite sharing notation.
+\end{warning}
 
 \begin{defi}[Identity map]
-  The \emph{identity map} $\id _A: A\to A$ is defined as the map $a\mapsto a$.
+  Let $A$ be a set. The \emph{identity map} $\id_A: A\to A$ is defined by $\id_A(a) = a$ for all $a \in A$.
 \end{defi}
 
-\begin{defi}[Left inverse of function]
-  Given $f: A\to B$, a \emph{left inverse} of $f$ is a function $g:B\to A$ such that $g\circ f = \id _A$.
+\begin{defi}[Left and right inverses]
+  Let $f: A\to B$ be a function.
+  \begin{itemize}
+    \item A \emph{left inverse} of $f$ is a function $g: B\to A$ such that $g\circ f = \id_A$.
+    \item A \emph{right inverse} of $f$ is a function $g: B\to A$ such that $f\circ g = \id_B$.
+  \end{itemize}
 \end{defi}
 
-\begin{defi}[Right inverse of function]
-  Given $f: A\to B$, a \emph{right inverse} of $f$ is a function $g:B\to A$ such that $f\circ g = \id _B$.
-\end{defi}
-
-\begin{thm}
-  The left inverse of $f$ exists iff $f$ is injective.
-\end{thm}
-
+\begin{prop}
+  Let $f: A \to B$ be a function. Then $f$ has a left inverse if and only if $f$ is injective.
+\end{prop}
 \begin{proof}
-  ($\Rightarrow$)
-  If the left inverse $g$ exists, then $\forall a, a'\in A, f(a) = f(a') \Rightarrow g( f(a))=g(f(a'))\Rightarrow a=a'$. Therefore $f$ is injective.
+  ($\Rightarrow$) Suppose $g: B \to A$ is a left inverse of $f$. If $f(a) = f(a')$ for some $a, a' \in A$, then $a = g(f(a)) = g(f(a')) = a'$. Hence $f$ is injective.
 
-  ($\Leftarrow$) If $f$ is injective, we can construct a $g$ defined as
+  ($\Leftarrow$) Suppose $f$ is injective. Fix any element $a_0 \in A$ and define $g: B \to A$ by
   \[
-    g: \begin{cases}
-      g(b) = a &\text{if }b\in f(A), \text{ where }f(a) = b\\
-      g(b) = \text{anything} & \text{otherwise}
-    \end{cases}.
+    g(b) = \begin{cases}
+      a &\text{if } b \in f(A), \text{ where } a \in A \text{ is the unique element with } f(a) = b,\\
+      a_0 & \text{if } b \notin f(A).
+    \end{cases}
   \]
-  Then $g$ is a left inverse of $f$.
+  Then $g(f(a)) = a$ for all $a \in A$, so $g$ is a left inverse of $f$.
 \end{proof}
 
-\begin{thm}
-  The right inverse of $f$ exists iff $f$ is surjective.
-\end{thm}
-
+\begin{prop}
+  Let $f: A \to B$ be a function. Then $f$ has a right inverse if and only if $f$ is surjective.
+\end{prop}
 \begin{proof}
-  ($\Rightarrow$) We have $f(g(B)) = B$ since $f\circ g$ is the identity function. Thus $f$ must be surjective since its image is $B$.
+  ($\Rightarrow$) Suppose $g: B \to A$ is a right inverse of $f$. Then for every $b \in B$, we have $f(g(b)) = b$, so $b \in f(A)$. Hence $f$ is surjective.
 
-  ($\Leftarrow$) If $f$ is surjective, we can construct a $g$ such that for each $b\in B$, pick one $a\in A$ with $f(a) = b$, and put $g(b) = a$.
+  ($\Leftarrow$) Suppose $f$ is surjective. For each $b\in B$, choose some $a\in A$ with $f(a) = b$, and define $g(b) = a$. Then $f(g(b)) = b$ for all $b \in B$, so $g$ is a right inverse of $f$.
 \end{proof}
 
-(Note that to prove the second part, for each $b$, we need to \emph{pick} an $a$ such that $f(a) = b$. If $B$ is infinite, doing so involves making infinite arbitrary choices. Are we allowed to do so?
+\begin{remark}[Axiom of Choice]
+  The reverse direction of the preceding proposition requires, for each $b \in B$, a \emph{choice} of an element $a \in A$ with $f(a) = b$. When $B$ is infinite, this involves infinitely many arbitrary choices. The \emph{Axiom of Choice} asserts that this is permitted: given a family of non-empty sets $(A_i)_{i \in I}$, there exists a \emph{choice function} $c: I \to \bigcup_{i \in I} A_i$ with $c(i) \in A_i$ for all $i \in I$.
 
-To make infinite choices, we need to use the \emph{Axiom of choice}, which explicitly says that this is allowed. In particular, it says that given a family of sets $A_i$ for $i \in I$, there exists a \emph{choice function} $f: I \to \bigcup A_i$ such that $f(i)\in A_i$ for all $i$.
-
-So can we prove the theorem without the Axiom of Choice? The answer is no. This is since if we assume surjective functions have inverses, then we can prove the Axiom of Choice.
-
-Assume any surjective function $f$ has a right inverse. Given a family of non-empty sets $A_i$ for $i\in I$ (wlog assume they are disjoint), define a function $f: \bigcup A_i \to I$ that sends each element to the set that contains the element. This is surjective since each set is non-empty. Then it has a right inverse. Then the right inverse must send each set to an element in the set, i.e.\ is a choice function for $A_i$.)
-
+  In fact, the existence of right inverses for surjections is \emph{equivalent} to the Axiom of Choice. To see this, suppose every surjection has a right inverse, and let $(A_i)_{i \in I}$ be a family of pairwise disjoint non-empty sets. Define $f: \bigcup_{i \in I} A_i \to I$ by sending each element to the index of the set containing it. Then $f$ is surjective, so it has a right inverse $g: I \to \bigcup_{i \in I} A_i$. This $g$ is a choice function for the family $(A_i)_{i \in I}$.
+\end{remark}
 
 \begin{defi}[Inverse of function]
-  An \emph{inverse} of $f$ is a function that is both a left inverse and a right inverse. It is written as $f^{-1}: B\to A$. It exists iff $f$ is bijective, and is necessarily unique.
+  Let $f: A \to B$ be a function. An \emph{inverse} of $f$ is a function $g: B\to A$ that is both a left inverse and a right inverse of $f$, i.e.\ $g \circ f = \id_A$ and $f \circ g = \id_B$. When it exists, we write it as $f^{-1}: B\to A$.
 \end{defi}
+
+\begin{prop}
+  Let $f: A \to B$ be a function. Then $f$ has an inverse if and only if $f$ is bijective. Moreover, if the inverse exists, it is unique.
+\end{prop}
+\begin{proof}
+  If $f$ has an inverse, then $f$ has both a left inverse and a right inverse, so $f$ is both injective and surjective, i.e.\ bijective.
+
+  Conversely, if $f$ is bijective, then for each $b \in B$ there exists a unique $a \in A$ with $f(a) = b$. Define $g(b) = a$. Then $g \circ f = \id_A$ and $f \circ g = \id_B$, so $g$ is an inverse of $f$.
+
+  For uniqueness, suppose $g$ and $g'$ are both inverses of $f$. Then $g = g \circ \id_B = g \circ (f \circ g') = (g \circ f) \circ g' = \id_A \circ g' = g'$.
+\end{proof}
 
 \subsection{Relations}
 \begin{defi}[Relation]
