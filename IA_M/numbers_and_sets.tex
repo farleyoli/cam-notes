@@ -1851,38 +1851,36 @@ However, $\Q$ is not enough for our purposes.
 \end{remark}
 
 \subsection{Sequences}
-Here we will look at sequences, with series in the next chapter. Only a brief introduction to these topics will be provided here, as these topics will be studied later in Analysis I.
+\begin{remark}
+  This and the next subsection give a brief introduction to sequences and series; the topics are treated in full generality in IA Analysis I.
+\end{remark}
 
 \begin{defi}[Sequence]
-  A \emph{sequence} is a function $\N\to \R$. If $a$ is a sequence, instead of $a(1), a(2), \cdots$, we usually write $a_1, a_2, \cdots$. To emphasize it is a sequence, we write the sequence as $(a_n)$.
+  A \emph{sequence} is a function $\N \to \R$. If $a$ is a sequence, we write $a_n$ instead of $a(n)$, and $(a_n)$ for the sequence itself.
 \end{defi}
-We want to capture the notion of a sequence tending to a limit. For example, we want to say that $1, \frac{1}{2}, \frac{1}{3}, \cdots$ tends to $0$, while $1, 2, 3, \cdots$ does not converge to a limit.
-
-The idea is that if $a_n \to l$, then we can get as close to $l$ as we like, as long as we are sufficiently far down the sequence. More precisely, given any ``error threshold'' $\varepsilon$, we can find a (possibly large) number $N$ such that whenever $n \geq N$, we have $|a_n - l| < \varepsilon$.
 
 \begin{defi}[Limit of sequence]
   The sequence $(a_n)$ \emph{tends to} $l\in \R$ as $n$ tends to infinity if and only if
   \[
     (\forall \varepsilon > 0)(\exists N \in \N)(\forall n \geq N)\,|a_n - l| < \varepsilon.
   \]
-  If $a_n$ tends to $l$ as $n$ tends to infinity, we write $a_n \to l$ as $n\to \infty$; $\displaystyle \lim_{n \to \infty} a_n = l$; or $a_n$ converges to $l$.
+  If $a_n$ tends to $l$ as $n$ tends to infinity, we write $a_n \to l$ as $n \to \infty$, or $\displaystyle \lim_{n \to \infty} a_n = l$.
 \end{defi}
-Intuitively, if $a_n \to l$, we mean given any $\varepsilon$, for sufficiently large $n$, $a_n$ is always within $l\pm \varepsilon$.
 
-The definition $a_n\not\to l$ is the negation of the above statement:
-\[
-  (\exists \varepsilon > 0)(\forall N\in \N)(\exists n\geq N)\,|a_n - l| \geq \varepsilon.
-\]
+\begin{remark}
+  The negation $a_n \not\to l$ is:
+  \[
+    (\exists \varepsilon > 0)(\forall N \in \N)(\exists n \geq N)\, |a_n - l| \geq \varepsilon.
+  \]
+\end{remark}
 
 \begin{defi}[Convergence of sequence]
-  The sequence $(a_n)$ \emph{converges} if there exists an $l$ such that $a_n\to l$. The sequence \emph{diverges} if it doesn't converge.
+  The sequence $(a_n)$ \emph{converges} if there exists $l$ such that $a_n \to l$. The sequence \emph{diverges} if it does not converge.
 \end{defi}
-
-Every proof of $a_n \to l$ looks like: Given $\varepsilon > 0$, (argument to show $N$ exists, maybe depending on $\varepsilon$), such that $\forall n\geq N$, $|a_n - l| < \varepsilon$.
 \begin{eg}
   Show that $a_n = 1 - \frac{1}{n} \to 1$.
 
-  Given $\varepsilon > 0$, choose $N > \frac{1}{\varepsilon}$, which exists by the Axiom of Archimedes. If $n \geq N$, then $|a_n - 1| = \frac{1}{n} \leq \varepsilon$. So $a_n\to 1$.
+  Given $\varepsilon > 0$, choose $N > \frac{1}{\varepsilon}$ (which exists by the Archimedean property). If $n \geq N$, then $|a_n - 1| = \frac{1}{n} \leq \frac{1}{N} < \varepsilon$. So $a_n \to 1$.
 \end{eg}
 
 \begin{eg}
@@ -1903,21 +1901,26 @@ Every proof of $a_n \to l$ looks like: Given $\varepsilon > 0$, (argument to sho
   Let $\varepsilon = \frac{1}{3}$. Suppose $l\in \R$. If $l < \frac{1}{2}$, then $|a_n - l| > \varepsilon$ when $n$ is prime. If $l\geq \frac{1}{2}$, then $|a_n - l| > \varepsilon$ when $n$ is not prime. Since the primes and non-primes are unbounded, $(\forall N)\exists n > N$ such that $|a_n - l| > \varepsilon$. So $a_n$ diverges.
 \end{eg}
 
-An important property of $\R$ is the following:
+\begin{defi}[Monotonic and bounded sequences]
+  A sequence $(a_n)$ is \emph{increasing} if $m \leq n$ implies $a_m \leq a_n$, and \emph{decreasing} if $m \leq n$ implies $a_m \geq a_n$. It is \emph{monotonic} if it is increasing or decreasing. It is \emph{bounded} if there exists $B \in \R$ with $|a_n| \leq B$ for all $n$.
+\end{defi}
+
 \begin{thm}
   Every bounded monotonic sequence converges.
 \end{thm}
-In case of confusion, the terms are defined as follows: $(a_n)$ is increasing if $m \leq n$ implies $a_m \leq a_n$. Decreasing is defined similarly. Then it is monotonic if it is increasing or decreasing. $(a_n)$ is bounded if there is some $B\in \R$ such that $|a_n| \leq B$ for all $n$.
 
 \begin{proof}
-  wlog assume $(a_n)$ is increasing. The set $\{a_n: n\geq 1\}$ is bounded and non-empty. So it has a supremum $l$ (least upper bound axiom). Show that $l$ is the limit:
+  Without loss of generality assume $(a_n)$ is increasing. The set $\{a_n : n \geq 1\}$ is non-empty and bounded above, so it has a supremum $l$ by the least upper bound axiom.
 
-  Given any $\varepsilon >0$, $l - \varepsilon$ is not an upper bound of $a_n$. So $\exists N$ such that $a_N \geq l - \varepsilon$. Since $a_n$ is increasing, we know that $l \geq a_m \geq a_N > l - \varepsilon$ for all $m \geq N$. So $\exists N $ such that $\forall n\geq N$, $|a_n - l| < \varepsilon$. So $a_n \to l$.
+  Given $\varepsilon > 0$, $l - \varepsilon$ is not an upper bound, so there exists $N$ with $a_N > l - \varepsilon$. Since $(a_n)$ is increasing, for all $m \geq N$ we have $l \geq a_m \geq a_N > l - \varepsilon$, so $|a_m - l| < \varepsilon$. Hence $a_n \to l$.
 \end{proof}
-We can show that this theorem is equivalent to the least upper bound axiom.
+
+\begin{remark}
+  This theorem is equivalent to the least upper bound axiom.
+\end{remark}
 
 \begin{defi}[Subsequence]
-  A \emph{subsequence} of $(a_n)$ is $(a_{g(n)})$ where $g: \N\to\N$ is strictly increasing. e.g.\ $a_2, a_3, a_5, a_7\cdots$ is a subsequence of $(a_n)$.
+  A \emph{subsequence} of $(a_n)$ is a sequence of the form $(a_{g(n)})$, where $g\colon \N \to \N$ is strictly increasing. For example, $a_2, a_3, a_5, a_7, \ldots$ is a subsequence of $(a_n)$.
 \end{defi}
 
 \begin{thm}
@@ -1925,44 +1928,44 @@ We can show that this theorem is equivalent to the least upper bound axiom.
 \end{thm}
 
 \begin{proof}
-  Call a point $a_k$ a ``peak'' if $(\forall m \geq k)\,a_m \leq a_k$. If there are infinitely many peaks, then they form a decreasing subsequence. If there are only finitely many peaks, $\exists N$ such that no $a_n$ with $n > N$ is a peak. Pick $a_{N_1}$ with $N_1 > N$. Then pick $a_{N_2}$ with $N_2 > N_1$ and $a_{N_2} > a_{N_1}$. This is possible because $a_{N_1}$ is not a peak. The pick $a_{N_3}$ with $N_3 > N_2$ and $a_{N_3}> a_{N_2}$, \emph{ad infinitum}. Then we have a monotonic subsequence.
+  Call a point $a_k$ a ``peak'' if $(\forall m \geq k)\,a_m \leq a_k$. If there are infinitely many peaks, then they form a decreasing subsequence. If there are only finitely many peaks, $\exists N$ such that no $a_n$ with $n > N$ is a peak. Pick $a_{N_1}$ with $N_1 > N$. Then pick $a_{N_2}$ with $N_2 > N_1$ and $a_{N_2} > a_{N_1}$. This is possible because $a_{N_1}$ is not a peak. Then pick $a_{N_3}$ with $N_3 > N_2$ and $a_{N_3}> a_{N_2}$, \emph{ad infinitum}. Then we have a monotonic subsequence.
 \end{proof}
 
-We will now prove the following basic properties of convergence:
-\begin{thm}\leavevmode
+\begin{thm}[Algebra of limits]\leavevmode
   \begin{enumerate}
-    \item If $a_n\to a$ and $a_n\to b$, then $a = b$ (i.e.\ limits are unique)
+    \item If $a_n \to a$ and $a_n \to b$, then $a = b$ (i.e.\ limits are unique).
     \item If $a_n \to a$ and $b_n = a_n$ for all but finitely many $n$, then $b_n \to a$.
     \item If $a_n = a$ for all $n$, then $a_n \to a$.
-    \item If $a_n\to a$ and $b_n\to b$, then $a_n + b_n \to a+ b$
-    \item If $a_n\to a$ and $b_n \to b$, then $a_nb_n\to ab$
-    \item If $a_n\to a\not= 0$, and $\forall n(a_n \not= 0)$. Then $1/a_n \to 1/a$.
-    \item If $a_n \to a$ and $b_n \to a$, and $\forall n(a_n\leq c_n\leq b_n)$, then $c_n \to a$. (Sandwich theorem)
+    \item If $a_n \to a$ and $b_n \to b$, then $a_n + b_n \to a + b$.
+    \item If $a_n \to a$ and $b_n \to b$, then $a_n b_n \to ab$.
+    \item If $a_n \to a \neq 0$ and $a_n \neq 0$ for all $n$, then $1/a_n \to 1/a$.
+    \item (\emph{Sandwich theorem}.) If $a_n \to a$ and $b_n \to a$, and $a_n \leq c_n \leq b_n$ for all $n$, then $c_n \to a$.
   \end{enumerate}
 \end{thm}
-Many students are confused as to why we should prove these ``obvious'' properties of convergence. It seems ``obvious'' that if $a_n$ converges to $a$ and $b_n$ converges to $b$, then the sum converges to $a + b$. However, it is not obvious (at least for the first-time learners) that if $(\forall \varepsilon > 0)(\exists N)(\forall n \geq N)\, |a_n - a| < \varepsilon$ and $(\forall \varepsilon > 0)(\exists N)(\forall n \geq N)\, |b_n - b| < \varepsilon$, then $(\forall \varepsilon > 0)(\exists N)(\forall n \geq N)\, |(a_n + b_n) - (a + b)| < \varepsilon$. In some sense, what we are trying to prove is that our attempt at defining convergence actually satisfies the ``obvious'' properties we think convergence should satisfy.
 
-In proving this, we will make frequent use of the \emph{triangle inequality}: $|x + y|\leq |x| + |y|$.
+\begin{remark}
+  These properties verify that our $\varepsilon$-$N$ definition of convergence behaves as expected. The proofs make frequent use of the \emph{triangle inequality}: $|x + y| \leq |x| + |y|$.
+\end{remark}
 \begin{proof}\leavevmode
   \begin{enumerate}
-    \item Suppose instead $a < b$. Then choose $\varepsilon = \frac{b - a}{2}$. By the definition of the limit, $\exists N_1$ such that $\forall n\geq N_1$, $|a_n - a| < \varepsilon$. There also $\exists N_2$ st. $\forall n\geq N_2$, $|a_n - b| < \varepsilon$.
+    \item Suppose instead $a < b$. Choose $\varepsilon = \frac{b - a}{2}$. By the definition of the limit, $\exists N_1$ such that $\forall n \geq N_1$, $|a_n - a| < \varepsilon$, and $\exists N_2$ such that $\forall n \geq N_2$, $|a_n - b| < \varepsilon$.
 
       Let $N = \max\{N_1, N_2\}$. If $n\geq \max\{N_1, N_2\}$, then $|a - b| \leq |a - a_n| + |a_n - b| < 2\varepsilon = b - a.$
       Contradiction. So $a = b$.
-    \item Given $\varepsilon > 0$, there $\exists N_1$ st. $\forall n\geq N_1$, we have $|a_n - a| < \varepsilon$. Since $b_n = a_n$ for all but finitely many $n$, there exists $N_2$ such that $\forall n\geq N_2$, $a_n = b_n$.
+    \item Given $\varepsilon > 0$, there exists $N_1$ such that $\forall n \geq N_1$, $|a_n - a| < \varepsilon$. Since $b_n = a_n$ for all but finitely many $n$, there exists $N_2$ such that $\forall n \geq N_2$, $a_n = b_n$.
 
       Let $N = \max\{N_1, N_2\}$. Then $\forall n\geq N$, we have $|b_n - a| = |a_n - a| < \varepsilon$. So $b_n\to a$.
     \item $\forall \varepsilon$, take $N = 1$. Then $|a_n - a| = 0 < \varepsilon$ for all $n \geq 1$.
     \item Given $\varepsilon > 0$, $\exists N_1$ such that $\forall n\geq N_1$, we have $|a_n - a| < \varepsilon/2$. Similarly, $\exists N_2$ such that $\forall n\geq N_2$, we have $|b_n - b| < \varepsilon/2$.
 
       Let $N = \max\{N_1, N_2\}$. Then $\forall n \geq N$, $|(a_n + b_n) - (a + b)| \leq |a_n - a| + |b_n - b| < \varepsilon$.
-    \item Given $\varepsilon > 0$, Then there exists $N_1, N_2, N_3$ such that
+    \item Given $\varepsilon > 0$, choose $N_1, N_2, N_3$ such that
       \begin{align*}
-        &\forall n\geq N_1: |a_n - a| < \frac{\varepsilon}{2(|b| + 1)}\\
-        &\forall n\geq N_2: |b_n - b| < \frac{\varepsilon}{2|a|}\\
-        &\forall n\geq N_3: |b_n - b| < 1 \Rightarrow |b_n| < |b| +1
+        &\forall n \geq N_1\colon |a_n - a| < \frac{\varepsilon}{2(|b| + 1)},\\
+        &\forall n \geq N_2\colon |b_n - b| < \frac{\varepsilon}{2(|a| + 1)},\\
+        &\forall n \geq N_3\colon |b_n - b| < 1, \text{ so that } |b_n| < |b| + 1.
       \end{align*}
-      Then let $N = \max\{N_1, N_2, N_3\}$. Then $\forall n\geq N$,
+      Let $N = \max\{N_1, N_2, N_3\}$. Then $\forall n \geq N$,
       \begin{align*}
         |a_nb_n - ab| &= |b_n(a_n - a) + a(b_n - b)|\\
         &\leq |b_n| |a_n - a| + |a||b_n - b|\\
@@ -1970,15 +1973,15 @@ In proving this, we will make frequent use of the \emph{triangle inequality}: $|
         &< \frac{\varepsilon}{2} + \frac{\varepsilon}{2}\\
         &= \varepsilon
       \end{align*}
-    \item Given $\varepsilon > 0$, then $\exists N_1, N_2$ such that $|a_n - a| < \frac{|a|^2}{2}\varepsilon$ and $|a_n - a| < \frac{|a|}{2}$.
+    \item Given $\varepsilon > 0$, choose $N_1$ such that $|a_n - a| < \frac{|a|^2}{2}\varepsilon$ for $n \geq N_1$, and $N_2$ such that $|a_n - a| < \frac{|a|}{2}$ for $n \geq N_2$ (so that $|a_n| > \frac{|a|}{2}$).
 
-      Let $N = \max\{N_1, N_2\}$. The $\forall n \geq N$,
+      Let $N = \max\{N_1, N_2\}$. Then $\forall n \geq N$,
       \begin{align*}
         \left|\frac{1}{a_n} - \frac{1}{a}\right| &= \frac{|a_n - a|}{|a_n||a|}\\
         &< \frac{2}{|a|^2}|a_n - a|\\
         &< \varepsilon
       \end{align*}
-    \item By (iii) to (v), we know that $b_n - a_n \to 0$. Let $\varepsilon > 0$. Then $\exists N$ such that $\forall n\geq N$, we have $|b_n - a_n| < \varepsilon$. So $|c_n - a_n| < \varepsilon$. So $c_n - a_n \to 0$. So $c_n = (c_n - a_n) + a_n \to a$.\qedhere
+    \item By (iii) and (iv), $b_n - a_n \to a - a = 0$. Given $\varepsilon > 0$, choose $N$ such that $|b_n - a_n| < \varepsilon$ for all $n \geq N$. Since $0 \leq c_n - a_n \leq b_n - a_n$, we have $|c_n - a_n| < \varepsilon$, so $c_n - a_n \to 0$. Then $c_n = (c_n - a_n) + a_n \to 0 + a = a$ by (iv).\qedhere
   \end{enumerate}
 \end{proof}
 
