@@ -2134,68 +2134,63 @@ However, $\Q$ is not enough for our purposes.
 \end{proof}
 
 \subsection{Algebraic numbers}
-Rational numbers are ``nice'', because they can be written as fractions. Irrational numbers are bad. However, some irrational numbers are worse than others. We can further classify some irrational numbers as being \emph{transcendental}.
 \begin{defi}[Algebraic and transcendental numbers]
-  An \emph{algebraic number} is a root of a polynomial with integer coefficients (or rational coefficients). A number is \emph{transcendental} if it is not algebraic.
+  An \emph{algebraic number} is a root of a polynomial with integer coefficients. A real number is \emph{transcendental} if it is not algebraic.
 \end{defi}
 
 \begin{prop}
-  All rational numbers are algebraic.
+  Every rational number is algebraic.
 \end{prop}
 
 \begin{proof}
-  Let $x = \frac{p}{q}$, then $x$ is a root of $qx - p = 0$.
+  If $x = \frac{p}{q}$, then $x$ is a root of $qx - p = 0$.
 \end{proof}
 
 \begin{eg}
-  $\sqrt{2}$ is irrational but algebraic since it is a root of $x^2 - 2 = 0$.
+  $\sqrt{2}$ is irrational but algebraic, being a root of $x^2 - 2 = 0$.
 \end{eg}
 
-So do transcendental numbers exist?
-\begin{thm}
-  (Liouville 1851; Non-examinable) $L$ is transcendental, where
+\begin{thm}[Liouville, 1851; non-examinable]
+  The \emph{Liouville constant}
   \[
-    L = \sum_{n = 1}^\infty \frac{1}{10^{n!}} = 0.11000100\cdots
+    L = \sum_{n = 1}^\infty \frac{1}{10^{n!}} = 0.11000100\ldots
   \]
-  with $1$s in the factorial positions.
+  (with $1$s in the factorial positions) is transcendental.
 \end{thm}
 
 \begin{proof}
-  Suppose instead that $f(L) = 0$ where $f(x) = a_kx^k + a_{k -1}x^{k - 1} + \cdots + a_0$, where $a_i\in \Z$, $a_k\not= 0$.
+  Suppose for contradiction that $f(L) = 0$, where $f(x) = a_k x^k + a_{k-1} x^{k-1} + \cdots + a_0$ with $a_i \in \Z$ and $a_k \neq 0$.
 
-  For any rational $p/q$, we have
+  For any rational $p/q$ that is not a root of $f$,
   \[
-    f\left(\frac{p}{q}\right) = a_k\left(\frac{p}{q}\right)^k + \cdots + a_0 = \frac{\text{integer}}{q^k}.
+    f\left(\frac{p}{q}\right) = \frac{\text{integer}}{q^k} \neq 0, \quad \text{so } \left|f\!\left(\frac{p}{q}\right)\right| \geq q^{-k}.
   \]
-  So if $p/q$ is not a root of $f$, then $|f(p/q)| \geq q^{-k}$.
 
-  For any $m$, we can write $L = $ first $m$ terms + rest of the terms $ = s + t$.
+  For any $m$, write $L = s + t$ where $s = \sum_{n=1}^{m} 10^{-n!}$ and $t = \sum_{n=m+1}^{\infty} 10^{-n!}$.
 
-  Now consider $|f(s)| = |f(L) - f(s)|$ (since $f(L) = 0$). We have
+  Since $f(L) = 0$, we have
   \begin{align*}
-    |f(L) - f(s)| &= \left|\sum a_i(L^i - s^i)\right|\\
-    &\leq \sum |a_i(L^i - s^i)|\\
-    &= \sum |a_i|(L - s)(L^{i - 1} + \cdots + s^{i - 1})\\
-    &\leq \sum |a_i|(L - s)i,\\
-    &= (L - s)\sum i|a_i|\\
-    &= tC
+    |f(s)| = |f(s) - f(L)| &= \left|\sum a_i(s^i - L^i)\right|\\
+    &\leq \sum |a_i| \cdot |L - s| \cdot (L^{i-1} + \cdots + s^{i-1})\\
+    &\leq t \sum i|a_i| = tC,
   \end{align*}
-  with $C = \sum i|a_i|$.
+  where $C = \sum i|a_i|$ (using $0 < s < L < 1$).
 
-  Writing $s$ as a fraction, its denominator is at most $10^{m!}$. So $|f(s)| \geq 10^{-k\times m!}$. Combining with the above, we have $tC \geq 10^{-k\times m!}$.
+  Writing $s$ as a fraction, its denominator is at most $10^{m!}$, so $|f(s)| \geq 10^{-km!}$. Hence $tC \geq 10^{-km!}$.
 
-  We can bound $t$ by
+  We bound $t$ by
   \[
-    t = \sum_{j = m + 1}^\infty 10^{-j!} \leq \sum_{\ell = (m + 1)!}^\infty 10^{-\ell} = \frac{10}{9}10^{-(m + 1)!}.
+    t = \sum_{j = m + 1}^\infty 10^{-j!} \leq \sum_{\ell = (m + 1)!}^\infty 10^{-\ell} = \frac{10}{9} \cdot 10^{-(m+1)!}.
   \]
-  So $(10C/9)10^{-(m + 1)!} \geq 10^{-k\times m!}$. Pick $m\in \N$ so that $m > k$ and $10^{m!} > \frac{10C}{9}$. This is always possible since both $k$ and $10C/9$ are constants. Then the inequality gives $10^{-(m + 1)} \geq 10^{-(k + 1)}$, which is a contradiction since $m > k$.
+  So $\frac{10C}{9} \cdot 10^{-(m+1)!} \geq 10^{-km!}$. Pick $m > k$ with $10^{m!} > \frac{10C}{9}$ (possible since $k$ and $C$ are fixed). Then $10^{-m \cdot m!} \geq 10^{-km!}$, giving $m \leq k$, a contradiction.
 \end{proof}
 
-\begin{thm}
-  (Hermite 1873) $e$ is transcendental.
+\begin{thm}[Hermite, 1873]
+  $e$ is transcendental.
 \end{thm}
-\begin{thm}
-  (Lindermann 1882) $\pi$ is transcendental.
+
+\begin{thm}[Lindemann, 1882]
+  $\pi$ is transcendental.
 \end{thm}
 
 \section{Countability}
