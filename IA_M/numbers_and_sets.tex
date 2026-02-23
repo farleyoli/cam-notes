@@ -2194,66 +2194,59 @@ However, $\Q$ is not enough for our purposes.
 \end{thm}
 
 \section{Countability}
-After messing with numbers, we finally get back to sets. Here we are concerned about the sizes of sets. We can count how big a set is by constructing bijections. Two sets have the same number of things if there is a bijection between them. In particular, a set has $n$ things if we can bijection it with $[n] = \{1, 2, 3, \cdots, n\}$.
-
-First prove a few preliminary properties about bijecting with $[n]$ that should be obviously true.
 
 \begin{lemma}
   If $f:[n] \to [n]$ is injective, then $f$ is bijective.
 \end{lemma}
 
 \begin{proof}
-  Perform induction on $n$: It is true for $n = 1$. Suppose $n > 1$. Let $j = f(n)$. Define $g: [n]\to [n]$ by
+  By induction on $n$. The case $n = 1$ is immediate. Suppose $n > 1$. Let $j = f(n)$ and define $g\colon [n] \to [n]$ by
   \[
-    g(j) = n,\quad g(n) = j, \quad g(i) = i \text{ otherwise}.
+    g(j) = n, \quad g(n) = j, \quad g(i) = i \text{ otherwise}.
   \]
-  Then $g$ is a bijection. So the map $g\circ f$ is injective. It fixes $n$, i.e.\ $g\circ f(n) = n$. So the map $h:[n - 1]\to [n - 1]$ by $h(i) = g\circ f(i)$ is well-defined and injective. So $h$ is surjective. So $h$ is bijective. So $g\circ f$ is bijective. So is $f$.
+  Then $g$ is a bijection, so $g \circ f$ is injective and fixes $n$. Hence $h\colon [n-1] \to [n-1]$ defined by $h(i) = g \circ f(i)$ is well-defined and injective. By the induction hypothesis, $h$ is bijective, so $g \circ f$ is bijective, and therefore so is $f$.
 \end{proof}
 
 \begin{cor}
-  If $A$ is a set and $f: A\to [n]$ and $g: A\to [m]$ are both bijections, then $m = n$.
+  If $A$ is a set and $f\colon A \to [n]$ and $g\colon A \to [m]$ are both bijections, then $m = n$.
 \end{cor}
 
 \begin{proof}
-  wlog assume $m \geq n$. Let $h: [n]\to [m]$ with $h(i) = i$, which is injective. Then the map $h\circ f\circ g^{-1}: [m]\to [m]$ is injective. Then by the lemma this is surjective. So $h$ must be surjective. So $n\geq m$. Hence $n = m$.
+  Without loss of generality assume $m \geq n$. The inclusion $h\colon [n] \hookrightarrow [m]$ defined by $h(i) = i$ is injective. Then $h \circ f \circ g^{-1}\colon [m] \to [m]$ is injective, hence bijective by the lemma. So $h$ is surjective, giving $n \geq m$. Hence $n = m$.
 \end{proof}
-This shows that we cannot biject a set to two different numbers, or a set cannot have two different sizes!
 
 \begin{defi}[Finite set and cardinality of set]
-  The set $A$ is \emph{finite} if there exists a bijection $A\to [n]$ for some $n\in\N_0$. The \emph{cardinality} or \emph{size} of $A$, written as $|A|$, is $n$. By the above corollary, this is well-defined.
+  A set $A$ is \emph{finite} if there exists a bijection $A \to [n]$ for some $n \in \N_0$. The \emph{cardinality} or \emph{size} of $A$, written $|A|$, is $n$. By the above corollary, this is well-defined.
 \end{defi}
 
 \begin{lemma}
-  Let $S\subseteq \N$. Then either $S$ is finite or there is a bijection $g:\N \to S$.
+  Let $S \subseteq \N$. Then either $S$ is finite or there is a bijection $g\colon \N \to S$.
 \end{lemma}
 
 \begin{proof}
-  If $S\not= \emptyset$, by the well-ordering principle, there is a least element $s_1\in S$. If $S\setminus \{s_1\} \not= \emptyset$, it has a least element $s_2$. If $S\setminus \{s_1, s_2\}$ is not empty, there is a least element $s_3$. If at some point the process stops, then $S = \{s_1, s_2,\cdots, s_n\}$, which is finite. Otherwise, if it goes on forever, the map $g: \N \to S$ given by $g(i) = s_i$ is well-defined and is an injection. It is also a surjection because if $k\in S$, then $k$ is a natural number and there are at most $k$ elements of $S$ less than $k$. So $k$ will be mapped to $s_i$ for some $i\leq k$.
+  If $S \neq \emptyset$, by the well-ordering principle it has a least element $s_1$. If $S \setminus \{s_1\} \neq \emptyset$, it has a least element $s_2$, and so on. If this process terminates, then $S = \{s_1, s_2, \ldots, s_n\}$ is finite. Otherwise, the map $g\colon \N \to S$ given by $g(i) = s_i$ is an injection. It is also a surjection: if $k \in S$, then there are at most $k$ elements of $S$ less than $k$, so $k = s_i$ for some $i \leq k$.
 \end{proof}
 
 \begin{defi}[Countable set]
-  A set $A$ is \emph{countable} if $A$ is finite or there is a bijection between $A$ and $\N$. A set $A$ is \emph{uncountable} if $A$ is not countable.
+  A set $A$ is \emph{countable} if $A$ is finite or there is a bijection between $A$ and $\N$. A set is \emph{uncountable} if it is not countable.
 \end{defi}
 
-This is one possible definition of countability, but there are some (often) more helpful definitions.
 \begin{thm}
   The following are equivalent:
   \begin{enumerate}
-    \item $A$ is countable
-    \item There is an injection from $A\to \N$
-    \item $A = \emptyset$ or there is a surjection from $\N \to A$
+    \item $A$ is countable.
+    \item There is an injection $A \to \N$.
+    \item $A = \emptyset$ or there is a surjection $\N \to A$.
   \end{enumerate}
 \end{thm}
 
 \begin{proof}
-  (i) $\Rightarrow$ (iii): If $A$ is finite, there is a bijection $f: A \to S$ for some $S\subseteq \N$. For all $x\in \N$, if $x\in S$, then map $x\mapsto f^{-1}(x)$. Otherwise, map $x$ to any element of $A$. This is a surjection since $\forall a\in A$, we have $f(a)\mapsto a$.
+  (i) $\Rightarrow$ (iii): If $A$ is non-empty and finite, there is a bijection $f\colon A \to S$ for some $S \subseteq \N$. Define $h\colon \N \to A$ by $h(x) = f^{-1}(x)$ if $x \in S$, and $h(x) = $ any fixed element of $A$ otherwise. Then $h$ is a surjection.
 
-  (iii) $\Rightarrow$ (ii): If $A\not= \emptyset$ and $f: \N\to A$ is a surjection. Define a map $g: A\to \N$ by $g(a) = \min f^{-1}(\{a\})$, which exists by well-ordering. So $g$ is an injection.
+  (iii) $\Rightarrow$ (ii): Suppose $A \neq \emptyset$ and $f\colon \N \to A$ is a surjection. Define $g\colon A \to \N$ by $g(a) = \min f^{-1}(\{a\})$, which exists by well-ordering. Then $g$ is an injection.
 
-  (ii) $\Rightarrow$ (i): If there is an injection $f: A\to \N$, then $f$ gives a bijection between $A$ and $S = f(A)\subseteq \N$. If $S$ is finite, so is $A$. If $S$ is infinite, there is a bijection $g$ between $S$ and $\N$. So there is a bijection $g\circ f$ between $A$ and $\N$.
+  (ii) $\Rightarrow$ (i): If $f\colon A \to \N$ is an injection, then $f$ gives a bijection between $A$ and $S = f(A) \subseteq \N$. If $S$ is finite, so is $A$. If $S$ is infinite, the previous lemma gives a bijection $g\colon \N \to S$, so $g^{-1} \circ f$ is a bijection $A \to \N$.
 \end{proof}
-
-Often, the injection definition is the most helpful.
 
 \begin{prop}
   The integers $\Z$ are countable.
@@ -2276,7 +2269,7 @@ Often, the injection definition is the most helpful.
 \begin{proof}
   We can map $(a, b)\mapsto 2^a3^b$ injectively by the fundamental theorem of arithmetic. So $\N\times \N$ is countable.
 
-  We can also have a bijection by counting diagonally: $(a, b) \mapsto \binom{a + b}{2} - a + 1$:
+  Alternatively, the map $(a, b) \mapsto \binom{a + b}{2} - a + 1$ is a bijection (counting along diagonals):
   \begin{center}
     \begin{tikzpicture}[scale=1.8]
       \draw (0, 0) -- (0, 3.5);
@@ -2302,18 +2295,20 @@ Often, the injection definition is the most helpful.
   \end{center}
 \end{proof}
 
-Since $\Z$ is countable, we have an injection $\Z\to \N$, so there is an injection from $\Z\times \N\to \N\times \N \to \N$. So $\Z \times \N$ is countable. However, the rationals are the equivalence classes of $\Z\times\N$. So $\Q$ is countable.
-
 \begin{prop}
-  If $A\to B$ is injective and $B$ is countable, then $A$ is countable (since we can inject $B \to \N$).
-\end{prop}
-
-\begin{prop}
-  $\Z^k$ is countable for all $k\in \N$
+  If $f\colon A \to B$ is injective and $B$ is countable, then $A$ is countable.
 \end{prop}
 
 \begin{proof}
-  Proof by induction: $\Z$ is countable. If $\Z^k$ is countable, $\Z^{k + 1} = \Z\times \Z^k$. Since we can map $\Z^k \to \N$ injectively by the induction hypothesis, we can map injectively $\Z^{k + 1}\to \Z\times \N$, and we can map that to $\N$ injectively.
+  There is an injection $B \to \N$, so composing gives an injection $A \to \N$.
+\end{proof}
+
+\begin{prop}
+  $\Z^k$ is countable for all $k \in \N$.
+\end{prop}
+
+\begin{proof}
+  By induction on $k$. The base case $\Z$ is countable. If $\Z^k$ is countable, then there is an injection $\Z^k \to \N$, giving an injection $\Z^{k+1} = \Z \times \Z^k \to \Z \times \N \to \N \times \N \to \N$.
 \end{proof}
 
 \begin{thm}
@@ -2321,29 +2316,25 @@ Since $\Z$ is countable, we have an injection $\Z\to \N$, so there is an injecti
 \end{thm}
 
 \begin{proof}
-  Let $I$ be a countable index set, and for each $\alpha \in I$, let $A_\alpha$ be a countable set. We need to show that $\bigcup_{\alpha\in I} A_\alpha$ is countable. It is enough to construct an injection $h: \bigcup_{\alpha\in I} A_\alpha \to \N\times \N$ because $\N\times\N$ is countable. We know that $I$ is countable. So there exists an injection $f: I\to \N$. For each $\alpha\in I$, there exists an injection $g_\alpha: A_\alpha \to\N$.
+  Let $I$ be a countable index set, and for each $\alpha \in I$, let $A_\alpha$ be a countable set. It suffices to construct an injection $h\colon \bigcup_{\alpha \in I} A_\alpha \to \N \times \N$. Since $I$ is countable, there exists an injection $f\colon I \to \N$. For each $\alpha \in I$, there exists an injection $g_\alpha\colon A_\alpha \to \N$.
 
-  For $a\in \bigcup A_\alpha$, pick $m = \min\{j\in \N: a\in A_{\alpha}\text{ and }f(\alpha) = j\}$, and let $\alpha$ be the corresponding index such that $f(\alpha) = m$. We then set $h(a) = (m, g_\alpha(a))$, and this is an injection.
+  For $a \in \bigcup A_\alpha$, let $m = \min\{f(\alpha) : a \in A_\alpha\}$ and let $\alpha$ be the index with $f(\alpha) = m$. Set $h(a) = (m, g_\alpha(a))$. This is an injection.
 \end{proof}
 
 \begin{prop}
   $\Q$ is countable.
 \end{prop}
 \begin{proof}
-  It can be proved in two ways:
-  \begin{enumerate}
-    \item $\Q = \bigcup_{n\geq 1} \frac{1}{n}\Z = \bigcup_{n\geq 1} \left\{\frac{m}{n}: m\in \Z\right\}$, which is a countable union of countable sets.
-    \item $\Q$ can be mapped injectively to $\Z\times \N$ by $a/b\mapsto (a, b)$, where $b > 0$ and $(a, b) = 1$.\qedhere
-  \end{enumerate}
+  Either observe that $\Q = \bigcup_{n \geq 1} \left\{\frac{m}{n} : m \in \Z\right\}$ is a countable union of countable sets, or note that $a/b \mapsto (a, b)$ (with $b > 0$ and $(a, b) = 1$) is an injection $\Q \to \Z \times \N$.
 \end{proof}
 
 \begin{thm}
   The set of algebraic numbers is countable.
 \end{thm}
 \begin{proof}
-  Let $\mathcal{P}_k$ be the set of polynomials of degree $k$ with integer coefficients. Then $a_kx^k + a_{k - 1}x^{k - 1} + \cdots + a_0 \mapsto (a_k, a_{k - 1}, \cdots, a_0)$ is an injection $\mathcal{P}_k \to \Z^{k + 1}$. Since $\Z^{k + 1}$ is countable, so is $\mathcal{P}_k$.
+  Let $\mathcal{P}_k$ be the set of polynomials of degree $k$ with integer coefficients. The map $a_k x^k + \cdots + a_0 \mapsto (a_k, \ldots, a_0)$ is an injection $\mathcal{P}_k \to \Z^{k+1}$, so $\mathcal{P}_k$ is countable.
 
-  Let $\mathcal{P}$ be the set of all polynomials with integer coefficients. Then clearly $\mathcal{P} = \bigcup \mathcal{P}_k$. This is a countable union of countable sets. So $\mathcal{P}$ is countable.
+  The set $\mathcal{P} = \bigcup_{k \geq 0} \mathcal{P}_k$ of all polynomials with integer coefficients is a countable union of countable sets, hence countable.
 
   For each polynomial $p \in \mathcal{P}$, let $R_p$ be the set of its roots. Then $R_p$ is finite and thus countable. Hence $\bigcup_{p\in \mathcal{P}} R_p$, the set of all algebraic numbers, is countable.
 \end{proof}
@@ -2353,61 +2344,44 @@ Since $\Z$ is countable, we have an injection $\Z\to \N$, so there is an injecti
 \end{thm}
 
 \begin{proof}
-  (Cantor's diagonal argument) Assume $\R$ is countable. Then we can list the reals as $r_1,r_2,r_3\cdots$ so that every real number is in the list. Write each $r_n$ uniquely in decimal form (i.e.\ without infinite trailing '9's). List them out vertically:
+  (Cantor's diagonal argument.) Suppose $\R$ is countable, and list the reals as $r_1, r_2, r_3, \ldots$ Write each $r_n$ in its unique decimal form (without trailing $9$s):
   \begin{align*}
-    r_1 &= n_1\,.\,d_{11}\,d_{12}\,d_{13}\,d_{14}\cdots\\
-    r_2 &= n_2\,.\,d_{21}\,d_{22}\,d_{23}\,d_{24}\cdots\\
-    r_3 &= n_3\,.\,d_{31}\,d_{32}\,d_{33}\,d_{34}\cdots\\
-    r_4 &= n_4\,.\,d_{41}\,d_{42}\,d_{43}\,d_{44}\cdots
+    r_1 &= n_1\,.\,d_{11}\,d_{12}\,d_{13}\,d_{14}\,\ldots\\
+    r_2 &= n_2\,.\,d_{21}\,d_{22}\,d_{23}\,d_{24}\,\ldots\\
+    r_3 &= n_3\,.\,d_{31}\,d_{32}\,d_{33}\,d_{34}\,\ldots\\
+    r_4 &= n_4\,.\,d_{41}\,d_{42}\,d_{43}\,d_{44}\,\ldots
   \end{align*}
-  Define $r = 0\,.\,d_1\,d_2\,d_3\,d_4\cdots$ by $d_n =
+  Define $r = 0\,.\,d_1\,d_2\,d_3\,d_4\,\ldots$ by $d_n =
   \begin{cases}
-    0 & d_{nn}\not= 0\\
-    1 & d_{nn}=0
-  \end{cases}$. Then by construction, this differs from the $n$th number in the list by the $n$th digit, and is so different from every number in the list. Then $r$ is a real number but not in the list. Contradiction.
+    0 & d_{nn} \neq 0\\
+    1 & d_{nn} = 0
+  \end{cases}$. Then $r$ differs from $r_n$ in the $n$th decimal place for every $n$, so $r$ is not in the list. Contradiction.
 \end{proof}
 
 \begin{cor}
-  There are uncountable many transcendental numbers.
+  There are uncountably many transcendental numbers.
 \end{cor}
 
 \begin{proof}
-  If not, then the reals, being the union of the transcendentals and algebraic numbers, must be countable. But the reals is uncountable.
+  If not, then $\R$ is the union of two countable sets (the algebraic and transcendental numbers), hence countable. But $\R$ is uncountable.
 \end{proof}
-This is an easy but non-constructive proof that transcendental numbers exists. ``If we can't find one, find lots!'' (it is debatable whether this proof is constructive or not. Some argue that we can use this to construct a transcendental number by listing all the algebraic numbers and perform the diagonal argument to obtain a number not in the list, i.e.\ a transcendental number. So this is in fact constructive)
 
 \begin{eg}
-  Let $\mathcal{F}_k = \{Y\subseteq \N: |Y| = k\}$, i.e.\ the set of all subsets of $\N$ of size $k$. We can inject $\mathcal{F}_k \to \Z^k$ in the obvious way, e.g.\ $\{1, 3, 7\}\mapsto (1, 3, 7)$ etc. So it is countable. So $\mathcal{F} = \bigcup_{k\geq 0}\mathcal{F}_k$, the set of all finite subsets of $\N$ is countable.
+  Let $\mathcal{F}_k = \{Y \subseteq \N : |Y| = k\}$. Listing the elements of each $Y$ in increasing order gives an injection $\mathcal{F}_k \to \N^k$, so $\mathcal{F}_k$ is countable. Hence $\mathcal{F} = \bigcup_{k \geq 0} \mathcal{F}_k$, the set of all finite subsets of $\N$, is countable.
 \end{eg}
 
 \begin{eg}
-  Recall $\mathcal{P}(X) = \{Y: Y\subseteq X\}$. Now suppose $\mathcal{P}(\N)$ is countable. Let $S_1,S_2,S_3, \cdots$ be the list of all subsets of $\N$. Let $S = \{n: n\not\in S_n\}$. But then $S$ is not in the list. Contradiction. So $\mathcal{P}(\N)$ is uncountable.
+  Suppose $\mathcal{P}(\N)$ is countable, and list its elements as $S_1, S_2, S_3, \ldots$ Let $S = \{n : n \notin S_n\}$. Then $S \neq S_n$ for any $n$ (since $n \in S \iff n \notin S_n$), so $S$ is not in the list. Contradiction. Hence $\mathcal{P}(\N)$ is uncountable.
 \end{eg}
 
 \begin{eg}
-  Let $\Sigma$ be the set of all functions $\N\to \N$ (i.e.\ the set of all integer sequences). If $\Sigma$ were countable, we could list it as $f_1, f_2, f_3\cdots$. But then consider $f$ given by $f(n) =
+  Let $\Sigma$ be the set of all functions $\N \to \N$. If $\Sigma$ were countable, list it as $f_1, f_2, f_3, \ldots$ Define $f$ by $f(n) =
   \begin{cases}
-    1 & f_n(n) \not= 1\\
+    1 & f_n(n) \neq 1\\
     2 & f_n(n) = 1
-  \end{cases}$. Again $f$ is not in the list. Contradiction. So $\Sigma$ is uncountable.
+  \end{cases}$. Then $f \neq f_n$ for any $n$, so $f$ is not in the list. Contradiction.
 
-  Alternatively, there is a bijection between $\mathcal{P}(\N)$ and the set of 0, 1 sequences by $S\mapsto$ the indicator function. So we can inject $\mathcal{P}(\N) \to \Sigma$ by $S\mapsto $ indicator function $+1$. So $\Sigma$ cannot be countable (since $\mathcal{P}(\N)$ is uncountable).
-
-  Or, we can let $\Sigma^*\subseteq \Sigma$ be the set of bijections from $\N\to\N$. Let $\Sigma^{**}\subseteq \Sigma^*$ be the bijections of the special form: for every $n$,
-  \[
-    \text{either}
-    \begin{cases}
-      f(2n - 1) = 2n - 1\\
-      f(2n) = 2n
-    \end{cases}\text{, or }
-    \begin{cases}
-      f(2n - 1) = 2n\\
-      f(2n) = 2n - 1
-    \end{cases},
-  \]
-  i.e.\ for every odd-even pair, we either flip them or keep them the same.
-
-  But there is a bijection between $\Sigma^{**}$ and $0,1$ sequences: if the $n$th term in the sequence $ = 0$, don't flip the $n$th pair in the function, vice versa. Hence $\Sigma^{**}$ is uncountable.
+  Alternatively, the map $S \mapsto \mathbf{1}_S$ (indicator function) is a bijection $\mathcal{P}(\N) \to \{0, 1\}^{\N}$, and $\{0, 1\}^{\N} \subseteq \Sigma$. Since $\mathcal{P}(\N)$ is uncountable, so is $\Sigma$.
 \end{eg}
 
 \begin{thm}
