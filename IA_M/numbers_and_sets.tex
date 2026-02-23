@@ -2073,36 +2073,34 @@ However, $\Q$ is not enough for our purposes.
 \end{proof}
 
 \subsection{Irrational numbers}
-Recall $\Q\subseteq \R$.
 \begin{defi}[Irrational number]
-  Numbers in $\R\setminus \Q$ are \emph{irrational}.
+  A real number that is not rational is \emph{irrational}. The set of irrational numbers is $\R \setminus \Q$.
 \end{defi}
 
-\begin{defi}[Periodic number]
-  A decimal is \emph{periodic} if after a finite number $\ell$ of digits, it repeats in blocks of $k$ for some $k$, i.e.\ $d_{n + k} = d_n$ for $n > \ell$.
+\begin{defi}[Periodic decimal]
+  A decimal expansion $0.d_1 d_2 \ldots$ is \emph{periodic} if there exist $\ell$ and $k$ such that $d_{n + k} = d_n$ for all $n > \ell$.
 \end{defi}
 
 \begin{prop}
-  A number is periodic iff it is rational.
+  A decimal expansion is periodic if and only if it represents a rational number.
 \end{prop}
 
 \begin{proof}
-  Clearly a periodic decimal is rational: Say $x = 0.7413157157157\cdots$. Then
+  A periodic decimal is rational: for example, if $x = 0.7413157157157\ldots$, then
   \begin{align*}
-    10^\ell x &= 10^4x\\
-    &= 7413.157157\cdots \\
+    10^4 x &= 7413.157157\ldots \\
     &= 7413 + 157\left(\frac{1}{10^3} + \frac{1}{10^6} + \frac{1}{10^9} + \cdots\right)\\
-    &= 7413 + 157\cdot \frac{1}{10^3}\cdot \frac{1}{1 - 1/10^3}\in \Q
+    &= 7413 + 157 \cdot \frac{1}{10^3} \cdot \frac{1}{1 - 1/10^3} \in \Q.
   \end{align*}
-  Conversely, let $x\in \Q$. Then $x$ has a periodic decimal. Suppose $x = \frac{p}{2^c5^dq}$ with $(q, 10) = 1$. Then $10^{\max(c, d)}x = \frac{a}{q} = n + \frac{b}{q}$ for some $a, b, n\in \Z$ and $0\leq b < q$. However, since $(q, 10) = 1$, by Fermat-Euler, $10^{\phi(q)}\equiv 1\pmod q$, i.e.\ $10^{\phi(q)} - 1 = kq$ for some $k$. Then
+  Conversely, let $x \in \Q$. Write $x = \frac{p}{2^c 5^d q}$ with $(q, 10) = 1$. Then $10^{\max(c, d)} x = \frac{a}{q} = n + \frac{b}{q}$ for some $a, b, n \in \Z$ with $0 \leq b < q$. Since $(q, 10) = 1$, Fermat--Euler gives $10^{\phi(q)} \equiv 1 \pmod{q}$, i.e.\ $10^{\phi(q)} - 1 = kq$ for some $k$. Then
   \[
-    \frac{b}{q} = \frac{kb}{kq} = \frac{kb}{999\cdots 9} = kb\left(\frac{1}{10^{\phi(q)}} + \frac{1}{10^{2\phi(q)}} + \cdots \right).
+    \frac{b}{q} = \frac{kb}{kq} = \frac{kb}{10^{\phi(q)} - 1} = kb\left(\frac{1}{10^{\phi(q)}} + \frac{1}{10^{2\phi(q)}} + \cdots \right).
   \]
-  Since $kb < kq < 10^{\phi(q)}$, write $kb = d_1d_2\cdots d_{\phi(q)}$. So $\frac{b}{q} = 0.d_1d_2\cdots d_{\phi(q)}d_1d_2\cdots$ and $x$ is periodic.
+  Since $kb < kq = 10^{\phi(q)} - 1$, write $kb = d_1 d_2 \ldots d_{\phi(q)}$. Then $\frac{b}{q} = 0.d_1 d_2 \ldots d_{\phi(q)} d_1 d_2 \ldots$\!, so $x$ is periodic.
 \end{proof}
 
 \begin{eg}
-  $x = 0.01101010001010\cdots$, where $1$s appear in prime positions, is irrational since the digits don't repeat.
+  $x = 0.01101010001010\ldots$, where $1$s appear in prime positions, is irrational since the digits do not repeat.
 \end{eg}
 \subsection{Euler's number}
 \begin{defi}[Euler's number]
