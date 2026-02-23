@@ -1613,43 +1613,39 @@ In \emph{asymmetric} (or \emph{public-key}) encryption, anyone can encrypt a mes
 \end{remark}
 
 \section{Real numbers}
-So far, we have only worked with natural numbers and integers. Unfortunately the real world often involves rational numbers and even real numbers. In this chapter, our goal is to study real numbers. To do so, we will first have to define the real numbers. To do so, we will start from the natural numbers.
+\begin{remark}[The axiomatic approach]
+  We define each number system (e.g.\ the real numbers) as a set equipped with operations satisfying certain \emph{axioms}. Two questions arise: does such a set exist, and is it unique?
 
-Before we start, an important (philosophical) point has to be made. The idea is to define, say, the ``real numbers'' as a set with some operations (e.g.\ addition, multiplication) that satisfies some particular properties, known as the \emph{axioms}. When we do this, there are two questions we can ask --- is there actually a set that satisfies these properties, and is it unique?
+  Existence is established by an explicit construction. However, the construction serves only to show that the axioms are consistent; we do not regard the constructed objects as what the numbers ``really are.'' For example, we will construct a real number as a pair of subsets of $\Q$, but it would be absurd to ask whether
+  \[
+    \exists x\colon x \in 3 \vee x \in \pi.
+  \]
+  Uniqueness is more subtle: different constructions yield isomorphic structures, but the proofs are non-trivial (cf.\ IID Logic and Set Theory).
 
-The first question can be answered by an explicit construction, i.e.\ we find a concrete set that actually satisfies these properties. However, it is important to note that we perform the construction only to show that it makes sense to talk about such a set. For example, we will construct a real number as a pair of subsets of $\Q$, but it would be absurd to actually think that a real number ``is'' a pair of sets. It's just that it \emph{can be constructed} as a pair of sets. You would be considered insane if you asked if
-\[
-  \exists x: x \in 3 \vee x \in \pi
-\]
-holds, even though it is a valid thing to ask if we view each real number as a set (and is in fact true).
-
-The next problem of uniqueness is more subtle. Firstly, it is clear that the constructions themselves aren't unique --- instead of constructing the natural number $0$ as the set $\emptyset$, as we will later do, we could as well define it as $\{\{\emptyset\}\}$, and the whole construction will go through. However, we could still hope that all possible constructions are ``isomorphic'' in some way. It turns out this is true for what we have below, but the proofs are not trivial.
-
-However, while this is nice, \emph{it doesn't really matter}. This is since we don't care how, say, the real numbers are constructed. When working with them, we just assume that they satisfy the relevant defining properties. So we can just choose \emph{anything} that satisfies the axioms, and use it. The fact that there are other ones not isomorphic to this is not a problem.
-
-Since we are mostly interested in the natural numbers and the real numbers, we will provide \emph{both} the axiomatic description and explicit construction for these. However, we will only give explicit constructions for the integers and rationals, and we will not give detailed proofs of why they work.
+  In practice, we work only with the axioms, not with any particular construction. For the natural numbers and the real numbers we give both axioms and constructions; for the integers and rationals we give constructions only.
+\end{remark}
 
 \subsection{Construction of numbers}
 \subsubsection*{Construction of natural numbers}
-Our construction of natural numbers will include $0$.
-
 \begin{defi}[Natural numbers]
-  The natural numbers $\N$ is defined by \emph{Peano's axioms}. We call a set $\N$ ``natural numbers'' if it has a special element $0$ and a map $S: \N \to \N$ that maps $n$ to its ``successor'' (intuitively, it is $+1$) such that:
+  The set of natural numbers $\N$ is defined by \emph{Peano's axioms}. We call $\N$ the ``natural numbers'' if it has a distinguished element $0$ and a map $S\colon \N \to \N$ (the \emph{successor} map, intuitively $n \mapsto n + 1$) such that:
   \begin{enumerate}
-    \item $S(n) \not= 0$ for all $n \in \N$
+    \item $S(n) \neq 0$ for all $n \in \N$.
     \item For all $n, m \in \N$, if $S(n) = S(m)$, then $n = m$.
-    \item For any subset $A \subseteq \N$, if $0 \in A$ and ``$n \in A \Rightarrow S(n) \in A$, then in fact $A = \N$.
+    \item (\emph{Axiom of induction}.) For any subset $A \subseteq \N$, if $0 \in A$ and $n \in A \Rightarrow S(n) \in A$, then $A = \N$.
   \end{enumerate}
-  The last axiom is the axiom of induction.
 
-  We write $1 = S(0), 2 = S(1)$, $3 = S(2)$ etc. We can (but will not) prove that the axiom of induction allows us to define functions on $\N$ recursively (cf.\ IID Logic and Set Theory). Assuming this, we can define addition and multiplication recursively by
+  We write $1 = S(0)$, $2 = S(1)$, $3 = S(2)$, etc. One can prove that the axiom of induction allows functions on $\N$ to be defined recursively (cf.\ IID Logic and Set Theory). Assuming this, we define addition and multiplication recursively by
   \begin{align*}
     n + 0 &= n &n\times 0 &= 0\\
     n + S(m) &= S(n + m) & n \times S(m) &= n \times m + n
   \end{align*}
-  We can show by induction that these satisfy the usual rules (e.g.\ associativity, distributivity).
+  and verify by induction that these satisfy the usual rules (associativity, commutativity, distributivity).
 \end{defi}
-We can construct this explicitly by $0 = \emptyset$, $1 = \{0\}$, $2 = \{0, 1\}$ etc. In general, we define $S(n) = \{n\} \cup n$. Note that this is in some sense a circular definition, since we are defining the natural numbers recursively, but to do recursion, we need the natural numbers. Also, it is not clear how we can show this satisfies the axioms above. To actually do this properly, we will need to approach this in a slightly different way, and the details are better left for the IID Logic and Set Theory course.
+
+\begin{remark}[Explicit construction]
+  We can set $0 = \emptyset$, $1 = \{0\}$, $2 = \{0, 1\}$, and in general $S(n) = n \cup \{n\}$. This is in some sense circular: defining the natural numbers recursively presupposes recursion, which itself relies on the natural numbers. Making this rigorous requires a different approach; details are left to the IID Logic and Set Theory course.
+\end{remark}
 
 \subsubsection*{Construction of integers}
 \begin{defi}[Integers]
@@ -1662,14 +1658,14 @@ We can construct this explicitly by $0 = \emptyset$, $1 = \{0\}$, $2 = \{0, 1\}$
   We write $a$ for $[(a, 0)]$ and $-a$ for $[(0, a)]$, and define the operations by
   \begin{align*}
     (a, b) + (c, d) &= (a + c, b + d)\\
-    (a, b)\times (c, d) &= (ac + bd, bd + ad).
+    (a, b)\times (c, d) &= (ac + bd, ad + bc).
   \end{align*}
   We can check that these are well-defined and satisfy the usual properties.
 \end{defi}
 
 \subsubsection*{Construction of rationals}
 \begin{defi}[Rationals]
-  $\Q$ is obtained from $\Z$ by allowing division. Formally, we define $\Q$ to be the equivalence classes of $\Z \times \N$ under the relation
+  $\Q$ is obtained from $\Z$ by allowing division. Formally, we define $\Q$ to be the equivalence classes of $\Z \times (\N \setminus \{0\})$ under the relation
   \[
     (a, b) \sim (c, d)\quad\text{if and only if}\quad ad = bc.
   \]
@@ -1681,7 +1677,6 @@ We can construct this explicitly by $0 = \emptyset$, $1 = \{0\}$, $2 = \{0, 1\}$
   We can check that these are well-defined and satisfy the usual properties.
 \end{defi}
 
-Algebraically, we say $\Q$ is a ``totally ordered field''.
 \begin{defi}[Totally ordered field]
   A set $F$ equipped with binary operations $+, \times$ and relation $\leq$ is a \emph{totally ordered field} if
   \begin{enumerate}
@@ -1695,10 +1690,12 @@ Algebraically, we say $\Q$ is a ``totally ordered field''.
 \end{defi}
 
 \begin{prop}
-  $\Q$ is a totally ordered-field.
+  $\Q$ is a totally ordered field.
 \end{prop}
 
-Examples of non-totally-ordered fields include $\Z_p$, which is a field but not totally ordered.
+\begin{eg}
+  For $p$ prime, $\Z_p$ is a field but cannot be made into a totally ordered field: in any ordered field $1 > 0$ implies $1 + 1 > 0$, $1 + 1 + 1 > 0$, etc., so the field must have characteristic $0$.
+\end{eg}
 \begin{prop}
   $\Q$ is densely ordered, i.e.\ for any $p, q \in \Q$, if $p < q$, then there is some $r \in \Q$ such that $p < r < q$.
 \end{prop}
@@ -1722,62 +1719,59 @@ However, $\Q$ is not enough for our purposes.
 \end{proof}
 
 \subsubsection*{Construction of real numbers}
-As shown above, the rational numbers don't have all the numbers we need. What exactly do we mean by ``numbers are missing''? We might want to say that the problem is that not all polynomial equations have solutions. However, this is not the real problem. First of all, even if we are working with the reals, not all equations have solutions, e.g.\ $x^2 + 1 = 0$. Also, some real numbers such as $\pi$ are not solutions to polynomial equations (with integer coefficients), but we still want them.
-
-The real problem is expressed in terms of least upper bounds, or suprema.
+\begin{remark}
+  The rational numbers are incomplete: the set $\{q \in \Q : q^2 < 2\}$ is bounded above in $\Q$ but has no rational supremum. The correct way to express this deficiency is not in terms of polynomial equations (e.g.\ $x^2 + 1 = 0$ has no real solution either, and transcendental numbers like $\pi$ are not algebraic), but in terms of \emph{least upper bounds}.
+\end{remark}
 
 \begin{defi}[Least upper bound/supremum and greatest lower bound/infimum]
-  For an ordered set $X$, $s\in X$ is a \emph{least upper bound} (or \emph{supremum}) for the set $S\subseteq X$, denoted by $s = \sup S$, if
+  Let $X$ be an ordered set. An element $s \in X$ is a \emph{least upper bound} (or \emph{supremum}) for $S \subseteq X$, written $s = \sup S$, if
   \begin{enumerate}
-    \item $s$ is an upper bound for $S$, i.e.\ for every $x \in S$, we have $x \leq s$.
+    \item $s$ is an upper bound for $S$, i.e.\ $x \leq s$ for every $x \in S$;
     \item if $t$ is any upper bound for $S$, then $s \leq t$.
   \end{enumerate}
-  Similarly, $s\in X$ is a \emph{greatest lower bound} (or \emph{infimum}) if $s$ is a lower bound and any lower bound $t \leq s$.
+  Similarly, $s \in X$ is a \emph{greatest lower bound} (or \emph{infimum}), written $s = \inf S$, if $s$ is a lower bound for $S$ and every lower bound $t$ satisfies $t \leq s$.
 \end{defi}
-By definition, the least upper bound for $S$, if exists, is unique.
 
-The problem with $\Q$ is that if we let $S = \{q\in \Q: q^2 < 2\}$, then it has no supremum in $\Q$.
+\begin{remark}
+  By definition, the least upper bound of $S$, if it exists, is unique.
+\end{remark}
 
-Recall that $\Q$ is a totally ordered field. We will define the real numbers axiomatically to be a totally ordered field without this problem.
 \begin{defi}[Real numbers]
-  The \emph{real numbers} is a totally ordered field containing $\Q$ that satisfies the least upper bound axiom.
+  The \emph{real numbers} $\R$ is a totally ordered field containing $\Q$ that satisfies the following axiom.
 \end{defi}
 
 \begin{axiom}[Least upper bound axiom]
-  Every non-empty set of the real numbers that has an upper bound has a least upper bound.
+  Every non-empty subset of $\R$ that has an upper bound has a least upper bound.
 \end{axiom}
-We have the requirement ``non-empty'' since every number is an upper bound of $\emptyset$ but it has no least upper bound.
 
-We will leave the construction to the end of the section.
+\begin{remark}
+  The requirement ``non-empty'' is necessary: every real number is an upper bound of $\emptyset$, so $\emptyset$ has no \emph{least} upper bound. The explicit construction of $\R$ from $\Q$ is deferred to the end of this section.
+\end{remark}
 
-Note that $\Q$ is a subset of $\R$, in the sense that we can find a copy of $\Q$ inside $\R$. By definition of a field, there is a multiplicative identity $1 \in \R$. We can then define the natural numbers by
-\[
-  n = \underbrace{1 + \cdots + 1}_{n\text{ times}}.
-\]
-We can then define the negative integers by letting $-n$ be the additive inverse of $n$. Then $\frac{1}{n}$ is the multiplicative inverse of $n$ (for $n \not= 0$), and $\frac{m}{n}$ is just $m$ copies of $\frac{1}{n}$ added together. This is our canonical copy of $\Q$.
+\begin{remark}[Embedding of $\Q$ in $\R$]
+  Since $\R$ is a field, it has a multiplicative identity $1$. We define the natural numbers by $n = \underbrace{1 + \cdots + 1}_{n\text{ times}}$, the negative integers via additive inverses, and the rationals via multiplicative inverses: $\frac{m}{n} = m \cdot n^{-1}$ for $n \neq 0$. This gives a canonical copy of $\Q$ inside $\R$.
+\end{remark}
 
 \begin{cor}
-  Every non-empty set of the real numbers bounded below has an infimum.
+  Every non-empty subset of $\R$ bounded below has an infimum.
 \end{cor}
 
 \begin{proof}
-  Let $S$ be non-empty and bounded below. Then $-S = \{-x: x\in S\}$ is a non-empty set bounded above, and $\inf S = -\sup (-S)$.
+  Let $S$ be non-empty and bounded below. Then $-S = \{-x : x \in S\}$ is non-empty and bounded above, so $\sup(-S)$ exists. One checks that $\inf S = -\sup(-S)$.
 \end{proof}
 
-Alternatively, we can prove it just using the ordering of $\R$:
-\begin{proof}
-  Let $S$ be non-empty and bounded below. Let $L$ be the set of all lower bounds of $S$. Since $S$ is bounded below, $L$ is non-empty. Also, $L$ is bounded above by any member of $S$. So $L$ has a least upper bound $\sup L$.
-
-  For each $x \in S$, we know $x$ is an upper bound of $L$. So we have $\sup L \leq x$ by definition. So $\sup L$ is indeed a lower bound of $S$. Also, by definition, every lower bound of $S$ is less than (or equal to) $\sup L$. So this is the infimum.
+\begin{proof}[Alternative proof]
+  Let $L$ be the set of all lower bounds of $S$. Then $L$ is non-empty (since $S$ is bounded below) and bounded above (by any element of $S$), so $\sup L$ exists. For each $x \in S$, $x$ is an upper bound of $L$, so $\sup L \leq x$; hence $\sup L$ is a lower bound of $S$. Since every lower bound of $S$ lies in $L$, we have $t \leq \sup L$ for every lower bound $t$. Thus $\inf S = \sup L$.
 \end{proof}
 
-Now the set $\{q\in \Q: q^2 < 2\}$ has a supremum in $\R$ (by definition).
+\begin{remark}
+  The set $\{q \in \Q : q^2 < 2\}$ now has a supremum in $\R$, by the least upper bound axiom.
+\end{remark}
 
-We make some useful definitions.
 \begin{defi}[Closed and open intervals]
-  A \emph{closed interval} $[a, b]$ with $a \leq b\in \R$ is the set $\{x\in \R: a\leq x\leq b\}$.
+  Let $a, b \in \R$ with $a \leq b$. The \emph{closed interval} $[a, b]$ is the set $\{x \in \R : a \leq x \leq b\}$.
 
-  An \emph{open interval} $(a, b)$ with $a \leq b\in \R$ is the set $\{x\in \R: a< x< b\}$.
+  The \emph{open interval} $(a, b)$ is the set $\{x \in \R : a < x < b\}$.
 
   Similarly, we can have $[a, b) = \{x\in \R: a\leq x < b\}$ and $(a, b] = \{x\in \R: a< x \leq b\}$.
 \end{defi}
@@ -1787,45 +1781,40 @@ We make some useful definitions.
 
   To find it explicitly, notice that $1$ is an upper bound for $S$ by definition, and if $t < 1$, then $t$ is not an upper bound for $S$ since $1\in S$ but $1\not\leq t$. So every upper bound is at least $1$ and therefore $1$ is the supremum of $S$.
 
-  Now let $T = (0, 1)$. Again $T$ is non-empty and has an upper bound (e.g.\ $2$). So again $\sup T$ exists. We know that $1$ is an upper bound. If $t < 0$, then $0.5\in S$ but $s\not\leq t$. So $t$ is not an upper bound. Now suppose $0\leq t < 1$, then $0 < t < \frac{1 + t}{2} < 1$ and so $\frac{1 + t}{2}\in S$ but $\frac{1 + t}{2} \not\leq t$. So $t$ is not an upper bound. So $\sup T = 1$.
+  Now let $T = (0, 1)$. Again $T$ is non-empty and has an upper bound (e.g.\ $2$). So again $\sup T$ exists. We know that $1$ is an upper bound. If $t < 0$, then $0.5 \in T$ but $0.5 \not\leq t$, so $t$ is not an upper bound. Now suppose $0 \leq t < 1$; then $0 < t < \frac{1 + t}{2} < 1$, so $\frac{1 + t}{2} \in T$ but $\frac{1 + t}{2} \not\leq t$. So $t$ is not an upper bound. So $\sup T = 1$.
 
   Note that these cases differ by $\sup S\in S$ but $\sup T\not\in T$. $S$ has a maximum element $1$ and the maximum is the supremum. $T$ doesn't have a maximum, but the supremum can still exist.
 \end{eg}
 
-The real numbers has a rather interesting property.
-\begin{thm}[Axiom of Archimedes]
-  Given $r\in \R$, there exists $n\in \N$ with $n > r$.
+\begin{thm}[Archimedean property]
+  For every $r \in \R$, there exists $n \in \N$ with $n > r$.
 \end{thm}
-
-This was considered an axiom by Archimedes but we can prove this with the least upper bound axiom.
 
 \begin{proof}
   Assume the contrary. Then $r$ is an upper bound for $\N$. $\N$ is not empty since $1\in \N$. By the least upper bound axiom, $s = \sup \N$ exists. Since $s$ is the least upper bound for $\N$, $s - 1$ is not an upper bound for $\N$. So $\exists m\in \N$ with $m > s - 1$. Then $m + 1\in \N$ but $m + 1 > s$, which contradicts the statement that $s$ is an upper bound.
 \end{proof}
 
-Notice that every non-empty set $S\in \R$ which is bounded below has a \emph{greatest lower bound} (or \emph{infimum}). In particular, we have
-
 \begin{prop}
-  $\inf\{\frac{1}{n}: n\in \N\} = 0$.
+  $\inf\{\frac{1}{n} : n \in \N,\, n \geq 1\} = 0$.
 \end{prop}
 
 \begin{proof}
-  Certainly $0$ is a lower bound for $S$. If $t > 0$, there exists $n \in \N$ such that $n \geq 1/t$. So $t \geq 1/n\in S$. So $t$ is not a lower bound for $S$.
+  Let $S = \{\frac{1}{n} : n \in \N,\, n \geq 1\}$. Certainly $0$ is a lower bound for $S$. If $t > 0$, by the Archimedean property there exists $n \in \N$ with $n > 1/t$, so $\frac{1}{n} < t$. Hence $\frac{1}{n} \in S$ but $\frac{1}{n} \not\geq t$, so $t$ is not a lower bound for $S$.
 \end{proof}
 
-\begin{thm}
-  $\Q$ is dense in $\R$, i.e.\ given $r, s\in \R$, with $r < s$, $\exists q\in \Q$ with $r < q < s$.
+\begin{thm}[Density of $\Q$ in $\R$]
+  For all $r, s \in \R$ with $r < s$, there exists $q \in \Q$ with $r < q < s$.
 \end{thm}
 
 \begin{proof}
-  wlog assume first $r \geq 0$ (just multiply everything by $-1$ if $r < 0$ and swap $r$ and $s$). Since $s - r > 0$, there is some $n \in \N$ such that $\frac{1}{n} < s - r$. By the Axiom of Archimedes, $\exists N\in \N$ such that $N > sn$.
+  Without loss of generality assume $r \geq 0$ (if $r < 0 < s$ take $q = 0$; if $s \leq 0$ apply the argument to $-s < -r$ and negate). Since $s - r > 0$, the Archimedean property gives $n \in \N$ with $\frac{1}{n} < s - r$. Again by the Archimedean property, there exists $N \in \N$ with $N > sn$.
 
   Let $T = \{k\in \N: \frac{k}{n}\geq s\}$. $T$ is not empty, since $N\in T$. Then by the well-ordering principle, $T$ has a minimum element $m$. Now $m\not= 1$ since $\frac{1}{n} < s - r \leq s$. Let $q = \frac{m - 1}{n}$. Since $m - 1\not\in T$, $q < s$. If $q =\frac{m - 1}{n}< r$, then $\frac{m}{n} < r + \frac{1}{n} < s$, so $m\not\in T$, contradiction. So $r < q < s$.
 \end{proof}
 
-\begin{thm}
-  There exists $x\in \R$ with $x^2 = 2$.
-\end{thm}
+\begin{prop}
+  There exists $x \in \R$ with $x^2 = 2$.
+\end{prop}
 
 \begin{proof}
   Let $S = \{r\in \R: r^2 \leq 2\}$. Then $0\in S$ so $S\not= \emptyset$. Also for every $r \in S$, we have $r \leq 3$. So $S$ is bounded above. So $x = \sup S$ exists and $0\leq x \leq 3$.
@@ -1839,24 +1828,27 @@ Notice that every non-empty set $S\in \R$ which is bounded below has a \emph{gre
   So by trichotomy, $x^2 = 2$.
 \end{proof}
 
-Now let's try to construct the real numbers from the rationals. The idea is that each set like $\{q\in \Q: q^2 < 2\}$ represents a ``missing number'', namely the supremum $\sqrt{2}$. However, many different sets can correspond to the same missing number, e.g.\ $\{q \in \Q: q^2 < 2\} \cup \{-3\}$ also ``should have'' supremum $\sqrt{2}$. So we need to pick a particular one that represents this missing number.
-
-To do so, we pick the maximal one, i.e.\ a subset $S$ such that for $x \in S$ and $y \in \Q$, if $y < x$, then $y \in S$ (if $y$ is not in $S$, we can add it to $S$, and $S \cup \{y\}$ will ``have the same upper bound''). Each rational $q \in \Q$ can also be represented by the set $\{x \in \Q: x \leq q\}$. These are known as \emph{Dedekind cuts}. By convention, a Dedekind cut is instead defined as the pair $(S, \Q \setminus S)$, and can be characterized by the following definition:
+\begin{remark}[Motivation for Dedekind cuts]
+  Each bounded-above subset of $\Q$, such as $\{q \in \Q : q^2 < 2\}$, represents a ``missing number'' (here $\sqrt{2}$). To make the representation unique, we require the set to be \emph{downward closed}: if $x \in S$ and $y < x$, then $y \in S$. A rational $q$ is represented by the set $\{x \in \Q : x \leq q\}$.
+\end{remark}
 
 \begin{defi}[Dedekind cut]
-  A \emph{Dedekind cut} of $\Q$ is a set of partition of $\Q$ into $L$ and $R$ such that
+  A \emph{Dedekind cut} of $\Q$ is a partition of $\Q$ into non-empty sets $L$ and $R$ such that
   \[
-    (\forall l\in L)(\forall r\in R)\,l < r,
+    (\forall l \in L)(\forall r \in R)\, l < r,
   \]
   and $R$ has no minimum.
 \end{defi}
-The requirement that $R$ has no minimum corresponds to our (arbitrary) decision that the rationals should be embedded as
-\[
-  q\mapsto \{x\in q: x \leq \Q\}, \{x\in \Q: x> q\},
-\]
-instead of $q\mapsto \{x\in q: x < \Q\}, \{x\in \Q: x \geq q\}$,
 
-We can then construct the set $\R$ from $\Q$ by letting $\R$ be the set of all Dedekind cuts. The supremum of any bounded set of real numbers is obtained by taking the union of (the left sides) of the Dedekind cuts. The definition of the arithmetic operations is left as an exercise for the reader (to actually define them is tedious but not hard).
+\begin{remark}
+  The requirement that $R$ has no minimum corresponds to the convention that each rational $q$ is embedded as
+  \[
+    q \mapsto (\{x \in \Q : x \leq q\},\; \{x \in \Q : x > q\}),
+  \]
+  rather than $q \mapsto (\{x \in \Q : x < q\},\; \{x \in \Q : x \geq q\})$.
+
+  We define $\R$ to be the set of all Dedekind cuts. The supremum of a bounded set of reals is obtained by taking the union of the left parts of the corresponding cuts. The arithmetic operations can be defined directly on cuts; the verification is tedious but straightforward.
+\end{remark}
 
 \subsection{Sequences}
 Here we will look at sequences, with series in the next chapter. Only a brief introduction to these topics will be provided here, as these topics will be studied later in Analysis I.
