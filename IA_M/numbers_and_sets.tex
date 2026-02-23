@@ -1998,7 +1998,6 @@ However, $\Q$ is not enough for our purposes.
 \end{eg}
 
 \subsection{Series}
-In a field, the sum of two numbers is defined. By induction, the sum of finitely many numbers is defined as well. However, infinite sums (``series'') are not. We will define what it means to take an infinite sum. Of course, infinite sums exist only for certain nice sums. For example, $1 + 1 + 1 + \cdots$ does not exist.
 
 \begin{defi}[Series and partial sums]
   Let $(a_n)$ be a sequence. Then $s_m = \sum_{n = 1}^m a_n$ is the \emph{$m$th partial sum} of $(a_n)$. We write
@@ -2020,7 +2019,7 @@ In a field, the sum of two numbers is defined. By induction, the sum of finitely
 \end{eg}
 
 \begin{eg}
-  Let $a_n = \frac{1}{n^2}$. Then $s_m = \sum_{n = 1}^{m} \frac{1}{n^2}$. We know that $s_m$ is increasing. We also know that $s_m \leq 1 + \sum \frac{1}{n(n -1)} \leq 2$, i.e.\ it is bounded above. So $s_m$ converges and $\sum_{n = 1}^{\infty} \frac{1}{n^2}$ exists (in fact it is $\pi^2/6$).
+  Let $a_n = \frac{1}{n^2}$. Then $s_m = \sum_{n = 1}^{m} \frac{1}{n^2}$, which is increasing. We also have $s_m \leq 1 + \sum_{n=2}^{m} \frac{1}{n(n - 1)} \leq 2$, so $s_m$ is bounded above. Hence $s_m$ converges and $\sum_{n = 1}^{\infty} \frac{1}{n^2}$ exists (in fact it equals $\pi^2/6$).
 \end{eg}
 
 \begin{eg}
@@ -2042,27 +2041,36 @@ In a field, the sum of two numbers is defined. By induction, the sum of finitely
 
 \subsubsection*{Decimal expansions}
 \begin{defi}[Decimal expansion]
-  Let $(d_n)$ be a sequence with $d_n\in \{0, 1, \cdots 9\}$. Then $\displaystyle \sum_{n = 1}^\infty \frac{d}{10^n}$ converges to a limit $r$ with $0 \leq r \leq 1$ since the partial sums $s_m$ are increasing and bounded by $\sum \frac{9}{10^n}\to 1$ (geometric series). We say $r = 0.d_1d_2d_3\cdots$, the \emph{decimal expansion} of $r$.
+  Let $(d_n)$ be a sequence with $d_n \in \{0, 1, \ldots, 9\}$. Then $\displaystyle\sum_{n = 1}^\infty \frac{d_n}{10^n}$ converges to a limit $r$ with $0 \leq r \leq 1$, since the partial sums are increasing and bounded by $\sum_{n=1}^{\infty} \frac{9}{10^n} = 1$ (geometric series). We write $r = 0.d_1 d_2 d_3 \ldots$ and call this the \emph{decimal expansion} of $r$.
 \end{defi}
 
-Does every $x$ with $0 \leq x < 1$ have a decimal expansion?
-Pick $d_1$ maximal such that $\frac{d_1}{10} \leq x < 1$. Then $0 \leq x - \frac{d_1}{10} < \frac{1}{10}$ since $d_1$ is maximal. Then pick $d_2$ maximal such that $\frac{d_2}{100} \leq x - \frac{d_1}{10}$. By maximality, $0 \leq x - \frac{d_1}{10} - \frac{d_2}{100} < \frac{1}{100}$. Repeat inductively, pick maximal $d_n$ with
-\[
-  \frac{d_n}{10^n} \leq x- \sum_{j = 1}^{n - 1} \frac{d_j}{10^j}
-\]
-so
-\[
-  0 \leq x - \sum_{j = 1}^n \frac{d_j}{10^j} < \frac{1}{10^n}.
-\]
-Since both LHS and RHS $\to 0$, by sandwich, $x - \sum_{j = 1}^\infty \frac{d_j}{10^j} = 0$, i.e.\ $x = 0.d_1d_2\cdots$.
+\begin{prop}
+  Every $x$ with $0 \leq x < 1$ has a decimal expansion.
+\end{prop}
 
-Since we have shown that at least one decimal expansion, can the same number have two different decimal expansions? i.e.\ if $0.a_1a_2\cdots = 0.b_1b_2\cdots$, must $a_i = b_i$ for all $i$?
+\begin{proof}
+  Pick $d_1$ maximal such that $\frac{d_1}{10} \leq x$. Then $0 \leq x - \frac{d_1}{10} < \frac{1}{10}$ by maximality. Pick $d_2$ maximal such that $\frac{d_2}{100} \leq x - \frac{d_1}{10}$. By maximality, $0 \leq x - \frac{d_1}{10} - \frac{d_2}{100} < \frac{1}{100}$. Inductively, pick maximal $d_n$ with
+  \[
+    \frac{d_n}{10^n} \leq x - \sum_{j = 1}^{n - 1} \frac{d_j}{10^j},
+  \]
+  so that
+  \[
+    0 \leq x - \sum_{j = 1}^n \frac{d_j}{10^j} < \frac{1}{10^n}.
+  \]
+  Since both sides tend to $0$, the sandwich theorem gives $x = 0.d_1 d_2 \ldots$
+\end{proof}
 
-Now suppose that the $a_j$ and $b_j$ are equal until $k$, i.e.\ $a_j = b_j$ for $j < k$. wlog assume $a_k < b_k$. Then
-\[
-  \sum_{j = k + 1}^\infty \frac{a_j}{10^j} \leq \sum_{j = k+1}^\infty \frac{9}{10^j} = \frac{9}{10^{k+1}}\cdot \frac{1}{1 - 1/10} = \frac{1}{10^k}.
-\]
-So we must have $b_k = a_k + 1$, $a_j = 9$ for $j > k$ and $b_j = 0$ for $j > k$. For example, $0.47999\cdots = 0.48000\cdots$.
+\begin{prop}
+  Decimal expansions are unique, except that $0.d_1 \ldots d_{k-1}(d_k - 1)999\ldots = 0.d_1 \ldots d_{k-1} d_k 000\ldots$ for any $k$.
+\end{prop}
+
+\begin{proof}
+  Suppose $0.a_1 a_2 \ldots = 0.b_1 b_2 \ldots$ with $a_j = b_j$ for $j < k$ and $a_k < b_k$ (without loss of generality). Then
+  \[
+    \sum_{j = k + 1}^\infty \frac{a_j}{10^j} \leq \sum_{j = k+1}^\infty \frac{9}{10^j} = \frac{9}{10^{k+1}} \cdot \frac{1}{1 - 1/10} = \frac{1}{10^k}.
+  \]
+  So we must have $b_k = a_k + 1$, $a_j = 9$ for $j > k$, and $b_j = 0$ for $j > k$. For example, $0.47999\ldots = 0.48000\ldots$
+\end{proof}
 
 \subsection{Irrational numbers}
 Recall $\Q\subseteq \R$.
