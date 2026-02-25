@@ -3619,7 +3619,10 @@ The sum is again a tensor, since $(T + S)_{ij}' = R_{ip}R_{jq}(T_{pq} + S_{pq})$
 \end{eg}
 
 \subsection{Diagonalization of a symmetric second rank tensor}
-In matrix notation, the tensor transformation rule $T'_{ij} = R_{ip}R_{jq}T_{pq}$ becomes $T' = RTR^T = RTR^{-1}$.
+
+\begin{rmk}
+  In matrix notation, the tensor transformation rule $T'_{ij} = R_{ip}R_{jq}T_{pq}$ becomes $T' = RTR^T = RTR^{-1}$.
+\end{rmk}
 
 \begin{prop}[Diagonalization of symmetric tensors]
   A symmetric rank-2 tensor $T_{ij}$ can be diagonalized by an orthogonal transformation. There exists an orthonormal basis $\{\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3\}$ of eigenvectors with real eigenvalues $\lambda_1, \lambda_2, \lambda_3$. The directions $\mathbf{e}_i$ are called the \emph{principal axes}, and in Cartesian coordinates along these axes, $T_{ij} = \lambda_i \delta_{ij}$ (no sum).
