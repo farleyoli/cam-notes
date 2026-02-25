@@ -59,69 +59,67 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
 
 \subsection{Classical probability}
 \begin{defi}[Classical probability]
-  \emph{Classical probability} applies in a situation when there are a finite number of equally likely outcome.
+  \emph{Classical probability} applies in a situation where there are a finite number of equally likely outcomes.
 \end{defi}
 
-A classical example is the problem of points.
-
-\begin{eg}
-  $A$ and $B$ play a game in which they keep throwing coins. If a head lands, then $A$ gets a point. Otherwise, $B$ gets a point. The first person to get 10 points wins a prize.
-
-  Now suppose $A$ has got 8 points and $B$ has got 7, but the game has to end because an earthquake struck. How should they divide the prize? We answer this by finding the probability of $A$ winning. Someone must have won by the end of 19 rounds, i.e.\ after 4 more rounds. If $A$ wins at least 2 of them, then $A$ wins. Otherwise, $B$ wins.
-
-  The number of ways this can happen is $\binom{4}{2} + \binom{4}{3} + \binom{4}{4} = 11$, while there are $16$ possible outcomes in total. So $A$ should get $11/16$ of the prize.
-\end{eg}
-
-In general, consider an experiment that has a random outcome.
-
-\begin{defi}[Sample space]
-  The set of all possible outcomes is the \emph{sample space}, $\Omega$. We can lists the outcomes as $\omega_1, \omega_2, \cdots \in \Omega$. Each $\omega \in \Omega$ is an \emph{outcome}.
+\begin{defi}[Sample space and outcomes]
+  Consider an experiment with a random outcome. The set of all possible outcomes is the \emph{sample space}, denoted $\Omega$. We write the outcomes as $\omega_1, \omega_2, \dotsc \in \Omega$. Each element $\omega \in \Omega$ is called an \emph{outcome}.
 \end{defi}
 
 \begin{defi}[Event]
-  A subset of $\Omega$ is called an \emph{event}.
+  An \emph{event} is a subset $A \subseteq \Omega$.
 \end{defi}
 
 \begin{eg}
-  When rolling a dice, the sample space is $\{1, 2, 3, 4, 5, 6\}$, and each item is an outcome. ``Getting an odd number'' and ``getting 3'' are two possible events.
+  When rolling a die, the sample space is $\Omega = \{1, 2, 3, 4, 5, 6\}$, and each element is an outcome. The sets $\{1, 3, 5\}$ (``getting an odd number'') and $\{3\}$ (``getting 3'') are two possible events.
 \end{eg}
 
-In probability, we will be dealing with sets a lot, so it would be helpful to come up with some notation.
-\begin{defi}[Set notations]
-  Given any two events $A, B\subseteq \Omega$,
+\begin{defi}[Operations on events]
+  Let $\Omega$ be a sample space and let $A, B\subseteq \Omega$ be events.
   \begin{itemize}
     \item The \emph{complement} of $A$ is $A^C = A' = \bar A = \Omega\setminus A$.
-    \item ``$A$ or $B$'' is the set $A\cup B$.
-    \item ``$A$ and $B$'' is the set $A\cap B$.
-    \item $A$ and $B$ are \emph{mutually exclusive} or \emph{disjoint} if $A\cap B = \emptyset$.
+    \item The event ``$A$ or $B$'' is the union $A\cup B$.
+    \item The event ``$A$ and $B$'' is the intersection $A\cap B$.
+    \item $A$ and $B$ are \emph{mutually exclusive} (or \emph{disjoint}) if $A\cap B = \emptyset$.
     \item If $A\subseteq B$, then $A$ occurring implies $B$ occurring.
   \end{itemize}
 \end{defi}
 
-\begin{defi}[Probability]
-  Suppose $\Omega = \{\omega_1,\omega_2, \cdots, \omega_N\}$. Let $A\subseteq \Omega$ be an event. Then the \emph{probability} of $A$ is
+\begin{defi}[Classical probability]
+  Let $\Omega = \{\omega_1,\omega_2, \dotsc, \omega_N\}$ be a finite sample space in which all outcomes are equally likely. The \emph{probability} of an event $A\subseteq \Omega$ is
   \[
-    \P(A) = \frac{\text{Number of outcomes in } A}{\text{Number of outcomes in }\Omega} = \frac{|A|}{N}.
+    \P(A) = \frac{|A|}{|\Omega|} = \frac{|A|}{N}.
   \]
 \end{defi}
-Here we are assuming that each outcome is equally likely to happen, which is the case in (fair) dice rolls and coin flips.
 
-\begin{eg}
-  Suppose $r$ digits are drawn at random from a table of random digits from 0 to 9. What is the probability that
+\begin{eg}[Problem of points]
+  Two players $A$ and $B$ play a game in which they keep tossing a fair coin. If heads lands, then $A$ scores a point; otherwise $B$ scores a point. The first player to reach 10 points wins a prize.
+
+  Suppose $A$ has 8 points and $B$ has 7, but the game must end prematurely. How should they divide the prize?
+
+  Someone must win within the next 4 rounds. Player $A$ wins if and only if $A$ scores at least 2 of these 4 rounds. The number of sequences of 4 coin tosses in which $A$ scores at least 2 is
+  \[
+    \binom{4}{2} + \binom{4}{3} + \binom{4}{4} = 11,
+  \]
+  out of $2^4 = 16$ equally likely sequences. So $\P(A \text{ wins}) = 11/16$, and the prize should be divided in the ratio $11:5$.
+\end{eg}
+
+\begin{eg}[Random digits]
+  Let $r \geq 1$ be an integer. Suppose $r$ digits are drawn independently and uniformly at random from $\{0, 1, \dotsc, 9\}$. Let $k \in \{0, 1, \dotsc, 9\}$. We compute:
   \begin{enumerate}
-    \item No digit exceeds $k$;
-    \item The largest digit drawn is $k$?
+    \item the probability that no digit exceeds $k$;
+    \item the probability that the largest digit drawn equals $k$.
   \end{enumerate}
 
-  The sample space is $\Omega = \{(a_1, a_2, \cdots, a_r): 0 \leq a_i \leq 9\}$. Then $|\Omega| = 10^r$.
+  The sample space is $\Omega = \{(a_1, a_2, \dotsc, a_r): 0 \leq a_i \leq 9\}$, so $|\Omega| = 10^r$.
 
-  Let $A_k = [\text{no digit exceeds }k] = \{(a_1, \cdots, a_r): 0 \leq a_i \leq k\}$. Then $|A_k| = (k + 1)^r$. So
+  For (1), let $A_k = \{(a_1, \dotsc, a_r) \in \Omega : a_i \leq k \text{ for all } i\}$. Then $|A_k| = (k + 1)^r$, so
   \[
-    P(A_k) = \frac{(k + 1)^r}{10^r}.
+    \P(A_k) = \frac{(k + 1)^r}{10^r}.
   \]
-  Now let $B_k = [\text{largest digit drawn is }k]$. We can find this by finding all outcomes in which no digits exceed $k$, and subtract it by the number of outcomes in which no digit exceeds $k - 1$. So $|B_k| = |A_k| - |A_{k - 1}|$ and
+  For (2), let $B_k = \{(a_1, \dotsc, a_r) \in \Omega : \max_i a_i = k\}$. Then $B_k = A_k \setminus A_{k-1}$, so $|B_k| = |A_k| - |A_{k - 1}|$ and
   \[
-    P(B_k) = \frac{(k + 1)^r - k^r}{10^r}.
+    \P(B_k) = \frac{(k + 1)^r - k^r}{10^r}.
   \]
 \end{eg}
 \subsection{Counting}
