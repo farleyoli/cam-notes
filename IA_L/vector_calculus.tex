@@ -3644,11 +3644,17 @@ The sum is again a tensor, since $(T + S)_{ij}' = R_{ip}R_{jq}(T_{pq} + S_{pq})$
   A tensor $T$ which is invariant under every rotation is \emph{isotropic}, i.e.\ the same in every direction.
 \end{defi}
 
-\begin{eg}[Sphere inertia tensor is isotropic]
-  The inertia tensor of a sphere is isotropic by symmetry.
-
-  $\delta_{ij}$ and $\varepsilon_{ijk}$ are also isotropic tensors. This ensures that the component definitions of the scalar and vector products $\mathbf{a}\cdot \mathbf{b} = a_i b_j \delta_{ij}$ and $(\mathbf{a}\times \mathbf{b})_i = \varepsilon_{ijk} a_j b_k$ are independent of the Cartesian coordinate system.
+\begin{eg}[Isotropic tensors]\leavevmode
+  \begin{enumerate}
+    \item The Kronecker delta $\delta_{ij}$ is an isotropic rank-2 tensor.
+    \item The Levi-Civita symbol $\varepsilon_{ijk}$ is an isotropic rank-3 tensor.
+    \item The inertia tensor of a uniform sphere about its centre is isotropic, by the rotational symmetry of the sphere.
+  \end{enumerate}
 \end{eg}
+
+\begin{rmk}
+  The isotropy of $\delta_{ij}$ and $\varepsilon_{ijk}$ ensures that the component definitions of the scalar and vector products, $\mathbf{a}\cdot \mathbf{b} = a_i b_j \delta_{ij}$ and $(\mathbf{a}\times \mathbf{b})_i = \varepsilon_{ijk} a_j b_k$, are independent of the choice of Cartesian coordinate system.
+\end{rmk}
 
 \begin{thm}[Classification of isotropic tensors in $\R^3$]\leavevmode
   \begin{enumerate}
