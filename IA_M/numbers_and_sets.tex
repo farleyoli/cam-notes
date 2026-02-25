@@ -105,7 +105,7 @@ In mathematics, we are often concerned about truth. Often, we only care about st
 Apart from having a proof, it is very important that a proof is \emph{correct}. Here we will look at some examples of proofs and non-proofs.
 
 We first start with a simple example.
-\begin{prop}
+\begin{prop}[Divisibility of cubes]
   For all natural numbers $n$, $n^3 - n$ is a multiple of 3.
 \end{prop}
 
@@ -113,7 +113,7 @@ We first start with a simple example.
   We have $n^3 - n = (n - 1)n(n + 1)$. One of the three consecutive integers is divisible by 3. Hence so is their product.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Parity of squares]
   If $n^2$ is even, then so is $n$.
 \end{prop}
 
@@ -129,7 +129,7 @@ Instead, a correct proof is as follows:
 \end{proof}
 This is an example of \emph{proof by contradiction}. We assume what we want to prove is false, and show that this leads to nonsense.
 
-\begin{prop}
+\begin{prop}[Exhaustive search example]
   The solutions to $x^2 - 5x + 6 = 0$ are $x = 2$ and $x = 3$.
 \end{prop}
 
@@ -155,7 +155,7 @@ We can write this as an ``if and only if'' statement: $x$ is a solution if and o
 \end{proof}
 
 We'll do another non-proof.
-\begin{prop}
+\begin{prop}[Minimum of $\N$]
   Every positive number is $\geq 1$.
 \end{prop}
 
@@ -244,7 +244,7 @@ In this chapter, we will look at the basic building blocks of mathematics, namel
   \]
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Double inclusion]
   Let $A$ and $B$ be sets. Then $A=B$ if and only if $A\subseteq B$ and $B\subseteq A$.
 \end{prop}
 \begin{proof}
@@ -307,7 +307,7 @@ In this chapter, we will look at the basic building blocks of mathematics, namel
   An \emph{ordered pair} $(a, b)$ is a pair of two objects in which order matters. Formally, $(a, b)$ is defined as the set $\{\{a\}, \{a, b\}\}$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Ordered pair characterisation]
   Let $a, a', b, b'$ be objects. Then $(a, b) = (a', b')$ if and only if $a = a'$ and $b = b'$.
 \end{prop}
 \begin{proof}
@@ -375,7 +375,7 @@ In this chapter, we will look at the basic building blocks of mathematics, namel
   Let $f: A \to B$ and $g: B\to C$ be functions. The \emph{composition} of $g$ with $f$ is the function $g\circ f: A \to C$ defined by $(g\circ f)(a) = g(f(a))$ for all $a \in A$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Associativity of composition]
   Let $f: A \to B$, $g: B \to C$ and $h: C \to D$ be functions. Then $h \circ (g \circ f) = (h \circ g) \circ f$.
 \end{prop}
 \begin{proof}
@@ -410,7 +410,7 @@ In this chapter, we will look at the basic building blocks of mathematics, namel
   \end{itemize}
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Left inverse criterion]
   Let $f: A \to B$ be a function. Then $f$ has a left inverse if and only if $f$ is injective.
 \end{prop}
 \begin{proof}
@@ -426,7 +426,7 @@ In this chapter, we will look at the basic building blocks of mathematics, namel
   Then $g(f(a)) = a$ for all $a \in A$, so $g$ is a left inverse of $f$.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Right inverse criterion]
   Let $f: A \to B$ be a function. Then $f$ has a right inverse if and only if $f$ is surjective.
 \end{prop}
 \begin{proof}
@@ -445,7 +445,7 @@ In this chapter, we will look at the basic building blocks of mathematics, namel
   Let $f: A \to B$ be a function. An \emph{inverse} of $f$ is a function $g: B\to A$ that is both a left inverse and a right inverse of $f$, i.e.\ $g \circ f = \id_A$ and $f \circ g = \id_B$. When it exists, we write it as $f^{-1}: B\to A$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Two-sided inverse criterion]
   Let $f: A \to B$ be a function. Then $f$ has an inverse if and only if $f$ is bijective. Moreover, if the inverse exists, it is unique.
 \end{prop}
 \begin{proof}
@@ -540,7 +540,7 @@ In this chapter, we will look at the basic building blocks of mathematics, namel
   A \emph{partition} of a set $A$ is a collection of non-empty subsets $(A_i)_{i \in I}$ of $A$ such that every element of $A$ belongs to exactly one $A_i$. Equivalently, the sets $A_i$ are pairwise disjoint and $\bigcup_{i \in I} A_i = A$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Partition from equivalence]
   Let $\sim$ be an equivalence relation on $A$. Then the equivalence classes of $\sim$ form a partition of $A$.
 \end{prop}
 
@@ -550,7 +550,7 @@ In this chapter, we will look at the basic building blocks of mathematics, namel
   Suppose $[a]\cap[b]\not=\emptyset$, so there exists $c \in [a]\cap[b]$. Then $a\sim c$ and $b\sim c$. By symmetry, $c\sim b$, and by transitivity, $a\sim b$. Now for any $b'\in [b]$, we have $b\sim b'$, so by transitivity $a\sim b'$, giving $b' \in [a]$. Hence $[b]\subseteq[a]$. By a symmetric argument, $[a]\subseteq[b]$, so $[a] = [b]$.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Equivalence from partition]
   Conversely, every partition of $A$ determines an equivalence relation on $A$, by declaring $a \sim b$ if and only if $a$ and $b$ belong to the same part.
 \end{prop}
 \begin{proof}
@@ -613,7 +613,7 @@ In this chapter, we will look at the basic building blocks of mathematics, namel
   We write $\hcf(a, b) = \gcd(a, b) = (a, b)$ for the highest common factor. The notation $(a, b)$ should not be confused with the ordered pair.
 \end{notation}
 
-\begin{prop}
+\begin{prop}[Divisibility of linear combinations]
   If $c\mid a$ and $c\mid b$, then $c\mid (ua + vb)$ for all $u, v\in \Z$.
 \end{prop}
 
@@ -621,7 +621,7 @@ In this chapter, we will look at the basic building blocks of mathematics, namel
   Write $a = kc$ and $b = lc$. Then $ua + vb = ukc + vlc = (uk + vl)c$, so $c\mid (ua + vb)$.
 \end{proof}
 
-\begin{thm}
+\begin{thm}[Existence of GCD]
   Let $a, b\in \N$. Then $(a, b)$ exists.
 \end{thm}
 
@@ -631,7 +631,7 @@ In this chapter, we will look at the basic building blocks of mathematics, namel
   By the division algorithm, write $a = qd + r$ with $0\leq r < d$. Then $r = a - qd = a(1 - qx) - qyb \in S$. Since $d$ is the smallest positive element of $S$ and $0\leq r < d$, we must have $r = 0$, so $d\mid a$. Similarly, $d\mid b$.
 \end{proof}
 
-\begin{cor}
+\begin{cor}[Minimality of GCD]
   Let $d = (a, b)$. Then $d$ is the smallest positive integer linear combination of $a$ and $b$.
 \end{cor}
 
@@ -715,7 +715,7 @@ By reversing the steps of Euclid's algorithm, we can express $(a, b)$ as a linea
 
 To achieve higher space efficiency, we seek a recurrence relation for coefficients $A_j, B_j$ satisfying $a B_j - b A_j = (-1)^{j}r_j$, where the sign factor $(-1)^j$ is introduced to simplify the recurrence.
 
-\begin{prop}
+\begin{prop}[Convergent recurrence]
   The coefficients $A_j, B_j$ satisfy the recurrence
   \begin{align*}
     A_j &= q_jA_{j-1} + A_{j-2},\\
@@ -752,7 +752,7 @@ To achieve higher space efficiency, we seek a recurrence relation for coefficien
   A natural number $p$ is \emph{prime} if $p > 1$ and the only factors of $p$ in $\Z$ are $\pm 1$ and $\pm p$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Existence of prime factorisation]
   Every natural number $n \geq 2$ can be written as a product of primes.
 \end{prop}
 
@@ -764,7 +764,7 @@ To achieve higher space efficiency, we seek a recurrence relation for coefficien
   The phrase ``and the process terminates'' is justified rigorously by the principle of strong induction, which we will establish later.
 \end{remark}
 
-\begin{thm}
+\begin{thm}[Euclid's theorem on primes]
   There are infinitely many primes.
 \end{thm}
 
@@ -788,7 +788,7 @@ To achieve higher space efficiency, we seek a recurrence relation for coefficien
   Two integers $a, b$ are \emph{coprime} if $(a, b) = 1$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Coprime divisibility]
   If $a\mid bc$ and $a$ is coprime to $b$, then $a \mid c$.
 \end{prop}
 
@@ -804,7 +804,7 @@ To achieve higher space efficiency, we seek a recurrence relation for coefficien
   Since $p$ is prime, $(p, a) = p$ or $(p, a) = 1$. In the first case, $p \mid a$. In the second, $p$ and $a$ are coprime, so $p \mid b$ by the preceding proposition.
 \end{proof}
 
-\begin{cor}
+\begin{cor}[Euclid's lemma for products]
   If $p$ is prime and $p\mid n_1 n_2 \cdots n_k$, then $p \mid n_j$ for some $j$.
 \end{cor}
 
@@ -820,7 +820,7 @@ To achieve higher space efficiency, we seek a recurrence relation for coefficien
   Existence was shown above. For uniqueness, suppose $p_1 \cdots p_k = q_1 \cdots q_l$. Since $p_1 \mid q_1 \cdots q_l$, Euclid's lemma gives $p_1 \mid q_j$ for some $j$. Since $q_j$ is prime, $p_1 = q_j$. Reordering, we may assume $p_1 = q_1$. Cancelling gives $p_2 \cdots p_k = q_2 \cdots q_l$. Repeating this argument (formally, by strong induction) yields $k = l$ and $p_j = q_j$ for all $j$.
 \end{proof}
 
-\begin{cor}
+\begin{cor}[GCD and LCM via prime factorisation]
   Let $p_1, \ldots, p_r$ be distinct primes and write $a = p_1^{i_1} p_2^{i_2} \cdots p_r^{i_r}$ and $b = p_1^{j_1} p_2^{j_2} \cdots p_r^{j_r}$, where the exponents are non-negative integers. Then
   \[
     (a, b) = \prod_{k=1}^{r} p_k^{\min\{i_k, j_k\}}, \qquad \lcm(a, b) = \prod_{k=1}^{r} p_k^{\max\{i_k, j_k\}}.
@@ -866,7 +866,7 @@ To achieve higher space efficiency, we seek a recurrence relation for coefficien
   It is sometimes written $\chi_A$.
 \end{defi}
 
-\begin{prop}\leavevmode
+\begin{prop}[Indicator function algebra]\leavevmode
   \begin{enumerate}
     \item $i_A = i_B \Leftrightarrow A = B$.
     \item $i_{A\cap B} = i_A i_B$.
@@ -901,7 +901,7 @@ To achieve higher space efficiency, we seek a recurrence relation for coefficien
   If $X$ is a finite set and $A\subseteq X$, then $|A| = \sum_{x\in X}i_A(x)$. This makes indicator functions a powerful tool for counting.
 \end{remark}
 
-\begin{prop}
+\begin{prop}[Inclusion-exclusion for two sets]
   Let $A, B$ be subsets of a finite set $X$. Then $|A\cup B| = |A| + |B| - |A\cap B|$.
 \end{prop}
 
@@ -972,7 +972,7 @@ To achieve higher space efficiency, we seek a recurrence relation for coefficien
   This is a \emph{definition} of $\binom{n}{r}$, not a formula for computing it. A closed-form expression will be derived below.
 \end{remark}
 
-\begin{prop}
+\begin{prop}[Binomial sum]
   $\displaystyle\sum_{r=0}^{n} \binom{n}{r} = 2^n$.
 \end{prop}
 \begin{proof}
@@ -1022,7 +1022,7 @@ To achieve higher space efficiency, we seek a recurrence relation for coefficien
   where each entry is the sum of the two entries above it, and the $r$th entry of the $n$th row (starting from row $0$) is $\binom{n}{r}$.
 \end{remark}
 
-\begin{prop}
+\begin{prop}[Committee selection identity]
   $\displaystyle\binom{n}{k}\binom{k}{r} = \binom{n}{r}\binom{n - r}{k - r}$.
 \end{prop}
 \begin{proof}
@@ -1044,7 +1044,7 @@ To achieve higher space efficiency, we seek a recurrence relation for coefficien
   The number of such strings is $\binom{n + r - 1}{r}$.
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Factorial formula for $\binom{n}{r}$]
   $\displaystyle\binom{n}{r} = \frac{n!}{(n - r)!\,r!}$.
 \end{prop}
 
@@ -1220,7 +1220,7 @@ We can now give a proof of the inclusion-exclusion principle by induction.
   \emph{Claim:} a tree with $n$ animals has exactly $n - 1$ mutants. Let $P(n)$ be this statement. $P(1)$ is clear. Given a tree with $n \geq 2$ animals, removing the root mutant yields two sub-trees with $n_1$ and $n_2$ animals, where $n_1 + n_2 = n$ and $n_1, n_2 < n$. By the strong inductive hypothesis, these sub-trees have $n_1 - 1$ and $n_2 - 1$ mutants respectively. So the total number of mutants is $1 + (n_1 - 1) + (n_2 - 1) = n - 1$. By the strong principle of induction, $P(n)$ holds for all $n$.
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Equivalence of induction principles]
   The strong principle of induction is equivalent to the weak principle of induction.
 \end{prop}
 
@@ -1263,7 +1263,7 @@ We can now give a proof of the inclusion-exclusion principle by induction.
   $\N$ is well-ordered under the usual ordering, i.e.\ every non-empty subset of $\N$ has a least element.
 \end{thm}
 
-\begin{prop}
+\begin{prop}[Well-ordering equivalence]
   The well-ordering principle is equivalent to the strong principle of induction.
 \end{prop}
 
@@ -1313,7 +1313,7 @@ We can now give a proof of the inclusion-exclusion principle by induction.
   The check digits of the ISBN are calculated modulo 11.
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Divisor reduction of congruences]
   If $a\equiv b\pmod m$ and $d \mid m$, then $a \equiv b\pmod d$.
 \end{prop}
 
@@ -1329,7 +1329,7 @@ We can now give a proof of the inclusion-exclusion principle by induction.
   $\Z_3 = \{[0], [1], [2]\}$.
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Congruence arithmetic]
   If $a\equiv b\pmod m$ and $u\equiv v \pmod m$, then
   \[
     a + u\equiv b + v\pmod m \quad \text{and} \quad au \equiv bv \pmod m.
@@ -1354,7 +1354,7 @@ We can now give a proof of the inclusion-exclusion principle by induction.
   Every odd number is congruent to either $1$ or $-1$ modulo $4$. In particular, every odd prime $p$ satisfies $p \equiv 1$ or $p \equiv -1 \pmod 4$.
 \end{remark}
 
-\begin{thm}
+\begin{thm}[Primes in $3 \bmod 4$]
   There are infinitely many primes $p \equiv -1 \pmod 4$.
 \end{thm}
 
@@ -1374,7 +1374,7 @@ We can now give a proof of the inclusion-exclusion principle by induction.
   Not every integer has an inverse modulo $m$. For instance, $2$ is not a unit modulo $10$.
 \end{remark}
 
-\begin{prop}
+\begin{prop}[Unit criterion]
   $u$ is a unit modulo $m$ if and only if $(u, m) = 1$.
 \end{prop}
 
@@ -1388,7 +1388,7 @@ We can now give a proof of the inclusion-exclusion principle by induction.
   The inverse of a unit can be computed efficiently using Euclid's algorithm.
 \end{remark}
 
-\begin{cor}
+\begin{cor}[Coprime linear congruence]
   If $(a, m) = 1$, then the congruence $ax \equiv b\pmod m$ has a unique solution modulo $m$.
 \end{cor}
 
@@ -1396,7 +1396,7 @@ We can now give a proof of the inclusion-exclusion principle by induction.
   Since $(a, m) = 1$, the inverse $a^{-1}$ exists modulo $m$. Multiplying $ax\equiv b$ by $a^{-1}$ gives $x\equiv a^{-1}b\pmod m$. Conversely, if $x \equiv a^{-1}b$, then $ax \equiv aa^{-1}b \equiv b \pmod m$.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Linear congruence solubility]
   The congruence $ax \equiv b\pmod m$ has a solution if and only if $(a, m) \mid b$. If $d = (a, m)$ divides $b$, then the solutions are precisely the solutions to $\frac{a}{d}x \equiv \frac{b}{d} \pmod {\frac{m}{d}}$.
 \end{prop}
 
@@ -1437,7 +1437,7 @@ We can now give a proof of the inclusion-exclusion principle by induction.
   A congruence modulo $mn$ (with $(m,n)=1$) is equivalent to a pair of congruences modulo $m$ and modulo $n$. This extends to any number of pairwise coprime moduli by repeated application.
 \end{remark}
 
-\begin{prop}
+\begin{prop}[Unit splitting]
   Let $(m, n) = 1$. Then $c$ is a unit modulo $mn$ if and only if $c$ is a unit both modulo $m$ and modulo $n$.
 \end{prop}
 
@@ -1451,7 +1451,7 @@ We can now give a proof of the inclusion-exclusion principle by induction.
   For $m \in \N$, \emph{Euler's totient function} $\phi(m)$ is the number of integers $a$ with $1\leq a\leq m$ and $(a, m) = 1$. Equivalently, $\phi(m)$ is the number of units modulo $m$.
 \end{defi}
 
-\begin{prop}\leavevmode
+\begin{prop}[Properties of Euler's totient]\leavevmode
   \begin{enumerate}
     \item If $(m, n) = 1$, then $\phi(mn) = \phi(m)\phi(n)$ (i.e.\ $\phi$ is \emph{multiplicative}).
     \item If $p$ is prime, then $\phi(p) = p - 1$.
@@ -1537,7 +1537,7 @@ We can now give a proof of the inclusion-exclusion principle by induction.
   For $p = 7$: $1^2 \equiv 6^2 \equiv 1$, $2^2 \equiv 5^2 \equiv 4$, $3^2 \equiv 4^2 \equiv 2$. So $1, 2, 4$ are quadratic residues and $3, 5, 6$ are not.
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Quadratic character of $-1$]
   Let $p$ be an odd prime. Then $-1$ is a quadratic residue modulo $p$ if and only if $p\equiv 1\pmod 4$.
 \end{prop}
 
@@ -1563,7 +1563,7 @@ We can now give a proof of the inclusion-exclusion principle by induction.
   A prime $p$ is the sum of two squares if and only if $p = 2$ or $p\equiv 1\pmod 4$.
 \end{prop}
 
-\begin{prop}
+\begin{prop}[Primes in $1 \bmod 4$]
   There are infinitely many primes $p \equiv 1\pmod 4$.
 \end{prop}
 
@@ -1571,7 +1571,7 @@ We can now give a proof of the inclusion-exclusion principle by induction.
   Suppose not, and let $p_1, \ldots, p_k$ be all such primes. Let $N = (2p_1 \cdots p_k)^2 + 1$. Then $N$ is odd and not divisible by any $p_i$. Let $q$ be a prime factor of $N$. Then $q \not\equiv 1 \pmod 4$, so $q \equiv -1 \pmod 4$ (since $q$ is odd). But $(2p_1 \cdots p_k)^2 \equiv -1\pmod q$, so $-1$ is a quadratic residue modulo $q$, contradicting $q \equiv -1 \pmod 4$.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Square root formula mod $p$]
   Let $p = 4k + 3$ be a prime and let $a$ be a quadratic residue modulo $p$. Then $a \equiv (\pm a^{k + 1})^2 \pmod p$.
 \end{prop}
 
@@ -1689,14 +1689,14 @@ In \emph{asymmetric} (or \emph{public-key}) encryption, anyone can encrypt a mes
   \end{enumerate}
 \end{defi}
 
-\begin{prop}
+\begin{prop}[$\Q$ as ordered field]
   $\Q$ is a totally ordered field.
 \end{prop}
 
 \begin{eg}
   For $p$ prime, $\Z_p$ is a field but cannot be made into a totally ordered field: in any ordered field $1 > 0$ implies $1 + 1 > 0$, $1 + 1 + 1 > 0$, etc., so the field must have characteristic $0$.
 \end{eg}
-\begin{prop}
+\begin{prop}[Dense ordering of $\Q$]
   $\Q$ is densely ordered, i.e.\ for any $p, q \in \Q$, if $p < q$, then there is some $r \in \Q$ such that $p < r < q$.
 \end{prop}
 \begin{proof}
@@ -1704,7 +1704,7 @@ In \emph{asymmetric} (or \emph{public-key}) encryption, anyone can encrypt a mes
 \end{proof}
 
 However, $\Q$ is not enough for our purposes.
-\begin{prop}
+\begin{prop}[Irrationality of $\sqrt{2}$]
   There is no rational $q\in \Q$ with $q^2 = 2$.
 \end{prop}
 
@@ -1752,7 +1752,7 @@ However, $\Q$ is not enough for our purposes.
   Since $\R$ is a field, it has a multiplicative identity $1$. We define the natural numbers by $n = \underbrace{1 + \cdots + 1}_{n\text{ times}}$, the negative integers via additive inverses, and the rationals via multiplicative inverses: $\frac{m}{n} = m \cdot n^{-1}$ for $n \neq 0$. This gives a canonical copy of $\Q$ inside $\R$.
 \end{remark}
 
-\begin{cor}
+\begin{cor}[Existence of infimum]
   Every non-empty subset of $\R$ bounded below has an infimum.
 \end{cor}
 
@@ -1794,7 +1794,7 @@ However, $\Q$ is not enough for our purposes.
   Assume the contrary. Then $r$ is an upper bound for $\N$. $\N$ is not empty since $1\in \N$. By the least upper bound axiom, $s = \sup \N$ exists. Since $s$ is the least upper bound for $\N$, $s - 1$ is not an upper bound for $\N$. So $\exists m\in \N$ with $m > s - 1$. Then $m + 1\in \N$ but $m + 1 > s$, which contradicts the statement that $s$ is an upper bound.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Infimum of reciprocals]
   $\inf\{\frac{1}{n} : n \in \N,\, n \geq 1\} = 0$.
 \end{prop}
 
@@ -1812,7 +1812,7 @@ However, $\Q$ is not enough for our purposes.
   Let $T = \{k\in \N: \frac{k}{n}\geq s\}$. $T$ is not empty, since $N\in T$. Then by the well-ordering principle, $T$ has a minimum element $m$. Now $m\not= 1$ since $\frac{1}{n} < s - r \leq s$. Let $q = \frac{m - 1}{n}$. Since $m - 1\not\in T$, $q < s$. If $q =\frac{m - 1}{n}< r$, then $\frac{m}{n} < r + \frac{1}{n} < s$, so $m\not\in T$, contradiction. So $r < q < s$.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Existence of $\sqrt{2}$ in $\R$]
   There exists $x \in \R$ with $x^2 = 2$.
 \end{prop}
 
@@ -1905,7 +1905,7 @@ However, $\Q$ is not enough for our purposes.
   A sequence $(a_n)$ is \emph{increasing} if $m \leq n$ implies $a_m \leq a_n$, and \emph{decreasing} if $m \leq n$ implies $a_m \geq a_n$. It is \emph{monotonic} if it is increasing or decreasing. It is \emph{bounded} if there exists $B \in \R$ with $|a_n| \leq B$ for all $n$.
 \end{defi}
 
-\begin{thm}
+\begin{thm}[Monotone convergence theorem]
   Every bounded monotonic sequence converges.
 \end{thm}
 
@@ -1923,7 +1923,7 @@ However, $\Q$ is not enough for our purposes.
   A \emph{subsequence} of $(a_n)$ is a sequence of the form $(a_{g(n)})$, where $g\colon \N \to \N$ is strictly increasing. For example, $a_2, a_3, a_5, a_7, \ldots$ is a subsequence of $(a_n)$.
 \end{defi}
 
-\begin{thm}
+\begin{thm}[Monotone subsequence theorem]
   Every sequence has a monotonic subsequence.
 \end{thm}
 
@@ -2044,7 +2044,7 @@ However, $\Q$ is not enough for our purposes.
   Let $(d_n)$ be a sequence with $d_n \in \{0, 1, \ldots, 9\}$. Then $\displaystyle\sum_{n = 1}^\infty \frac{d_n}{10^n}$ converges to a limit $r$ with $0 \leq r \leq 1$, since the partial sums are increasing and bounded by $\sum_{n=1}^{\infty} \frac{9}{10^n} = 1$ (geometric series). We write $r = 0.d_1 d_2 d_3 \ldots$ and call this the \emph{decimal expansion} of $r$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Existence of decimal expansions]
   Every $x$ with $0 \leq x < 1$ has a decimal expansion.
 \end{prop}
 
@@ -2060,7 +2060,7 @@ However, $\Q$ is not enough for our purposes.
   Since both sides tend to $0$, the sandwich theorem gives $x = 0.d_1 d_2 \ldots$
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Uniqueness of decimal expansions]
   Decimal expansions are unique, except that $0.d_1 \ldots d_{k-1}(d_k - 1)999\ldots = 0.d_1 \ldots d_{k-1} d_k 000\ldots$ for any $k$.
 \end{prop}
 
@@ -2081,7 +2081,7 @@ However, $\Q$ is not enough for our purposes.
   A decimal expansion $0.d_1 d_2 \ldots$ is \emph{periodic} if there exist $\ell$ and $k$ such that $d_{n + k} = d_n$ for all $n > \ell$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Periodicity criterion]
   A decimal expansion is periodic if and only if it represents a rational number.
 \end{prop}
 
@@ -2113,7 +2113,7 @@ However, $\Q$ is not enough for our purposes.
   The partial sums are increasing and bounded above by $1 + 1 + \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \cdots = 3$, so the sum converges. In particular $2 < e < 3$.
 \end{remark}
 
-\begin{prop}
+\begin{prop}[Irrationality of $e$]
   $e$ is irrational.
 \end{prop}
 
@@ -2138,7 +2138,7 @@ However, $\Q$ is not enough for our purposes.
   An \emph{algebraic number} is a root of a polynomial with integer coefficients. A real number is \emph{transcendental} if it is not algebraic.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Rationals are algebraic]
   Every rational number is algebraic.
 \end{prop}
 
@@ -2195,7 +2195,7 @@ However, $\Q$ is not enough for our purposes.
 
 \section{Countability}
 
-\begin{lemma}
+\begin{lemma}[Finite injection lemma]
   If $f:[n] \to [n]$ is injective, then $f$ is bijective.
 \end{lemma}
 
@@ -2207,7 +2207,7 @@ However, $\Q$ is not enough for our purposes.
   Then $g$ is a bijection, so $g \circ f$ is injective and fixes $n$. Hence $h\colon [n-1] \to [n-1]$ defined by $h(i) = g \circ f(i)$ is well-defined and injective. By the induction hypothesis, $h$ is bijective, so $g \circ f$ is bijective, and therefore so is $f$.
 \end{proof}
 
-\begin{cor}
+\begin{cor}[Well-definedness of cardinality]
   If $A$ is a set and $f\colon A \to [n]$ and $g\colon A \to [m]$ are both bijections, then $m = n$.
 \end{cor}
 
@@ -2219,7 +2219,7 @@ However, $\Q$ is not enough for our purposes.
   A set $A$ is \emph{finite} if there exists a bijection $A \to [n]$ for some $n \in \N_0$. The \emph{cardinality} or \emph{size} of $A$, written $|A|$, is $n$. By the above corollary, this is well-defined.
 \end{defi}
 
-\begin{lemma}
+\begin{lemma}[Dichotomy for subsets of $\N$]
   Let $S \subseteq \N$. Then either $S$ is finite or there is a bijection $g\colon \N \to S$.
 \end{lemma}
 
@@ -2231,7 +2231,7 @@ However, $\Q$ is not enough for our purposes.
   A set $A$ is \emph{countable} if $A$ is finite or there is a bijection between $A$ and $\N$. A set is \emph{uncountable} if it is not countable.
 \end{defi}
 
-\begin{thm}
+\begin{thm}[Countability criteria]
   The following are equivalent:
   \begin{enumerate}
     \item $A$ is countable.
@@ -2248,7 +2248,7 @@ However, $\Q$ is not enough for our purposes.
   (ii) $\Rightarrow$ (i): If $f\colon A \to \N$ is an injection, then $f$ gives a bijection between $A$ and $S = f(A) \subseteq \N$. If $S$ is finite, so is $A$. If $S$ is infinite, the previous lemma gives a bijection $g\colon \N \to S$, so $g^{-1} \circ f$ is a bijection $A \to \N$.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Countability of $\Z$]
   The integers $\Z$ are countable.
 \end{prop}
 \begin{proof}
@@ -2263,7 +2263,7 @@ However, $\Q$ is not enough for our purposes.
   is a bijection.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Countability of $\N \times \N$]
   $\N \times \N$ is countable.
 \end{prop}
 \begin{proof}
@@ -2295,7 +2295,7 @@ However, $\Q$ is not enough for our purposes.
   \end{center}
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Subsets of countable sets]
   If $f\colon A \to B$ is injective and $B$ is countable, then $A$ is countable.
 \end{prop}
 
@@ -2303,7 +2303,7 @@ However, $\Q$ is not enough for our purposes.
   There is an injection $B \to \N$, so composing gives an injection $A \to \N$.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Countability of $\Z^k$]
   $\Z^k$ is countable for all $k \in \N$.
 \end{prop}
 
@@ -2311,7 +2311,7 @@ However, $\Q$ is not enough for our purposes.
   By induction on $k$. The base case $\Z$ is countable. If $\Z^k$ is countable, then there is an injection $\Z^k \to \N$, giving an injection $\Z^{k+1} = \Z \times \Z^k \to \Z \times \N \to \N \times \N \to \N$.
 \end{proof}
 
-\begin{thm}
+\begin{thm}[Countable union theorem]
   A countable union of countable sets is countable.
 \end{thm}
 
@@ -2321,14 +2321,14 @@ However, $\Q$ is not enough for our purposes.
   For $a \in \bigcup A_\alpha$, let $m = \min\{f(\alpha) : a \in A_\alpha\}$ and let $\alpha$ be the index with $f(\alpha) = m$. Set $h(a) = (m, g_\alpha(a))$. This is an injection.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Countability of $\Q$]
   $\Q$ is countable.
 \end{prop}
 \begin{proof}
   Either observe that $\Q = \bigcup_{n \geq 1} \left\{\frac{m}{n} : m \in \Z\right\}$ is a countable union of countable sets, or note that $a/b \mapsto (a, b)$ (with $b > 0$ and $(a, b) = 1$) is an injection $\Q \to \Z \times \N$.
 \end{proof}
 
-\begin{thm}
+\begin{thm}[Countability of algebraic numbers]
   The set of algebraic numbers is countable.
 \end{thm}
 \begin{proof}
@@ -2339,7 +2339,7 @@ However, $\Q$ is not enough for our purposes.
   For each polynomial $p \in \mathcal{P}$, let $R_p$ be the set of its roots. Then $R_p$ is finite and thus countable. Hence $\bigcup_{p\in \mathcal{P}} R_p$, the set of all algebraic numbers, is countable.
 \end{proof}
 
-\begin{thm}
+\begin{thm}[Uncountability of $\R$]
   The set of real numbers $\R$ is uncountable.
 \end{thm}
 
@@ -2358,7 +2358,7 @@ However, $\Q$ is not enough for our purposes.
   \end{cases}$. Then $r$ differs from $r_n$ in the $n$th decimal place for every $n$, so $r$ is not in the list. Contradiction.
 \end{proof}
 
-\begin{cor}
+\begin{cor}[Abundance of transcendentals]
   There are uncountably many transcendental numbers.
 \end{cor}
 
@@ -2384,7 +2384,7 @@ However, $\Q$ is not enough for our purposes.
   Alternatively, the map $S \mapsto \mathbf{1}_S$ (indicator function) is a bijection $\mathcal{P}(\N) \to \{0, 1\}^{\N}$, and $\{0, 1\}^{\N} \subseteq \Sigma$. Since $\mathcal{P}(\N)$ is uncountable, so is $\Sigma$.
 \end{eg}
 
-\begin{thm}
+\begin{thm}[Cantor's theorem]
   Let $A$ be a set. Then there is no surjection from $A\to \mathcal{P}(A)$.
 \end{thm}
 
