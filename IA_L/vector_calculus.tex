@@ -3619,7 +3619,10 @@ The sum is again a tensor, since $(T + S)_{ij}' = R_{ip}R_{jq}(T_{pq} + S_{pq})$
 \end{eg}
 
 \subsection{Diagonalization of a symmetric second rank tensor}
-In matrix notation, the tensor transformation rule $T'_{ij} = R_{ip}R_{jq}T_{pq}$ becomes $T' = RTR^T = RTR^{-1}$.
+
+\begin{rmk}
+  In matrix notation, the tensor transformation rule $T'_{ij} = R_{ip}R_{jq}T_{pq}$ becomes $T' = RTR^T = RTR^{-1}$.
+\end{rmk}
 
 \begin{prop}[Diagonalization of symmetric tensors]
   A symmetric rank-2 tensor $T_{ij}$ can be diagonalized by an orthogonal transformation. There exists an orthonormal basis $\{\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3\}$ of eigenvectors with real eigenvalues $\lambda_1, \lambda_2, \lambda_3$. The directions $\mathbf{e}_i$ are called the \emph{principal axes}, and in Cartesian coordinates along these axes, $T_{ij} = \lambda_i \delta_{ij}$ (no sum).
@@ -3641,11 +3644,17 @@ In matrix notation, the tensor transformation rule $T'_{ij} = R_{ip}R_{jq}T_{pq}
   A tensor $T$ which is invariant under every rotation is \emph{isotropic}, i.e.\ the same in every direction.
 \end{defi}
 
-\begin{eg}[Sphere inertia tensor is isotropic]
-  The inertia tensor of a sphere is isotropic by symmetry.
-
-  $\delta_{ij}$ and $\varepsilon_{ijk}$ are also isotropic tensors. This ensures that the component definitions of the scalar and vector products $\mathbf{a}\cdot \mathbf{b} = a_i b_j \delta_{ij}$ and $(\mathbf{a}\times \mathbf{b})_i = \varepsilon_{ijk} a_j b_k$ are independent of the Cartesian coordinate system.
+\begin{eg}[Isotropic tensors]\leavevmode
+  \begin{enumerate}
+    \item The Kronecker delta $\delta_{ij}$ is an isotropic rank-2 tensor.
+    \item The Levi-Civita symbol $\varepsilon_{ijk}$ is an isotropic rank-3 tensor.
+    \item The inertia tensor of a uniform sphere about its centre is isotropic, by the rotational symmetry of the sphere.
+  \end{enumerate}
 \end{eg}
+
+\begin{rmk}
+  The isotropy of $\delta_{ij}$ and $\varepsilon_{ijk}$ ensures that the component definitions of the scalar and vector products, $\mathbf{a}\cdot \mathbf{b} = a_i b_j \delta_{ij}$ and $(\mathbf{a}\times \mathbf{b})_i = \varepsilon_{ijk} a_j b_k$, are independent of the choice of Cartesian coordinate system.
+\end{rmk}
 
 \begin{thm}[Classification of isotropic tensors in $\R^3$]\leavevmode
   \begin{enumerate}
@@ -3774,41 +3783,35 @@ In matrix notation, the tensor transformation rule $T'_{ij} = R_{ip}R_{jq}T_{pq}
   If conditions (i) and (ii) hold for \emph{every} rotation $R$, then $T_{ij\cdots k}$ is isotropic, which severely restricts its form.
 \end{rmk}
 
-\begin{eg}[Invariant integral for sphere]
-  Let
+\begin{eg}[Coordinate integral over a sphere]
+  Let $V$ be the solid sphere $|\mathbf{r}| < a$ and consider
   \[
-    T_{ij} = \int_V x_i x_j \;\d V,
+    T_{ij} = \int_V x_i x_j \;\d V.
   \]
-  with $V$ being a solid sphere of $|\mathbf{r}| < a$. Our result applies with $f = 1$, which, being a constant, is clearly invariant under rotations. Also the solid sphere is invariant under any rotation. So $T$ must be isotropic. But the only rank 2 isotropic tensor is $\alpha \delta_{ij}$. Hence we must have
+  The integrand has $f = 1$, which is invariant under rotations, and the solid sphere is invariant under any rotation. By the preceding theorem, $T_{ij}$ is isotropic. By the classification theorem, the most general rank-2 isotropic tensor is $\alpha\delta_{ij}$, so
   \[
-    T_{ij} = \alpha \delta_{ij},
+    T_{ij} = \alpha \delta_{ij}
   \]
-  and all we have to do is to determine the scalar $\alpha$.
-
-  Taking the trace, we have
+  for some scalar $\alpha$. Taking the trace gives
   \[
-    T_{ii} = 3\alpha = \int_V x_i x_i \;\d V = 4\pi \int_0^a r^2 \cdot r^2\;\d r = \frac{4}{5}\pi a^5.
+    T_{ii} = 3\alpha = \int_V x_i x_i \;\d V = 4\pi \int_0^a r^2 \cdot r^2\;\d r = \frac{4}{5}\pi a^5,
   \]
-  So
+  so
   \[
     T_{ij} = \frac{4}{15}\pi a^5 \delta_{ij}.
   \]
   This provides a rigorous justification for the common assertion that $T_{ij} = 0$ for $i \neq j$ ``by symmetry.''
+\end{eg}
 
-  A closely related calculation gives the inertia tensor of a solid sphere of constant density $\rho_0$, or of mass $M = \frac{4}{3}\pi a^3 \rho_0$.
-
-  Recall that
+\begin{eg}[Inertia tensor of a solid sphere]
+  Consider a solid sphere of radius $a$, constant density $\rho_0$, and total mass $M = \frac{4}{3}\pi a^3 \rho_0$. The inertia tensor is
   \[
     I_{ij} = \int_V \rho_0 (x_k x_k \delta_{ij} - x_i x_j)\;\d V.
   \]
-  We see that $I_{ij}$ is isotropic (since we have just shown that $\int x_i x_j\;\d V$ is isotropic, and $x_kx_k \delta_{ij}$ is also isotropic). Let $I_{ij} = \beta \delta_{ij}$. Then
+  Since $\int_V x_i x_j\;\d V$ is isotropic (by the previous example) and $x_k x_k\,\delta_{ij}$ is manifestly isotropic, $I_{ij}$ is isotropic. Using the result $T_{ij} = \frac{4}{15}\pi a^5 \delta_{ij}$ from above,
   \begin{align*}
-    I_{ij} &= \int_V \rho_0 (x_k x_k \delta_{ij} - x_ix_j)\;\d V \\
-    &= \rho_0\left(\delta_{ij}\int_V x_k x_k\;\d V - \int_V x_ix_j \;\d V\right)\\
-    &= \rho_0\left(\delta_{ij}T_{kk} - T_{ij}\right)\\
-    &= \rho_0\left(\frac{4}{5}\pi a^5\delta_{ij} - \frac{4}{15}\pi a^5 \delta_{ij}\right)\\
-    &= \frac{8}{15}\rho_0 \pi a^5 \delta_{ij}\\
-    &= \frac{2}{5}Ma^2 \delta_{ij}.
+    I_{ij} &= \rho_0\left(\delta_{ij}\int_V x_k x_k\;\d V - \int_V x_ix_j \;\d V\right) = \rho_0\left(\delta_{ij}T_{kk} - T_{ij}\right)\\
+    &= \rho_0\left(\frac{4}{5}\pi a^5\delta_{ij} - \frac{4}{15}\pi a^5 \delta_{ij}\right) = \frac{8}{15}\rho_0 \pi a^5 \delta_{ij} = \frac{2}{5}Ma^2 \delta_{ij}.
   \end{align*}
 \end{eg}
 
