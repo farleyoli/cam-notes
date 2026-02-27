@@ -520,11 +520,18 @@ Note that throughout the course (and lecture notes), summation convention is imp
   \[
     \frac{\d \mathbf{r}}{\d \tilde{u}} = \frac{\d \mathbf{r}}{\d u} \cdot \frac{\d u}{\d \tilde{u}}.
   \]
-  A particularly convenient choice is to use the arc length $s$ itself as the parameter. In this case, the tangent vector has unit length, since by the arclength derivative proposition,
+\end{rmk}
+
+\begin{cor}[Arc-length parametrisation]
+  If a curve $C$ is parametrised by its arc length $s$, then the tangent vector has unit length:
   \[
     |\mathbf{r}'(s)| = \left|\frac{\d \mathbf{r}}{\d s}\right| = 1.
   \]
-\end{rmk}
+\end{cor}
+
+\begin{proof}
+  Setting $u = s$ in the arclength derivative formula gives $\frac{\d s}{\d s} = 1 = |\mathbf{r}'(s)|$.
+\end{proof}
 
 \begin{defi}[Scalar line element]
   The \emph{scalar line element} of a curve $C$ is the infinitesimal arc length $\d s$. For a curve parametrised by $\mathbf{r}(u)$, we have
@@ -532,6 +539,7 @@ Note that throughout the course (and lecture notes), summation convention is imp
     \d s = |\mathbf{r}'(u)| \, \d u.
   \]
 \end{defi}
+
 \subsection{Line integrals of vector fields}
 
 \begin{defi}[Line integral]
