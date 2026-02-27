@@ -104,6 +104,14 @@ Note that throughout the course (and lecture notes), summation convention is imp
   \]
 \end{prop}
 
+\begin{proof}
+  Writing $\mathbf{F}(x) = F_i(x)\mathbf{e}_i$ and using the definition of the derivative,
+  \[
+    \mathbf{F}'(x) = \lim_{\delta x \to 0} \frac{\mathbf{F}(x + \delta x) - \mathbf{F}(x)}{\delta x} = \lim_{\delta x \to 0} \frac{F_i(x + \delta x) - F_i(x)}{\delta x}\,\mathbf{e}_i = F'_i(x)\,\mathbf{e}_i,
+  \]
+  where we used that the basis vectors $\mathbf{e}_i$ are independent of $x$.
+\end{proof}
+
 \begin{prop}[Leibniz rules for products]
   Let $f: \R \to \R$ be a differentiable scalar function, and let $\mathbf{g}, \mathbf{h}: \R \to \R^3$ be differentiable vector functions. Then the following product rules hold:
   \begin{align*}
@@ -113,6 +121,14 @@ Note that throughout the course (and lecture notes), summation convention is imp
   \end{align*}
   In the case of the cross product, the order of multiplication must be retained.
 \end{prop}
+
+\begin{proof}
+  Each identity follows from expanding the relevant product componentwise and applying the ordinary product rule for scalar functions. For example, for the dot product, writing $\mathbf{g} = g_i \mathbf{e}_i$ and $\mathbf{h} = h_i \mathbf{e}_i$ gives $\mathbf{g}\cdot \mathbf{h} = g_i h_i$, and so
+  \[
+    \frac{\d}{\d t}(\mathbf{g}\cdot \mathbf{h}) = \frac{\d}{\d t}(g_i h_i) = g'_i h_i + g_i h'_i = \frac{\d \mathbf{g}}{\d t}\cdot \mathbf{h} + \mathbf{g}\cdot \frac{\d \mathbf{h}}{\d t}.
+  \]
+  The other two identities are proved similarly.
+\end{proof}
 
 \begin{eg}[Particle momentum and torque]
   Consider a particle of mass $m$ with position $\mathbf{r}(t)$, velocity $\dot{\mathbf{r}}(t)$, and acceleration $\ddot{\mathbf{r}}(t)$, where dots denote derivatives with respect to time $t$. Its momentum is $\mathbf{p} = m\dot{\mathbf{r}}(t)$.
@@ -138,8 +154,8 @@ Note that throughout the course (and lecture notes), summation convention is imp
   A \emph{scalar function} is a function $f: \R^n \to \R$. It takes in a position vector and returns a scalar. For example, a scalar function may assign to each point in space the temperature or the potential energy at that point.
 \end{defi}
 
-\begin{defi}[Limits involving vectors]
-  Let $\mathbf{v}$ and $\mathbf{c}$ be vectors in $\R^n$. We write $\mathbf{v}\to \mathbf{c}$ if $|\mathbf{v} - \mathbf{c}| \to 0$. For a scalar-valued function $f$, we write $f(\mathbf{r}) = o(\mathbf{r})$ to mean $\frac{|f(\mathbf{r})|}{|\mathbf{r}|} \to 0$ as $\mathbf{r}\to \mathbf{0}$.
+\begin{defi}[Limits and asymptotic notation]
+  Let $\mathbf{v}$ and $\mathbf{c}$ be vectors in $\R^n$. We write $\mathbf{v}\to \mathbf{c}$ if $|\mathbf{v} - \mathbf{c}| \to 0$. For a function $g$ (scalar- or vector-valued) of a vector variable $\mathbf{h} \in \R^n$, we write $g(\mathbf{h}) = o(\mathbf{h})$ to mean $|g(\mathbf{h})|/|\mathbf{h}| \to 0$ as $\mathbf{h}\to \mathbf{0}$.
 \end{defi}
 
 \begin{defi}[Gradient of scalar function]
@@ -192,7 +208,7 @@ Note that throughout the course (and lecture notes), summation convention is imp
 \begin{rmk}[Differential notation]
   Using the gradient formula, the differentiability condition can be written as
   \[
-    \delta f = \frac{\partial f}{\partial x_i}\delta x_i + o(\delta \mathbf{x}).
+    \delta f = \frac{\partial f}{\partial x_i}\delta x_i + o(\delta \mathbf{r}).
   \]
   In differential notation, this becomes
   \[
@@ -264,8 +280,16 @@ Note that throughout the course (and lecture notes), summation convention is imp
 \end{rmk}
 
 \begin{defi}[Smooth function]
-  A function is \emph{smooth} if all partial derivatives of all orders exist and are continuous. By Schwarz's theorem, this implies that mixed partial derivatives are symmetric, i.e.\ the order of differentiation does not matter.
+  A function is \emph{smooth} if all partial derivatives of all orders exist and are continuous.
 \end{defi}
+
+\begin{prop}[Schwarz's theorem]
+  If $f$ is smooth, then its mixed partial derivatives are symmetric:
+  \[
+    \frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{\partial^2 f}{\partial x_j \partial x_i}
+  \]
+  for all $i, j$. That is, the order of differentiation does not matter.
+\end{prop}
 
 \begin{rmk}
   In this course, all functions will be assumed smooth except where they are obviously singular (e.g.\ $f(x) = 1/x$ at $x = 0$).
@@ -285,6 +309,14 @@ Note that throughout the course (and lecture notes), summation convention is imp
     \frac{\partial}{\partial u_a} = \frac{\partial x_i}{\partial u_a}\frac{\partial}{\partial x_i}.
   \]
 \end{thm}
+
+\begin{proof}
+  A small perturbation $\delta \mathbf{u}$ produces a change $\delta \mathbf{x} = M(g)\,\delta\mathbf{u} + o(\delta\mathbf{u})$ by the differentiability of $g$. By the differentiability of $f$,
+  \[
+    \delta \mathbf{y} = M(f)\,\delta\mathbf{x} + o(\delta\mathbf{x}) = M(f)\,M(g)\,\delta\mathbf{u} + o(\delta\mathbf{u}),
+  \]
+  since $|\delta\mathbf{x}|/|\delta\mathbf{u}|$ remains bounded as $\delta\mathbf{u} \to \mathbf{0}$. This shows $M(f \circ g) = M(f)\,M(g)$, which gives the component formula $\frac{\partial y_r}{\partial u_a} = \frac{\partial y_r}{\partial x_i}\frac{\partial x_i}{\partial u_a}$.
+\end{proof}
 
 \subsection{Inverse functions}
 
