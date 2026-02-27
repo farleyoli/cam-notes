@@ -589,15 +589,16 @@ Note that throughout the course (and lecture notes), summation convention is imp
   \]
 \end{rmk}
 
-\begin{rmk}[Scalar line integrals]
-  More generally, we can integrate any scalar function $f$ along a curve $C$ with respect to arc length:
+\begin{defi}[Scalar line integral]
+  For a scalar function $f$ and a curve $C$, the \emph{scalar line integral} of $f$ along $C$ with respect to arc length is
   \[
     \int_C f\;\d s.
   \]
-  By convention, this integral is evaluated in the direction of increasing arc length. As a special case, the length of the curve $C$ is given by
-  \[
-    \int_C 1\;\d s = \text{length of } C.
-  \]
+  By convention, this integral is evaluated in the direction of increasing arc length.
+\end{defi}
+
+\begin{rmk}
+  As a special case, the length of the curve $C$ is given by $\int_C 1\;\d s$.
 \end{rmk}
 
 \begin{defi}[Closed curve and circulation]
@@ -611,6 +612,20 @@ Note that throughout the course (and lecture notes), summation convention is imp
   \]
   If $C$ is a curve traversed from $\mathbf{a}$ to $\mathbf{b}$, we write $-C$ for the same curve traversed in the opposite direction, from $\mathbf{b}$ to $\mathbf{a}$.
 \end{defi}
+
+\begin{prop}[Reversal of line integral]
+  If $C$ is a curve from $\mathbf{a}$ to $\mathbf{b}$, then
+  \[
+    \int_{-C} \mathbf{F}\cdot \d\mathbf{r} = -\int_C \mathbf{F}\cdot \d\mathbf{r}.
+  \]
+\end{prop}
+
+\begin{proof}
+  If $\mathbf{r}(u)$ for $u \in [\alpha, \beta]$ parametrises $C$, then $\tilde{\mathbf{r}}(u) = \mathbf{r}(\alpha + \beta - u)$ parametrises $-C$. Since $\tilde{\mathbf{r}}'(u) = -\mathbf{r}'(\alpha + \beta - u)$, the substitution $v = \alpha + \beta - u$ gives
+  \[
+    \int_{-C} \mathbf{F}\cdot \d\mathbf{r} = \int_\alpha^\beta \mathbf{F}(\tilde{\mathbf{r}}(u)) \cdot \tilde{\mathbf{r}}'(u)\;\d u = -\int_\alpha^\beta \mathbf{F}(\mathbf{r}(v)) \cdot \mathbf{r}'(v)\;\d v = -\int_C \mathbf{F}\cdot \d\mathbf{r}. \qedhere
+  \]
+\end{proof}
 
 \begin{eg}[Piecewise smooth closed curve]
   Continuing the previous example, let $C_3 = -C_2$ denote the straight-line path from $\mathbf{b}$ to $\mathbf{a}$. Then $C = C_1 + C_3$ is a piecewise smooth closed curve, and
@@ -627,10 +642,11 @@ Note that throughout the course (and lecture notes), summation convention is imp
       \node at (2, 2) [right] {$b$};
       \draw [->-=0.6] (0, 0) parabola (2, 2);
       \node at (1.8, 1) {$C_1$};
-      \draw [->-=0.6] (2, 2) -- (0, 0) node [pos = 0.5, anchor = south east] {$C_3$};;
+      \draw [->-=0.6] (2, 2) -- (0, 0) node [pos = 0.5, anchor = south east] {$C_3$};
     \end{tikzpicture}
   \end{center}
 \end{eg}
+
 \subsection{Gradients and Differentials}
 As the previous example demonstrates, line integrals generally depend on the path taken, not just the endpoints. However, there is an important class of vector fields for which the line integral depends only on the endpoints. These are the vector fields that can be expressed as gradients of scalar functions.
 
