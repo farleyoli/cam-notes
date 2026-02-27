@@ -407,8 +407,20 @@ Note that throughout the course (and lecture notes), summation convention is imp
   where $\rho \geq 0$ is the radial distance from the origin and $\varphi \in [0, 2\pi)$ is the angle measured from the positive $x_1$-axis.
 \end{eg}
 
-\begin{rmk}[Basis vectors for curvilinear coordinates]
-  The coordinates $\rho$ and $\varphi$ are not the components of the position vector in any basis; that is, we do not have $\mathbf{r} = \rho\,\mathbf{e}_\rho + \varphi\,\mathbf{e}_\varphi$ in the same way that $\mathbf{r} = x_1\mathbf{e}_1 + x_2\mathbf{e}_2$. Nevertheless, we can define associated basis vectors that point in the directions of increasing $\rho$ and $\varphi$, obtained by differentiating the position vector with respect to each coordinate and normalizing:
+\begin{defi}[Basis vectors for curvilinear coordinates]
+  Given curvilinear coordinates $(u_1, \ldots, u_n)$, the associated \emph{basis vectors} are defined by differentiating the position vector with respect to each coordinate and normalizing:
+  \[
+    \mathbf{e}_{u_i} = \frac{\partial \mathbf{r}/\partial u_i}{|\partial \mathbf{r}/\partial u_i|}.
+  \]
+  These basis vectors point in the direction of increasing $u_i$ at each point.
+\end{defi}
+
+\begin{rmk}
+  The curvilinear coordinates $u_i$ are not in general the components of the position vector with respect to the basis $\{\mathbf{e}_{u_i}\}$. For instance, in polar coordinates, $\mathbf{r} \neq \rho\,\mathbf{e}_\rho + \varphi\,\mathbf{e}_\varphi$, even though $\mathbf{r} = x_1 \mathbf{e}_1 + x_2 \mathbf{e}_2$ in Cartesian coordinates.
+\end{rmk}
+
+\begin{eg}[Polar coordinate basis vectors]
+  For plane polar coordinates $(\rho, \varphi)$, the basis vectors are
   \[
     \mathbf{e}_\rho = \cos \varphi\, \mathbf{e}_1 + \sin \varphi\, \mathbf{e}_2,\quad \mathbf{e}_\varphi = -\sin \varphi\, \mathbf{e}_1 + \cos \varphi\, \mathbf{e}_2.
   \]
@@ -423,7 +435,10 @@ Note that throughout the course (and lecture notes), summation convention is imp
       \node at (0.9, 0.3) {$\varphi$};
     \end{tikzpicture}
   \end{center}
-  Unlike the Cartesian basis vectors $\mathbf{e}_1, \mathbf{e}_2$, the polar basis vectors $\mathbf{e}_\rho, \mathbf{e}_\varphi$ vary with position and are undefined at the origin. Despite this, they are extremely useful for problems with rotational symmetry.
+\end{eg}
+
+\begin{rmk}
+  Unlike the Cartesian basis vectors $\mathbf{e}_1, \mathbf{e}_2$, the curvilinear basis vectors $\mathbf{e}_{u_i}$ vary with position and may be undefined at certain points (e.g., $\mathbf{e}_\rho$ and $\mathbf{e}_\varphi$ are undefined at the origin). Despite this, they are extremely useful for problems with appropriate symmetry.
 \end{rmk}
 
 \begin{eg}[Cylindrical and spherical polar coordinates]
