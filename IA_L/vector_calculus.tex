@@ -658,12 +658,14 @@ As the previous example demonstrates, line integrals generally depend on the pat
   In particular, the line integral depends only on the endpoints and not on the path. As a special case, if $C$ is a closed curve, then $\oint_C \mathbf{F}\cdot \d \mathbf{r} = 0$.
 \end{thm}
 
-This result is the multivariable analogue of the fundamental theorem of calculus.
+\begin{rmk}
+  This result is the multivariable analogue of the fundamental theorem of calculus.
+\end{rmk}
 
 \begin{proof}
   Let $\mathbf{r}(u)$ be any parametrization of the curve, and suppose $\mathbf{a} = \mathbf{r}(\alpha)$, $\mathbf{b} = \mathbf{r}(\beta)$. Then
   \[
-    \int_C \mathbf{F}\cdot \d \mathbf{r} = \int_C\nabla f\cdot \d \mathbf{r} = \int \nabla f\cdot \frac{\d \mathbf{r}}{\d u}\; \d u.
+    \int_C \mathbf{F}\cdot \d \mathbf{r} = \int_C\nabla f\cdot \d \mathbf{r} = \int_\alpha^\beta \nabla f\cdot \frac{\d \mathbf{r}}{\d u}\; \d u.
   \]
   So by the chain rule, this is equal to
   \[
@@ -695,8 +697,15 @@ The following proposition provides a necessary condition for a differential to b
   \[
     \frac{\partial F_i}{\partial x_j} = \frac{\partial F_j}{\partial x_i}
   \]
-  for all $i, j$. This follows from the equality of mixed partial derivatives: $\frac{\partial F_i}{\partial x_j} = \frac{\partial^2 f}{\partial x_j \partial x_i} = \frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{\partial F_j}{\partial x_i}$.
+  for all $i, j$.
 \end{prop}
+
+\begin{proof}
+  Since $F_i = \frac{\partial f}{\partial x_i}$, the equality of mixed partial derivatives gives
+  \[
+    \frac{\partial F_i}{\partial x_j} = \frac{\partial^2 f}{\partial x_j \partial x_i} = \frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{\partial F_j}{\partial x_i}. \qedhere
+  \]
+\end{proof}
 
 \begin{rmk}
   For an exact differential, the fundamental theorem for line integrals can be written as
