@@ -748,18 +748,28 @@ We now apply the theory of line integrals to mechanics.
   This represents the accumulated effect of the force component along the direction of motion.
 \end{defi}
 
-\begin{prop}[Work-energy theorem]
-  Consider a particle of mass $m$ moving under the influence of a force $\mathbf{F}(\mathbf{r})$ according to Newton's second law, $\mathbf{F} = m\ddot{\mathbf{r}}$. The work done by $\mathbf{F}$ as the particle moves along a curve $C$ equals the change in kinetic energy.
-\end{prop}
+\begin{defi}[Kinetic energy]
+  The \emph{kinetic energy} of a particle of mass $m$ moving with velocity $\dot{\mathbf{r}}$ is
+  \[
+    T = \frac{1}{2} m |\dot{\mathbf{r}}|^2.
+  \]
+\end{defi}
+
+\begin{thm}[Work-energy theorem]
+  Consider a particle of mass $m$ moving under a force $\mathbf{F}(\mathbf{r})$ according to Newton's second law, $\mathbf{F} = m\ddot{\mathbf{r}}$. The work done by $\mathbf{F}$ as the particle moves along a curve $C$ from $\mathbf{a} = \mathbf{r}(t_1)$ to $\mathbf{b} = \mathbf{r}(t_2)$ equals the change in kinetic energy:
+  \[
+    \int_C \mathbf{F} \cdot \d\mathbf{r} = T(t_2) - T(t_1).
+  \]
+\end{thm}
 
 \begin{proof}
-  The kinetic energy of the particle is $T = \frac{1}{2}m|\dot{\mathbf{r}}|^2$. Differentiating with respect to time,
+  Differentiating $T$ with respect to time,
   \[
     \frac{\d T}{\d t} = m\dot{\mathbf{r}} \cdot \ddot{\mathbf{r}} = \mathbf{F} \cdot \dot{\mathbf{r}}.
   \]
-  If the particle travels along a curve $C$ from $\mathbf{a} = \mathbf{r}(t_1)$ to $\mathbf{b} = \mathbf{r}(t_2)$, then
+  Integrating from $t_1$ to $t_2$ gives
   \[
-    T(t_2) - T(t_1) = \int_{t_1}^{t_2} \frac{\d T}{\d t} \, \d t = \int_{t_1}^{t_2} \mathbf{F} \cdot \dot{\mathbf{r}} \, \d t = \int_C \mathbf{F} \cdot \d\mathbf{r}. \qedhere
+    T(t_2) - T(t_1) = \int_{t_1}^{t_2} \mathbf{F} \cdot \dot{\mathbf{r}} \, \d t = \int_C \mathbf{F} \cdot \d\mathbf{r}. \qedhere
   \]
 \end{proof}
 
