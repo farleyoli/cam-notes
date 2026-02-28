@@ -851,9 +851,9 @@ We sum over all such strips and take $\delta y\to 0$, giving
 
 \begin{prop}[Iterated integral formula]
   \[
-    \int_D f(x, y)\;\d A = \int_Y\left(\int_{x_y}f(x, y)\;\d x\right) \d y.
+    \int_D f(x, y)\;\d A = \int_Y\left(\int_{x_y}f(x, y)\;\d x\right) \d y,
   \]
-  with $x_y$ ranging over $\{x: (x, y) \in D\}$.
+  where $Y$ is the range of $y$-values in $D$ and $x_y = \{x: (x, y) \in D\}$.
 \end{prop}
 
 \begin{rmk}[Disconnected integration domains]
@@ -861,18 +861,18 @@ We sum over all such strips and take $\delta y\to 0$, giving
   \[
     \int_{x_y} f(x) \, \d x = \int_{a_1}^{b_1} f(x) \, \d x + \int_{a_2}^{b_2} f(x) \, \d x.
   \]
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (6, 0) node [right] {$x$};
+      \draw [->] (0, 0) -- (0, 4) node [above] {$y$};
+      \draw plot [smooth cycle] coordinates {(1, 1) (4, 0.8) (4.2, 1.1) (3, 2) (4.1, 3) (1.2, 2.7)};
+      \draw (3.2, 0.8) -- (3.2, 1.76);
+      \draw (3.4, 0.8) -- (3.4, 1.61);
+      \draw (3.2, 2.24) -- (3.2, 3.02);
+      \draw (3.4, 2.4) -- (3.4, 3.04);
+    \end{tikzpicture}
+  \end{center}
 \end{rmk}
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (6, 0) node [right] {$x$};
-    \draw [->] (0, 0) -- (0, 4) node [above] {$y$};
-    \draw plot [smooth cycle] coordinates {(1, 1) (4, 0.8) (4.2, 1.1) (3, 2) (4.1, 3) (1.2, 2.7)};
-    \draw (3.2, 0.8) -- (3.2, 1.76);
-    \draw (3.4, 0.8) -- (3.4, 1.61);
-    \draw (3.2, 2.24) -- (3.2, 3.02);
-    \draw (3.4, 2.4) -- (3.4, 3.04);
-  \end{tikzpicture}
-\end{center}
 Alternatively, we may integrate in the opposite order, first over $y$ and then over $x$:
 \[
   \int_D f(x, y) \, \d A = \int_X \left( \int_{y_x} f(x, y) \, \d y \right) \d x,
@@ -889,13 +889,10 @@ where $y_x = \{y : (x, y) \in D\}$. The following theorem guarantees that both o
 \begin{rmk}
   The hypotheses of Fubini's theorem can be relaxed significantly; the theorem holds under much weaker conditions, though verification requires care in specific cases.
 \end{rmk}
-\begin{defi}[Area element]
-  The \emph{area element} is $\d A$.
-\end{defi}
 
-\begin{prop}[Cartesian area element]
-  $\d A = \d x\;\d y$ in Cartesian coordinates.
-\end{prop}
+\begin{rmk}[Area element]
+  In Cartesian coordinates, the \emph{area element} is $\d A = \d x\;\d y$.
+\end{rmk}
 
 \begin{eg}[Triangle area integral]
   We integrate over the triangle bounded by $(0, 0), (2, 0)$ and $(0, 1)$. We want to integrate the function $f(x, y) = x^2y$ over the area. So
