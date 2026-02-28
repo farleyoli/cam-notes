@@ -948,13 +948,11 @@ Just as for single-variable integrals, a suitable change of variables can greatl
 \end{thm}
 
 \begin{proof}
-  Since we are writing $(x(u, v), y(u, v))$, we are actually transforming from $(u, v)$ to $(x, y)$ and not the other way round.
-
-  Suppose we start with an area $\delta A' = \delta u\delta v$ in the $(u, v)$ plane. Then by Taylor's theorem, we have
+  Note that $\Phi$ maps from $(u, v)$ to $(x, y)$. Consider a small rectangle in the $(u, v)$-plane with sides $\delta u$ and $\delta v$. By Taylor's theorem,
   \[
-    \delta x = x(u + \delta u, v + \delta v) - x(u, v) \approx \frac{\partial x}{\partial u}\delta u + \frac{\partial x}{\partial v}\delta v.
+    \delta x = x(u + \delta u, v + \delta v) - x(u, v) \approx \frac{\partial x}{\partial u}\delta u + \frac{\partial x}{\partial v}\delta v,
   \]
-  We have a similar expression for $\delta y$ and we obtain
+  and similarly for $\delta y$. In matrix form,
   \[
     \begin{pmatrix}
       \delta x\\
@@ -968,9 +966,9 @@ Just as for single-variable integrals, a suitable change of variables can greatl
     \begin{pmatrix}
       \delta u\\
       \delta v
-    \end{pmatrix}
+    \end{pmatrix}.
   \]
-  Recall from Vectors and Matrices that the determinant of the matrix is how much it scales up an area. So the area formed by $\delta x$ and $\delta y$ is $|J|$ times the area formed by $\delta u$ and $\delta v$. Hence
+  Since a linear map scales areas by the absolute value of its determinant, the area element $\delta u\,\delta v$ is mapped to $|J|\,\delta u\,\delta v$. Hence
   \[
     \d x\;\d y = |J| \;\d u\;\d v.\qedhere
   \]
@@ -986,7 +984,7 @@ Just as for single-variable integrals, a suitable change of variables can greatl
   \[
     \d A = \rho \;\d \rho \;\d \varphi.
   \]
-  Suppose we want to integrate a function over a quarter area $D$ of radius $R$.
+  Suppose we want to integrate a function over the quarter disc $D$ of radius $R$ in the first quadrant.
   \begin{center}
     \begin{tikzpicture}
       \draw [->] (0, 0) -- (2.5, 0) node [right] {$x$};
@@ -1003,20 +1001,21 @@ Just as for single-variable integrals, a suitable change of variables can greatl
     &= \left[-e^{-\rho^2/2}\right]^R_0\left[\varphi\right]_0^{\pi/2}\\
     &= \frac{\pi}{2}\left( 1 - e^{-R^2/2}\right).\tag{$*$}
   \end{align*}
-  Note that the integral exists as $R\to \infty$.
+  Note that the integral exists as $R\to \infty$, giving $\frac{\pi}{2}$.
 
-  Now we take the case of $x, y\to \infty$ and consider the original integral.
+  Now we evaluate the same integral over the first quadrant in Cartesian coordinates. Since $f$ is separable,
   \begin{align*}
-    \int _D f\;\d A &= \int_{x = 0}^{\infty} \int_{y=0}^\infty e^{-(x^2 + y^2)/2}\;\d x\;\d y\\
-    &= \left(\int_0^\infty e^{-x^2/2}\;\d x\right)\left(\int_0^\infty e^{-y^2/2}\;\d y\right)\\
-    &= \frac{\pi}{2}
+    \int_{x = 0}^{\infty} \int_{y=0}^\infty e^{-(x^2 + y^2)/2}\;\d x\;\d y
+    &= \left(\int_0^\infty e^{-x^2/2}\;\d x\right)\left(\int_0^\infty e^{-y^2/2}\;\d y\right)
+    = \frac{\pi}{2},
   \end{align*}
-  where the last line is from (*). So each of the two integrals must be $\sqrt{\pi/2}$, i.e.
+  where the last equality follows from ($*$). So each factor must equal $\sqrt{\pi/2}$, i.e.
   \[
     \int_0^\infty e^{-x^2/2}\;\d x = \sqrt{\frac{\pi}{2}}.
   \]
 
 \end{eg}
+
 \subsection{Generalization to \tph{$\R^3$}{R3}{&\#x211D;<sup>3</sup>}}
 The definition of the area integral extends naturally to three dimensions.
 
