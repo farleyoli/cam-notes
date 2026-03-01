@@ -1304,12 +1304,13 @@ While the implicit representation $f(\mathbf{r}) = c$ is useful for some purpose
       \node at (0.3, 0.5) {$\alpha$};
     \end{tikzpicture}
   \end{center}
-  We can then label the points on the spheres by the angles $\theta, \varphi$, with
+  We can then label the points on the sphere by the angles $\theta, \varphi$, with
   \[
-    \mathbf{r}(\theta, \varphi) = (a\cos\varphi\sin \theta, a\sin \theta\sin \varphi, a\cos \theta) = a\mathbf{e}_r.
+    \mathbf{r}(\theta, \varphi) = (a\sin \theta\cos\varphi, a\sin \theta\sin \varphi, a\cos \theta) = a\mathbf{e}_r.
   \]
   We restrict the values of $\theta, \varphi$ by $0 \leq \theta \leq \alpha$, $0 \leq \varphi \leq 2\pi$, so that each point is only covered once.
 \end{eg}
+
 \begin{rmk}
   A complete specification of a parametrized surface requires both the function $\mathbf{r}(u, v)$ and the domain $D \subseteq \R^2$ of allowed parameter values. The domain $D$ determines the bounds of integration when computing surface integrals.
 \end{rmk}
@@ -1368,29 +1369,15 @@ By summing and taking limits, the area of $S$ is
       \node at (0.3, 0.5) {$\alpha$};
     \end{tikzpicture}
   \end{center}
-  Then we have
+  The parametrization is $\mathbf{r}(\theta, \varphi) = (a\sin \theta\cos\varphi, a\sin \theta\sin \varphi, a\cos \theta) = a\mathbf{e}_r$, so
   \[
-    \mathbf{r}(\theta, \varphi) = (a\cos\varphi\sin \theta, a\sin \theta\sin \varphi, a\cos \theta) = a\mathbf{e}_r.
+    \frac{\partial \mathbf{r}}{\partial \theta} = a\mathbf{e}_\theta, \quad \frac{\partial \mathbf{r}}{\partial \varphi} = a\sin \theta \mathbf{e}_\varphi,
   \]
-  So we find
+  and hence
   \[
-    \frac{\partial \mathbf{r}}{\partial \theta} = a\mathbf{e}_\theta.
+    \frac{\partial \mathbf{r}}{\partial \theta}\times \frac{\partial \mathbf{r}}{\partial \varphi} = a^2\sin \theta\, \mathbf{e}_r, \quad \d S = a^2\sin \theta\;\d \theta\;\d \varphi.
   \]
-  Similarly, we have
-  \[
-    \frac{\partial \mathbf{r}}{\partial \varphi} = a\sin \theta \mathbf{e}_\varphi.
-  \]
-  Then
-  \[
-    \frac{\partial \mathbf{r}}{\partial \theta}\times \frac{\partial \mathbf{r}}{\partial \varphi} = a^2\sin \theta\, \mathbf{e}_r.
-  \]
-  So
-  \[
-    \d S = a^2\sin \theta\;\d \theta\;\d \varphi.
-  \]
-  Our bounds are $0 \leq \theta \leq \alpha$, $0 \leq \varphi \leq 2\pi$.
-
-  Then the area is
+  With bounds $0 \leq \theta \leq \alpha$ and $0 \leq \varphi \leq 2\pi$, the area is
   \[
     \int_0^{2\pi}\int_0^{\alpha} a^2\sin \theta\;\d \theta \;\d \varphi = 2\pi a^2(1 - \cos\alpha).
   \]
