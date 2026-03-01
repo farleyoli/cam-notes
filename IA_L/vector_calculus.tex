@@ -1487,10 +1487,12 @@ A surface in $\R^3$ can be specified implicitly by an equation $f(\mathbf{r}) = 
 \end{rmk}
 
 \section{Geometry of curves and surfaces}
-We now study the intrinsic geometry of curves and surfaces, characterizing how they bend and twist in space.
 
 \subsection{Curvature of curves}
-Let $\mathbf{r}(s)$ be a curve parametrized by arclength $s$. The unit tangent vector is $\mathbf{t}(s) = \frac{\d \mathbf{r}}{\d s}$. Since $\mathbf{t}\cdot \mathbf{t} = 1$, differentiating with respect to $s$ gives $\mathbf{t}\cdot \mathbf{t}' = 0$. Thus $\mathbf{t}'$ is perpendicular to $\mathbf{t}$, i.e., $\mathbf{t}'$ is normal to the curve whenever $\mathbf{t}' \neq \mathbf{0}$.
+
+\begin{rmk}
+  Let $\mathbf{r}(s)$ be a curve parametrized by arclength $s$, with unit tangent $\mathbf{t}(s) = \frac{\d \mathbf{r}}{\d s}$. Since $\mathbf{t}\cdot \mathbf{t} = 1$, differentiating gives $\mathbf{t}\cdot \mathbf{t}' = 0$, so $\mathbf{t}'$ is perpendicular to $\mathbf{t}$ whenever $\mathbf{t}' \neq \mathbf{0}$.
+\end{rmk}
 
 \begin{defi}[Principal normal and curvature]
   Write $\mathbf{t}' = \kappa \mathbf{n}$, where $\mathbf{n}$ is a unit vector and $\kappa > 0$. Then $\mathbf{n}(s)$ is called the \emph{principal normal} and $\kappa(s)$ is called the \emph{curvature}.
@@ -1500,45 +1502,6 @@ Let $\mathbf{r}(s)$ be a curve parametrized by arclength $s$. The unit tangent v
   The curvature $\kappa$ is defined with respect to the arclength parametrization. If the curve is given in another parametrization, one must either reparametrize by arclength or use the chain rule to express derivatives with respect to $s$.
 \end{rmk}
 
-To understand the geometric meaning of curvature, we expand the curve in a Taylor series about a point. Taking $s = 0$ at the point of interest, we have
-\[
-  \mathbf{r}(s) = \mathbf{r}(0) + s\mathbf{r}'(0) + \frac{1}{2}s^2 \mathbf{r}''(0) + O(s^3).
-\]
-Since $\mathbf{r}' = \mathbf{t}$ and $\mathbf{r}'' = \mathbf{t}' = \kappa \mathbf{n}$, this becomes
-\[
-  \mathbf{r}(s) = \mathbf{r}(0) + s\mathbf{t}(0) + \frac{1}{2}\kappa(0) s^2 \mathbf{n}(0) + O(s^3).
-\]
-This expansion shows that the curve deviates from a straight line (the tangent) quadratically in $s$, with the coefficient $\kappa$ controlling the rate of deviation in the direction $\mathbf{n}$.
-
-To interpret $\kappa$ geometrically, we compare the curve to a circle. Intuitively, a more ``curved'' curve should be approximated by a circle of smaller radius. Consider a circle of radius $a$ passing through $\mathbf{r}(0)$, lying in the plane spanned by $\mathbf{t}$ and $\mathbf{n}$:
-\begin{center}
-  \begin{tikzpicture}
-    \draw circle [radius = 1];
-    \draw [->] (0, 0) -- (0.707, 0.707) node [anchor = south east, pos = 0.5] {$a$};
-    \draw [->] (-2, -2) -- (0, -1) node [anchor = south east, pos = 0.5] {$\mathbf{r}(0)$};
-    \draw [->] (0, -1) -- (0.5, -1) node [right] {$\mathbf{t}$};
-    \draw [->] (0, -1) -- (0, -0.5) node [left] {$\mathbf{n}$};
-    \draw [dashed] (0, 0) -- (0, -1);
-    \draw [dashed] (0, 0) -- (0.707, -0.707);
-    \draw (0, -0.5) arc (270:315:0.5);
-    \node at (0.2, -0.6) {$\theta$};
-    \draw (-2, 0) parabola bend (0, -1) (2, 0);
-  \end{tikzpicture}
-\end{center}
-The parametric equation for this circle is
-\[
-  \mathbf{r} = \mathbf{r}(0) + a(1 - \cos \theta) \mathbf{n} + a\sin \theta \mathbf{t}.
-\]
-Expanding in powers of $\theta$ gives
-\[
-  \mathbf{r} = \mathbf{r}(0) + a\theta \mathbf{t} + \frac{1}{2}a\theta^2 \mathbf{n} + O(\theta^3).
-\]
-Since the arclength along the circle is $s = a\theta$, we can write $\theta = s/a$, yielding
-\[
-  \mathbf{r} = \mathbf{r}(0) + s\mathbf{t} + \frac{1}{2a}s^2\mathbf{n} + O(s^3).
-\]
-Comparing with the Taylor expansion of the curve, we see that the curve and circle agree to second order when $\kappa = 1/a$.
-
 \begin{defi}[Osculating circle and radius of curvature]
   The \emph{osculating circle} at a point on a curve is the circle that best approximates the curve at that point (agreeing to second order in arclength). The \emph{radius of curvature} is the radius of the osculating circle, given by $1/\kappa$.
 \end{defi}
@@ -1546,6 +1509,34 @@ Comparing with the Taylor expansion of the curve, we see that the curve and circ
 \begin{prop}[Curvature and radius of curvature]
   The curvature $\kappa$ at a point on a curve equals the reciprocal of the radius of the osculating circle at that point: $\kappa = 1/a$.
 \end{prop}
+
+\begin{rmk}
+  Taking $s = 0$ at the point of interest, the Taylor expansion of the curve is
+  \[
+    \mathbf{r}(s) = \mathbf{r}(0) + s\mathbf{t} + \tfrac{1}{2}\kappa s^2 \mathbf{n} + O(s^3),
+  \]
+  since $\mathbf{r}'' = \mathbf{t}' = \kappa \mathbf{n}$. A circle of radius $a$ through $\mathbf{r}(0)$ in the $(\mathbf{t}, \mathbf{n})$-plane has parametric equation $\mathbf{r} = \mathbf{r}(0) + a(1 - \cos \theta) \mathbf{n} + a\sin \theta\, \mathbf{t}$.
+  \begin{center}
+    \begin{tikzpicture}
+      \draw circle [radius = 1];
+      \draw [->] (0, 0) -- (0.707, 0.707) node [anchor = south east, pos = 0.5] {$a$};
+      \draw [->] (-2, -2) -- (0, -1) node [anchor = south east, pos = 0.5] {$\mathbf{r}(0)$};
+      \draw [->] (0, -1) -- (0.5, -1) node [right] {$\mathbf{t}$};
+      \draw [->] (0, -1) -- (0, -0.5) node [left] {$\mathbf{n}$};
+      \draw [dashed] (0, 0) -- (0, -1);
+      \draw [dashed] (0, 0) -- (0.707, -0.707);
+      \draw (0, -0.5) arc (270:315:0.5);
+      \node at (0.2, -0.6) {$\theta$};
+      \draw (-2, 0) parabola bend (0, -1) (2, 0);
+    \end{tikzpicture}
+  \end{center}
+  With arclength $s = a\theta$, expanding gives
+  \[
+    \mathbf{r} = \mathbf{r}(0) + s\mathbf{t} + \frac{1}{2a}s^2\mathbf{n} + O(s^3).
+  \]
+  Comparing coefficients of $s^2$ yields $\kappa = 1/a$.
+\end{rmk}
+
 \subsection{The Frenet--Serret frame}
 In three dimensions, the vectors $\mathbf{t}(s)$ and $\mathbf{n}(s)$ can be completed to an orthonormal basis by adding a third vector.
 
