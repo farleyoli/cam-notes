@@ -104,6 +104,14 @@ Note that throughout the course (and lecture notes), summation convention is imp
   \]
 \end{prop}
 
+\begin{proof}
+  Writing $\mathbf{F}(x) = F_i(x)\mathbf{e}_i$ and using the definition of the derivative,
+  \[
+    \mathbf{F}'(x) = \lim_{\delta x \to 0} \frac{\mathbf{F}(x + \delta x) - \mathbf{F}(x)}{\delta x} = \lim_{\delta x \to 0} \frac{F_i(x + \delta x) - F_i(x)}{\delta x}\,\mathbf{e}_i = F'_i(x)\,\mathbf{e}_i,
+  \]
+  where we used that the basis vectors $\mathbf{e}_i$ are independent of $x$.
+\end{proof}
+
 \begin{prop}[Leibniz rules for products]
   Let $f: \R \to \R$ be a differentiable scalar function, and let $\mathbf{g}, \mathbf{h}: \R \to \R^3$ be differentiable vector functions. Then the following product rules hold:
   \begin{align*}
@@ -113,6 +121,14 @@ Note that throughout the course (and lecture notes), summation convention is imp
   \end{align*}
   In the case of the cross product, the order of multiplication must be retained.
 \end{prop}
+
+\begin{proof}
+  Each identity follows from expanding the relevant product componentwise and applying the ordinary product rule for scalar functions. For example, for the dot product, writing $\mathbf{g} = g_i \mathbf{e}_i$ and $\mathbf{h} = h_i \mathbf{e}_i$ gives $\mathbf{g}\cdot \mathbf{h} = g_i h_i$, and so
+  \[
+    \frac{\d}{\d t}(\mathbf{g}\cdot \mathbf{h}) = \frac{\d}{\d t}(g_i h_i) = g'_i h_i + g_i h'_i = \frac{\d \mathbf{g}}{\d t}\cdot \mathbf{h} + \mathbf{g}\cdot \frac{\d \mathbf{h}}{\d t}.
+  \]
+  The other two identities are proved similarly.
+\end{proof}
 
 \begin{eg}[Particle momentum and torque]
   Consider a particle of mass $m$ with position $\mathbf{r}(t)$, velocity $\dot{\mathbf{r}}(t)$, and acceleration $\ddot{\mathbf{r}}(t)$, where dots denote derivatives with respect to time $t$. Its momentum is $\mathbf{p} = m\dot{\mathbf{r}}(t)$.
@@ -138,8 +154,8 @@ Note that throughout the course (and lecture notes), summation convention is imp
   A \emph{scalar function} is a function $f: \R^n \to \R$. It takes in a position vector and returns a scalar. For example, a scalar function may assign to each point in space the temperature or the potential energy at that point.
 \end{defi}
 
-\begin{defi}[Limits involving vectors]
-  Let $\mathbf{v}$ and $\mathbf{c}$ be vectors in $\R^n$. We write $\mathbf{v}\to \mathbf{c}$ if $|\mathbf{v} - \mathbf{c}| \to 0$. For a scalar-valued function $f$, we write $f(\mathbf{r}) = o(\mathbf{r})$ to mean $\frac{|f(\mathbf{r})|}{|\mathbf{r}|} \to 0$ as $\mathbf{r}\to \mathbf{0}$.
+\begin{defi}[Limits and asymptotic notation]
+  Let $\mathbf{v}$ and $\mathbf{c}$ be vectors in $\R^n$. We write $\mathbf{v}\to \mathbf{c}$ if $|\mathbf{v} - \mathbf{c}| \to 0$. For a function $g$ (scalar- or vector-valued) of a vector variable $\mathbf{h} \in \R^n$, we write $g(\mathbf{h}) = o(\mathbf{h})$ to mean $|g(\mathbf{h})|/|\mathbf{h}| \to 0$ as $\mathbf{h}\to \mathbf{0}$.
 \end{defi}
 
 \begin{defi}[Gradient of scalar function]
@@ -192,7 +208,7 @@ Note that throughout the course (and lecture notes), summation convention is imp
 \begin{rmk}[Differential notation]
   Using the gradient formula, the differentiability condition can be written as
   \[
-    \delta f = \frac{\partial f}{\partial x_i}\delta x_i + o(\delta \mathbf{x}).
+    \delta f = \frac{\partial f}{\partial x_i}\delta x_i + o(\delta \mathbf{r}).
   \]
   In differential notation, this becomes
   \[
@@ -264,8 +280,16 @@ Note that throughout the course (and lecture notes), summation convention is imp
 \end{rmk}
 
 \begin{defi}[Smooth function]
-  A function is \emph{smooth} if all partial derivatives of all orders exist and are continuous. By Schwarz's theorem, this implies that mixed partial derivatives are symmetric, i.e.\ the order of differentiation does not matter.
+  A function is \emph{smooth} if all partial derivatives of all orders exist and are continuous.
 \end{defi}
+
+\begin{prop}[Schwarz's theorem]
+  If $f$ is smooth, then its mixed partial derivatives are symmetric:
+  \[
+    \frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{\partial^2 f}{\partial x_j \partial x_i}
+  \]
+  for all $i, j$. That is, the order of differentiation does not matter.
+\end{prop}
 
 \begin{rmk}
   In this course, all functions will be assumed smooth except where they are obviously singular (e.g.\ $f(x) = 1/x$ at $x = 0$).
@@ -285,6 +309,14 @@ Note that throughout the course (and lecture notes), summation convention is imp
     \frac{\partial}{\partial u_a} = \frac{\partial x_i}{\partial u_a}\frac{\partial}{\partial x_i}.
   \]
 \end{thm}
+
+\begin{proof}
+  A small perturbation $\delta \mathbf{u}$ produces a change $\delta \mathbf{x} = M(g)\,\delta\mathbf{u} + o(\delta\mathbf{u})$ by the differentiability of $g$. By the differentiability of $f$,
+  \[
+    \delta \mathbf{y} = M(f)\,\delta\mathbf{x} + o(\delta\mathbf{x}) = M(f)\,M(g)\,\delta\mathbf{u} + o(\delta\mathbf{u}),
+  \]
+  since $|\delta\mathbf{x}|/|\delta\mathbf{u}|$ remains bounded as $\delta\mathbf{u} \to \mathbf{0}$. This shows $M(f \circ g) = M(f)\,M(g)$, which gives the component formula $\frac{\partial y_r}{\partial u_a} = \frac{\partial y_r}{\partial x_i}\frac{\partial x_i}{\partial u_a}$.
+\end{proof}
 
 \subsection{Inverse functions}
 
@@ -356,6 +388,11 @@ Note that throughout the course (and lecture notes), summation convention is imp
   \]
   That is, the Jacobians of inverse functions are reciprocals of each other.
 \end{cor}
+
+\begin{proof}
+  Taking determinants of $M(g) M(f) = I$ and using $\det(AB) = \det A \cdot \det B$ gives $\det M(g) \cdot \det M(f) = 1$.
+\end{proof}
+
 \subsection{Coordinate systems}
 
 \begin{defi}[Curvilinear coordinates]
@@ -370,8 +407,20 @@ Note that throughout the course (and lecture notes), summation convention is imp
   where $\rho \geq 0$ is the radial distance from the origin and $\varphi \in [0, 2\pi)$ is the angle measured from the positive $x_1$-axis.
 \end{eg}
 
-\begin{rmk}[Basis vectors for curvilinear coordinates]
-  The coordinates $\rho$ and $\varphi$ are not the components of the position vector in any basis; that is, we do not have $\mathbf{r} = \rho\,\mathbf{e}_\rho + \varphi\,\mathbf{e}_\varphi$ in the same way that $\mathbf{r} = x_1\mathbf{e}_1 + x_2\mathbf{e}_2$. Nevertheless, we can define associated basis vectors that point in the directions of increasing $\rho$ and $\varphi$, obtained by differentiating the position vector with respect to each coordinate and normalizing:
+\begin{defi}[Basis vectors for curvilinear coordinates]
+  Given curvilinear coordinates $(u_1, \ldots, u_n)$, the associated \emph{basis vectors} are defined by differentiating the position vector with respect to each coordinate and normalizing:
+  \[
+    \mathbf{e}_{u_i} = \frac{\partial \mathbf{r}/\partial u_i}{|\partial \mathbf{r}/\partial u_i|}.
+  \]
+  These basis vectors point in the direction of increasing $u_i$ at each point.
+\end{defi}
+
+\begin{rmk}
+  The curvilinear coordinates $u_i$ are not in general the components of the position vector with respect to the basis $\{\mathbf{e}_{u_i}\}$. For instance, in polar coordinates, $\mathbf{r} \neq \rho\,\mathbf{e}_\rho + \varphi\,\mathbf{e}_\varphi$, even though $\mathbf{r} = x_1 \mathbf{e}_1 + x_2 \mathbf{e}_2$ in Cartesian coordinates.
+\end{rmk}
+
+\begin{eg}[Polar coordinate basis vectors]
+  For plane polar coordinates $(\rho, \varphi)$, the basis vectors are
   \[
     \mathbf{e}_\rho = \cos \varphi\, \mathbf{e}_1 + \sin \varphi\, \mathbf{e}_2,\quad \mathbf{e}_\varphi = -\sin \varphi\, \mathbf{e}_1 + \cos \varphi\, \mathbf{e}_2.
   \]
@@ -386,7 +435,10 @@ Note that throughout the course (and lecture notes), summation convention is imp
       \node at (0.9, 0.3) {$\varphi$};
     \end{tikzpicture}
   \end{center}
-  Unlike the Cartesian basis vectors $\mathbf{e}_1, \mathbf{e}_2$, the polar basis vectors $\mathbf{e}_\rho, \mathbf{e}_\varphi$ vary with position and are undefined at the origin. Despite this, they are extremely useful for problems with rotational symmetry.
+\end{eg}
+
+\begin{rmk}
+  Unlike the Cartesian basis vectors $\mathbf{e}_1, \mathbf{e}_2$, the curvilinear basis vectors $\mathbf{e}_{u_i}$ vary with position and may be undefined at certain points (e.g., $\mathbf{e}_\rho$ and $\mathbf{e}_\varphi$ are undefined at the origin). Despite this, they are extremely useful for problems with appropriate symmetry.
 \end{rmk}
 
 \begin{eg}[Cylindrical and spherical polar coordinates]
@@ -468,11 +520,18 @@ Note that throughout the course (and lecture notes), summation convention is imp
   \[
     \frac{\d \mathbf{r}}{\d \tilde{u}} = \frac{\d \mathbf{r}}{\d u} \cdot \frac{\d u}{\d \tilde{u}}.
   \]
-  A particularly convenient choice is to use the arc length $s$ itself as the parameter. In this case, the tangent vector has unit length, since by the arclength derivative proposition,
+\end{rmk}
+
+\begin{cor}[Arc-length parametrisation]
+  If a curve $C$ is parametrised by its arc length $s$, then the tangent vector has unit length:
   \[
     |\mathbf{r}'(s)| = \left|\frac{\d \mathbf{r}}{\d s}\right| = 1.
   \]
-\end{rmk}
+\end{cor}
+
+\begin{proof}
+  Setting $u = s$ in the arclength derivative formula gives $\frac{\d s}{\d s} = 1 = |\mathbf{r}'(s)|$.
+\end{proof}
 
 \begin{defi}[Scalar line element]
   The \emph{scalar line element} of a curve $C$ is the infinitesimal arc length $\d s$. For a curve parametrised by $\mathbf{r}(u)$, we have
@@ -480,6 +539,7 @@ Note that throughout the course (and lecture notes), summation convention is imp
     \d s = |\mathbf{r}'(u)| \, \d u.
   \]
 \end{defi}
+
 \subsection{Line integrals of vector fields}
 
 \begin{defi}[Line integral]
@@ -529,15 +589,16 @@ Note that throughout the course (and lecture notes), summation convention is imp
   \]
 \end{rmk}
 
-\begin{rmk}[Scalar line integrals]
-  More generally, we can integrate any scalar function $f$ along a curve $C$ with respect to arc length:
+\begin{defi}[Scalar line integral]
+  For a scalar function $f$ and a curve $C$, the \emph{scalar line integral} of $f$ along $C$ with respect to arc length is
   \[
     \int_C f\;\d s.
   \]
-  By convention, this integral is evaluated in the direction of increasing arc length. As a special case, the length of the curve $C$ is given by
-  \[
-    \int_C 1\;\d s = \text{length of } C.
-  \]
+  By convention, this integral is evaluated in the direction of increasing arc length.
+\end{defi}
+
+\begin{rmk}
+  As a special case, the length of the curve $C$ is given by $\int_C 1\;\d s$.
 \end{rmk}
 
 \begin{defi}[Closed curve and circulation]
@@ -551,6 +612,20 @@ Note that throughout the course (and lecture notes), summation convention is imp
   \]
   If $C$ is a curve traversed from $\mathbf{a}$ to $\mathbf{b}$, we write $-C$ for the same curve traversed in the opposite direction, from $\mathbf{b}$ to $\mathbf{a}$.
 \end{defi}
+
+\begin{prop}[Reversal of line integral]
+  If $C$ is a curve from $\mathbf{a}$ to $\mathbf{b}$, then
+  \[
+    \int_{-C} \mathbf{F}\cdot \d\mathbf{r} = -\int_C \mathbf{F}\cdot \d\mathbf{r}.
+  \]
+\end{prop}
+
+\begin{proof}
+  If $\mathbf{r}(u)$ for $u \in [\alpha, \beta]$ parametrises $C$, then $\tilde{\mathbf{r}}(u) = \mathbf{r}(\alpha + \beta - u)$ parametrises $-C$. Since $\tilde{\mathbf{r}}'(u) = -\mathbf{r}'(\alpha + \beta - u)$, the substitution $v = \alpha + \beta - u$ gives
+  \[
+    \int_{-C} \mathbf{F}\cdot \d\mathbf{r} = \int_\alpha^\beta \mathbf{F}(\tilde{\mathbf{r}}(u)) \cdot \tilde{\mathbf{r}}'(u)\;\d u = -\int_\alpha^\beta \mathbf{F}(\mathbf{r}(v)) \cdot \mathbf{r}'(v)\;\d v = -\int_C \mathbf{F}\cdot \d\mathbf{r}. \qedhere
+  \]
+\end{proof}
 
 \begin{eg}[Piecewise smooth closed curve]
   Continuing the previous example, let $C_3 = -C_2$ denote the straight-line path from $\mathbf{b}$ to $\mathbf{a}$. Then $C = C_1 + C_3$ is a piecewise smooth closed curve, and
@@ -567,10 +642,11 @@ Note that throughout the course (and lecture notes), summation convention is imp
       \node at (2, 2) [right] {$b$};
       \draw [->-=0.6] (0, 0) parabola (2, 2);
       \node at (1.8, 1) {$C_1$};
-      \draw [->-=0.6] (2, 2) -- (0, 0) node [pos = 0.5, anchor = south east] {$C_3$};;
+      \draw [->-=0.6] (2, 2) -- (0, 0) node [pos = 0.5, anchor = south east] {$C_3$};
     \end{tikzpicture}
   \end{center}
 \end{eg}
+
 \subsection{Gradients and Differentials}
 As the previous example demonstrates, line integrals generally depend on the path taken, not just the endpoints. However, there is an important class of vector fields for which the line integral depends only on the endpoints. These are the vector fields that can be expressed as gradients of scalar functions.
 
@@ -582,12 +658,14 @@ As the previous example demonstrates, line integrals generally depend on the pat
   In particular, the line integral depends only on the endpoints and not on the path. As a special case, if $C$ is a closed curve, then $\oint_C \mathbf{F}\cdot \d \mathbf{r} = 0$.
 \end{thm}
 
-This result is the multivariable analogue of the fundamental theorem of calculus.
+\begin{rmk}
+  This result is the multivariable analogue of the fundamental theorem of calculus.
+\end{rmk}
 
 \begin{proof}
   Let $\mathbf{r}(u)$ be any parametrization of the curve, and suppose $\mathbf{a} = \mathbf{r}(\alpha)$, $\mathbf{b} = \mathbf{r}(\beta)$. Then
   \[
-    \int_C \mathbf{F}\cdot \d \mathbf{r} = \int_C\nabla f\cdot \d \mathbf{r} = \int \nabla f\cdot \frac{\d \mathbf{r}}{\d u}\; \d u.
+    \int_C \mathbf{F}\cdot \d \mathbf{r} = \int_C\nabla f\cdot \d \mathbf{r} = \int_\alpha^\beta \nabla f\cdot \frac{\d \mathbf{r}}{\d u}\; \d u.
   \]
   So by the chain rule, this is equal to
   \[
@@ -619,8 +697,15 @@ The following proposition provides a necessary condition for a differential to b
   \[
     \frac{\partial F_i}{\partial x_j} = \frac{\partial F_j}{\partial x_i}
   \]
-  for all $i, j$. This follows from the equality of mixed partial derivatives: $\frac{\partial F_i}{\partial x_j} = \frac{\partial^2 f}{\partial x_j \partial x_i} = \frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{\partial F_j}{\partial x_i}$.
+  for all $i, j$.
 \end{prop}
+
+\begin{proof}
+  Since $F_i = \frac{\partial f}{\partial x_i}$, the equality of mixed partial derivatives gives
+  \[
+    \frac{\partial F_i}{\partial x_j} = \frac{\partial^2 f}{\partial x_j \partial x_i} = \frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{\partial F_j}{\partial x_i}. \qedhere
+  \]
+\end{proof}
 
 \begin{rmk}
   For an exact differential, the fundamental theorem for line integrals can be written as
@@ -663,18 +748,28 @@ We now apply the theory of line integrals to mechanics.
   This represents the accumulated effect of the force component along the direction of motion.
 \end{defi}
 
-\begin{prop}[Work-energy theorem]
-  Consider a particle of mass $m$ moving under the influence of a force $\mathbf{F}(\mathbf{r})$ according to Newton's second law, $\mathbf{F} = m\ddot{\mathbf{r}}$. The work done by $\mathbf{F}$ as the particle moves along a curve $C$ equals the change in kinetic energy.
-\end{prop}
+\begin{defi}[Kinetic energy]
+  The \emph{kinetic energy} of a particle of mass $m$ moving with velocity $\dot{\mathbf{r}}$ is
+  \[
+    T = \frac{1}{2} m |\dot{\mathbf{r}}|^2.
+  \]
+\end{defi}
+
+\begin{thm}[Work-energy theorem]
+  Consider a particle of mass $m$ moving under a force $\mathbf{F}(\mathbf{r})$ according to Newton's second law, $\mathbf{F} = m\ddot{\mathbf{r}}$. The work done by $\mathbf{F}$ as the particle moves along a curve $C$ from $\mathbf{a} = \mathbf{r}(t_1)$ to $\mathbf{b} = \mathbf{r}(t_2)$ equals the change in kinetic energy:
+  \[
+    \int_C \mathbf{F} \cdot \d\mathbf{r} = T(t_2) - T(t_1).
+  \]
+\end{thm}
 
 \begin{proof}
-  The kinetic energy of the particle is $T = \frac{1}{2}m|\dot{\mathbf{r}}|^2$. Differentiating with respect to time,
+  Differentiating $T$ with respect to time,
   \[
     \frac{\d T}{\d t} = m\dot{\mathbf{r}} \cdot \ddot{\mathbf{r}} = \mathbf{F} \cdot \dot{\mathbf{r}}.
   \]
-  If the particle travels along a curve $C$ from $\mathbf{a} = \mathbf{r}(t_1)$ to $\mathbf{b} = \mathbf{r}(t_2)$, then
+  Integrating from $t_1$ to $t_2$ gives
   \[
-    T(t_2) - T(t_1) = \int_{t_1}^{t_2} \frac{\d T}{\d t} \, \d t = \int_{t_1}^{t_2} \mathbf{F} \cdot \dot{\mathbf{r}} \, \d t = \int_C \mathbf{F} \cdot \d\mathbf{r}. \qedhere
+    T(t_2) - T(t_1) = \int_{t_1}^{t_2} \mathbf{F} \cdot \dot{\mathbf{r}} \, \d t = \int_C \mathbf{F} \cdot \d\mathbf{r}. \qedhere
   \]
 \end{proof}
 
@@ -756,9 +851,9 @@ We sum over all such strips and take $\delta y\to 0$, giving
 
 \begin{prop}[Iterated integral formula]
   \[
-    \int_D f(x, y)\;\d A = \int_Y\left(\int_{x_y}f(x, y)\;\d x\right) \d y.
+    \int_D f(x, y)\;\d A = \int_Y\left(\int_{x_y}f(x, y)\;\d x\right) \d y,
   \]
-  with $x_y$ ranging over $\{x: (x, y) \in D\}$.
+  where $Y$ is the range of $y$-values in $D$ and $x_y = \{x: (x, y) \in D\}$.
 \end{prop}
 
 \begin{rmk}[Disconnected integration domains]
@@ -766,18 +861,18 @@ We sum over all such strips and take $\delta y\to 0$, giving
   \[
     \int_{x_y} f(x) \, \d x = \int_{a_1}^{b_1} f(x) \, \d x + \int_{a_2}^{b_2} f(x) \, \d x.
   \]
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (6, 0) node [right] {$x$};
+      \draw [->] (0, 0) -- (0, 4) node [above] {$y$};
+      \draw plot [smooth cycle] coordinates {(1, 1) (4, 0.8) (4.2, 1.1) (3, 2) (4.1, 3) (1.2, 2.7)};
+      \draw (3.2, 0.8) -- (3.2, 1.76);
+      \draw (3.4, 0.8) -- (3.4, 1.61);
+      \draw (3.2, 2.24) -- (3.2, 3.02);
+      \draw (3.4, 2.4) -- (3.4, 3.04);
+    \end{tikzpicture}
+  \end{center}
 \end{rmk}
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (6, 0) node [right] {$x$};
-    \draw [->] (0, 0) -- (0, 4) node [above] {$y$};
-    \draw plot [smooth cycle] coordinates {(1, 1) (4, 0.8) (4.2, 1.1) (3, 2) (4.1, 3) (1.2, 2.7)};
-    \draw (3.2, 0.8) -- (3.2, 1.76);
-    \draw (3.4, 0.8) -- (3.4, 1.61);
-    \draw (3.2, 2.24) -- (3.2, 3.02);
-    \draw (3.4, 2.4) -- (3.4, 3.04);
-  \end{tikzpicture}
-\end{center}
 Alternatively, we may integrate in the opposite order, first over $y$ and then over $x$:
 \[
   \int_D f(x, y) \, \d A = \int_X \left( \int_{y_x} f(x, y) \, \d y \right) \d x,
@@ -794,13 +889,10 @@ where $y_x = \{y : (x, y) \in D\}$. The following theorem guarantees that both o
 \begin{rmk}
   The hypotheses of Fubini's theorem can be relaxed significantly; the theorem holds under much weaker conditions, though verification requires care in specific cases.
 \end{rmk}
-\begin{defi}[Area element]
-  The \emph{area element} is $\d A$.
-\end{defi}
 
-\begin{prop}[Cartesian area element]
-  $\d A = \d x\;\d y$ in Cartesian coordinates.
-\end{prop}
+\begin{rmk}[Area element]
+  In Cartesian coordinates, the \emph{area element} is $\d A = \d x\;\d y$.
+\end{rmk}
 
 \begin{eg}[Triangle area integral]
   We integrate over the triangle bounded by $(0, 0), (2, 0)$ and $(0, 1)$. We want to integrate the function $f(x, y) = x^2y$ over the area. So
@@ -856,13 +948,11 @@ Just as for single-variable integrals, a suitable change of variables can greatl
 \end{thm}
 
 \begin{proof}
-  Since we are writing $(x(u, v), y(u, v))$, we are actually transforming from $(u, v)$ to $(x, y)$ and not the other way round.
-
-  Suppose we start with an area $\delta A' = \delta u\delta v$ in the $(u, v)$ plane. Then by Taylor's theorem, we have
+  Note that $\Phi$ maps from $(u, v)$ to $(x, y)$. Consider a small rectangle in the $(u, v)$-plane with sides $\delta u$ and $\delta v$. By Taylor's theorem,
   \[
-    \delta x = x(u + \delta u, v + \delta v) - x(u, v) \approx \frac{\partial x}{\partial u}\delta u + \frac{\partial x}{\partial v}\delta v.
+    \delta x = x(u + \delta u, v + \delta v) - x(u, v) \approx \frac{\partial x}{\partial u}\delta u + \frac{\partial x}{\partial v}\delta v,
   \]
-  We have a similar expression for $\delta y$ and we obtain
+  and similarly for $\delta y$. In matrix form,
   \[
     \begin{pmatrix}
       \delta x\\
@@ -876,9 +966,9 @@ Just as for single-variable integrals, a suitable change of variables can greatl
     \begin{pmatrix}
       \delta u\\
       \delta v
-    \end{pmatrix}
+    \end{pmatrix}.
   \]
-  Recall from Vectors and Matrices that the determinant of the matrix is how much it scales up an area. So the area formed by $\delta x$ and $\delta y$ is $|J|$ times the area formed by $\delta u$ and $\delta v$. Hence
+  Since a linear map scales areas by the absolute value of its determinant, the area element $\delta u\,\delta v$ is mapped to $|J|\,\delta u\,\delta v$. Hence
   \[
     \d x\;\d y = |J| \;\d u\;\d v.\qedhere
   \]
@@ -894,7 +984,7 @@ Just as for single-variable integrals, a suitable change of variables can greatl
   \[
     \d A = \rho \;\d \rho \;\d \varphi.
   \]
-  Suppose we want to integrate a function over a quarter area $D$ of radius $R$.
+  Suppose we want to integrate a function over the quarter disc $D$ of radius $R$ in the first quadrant.
   \begin{center}
     \begin{tikzpicture}
       \draw [->] (0, 0) -- (2.5, 0) node [right] {$x$};
@@ -911,20 +1001,21 @@ Just as for single-variable integrals, a suitable change of variables can greatl
     &= \left[-e^{-\rho^2/2}\right]^R_0\left[\varphi\right]_0^{\pi/2}\\
     &= \frac{\pi}{2}\left( 1 - e^{-R^2/2}\right).\tag{$*$}
   \end{align*}
-  Note that the integral exists as $R\to \infty$.
+  Note that the integral exists as $R\to \infty$, giving $\frac{\pi}{2}$.
 
-  Now we take the case of $x, y\to \infty$ and consider the original integral.
+  Now we evaluate the same integral over the first quadrant in Cartesian coordinates. Since $f$ is separable,
   \begin{align*}
-    \int _D f\;\d A &= \int_{x = 0}^{\infty} \int_{y=0}^\infty e^{-(x^2 + y^2)/2}\;\d x\;\d y\\
-    &= \left(\int_0^\infty e^{-x^2/2}\;\d x\right)\left(\int_0^\infty e^{-y^2/2}\;\d y\right)\\
-    &= \frac{\pi}{2}
+    \int_{x = 0}^{\infty} \int_{y=0}^\infty e^{-(x^2 + y^2)/2}\;\d x\;\d y
+    &= \left(\int_0^\infty e^{-x^2/2}\;\d x\right)\left(\int_0^\infty e^{-y^2/2}\;\d y\right)
+    = \frac{\pi}{2},
   \end{align*}
-  where the last line is from (*). So each of the two integrals must be $\sqrt{\pi/2}$, i.e.
+  where the last equality follows from ($*$). So each factor must equal $\sqrt{\pi/2}$, i.e.
   \[
     \int_0^\infty e^{-x^2/2}\;\d x = \sqrt{\frac{\pi}{2}}.
   \]
 
 \end{eg}
+
 \subsection{Generalization to \tph{$\R^3$}{R3}{&\#x211D;<sup>3</sup>}}
 The definition of the area integral extends naturally to three dimensions.
 
@@ -999,19 +1090,17 @@ As in two dimensions, a change of variables transforms the volume element by the
     \int_V f\;\d V &= \int_{r = 0}^a \int_{\theta = 0}^\pi \int_{\varphi = 0}^{2\pi} f(r)r^2 \sin\theta\;\d r\;\d \theta\;\d\varphi\\
     &= \int_0^a \d r\int_0^\pi \d \theta\int_0^{2\pi} \d \varphi \;r^2 f(r) \sin \theta\\
     &= \int_0^a \; r^2 f(r) \d r\Big[-\cos \theta\Big]_0^\pi \Big[\varphi\Big]_0^{2\pi}\\
-    &= 4\pi\int_0^a f(r)r^2 \;\d r.
+    &= 4\pi\int_0^a f(r)r^2 \;\d r,
   \end{align*}
-  where we separated the integral into three parts as in the area integrals.
+  where in the second line we placed the differentials next to the integral signs, with the limits now implicit in the order of integration. The integral separates since $f$ depends only on $r$.
 
-  Note that in the second line, we rewrote the integrals to write the differentials next to the integral sign. This is simply a different notation that saves us from writing $r = 0$ etc. in the limits of the integrals.
+  This is a useful general result: the integral of a spherically symmetric function over a ball reduces to a one-dimensional integral, which can be interpreted as summing over spherical shells of thickness $\delta r$ and volume $4\pi r^2 \delta r$.
 
-  This is a useful general result. We understand it as the sum of spherical shells of thickness $\delta r$ and volume $4\pi r^2 \delta r$.
-
-  If we take $f = 1$, then we have the familiar result that the volume of a sphere is $\frac{4}{3}\pi a^3$.
+  Setting $f = 1$ gives the volume of a sphere as $\frac{4}{3}\pi a^3$.
 \end{eg}
 
 \begin{eg}[Sphere with cylinder removed]
-  Consider a volume within a sphere of radius $a$ with a cylinder of radius $b$ ($b < a$) removed. The region is defined as
+  Consider the region within a sphere of radius $a$ with a cylinder of radius $b$ ($b < a$) removed, defined by
   \begin{align*}
     x^2 + y^2 + z^2 &\leq a^2\\
     x^2 + y^2 &\geq b^2.
@@ -1031,7 +1120,7 @@ As in two dimensions, a change of variables transforms the volume element by the
       \draw [dash pattern= on 2pt off 2pt] (0, 0) -- (-1, 0) node [pos = 0.5, above] {$b$};
     \end{tikzpicture}
   \end{center}
-  We use cylindrical coordinates. The second criteria gives
+  We use cylindrical coordinates. The second criterion gives
   \[
     b \leq \rho \leq a.
   \]
@@ -1047,14 +1136,15 @@ As in two dimensions, a change of variables transforms the volume element by the
     &= \frac{4}{3}\pi (a^2 - b^2)^{3/2}.
   \end{align*}
 \end{eg}
+
 \begin{eg}[Hemisphere total charge]
   Suppose the density of electric charge is $\rho(\mathbf{r}) = \rho_0 \frac{z}{a}$ in a hemisphere $H$ of radius $a$, with $z \geq 0$. What is the total charge of $H$?
 
-  We use spherical polars. So
+  In spherical polar coordinates, the region is described by
   \[
-    r \leq a,\quad 0 \leq \varphi \leq 2\pi,\quad 0 \leq \theta \leq \frac{\pi}{2}.
+    r \leq a,\quad 0 \leq \varphi \leq 2\pi,\quad 0 \leq \theta \leq \frac{\pi}{2},
   \]
-  We have
+  and the charge density becomes
   \[
     \rho(\mathbf{r}) = \frac{\rho_0}{a}r\cos \theta.
   \]
@@ -1066,8 +1156,9 @@ As in two dimensions, a change of variables transforms the volume element by the
     &= \frac{\rho_0 \pi a^3}{4}.
   \end{align*}
 \end{eg}
+
 \subsection{Further generalizations}
-\subsubsection*{Integration in \tph{$\R^n$}{Rn}{&\#x2121D;<sup>n</sup>}}
+\subsubsection*{Integration in \tph{$\R^n$}{Rn}{&\#x211D;<sup>n</sup>}}
 The definitions and results above extend naturally to $n$ dimensions. For a region $D \subseteq \R^n$ and a function $f: D \to \R$, the $n$-dimensional integral is
 \[
   \int_D f(x_1, \ldots, x_n) \, \d x_1 \cdots \d x_n.
@@ -1116,21 +1207,22 @@ The integral of a vector-valued function $\mathbf{F}: V \to \R^n$ over a region 
     \mathbf{R} = \frac{1}{M} \int_V \mathbf{r} \, \rho(\mathbf{r}) \, \d V.
   \]
 \end{eg}
+
 \begin{eg}[Hemisphere center of mass]
   Consider a solid hemisphere $H$ with $r \leq a$, $z \geq 0$ with uniform density $\rho$. The mass is
   \[
     M = \int_H \rho \;\d V = \frac{2}{3}\pi a^3\rho.
   \]
-  Now suppose that $\mathbf{R} = (X, Y, Z)$. By symmetry, we expect $X = Y = 0$. We can find this formally by
+  Writing $\mathbf{R} = (X, Y, Z)$, by symmetry we expect $X = Y = 0$. To verify,
   \begin{align*}
     X &= \frac{1}{M}\int_H x\rho \;\d V\\
     &= \frac{\rho}{M}\int_0^a \int_0^{\pi/2}\int_0^{2\pi}xr^2 \sin \theta\;\d \varphi\;\d \theta\;\d r\\
-    &= \frac{\rho}{M}\int_0^{a}r^3\;\d r\times \int_0^{\pi/2}\sin^2\theta\;\d \theta\times \int_0^{2\pi}\cos\varphi\;\d \varphi\\
-    &= 0
+    &= \frac{\rho}{M}\int_0^{a}r^3\;\d r \int_0^{\pi/2}\sin^2\theta\;\d \theta \int_0^{2\pi}\cos\varphi\;\d \varphi\\
+    &= 0,
   \end{align*}
-  as expected. Note that it evaluates to 0 because the integral of $\cos$ from $0$ to $2\pi$ is 0. Similarly, we obtain $Y = 0$.
+  since $\int_0^{2\pi}\cos\varphi\;\d\varphi = 0$. Similarly, $Y = 0$.
 
-  Finally, we find $Z$.
+  For $Z$, we compute
   \begin{align*}
     Z &= \frac{\rho}{M}\int_0^a r^3\;\d r \int_0^{\pi/2}\sin\theta\cos\theta\;\d \theta \int_0^{2\pi}\;\d \varphi\\
     &= \frac{\rho}{M}\left[\frac{a^4}{4}\right]\left[\frac{1}{2}\sin^2\theta\right]_0^{\pi/2}2\pi\\
@@ -1140,7 +1232,7 @@ The integral of a vector-valued function $\mathbf{F}: V \to \R^n$ over a region 
 \end{eg}
 
 \section{Surfaces and surface integrals}
-\subsection{Surfaces and Normal}
+\subsection{Surfaces and normals}
 We now turn to the study of surfaces in $\R^3$. A surface can be specified implicitly by an equation of the form $f(\mathbf{r}) = c$, where $f: \R^3 \to \R$ is a smooth function and $c$ is a constant. For example, the equation $x^2 + y^2 + z^2 = 1$ defines the unit sphere.
 
 To find the normal to such a surface, consider any curve $\mathbf{r}(u)$ lying entirely on the surface $S$. Since $f(\mathbf{r}(u)) = c$ along the curve, differentiating with respect to $u$ gives
@@ -1158,7 +1250,7 @@ This shows that $\nabla f$ is perpendicular to the tangent vector $\frac{\d\math
     \item Take the sphere $f(\mathbf{r}) = x^2 + y^2 + z^2 = c$ for $c > 0$. Then $\nabla f = 2(x, y, z) = 2\mathbf{r}$, which is clearly normal to the sphere.
     \item Take $f(\mathbf{r}) = x^2 + y^2 - z^2 = c$, which is a hyperboloid. Then $\nabla f = 2(x, y, -z)$.
 
-      In the special case where $c = 0$, we have a double cone, with a singular apex $\mathbf{0}$. Here $\nabla f = \mathbf{0}$, and we cannot find a meaningful direction of normal.
+      In the special case $c = 0$, we have a double cone with a singularity at the apex $\mathbf{0}$. Here $\nabla f = \mathbf{0}$, and we cannot define a meaningful normal direction.
   \end{enumerate}
 \end{eg}
 
@@ -1169,6 +1261,7 @@ This shows that $\nabla f$ is perpendicular to the tangent vector $\frac{\d\math
 \begin{defi}[Bounded and closed surfaces]
   A surface is \emph{bounded} if it can be contained within a sphere of finite radius, and \emph{unbounded} otherwise. A bounded surface with no boundary (i.e., $\partial S = \varnothing$) is called \emph{closed}. For example, a sphere is closed, while a hemisphere is bounded but not closed.
 \end{defi}
+
 \begin{eg}[Hemisphere boundary]\leavevmode
   \begin{center}
     \begin{tikzpicture}
@@ -1211,12 +1304,13 @@ While the implicit representation $f(\mathbf{r}) = c$ is useful for some purpose
       \node at (0.3, 0.5) {$\alpha$};
     \end{tikzpicture}
   \end{center}
-  We can then label the points on the spheres by the angles $\theta, \varphi$, with
+  We can then label the points on the sphere by the angles $\theta, \varphi$, with
   \[
-    \mathbf{r}(\theta, \varphi) = (a\cos\varphi\sin \theta, a\sin \theta\sin \varphi, a\cos \theta) = a\mathbf{e}_r.
+    \mathbf{r}(\theta, \varphi) = (a\sin \theta\cos\varphi, a\sin \theta\sin \varphi, a\cos \theta) = a\mathbf{e}_r.
   \]
   We restrict the values of $\theta, \varphi$ by $0 \leq \theta \leq \alpha$, $0 \leq \varphi \leq 2\pi$, so that each point is only covered once.
 \end{eg}
+
 \begin{rmk}
   A complete specification of a parametrized surface requires both the function $\mathbf{r}(u, v)$ and the domain $D \subseteq \R^2$ of allowed parameter values. The domain $D$ determines the bounds of integration when computing surface integrals.
 \end{rmk}
@@ -1275,29 +1369,15 @@ By summing and taking limits, the area of $S$ is
       \node at (0.3, 0.5) {$\alpha$};
     \end{tikzpicture}
   \end{center}
-  Then we have
+  The parametrization is $\mathbf{r}(\theta, \varphi) = (a\sin \theta\cos\varphi, a\sin \theta\sin \varphi, a\cos \theta) = a\mathbf{e}_r$, so
   \[
-    \mathbf{r}(\theta, \varphi) = (a\cos\varphi\sin \theta, a\sin \theta\sin \varphi, a\cos \theta) = a\mathbf{e}_r.
+    \frac{\partial \mathbf{r}}{\partial \theta} = a\mathbf{e}_\theta, \quad \frac{\partial \mathbf{r}}{\partial \varphi} = a\sin \theta \mathbf{e}_\varphi,
   \]
-  So we find
+  and hence
   \[
-    \frac{\partial \mathbf{r}}{\partial \theta} = a\mathbf{e}_\theta.
+    \frac{\partial \mathbf{r}}{\partial \theta}\times \frac{\partial \mathbf{r}}{\partial \varphi} = a^2\sin \theta\, \mathbf{e}_r, \quad \d S = a^2\sin \theta\;\d \theta\;\d \varphi.
   \]
-  Similarly, we have
-  \[
-    \frac{\partial \mathbf{r}}{\partial \varphi} = a\sin \theta \mathbf{e}_\varphi.
-  \]
-  Then
-  \[
-    \frac{\partial \mathbf{r}}{\partial \theta}\times \frac{\partial \mathbf{r}}{\partial \varphi} = a^2\sin \theta\, \mathbf{e}_r.
-  \]
-  So
-  \[
-    \d S = a^2\sin \theta\;\d \theta\;\d \varphi.
-  \]
-  Our bounds are $0 \leq \theta \leq \alpha$, $0 \leq \varphi \leq 2\pi$.
-
-  Then the area is
+  With bounds $0 \leq \theta \leq \alpha$ and $0 \leq \varphi \leq 2\pi$, the area is
   \[
     \int_0^{2\pi}\int_0^{\alpha} a^2\sin \theta\;\d \theta \;\d \varphi = 2\pi a^2(1 - \cos\alpha).
   \]
