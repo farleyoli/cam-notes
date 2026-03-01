@@ -1090,19 +1090,17 @@ As in two dimensions, a change of variables transforms the volume element by the
     \int_V f\;\d V &= \int_{r = 0}^a \int_{\theta = 0}^\pi \int_{\varphi = 0}^{2\pi} f(r)r^2 \sin\theta\;\d r\;\d \theta\;\d\varphi\\
     &= \int_0^a \d r\int_0^\pi \d \theta\int_0^{2\pi} \d \varphi \;r^2 f(r) \sin \theta\\
     &= \int_0^a \; r^2 f(r) \d r\Big[-\cos \theta\Big]_0^\pi \Big[\varphi\Big]_0^{2\pi}\\
-    &= 4\pi\int_0^a f(r)r^2 \;\d r.
+    &= 4\pi\int_0^a f(r)r^2 \;\d r,
   \end{align*}
-  where we separated the integral into three parts as in the area integrals.
+  where in the second line we placed the differentials next to the integral signs, with the limits now implicit in the order of integration. The integral separates since $f$ depends only on $r$.
 
-  Note that in the second line, we rewrote the integrals to write the differentials next to the integral sign. This is simply a different notation that saves us from writing $r = 0$ etc. in the limits of the integrals.
+  This is a useful general result: the integral of a spherically symmetric function over a ball reduces to a one-dimensional integral, which can be interpreted as summing over spherical shells of thickness $\delta r$ and volume $4\pi r^2 \delta r$.
 
-  This is a useful general result. We understand it as the sum of spherical shells of thickness $\delta r$ and volume $4\pi r^2 \delta r$.
-
-  If we take $f = 1$, then we have the familiar result that the volume of a sphere is $\frac{4}{3}\pi a^3$.
+  Setting $f = 1$ gives the volume of a sphere as $\frac{4}{3}\pi a^3$.
 \end{eg}
 
 \begin{eg}[Sphere with cylinder removed]
-  Consider a volume within a sphere of radius $a$ with a cylinder of radius $b$ ($b < a$) removed. The region is defined as
+  Consider the region within a sphere of radius $a$ with a cylinder of radius $b$ ($b < a$) removed, defined by
   \begin{align*}
     x^2 + y^2 + z^2 &\leq a^2\\
     x^2 + y^2 &\geq b^2.
@@ -1122,7 +1120,7 @@ As in two dimensions, a change of variables transforms the volume element by the
       \draw [dash pattern= on 2pt off 2pt] (0, 0) -- (-1, 0) node [pos = 0.5, above] {$b$};
     \end{tikzpicture}
   \end{center}
-  We use cylindrical coordinates. The second criteria gives
+  We use cylindrical coordinates. The second criterion gives
   \[
     b \leq \rho \leq a.
   \]
@@ -1138,14 +1136,15 @@ As in two dimensions, a change of variables transforms the volume element by the
     &= \frac{4}{3}\pi (a^2 - b^2)^{3/2}.
   \end{align*}
 \end{eg}
+
 \begin{eg}[Hemisphere total charge]
   Suppose the density of electric charge is $\rho(\mathbf{r}) = \rho_0 \frac{z}{a}$ in a hemisphere $H$ of radius $a$, with $z \geq 0$. What is the total charge of $H$?
 
-  We use spherical polars. So
+  In spherical polar coordinates, the region is described by
   \[
-    r \leq a,\quad 0 \leq \varphi \leq 2\pi,\quad 0 \leq \theta \leq \frac{\pi}{2}.
+    r \leq a,\quad 0 \leq \varphi \leq 2\pi,\quad 0 \leq \theta \leq \frac{\pi}{2},
   \]
-  We have
+  and the charge density becomes
   \[
     \rho(\mathbf{r}) = \frac{\rho_0}{a}r\cos \theta.
   \]
@@ -1157,6 +1156,7 @@ As in two dimensions, a change of variables transforms the volume element by the
     &= \frac{\rho_0 \pi a^3}{4}.
   \end{align*}
 \end{eg}
+
 \subsection{Further generalizations}
 \subsubsection*{Integration in \tph{$\R^n$}{Rn}{&\#x2121D;<sup>n</sup>}}
 The definitions and results above extend naturally to $n$ dimensions. For a region $D \subseteq \R^n$ and a function $f: D \to \R$, the $n$-dimensional integral is
