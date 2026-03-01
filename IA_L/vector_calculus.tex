@@ -1456,31 +1456,35 @@ A surface in $\R^3$ can be specified implicitly by an equation $f(\mathbf{r}) = 
 \end{rmk}
 
 \subsection{Change of variables in \tph{$\R^2$ and $\R^3$}{R2 and R3}{&\#x211D;<sup>2</sup> and &\#x211D;<sup>2</sup>} revisited}
-The change of variables formula for integrals can be derived using the geometric ideas developed above. We present an alternative derivation that unifies the two- and three-dimensional cases.
 
 \subsubsection*{Change of variable formula in \tph{$\R^2$}{R2}{&\#x211D;<sup>2</sup>}}
-The two-dimensional change of variables formula can be derived from the surface area formula by embedding $\R^2$ in $\R^3$.
 
-Consider a region $S \subset \R^2$ with a parametrization $(x(u, v), y(u, v))$ for $(u, v) \in D$. We embed this in $\R^3$ by setting $\mathbf{r}(u, v) = (x(u, v), y(u, v), 0)$. Computing the cross product gives
-\[
-  \frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial\mathbf{r}}{\partial v} = (0, 0, J),
-\]
-where $J = \frac{\partial(x, y)}{\partial(u, v)}$ is the Jacobian of the coordinate transformation. Thus $\left|\frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial\mathbf{r}}{\partial v}\right| = |J|$, and from the surface integral formula we obtain
-\[
-  \int_S f(x, y)\;\d S = \int_D f(x(u, v), y(u, v)) |J|\;\d u\;\d v,
-\]
-which is the standard change of variables formula in $\R^2$.
+\begin{prop}[Change of variables in $\R^2$]
+  If $(x, y) = (x(u, v), y(u, v))$ maps a region $D$ in the $(u, v)$-plane to a region $S$ in the $(x, y)$-plane, then
+  \[
+    \int_S f(x, y)\;\d S = \int_D f(x(u, v), y(u, v)) \left|\frac{\partial(x, y)}{\partial(u, v)}\right|\;\d u\;\d v.
+  \]
+\end{prop}
+
+\begin{rmk}
+  This follows from the surface area formula by embedding $S$ in $\R^3$ via $\mathbf{r}(u, v) = (x(u, v), y(u, v), 0)$. Then $\frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial\mathbf{r}}{\partial v} = (0, 0, J)$, where $J = \frac{\partial(x, y)}{\partial(u, v)}$, so the scalar area element is $|J|\;\d u\;\d v$.
+\end{rmk}
 
 \subsubsection*{Change of variable formula in \tph{$\R^3$}{R3}{&\#x211D;<sup>3</sup>}}
-For a volume integral in $\R^3$, we proceed similarly using the scalar triple product. Let $V$ be a region parametrized by $\mathbf{r}(u, v, w)$ for $(u, v, w) \in D$. A small displacement in parameter space gives
-\[
-  \delta \mathbf{r} = \frac{\partial \mathbf{r}}{\partial u}\delta u + \frac{\partial \mathbf{r}}{\partial v}\delta v + \frac{\partial \mathbf{r}}{\partial w}\delta w + o(\delta u, \delta v, \delta w).
-\]
-A small cuboid with sides $\delta u$, $\delta v$, $\delta w$ in parameter space maps to a parallelepiped with edges $\frac{\partial \mathbf{r}}{\partial u}\delta u$, $\frac{\partial \mathbf{r}}{\partial v}\delta v$, and $\frac{\partial \mathbf{r}}{\partial w}\delta w$. The volume of this parallelepiped is the absolute value of the scalar triple product:
-\[
-  \delta V = \left|\frac{\partial \mathbf{r}}{\partial u}\cdot \left( \frac{\partial \mathbf{r}}{\partial v} \times \frac{\partial \mathbf{r}}{\partial w}\right)\right| \delta u\; \delta v\;\delta w = |J|\;\delta u\; \delta v\;\delta w,
-\]
-where $J = \frac{\partial(x, y, z)}{\partial(u, v, w)}$ is the Jacobian. Taking the limit yields $\d V = |J|\; \d u\; \d v\; \d w$.
+
+\begin{prop}[Change of variables in $\R^3$]
+  If $(x, y, z) = \mathbf{r}(u, v, w)$ maps a region $D$ to a region $V$, then
+  \[
+    \d V = \left|\frac{\partial(x, y, z)}{\partial(u, v, w)}\right|\; \d u\; \d v\; \d w.
+  \]
+\end{prop}
+
+\begin{rmk}
+  A small cuboid $\delta u\, \delta v\, \delta w$ in parameter space maps to a parallelepiped with edges $\frac{\partial \mathbf{r}}{\partial u}\delta u$, $\frac{\partial \mathbf{r}}{\partial v}\delta v$, $\frac{\partial \mathbf{r}}{\partial w}\delta w$. Its volume is the absolute value of the scalar triple product:
+  \[
+    \delta V = \left|\frac{\partial \mathbf{r}}{\partial u}\cdot \left( \frac{\partial \mathbf{r}}{\partial v} \times \frac{\partial \mathbf{r}}{\partial w}\right)\right| \delta u\; \delta v\;\delta w = |J|\;\delta u\; \delta v\;\delta w.
+  \]
+\end{rmk}
 
 \section{Geometry of curves and surfaces}
 We now study the intrinsic geometry of curves and surfaces, characterizing how they bend and twist in space.
