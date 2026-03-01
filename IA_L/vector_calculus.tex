@@ -1377,10 +1377,6 @@ A surface in $\R^3$ can be specified implicitly by an equation $f(\mathbf{r}) = 
   \]
 \end{eg}
 \subsection{Surface integral of vector fields}
-Having defined the area element on a surface, we now consider integrals of vector fields over surfaces. Given a surface $S$ parametrized by $\mathbf{r}(u, v)$ and a vector field $\mathbf{F}(\mathbf{r})$, we wish to measure the total ``flow'' of $\mathbf{F}$ through $S$.
-
-A naive approach might be to integrate $|\mathbf{F}|$ over $S$, but this does not capture the physics correctly: if $\mathbf{F}$ is tangent to the surface everywhere, nothing actually passes through, yet $|\mathbf{F}|$ may be large. The correct quantity to integrate is the component of $\mathbf{F}$ normal to the surface.
-
 \begin{defi}[Surface integral of a vector field]
   Let $S$ be an oriented surface parametrized by $\mathbf{r}: D \to \R^3$ and let $\mathbf{F}$ be a vector field. The \emph{surface integral} (or \emph{flux}) of $\mathbf{F}$ through $S$ is
   \[
@@ -1389,12 +1385,16 @@ A naive approach might be to integrate $|\mathbf{F}|$ over $S$, but this does no
   This measures the net rate at which $\mathbf{F}$ crosses the surface in the direction of the chosen normal.
 \end{defi}
 
+\begin{rmk}
+  We integrate the normal component $\mathbf{F} \cdot \mathbf{n}$ rather than $|\mathbf{F}|$: if $\mathbf{F}$ is tangent to $S$ everywhere, nothing crosses the surface, yet $|\mathbf{F}|$ may be large.
+\end{rmk}
+
 \begin{rmk}[Parametrization independence]
   For a given orientation, the flux integral is independent of the choice of parametrization. Reversing the orientation (i.e., reversing the direction of $\mathbf{n}$) changes the sign of the integral. This is equivalent to interchanging the order of $u$ and $v$ in the parametrization.
 \end{rmk}
 
 \begin{eg}[Sphere vector area element]
-  Consider a sphere of radius $a$, $\mathbf{r}(\theta, \varphi)$. Then
+  Consider a sphere of radius $a$ parametrized by $\mathbf{r}(\theta, \varphi)$. Then
   \[
     \frac{\partial \mathbf{r}}{\partial \theta} = a\mathbf{e}_\theta,\quad \frac{\partial \mathbf{r}}{\partial \varphi} = a\sin \theta \mathbf{e}_\varphi.
   \]
@@ -1404,7 +1404,7 @@ A naive approach might be to integrate $|\mathbf{F}|$ over $S$, but this does no
   \]
   taking the outward normal $\mathbf{n} = \mathbf{e}_r = \mathbf{r}/a$.
 
-  Suppose we want to calculate the fluid flux through the surface. The \emph{velocity field} $\mathbf{u}(\mathbf{r})$ of a fluid gives the motion of a small volume of fluid $\mathbf{r}$. Assume that $\mathbf{u}$ depends smoothly on $\mathbf{r}$ (and $t$). For any small area $\delta S$, on a surface $S$, the volume of fluid crossing it in time $\delta t$ is $\mathbf{u}\cdot \delta \mathbf{S}\; \delta t$.
+  Suppose we want to calculate the fluid flux through the surface. The \emph{velocity field} $\mathbf{u}(\mathbf{r})$ gives the velocity of the fluid at position $\mathbf{r}$. For a small area element $\delta \mathbf{S}$ on a surface $S$, the volume of fluid crossing it in time $\delta t$ is $\mathbf{u}\cdot \delta \mathbf{S}\; \delta t$.
   \begin{center}
     \begin{tikzpicture}
       \draw circle [x radius = 1, y radius = 0.3];
@@ -1415,23 +1415,15 @@ A naive approach might be to integrate $|\mathbf{F}|$ over $S$, but this does no
       \draw [->] (0, 0) -- (0, .75) node [above] {$\mathbf{n}$};
     \end{tikzpicture}
   \end{center}
-  So the amount of flow of $\mathbf{u}$ over at time $\delta t$ through $S$ is
+  So the total volume of fluid crossing $S$ in time $\delta t$ is
   \[
     \delta t\int_S \mathbf{u}\cdot \d \mathbf{S}.
   \]
   So $\int_S \mathbf{u}\cdot \d \mathbf{S}$ is the \emph{rate} of volume crossing $S$.
 
-  For example, let $\mathbf{u} = (-x, 0, z)$ and $S$ be the section of a sphere of radius $a$ with $0 \leq \varphi \leq 2\pi$ and $0 \leq \theta \leq \alpha$. Then
+  For example, let $\mathbf{u} = (-x, 0, z)$ and $S$ be the spherical cap with $0 \leq \theta \leq \alpha$, $0 \leq \varphi \leq 2\pi$. With outward normal $\mathbf{n} = \mathbf{r}/a$,
   \[
-    \d \mathbf{S} = a^2 \sin \theta \mathbf{n}\;\d \varphi \;\d \theta,
-  \]
-  with
-  \[
-    \mathbf{n} = \frac{\mathbf{r}}{a} = \frac{1}{a}(x, y, z).
-  \]
-  So
-  \[
-    \mathbf{n}\cdot \mathbf{u} = \frac{1}{a}(-x^2 + z^2) = a(-\sin^2\theta\cos^2\varphi + \cos^2 \theta).
+    \mathbf{n}\cdot \mathbf{u} = \frac{1}{a}(-x^2 + z^2) = a(\cos^2 \theta - \sin^2\theta\cos^2\varphi).
   \]
   Therefore
   \begin{align*}
@@ -1442,21 +1434,6 @@ A naive approach might be to integrate $|\mathbf{F}|$ over $S$, but this does no
     &= \pi a^3 \cos \alpha\sin^2 \alpha.
   \end{align*}
 \end{eg}
-
-We now verify that the area element is independent of the choice of parametrization. Let $\mathbf{r}(u, v)$ and $\mathbf{r}(\tilde{u}, \tilde{v})$ be two regular parametrizations for the same surface. By the chain rule,
-\begin{align*}
-  \frac{\partial \mathbf{r}}{\partial u} &= \frac{\partial \mathbf{r}}{\partial \tilde{u}}\frac{\partial\tilde{u}}{\partial u} + \frac{\partial \mathbf{r}}{\partial \tilde{v}}\frac{\partial\tilde{v}}{\partial u},\\
-  \frac{\partial \mathbf{r}}{\partial v} &= \frac{\partial \mathbf{r}}{\partial \tilde{u}}\frac{\partial\tilde{u}}{\partial v} + \frac{\partial \mathbf{r}}{\partial \tilde{v}}\frac{\partial\tilde{v}}{\partial v}.
-\end{align*}
-Taking the cross product yields
-\[
-  \frac{\partial \mathbf{r}}{\partial u}\times\frac{\partial\mathbf{r}}{\partial v} = \frac{\partial (\tilde{u}, \tilde{v})}{\partial (u, v)} \frac{\partial \mathbf{r}}{\partial \tilde {u}}\times\frac{\partial\mathbf{r}}{\partial \tilde{v}},
-\]
-where $\frac{\partial (\tilde{u}, \tilde{v})}{\partial(u, v)}$ is the Jacobian of the coordinate transformation. Since the area elements in parameter space are related by
-\[
-  \d \tilde{u}\;\d \tilde{v} = \frac{\partial (\tilde{u}, \tilde{v})}{\partial (u, v)}\;\d u\;\d v,
-\]
-we obtain the following result.
 
 \begin{prop}[Parametrization independence of area elements]
   The scalar area element is independent of the choice of parametrization:
@@ -1469,6 +1446,15 @@ we obtain the following result.
   \]
   is independent of parametrization provided $(u, v)$ and $(\tilde{u}, \tilde{v})$ induce the same orientation on the surface.
 \end{prop}
+
+\begin{rmk}
+  To see this, let $\mathbf{r}(u, v)$ and $\mathbf{r}(\tilde{u}, \tilde{v})$ be two regular parametrizations. By the chain rule,
+  \[
+    \frac{\partial \mathbf{r}}{\partial u}\times\frac{\partial\mathbf{r}}{\partial v} = \frac{\partial (\tilde{u}, \tilde{v})}{\partial (u, v)} \frac{\partial \mathbf{r}}{\partial \tilde {u}}\times\frac{\partial\mathbf{r}}{\partial \tilde{v}},
+  \]
+  where $\frac{\partial (\tilde{u}, \tilde{v})}{\partial(u, v)}$ is the Jacobian. Since $\d \tilde{u}\;\d \tilde{v} = \frac{\partial (\tilde{u}, \tilde{v})}{\partial (u, v)}\;\d u\;\d v$, the Jacobian factors cancel.
+\end{rmk}
+
 \subsection{Change of variables in \tph{$\R^2$ and $\R^3$}{R2 and R3}{&\#x211D;<sup>2</sup> and &\#x211D;<sup>2</sup>} revisited}
 The change of variables formula for integrals can be derived using the geometric ideas developed above. We present an alternative derivation that unifies the two- and three-dimensional cases.
 
