@@ -2171,13 +2171,9 @@ A surface in $\R^3$ can be specified implicitly by an equation $f(\mathbf{r}) = 
 \end{rmk}
 \section{Some applications of integral theorems}
 \subsection{Integral expressions for div and curl}
-The integral theorems provide coordinate-free definitions of divergence and curl that clarify their geometric meaning.
-
-Applying the divergence theorem to a small volume $V$ containing a point $\mathbf{r}_0$,
-\[
-  \int_{\partial V}\mathbf{F}\cdot \d \mathbf{S} = \int_V\nabla\cdot \mathbf{F}\;\d V\approx (\nabla\cdot \mathbf{F})(\mathbf{r}_0) \vol(V).
-\]
-Taking the limit as $V$ shrinks to $\mathbf{r}_0$ yields:
+\begin{rmk}
+  The integral theorems provide coordinate-free definitions of divergence and curl that clarify their geometric meaning.
+\end{rmk}
 
 \begin{prop}[Integral definition of divergence]
   \[
@@ -2186,10 +2182,13 @@ Taking the limit as $V$ shrinks to $\mathbf{r}_0$ yields:
   where the limit is taken over volumes $V$ containing $\mathbf{r}_0$.
 \end{prop}
 
-Similarly, applying Stokes' theorem to a small surface $A$ containing $\mathbf{r}_0$ with unit normal $\mathbf{n}$,
-\[
-  \int _{\partial A}\mathbf{F}\cdot \d \mathbf{r} = \int_A(\nabla\times \mathbf{F})\cdot \mathbf{n}\;\d A \approx \mathbf{n}\cdot (\nabla\times \mathbf{F})(\mathbf{r}_0) \area(A).
-\]
+\begin{proof}
+  Applying the divergence theorem to a small volume $V$ containing a point $\mathbf{r}_0$,
+  \[
+    \int_{\partial V}\mathbf{F}\cdot \d \mathbf{S} = \int_V\nabla\cdot \mathbf{F}\;\d V\approx (\nabla\cdot \mathbf{F})(\mathbf{r}_0) \vol(V).
+  \]
+  Dividing by $\vol(V)$ and taking the limit as $V$ shrinks to $\mathbf{r}_0$ yields the result.
+\end{proof}
 
 \begin{prop}[Integral definition of curl]
   \[
@@ -2197,6 +2196,14 @@ Similarly, applying Stokes' theorem to a small surface $A$ containing $\mathbf{r
   \]
   where the limit is taken over surfaces $A$ containing $\mathbf{r}_0$ with normal $\mathbf{n}$.
 \end{prop}
+
+\begin{proof}
+  Applying Stokes' theorem to a small surface $A$ containing $\mathbf{r}_0$ with unit normal $\mathbf{n}$,
+  \[
+    \int _{\partial A}\mathbf{F}\cdot \d \mathbf{r} = \int_A(\nabla\times \mathbf{F})\cdot \mathbf{n}\;\d A \approx \mathbf{n}\cdot (\nabla\times \mathbf{F})(\mathbf{r}_0) \area(A).
+  \]
+  Dividing by $\area(A)$ and taking the limit as $\mathrm{diam}(A) \to 0$ yields the result.
+\end{proof}
 
 \begin{rmk}
   These definitions are independent of the choice of coordinate system and provide the basis for physical interpretations of divergence and curl.
