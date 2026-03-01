@@ -1538,15 +1538,14 @@ A surface in $\R^3$ can be specified implicitly by an equation $f(\mathbf{r}) = 
 \end{rmk}
 
 \subsection{The Frenet--Serret frame}
-In three dimensions, the vectors $\mathbf{t}(s)$ and $\mathbf{n}(s)$ can be completed to an orthonormal basis by adding a third vector.
 
 \begin{defi}[Binormal]
-  The \emph{binormal} of a curve is the unit vector $\mathbf{b} = \mathbf{t}\times \mathbf{n}$.
+  In three dimensions, the vectors $\mathbf{t}(s)$ and $\mathbf{n}(s)$ can be completed to an orthonormal basis. The \emph{binormal} of a curve is the unit vector $\mathbf{b} = \mathbf{t}\times \mathbf{n}$.
 \end{defi}
 
-The ordered triple $(\mathbf{t}, \mathbf{n}, \mathbf{b})$ forms a right-handed orthonormal basis at each point of the curve, called the \emph{Frenet--Serret frame}. This frame moves along the curve with the parameter $s$.
-
-Just as curvature measures how $\mathbf{t}$ changes along the curve, we can measure how $\mathbf{b}$ changes.
+\begin{defi}[Frenet--Serret frame]
+  The ordered triple $(\mathbf{t}, \mathbf{n}, \mathbf{b})$ forms a right-handed orthonormal basis at each point of the curve, called the \emph{Frenet--Serret frame}.
+\end{defi}
 
 \begin{defi}[Torsion]
   The \emph{torsion} $\tau(s)$ is defined by $\mathbf{b}' = -\tau \mathbf{n}$.
@@ -1556,10 +1555,15 @@ Just as curvature measures how $\mathbf{t}$ changes along the curve, we can meas
   The definition is consistent because $\mathbf{b}'$ must be parallel to $\mathbf{n}$. To see this, note that $\mathbf{b}' = \mathbf{t}'\times \mathbf{n} + \mathbf{t}\times \mathbf{n}' = \mathbf{t}\times \mathbf{n}'$ (since $\mathbf{t}' = \kappa\mathbf{n}$ is parallel to $\mathbf{n}$), so $\mathbf{b}'$ is perpendicular to $\mathbf{t}$. Also, $\mathbf{b} \cdot \mathbf{b} = 1$ implies $\mathbf{b}\cdot \mathbf{b}' = 0$, so $\mathbf{b}'$ is perpendicular to $\mathbf{b}$. Thus $\mathbf{b}'$ must be parallel to $\mathbf{n}$.
 \end{rmk}
 
-The geometry of a space curve is completely determined by how the Frenet--Serret frame $(\mathbf{t}, \mathbf{n}, \mathbf{b})$ evolves along the curve. This evolution is encoded in two scalar functions of arclength: the curvature $\kappa(s)$, which measures how the curve bends in the osculating plane, and the torsion $\tau(s)$, which measures how the curve twists out of that plane.
+\begin{rmk}
+  The geometry of a space curve is completely determined by how the Frenet--Serret frame evolves along the curve. The curvature $\kappa(s)$ measures how the curve bends in the osculating plane, and the torsion $\tau(s)$ measures how it twists out of that plane.
+\end{rmk}
 
 \subsection{Curvature of surfaces*}
-The geometry of surfaces can be studied through curves that lie on them. At a point $P$ on a surface $S$ with unit normal $\mathbf{n}$, consider any plane containing $\mathbf{n}$. This plane intersects $S$ in a curve passing through $P$, and this curve has some curvature $\kappa$ at $P$. Different choices of plane yield curves with different curvatures.
+
+\begin{rmk}
+  At a point $P$ on a surface $S$ with unit normal $\mathbf{n}$, any plane containing $\mathbf{n}$ intersects $S$ in a curve through $P$, and this curve has some curvature $\kappa$ at $P$. Different choices of plane yield different curvatures.
+\end{rmk}
 
 \begin{defi}[Principal curvatures]
   The \emph{principal curvatures} of a surface $S$ at a point $P$ are the minimum and maximum curvatures among all curves obtained by intersecting $S$ with planes containing the normal at $P$. These are denoted $\kappa_{\min}$ and $\kappa_{\max}$.
@@ -1572,8 +1576,6 @@ The geometry of surfaces can be studied through curves that lie on them. At a po
   \]
 \end{defi}
 
-The following remarkable theorem, due to Gauss, reveals that Gaussian curvature has a special property.
-
 \begin{thm}[Theorema Egregium]
   The Gaussian curvature $K$ is \emph{intrinsic} to the surface $S$: it can be expressed entirely in terms of lengths and angles measured on the surface itself, without reference to the ambient space in which $S$ is embedded.
 \end{thm}
@@ -1582,13 +1584,13 @@ The following remarkable theorem, due to Gauss, reveals that Gaussian curvature 
   This theorem is the foundation of \emph{intrinsic geometry}. It implies that inhabitants of a surface can determine its Gaussian curvature purely through measurements made within the surface, without knowing how (or whether) the surface is embedded in a higher-dimensional space.
 \end{rmk}
 
-The Gaussian curvature controls deviations from Euclidean geometry on the surface. A fundamental example is the angle sum of a triangle.
-
 \begin{defi}[Geodesic]
   A \emph{geodesic} on a surface is a curve of shortest length between two points on the surface.
 \end{defi}
 
-Consider a geodesic triangle $D$ on a surface $S$, formed by three geodesics. Let $\theta_1, \theta_2, \theta_3$ be the interior angles of the triangle, measured using scalar products of tangent vectors.
+\begin{defi}[Geodesic triangle]
+  A \emph{geodesic triangle} $D$ on a surface $S$ is a region bounded by three geodesics. Let $\theta_1, \theta_2, \theta_3$ denote its interior angles.
+\end{defi}
 
 \begin{thm}[Gauss--Bonnet theorem]
   For a geodesic triangle $D$ on a surface with Gaussian curvature $K$,
