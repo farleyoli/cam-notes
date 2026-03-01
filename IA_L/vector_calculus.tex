@@ -1232,7 +1232,7 @@ The integral of a vector-valued function $\mathbf{F}: V \to \R^n$ over a region 
 \end{eg}
 
 \section{Surfaces and surface integrals}
-\subsection{Surfaces and Normal}
+\subsection{Surfaces and normals}
 We now turn to the study of surfaces in $\R^3$. A surface can be specified implicitly by an equation of the form $f(\mathbf{r}) = c$, where $f: \R^3 \to \R$ is a smooth function and $c$ is a constant. For example, the equation $x^2 + y^2 + z^2 = 1$ defines the unit sphere.
 
 To find the normal to such a surface, consider any curve $\mathbf{r}(u)$ lying entirely on the surface $S$. Since $f(\mathbf{r}(u)) = c$ along the curve, differentiating with respect to $u$ gives
@@ -1250,7 +1250,7 @@ This shows that $\nabla f$ is perpendicular to the tangent vector $\frac{\d\math
     \item Take the sphere $f(\mathbf{r}) = x^2 + y^2 + z^2 = c$ for $c > 0$. Then $\nabla f = 2(x, y, z) = 2\mathbf{r}$, which is clearly normal to the sphere.
     \item Take $f(\mathbf{r}) = x^2 + y^2 - z^2 = c$, which is a hyperboloid. Then $\nabla f = 2(x, y, -z)$.
 
-      In the special case where $c = 0$, we have a double cone, with a singular apex $\mathbf{0}$. Here $\nabla f = \mathbf{0}$, and we cannot find a meaningful direction of normal.
+      In the special case $c = 0$, we have a double cone with a singularity at the apex $\mathbf{0}$. Here $\nabla f = \mathbf{0}$, and we cannot define a meaningful normal direction.
   \end{enumerate}
 \end{eg}
 
@@ -1261,6 +1261,7 @@ This shows that $\nabla f$ is perpendicular to the tangent vector $\frac{\d\math
 \begin{defi}[Bounded and closed surfaces]
   A surface is \emph{bounded} if it can be contained within a sphere of finite radius, and \emph{unbounded} otherwise. A bounded surface with no boundary (i.e., $\partial S = \varnothing$) is called \emph{closed}. For example, a sphere is closed, while a hemisphere is bounded but not closed.
 \end{defi}
+
 \begin{eg}[Hemisphere boundary]\leavevmode
   \begin{center}
     \begin{tikzpicture}
