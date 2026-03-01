@@ -1158,7 +1158,7 @@ As in two dimensions, a change of variables transforms the volume element by the
 \end{eg}
 
 \subsection{Further generalizations}
-\subsubsection*{Integration in \tph{$\R^n$}{Rn}{&\#x2121D;<sup>n</sup>}}
+\subsubsection*{Integration in \tph{$\R^n$}{Rn}{&\#x211D;<sup>n</sup>}}
 The definitions and results above extend naturally to $n$ dimensions. For a region $D \subseteq \R^n$ and a function $f: D \to \R$, the $n$-dimensional integral is
 \[
   \int_D f(x_1, \ldots, x_n) \, \d x_1 \cdots \d x_n.
@@ -1207,21 +1207,22 @@ The integral of a vector-valued function $\mathbf{F}: V \to \R^n$ over a region 
     \mathbf{R} = \frac{1}{M} \int_V \mathbf{r} \, \rho(\mathbf{r}) \, \d V.
   \]
 \end{eg}
+
 \begin{eg}[Hemisphere center of mass]
   Consider a solid hemisphere $H$ with $r \leq a$, $z \geq 0$ with uniform density $\rho$. The mass is
   \[
     M = \int_H \rho \;\d V = \frac{2}{3}\pi a^3\rho.
   \]
-  Now suppose that $\mathbf{R} = (X, Y, Z)$. By symmetry, we expect $X = Y = 0$. We can find this formally by
+  Writing $\mathbf{R} = (X, Y, Z)$, by symmetry we expect $X = Y = 0$. To verify,
   \begin{align*}
     X &= \frac{1}{M}\int_H x\rho \;\d V\\
     &= \frac{\rho}{M}\int_0^a \int_0^{\pi/2}\int_0^{2\pi}xr^2 \sin \theta\;\d \varphi\;\d \theta\;\d r\\
-    &= \frac{\rho}{M}\int_0^{a}r^3\;\d r\times \int_0^{\pi/2}\sin^2\theta\;\d \theta\times \int_0^{2\pi}\cos\varphi\;\d \varphi\\
-    &= 0
+    &= \frac{\rho}{M}\int_0^{a}r^3\;\d r \int_0^{\pi/2}\sin^2\theta\;\d \theta \int_0^{2\pi}\cos\varphi\;\d \varphi\\
+    &= 0,
   \end{align*}
-  as expected. Note that it evaluates to 0 because the integral of $\cos$ from $0$ to $2\pi$ is 0. Similarly, we obtain $Y = 0$.
+  since $\int_0^{2\pi}\cos\varphi\;\d\varphi = 0$. Similarly, $Y = 0$.
 
-  Finally, we find $Z$.
+  For $Z$, we compute
   \begin{align*}
     Z &= \frac{\rho}{M}\int_0^a r^3\;\d r \int_0^{\pi/2}\sin\theta\cos\theta\;\d \theta \int_0^{2\pi}\;\d \varphi\\
     &= \frac{\rho}{M}\left[\frac{a^4}{4}\right]\left[\frac{1}{2}\sin^2\theta\right]_0^{\pi/2}2\pi\\
