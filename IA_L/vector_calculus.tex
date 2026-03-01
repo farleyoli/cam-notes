@@ -1233,17 +1233,19 @@ The integral of a vector-valued function $\mathbf{F}: V \to \R^n$ over a region 
 
 \section{Surfaces and surface integrals}
 \subsection{Surfaces and normals}
-We now turn to the study of surfaces in $\R^3$. A surface can be specified implicitly by an equation of the form $f(\mathbf{r}) = c$, where $f: \R^3 \to \R$ is a smooth function and $c$ is a constant. For example, the equation $x^2 + y^2 + z^2 = 1$ defines the unit sphere.
-
-To find the normal to such a surface, consider any curve $\mathbf{r}(u)$ lying entirely on the surface $S$. Since $f(\mathbf{r}(u)) = c$ along the curve, differentiating with respect to $u$ gives
-\[
-  \frac{\d}{\d u}[f(\mathbf{r}(u))] = \nabla f \cdot \frac{\d\mathbf{r}}{\d u} = 0.
-\]
-This shows that $\nabla f$ is perpendicular to the tangent vector $\frac{\d\mathbf{r}}{\d u}$. Since this holds for every curve on $S$, we conclude:
+A surface in $\R^3$ can be specified implicitly by an equation $f(\mathbf{r}) = c$, where $f: \R^3 \to \R$ is smooth and $c$ is a constant.
 
 \begin{prop}[Gradient as surface normal]
   Let $S$ be a surface defined by $f(\mathbf{r}) = c$, where $f$ is smooth and $\nabla f \neq \mathbf{0}$ on $S$. Then $\nabla f$ is normal to $S$ at each point.
 \end{prop}
+
+\begin{rmk}
+  To see this, consider any curve $\mathbf{r}(u)$ lying on $S$. Since $f(\mathbf{r}(u)) = c$, differentiating gives
+  \[
+    \nabla f \cdot \frac{\d\mathbf{r}}{\d u} = 0,
+  \]
+  so $\nabla f$ is perpendicular to every tangent vector on $S$.
+\end{rmk}
 
 \begin{eg}[Level surfaces: sphere and hyperboloid]\leavevmode
   \begin{enumerate}
@@ -1283,7 +1285,9 @@ This shows that $\nabla f$ is perpendicular to the tangent vector $\frac{\d\math
 \end{rmk}
 
 \subsection{Parametrized surfaces and area}
-While the implicit representation $f(\mathbf{r}) = c$ is useful for some purposes, it is often more convenient to describe a surface parametrically. A \emph{parametrization} of a surface $S$ is a smooth function $\mathbf{r}: D \to \R^3$, where $D \subseteq \R^2$ is a region in the $(u, v)$-plane, such that the image of $\mathbf{r}$ is $S$. Each point on $S$ is then labelled by coordinates $(u, v)$.
+\begin{defi}[Parametrized surface]
+  A \emph{parametrization} of a surface $S$ is a smooth function $\mathbf{r}: D \to \R^3$, where $D \subseteq \R^2$ is a region in the $(u, v)$-plane, such that the image of $\mathbf{r}$ is $S$. Each point on $S$ is then labelled by coordinates $(u, v)$.
+\end{defi}
 
 \begin{eg}[Spherical cap parametrization]
   Let $S$ be part of a sphere of radius $a$ with $0 \leq \theta \leq \alpha$.
@@ -1315,27 +1319,14 @@ While the implicit representation $f(\mathbf{r}) = c$ is useful for some purpose
   A complete specification of a parametrized surface requires both the function $\mathbf{r}(u, v)$ and the domain $D \subseteq \R^2$ of allowed parameter values. The domain $D$ determines the bounds of integration when computing surface integrals.
 \end{rmk}
 
-For the parametrization to describe a genuine two-dimensional surface, we require that $\mathbf{r}$ depend non-degenerately on both parameters. The partial derivatives $\frac{\partial \mathbf{r}}{\partial u}$ and $\frac{\partial \mathbf{r}}{\partial v}$ are tangent vectors to the coordinate curves on $S$ (curves with $v$ constant and $u$ constant, respectively). For the surface to be non-degenerate, these tangent vectors must be linearly independent.
-
 \begin{defi}[Regular parametrization]
-  A parametrization $\mathbf{r}: D \to \R^3$ is called \emph{regular} if
+  The partial derivatives $\frac{\partial \mathbf{r}}{\partial u}$ and $\frac{\partial \mathbf{r}}{\partial v}$ are tangent vectors to the coordinate curves on $S$. A parametrization is called \emph{regular} if
   \[
     \frac{\partial \mathbf{r}}{\partial u} \times \frac{\partial \mathbf{r}}{\partial v} \neq \mathbf{0}
   \]
-  at every point $(u, v) \in D$, i.e., the tangent vectors are never parallel. All parametrizations in this course are assumed to be regular.
+  at every point $(u, v) \in D$, i.e., the tangent vectors are linearly independent everywhere. All parametrizations in this course are assumed to be regular.
 \end{defi}
 
-We now derive the formula for the area of a parametrized surface. Consider a small rectangle in the parameter domain $D$ with sides $\delta u$ and $\delta v$. Under the parametrization, this maps to a small parallelogram on $S$ with sides approximately $\frac{\partial \mathbf{r}}{\partial u} \delta u$ and $\frac{\partial \mathbf{r}}{\partial v} \delta v$. The area of this parallelogram is the magnitude of the cross product:
-\[
-  \delta S = \left| \frac{\partial \mathbf{r}}{\partial u} \times \frac{\partial \mathbf{r}}{\partial v} \right| \delta u \, \delta v.
-\]
-The cross product itself gives the \emph{vector area element}, which includes information about the orientation:
-\[
-  \delta \mathbf{S} = \frac{\partial \mathbf{r}}{\partial u} \times \frac{\partial \mathbf{r}}{\partial v} \, \delta u \, \delta v = \mathbf{n} \, \delta S,
-\]
-where $\mathbf{n}$ is the unit normal. The ordering of $u$ and $v$ determines the sign (orientation) of the normal.
-
-Taking the limit as $\delta u, \delta v \to 0$, we obtain:
 \begin{prop}[Parametrized surface area elements]
   The \emph{vector area element} is
   \[
@@ -1346,10 +1337,13 @@ Taking the limit as $\delta u, \delta v \to 0$, we obtain:
     \d S = \left|\frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial \mathbf{r}}{\partial v}\right|\;\d u\;\d v.
   \]
 \end{prop}
-By summing and taking limits, the area of $S$ is
-\[
-  \int_S \d S = \int_D \left|\frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial \mathbf{r}}{\partial v}\right| \d u\;\d v.
-\]
+
+\begin{rmk}
+  A small rectangle with sides $\delta u$, $\delta v$ in parameter space maps to a parallelogram on $S$ with sides approximately $\frac{\partial \mathbf{r}}{\partial u} \delta u$ and $\frac{\partial \mathbf{r}}{\partial v} \delta v$. Its area is $\left|\frac{\partial \mathbf{r}}{\partial u} \times \frac{\partial \mathbf{r}}{\partial v}\right| \delta u\, \delta v$, giving the scalar area element. The cross product itself gives the vector area element $\d\mathbf{S} = \mathbf{n}\,\d S$, where the ordering of $u$ and $v$ determines the orientation. The total area of $S$ is
+  \[
+    \int_S \d S = \int_D \left|\frac{\partial \mathbf{r}}{\partial u}\times \frac{\partial \mathbf{r}}{\partial v}\right| \d u\;\d v.
+  \]
+\end{rmk}
 \begin{eg}[Spherical cap scalar area]
   Consider again the part of the sphere of radius $a$ with $0 \leq \theta \leq \alpha$.
   \begin{center}
