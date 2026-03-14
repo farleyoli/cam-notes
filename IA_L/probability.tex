@@ -377,101 +377,97 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
 \section{Axioms of probability}
 \label{sec:axioms}
 \subsection{Axioms and definitions}
-So far, we have semi-formally defined some probabilistic notions. However, what we had above was rather restrictive. We were only allowed to have a finite number of possible outcomes, and all outcomes occur with the same probability. However, most things in the real world do not fit these descriptions. For example, we cannot use this to model a coin that gives heads with probability $\pi^{-1}$.
 
-In general, ``probability'' can be defined as follows:
+\begin{remark}
+  In Chapter~1, we defined probability only for finite sample spaces with equally likely outcomes. This is too restrictive for many applications --- for instance, it cannot model a biased coin with $\P(\text{heads}) = \pi^{-1}$. We now give a general axiomatic framework.
+\end{remark}
+
 \begin{defi}[Probability space]
-  A \emph{probability space} is a triple $(\Omega, \mathcal{F}, \P)$. $\Omega$ is a set called the \emph{sample space}, $\mathcal{F}$ is a collection of subsets of $\Omega$, and $\P: \mathcal{F}\to [0, 1]$ is the \emph{probability measure}.
-
-  $\mathcal{F}$ has to satisfy the following axioms:
-  \begin{enumerate}
-    \item $\emptyset, \Omega\in \mathcal{F}$.
-    \item $A\in \mathcal{F} \Rightarrow A^C\in \mathcal{F}$.
-    \item $A_1, A_2, \cdots \in \mathcal{F} \Rightarrow \bigcup_{i = 1}^\infty A_i \in \mathcal{F}$.
-  \end{enumerate}
-  And $\P$ has to satisfy the following \emph{Kolmogorov axioms}:
-  \begin{enumerate}
-    \item $0 \leq \P(A) \leq 1 $ for all $A\in \mathcal{F}$
-    \item $\P(\Omega) = 1$
-    \item For any countable collection of events $A_1, A_2, \cdots$ which are disjoint, i.e.\ $A_i\cap A_j = \emptyset$ for all $i, j$, we have
+  A \emph{probability space} is a triple $(\Omega, \mathcal{F}, \P)$, where:
+  \begin{itemize}
+    \item $\Omega$ is a set called the \emph{sample space}. Elements of $\Omega$ are called \emph{outcomes}.
+    \item $\mathcal{F}$ is a collection of subsets of $\Omega$ satisfying:
+    \begin{enumerate}
+      \item $\emptyset, \Omega\in \mathcal{F}$;
+      \item if $A\in \mathcal{F}$, then $A^C\in \mathcal{F}$;
+      \item if $A_1, A_2, \dotsc \in \mathcal{F}$, then $\bigcup_{i = 1}^\infty A_i \in \mathcal{F}$.
+    \end{enumerate}
+    Elements of $\mathcal{F}$ are called \emph{events}.
+    \item $\P\colon \mathcal{F}\to [0, 1]$ is the \emph{probability measure}, satisfying the \emph{Kolmogorov axioms}:
+    \begin{enumerate}
+      \item $0 \leq \P(A) \leq 1$ for all $A\in \mathcal{F}$;
+      \item $\P(\Omega) = 1$;
+      \item (\emph{countable additivity}) for any countable collection of pairwise disjoint events $A_1, A_2, \dotsc \in \mathcal{F}$ (i.e.\ $A_i\cap A_j = \emptyset$ for all $i \neq j$),
       \[
-        \P\left(\bigcup_i A_i\right) = \sum_i \P(A_i).
+        \P\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} \P(A_i).
       \]
-  \end{enumerate}
-  Items in $\Omega$ are known as the \emph{outcomes}, items in $\mathcal{F}$ are known as the \emph{events}, and $\P(A)$ is the \emph{probability} of the event $A$.
+    \end{enumerate}
+  \end{itemize}
+  For an event $A \in \mathcal{F}$, the number $\P(A)$ is called the \emph{probability} of $A$.
 \end{defi}
 
-If $\Omega$ is finite (or countable), we usually take $\mathcal{F}$ to be all the subsets of $\Omega$, i.e.\ the power set of $\Omega$. However, if $\Omega$ is, say, $\R$, we have to be a bit more careful and only include nice subsets, or else we cannot have a well-defined $\P$.
-
-Often it is not helpful to specify the full function $\P$. Instead, in discrete cases, we just specify the probabilities of each outcome, and use the third axiom to obtain the full $\P$.
+\begin{remark}
+  If $\Omega$ is finite or countable, we usually take $\mathcal{F}$ to be the power set of $\Omega$ (i.e.\ the collection of all subsets). If $\Omega$ is uncountable (e.g.\ $\Omega = \R$), one must restrict $\mathcal{F}$ to a suitable collection of subsets in order for $\P$ to be well-defined.
+\end{remark}
 
 \begin{defi}[Probability distribution]
-  Let $\Omega = \{\omega_1, \omega_2, \cdots\}$. Choose numbers $p_1, p_2, \cdots $ such that $\sum_{i = 1}^\infty p_i= 1$. Let $p(\omega_i) = p_i$. Then define
+  Let $\Omega = \{\omega_1, \omega_2, \dotsc\}$ be a countable sample space. A \emph{probability distribution} on $\Omega$ is a sequence of non-negative numbers $p_1, p_2, \dotsc$ with $\sum_{i = 1}^\infty p_i = 1$. Setting $p(\omega_i) = p_i$, we define
   \[
-    \P(A) = \sum_{\omega_i\in A} p(\omega_i).
+    \P(A) = \sum_{\omega_i\in A} p(\omega_i)
   \]
-  This $\P(A)$ satisfies the above axioms, and $p_1, p_2, \cdots$ is the \emph{probability distribution}
+  for every event $A \subseteq \Omega$. This defines a probability measure on $\Omega$.
 \end{defi}
 
-Using the axioms, we can quickly prove a few rather obvious results.
-\begin{thm}\leavevmode
+\begin{prop}[Elementary properties]\leavevmode
   \begin{enumerate}
-    \item $\P(\emptyset) = 0$
-    \item $\P(A^C) = 1 - \P(A)$
-    \item $A\subseteq B \Rightarrow \P(A) \leq \P(B)$
-    \item $\P (A\cup B) = \P(A) + \P(B) - \P(A\cap B)$.
+    \item $\P(\emptyset) = 0$.
+    \item $\P(A^C) = 1 - \P(A)$ for any event $A$.
+    \item If $A\subseteq B$, then $\P(A) \leq \P(B)$ (monotonicity).
+    \item $\P (A\cup B) = \P(A) + \P(B) - \P(A\cap B)$ (inclusion-exclusion for two events).
   \end{enumerate}
-\end{thm}
+\end{prop}
 
 \begin{proof}\leavevmode
   \begin{enumerate}
-    \item $\Omega$ and $\emptyset$ are disjoint. So $\P(\Omega) + \P(\emptyset) = \P(\Omega \cup \emptyset) = \P(\Omega)$. So $\P(\emptyset) = 0$.
-    \item $\P(A) + \P(A^C) = \P(\Omega) = 1$ since $A$ and $A^C$ are disjoint.
-    \item Write $B = A\cup (B\cap A^C)$. Then $\\P(B) = \P(A) + \P(B\cap A^C) \geq \P(A)$.
-    \item $\P(A\cup B) = \P(A) + \P(B\cap A^C)$. We also know that $\P(B) = \P(A\cap B) + \P(B\cap A^C)$. Then the result follows.\qedhere
+    \item $\Omega$ and $\emptyset$ are disjoint, so $\P(\Omega) = \P(\Omega \cup \emptyset) = \P(\Omega) + \P(\emptyset)$. Hence $\P(\emptyset) = 0$.
+    \item $A$ and $A^C$ are disjoint with $A \cup A^C = \Omega$, so $\P(A) + \P(A^C) = \P(\Omega) = 1$.
+    \item Write $B = A\cup (B\cap A^C)$, a disjoint union. Then $\P(B) = \P(A) + \P(B\cap A^C) \geq \P(A)$.
+    \item Write $A\cup B = A\cup (B\cap A^C)$, a disjoint union, so $\P(A\cup B) = \P(A) + \P(B\cap A^C)$. Also $B = (A\cap B) \cup (B\cap A^C)$ is a disjoint union, so $\P(B\cap A^C) = \P(B) - \P(A\cap B)$. Substituting gives the result.\qedhere
   \end{enumerate}
 \end{proof}
 
-From above, we know that $\P(A\cup B) \leq \P(A) + \P(B)$. So we say that $\P$ is a \emph{subadditive} function. Also, $\P(A\cap B) + \P(A \cup B) \leq \P(A) + \P(B)$ (in fact both sides are equal!). We say $\P$ is \emph{submodular}.
+\begin{remark}
+  Part (4) implies $\P(A\cup B) \leq \P(A) + \P(B)$, i.e.\ $\P$ is \emph{subadditive}. We also have $\P(A\cap B) + \P(A \cup B) = \P(A) + \P(B)$, so $\P$ is \emph{submodular} (since in general submodularity requires only the inequality $\leq$).
+\end{remark}
 
-The next theorem is better expressed in terms of \emph{limits}.
 \begin{defi}[Limit of events]
-  A sequence of events $A_1, A_2, \cdots$ is \emph{increasing} if $A_1 \subseteq A_2 \cdots$. Then we define the \emph{limit} as
+  Let $A_1, A_2, \dotsc$ be a sequence of events. If the sequence is \emph{increasing}, i.e.\ $A_1 \subseteq A_2 \subseteq \cdots$, we define
   \[
-    \lim_{n\to \infty} A_n = \bigcup_{1}^\infty A_n.
+    \lim_{n\to \infty} A_n = \bigcup_{n=1}^\infty A_n.
   \]
-  Similarly, if they are \emph{decreasing}, i.e.\ $A_1\supseteq A_2\cdots$, then
+  If it is \emph{decreasing}, i.e.\ $A_1\supseteq A_2 \supseteq \cdots$, we define
   \[
-    \lim_{n\to \infty} A_n = \bigcap_{1}^\infty A_n.
+    \lim_{n\to \infty} A_n = \bigcap_{n=1}^\infty A_n.
   \]
 \end{defi}
 
-\begin{thm}
-  If $A_1, A_2, \cdots$ is increasing or decreasing, then
+\begin{thm}[Continuity of probability]
+  Let $A_1, A_2, \dotsc$ be an increasing or decreasing sequence of events. Then
   \[
-    \lim_{n\to \infty} \P(A_n) = \P\left(\lim_{n\to \infty} A_n\right).
+    \P\left(\lim_{n\to \infty} A_n\right) = \lim_{n\to \infty} \P(A_n).
   \]
 \end{thm}
 
 \begin{proof}
-  Take $B_1 = A_1$, $B_2 = A_2\setminus A_1$. In general,
+  We prove the increasing case. Define $B_1 = A_1$ and $B_n = A_n \setminus A_{n-1}$ for $n \geq 2$. Then $B_1, B_2, \dotsc$ are pairwise disjoint, and
   \[
-    B_n = A_n\setminus\bigcup_1^{n - 1}A_i.
+    \bigcup_{i=1}^n B_i = A_n, \quad \bigcup_{i=1}^\infty B_i = \bigcup_{i=1}^\infty A_i.
   \]
-  Then
-  \[
-    \bigcup_1^n B_i = \bigcup_1^n A_i,\quad \bigcup_1^\infty B_i = \bigcup _1^\infty A_i.
-  \]
-  Then
+  Therefore
   \begin{align*}
-    \P(\lim A_n) &= \P\left(\bigcup_1^\infty A_i\right)\\
-  &= \P\left(\bigcup_1^\infty B_i\right)\\
-  &=\sum_1^\infty \P(B_i)\text{ (Axiom III)}\\
-  &= \lim_{n \to \infty}\sum_{i = 1}^n \P(B_i)\\
-  &= \lim_{n \to \infty} \P\left(\bigcup_1^n A_i\right)\\
-  &= \lim_{n \to \infty} \P(A_n).
+    \P\left(\lim_{n \to \infty} A_n\right) &= \P\left(\bigcup_{i=1}^\infty B_i\right) = \sum_{i=1}^\infty \P(B_i) = \lim_{n \to \infty}\sum_{i = 1}^n \P(B_i) = \lim_{n \to \infty} \P(A_n).
   \end{align*}
-  and the decreasing case is proven similarly (or we can simply apply the above to $A_i^C$).
+  The decreasing case follows by applying the above to the increasing sequence $A_1^C \subseteq A_2^C \subseteq \cdots$ and using $\P(A_n^C) = 1 - \P(A_n)$.
 \end{proof}
 
 \subsection{Inequalities and formulae}
