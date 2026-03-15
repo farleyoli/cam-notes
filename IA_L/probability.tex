@@ -657,69 +657,64 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
 
 
 \subsection{Important discrete distributions}
-We're now going to quickly go through a few important discrete probability distributions. By \emph{discrete} we mean the sample space is countable. The sample space is $\Omega = \{\omega_1, \omega_2, \cdots\}$ and $p_i = \P(\{\omega_i\})$.
 
 \begin{defi}[Bernoulli distribution]
-  Suppose we toss a coin. $\Omega=\{H, T\}$ and $p\in [0, 1]$. The \emph{Bernoulli distribution}, denoted $B(1, p)$ has
+  Let $p\in [0, 1]$. A random variable with the \emph{Bernoulli distribution} $B(1, p)$ takes values in $\{0, 1\}$ with
   \[
-    \P(H) = p;\quad \P(T) = 1- p.
+    \P(X = 1) = p, \qquad \P(X = 0) = 1- p.
   \]
+  We think of $1$ as ``success'' and $0$ as ``failure''.
 \end{defi}
 
 \begin{defi}[Binomial distribution]
-  Suppose we toss a coin $n$ times, each with probability $p$ of getting heads. Then
+  Let $n \geq 1$ be an integer and $p \in [0,1]$. The \emph{binomial distribution} $B(n, p)$ is the distribution of the number of successes in $n$ independent Bernoulli trials, each with success probability $p$. It takes values in $\{0, 1, \dotsc, n\}$ with
   \[
-    \P(HHTT\cdots T) = pp(1 - p)\cdots (1 - p).
+    \P(X = k) = \binom{n}{k}p^k(1 - p)^{n - k}, \qquad k = 0, 1, \dotsc, n.
   \]
-  So
-  \[
-    \P(\text{two heads}) = \binom{n}{2}p^2(1 - p)^{n -2}.
-  \]
-  In general,
-  \[
-    \P(k\text{ heads}) = \binom{n}{k}p^k(1 - p)^{n - k}.
-  \]
-  We call this the \emph{binomial distribution} and write it as $B(n, p)$.
 \end{defi}
 
 \begin{defi}[Geometric distribution]
-  Suppose we toss a coin with probability $p$ of getting heads. The probability of having a head after $k$ consecutive tails is
+  Let $p \in (0, 1]$. The \emph{geometric distribution} $\mathrm{Geom}(p)$ is the distribution of the number of failures before the first success in a sequence of independent Bernoulli trials with success probability $p$. It takes values in $\{0, 1, 2, \dotsc\}$ with
   \[
-    p_k = (1- p)^k p
+    \P(X = k) = (1- p)^k\, p, \qquad k = 0, 1, 2, \dotsc
   \]
-  This is \emph{geometric distribution}. We say it is \emph{memoryless} because how many tails we've got in the past does not give us any information to how long I'll have to wait until I get a head.
 \end{defi}
 
+\begin{remark}
+  The geometric distribution is \emph{memoryless}: given that no success has occurred in the first $m$ trials, the number of additional trials until the first success has the same distribution as the original. This is because the remaining trials are still independent Bernoulli trials with the same parameter $p$.
+\end{remark}
+
 \begin{defi}[Hypergeometric distribution]
-  Suppose we have an urn with $n_1$ red balls and $n_2$ black balls. We choose $n$ balls. The probability that there are $k$ red balls is
+  Suppose an urn contains $n_1$ red balls and $n_2$ black balls. We draw $n \leq n_1 + n_2$ balls without replacement. The number of red balls drawn has the \emph{hypergeometric distribution}: for $\max(0, n - n_2) \leq k \leq \min(n, n_1)$,
   \[
-    \P(k\text{ red}) = \frac{\binom{n_1}{k}\binom{n_2}{n - k}}{\binom{n_1 + n_2}{n}}.
+    \P(X = k) = \frac{\binom{n_1}{k}\binom{n_2}{n - k}}{\binom{n_1 + n_2}{n}}.
   \]
 \end{defi}
 
 \begin{defi}[Poisson distribution]
-  The \emph{Poisson distribution} denoted $P(\lambda)$ is
+  Let $\lambda > 0$. The \emph{Poisson distribution} $\mathrm{Poisson}(\lambda)$ takes values in $\{0, 1, 2, \dotsc\}$ with
   \[
-    p_k = \frac{\lambda^k}{k!}e^{-\lambda}
+    \P(X = k) = \frac{\lambda^k}{k!}\,e^{-\lambda}, \qquad k = 0, 1, 2, \dotsc
   \]
-  for $k\in \N$.
 \end{defi}
-What is this weird distribution? It is a distribution used to model rare events. Suppose that an event happens at a rate of $\lambda$. We can think of this as there being a lot of trials, say $n$ of them, and each has a probability $\lambda/n$ of succeeding. As we take the limit $n\to \infty$, we obtain the Poisson distribution.
 
-\begin{thm}[Poisson approximation to binomial]
-  Suppose $n\to \infty$ and $p\to 0$ such that $np = \lambda$. Then
+\begin{remark}
+  The Poisson distribution models the number of occurrences of a rare event. Informally, if an event occurs at rate $\lambda$ over many independent trials --- say $n$ trials each with success probability $\lambda/n$ --- then as $n \to \infty$, the number of successes approaches a $\mathrm{Poisson}(\lambda)$ distribution. The following theorem makes this precise.
+\end{remark}
+
+\begin{thm}[Poisson approximation to the binomial]
+  Let $\lambda > 0$ be fixed, and let $k \geq 0$ be a fixed integer. If $n\to \infty$ and $p = p_n \to 0$ in such a way that $np \to \lambda$, then
   \[
-    q_k = \binom{n}{k}p^k(1 -p)^{n - k} \to \frac{\lambda^k}{k!}e^{-\lambda}.
+    \binom{n}{k}p^k(1 -p)^{n - k} \to \frac{\lambda^k}{k!}\,e^{-\lambda}.
   \]
 \end{thm}
 
 \begin{proof}
-\begin{align*}
-  q_k &= \binom{n}{k}p^k(1 - p)^{n - k}\\
-  &= \frac{1}{k!} \frac{n(n - 1)\cdots(n - k + 1)}{n^k}(np)^k \left(1 - \frac{np}{n}\right)^{n - k}\\
-  &\to \frac{1}{k!}\lambda^ke^{-\lambda}
-\end{align*}
-since $(1 - a/n)^n \to e^{-a}$.
+  Write $q_k = \binom{n}{k}p^k(1 - p)^{n - k}$. Then
+  \begin{align*}
+    q_k &= \frac{1}{k!} \cdot \frac{n(n - 1)\cdots(n - k + 1)}{n^k}\cdot (np)^k \cdot \left(1 - \frac{np}{n}\right)^{n - k}.
+  \end{align*}
+  As $n \to \infty$ with $np \to \lambda$: the ratio $n(n-1)\cdots(n-k+1)/n^k \to 1$ (since $k$ is fixed), $(np)^k \to \lambda^k$, and $(1 - np/n)^{n-k} \to e^{-\lambda}$ (since $(1 - a/n)^n \to e^{-a}$). Hence $q_k \to \lambda^k e^{-\lambda}/k!$.
 \end{proof}
 \subsection{Conditional probability}
 \begin{defi}[Conditional probability]
