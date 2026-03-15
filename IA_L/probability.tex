@@ -1652,165 +1652,129 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{proof}
 
 \subsection{Random walk and gambler's ruin}
-Here we'll study random walks, using gambler's ruin as an example.
-
-\begin{defi}[Random walk]
-  Let $X_1, \cdots, X_n$ be iid random variables such that $X_n = +1$ with probability $p$, and $-1$ with probability $1 - p$. Let $S_n = S_0 + X_1 + \cdots + X_n$. Then $(S_0, S_1, \cdots, S_n)$ is a \emph{1-dimensional random walk}.
-
-  If $p = q = \frac{1}{2}$, we say it is a \emph{symmetric random walk}.
+\begin{defi}[Simple random walk]
+  Let $X_1, X_2, \dotsc$ be iid random variables with $\P(X_i = +1) = p$ and $\P(X_i = -1) = q = 1 - p$.
+  The sequence $(S_n)_{n \geq 0}$ defined by $S_n = S_0 + X_1 + \cdots + X_n$ is a \emph{simple random walk} starting at $S_0$.
+  If $p = q = \frac{1}{2}$, the random walk is \emph{symmetric}.
 \end{defi}
 
-\begin{eg}
-  A gambler starts with $\$z$, with $z < a$, and plays a game in which he wins $\$1$ or loses $\$ 1$ at each turn with probabilities $p$ and $q$ respectively. What are
+\begin{prop}[Gambler's ruin probabilities]
+  A gambler starts with $\$z$, where $0 < z < a$, and at each turn wins $\$1$ with probability $p$ or loses $\$1$ with probability $q = 1 - p$.
+  Let
   \[
-    p_z = \P(\text{random walk hits $a$ before } 0 \mid \text{starts at } z),
+    p_z = \P(\text{walk hits $a$ before $0$} \mid S_0 = z), \quad
+    q_z = \P(\text{walk hits $0$ before $a$} \mid S_0 = z).
   \]
-  and
+  If $p \neq q$, then
   \[
-    q_z = \P(\text{random walk hits 0 before }a \mid \text{starts at }z)?
+    p_z = \frac{1 - (q/p)^z}{1 - (q/p)^a}, \quad
+    q_z = \frac{(q/p)^a - (q/p)^z}{(q/p)^a - 1}.
   \]
-  He either wins his first game, with probability $p$, or loses with probability $q$. So
-  \[
-    p_z = qp_{z - 1} + pp_{z + 1},
-  \]
-  for $0 < z < a$, and $p_0 = 0, p_a = 1$.
+  If $p = q = \frac{1}{2}$, then $p_z = z/a$ and $q_z = (a - z)/a$.
+  In both cases, $p_z + q_z = 1$, so the game terminates with probability $1$.
+\end{prop}
 
-  Try $p_z = t^z$. Then
+\begin{proof}
+  Conditioning on the first step,
   \[
-    pt^2 - t + q = (pt - q)(t - 1) = 0,
+    p_z = p\,p_{z+1} + q\,p_{z-1},
   \]
-  noting that $p = 1 - q$. If $p \not = q$, then
-  \[
-    p_z = A1^z + B\left(\frac{q}{p}\right)^z.
-  \]
-  Since $p_0 = 0$, we get $A = -B$. Since $p_a = 1$, we obtain
-  \[
-    p_z = \frac{1 - (q/p)^z}{1 - (q/p)^a}.
-  \]
-  If $p = q$, then $p_z = A + Bz = z/a$.
+  for $0 < z < a$, with $p_0 = 0$ and $p_a = 1$.
+  Try $p_z = t^z$. Then $pt^2 - t + q = (pt - q)(t - 1) = 0$, with roots $t = 1$ and $t = q/p$.
 
-  Similarly, (or perform the substitutions $p\mapsto q$, $q\mapsto p$ and $z \mapsto a - z$)
-  \[
-    q_z = \frac{(q/p)^a - (q/p)^z}{(q / p)^a - 1}
-  \]
-  if $p\not = q$, and
-  \[
-    q_z = \frac{a - z}{a}
-  \]
-  if $p = q$. Since $p_z + q_z = 1$, we know that the game will eventually end.
+  If $p \neq q$, the general solution is $p_z = A + B(q/p)^z$.
+  From $p_0 = 0$, we get $A = -B$.
+  From $p_a = 1$, we obtain $p_z = \frac{1 - (q/p)^z}{1 - (q/p)^a}$.
 
-  What if $a\to \infty$? What is the probability of going bankrupt?
-  \begin{align*}
-    \P(\text{path hits 0 ever}) &= \P\left(\bigcup_{a = z+1}^\infty [\text{path hits 0 before }a]\right)\\
-    &= \lim_{a\to \infty}\P(\text{path hits 0 before }a)\\
-    &= \lim_{a\to \infty}q_z\\
-    &= \begin{cases}
-      (q/p)^z & p > q\\
-      1 & p \leq q.
+  If $p = q$, the roots coincide and the general solution is $p_z = A + Bz$, giving $p_z = z/a$.
+
+  The formula for $q_z$ follows by the substitution $p \mapsto q$, $q \mapsto p$, $z \mapsto a - z$ (or directly by $q_z = 1 - p_z$).
+\end{proof}
+
+\begin{cor}[Ruin on the infinite line]
+  Starting from $z > 0$ with no upper barrier (i.e.\ $a \to \infty$),
+  \[
+    \P(\text{walk hits $0$ eventually}) = \begin{cases}
+      (q/p)^z & \text{if } p > q, \\
+      1 & \text{if } p \leq q.
     \end{cases}
-  \end{align*}
-  So if the odds are against you (i.e.\ the probability of losing is greater than the probability of winning), then no matter how small the difference is, you are bound to going bankrupt eventually.
-\end{eg}
+  \]
+\end{cor}
+
+\begin{proof}
+  The events $\{\text{walk hits $0$ before $a$}\}$ increase with $a$, so by continuity of probability,
+  \[
+    \P(\text{walk hits $0$ eventually}) = \lim_{a \to \infty} q_z,
+  \]
+  and the result follows from the formulas above.
+\end{proof}
+
+\begin{remark}
+  If the odds are against the gambler ($p \leq q$), ruin is certain regardless of the initial fortune $z$.
+\end{remark}
+
 \subsubsection*{Duration of the game}
-Let $D_z =$ expected time until the random walk hits $0$ or $a$, starting from $z$. We first show that this is bounded. We know that there is one simple way to hit $0$ or $a$: get $+1$ or $-1$ for $a$ times in a row. This happens with probability $p^a + q^a$, and takes $a$ steps. So even if this were the only way to hit $0$ or $a$, the expected duration would be $\frac{a}{p^a + q^a}$. So we must have
-\[
-  D_z \leq \frac{a}{p^a + q^a}
-\]
-This is a \emph{very} crude bound, but it is sufficient to show that it is bounded, and we can meaningfully apply formulas to this finite quantity.
+\begin{prop}[Expected duration of gambler's ruin]
+  Let $D_z$ denote the expected number of steps until the walk is absorbed at $0$ or $a$, starting from $z$.
+  Then $D_z < \infty$, and
+  \[
+    D_z = \begin{cases}
+      \dfrac{z}{q - p} - \dfrac{a}{q - p} \cdot \dfrac{1 - (q/p)^z}{1 - (q/p)^a} & \text{if } p \neq q, \\[8pt]
+      z(a - z) & \text{if } p = q = \frac{1}{2}.
+    \end{cases}
+  \]
+\end{prop}
 
-We have
-\begin{align*}
-  D_z &= \E[\text{duration}]\\
-  &= \E[\E[\text{duration}\mid X_1]]\\
-  &= p\E[\text{duration}\mid X_1 = 1] + q\E[\text{duration}\mid X_1 = -1]\\
-  &= p(1 + D_{z + 1}) + q(1 + D_{z - 1})
-\end{align*}
-So
-\[
-  D_z = 1 + pD_{z + 1} + qD_{z - 1},
-\]
-subject to $D_0 = D_a = 0$.
+\begin{proof}
+  We first show $D_z < \infty$.
+  In any block of $a$ consecutive steps, the probability of all steps being $+1$ or all being $-1$ is at least $p^a + q^a > 0$, which guarantees absorption.
+  Hence $D_z \leq \frac{a}{p^a + q^a} < \infty$.
 
-We first find a particular solution by trying $D_z = Cz$. Then
-\[
-  Cz = 1 + pC(z + 1) + qC(z - 1).
-\]
-So
-\[
-  C = \frac{1}{q - p},
-\]
-for $p \not = q$. Then we find the complementary solution. Try $D_z = t^z$.
-\[
-  pt^2 - t + q = 0,
-\]
-which has roots $1$ and $q/p$. So the general solution is
-\[
-  D_z = A + B\left(\frac{q}{p}\right)^z + \frac{z}{q - p}.
-\]
-Putting in the boundary conditions,
-\[
-  D_z = \frac{z}{q - p} - \frac{a}{q - p} \cdot \frac{1 - (q/p)^z}{1 - (q/p)^a}.
-\]
-If $p = q$, then to find the particular solution, we have to try
-\[
-  D_z = Cz^2.
-\]
-Then we find $C = -1$. So
-\[
-  D_z = -z^2 + A + Bz.
-\]
-Then the boundary conditions give
-\[
-  D_z = z(a - z).
-\]
-\subsubsection*{Using generating functions}
-We can use generating functions to solve the problem as well.
+  Conditioning on the first step,
+  \[
+    D_z = 1 + p\,D_{z+1} + q\,D_{z-1},
+  \]
+  with $D_0 = D_a = 0$.
 
-Let $U_{z,n} = \P(\text{random walk absorbed at 0 at }n\mid \text{start in }z)$.
+  \emph{Case $p \neq q$.}
+  For a particular solution, try $D_z = Cz$: substituting gives $C = \frac{1}{q - p}$.
+  The complementary equation $pt^2 - t + q = 0$ has roots $1$ and $q/p$, so the general solution is
+  \[
+    D_z = A + B\left(\frac{q}{p}\right)^z + \frac{z}{q - p}.
+  \]
+  Applying $D_0 = D_a = 0$ yields the stated formula.
 
-We have the following conditions: $U_{0, 0} = 1$; $U_{z, 0} = 0$ for $0 < z \leq a$; $U_{0, n} = U_{a, n} = 0$ for $n > 0$.
+  \emph{Case $p = q = \frac{1}{2}$.}
+  Try $D_z = Cz^2$: substituting gives $C = -1$.
+  The general solution is $D_z = -z^2 + A + Bz$, and the boundary conditions give $D_z = z(a - z)$.
+\end{proof}
 
-We define a pgf-like function.
-\[
-  U_z(s) = \sum_{n = 0 }^\infty U_{z, n}s^n.
-\]
-We know that
-\[
-  U_{z, n + 1} = p U_{z + 1, n} + qU_{z - 1, n}.
-\]
-Multiply by $s^{n + 1}$ and sum on $n = 0, 1, \cdots$. Then
-\[
-  U_z(s) = psU_{z + 1}(s) + qsU_{z - 1}(s).
-\]
-We try $U_z(s) = [\lambda(s)]^z$. Then
-\[
-  \lambda(s) = ps\lambda(s)^2 + qs.
-\]
-Then
-\[
-  \lambda_1(s), \lambda_2(s) = \frac{1 \pm \sqrt{1 - 4pqs^2}}{2ps}.
-\]
-So
-\[
-  U_z(s) = A(s) \lambda_1(s)^z + B(s)\lambda_2(s)^z.
-\]
-Since $U_0(s) = 1$ and $U_a(s) = 0$, we know that
-\[
-  A(s) + B(s) = 1
-\]
-and
-\[
-  A(s)\lambda_1(s)^a + B(s)\lambda_2(s)^a = 0.
-\]
-Then we find that
-\[
-  U_z(s) = \frac{\lambda_1(s)^a\lambda_2(s)^z - \lambda_2(s)^a\lambda_1(s)^z}{\lambda_1(s)^a - \lambda_2(s)^a}.
-\]
-Since $\lambda_1(s)\lambda_2(s) = \frac{q}{p}$, we can ``simplify'' this to obtain
-\[
-  U_z(s) = \left(\frac{q}{p}\right)^z \cdot \frac{\lambda_1(s)^{a - z} - \lambda_2(s)^{a - z}}{\lambda_1(s)^a - \lambda_2(s)^a}.
-\]
-We see that $U_z(1) = q_z$. We can apply the same method to find the generating function for absorption at $a$, say $V_z(s)$. Then the generating function for the duration is $U_z + V_z$. Hence the expected duration is $D_z = U'_z(1) + V'_z(1).$
+\begin{eg}[Generating function approach to gambler's ruin]
+  Let $U_{z,n} = \P(\text{walk absorbed at $0$ at step $n$} \mid S_0 = z)$, and define the generating function
+  \[
+    U_z(s) = \sum_{n=0}^\infty U_{z,n}\,s^n.
+  \]
+  The boundary conditions are $U_{0,0} = 1$, $U_{z,0} = 0$ for $0 < z \leq a$, and $U_{0,n} = U_{a,n} = 0$ for $n > 0$.
+
+  From the recurrence $U_{z,n+1} = p\,U_{z+1,n} + q\,U_{z-1,n}$, multiplying by $s^{n+1}$ and summing over $n \geq 0$ gives
+  \[
+    U_z(s) = ps\,U_{z+1}(s) + qs\,U_{z-1}(s).
+  \]
+  Trying $U_z(s) = \lambda(s)^z$ leads to $ps\,\lambda^2 - \lambda + qs = 0$, with roots
+  \[
+    \lambda_1(s),\, \lambda_2(s) = \frac{1 \pm \sqrt{1 - 4pqs^2}}{2ps}.
+  \]
+  The general solution $U_z(s) = A(s)\,\lambda_1(s)^z + B(s)\,\lambda_2(s)^z$, together with $U_0(s) = 1$ and $U_a(s) = 0$, gives
+  \[
+    U_z(s) = \frac{\lambda_1(s)^a\,\lambda_2(s)^z - \lambda_2(s)^a\,\lambda_1(s)^z}{\lambda_1(s)^a - \lambda_2(s)^a}.
+  \]
+  Since $\lambda_1(s)\,\lambda_2(s) = q/p$, this simplifies to
+  \[
+    U_z(s) = \left(\frac{q}{p}\right)^z \cdot \frac{\lambda_1(s)^{a-z} - \lambda_2(s)^{a-z}}{\lambda_1(s)^a - \lambda_2(s)^a}.
+  \]
+  One can verify $U_z(1) = q_z$.
+  Similarly, if $V_z(s)$ is the generating function for absorption at $a$, then the expected duration is $D_z = U_z'(1) + V_z'(1)$.
+\end{eg}
 \section{Continuous random variables}
 \subsection{Continuous random variables}
 So far, we have only looked at the case where the outcomes $\Omega$ are discrete. Consider an experiment where we throw a needle randomly onto the ground and record the angle it makes with a fixed horizontal. Then our sample space is $\Omega = \{\omega\in \R: 0 \leq \omega < 2\pi\}$. Then we have
