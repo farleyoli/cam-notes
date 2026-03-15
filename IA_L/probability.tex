@@ -1980,39 +1980,39 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{defi}
 
 \subsection{Stochastic ordering and inspection paradox}
-We want to define a (partial) order on two different random variables. For example, we might want to say that $X + 2 > X$, where $X$ is a random variable.
-
-A simple definition might be \emph{expectation ordering}, where $X \geq Y$ if $\E[X] \geq \E[Y]$. This, however, is not satisfactory since $X \geq Y$ and $Y \geq X$ does not imply $X = Y$. Instead, we can use the \emph{stochastic order}.
 \begin{defi}[Stochastic order]
-  The \emph{stochastic order} is defined as: $X \geq_{\mathrm{st}} Y$ if $\P(X > t) \geq \P(Y > t)$ for all $t$.
+  We write $X \geq_{\mathrm{st}} Y$ (\emph{stochastic order}) if $\P(X > t) \geq \P(Y > t)$ for all $t$.
 \end{defi}
-This is clearly transitive. Stochastic ordering implies expectation ordering, since
-\[
-  X \geq_{\mathrm{st}} Y \Rightarrow \int_0^\infty \P(X > x)\;\d x \geq \int_0^\infty \P(y > x)\;\d x \Rightarrow \E[X] \geq \E[Y].
-\]
-Alternatively, we can also order things by hazard rate.
+
+\begin{remark}
+  Stochastic order is transitive.
+  It implies expectation ordering: if $X \geq_{\mathrm{st}} Y$, then
+  \[
+    \E[X] = \int_0^\infty \P(X > x)\;\d x \geq \int_0^\infty \P(Y > x)\;\d x = \E[Y].
+  \]
+  The converse is false: $\E[X] \geq \E[Y]$ does not imply $X \geq_{\mathrm{st}} Y$.
+\end{remark}
+
 \begin{eg}[Inspection paradox]
-  Suppose that $n$ families have children attending a school. Family $i$ has $X_i$ children at the school, where $X_1, \cdots, X_n$ are iid random variables, with $P(X_i = k) = p_k$. Suppose that the average family size is $\mu$.
+  Suppose $n$ families have children attending a school.
+  Family $i$ has $X_i$ children at the school, where $X_1, \dotsc, X_n$ are iid with $\P(X_i = k) = p_k$ and mean $\mu$.
 
-  Now pick a child at random. What is the probability distribution of his family size? Let $J$ be the index of the family from which she comes (which is a random variable). Then
+  Pick a child at random, and let $J$ be the index of the family from which they come. Then
   \[
-    \P(X_J = k\mid J = j) = \frac{\P(J = j, X_j = k)}{\P(J = j)}.
+    \P(X_J = k \mid J = j) = \frac{\P(J = j,\, X_j = k)}{\P(J = j)}.
   \]
-  The denominator is $1/n$. The numerator is more complex. This would require the $j$th family to have $k$ members, which happens with probability $p_k$; and that we picked a member from the $j$th family, which happens with probability $\E\left[\frac{k}{k + \sum_{i \not=j} X_i}\right]$. So
+  The denominator is $1/n$.
+  The numerator requires the $j$th family to have $k$ members (probability $p_k$) and that we picked a member from that family (probability $\E\bigl[\frac{k}{k + \sum_{i \neq j} X_i}\bigr]$).
+  So
   \[
-    \P(X_J = k \mid J = j) = \E\left[\frac{nkp_k}{k + \sum_{i \not=j} X_i}\right].
+    \P(X_J = k \mid J = j) = \E\left[\frac{nkp_k}{k + \sum_{i \neq j} X_i}\right],
   \]
-  Note that this is independent of $j$. So
+  which is independent of $j$.
+  Hence
   \[
-    \P(X_J = k) = \E\left[\frac{nkp_k}{k + \sum_{i \not=j} X_i}\right].
+    \frac{\P(X_J = k)}{\P(X_1 = k)} = \E\left[\frac{nk}{k + \sum_{i \neq j} X_i}\right].
   \]
-  Also, $\P(X_1 = k) = p_k$. So
-  \[
-    \frac{\P(X_J = k)}{\P(X_1 = k)} = \E\left[\frac{nk}{k + \sum_{i \not= j}X_i}\right].
-  \]
-  This is increasing in $k$, and greater than $1$ for $k > \mu$. So the average value of the family size of the child we picked is greater than the average family size. It can be shown that $X_J$ is stochastically greater than $X_1$.
-
-  This means that if we pick the children randomly, the sample mean of the family size will be greater than the actual mean. This is since for the larger a family is, the more likely it is for us to pick a child from the family.
+  This ratio is increasing in $k$ and exceeds $1$ for $k > \mu$, so $X_J \geq_{\mathrm{st}} X_1$: the family size of a randomly chosen child is stochastically larger than the family size of a randomly chosen family.
 \end{eg}
 
 \subsection{Jointly distributed random variables}
