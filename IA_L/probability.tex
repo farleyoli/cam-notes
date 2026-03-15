@@ -1522,141 +1522,125 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 
 
 \section{Interesting problems}
-Here we are going to study two rather important and interesting probabilistic processes --- branching processes and random walks. Solutions to these will typically involve the use of probability generating functions.
+\begin{remark}
+  In this section we study two important probabilistic processes: branching processes and random walks.
+  Both make essential use of probability generating functions.
+\end{remark}
 
 \subsection{Branching processes}
-Branching processes are used to model population growth by reproduction. At the beginning, there is only one individual. At each iteration, the individual produces a random number of offsprings. In the next iteration, each offspring will individually independently reproduce randomly according to the same distribution. We will ask questions such as the expected number of individuals in a particular generation and the probability of going extinct.
+\begin{defi}[Branching process]
+  A \emph{branching process} is a sequence of random variables $X_0, X_1, X_2, \dotsc$, where $X_n$ denotes the number of individuals in the $n$th generation, satisfying:
+  \begin{enumerate}
+    \item $X_0 = 1$.
+    \item Each individual independently produces $k$ offspring with probability $p_k$, for $k = 0, 1, 2, \dotsc$.
+    \item $X_{n+1} = Y_1^{(n)} + Y_2^{(n)} + \cdots + Y_{X_n}^{(n)}$, where $Y_i^{(n)}$ are independent and identically distributed with the same distribution as $X_1$.
+  \end{enumerate}
+  We write $F(z) = \E[z^{X_1}] = \sum_{k=0}^\infty p_k z^k$ for the \emph{probability generating function} of the offspring distribution, and $F_n(z) = \E[z^{X_n}]$ for the probability generating function of $X_n$.
+\end{defi}
 
-Consider $X_0, X_1, \cdots$, where $X_n$ is the number of individuals in the $n$th generation. We assume the following:
-\begin{enumerate}
-  \item $X_0 = 1$
-  \item Each individual lives for unit time and produces $k$ offspring with probability $p_k$.
-  \item Suppose all offspring behave independently. Then
-    \[
-      X_{n + 1} = Y_1^n + Y_2^n + \cdots + Y_{X_n}^n,
-    \]
-    where $Y_i^n$ are iid random variables, which is the same as $X_1$ (the superscript denotes the generation).
-\end{enumerate}
-It is useful to consider the pgf of a branching process. Let $F(z)$ be the pgf of $Y_i^n$. Then
-\[
-  F(z) = E[z^{Y_i^n}] = E[z^{X_1}] = \sum_{k = 0}^\infty p_k z^k.
-\]
-Define
-\[
-  F_n(z) = E[z^{X_n}].
-\]
-The main theorem of branching processes here is
-\begin{thm}
-  \[
-    F_{n + 1}(z) = F_n(F(z)) = F(F(F(\cdots F(z) \cdots )))) = F(F_n(z)).
-  \]
+\begin{thm}[PGF recursion]
+  $F_{n+1}(z) = F(F_n(z)) = F_n(F(z))$.
 \end{thm}
 
 \begin{proof}
   \begin{align*}
-    F_{n + 1}(z) &= \E[z^{X_{n + 1}}]\\
-    &= \E[\E[z^{X_{n + 1}}\mid X_n]]\\
-    &= \sum_{k = 0}^\infty \P(X_n = k)\E[z^{X_{n + 1}}\mid X_n = k]\\
-    &= \sum_{k = 0}^\infty \P(X_n = k)\E[z^{Y_1^n + \cdots + Y_k^n}\mid X_n = k]\\
-    &= \sum_{k = 0}^\infty \P(X_n = k)\E[z^{Y_1}]\E[z^{Y_2}]\cdots\E[z^{Y_n}]\\
-    &= \sum_{k = 0}^\infty \P(X_n = k)(\E[z^{X_1}])^k\\
-    &= \sum_{k = 0}\P(X_n = k)F(z)^k\\
-    &= F_n(F(z))
+    F_{n+1}(z)
+    &= \E[z^{X_{n+1}}]\\
+    &= \E\bigl[\E[z^{X_{n+1}} \mid X_n]\bigr]\\
+    &= \sum_{k=0}^\infty \P(X_n = k)\,\E[z^{X_{n+1}} \mid X_n = k]\\
+    &= \sum_{k=0}^\infty \P(X_n = k)\,\E[z^{Y_1^{(n)} + \cdots + Y_k^{(n)}}]\\
+    &= \sum_{k=0}^\infty \P(X_n = k)\, F(z)^k\\
+    &= F_n(F(z)).
   \end{align*}
+  Applying this recursion starting from $F_1(z) = F(z)$, we obtain $F_{n+1}(z) = F(F(\cdots F(z) \cdots))$ with $n+1$ applications of $F$, whence $F_{n+1}(z) = F(F_n(z))$ as well.
 \end{proof}
 
-\begin{thm}
-  Suppose
-  \[
-    \E[X_1] = \sum k p_k = \mu
-  \]
-  and
-  \[
-    \var (X_1) = \E[(X - \mu)^2] = \sum (k - \mu)^2 p_k < \infty.
-  \]
+\begin{thm}[Mean and variance of a branching process]
+  Let $\mu = \E[X_1] = \sum_{k=0}^\infty k\,p_k$ and $\sigma^2 = \var(X_1) < \infty$.
   Then
   \[
-    \E[X_n] = \mu^n,\quad \var X_n = \sigma^2\mu^{n - 1}(1 + \mu + \mu^2 + \cdots + \mu^{n - 1}).
+    \E[X_n] = \mu^n, \quad \var(X_n) = \sigma^2 \mu^{n-1}(1 + \mu + \mu^2 + \cdots + \mu^{n-1}).
   \]
 \end{thm}
-\begin{proof}
-\begin{align*}
-  \E[X_n] &= \E[\E[X_n\mid X_{n - 1}]]\\
-  &= \E[\mu X_{n - 1}]\\
-  &= \mu \E[X_{n - 1}]
-\end{align*}
-Then by induction, $\E[X_n] = \mu^n$ (since $X_0 = 1$).
-
-To calculate the variance, note that
-\[
-  \var (X_n) = \E[X_n^2] - (\E[X_n])^2
-\]
-and hence
-\[
-  \E[X_n^2] = \var(X_n) + (\E[X])^2
-\]
-We then calculate
-\begin{align*}
-  \E[X_n^2] &= \E[\E[X_n^2\mid X_{n - 1}]]\\
-  &= \E[\var(X_n) + (\E[X_n])^2 \mid X_{n - 1}]\\
-  &= \E[X_{n - 1}\var (X_1) + (\mu X_{n - 1})^2]\\
-  &= \E[X_{n - 1}\sigma^2 + (\mu X_{n - 1})^2]\\
-  &= \sigma^2 \mu^{n - 1} + \mu^2 \E[X_{n - 1}^2].
-\end{align*}
-So
-\begin{align*}
-  \var X_n &= \E[X_n^2] - (\E[X_n])^2 \\
-  &= \mu^2 \E[X_{n -1}^2] + \sigma^2 \mu^{n - 1} - \mu^2 (\E[X_{n - 1}])^2\\
-  &= \mu^2(\E[X_{n - 1}^2] - \E[X_{n - 1}]^2) + \sigma^2\mu^{n - 1}\\
-  &= \mu^2 \var (X_{n - 1}) + \sigma^2 \mu^{n -1 }\\
-  &= \mu^4 \var(X_{n - 2}) + \sigma^2(\mu^{n - 1} + \mu^n)\\
-  &= \cdots\\
-  &= \mu^{2(n - 1)}\var (X_1) + \sigma^2 (\mu^{n - 1} + \mu^{n} + \cdots + \mu^{2n - 3})\\
-  &= \sigma^2\mu^{n - 1}(1 + \mu + \cdots + \mu^{n - 1}).
-\end{align*}
-Of course, we can also obtain this using the probability generating function as well.
-\end{proof}
-\subsubsection*{Extinction probability}
-Let $A_n$ be the event $X_n = 0$, ie extinction has occurred by the $n$th generation. Let $q$ be the probability that extinction eventually occurs. Let
-\[
-  A = \bigcup_{n = 1}^\infty A_n = [\text{extinction eventually occurs}].
-\]
-Since $A_1 \subseteq A_2 \subseteq A_3 \subseteq \cdots$, we know that
-\[
-  q = \P(A) = \lim_{n\to \infty} \P(A_n) = \lim_{n \to \infty} \P(X_n = 0).
-\]
-But
-\[
-  \P(X_n = 0) = F_n(0),
-\]
-since $F_n(0) = \sum \P(X_n = k)z^k$. So
-\[
-  F(q) = F\left(\lim_{n\to \infty} F_n(0)\right) = \lim_{n\to \infty} F(F_n(0)) = \lim_{n\to \infty}F_{n + 1}(0) = q.
-\]
-So
-\[
-  F(q) = q.
-\]
-Alternatively, using the law of total probability
-\[
-  q = \sum_k \P(X_1 = k) \P(\text{extinction}\mid X_1 = k) = \sum_k p_k q^k = F(q),
-\]
-where the second equality comes from the fact that for the whole population to go extinct, each individual population must go extinct.
-
-This means that to find the probability of extinction, we need to find a fixed point of $F$. However, if there are many fixed points, which should we pick?
-
-\begin{thm}
-  The probability of extinction $q$ is the smallest root to the equation $q = F(q)$. Write $\mu = \E[X_1]$. Then if $\mu \leq 1$, then $q = 1$; if $\mu > 1$, then $q < 1$.
-\end{thm}
 
 \begin{proof}
-  To show that it is the smallest root, let $\alpha$ be the smallest root. Then note that $0 \leq \alpha \Rightarrow F(0) \leq F(\alpha) = \alpha$ since $F$ is increasing (proof: write the function out!). Hence $F(F(0)) \leq \alpha$. Continuing inductively, $F_n(0) \leq \alpha$ for all $n$. So
+  By the tower property,
   \[
-    q = \lim_{n \to \infty}F_n(0) \leq \alpha.
+    \E[X_n] = \E[\E[X_n \mid X_{n-1}]] = \E[\mu X_{n-1}] = \mu\,\E[X_{n-1}].
   \]
-  So $q = \alpha$.
+  Since $X_0 = 1$, induction gives $\E[X_n] = \mu^n$.
 
-  To show that $q = 1$ when $\mu \leq 1$, we show that $q = 1$ is the only root. We know that $F'(z), F''(z) \geq 0$ for $z\in (0, 1)$ (proof: write it out again!). So $F$ is increasing and convex. Since $F'(1) = \mu \leq 1$, it must approach $(1, 1)$ from above the $F = z$ line. So it must look like this:
+  For the variance, by the tower property,
+  \begin{align*}
+    \E[X_n^2]
+    &= \E[\E[X_n^2 \mid X_{n-1}]]\\
+    &= \E[\var(X_n \mid X_{n-1}) + (\E[X_n \mid X_{n-1}])^2]\\
+    &= \E[X_{n-1}\,\sigma^2 + \mu^2 X_{n-1}^2]\\
+    &= \sigma^2 \mu^{n-1} + \mu^2\,\E[X_{n-1}^2].
+  \end{align*}
+  Therefore
+  \begin{align*}
+    \var(X_n)
+    &= \E[X_n^2] - \mu^{2n}\\
+    &= \mu^2(\E[X_{n-1}^2] - \mu^{2(n-1)}) + \sigma^2 \mu^{n-1}\\
+    &= \mu^2\,\var(X_{n-1}) + \sigma^2 \mu^{n-1}.
+  \end{align*}
+  Iterating and using $\var(X_0) = 0$ gives
+  \[
+    \var(X_n) = \sigma^2 \mu^{n-1}(1 + \mu + \cdots + \mu^{n-1}). \qedhere
+  \]
+\end{proof}
+
+\subsubsection*{Extinction probability}
+\begin{defi}[Extinction probability]
+  The \emph{extinction probability} of a branching process is
+  \[
+    q = \P\Bigl(\bigcup_{n=1}^\infty \{X_n = 0\}\Bigr) = \lim_{n \to \infty} \P(X_n = 0),
+  \]
+  where the second equality holds because $\{X_1 = 0\} \subseteq \{X_2 = 0\} \subseteq \cdots$ and by continuity of probability.
+\end{defi}
+
+\begin{prop}
+  The extinction probability satisfies $F(q) = q$.
+\end{prop}
+
+\begin{proof}
+  Since $F_n(0) = \sum_{k=0}^\infty \P(X_n = k) \cdot 0^k = \P(X_n = 0)$, we have $q = \lim_{n \to \infty} F_n(0)$.
+  By continuity of $F$ on $[0,1]$,
+  \[
+    F(q) = F\!\left(\lim_{n \to \infty} F_n(0)\right) = \lim_{n \to \infty} F(F_n(0)) = \lim_{n \to \infty} F_{n+1}(0) = q. \qedhere
+  \]
+\end{proof}
+
+\begin{remark}
+  Alternatively, by the law of total probability,
+  \[
+    q = \sum_{k=0}^\infty p_k\,\P(\text{extinction} \mid X_1 = k) = \sum_{k=0}^\infty p_k\,q^k = F(q),
+  \]
+  since for the population to go extinct, each of the $k$ independent sub-populations must go extinct, each with probability $q$.
+\end{remark}
+
+\begin{thm}[Extinction criterion]
+  The extinction probability $q$ is the smallest root of $F(z) = z$ in $[0,1]$.
+  If $\mu \leq 1$, then $q = 1$; if $\mu > 1$, then $q < 1$.
+\end{thm}
+
+\begin{proof}
+  Let $\alpha$ be the smallest root of $F(z) = z$ in $[0,1]$.
+  Since $F$ is increasing on $[0,1]$ and $F(0) = p_0 \geq 0$, we have $F(0) \leq \alpha$.
+  By monotonicity, $F(F(0)) \leq F(\alpha) = \alpha$.
+  Inductively, $F_n(0) \leq \alpha$ for all $n$, so
+  \[
+    q = \lim_{n \to \infty} F_n(0) \leq \alpha.
+  \]
+  Since $q$ is itself a root of $F(z) = z$, we conclude $q = \alpha$.
+
+  For the second part, note that $F'(z) \geq 0$ and $F''(z) \geq 0$ for $z \in [0,1]$, so $F$ is increasing and convex.
+  Since $F(1) = 1$ and $F'(1) = \mu$:
+  \begin{itemize}
+    \item If $\mu \leq 1$, then convexity implies $F(z) \geq z$ for all $z \in [0,1]$, so $z = 1$ is the only root.
+    \item If $\mu > 1$, then $F$ crosses the line $F = z$ at some $q < 1$.
+  \end{itemize}
   \begin{center}
     \begin{tikzpicture}
       \draw (0, 0) -- (4, 0) node [right] {$z$};
@@ -1665,7 +1649,6 @@ This means that to find the probability of extinction, we need to find a fixed p
       \draw (0, 2.3) parabola (4, 4);
     \end{tikzpicture}
   \end{center}
-  So $z = 1$ is the only root.
 \end{proof}
 
 \subsection{Random walk and gambler's ruin}
