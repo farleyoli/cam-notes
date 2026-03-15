@@ -2712,10 +2712,10 @@ We state this without proof.
 \end{prop}
 
 \begin{proof}
- \[
-  \E[e^{\theta X}] = \int_{-\infty}^\infty e^{\theta x} \frac{1}{\sqrt{2\pi} \sigma} e^{-\frac{1}{2} \frac{(x - \mu)^2}{\sigma^2}}\;\d x.
-\]
-Substitute $z = \frac{x - \mu}{\sigma}$. Then
+  \[
+    \E[e^{\theta X}] = \int_{-\infty}^\infty e^{\theta x} \frac{1}{\sqrt{2\pi} \sigma} e^{-\frac{1}{2} \frac{(x - \mu)^2}{\sigma^2}}\;\d x.
+  \]
+  Substituting $z = \frac{x - \mu}{\sigma}$,
 \begin{align*}
   \E[e^{\theta X}] &= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}}e^{\theta(\mu + \sigma z)} e^{-\frac{1}{2}z^2}\;\d z\\
   &= e^{\theta\mu + \frac{1}{2}\theta^2\sigma^2}\int_{-\infty}^\infty \underbrace{\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}(z - \theta \sigma)^2}}_{\text{pdf of }N(\sigma\theta, 1)}\;\d z\\
@@ -2724,7 +2724,7 @@ Substitute $z = \frac{x - \mu}{\sigma}$. Then
 \end{proof}
 
 \begin{thm}
-  Suppose $X, Y$ are independent random variables with $X\sim N(\mu_1, \sigma_1^2)$, and $Y\sim (\mu_2, \sigma_2^2)$. Then
+  Suppose $X, Y$ are independent random variables with $X\sim N(\mu_1, \sigma_1^2)$ and $Y\sim N(\mu_2, \sigma_2^2)$. Then
   \begin{enumerate}
     \item $X + Y \sim N(\mu_1 + \mu_2 , \sigma_1^2 + \sigma_2^2)$.
     \item $aX \sim N(a\mu_1, a^2 \sigma_1^2)$.
@@ -2736,34 +2736,36 @@ Substitute $z = \frac{x - \mu}{\sigma}$. Then
     \item
       \begin{align*}
         \E[e^{\theta(X + Y)}] &= \E[e^{\theta X}] \cdot \E[e^{\theta Y}]\\
-        &= e^{\mu_1 \theta + \frac{1}{2}\sigma_1^2\theta^2} \cdot e^{\mu_2 \theta + \frac{1}{2}\sigma_2^2 \theta}\\
+        &= e^{\mu_1 \theta + \frac{1}{2}\sigma_1^2\theta^2} \cdot e^{\mu_2 \theta + \frac{1}{2}\sigma_2^2 \theta^2}\\
         &= e^{(\mu_1 + \mu_2)\theta + \frac{1}{2}(\sigma_1^2 + \sigma_2^2)\theta^2}
       \end{align*}
       which is the mgf of $N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)$.
     \item
       \begin{align*}
         \E[e^{\theta (aX)}] &= \E[e^{(\theta a)X}]\\
-        &= e^{\mu(a\theta) + \frac{1}{2}\sigma^2 (a \theta)^2}\\
-        &= e^{(a\mu)\theta + \frac{1}{2}(a^2\sigma^2)\theta^2}\qedhere
+        &= e^{\mu_1(a\theta) + \frac{1}{2}\sigma_1^2 (a \theta)^2}\\
+        &= e^{(a\mu_1)\theta + \frac{1}{2}(a^2\sigma_1^2)\theta^2}\qedhere
       \end{align*}%\qedhere
   \end{enumerate}
 \end{proof}
 
-Finally, suppose $X\sim N(0, 1)$. Write $\phi(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}$ for its pdf. It would be very difficult to find a closed form for its cumulative distribution function, but we can find an upper bound for it:
-\begin{align*}
-  \P(X \geq x) &= \int_x^\infty \phi(t)\;\d t\\
-  &\leq \int_x^\infty \left(1 + \frac{1}{t^2}\right)\phi(t)\;\d t \\
-  &= \frac{1}{x}\phi(x)
-\end{align*}
-To see the last step works, simply differentiate the result and see that you get $\left(1 + \frac{1}{x^2}\right)\phi(x)$.
-So
-\[
-  \P(X \geq x) \leq \frac{1}{x}\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}.
-\]
-Then
-\[
-  \log \P(X \geq x)\sim -\frac{1}{2}x^2.
-\]
+\begin{prop}
+  Let $X \sim N(0,1)$ and write $\phi(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}$ for its pdf. Then for $x > 0$,
+  \[
+    \P(X \geq x) \leq \frac{1}{x}\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}.
+  \]
+  In particular, $\log \P(X \geq x) \sim -\frac{1}{2}x^2$.
+\end{prop}
+
+\begin{proof}
+  We have
+  \begin{align*}
+    \P(X \geq x) &= \int_x^\infty \phi(t)\;\d t\\
+    &\leq \int_x^\infty \left(1 + \frac{1}{t^2}\right)\phi(t)\;\d t \\
+    &= \frac{1}{x}\phi(x),
+  \end{align*}
+  where the last equality follows by differentiating $\frac{1}{t}\phi(t)$ to obtain $\left(1 + \frac{1}{t^2}\right)\phi(t)$.
+\end{proof}
 
 \subsection{Multivariate normal}
 Let $X_1, \cdots, X_n$ be iid $N(0, 1)$. Then their joint density is
