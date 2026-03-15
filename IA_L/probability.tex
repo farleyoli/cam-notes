@@ -2299,41 +2299,37 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{eg}
 
 \subsection{Transformation of random variables}
-We will now look at what happens when we apply a function to random variables. We first look at the simple case where there is just one variable, and then move on to the general case where we have multiple variables and can mix them together.
 \subsubsection*{Single random variable}
 \begin{thm}
-  If $X$ is a continuous random variable with a pdf $f(x)$, and $h(x)$ is a continuous, strictly increasing function with $h^{-1}(x)$ differentiable, then $Y = h(X)$ is a random variable with pdf
+  Let $X$ be a continuous random variable with pdf $f_X$.
+  If $h$ is continuous and strictly increasing with $h^{-1}$ differentiable, then $Y = h(X)$ has pdf
   \[
-    f_Y(y) = f_X(h^{-1}(y))\frac{\d }{\d y}h^{-1}(y).
+    f_Y(y) = f_X(h^{-1}(y))\,\frac{\d}{\d y}h^{-1}(y).
   \]
 \end{thm}
+
 \begin{proof}
   \begin{align*}
-    F_Y(y) &= \P(Y \leq y)\\
-    &= \P(h(X) \leq y)\\
-    &= \P(X \leq h^{-1}(y))\\
-    &= F(h^{-1}(y))
+    F_Y(y) &= \P(Y \leq y) = \P(h(X) \leq y) = \P(X \leq h^{-1}(y)) = F_X(h^{-1}(y)).
   \end{align*}
-  Take the derivative with respect to $y$ to obtain
-  \[
-    f_Y(y) = F'_Y(y) = f(h^{-1}(y))\frac{\d}{\d y}h^{-1}(y).\qedhere
-  \]
+  Differentiating with respect to $y$ gives the result.
 \end{proof}
-It is often easier to redo the proof than to remember the result.
+
+\begin{remark}
+  It is often easier to redo this proof than to remember the formula.
+\end{remark}
 
 \begin{eg}
-  Let $X\sim U[0, 1]$. Let $Y = -\log X$. Then
+  Let $X \sim U[0, 1]$ and $Y = -\log X$. Then
   \begin{align*}
-    \P(Y \leq y) &= \P(-\log X \leq y)\\
-    &= \P(X \geq e^{-y})\\
-    &= 1 - e^{-y}.
+    \P(Y \leq y) &= \P(-\log X \leq y) = \P(X \geq e^{-y}) = 1 - e^{-y},
   \end{align*}
-  But this is the cumulative distribution function of $\mathcal{E}(1)$. So $Y$ is exponentially distributed with $\lambda = 1$.
+  which is the cdf of $\mathcal{E}(1)$.
 \end{eg}
 
-In general, we get the following result:
-\begin{thm}
-  Let $U\sim U[0, 1]$. For any strictly increasing distribution function $F$, the random variable $X = F^{-1}U$ has distribution function $F$.
+\begin{thm}[Inverse transform sampling]
+  Let $U \sim U[0, 1]$.
+  For any strictly increasing cdf $F$, the random variable $X = F^{-1}(U)$ has distribution function $F$.
 \end{thm}
 
 \begin{proof}
@@ -2341,82 +2337,73 @@ In general, we get the following result:
     \P(X \leq x) = \P(F^{-1}(U) \leq x) = \P(U \leq F(x)) = F(x).\qedhere
   \]
 \end{proof}
-This condition ``strictly increasing'' is needed for the inverse to exist. If it is not, we can define
-\[
-  F^{-1}(u) = \inf\{x: F(x)\geq u, 0 < u < 1\},
-\]
-and the same result holds.
 
-This can also be done for discrete random variables $\P(X = x_i) = p_i$ by letting
-\[
-  X = x_j\text{ if }\sum_{i = 0}^{j - 1}p_i \leq U < \sum_{i = 0}^j p_i,
-\]
-for $U\sim U[0, 1]$.
+\begin{remark}
+  If $F$ is not strictly increasing, we define $F^{-1}(u) = \inf\{x : F(x) \geq u\}$ for $0 < u < 1$, and the same result holds.
+  For discrete random variables with $\P(X = x_i) = p_i$, the analogous construction sets $X = x_j$ when $\sum_{i=0}^{j-1} p_i \leq U < \sum_{i=0}^{j} p_i$.
+\end{remark}
 
 \subsubsection*{Multiple random variables}
-Suppose $X_1, X_2, \cdots, X_n$ are random variables with joint pdf $f$. Let
+Suppose $X_1, \dotsc, X_n$ have joint pdf $f$, and let
 \begin{align*}
-  Y_1 &= r_1(X_1, \cdots, X_n)\\
-  Y_2 &= r_2(X_1, \cdots, X_n)\\
-  &\vdots \\
-  Y_n &= r_n(X_1, \cdots, X_n).
+  Y_1 &= r_1(X_1, \dotsc, X_n),\\
+  Y_2 &= r_2(X_1, \dotsc, X_n),\\
+  &\;\;\vdots \\
+  Y_n &= r_n(X_1, \dotsc, X_n).
 \end{align*}
-For example, we might have $Y_1 = \frac{X_1}{X_1 + X_2}$ and $Y_2 = X_1 + X_2$.
-
-Let $R\subseteq \R^n$ such that $\P((X_1, \cdots, X_n)\in R) = 1$, i.e.\ $R$ is the set of all values $(X_i)$ can take.
-
-Suppose $S$ is the image of $R$ under the above transformation, and the map $R\to S$ is bijective. Then there exists an inverse function
+Let $R \subseteq \R^n$ with $\P((X_1, \dotsc, X_n) \in R) = 1$, and suppose the map $r \colon R \to S$ is bijective with inverse
 \begin{align*}
-  X_1 &= s_1(Y_1, \cdots, Y_n)\\
-  X_2 &= s_2(Y_1, \cdots, Y_n)\\
-  &\vdots\\
-  X_n &= s_n(Y_1, \cdots, Y_n).
+  X_1 &= s_1(Y_1, \dotsc, Y_n),\\
+  X_2 &= s_2(Y_1, \dotsc, Y_n),\\
+  &\;\;\vdots\\
+  X_n &= s_n(Y_1, \dotsc, Y_n).
 \end{align*}
-For example, if $X_1, X_2$ refers to the coordinates of a random point in Cartesian coordinates, $Y_1, Y_2$ might be the coordinates in polar coordinates.
 
 \begin{defi}[Jacobian determinant]
-  Suppose $\frac{\partial s_i}{\partial y_j}$ exists and is continuous at every point $(y_1, \cdots, y_n)\in S$. Then the \emph{Jacobian determinant} is
+  Suppose $\frac{\partial s_i}{\partial y_j}$ exists and is continuous for all $(y_1, \dotsc, y_n) \in S$. The \emph{Jacobian determinant} is
   \[
-    J = \frac{\partial (s_1, \cdots, s_n)}{\partial (y_1, \cdots, y_n)} =
+    J = \frac{\partial(s_1, \dotsc, s_n)}{\partial(y_1, \dotsc, y_n)} =
     \det
     \begin{pmatrix}
       \frac{\partial s_1}{\partial y_1} & \cdots & \frac{\partial s_1}{\partial y_n}\\
       \vdots & \ddots & \vdots\\
-      \frac{\partial s_n}{\partial y_1} & \cdots & \frac{\partial s_n}{\partial y_n}\\
+      \frac{\partial s_n}{\partial y_1} & \cdots & \frac{\partial s_n}{\partial y_n}
     \end{pmatrix}
   \]
 \end{defi}
-Take $A\subseteq \R$ and $B = r(A)$. Then using results from IA Vector Calculus, we get
-\begin{align*}
-  \P((X_1, \cdots, X_n)\in A) &= \int_A f(x_1, \cdots, x_n) \;\d x_1\cdots \d x_n\\
-  &= \int_B f(s_1(y_1, \cdots y_n), s_2, \cdots, s_n) |J|\;\d y_1\cdots \;\d y_n\\
-  &= \P((Y_1, \cdots Y_n)\in B).
-\end{align*}
-So
+
 \begin{prop}
-  $(Y_1, \cdots, Y_n)$ has density
+  $(Y_1, \dotsc, Y_n)$ has pdf
   \[
-    g(y_1, \cdots, y_n) = f(s_1(y_1, \cdots, y_n), \cdots s_n(y_1, \cdots, y_n))|J|
+    g(y_1, \dotsc, y_n) = f(s_1(y_1, \dotsc, y_n), \dotsc, s_n(y_1, \dotsc, y_n))\,|J|
   \]
-  if $(y_1, \cdots, y_n)\in S$, $0$ otherwise.
+  for $(y_1, \dotsc, y_n) \in S$, and $0$ otherwise.
 \end{prop}
 
+\begin{proof}
+  For $A \subseteq R$ with image $B = r(A)$, the change of variables formula gives
+  \begin{align*}
+    \P((X_1, \dotsc, X_n) \in A) &= \int_A f(x_1, \dotsc, x_n)\;\d x_1 \dotsm \d x_n\\
+    &= \int_B f(s_1(y_1, \dotsc, y_n), \dotsc, s_n(y_1, \dotsc, y_n))\,|J|\;\d y_1 \dotsm \d y_n\\
+    &= \P((Y_1, \dotsc, Y_n) \in B).\qedhere
+  \end{align*}
+\end{proof}
+
 \begin{eg}
-  Suppose $(X, Y)$ has density
+  Suppose $(X, Y)$ has pdf
   \[
     f(x, y) =
     \begin{cases}
-      4xy & 0 \leq x \leq 1, 0\leq y \leq 1\\
-      0 & \text{otherwise}
+      4xy & 0 \leq x \leq 1,\; 0 \leq y \leq 1\\
+      0 & \text{otherwise.}
     \end{cases}
   \]
-  We see that $X$ and $Y$ are independent, with each having a density $f(x) = 2x$.
+  Note that $X$ and $Y$ are independent, each with pdf $f(x) = 2x$.
 
-  Define $U = X/Y$, $V = XY$. Then we have $X = \sqrt{UV}$ and $Y = \sqrt{V/U}$.
-
+  Define $U = X/Y$, $V = XY$, so $X = \sqrt{UV}$ and $Y = \sqrt{V/U}$.
   The Jacobian is
   \[
-    \det
+    J = \det
     \begin{pmatrix}
       \partial x/\partial u & \partial x/\partial v\\
       \partial y/\partial u & \partial y/\partial v
@@ -2425,49 +2412,36 @@ So
     \det
     \begin{pmatrix}
       \frac{1}{2}\sqrt{v/u} & \frac{1}{2}\sqrt{u/v}\\
-      -\frac{1}{2}\sqrt{v/u^3} & \frac{1}{2}\sqrt{1/uv}
+      -\frac{1}{2}\sqrt{v/u^3} & \frac{1}{2}\sqrt{1/(uv)}
     \end{pmatrix}
-    = \frac{1}{2u}
+    = \frac{1}{2u}.
   \]
-  Alternatively, we can find this by considering
+  Alternatively, the forward Jacobian is
   \[
     \det
     \begin{pmatrix}
       \partial u/\partial x & \partial u/\partial y\\
-      \partial v/\partial x & \partial u/\partial y
+      \partial v/\partial x & \partial v/\partial y
     \end{pmatrix} = 2u,
   \]
-  and then inverting the matrix. So
+  so $|J| = 1/(2u)$.
+  Hence
   \[
-    g(u, v) = 4\sqrt{uv}\sqrt{\frac{v}{u}}\frac{1}{2u} = \frac{2v}{u},
+    g(u, v) = 4\sqrt{uv}\sqrt{\frac{v}{u}} \cdot \frac{1}{2u} = \frac{2v}{u}\,\mathbf{1}[(u, v) \in S].
   \]
-  if $(u, v)$ is in the image $S$, $0$ otherwise. So
-  \[
-    g(u, v) = \frac{2v}{u}I[(u, v)\in S].
-  \]
-  Since this is not separable, we know that $U$ and $V$ are not independent.
+  Since this does not factorise, $U$ and $V$ are not independent.
 \end{eg}
 
-In the linear case, life is easy. Suppose
-\[
-  \mathbf{Y} = \begin{pmatrix}
-    Y_1\\
-    \vdots\\
-    Y_n
-  \end{pmatrix} = A
-  \begin{pmatrix}
-    X_1\\
-    \vdots\\
-    X_n
-  \end{pmatrix} = A\mathbf{X}
-\]
-Then $\mathbf{X} = A^{-1}\mathbf{Y}$. Then $\frac{\partial x_i}{\partial y_j} = (A^{-1})_{ij}$. So $|J| = |\det(A^{-1})| = |\det A|^{-1}$. So
-\[
-  g(y_1, \cdots, y_n) = \frac{1}{|\det A|}f(A^{-1}\mathbf{y}).
-\]
+\begin{remark}
+  In the linear case $\mathbf{Y} = A\mathbf{X}$ with $A$ invertible, we have $\mathbf{X} = A^{-1}\mathbf{Y}$ and $|J| = |\det A|^{-1}$, so
+  \[
+    g(y_1, \dotsc, y_n) = \frac{1}{|\det A|}\,f(A^{-1}\mathbf{y}).
+  \]
+\end{remark}
 
 \begin{eg}
-  Suppose $X_1, X_2$ have joint pdf $f(x_1,x_2)$. Suppose we want to find the pdf of $Y = X_1 + X_2$. We let $Z = X_2$. Then $X_1 = Y - Z$ and $X_2 = Z$. Then
+  Let $X_1, X_2$ have joint pdf $f$.
+  To find the pdf of $Y = X_1 + X_2$, introduce $Z = X_2$, so
   \[
     \begin{pmatrix}
       Y\\
@@ -2480,128 +2454,85 @@ Then $\mathbf{X} = A^{-1}\mathbf{Y}$. Then $\frac{\partial x_i}{\partial y_j} = 
     \begin{pmatrix}
       X_1\\
       X_2
-    \end{pmatrix}
-    = A\mathbf{X}
+    \end{pmatrix}.
   \]
-  Then $|J| = 1/|\det A| = 1$. Then
+  Since $|\det A| = 1$, the joint pdf of $(Y, Z)$ is $g(y, z) = f(y - z, z)$, and marginalising gives
   \[
-    g(y, z) = f(y - z, z)
+    f_Y(y) = \int_{-\infty}^\infty f(y - z, z)\;\d z.
   \]
-  So
+  If $X_1$ and $X_2$ are independent with pdfs $f_1, f_2$, this becomes the \emph{convolution}
   \[
-    g_Y(y) = \int_{-\infty}^\infty f(y - z, z)\;\d z = \int_{-\infty}^\infty f(z, y - z)\;\d z.
-  \]
-  If $X_1$ and $X_2$ are independent, $f(x_1, x_2) = f_1(x_1) f_2(x_2)$. Then
-  \[
-    g(y) = \int_{-\infty}^\infty f_1(z) f_2(y - z)\;\d z.
+    f_Y(y) = \int_{-\infty}^\infty f_1(y - z)\, f_2(z)\;\d z.
   \]
 \end{eg}
 
 \subsubsection*{Non-injective transformations}
-We previously discussed transformation of random variables by injective maps. What if the mapping is not? There is no simple formula for that, and we have to work out each case individually.
+When the transformation is not injective, there is no single formula; each case must be handled individually.
 
 \begin{eg}
-  Suppose $X$ has pdf $f$. What is the pdf of $Y=|X|$?
-
-  We use our definition. We have
+  Let $X$ have pdf $f$. For $Y = |X|$ and $0 < a < b$,
   \[
-    \P(|X| \in (a, b)) = \int_a^b f(x) + \int_{-b}^{-a} f(x)\;\d x = \int_a^b (f(x) + f(-x))\;\d x.
+    \P(|X| \in (a, b)) = \int_a^b f(x)\;\d x + \int_{-b}^{-a} f(x)\;\d x = \int_a^b (f(x) + f(-x))\;\d x,
   \]
-  So
-  \[
-    f_Y(x) = f(x) + f(-x),
-  \]
-  which makes sense, since getting $|X| = x$ is equivalent to getting $X = x$ or $X = -x$.
+  so $f_Y(y) = f(y) + f(-y)$ for $y > 0$.
 \end{eg}
 
 \begin{eg}
-  Suppose $X_1\sim \mathcal{E}(\lambda), X_2\sim \mathcal{E}(\mu)$ are independent random variables. Let $Y = \min(X_1, X_2)$. Then
+  Let $X_1 \sim \mathcal{E}(\lambda)$, $X_2 \sim \mathcal{E}(\mu)$ be independent, and $Y = \min(X_1, X_2)$. Then
   \begin{align*}
-    \P(Y \geq t) &= \P(X_1 \geq t, X_2 \geq t)\\
-    &= \P(X_1\geq t)\P(X_2 \geq t)\\
-    &= e^{-\lambda t}e^{-\mu t}\\
-    &= e^{-(\lambda +\mu)t}.
+    \P(Y \geq t) &= \P(X_1 \geq t,\, X_2 \geq t) = e^{-\lambda t} e^{-\mu t} = e^{-(\lambda + \mu)t},
   \end{align*}
-  So $Y\sim \mathcal{E}(\lambda + \mu)$.
+  so $Y \sim \mathcal{E}(\lambda + \mu)$.
 \end{eg}
 
-Given random variables, not only can we ask for the minimum of the variables, but also ask for, say, the second-smallest one. In general, we define the \emph{order statistics} as follows:
 \begin{defi}[Order statistics]
-  Suppose that $X_1, \cdots, X_n$ are some random variables, and $Y_1, \cdots, Y_n$ is $X_1, \cdots, X_n$ arranged in increasing order, i.e.\ $Y_1 \leq Y_2 \leq \cdots \leq Y_n$. This is the \emph{order statistics}.
-
-  We sometimes write $Y_i = X_{(i)}$.
+  Given random variables $X_1, \dotsc, X_n$, the \emph{order statistics} $Y_1 \leq Y_2 \leq \dotsb \leq Y_n$ are $X_1, \dotsc, X_n$ arranged in increasing order.
+  We also write $Y_i = X_{(i)}$.
 \end{defi}
 
-Assume the $X_i$ are iid with cdf $F$ and pdf $f$. Then the cdf of $Y_n$ is
-\[
-  \P(Y_n \leq y) = \P(X_1 \leq y, \cdots, X_n \leq y) = \P(X_1 \leq y)\cdots\P(X_n \leq y) = F(y)^n.
-\]
-So the pdf of $Y_n$ is
-\[
-  \frac{\d }{\d y}F(y)^n = nf(y)F(y)^{n - 1}.
-\]
-Also,
-\[
-  \P(Y_1 \geq y) = \P(X_1\geq y, \cdots, X_n \geq y) = (1 - F(y))^n.
-\]
-What about the joint distribution of $Y_1, Y_n$?
-\begin{align*}
-  G(y_1, y_n) &= \P(Y_1\leq y_1, Y_n \leq y_n)\\
-  &= \P(Y_n \leq y_n) - \P(Y_1 \geq y_1 , Y_n \leq y_n)\\
-  &= F(y_n)^n - (F(y_n) - F(y_1))^n.
-\end{align*}
-Then the pdf is
-\[
-  \frac{\partial^2}{\partial y_1 \partial y_n}G(y_1, y_n) = n(n - 1)(F(y_n) - F(y_1))^{n - 2}f(y_1)f(y_n).
-\]
-We can think about this result in terms of the multinomial distribution. By definition, the probability that $Y_1\in [y_1, y_1 + \delta)$ and $Y_n\in (y_n - \delta, y_n]$ is approximately $g(y_1, y_n)$.
+\begin{prop}
+  If $X_1, \dotsc, X_n$ are iid with cdf $F$ and pdf $f$, then:
+  \begin{enumerate}
+    \item $\P(Y_n \leq y) = F(y)^n$, so $f_{Y_n}(y) = n f(y) F(y)^{n-1}$;
+    \item $\P(Y_1 \geq y) = (1 - F(y))^n$;
+    \item the joint pdf of $(Y_1, Y_n)$ is $n(n-1)(F(y_n) - F(y_1))^{n-2} f(y_1) f(y_n)$ for $y_1 \leq y_n$;
+    \item the joint pdf of all order statistics is $g(y_1, \dotsc, y_n) = n!\, f(y_1) \dotsm f(y_n)$ for $y_1 \leq \dotsb \leq y_n$, and $0$ otherwise.
+  \end{enumerate}
+\end{prop}
 
-Suppose that $\delta$ is sufficiently small that all other $n - 2$ $X_i$'s are very unlikely to fall into $[y_1, y_1 + \delta)$ and $(y_n - \delta, y_n]$. Then to find the probability required, we can treat the sample space as three bins. We want exactly one $X_i$ to fall into the first and last bins, and $n - 2$ $X_i$'s to fall into the middle one. There are $\binom{n}{1, n-2, 1} = n(n - 1)$ ways of doing so.
+\begin{proof}
+  Parts (i) and (ii) follow from independence:
+  \[
+    \P(Y_n \leq y) = \prod_{i=1}^n \P(X_i \leq y) = F(y)^n, \qquad \P(Y_1 \geq y) = \prod_{i=1}^n \P(X_i \geq y) = (1 - F(y))^n.
+  \]
+  For (iii), the joint cdf is
+  \[
+    G(y_1, y_n) = \P(Y_n \leq y_n) - \P(Y_1 \geq y_1,\, Y_n \leq y_n) = F(y_n)^n - (F(y_n) - F(y_1))^n,
+  \]
+  and differentiating gives the result.
+  Alternatively, for small $\delta$, think of three bins: $[y_1, y_1 + \delta)$, $(y_1 + \delta, y_n - \delta)$, and $(y_n - \delta, y_n]$.
+  There are $\binom{n}{1,\, n-2,\, 1} = n(n-1)$ ways to place one $X_i$ in the first bin, $n - 2$ in the middle, and one in the last, giving probability
+  \[
+    n(n-1)(F(y_n) - F(y_1))^{n-2} f(y_1) f(y_n)\,\delta^2.
+  \]
+  For (iv), there are $n!$ permutations of $x_1, \dotsc, x_n$ producing a given ordering $y_1 \leq \dotsb \leq y_n$, each with pdf $f(y_1) \dotsm f(y_n)$.
+\end{proof}
 
-The probability of each thing falling into the middle bin is $F(y_n) - F(y_1)$, and the probabilities of falling into the first and last bins are $f(y_1)\delta$ and $f(y_n)\delta$. Then the probability of $Y_1\in [y_1, y_1 + \delta)$ and $Y_n\in (y_n - \delta, y_n]$ is
-\[
-  n(n - 1)(F(y_n) - F(y_1))^{n - 2} f(y_1)f(y_n)\delta^2,
-\]
-and the result follows.
-
-We can also find the joint distribution of the order statistics, say $g$, since it is just given by
-\[
-  g(y_1, \cdots y_n) = n! f(y_1)\cdots f(y_n),
-\]
-if $y_1 \leq y_2\leq \cdots \leq y_n$, 0 otherwise. We have this formula because there are $n!$ combinations of $x_1, \cdots, x_n$ that produces a given order statistics $y_1, \cdots, y_n$, and the pdf of each combination is $f(y_1)\cdots f(y_n)$.
-
-In the case of iid exponential variables, we find a nice distribution for the order statistic.
 \begin{eg}
-  Let $X_1, \cdots, X_n$ be iid $\mathcal{E}(\lambda)$, and $Y_1, \cdots, Y_n$ be the order statistic. Let
+  Let $X_1, \dotsc, X_n$ be iid $\mathcal{E}(\lambda)$, with order statistics $Y_1 \leq \dotsb \leq Y_n$.
+  Define the spacings
   \begin{align*}
-    Z_1 &= Y_1\\
-    Z_2 &= Y_2 - Y_1\\
-    &\vdots\\
-    Z_n &= Y_n - Y_{n - 1}.
+    Z_1 &= Y_1,\\
+    Z_2 &= Y_2 - Y_1,\\
+    &\;\;\vdots\\
+    Z_n &= Y_n - Y_{n-1}.
   \end{align*}
-  These are the distances between the occurrences. We can write this as a $\mathbf{Z} = A\mathbf{Y}$, with
-  \[
-    A =
-    \begin{pmatrix}
-      1 & 0 & 0 & \cdots& 0\\
-      -1 & 1 & 0 & \cdots & 0\\
-      \vdots & \vdots & \vdots & \ddots & \vdots\\
-      0 & 0 & 0 & \cdots & 1\\
-    \end{pmatrix}
-  \]
-  Then $\det (A) = 1$ and hence $|J| = 1$. Suppose that the pdf of $Z_1, \cdots, Z_n$ is, say $h$. Then
+  Writing $\mathbf{Z} = A\mathbf{Y}$ where $A$ is lower-triangular with $\det A = 1$, the joint pdf of $(Z_1, \dotsc, Z_n)$ is
   \begin{align*}
-    h(z_1, \cdots, z_n) &= g(y_1, \cdots, y_n)\cdot 1\\
-    &= n!f(y_1) \cdots f(y_n)\\
-    &= n!\lambda^n e^{-\lambda (y_1 + \cdots + y_n)}\\
-    &= n!\lambda^n e^{-\lambda (nz_1 + (n - 1)z_2 + \cdots + z_n)}\\
-    &= \prod_{i = 1}^n (\lambda i)e^{-(\lambda i)z_{n + 1 - i}}
+    h(z_1, \dotsc, z_n) &= g(y_1, \dotsc, y_n) = n!\,\lambda^n e^{-\lambda(y_1 + \dotsb + y_n)}\\
+    &= n!\,\lambda^n e^{-\lambda(nz_1 + (n-1)z_2 + \dotsb + z_n)} = \prod_{i=1}^n (i\lambda)\, e^{-i\lambda\, z_{n+1-i}}.
   \end{align*}
-  Since $h$ is expressed as a product of $n$ density functions, we have
-  \[
-    Z_i \sim \mathcal{E}((n + 1 - i)\lambda).
-  \]
-  with all $Z_i$ independent.
+  Since $h$ factorises, the $Z_i$ are independent with $Z_i \sim \mathcal{E}((n+1-i)\lambda)$.
 \end{eg}
 
 
