@@ -2655,29 +2655,29 @@ We state this without proof.
 \end{eg}
 
 \subsection{Gamma distribution}
-Suppose $X_1, \cdots, X_n$ are iid $\mathcal{E}(\lambda)$. Let $S_n = X_1 + \cdots + X_n$. Then the mgf of $S_n$ is
-\[
-  \E\left[e^{\theta(X_1 + \ldots + X_n)}\right] = \E\left[e^{\theta X_1}\right]\cdots \E\left[e^{\theta X_n}\right] = \left(\E\left[e^{\theta X}\right]\right)^n = \left(\frac{\lambda}{\lambda - \theta}\right)^n.
-\]
-We call this a gamma distribution.
-
-We claim that this has a distribution given by the following formula:
 \begin{defi}[Gamma distribution]
   The \emph{gamma distribution} $\Gamma(n, \lambda)$ has pdf
   \[
-    f(x) = \frac{\lambda^n x^{n - 1}e^{-\lambda x}}{(n - 1)!}.
+    f(x) = \frac{\lambda^n x^{n-1} e^{-\lambda x}}{(n-1)!}, \qquad x \geq 0.
   \]
-  We can show that this is a distribution by showing that it integrates to $1$.
 \end{defi}
-We now show that this is indeed the sum of $n$ iid $\mathcal{E}(\lambda)$:
-\begin{align*}
-  \E[e^{\theta X}] &= \int_0^\infty e^{\theta x} \frac{\lambda^n x^{n - 1}e^{-\lambda x}}{(n - 1)!}\;\d x\\
-  &= \left(\frac{\lambda}{\lambda - \theta}\right)^n \int_0^\infty \frac{(\lambda - \theta)^n x^{n - 1}e^{-(\lambda - \theta)x}}{(n - 1)!}\;\d x
-\end{align*}
-The integral is just integrating over $\Gamma(n, \lambda - \theta)$, which gives one. So we have
-\[
-  \E[e^{\theta X}]= \left(\frac{\lambda}{\lambda - \theta}\right)^n.
-\]
+
+\begin{prop}
+  If $X_1, \dotsc, X_n$ are iid $\mathcal{E}(\lambda)$, then $S_n = X_1 + \dotsb + X_n \sim \Gamma(n, \lambda)$.
+\end{prop}
+
+\begin{proof}
+  The mgf of $S_n$ is
+  \[
+    \E[e^{\theta S_n}] = \prod_{i=1}^n \E[e^{\theta X_i}] = \left(\frac{\lambda}{\lambda - \theta}\right)^n.
+  \]
+  The mgf of $\Gamma(n, \lambda)$ is
+  \begin{align*}
+    \int_0^\infty e^{\theta x} \frac{\lambda^n x^{n-1} e^{-\lambda x}}{(n-1)!}\;\d x
+    &= \left(\frac{\lambda}{\lambda - \theta}\right)^n \underbrace{\int_0^\infty \frac{(\lambda - \theta)^n x^{n-1} e^{-(\lambda - \theta)x}}{(n-1)!}\;\d x}_{= 1,\text{ pdf of }\Gamma(n, \lambda - \theta)}.
+  \end{align*}
+  Since the mgfs agree, $S_n \sim \Gamma(n, \lambda)$.
+\end{proof}
 
 \subsection{Beta distribution*}
 Suppose $X_1, \cdots, X_n$ are iid $U[0, 1]$. Let $Y_1 \leq Y_2 \leq \cdots \leq Y_n$ be the order statistics. Then the pdf of $Y_i$ is
