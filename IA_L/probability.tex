@@ -2213,13 +2213,11 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{eg}
 \subsection{The normal distribution}
 \begin{defi}[Normal distribution]
-  The \emph{normal distribution} with parameters $\mu, \sigma^2$, written $N(\mu, \sigma^2)$ has pdf
+  The \emph{normal distribution} with parameters $\mu, \sigma^2$, written $N(\mu, \sigma^2)$, has pdf
   \[
-    f(x) = \frac{1}{\sqrt{2 \pi}\sigma}\exp\left(-\frac{(x - \mu)^2}{2\sigma^2}\right),
+    f(x) = \frac{1}{\sqrt{2\pi}\,\sigma}\exp\left(-\frac{(x - \mu)^2}{2\sigma^2}\right),
   \]
-  for $-\infty < x < \infty$.
-
-  It looks approximately like this:
+  for $x \in \R$.
   \begin{center}
     \begin{tikzpicture}[yscale=1.5]
       \draw (-3, 0) -- (3, 0);
@@ -2227,79 +2225,77 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
       \draw [domain=-3:3,samples=50, mblue] plot (\x, {exp(-\x * \x)});
     \end{tikzpicture}
   \end{center}
-  The \emph{standard normal} is when $\mu = 0, \sigma^2 = 1$, i.e.\ $X\sim N(0, 1)$.
-
-  We usually write $\phi(x)$ for the pdf and $\Phi(x)$ for the cdf of the standard normal.
+  The \emph{standard normal} is $N(0, 1)$.
+  We write $\phi(x)$ for its pdf and $\Phi(x)$ for its cdf.
 \end{defi}
-This is a rather important probability distribution. This is partly due to the central limit theorem, which says that if we have a large number of iid random variables, then the distribution of their averages are approximately normal. Many distributions in physics and other sciences are also approximately or exactly normal.
 
-We first have to show that this makes sense, i.e.
-\begin{prop}
+\begin{remark}
+  The normal distribution is of central importance, largely because of the central limit theorem: the average of a large number of iid random variables is approximately normal.
+  By symmetry, the mode and median of $N(\mu, \sigma^2)$ are both $\mu$.
+\end{remark}
+
+\begin{prop}[Normalisation]
   \[
-    \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{1}{2\sigma^2}(x - \mu)^2}\;\d x = 1.
+    \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi\sigma^2}}\, e^{-(x - \mu)^2 / 2\sigma^2}\;\d x = 1.
   \]
 \end{prop}
+
 \begin{proof}
-  Substitute $z = \frac{(x - \mu)}{\sigma}$. Then
+  Substituting $z = (x - \mu)/\sigma$ gives
   \[
-    I = \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}z^2}\;\d z.
+    I = \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}}\,e^{-z^2/2}\;\d z.
   \]
   Then
   \begin{align*}
-    I^2 &= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}} e^{-x^2/2}\;\d x\int_{\infty}^\infty \frac{1}{\sqrt{2\pi}} e^{-y^2/2}\;\d y\\
-    &= \int_0^\infty \int_0^{2\pi}\frac{1}{2\pi}e^{-r^2/2}r\;\d r\;\d \theta\\
+    I^2 &= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}}\, e^{-x^2/2}\;\d x \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}}\, e^{-y^2/2}\;\d y\\
+    &= \int_0^\infty \int_0^{2\pi} \frac{1}{2\pi}\,e^{-r^2/2}\,r\;\d\theta\;\d r\\
     &= 1.\qedhere
   \end{align*}
 \end{proof}
 
-We also have
 \begin{prop}
-  $\E[X] = \mu$.
+  If $X \sim N(\mu, \sigma^2)$, then $\E[X] = \mu$.
 \end{prop}
+
 \begin{proof}
-\begin{align*}
-  \E[X] &= \frac{1}{\sqrt{2\pi}\sigma} \int_{-\infty}^\infty x e^{-(x - \mu)^2/2\sigma^2}\;\d x\\
-  &= \frac{1}{\sqrt{2\pi} \sigma}\int_{-\infty}^\infty (x - \mu)e^{-(x - \mu)^2/2\sigma^2}\;\d x + \frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^\infty \mu e^{-(x - \mu)^2/2\sigma^2}\;\d x.
-\end{align*}
-The first term is antisymmetric about $\mu$ and gives $0$. The second is just $\mu$ times the integral we did above. So we get $\mu$.
+  \begin{align*}
+    \E[X] &= \frac{1}{\sqrt{2\pi}\,\sigma} \int_{-\infty}^\infty x\, e^{-(x - \mu)^2/2\sigma^2}\;\d x\\
+    &= \frac{1}{\sqrt{2\pi}\,\sigma}\int_{-\infty}^\infty (x - \mu)\,e^{-(x - \mu)^2/2\sigma^2}\;\d x + \frac{\mu}{\sqrt{2\pi}\,\sigma}\int_{-\infty}^\infty e^{-(x - \mu)^2/2\sigma^2}\;\d x.
+  \end{align*}
+  The first integral vanishes by antisymmetry about $\mu$; the second equals $\mu$ by normalisation.
 \end{proof}
-Also, by symmetry, the mode and median of a normal distribution are also both $\mu$.
 
 \begin{prop}
-  $\var(X) = \sigma^2$.
+  If $X \sim N(\mu, \sigma^2)$, then $\var(X) = \sigma^2$.
 \end{prop}
 
 \begin{proof}
-  We have $\var (X) = \E[X^2] - (\E[X])^2$. Substitute $Z = \frac{X - \mu}{\sigma}$. Then $\E[Z] = 0$, $\E[Z^2] = \frac{1}{\sigma^2}\E[X^2]$.
-
-  Then
+  Substituting $Z = (X - \mu)/\sigma$ gives $\E[Z] = 0$ and $\var(X) = \sigma^2 \var(Z)$.
+  By integration by parts,
   \begin{align*}
     \var(Z) &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty z^2 e^{-z^2/2}\;\d z\\
-    &= \left[-\frac{1}{\sqrt{2\pi}}ze^{-z^2/2}\right]_{-\infty}^\infty + \frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{-z^2/2}\;\d z\\
-    &= 0 + 1\\
-    &= 1
+    &= \left[-\frac{1}{\sqrt{2\pi}}\,z\,e^{-z^2/2}\right]_{-\infty}^\infty + \frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{-z^2/2}\;\d z\\
+    &= 0 + 1 = 1.
   \end{align*}
-  So $\var X = \sigma^2$.
+  Hence $\var(X) = \sigma^2$.
 \end{proof}
 
 \begin{eg}
-  UK adult male heights are normally distributed with mean 70'' and standard deviation 3''. In the Netherlands, these figures are 71'' and 3''.
+  UK adult male heights are normally distributed with mean $70''$ and standard deviation $3''$.
+  In the Netherlands, these figures are $71''$ and $3''$.
 
-  What is $\P(Y > X)$, where $X$ and $Y$ are the heights of randomly chosen UK and Netherlands males, respectively?
-
-  We have $X\sim N(70, 3^2)$ and $Y\sim N(71, 3^2)$. Then (as we will show in later lectures) $Y - X \sim N(1, 18)$.
+  Let $X \sim N(70, 9)$ and $Y \sim N(71, 9)$ be the heights of randomly chosen UK and Dutch males, respectively.
+  Then (as we will show later) $Y - X \sim N(1, 18)$, so
   \[
-    \P(Y > X) = \P(Y - X > 0) = \P\left(\frac{Y - X - 1}{\sqrt{18}} > \frac{-1}{\sqrt{18}}\right) = 1 - \Phi(-1/\sqrt{18}),
+    \P(Y > X) = \P\left(\frac{Y - X - 1}{\sqrt{18}} > \frac{-1}{\sqrt{18}}\right) = 1 - \Phi(-1/\sqrt{18}) \approx 0.5931.
   \]
-  since $\frac{(Y - X) - 1}{\sqrt{18}}\sim N(0, 1)$, and the answer is approximately 0.5931.
 
-  Now suppose that in both countries, the Olympic male basketball teams are selected from that portion of male whose hight is at least above 4'' above the mean (which corresponds to the $9.1\%$ tallest males of the country). What is the probability that a randomly chosen Netherlands player is taller than a randomly chosen UK player?
-
-  For the second part, we have
+  Now suppose that in both countries, Olympic basketball players are selected from males whose height exceeds the mean by at least $4''$ (the tallest $9.1\%$).
+  Then
   \[
-    \P(Y > X\mid X \geq 74, Y \geq 75) = \frac{\int_{x = 74}^{75} \phi_X(x)\;\d x + \int_{x = 75}^\infty \int_{y=x}^\infty \phi_Y(y)\phi_X(x)\;\d y\;\d x}{\int_{x=74}^\infty \phi_X(x)\;\d x \int_{y=75}^\infty \phi_Y(y)\;\d y},
+    \P(Y > X \mid X \geq 74,\, Y \geq 75) = \frac{\int_{x = 74}^{75} \phi_X(x)\;\d x + \int_{x = 75}^\infty \int_{y=x}^\infty \phi_Y(y)\,\phi_X(x)\;\d y\;\d x}{\int_{x=74}^\infty \phi_X(x)\;\d x \int_{y=75}^\infty \phi_Y(y)\;\d y} \approx 0.7558.
   \]
-  which is approximately 0.7558. So even though the Netherlands people are only slightly taller, if we consider the tallest bunch, the Netherlands people will be much taller on average.
+  Although the means differ by only $1''$, conditioning on the upper tails greatly amplifies the difference.
 \end{eg}
 
 \subsection{Transformation of random variables}
