@@ -2100,16 +2100,13 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{prop}
 
 \subsection{Geometric probability}
-Often, when doing probability problems that involve geometry, we can visualize the outcomes with the aid of a picture.
-
 \begin{eg}
-  Two points $X$ and $Y$ are chosen independently on a line segment of length $L$. What is the probability that $|X - Y| \leq \ell$? By ``at random'', we mean
+  Two points $X$ and $Y$ are chosen independently and uniformly on a line segment of length $L$.
+  What is the probability that $|X - Y| \leq \ell$?
+  Since each of $X$ and $Y$ has pdf $1/L$, the joint pdf is
   \[
-    f(x, y) = \frac{1}{L^2},
+    f(x, y) = \frac{1}{L^2}.
   \]
-  since each of $X$ and $Y$ have pdf $1/L$.
-
-  We can visualize this on a graph:
   \begin{center}
     \begin{tikzpicture}
       \draw (0, 0) rectangle (3, 3);
@@ -2121,18 +2118,22 @@ Often, when doing probability problems that involve geometry, we can visualize t
       \node at (0, 3) [left] {$L$};
     \end{tikzpicture}
   \end{center}
-  Here the two axes are the values of $X$ and $Y$, and $A$ is the permitted region. The total area of the white part is simply the area of a square with length $L - \ell$. So the area of $A$ is $L^2 - (L - \ell)^2 = 2L\ell - \ell^2$. So the desired probability is
+  The shaded region $A$ is where $|x - y| \leq \ell$.
+  The unshaded region is a square of side $L - \ell$, so the area of $A$ is $L^2 - (L - \ell)^2 = 2L\ell - \ell^2$.
+  Hence
   \[
-    \int_A f(x, y)\;\d x\;\d y = \frac{2L\ell - \ell^2}{L^2}.
+    \P(|X - Y| \leq \ell) = \int_A f(x, y)\;\d x\;\d y = \frac{2L\ell - \ell^2}{L^2}.
   \]
 \end{eg}
 
 \begin{eg}[Bertrand's paradox]
-  Suppose we draw a random chord in a circle. What is the probability that the length of the chord is greater than the length of the side of an inscribed equilateral triangle?
+  What is the probability that a random chord of a circle is longer than the side of an inscribed equilateral triangle?
 
-  There are three ways of ``drawing a random chord''.
+  There are three natural interpretations of ``random chord''.
   \begin{enumerate}
-    \item We randomly pick two end points over the circumference independently. Now draw the inscribed triangle with the vertex at one end point. For the length of the chord to be longer than a side of the triangle, the other end point must between the two other vertices of the triangle. This happens with probability $1/3$.
+    \item Pick two endpoints independently and uniformly on the circumference.
+      Draw the inscribed triangle with one vertex at an endpoint.
+      The chord is longer than a side of the triangle if and only if the other endpoint lies between the two remaining vertices, which happens with probability $1/3$.
       \begin{center}
         \begin{tikzpicture}
           \draw circle [radius = 1];
@@ -2143,7 +2144,9 @@ Often, when doing probability problems that involve geometry, we can visualize t
           \draw [mblue] (0, 1) -- (1, 0);
         \end{tikzpicture}
       \end{center}
-    \item wlog the chord is horizontal, on the lower side of the circle. The mid-point is uniformly distributed along the middle (dashed) line. Then the probability of getting a long line is $1/2$.
+    \item WLOG the chord is horizontal, on the lower side of the circle.
+      The midpoint is uniformly distributed along the dashed line.
+      The chord is long if and only if the midpoint lies in the lower half, giving probability $1/2$.
       \begin{center}
         \begin{tikzpicture}
           \draw circle [radius = 1];
@@ -2156,7 +2159,8 @@ Often, when doing probability problems that involve geometry, we can visualize t
           \draw [mred] (-1, 0) -- (1, 0);
         \end{tikzpicture}
       \end{center}
-    \item The mid point of the chord is distributed uniformly across the circle. Then you get a long line if and only if the mid-point lies in the smaller circle shown below. This occurs with probability $1/4$.
+    \item The midpoint of the chord is uniformly distributed over the disc.
+      The chord is long if and only if the midpoint lies in the inscribed circle of half the radius, giving probability $1/4$.
        \begin{center}
         \begin{tikzpicture}
           \draw circle [radius = 1];
@@ -2170,11 +2174,13 @@ Often, when doing probability problems that involve geometry, we can visualize t
         \end{tikzpicture}
       \end{center}
   \end{enumerate}
-  We get different answers for different notions of ``random''! This is why when we say ``randomly'', we should be explicit in what we mean by that.
+  The three interpretations give different answers.
+  This illustrates why one must specify the probability model precisely when saying ``at random''.
 \end{eg}
 
 \begin{eg}[Buffon's needle]
-  A needle of length $\ell$ is tossed at random onto a floor marked with parallel lines a distance $L$ apart, where $\ell \leq L$. Let $A$ be the event that the needle intersects a line. What is $\P(A)$?
+  A needle of length $\ell$ is tossed at random onto a floor marked with parallel lines a distance $L$ apart, where $\ell \leq L$.
+  Let $A$ be the event that the needle intersects a line.
   \begin{center}
     \begin{tikzpicture}
       \draw (-3, -1) -- (3, -1);
@@ -2189,19 +2195,21 @@ Often, when doing probability problems that involve geometry, we can visualize t
       \draw [->] (2, 1) -- (2, -1);
     \end{tikzpicture}
   \end{center}
-  Suppose that $X\sim U[0, L]$ and $\theta\sim U[0, \pi]$. Then
+  Let $X \sim U[0, L]$ be the distance from the needle's centre to the nearest line, and $\theta \sim U[0, \pi]$ the angle of the needle.
+  Since $X$ and $\theta$ are independent,
   \[
     f(x, \theta) = \frac{1}{L\pi}.
   \]
-  This touches a line iff $X \leq \ell \sin \theta$. Hence
+  The needle touches a line if and only if $X \leq \ell \sin \theta$, so
   \[
-    \P(A) = \int_{\theta = 0}^\pi \underbrace{\frac{\ell \sin \theta}{L}}_{\P(X \leq \ell\sin \theta)}\frac{1}{\pi}\d \theta = \frac{2\ell }{\pi L}.
+    \P(A) = \int_{\theta = 0}^\pi \underbrace{\frac{\ell \sin \theta}{L}}_{\P(X \leq \ell \sin \theta)} \frac{1}{\pi}\;\d \theta = \frac{2\ell}{\pi L}.
   \]
-  Since the answer involves $\pi$, we can estimate $\pi$ by conducting repeated experiments! Suppose we have $N$ hits out of $n$ tosses. Then an estimator for $p$ is $\hat{p} = \frac{N}{n}$. Hence
+  Since the answer involves $\pi$, one can estimate $\pi$ by repeated experiment.
+  If $N$ out of $n$ tosses produce a hit, then $\hat{p} = N/n$ estimates $p = \P(A)$, giving
   \[
     \hat{\pi} = \frac{2\ell}{\hat{p}L}.
   \]
-  We will later find out that this is a really inefficient way of estimating $\pi$ (as you could have guessed).
+  We will later see that this is an inefficient estimator of $\pi$.
 \end{eg}
 \subsection{The normal distribution}
 \begin{defi}[Normal distribution]
