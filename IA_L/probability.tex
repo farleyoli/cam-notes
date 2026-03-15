@@ -1777,236 +1777,205 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{eg}
 \section{Continuous random variables}
 \subsection{Continuous random variables}
-So far, we have only looked at the case where the outcomes $\Omega$ are discrete. Consider an experiment where we throw a needle randomly onto the ground and record the angle it makes with a fixed horizontal. Then our sample space is $\Omega = \{\omega\in \R: 0 \leq \omega < 2\pi\}$. Then we have
-\[
-  \P(\omega \in [0, \theta]) = \frac{\theta}{2\pi}, \quad 0 \leq \theta \leq 2\pi.
-\]
-With continuous distributions, we can no longer talk about the probability of getting a particular number, since this is always zero. For example, we will almost never get an angle of \emph{exactly} $0.42$ radians.
+\begin{eg}
+  Consider throwing a needle randomly onto the ground and recording the angle it makes with a fixed horizontal.
+  The sample space is $\Omega = \{\omega \in \R : 0 \leq \omega < 2\pi\}$, and
+  \[
+    \P(\omega \in [0, \theta]) = \frac{\theta}{2\pi}, \quad 0 \leq \theta \leq 2\pi.
+  \]
+  We cannot assign nonzero probability to any single outcome.
+\end{eg}
 
-Instead, we can only meaningfully talk about the probability of $X$ falling into a particular range. To capture the distribution of $X$, we want to define a function $f$ such that for each $x$ and small $\delta x$, the probability of $X$ lying in $[x, x + \delta x]$ is given by $f(x) \delta x + o(\delta x)$. This $f$ is known as the \emph{probability density function}. Integrating this, we know that the probability of $X\in [a, b]$ is $\int_a^b f(x)\;\d x$. We take this as the definition of $f$.
+\begin{remark}
+  For continuous distributions, we describe probabilities via a \emph{probability density function} $f$: for small $\delta x$,
+  \[
+    \P(X \in [x, x + \delta x]) = f(x)\,\delta x + o(\delta x).
+  \]
+  Integrating, $\P(X \in [a, b]) = \int_a^b f(x)\;\d x$.
+\end{remark}
 
 \begin{defi}[Continuous random variable]
   A random variable $X : \Omega \to \R$ is \emph{continuous} if there is a function $f : \R \to \R_{\geq 0}$ such that
   \[
     \P(a \leq X \leq b) = \int_a^b f(x) \;\d x.
   \]
-  We call $f$ the \emph{probability density function}, which satisfies
+  We call $f$ the \emph{probability density function} (pdf), which satisfies
   \begin{itemize}
-    \item $f \geq 0$
-    \item $\int_{-\infty}^\infty f(x) = 1$.
+    \item $f \geq 0$;
+    \item $\int_{-\infty}^\infty f(x)\;\d x = 1$.
   \end{itemize}
 \end{defi}
-Note that $\P(X = a) = 0$ since it is $\int_a^a f(x)\;\d x$. Then we also have
-\[
-  \P\left(\bigcup_{a\in \Q} [X = a]\right) = 0,
-\]
-since it is a countable union of probability 0 events (and axiom 3 states that the probability of the countable union is the sum of probabilities, i.e.\ 0).
+
+\begin{remark}
+  For any continuous random variable, $\P(X = a) = 0$ since $\int_a^a f(x)\;\d x = 0$.
+  Hence $\P\bigl(\bigcup_{a \in \Q} [X = a]\bigr) = 0$ by countable additivity.
+\end{remark}
 
 \begin{defi}[Cumulative distribution function]
-  The \emph{cumulative distribution function} (or simply \emph{distribution function}) of a random variable $X$ (discrete, continuous, or neither) is
+  The \emph{cumulative distribution function} (cdf) of a random variable $X$ (discrete, continuous, or neither) is
   \[
     F(x) = \P(X \leq x).
   \]
 \end{defi}
-We can see that $F(x)$ is increasing and $F(x) \to 1$ as $x\to \infty$.
 
-In the case of continuous random variables, we have
-\[
-  F(x) = \int_{-\infty}^x f(z) \;\d z.
-\]
-Then $F$ is continuous and differentiable. In general, $F'(x) = f(x)$ whenever $F$ is differentiable.
+\begin{remark}
+  The cdf $F$ is non-decreasing, with $F(x) \to 0$ as $x \to -\infty$ and $F(x) \to 1$ as $x \to \infty$.
+  For a continuous random variable,
+  \[
+    F(x) = \int_{-\infty}^x f(z)\;\d z,
+  \]
+  so $F$ is continuous and differentiable, with $F'(x) = f(x)$.
+  The name ``continuous random variable'' reflects the (absolute) continuity of $F$.
+\end{remark}
 
-The name of \emph{continuous} random variables comes from the fact that $F(x)$ is (absolutely) continuous.
+\begin{eg}
+  The cdf of a continuous random variable might look like this:
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (3, 0);
+      \draw [->] (0, 0) -- (0, 2) node [above] {$\P$};
+      \draw (0, 0) parabola (2.5, 1.5);
+    \end{tikzpicture}
+  \end{center}
+  The cdf of a discrete random variable might look like this:
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (3, 0);
+      \draw [->] (0, 0) -- (0, 2) node [above] {$\P$};
+      \draw (0, 0) -- (1, 0) -- (1, 0.5) -- (2, 0.5) -- (2, 1) -- (3, 1) -- (3, 1.5);
+    \end{tikzpicture}
+  \end{center}
+  The cdf of a random variable that is neither discrete nor continuous might look like this:
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (3, 0);
+      \draw [->] (0, 0) -- (0, 2) node [above] {$\P$};
+      \draw (0, 0) parabola (1, 1);
+      \draw (1, 1) -- (2.5, 1) -- (2.5, 2);
+      \node [circ] at (2.5, 2) {};
+    \end{tikzpicture}
+  \end{center}
+\end{eg}
 
-The cdf of a continuous random variable might look like this:
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (3, 0);
-    \draw [->] (0, 0) -- (0, 2) node [above] {$\P$};
-    \draw (0, 0) parabola (2.5, 1.5);
-  \end{tikzpicture}
-\end{center}
-The cdf of a discrete random variable might look like this:
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (3, 0);
-    \draw [->] (0, 0) -- (0, 2) node [above] {$\P$};
-    \draw (0, 0) -- (1, 0) -- (1, 0.5) -- (2, 0.5) -- (2, 1) -- (3, 1) -- (3, 1.5);
-  \end{tikzpicture}
-\end{center}
-The cdf of a random variable that is neither discrete nor continuous might look like this:
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (3, 0);
-    \draw [->] (0, 0) -- (0, 2) node [above] {$\P$};
-    \draw (0, 0) parabola (1, 1);
-    \draw (1, 1) -- (2.5, 1) -- (2.5, 2);
-    \node [circ] at (2.5, 2) {};
-  \end{tikzpicture}
-\end{center}
-Note that we always have
-\[
-  \P(a < x \leq b) = F(b) - F(a).
-\]
-This will be equal to $\int_a^b f(x)\;\d x$ in the case of continuous random variables.
+\begin{remark}
+  For any random variable, $\P(a < X \leq b) = F(b) - F(a)$.
+  For continuous random variables, this equals $\int_a^b f(x)\;\d x$.
+\end{remark}
 
 \begin{defi}[Uniform distribution]
   The \emph{uniform distribution} on $[a, b]$ has pdf
   \[
-    f(x) = \frac{1}{b - a}.
+    f(x) = \frac{1}{b - a}, \quad a \leq x \leq b,
   \]
-  Then
-  \[
-    F(x) = \int_a^x f(z)\;\d z = \frac{x - a}{b - a}
-  \]
-  for $a \leq x \leq b$.
-
-  If $X$ follows a uniform distribution on $[a, b]$, we write $X\sim U[a, b]$.
+  and cdf $F(x) = \frac{x - a}{b - a}$ for $a \leq x \leq b$.
+  We write $X \sim U[a, b]$.
 \end{defi}
-\begin{defi}[Exponential random variable]
-  The \emph{exponential random variable with parameter $\lambda$} has pdf
-  \[
-    f(x) = \lambda e^{-\lambda x}
-  \]
-  and
-  \[
-    F(x) = 1 - e^{-\lambda x}
-  \]
-  for $x \geq 0$.
 
+\begin{defi}[Exponential distribution]
+  The \emph{exponential distribution with parameter $\lambda > 0$} has pdf $f(x) = \lambda e^{-\lambda x}$ and cdf $F(x) = 1 - e^{-\lambda x}$ for $x \geq 0$.
   We write $X \sim \mathcal{E}(\lambda)$.
 \end{defi}
 
-Then
-\[
-  \P(a \leq x \leq b) = \int_a^b f(z) \;\d z = e^{-\lambda a} - e^{-\lambda b}.
-\]
-\begin{prop}
-  The exponential random variable is \emph{memoryless}, i.e.
+\begin{prop}[Memoryless property]
+  The exponential distribution is \emph{memoryless}:
   \[
     \P(X \geq x + z \mid X \geq x) = \P(X \geq z).
   \]
-  This means that, say if $X$ measures the lifetime of a light bulb, knowing it has already lasted for 3 hours does not give any information about how much longer it will last.
 \end{prop}
-Recall that the geometric random variable is the discrete memoryless random variable.
 
 \begin{proof}
   \begin{align*}
     \P(X \geq x + z \mid X \geq x) &= \frac{\P(X \geq x + z)}{\P(X \geq x)}\\
-    &= \frac{\int_{x + z}^\infty f(u)\;\d u}{\int_x^\infty f(u)\;\d u}\\
     &= \frac{e^{-\lambda(x + z)}}{e^{-\lambda x}}\\
     &= e^{-\lambda z}\\
     &= \P(X \geq z).\qedhere
   \end{align*}
 \end{proof}
 
-Similarly, given that, you have lived for $x$ days, what is the probability of dying within the next $\delta x$ days?
-\begin{align*}
-  \P(X \leq x + \delta x \mid X \geq x) &= \frac{\P(x \leq X \leq x + \delta x)}{\P(X \geq x)}\\
-  &= \frac{\lambda e^{-\lambda x} \delta x}{e^{-\lambda x}}\\
-  &= \lambda \delta x.
-\end{align*}
-So it is independent of how old you currently are, assuming your survival follows an exponential distribution.
+\begin{remark}
+  The geometric distribution is the discrete analogue: it is the unique discrete memoryless distribution.
+\end{remark}
 
-In general, we can define the hazard rate to be
-\[
-  h(x) = \frac{f(x)}{1 - F(x)}.
-\]
-Then
-\[
-  \P(x \leq X \leq x + \delta x \mid X \geq x) = \frac{\P(x \leq X \leq x + \delta x)}{\P(X \geq x)} = \frac{\delta x f(x)}{1 - F(x)} = \delta x\cdot h(x).
-\]
-In the case of exponential distribution, $h(x)$ is constant and equal to $\lambda$.
-
-Similar to discrete variables, we can define the expected value and the variance. However, we will (obviously) have to replace the sum with an integral.
-\begin{defi}[Expectation]
-  The \emph{expectation} (or \emph{mean}) of a continuous random variable is
+\begin{defi}[Hazard rate]
+  The \emph{hazard rate} of a continuous random variable with pdf $f$ and cdf $F$ is
   \[
-    \E[X] = \int_{-\infty}^\infty xf(x) \;\d x,
+    h(x) = \frac{f(x)}{1 - F(x)}.
   \]
-  provided not both $\int_0^\infty xf(x)\;\d x$ and $\int_{-\infty}^0 xf(x) \;\d x$ are infinite.
+  This satisfies $\P(x \leq X \leq x + \delta x \mid X \geq x) = h(x)\,\delta x + o(\delta x)$.
 \end{defi}
 
-\begin{thm}
+\begin{remark}
+  The exponential distribution has constant hazard rate $h(x) = \lambda$.
+\end{remark}
+
+\begin{defi}[Expectation]
+  The \emph{expectation} (or \emph{mean}) of a continuous random variable $X$ is
+  \[
+    \E[X] = \int_{-\infty}^\infty x\,f(x)\;\d x,
+  \]
+  provided $\int_0^\infty x\,f(x)\;\d x$ and $\int_{-\infty}^0 x\,f(x)\;\d x$ are not both infinite.
+\end{defi}
+
+\begin{thm}[Tail sum formula]
   If $X$ is a continuous random variable, then
   \[
     \E[X] = \int_0^\infty \P(X \geq x)\;\d x - \int_0^\infty \P(X \leq -x)\;\d x.
   \]
 \end{thm}
-This result is more intuitive in the discrete case:
-\[
-  \sum_{x = 0}^\infty x \P(X = x) = \sum_{x = 0}^\infty \sum_{y = x + 1}^\infty \P(X = y) = \sum_{x = 0}^\infty \P(X > x),
-\]
-where the first equality holds because on both sides, we have $x$ copies of $\P(X = x)$ in the sum.
+
+\begin{remark}
+  In the discrete case, this becomes $\sum_{x=0}^\infty x\,\P(X = x) = \sum_{x=0}^\infty \P(X > x)$, since both sides contain $x$ copies of $\P(X = x)$.
+\end{remark}
 
 \begin{proof}
   \begin{align*}
     \int_0^\infty \P(X \geq x)\;\d x &= \int_0^\infty \int_x^\infty f(y)\;\d y\;\d x\\
-    &= \int_0^\infty \int_0^\infty I[y\geq x]f(y)\;\d y\;\d x\\
-    &= \int_0^\infty \left(\int_0^\infty I[x\leq y]\;\d x\right) f(y)\;\d y\\
-    &= \int_0^\infty yf(y)\;\d y.
+    &= \int_0^\infty \int_0^\infty I[y \geq x]\,f(y)\;\d y\;\d x\\
+    &= \int_0^\infty \left(\int_0^\infty I[x \leq y]\;\d x\right) f(y)\;\d y\\
+    &= \int_0^\infty y\,f(y)\;\d y.
   \end{align*}
-  We can similarly show that $\int_0^\infty \P(X \leq -x)\;\d x = -\int_{-\infty}^0 yf(y)\;\d y$.
+  Similarly, $\int_0^\infty \P(X \leq -x)\;\d x = -\int_{-\infty}^0 y\,f(y)\;\d y$.
 \end{proof}
 
 \begin{eg}
-  Suppose $X\sim \mathcal{E}(\lambda)$. Then
+  If $X \sim \mathcal{E}(\lambda)$, then $\P(X \geq x) = e^{-\lambda x}$, so
   \[
-    \P(X \geq x) = \int_x^{\infty} \lambda e^{-\lambda t}\;\d t = e^{-\lambda x}.
-  \]
-  So
-  \[
-    \E[X] = \int_0^\infty e^{-\lambda x}\;\d x = \frac{1}{\lambda}.\qedhere
+    \E[X] = \int_0^\infty e^{-\lambda x}\;\d x = \frac{1}{\lambda}.
   \]
 \end{eg}
 
 \begin{defi}[Variance]
-  The \emph{variance} of a continuous random variable is
+  The \emph{variance} of a continuous random variable $X$ is
   \[
-    \var (X) = \E[(X - \E[X])^2] = \E[X^2] - (E[X])^2.
+    \var(X) = \E[(X - \E[X])^2] = \E[X^2] - (\E[X])^2.
   \]
 \end{defi}
-So we have
-\[
-  \var (X) = \int_{-\infty}^\infty x^2 f(x) \;\d x - \left(\int_{-\infty}^\infty xf(x)\;\d x\right)^2.
-\]
+
 \begin{eg}
-  Let $X\sim U[a, b]$. Then
+  Let $X \sim U[a, b]$. Then
   \[
-    \E[X] = \int_a^b x\frac{1}{b - a}\;d x = \frac{a + b}{2}.
+    \E[X] = \int_a^b \frac{x}{b - a}\;\d x = \frac{a + b}{2},
   \]
-  So
-  \begin{align*}
-    \var (X) &= \int_a^b x^2\frac{1}{b - a}\;\d x - (\E[X])^2\\
-    &= \frac{1}{12}(b - a)^2.
-  \end{align*}
+  and
+  \[
+    \var(X) = \int_a^b \frac{x^2}{b - a}\;\d x - (\E[X])^2 = \frac{(b - a)^2}{12}.
+  \]
 \end{eg}
 
-Apart from the mean, or expected value, we can also have other notions of ``average values''.
 \begin{defi}[Mode and median]
-  Given a pdf $f(x)$, we call $\hat x$ a \emph{mode} if
-  \[
-    f(\hat x) \geq f(x)
-  \]
-  for all $x$. Note that a distribution can have many modes. For example, in the uniform distribution, all $x$ are modes.
+  Given a pdf $f$, a value $\hat{x}$ is a \emph{mode} if $f(\hat{x}) \geq f(x)$ for all $x$.
 
-  We say it is a median if
+  A value $\hat{x}$ is a \emph{median} if
   \[
-    \int_{-\infty}^{\hat x}f(x)\;\d x = \frac{1}{2} = \int_{\hat x}^\infty f(x)\;\d x.
+    \int_{-\infty}^{\hat{x}} f(x)\;\d x = \frac{1}{2} = \int_{\hat{x}}^\infty f(x)\;\d x.
   \]
-  For a discrete random variable, the median is $\hat x$ such that
-  \[
-    \P(X \leq \hat x) \geq \frac{1}{2}, \quad \P(X \geq \hat x) \geq \frac{1}{2}.
-  \]
-  Here we have a non-strict inequality since if the random variable, say, always takes value $0$, then both probabilities will be 1.
+  For a discrete random variable, $\hat{x}$ is a median if $\P(X \leq \hat{x}) \geq \frac{1}{2}$ and $\P(X \geq \hat{x}) \geq \frac{1}{2}$.
 \end{defi}
 
-Suppose that we have an experiment whose outcome follows the distribution of $X$. We can perform the experiment many times and obtain many results $X_1, \cdots, X_n$. The average of these results is known as the \emph{sample mean}.
-
 \begin{defi}[Sample mean]
-  If $X_1, \cdots, X_n$ is a random sample from some distribution, then the \emph{sample mean} is
+  If $X_1, \dotsc, X_n$ is a random sample from some distribution, the \emph{sample mean} is
   \[
-    \bar X = \frac{1}{n}\sum_1^n X_i.
+    \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i.
   \]
 \end{defi}
 
