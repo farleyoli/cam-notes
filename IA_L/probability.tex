@@ -293,7 +293,7 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
   \]
 \end{thm}
 
-\begin{cor}
+\begin{cor}[Stirling's asymptotic form]
   $n!\sim \sqrt{2\pi}\, n^{n + 1/2}\, e^{-n}$ as $n \to \infty$.
 \end{cor}
 
@@ -583,7 +583,7 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
   Otherwise, they are said to be \emph{dependent}.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Independence and complements]
   If $A$ and $B$ are independent, then $A$ and $B^C$ are independent.
 \end{prop}
 
@@ -640,7 +640,7 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
   for all $i, j$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Independence in product spaces]
   In the product space, let $A\subseteq \Omega_1$ and $B\subseteq \Omega_2$ be events. Viewing these as events in $\Omega$ via $A \times \Omega_2$ and $\Omega_1 \times B$ respectively, we have $\P(A\cap B) = \P_1(A)\,\P_2(B)$. That is, events from different component experiments are independent.
 \end{prop}
 
@@ -1030,7 +1030,7 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
   \]
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Functions preserve independence]
   If $X_1, \dotsc, X_n$ are independent random variables and $f_1, \dotsc, f_n\colon \R \to \R$, then $f_1(X_1), \dotsc, f_n(X_n)$ are independent.
 \end{prop}
 
@@ -1057,7 +1057,7 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
   \end{align*}
 \end{proof}
 
-\begin{cor}
+\begin{cor}[Expectation of a product of functions]
   If $X_1,\dotsc, X_n$ are independent and $f_1, \dotsc, f_n\colon \R\to \R$, then
   \[
     \E\left[\prod_{i=1}^{n} f_i(X_i)\right] = \prod_{i=1}^{n} \E[f_i(X_i)].
@@ -1313,7 +1313,7 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
   \]
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Correlation bounds]
   $|\corr(X, Y)| \leq 1$, with equality if and only if $Y = a + bX$ for some constants $a, b$ with $b \neq 0$.
 \end{prop}
 
@@ -1356,7 +1356,7 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
   Therefore $\E[X_1\mid Y = r] = r/n$, and so $\E[X_1\mid Y] = Y/n$ as a random variable.
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Conditional expectation under independence]
   If $X$ and $Y$ are independent, then $\E[X\mid Y] = \E[X]$.
 \end{prop}
 
@@ -1402,7 +1402,7 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
   \]
 \end{eg}
 
-\begin{thm}
+\begin{thm}[PGF uniqueness]
   The distribution of $X$ is uniquely determined by its pgf.
 \end{thm}
 
@@ -1600,7 +1600,7 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
   where the second equality holds because $\{X_1 = 0\} \subseteq \{X_2 = 0\} \subseteq \cdots$ and by continuity of probability.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Extinction fixed-point equation]
   The extinction probability satisfies $F(q) = q$.
 \end{prop}
 
@@ -2049,7 +2049,7 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
   \]
 \end{eg}
 
-\begin{thm}
+\begin{thm}[Marginals of jointly continuous variables]
   If $X$ and $Y$ are jointly continuous random variables, then they are individually continuous random variables.
 \end{thm}
 
@@ -2091,7 +2091,7 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
   If instead $(Y_1, Y_2)$ is uniform on $\{(y_1, y_2) \in [0, 1]^2 : y_1 \leq y_2\}$, then $f(y_1, y_2) = 2\, \mathbf{1}[y_1 \leq y_2]$, which does not factorise, so $Y_1$ and $Y_2$ are not independent.
 \end{eg}
 
-\begin{prop}
+\begin{prop}[Independence properties, continuous case]
   For independent continuous random variables $X_1, \dotsc, X_n$,
   \begin{enumerate}
     \item $\E[\prod_i X_i] = \prod_i \E[X_i]$;
@@ -2253,7 +2253,7 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
   \end{align*}
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Mean of the normal]
   If $X \sim N(\mu, \sigma^2)$, then $\E[X] = \mu$.
 \end{prop}
 
@@ -2265,7 +2265,7 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
   The first integral vanishes by antisymmetry about $\mu$; the second equals $\mu$ by normalisation.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Variance of the normal]
   If $X \sim N(\mu, \sigma^2)$, then $\var(X) = \sigma^2$.
 \end{prop}
 
@@ -2300,7 +2300,7 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 
 \subsection{Transformation of random variables}
 \subsubsection*{Single random variable}
-\begin{thm}
+\begin{thm}[Change of variables, one dimension]
   Let $X$ be a continuous random variable with pdf $f_X$.
   If $h$ is continuous and strictly increasing with $h^{-1}$ differentiable, then $Y = h(X)$ has pdf
   \[
@@ -2372,7 +2372,7 @@ Let $R \subseteq \R^n$ with $\P((X_1, \dotsc, X_n) \in R) = 1$, and suppose the 
   \]
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Change of variables, several dimensions]
   $(Y_1, \dotsc, Y_n)$ has pdf
   \[
     g(y_1, \dotsc, y_n) = f(s_1(y_1, \dotsc, y_n), \dotsc, s_n(y_1, \dotsc, y_n))\,|J|
@@ -2490,7 +2490,7 @@ When the transformation is not injective, there is no single formula; each case 
   We also write $Y_i = X_{(i)}$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Order statistics]
   If $X_1, \dotsc, X_n$ are iid with cdf $F$ and pdf $f$, then:
   \begin{enumerate}
     \item $\P(Y_n \leq y) = F(y)^n$, so $f_{Y_n}(y) = n f(y) F(y)^{n-1}$;
@@ -2545,7 +2545,7 @@ When the transformation is not injective, there is no single formula; each case 
   For continuous $X$ with pdf $f$, this equals $\int_{-\infty}^\infty e^{\theta x} f(x)\;\d x$ whenever finite.
 \end{defi}
 
-\begin{thm}
+\begin{thm}[MGF uniqueness]
   The mgf determines the distribution of $X$, provided $m(\theta)$ is finite for all $\theta$ in some interval containing the origin.
 \end{thm}
 We state this without proof.
@@ -2554,7 +2554,7 @@ We state this without proof.
   The $r$th \emph{moment} of $X$ is $\E[X^r]$.
 \end{defi}
 
-\begin{thm}
+\begin{thm}[Moments from the MGF]
   The $r$th moment of $X$ is the coefficient of $\frac{\theta^r}{r!}$ in the power series expansion of $m(\theta)$:
   \[
     \E[X^r] = \left.\frac{\d^r}{\d\theta^r} m(\theta)\right|_{\theta = 0} = m^{(r)}(0).
@@ -2587,7 +2587,7 @@ We state this without proof.
   \]
 \end{eg}
 
-\begin{thm}
+\begin{thm}[MGF of a sum of independent random variables]
   If $X$ and $Y$ are independent random variables with moment generating functions $m_X(\theta), m_Y(\theta)$, then $X + Y$ has mgf $m_{X + Y}(\theta) = m_X(\theta)m_Y(\theta)$.
 \end{thm}
 
@@ -2607,7 +2607,7 @@ We state this without proof.
   This integrates to $1$ by the substitution $x = \tan\theta$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Moments of the Cauchy distribution]
   The mean of the Cauchy distribution is undefined, and $\E[X^2] = \infty$.
 \end{prop}
 
@@ -2618,7 +2618,7 @@ We state this without proof.
   which is undefined, while $\E[X^2] = \infty + \infty = \infty$.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Stability of the Cauchy distribution]
   If $X, Y$ are independent Cauchy random variables, then $\frac{1}{2}(X + Y)$ is also Cauchy. More generally, if $X_1, \dotsc, X_n$ are iid Cauchy, then $\frac{1}{n}(X_1 + \dotsb + X_n)$ is Cauchy.
 \end{prop}
 
@@ -2662,7 +2662,7 @@ We state this without proof.
   \]
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Sum of exponentials]
   If $X_1, \dotsc, X_n$ are iid $\mathcal{E}(\lambda)$, then $S_n = X_1 + \dotsb + X_n \sim \Gamma(n, \lambda)$.
 \end{prop}
 
@@ -2688,7 +2688,7 @@ We state this without proof.
   This has mean $a/(a + b)$.
 \end{defi}
 
-\begin{prop}
+\begin{prop}[Uniform order statistics and the beta distribution]
   If $X_1, \dotsc, X_n$ are iid $U[0,1]$ with order statistics $Y_1 \leq Y_2 \leq \dotsc \leq Y_n$, then $Y_i \sim \beta(i, n - i + 1)$, with pdf
   \[
     f(y) = \frac{n!}{(i - 1)!(n - i)!}\,y^{i - 1}(1 - y)^{n - i}.
@@ -2704,7 +2704,7 @@ We state this without proof.
 \end{rem}
 
 \subsection{More on the normal distribution}
-\begin{prop}
+\begin{prop}[MGF of the normal]
   The moment generating function of $N(\mu, \sigma^2)$ is
   \[
     \E[e^{\theta X}] = \exp\left(\theta\mu + \frac{1}{2}\theta^2 \sigma^2\right).
@@ -2723,7 +2723,7 @@ We state this without proof.
 \end{align*}
 \end{proof}
 
-\begin{thm}
+\begin{thm}[Closure of normal distributions]
   Suppose $X, Y$ are independent random variables with $X\sim N(\mu_1, \sigma_1^2)$ and $Y\sim N(\mu_2, \sigma_2^2)$. Then
   \begin{enumerate}
     \item $X + Y \sim N(\mu_1 + \mu_2 , \sigma_1^2 + \sigma_2^2)$.
@@ -2749,7 +2749,7 @@ We state this without proof.
   \end{enumerate}
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Normal tail bound]
   Let $X \sim N(0,1)$ and write $\phi(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}$ for its pdf. Then for $x > 0$,
   \[
     \P(X \geq x) \leq \frac{1}{x}\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}.
@@ -2795,7 +2795,7 @@ If $X_1, \dotsc, X_n$ are iid $N(0, 1)$ and $\mathbf{x} = (x_1, \dotsc, x_n)^T$,
   where $\Sigma^{-1} = (A^{-1})^T A^{-1}$ and $\det \Sigma = (\det A)^2$.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Covariance matrix of the multivariate normal]
   The matrix $\Sigma$ is the covariance matrix of $\mathbf{Z}$, i.e.\ $\Sigma_{ij} = \cov(Z_i, Z_j)$.
 \end{prop}
 
@@ -2808,7 +2808,7 @@ If $X_1, \dotsc, X_n$ are iid $N(0, 1)$ and $\mathbf{x} = (x_1, \dotsc, x_n)^T$,
   \end{align*}
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Uncorrelated normal variables]
   If $Z_1, \dotsc, Z_n$ are jointly multivariate normal with $\cov(Z_i, Z_j) = 0$ for $i \neq j$, then $Z_1, \dotsc, Z_n$ are independent, with $Z_i \sim N(\mu_i, \sigma_i^2)$.
 \end{prop}
 
