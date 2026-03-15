@@ -574,14 +574,14 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
 \end{eg}
 
 \subsection{Independence}
+
 \begin{defi}[Independent events]
   Two events $A$ and $B$ are \emph{independent} if
   \[
-    \P(A\cap B) = \P(A)\P(B).
+    \P(A\cap B) = \P(A)\,\P(B).
   \]
   Otherwise, they are said to be \emph{dependent}.
 \end{defi}
-Two events are independent if they are not related to each other. For example, if you roll two dice separately, the outcomes will be independent.
 
 \begin{prop}
   If $A$ and $B$ are independent, then $A$ and $B^C$ are independent.
@@ -589,16 +589,12 @@ Two events are independent if they are not related to each other. For example, i
 
 \begin{proof}
   \begin{align*}
-    \P(A\cap B^C) &= \P(A) - \P(A\cap B)\\
-    &= \P(A) - \P(A)\P(B)\\
-    &= \P(A)(1 - \P(B))\\
-    &= \P(A)\P(B^C)
+    \P(A\cap B^C) &= \P(A) - \P(A\cap B) = \P(A) - \P(A)\,\P(B) = \P(A)\bigl(1 - \P(B)\bigr) = \P(A)\,\P(B^C).\qedhere
   \end{align*}
 \end{proof}
 
-This definition applies to two events. What does it mean to say that three or more events are independent?
-\begin{eg}
-  Roll two fair dice. Let $A_1$ and $A_2$ be the event that the first and second die is odd respectively. Let $A_3 = [$sum is odd$]$. The event probabilities are as follows:
+\begin{eg}[Pairwise independence does not imply mutual independence]
+  Roll two fair dice. Let $A_1$ be the event that the first die is odd, $A_2$ the event that the second die is odd, and $A_3$ the event that the sum is odd. The relevant probabilities are:
   \begin{center}
     \begin{tabular}{cc}
       \toprule
@@ -614,40 +610,50 @@ This definition applies to two events. What does it mean to say that three or mo
       \bottomrule
     \end{tabular}
   \end{center}
-  We see that $A_1$ and $A_2$ are independent, $A_1$ and $A_3$ are independent, and $A_2$ and $A_3$ are independent. However, the collection of all three are \emph{not} independent, since if $A_1$ and $A_2$ are true, then $A_3$ cannot possibly be true.
+  Every pair is independent (e.g.\ $\P(A_1 \cap A_2) = 1/4 = \P(A_1)\,\P(A_2)$), but the three events are not mutually independent, since $\P(A_1\cap A_2\cap A_3) = 0 \neq 1/8 = \P(A_1)\,\P(A_2)\,\P(A_3)$.
 \end{eg}
 
-From the example above, we see that just because a set of events is pairwise independent does not mean they are independent all together. We define:
-\begin{defi}[Independence of multiple events]
-  Events $A_1, A_2, \cdots$ are said to be \emph{mutually independent} if
+\begin{defi}[Mutual independence]
+  Events $A_1, A_2, \dotsc$ are \emph{mutually independent} if for every finite subset of distinct indices $i_1, i_2, \dotsc, i_r$ with $r \geq 2$,
   \[
-    \P(A_{i_1}\cap A_{i_2} \cap \cdots \cap A_{i_r}) = \P(A_{i_1})\P(A_{i_2})\cdots \P(A_{i_r})
+    \P(A_{i_1}\cap A_{i_2} \cap \cdots \cap A_{i_r}) = \P(A_{i_1})\,\P(A_{i_2})\cdots \P(A_{i_r}).
   \]
-  for any $i_1, i_2, \cdots i_r$ and $r \geq 2$.
 \end{defi}
-\begin{eg}
-  Let $A_{ij}$ be the event that $i$ and $j$ roll the same. We roll 4 dice. Then
+
+\begin{eg}[Matching dice]
+  Roll 4 fair dice. For $1 \leq i < j \leq 4$, let $A_{ij}$ be the event that dice $i$ and $j$ show the same value. Then $\P(A_{ij}) = 1/6$ for each pair. We have
   \[
-    \P(A_{12}\cap A_{13}) = \frac{1}{6}\cdot \frac{1}{6} = \frac{1}{36} = \P(A_{12})\P(A_{13}).
+    \P(A_{12}\cap A_{13}) = \frac{1}{36} = \P(A_{12})\,\P(A_{13}),
   \]
-  But
+  since dice 1, 2 and 3 must all show the same value. However,
   \[
-    \P(A_{12}\cap A_{13}\cap A_{23}) = \frac{1}{36} \not= \P(A_{12})\P(A_{13})\P(A_{23}).
+    \P(A_{12}\cap A_{13}\cap A_{23}) = \frac{1}{36} \neq \frac{1}{216} = \P(A_{12})\,\P(A_{13})\,\P(A_{23}),
   \]
-  So they are not mutually independent.
+  since $A_{23}$ is implied by $A_{12} \cap A_{13}$. So these events are not mutually independent.
 \end{eg}
 
-We can also apply this concept to experiments. Suppose we model two independent experiments with $\Omega_1 = \{\alpha_1, \alpha_2, \cdots\}$ and $\Omega_2 = \{\beta_1, \beta_2, \cdots\}$ with probabilities $\P(\alpha_i) = p_i$ and $\P(\beta_i) = q_i$. Further suppose that these two experiments are independent, i.e.
-\[
-  \P((\alpha_i, \beta_j)) = p_iq_j
-\]
-for all $i, j$. Then we can have a new sample space $\Omega = \Omega_1\times \Omega_2$.
+\begin{defi}[Product of probability spaces]
+  Let $(\Omega_1, \mathcal{F}_1, \P_1)$ and $(\Omega_2, \mathcal{F}_2, \P_2)$ be two probability spaces with $\Omega_1 = \{\alpha_1, \alpha_2, \dotsc\}$ and $\Omega_2 = \{\beta_1, \beta_2, \dotsc\}$. The \emph{product probability space} is $\Omega = \Omega_1\times \Omega_2$ with
+  \[
+    \P\bigl((\alpha_i, \beta_j)\bigr) = \P_1(\alpha_i)\,\P_2(\beta_j)
+  \]
+  for all $i, j$.
+\end{defi}
 
-Now suppose $A\subseteq \Omega_1$ and $B\subseteq \Omega_2$ are results (i.e.\ events) of the two experiments. We can view them as subspaces of $\Omega$ by rewriting them as $A\times \Omega_2$ and $\Omega_1\times B$. Then the probability
-\[
-  \P(A\cap B) = \sum_{\alpha_i\in A, \beta_i\in B} p_iq_i = \sum_{\alpha_i\in A} p_i\sum_{\beta_i\in B}q_i = \P(A)\P(B).
-\]
-So we say the two experiments are ``independent'' even though the term usually refers to different events in the same experiment. We can generalize this to $n$ independent experiments, or even countably many infinite experiments.
+\begin{prop}
+  In the product space, let $A\subseteq \Omega_1$ and $B\subseteq \Omega_2$ be events. Viewing these as events in $\Omega$ via $A \times \Omega_2$ and $\Omega_1 \times B$ respectively, we have $\P(A\cap B) = \P_1(A)\,\P_2(B)$. That is, events from different component experiments are independent.
+\end{prop}
+
+\begin{proof}
+  Writing $p_i = \P_1(\alpha_i)$ and $q_j = \P_2(\beta_j)$,
+  \[
+    \P(A\cap B) = \sum_{\alpha_i\in A}\sum_{\beta_j\in B} p_i\, q_j = \left(\sum_{\alpha_i\in A} p_i\right)\left(\sum_{\beta_j\in B}q_j\right) = \P_1(A)\,\P_2(B).\qedhere
+  \]
+\end{proof}
+
+\begin{remark}
+  This construction generalises to products of $n$ or even countably many probability spaces.
+\end{remark}
 
 
 \subsection{Important discrete distributions}
