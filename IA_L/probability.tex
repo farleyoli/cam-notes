@@ -1652,471 +1652,400 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{proof}
 
 \subsection{Random walk and gambler's ruin}
-Here we'll study random walks, using gambler's ruin as an example.
-
-\begin{defi}[Random walk]
-  Let $X_1, \cdots, X_n$ be iid random variables such that $X_n = +1$ with probability $p$, and $-1$ with probability $1 - p$. Let $S_n = S_0 + X_1 + \cdots + X_n$. Then $(S_0, S_1, \cdots, S_n)$ is a \emph{1-dimensional random walk}.
-
-  If $p = q = \frac{1}{2}$, we say it is a \emph{symmetric random walk}.
+\begin{defi}[Simple random walk]
+  Let $X_1, X_2, \dotsc$ be iid random variables with $\P(X_i = +1) = p$ and $\P(X_i = -1) = q = 1 - p$.
+  The sequence $(S_n)_{n \geq 0}$ defined by $S_n = S_0 + X_1 + \cdots + X_n$ is a \emph{simple random walk} starting at $S_0$.
+  If $p = q = \frac{1}{2}$, the random walk is \emph{symmetric}.
 \end{defi}
 
-\begin{eg}
-  A gambler starts with $\$z$, with $z < a$, and plays a game in which he wins $\$1$ or loses $\$ 1$ at each turn with probabilities $p$ and $q$ respectively. What are
+\begin{prop}[Gambler's ruin probabilities]
+  A gambler starts with $\$z$, where $0 < z < a$, and at each turn wins $\$1$ with probability $p$ or loses $\$1$ with probability $q = 1 - p$.
+  Let
   \[
-    p_z = \P(\text{random walk hits $a$ before } 0 \mid \text{starts at } z),
+    p_z = \P(\text{walk hits $a$ before $0$} \mid S_0 = z), \quad
+    q_z = \P(\text{walk hits $0$ before $a$} \mid S_0 = z).
   \]
-  and
+  If $p \neq q$, then
   \[
-    q_z = \P(\text{random walk hits 0 before }a \mid \text{starts at }z)?
+    p_z = \frac{1 - (q/p)^z}{1 - (q/p)^a}, \quad
+    q_z = \frac{(q/p)^a - (q/p)^z}{(q/p)^a - 1}.
   \]
-  He either wins his first game, with probability $p$, or loses with probability $q$. So
-  \[
-    p_z = qp_{z - 1} + pp_{z + 1},
-  \]
-  for $0 < z < a$, and $p_0 = 0, p_a = 1$.
+  If $p = q = \frac{1}{2}$, then $p_z = z/a$ and $q_z = (a - z)/a$.
+  In both cases, $p_z + q_z = 1$, so the game terminates with probability $1$.
+\end{prop}
 
-  Try $p_z = t^z$. Then
+\begin{proof}
+  Conditioning on the first step,
   \[
-    pt^2 - t + q = (pt - q)(t - 1) = 0,
+    p_z = p\,p_{z+1} + q\,p_{z-1},
   \]
-  noting that $p = 1 - q$. If $p \not = q$, then
-  \[
-    p_z = A1^z + B\left(\frac{q}{p}\right)^z.
-  \]
-  Since $p_0 = 0$, we get $A = -B$. Since $p_a = 1$, we obtain
-  \[
-    p_z = \frac{1 - (q/p)^z}{1 - (q/p)^a}.
-  \]
-  If $p = q$, then $p_z = A + Bz = z/a$.
+  for $0 < z < a$, with $p_0 = 0$ and $p_a = 1$.
+  Try $p_z = t^z$. Then $pt^2 - t + q = (pt - q)(t - 1) = 0$, with roots $t = 1$ and $t = q/p$.
 
-  Similarly, (or perform the substitutions $p\mapsto q$, $q\mapsto p$ and $z \mapsto a - z$)
-  \[
-    q_z = \frac{(q/p)^a - (q/p)^z}{(q / p)^a - 1}
-  \]
-  if $p\not = q$, and
-  \[
-    q_z = \frac{a - z}{a}
-  \]
-  if $p = q$. Since $p_z + q_z = 1$, we know that the game will eventually end.
+  If $p \neq q$, the general solution is $p_z = A + B(q/p)^z$.
+  From $p_0 = 0$, we get $A = -B$.
+  From $p_a = 1$, we obtain $p_z = \frac{1 - (q/p)^z}{1 - (q/p)^a}$.
 
-  What if $a\to \infty$? What is the probability of going bankrupt?
-  \begin{align*}
-    \P(\text{path hits 0 ever}) &= \P\left(\bigcup_{a = z+1}^\infty [\text{path hits 0 before }a]\right)\\
-    &= \lim_{a\to \infty}\P(\text{path hits 0 before }a)\\
-    &= \lim_{a\to \infty}q_z\\
-    &= \begin{cases}
-      (q/p)^z & p > q\\
-      1 & p \leq q.
+  If $p = q$, the roots coincide and the general solution is $p_z = A + Bz$, giving $p_z = z/a$.
+
+  The formula for $q_z$ follows by the substitution $p \mapsto q$, $q \mapsto p$, $z \mapsto a - z$ (or directly by $q_z = 1 - p_z$).
+\end{proof}
+
+\begin{cor}[Ruin on the infinite line]
+  Starting from $z > 0$ with no upper barrier (i.e.\ $a \to \infty$),
+  \[
+    \P(\text{walk hits $0$ eventually}) = \begin{cases}
+      (q/p)^z & \text{if } p > q, \\
+      1 & \text{if } p \leq q.
     \end{cases}
-  \end{align*}
-  So if the odds are against you (i.e.\ the probability of losing is greater than the probability of winning), then no matter how small the difference is, you are bound to going bankrupt eventually.
-\end{eg}
+  \]
+\end{cor}
+
+\begin{proof}
+  The events $\{\text{walk hits $0$ before $a$}\}$ increase with $a$, so by continuity of probability,
+  \[
+    \P(\text{walk hits $0$ eventually}) = \lim_{a \to \infty} q_z,
+  \]
+  and the result follows from the formulas above.
+\end{proof}
+
+\begin{remark}
+  If the odds are against the gambler ($p \leq q$), ruin is certain regardless of the initial fortune $z$.
+\end{remark}
+
 \subsubsection*{Duration of the game}
-Let $D_z =$ expected time until the random walk hits $0$ or $a$, starting from $z$. We first show that this is bounded. We know that there is one simple way to hit $0$ or $a$: get $+1$ or $-1$ for $a$ times in a row. This happens with probability $p^a + q^a$, and takes $a$ steps. So even if this were the only way to hit $0$ or $a$, the expected duration would be $\frac{a}{p^a + q^a}$. So we must have
-\[
-  D_z \leq \frac{a}{p^a + q^a}
-\]
-This is a \emph{very} crude bound, but it is sufficient to show that it is bounded, and we can meaningfully apply formulas to this finite quantity.
+\begin{prop}[Expected duration of gambler's ruin]
+  Let $D_z$ denote the expected number of steps until the walk is absorbed at $0$ or $a$, starting from $z$.
+  Then $D_z < \infty$, and
+  \[
+    D_z = \begin{cases}
+      \dfrac{z}{q - p} - \dfrac{a}{q - p} \cdot \dfrac{1 - (q/p)^z}{1 - (q/p)^a} & \text{if } p \neq q, \\[8pt]
+      z(a - z) & \text{if } p = q = \frac{1}{2}.
+    \end{cases}
+  \]
+\end{prop}
 
-We have
-\begin{align*}
-  D_z &= \E[\text{duration}]\\
-  &= \E[\E[\text{duration}\mid X_1]]\\
-  &= p\E[\text{duration}\mid X_1 = 1] + q\E[\text{duration}\mid X_1 = -1]\\
-  &= p(1 + D_{z + 1}) + q(1 + D_{z - 1})
-\end{align*}
-So
-\[
-  D_z = 1 + pD_{z + 1} + qD_{z - 1},
-\]
-subject to $D_0 = D_a = 0$.
+\begin{proof}
+  We first show $D_z < \infty$.
+  In any block of $a$ consecutive steps, the probability of all steps being $+1$ or all being $-1$ is at least $p^a + q^a > 0$, which guarantees absorption.
+  Hence $D_z \leq \frac{a}{p^a + q^a} < \infty$.
 
-We first find a particular solution by trying $D_z = Cz$. Then
-\[
-  Cz = 1 + pC(z + 1) + qC(z - 1).
-\]
-So
-\[
-  C = \frac{1}{q - p},
-\]
-for $p \not = q$. Then we find the complementary solution. Try $D_z = t^z$.
-\[
-  pt^2 - t + q = 0,
-\]
-which has roots $1$ and $q/p$. So the general solution is
-\[
-  D_z = A + B\left(\frac{q}{p}\right)^z + \frac{z}{q - p}.
-\]
-Putting in the boundary conditions,
-\[
-  D_z = \frac{z}{q - p} - \frac{a}{q - p} \cdot \frac{1 - (q/p)^z}{1 - (q/p)^a}.
-\]
-If $p = q$, then to find the particular solution, we have to try
-\[
-  D_z = Cz^2.
-\]
-Then we find $C = -1$. So
-\[
-  D_z = -z^2 + A + Bz.
-\]
-Then the boundary conditions give
-\[
-  D_z = z(a - z).
-\]
-\subsubsection*{Using generating functions}
-We can use generating functions to solve the problem as well.
+  Conditioning on the first step,
+  \[
+    D_z = 1 + p\,D_{z+1} + q\,D_{z-1},
+  \]
+  with $D_0 = D_a = 0$.
 
-Let $U_{z,n} = \P(\text{random walk absorbed at 0 at }n\mid \text{start in }z)$.
+  \emph{Case $p \neq q$.}
+  For a particular solution, try $D_z = Cz$: substituting gives $C = \frac{1}{q - p}$.
+  The complementary equation $pt^2 - t + q = 0$ has roots $1$ and $q/p$, so the general solution is
+  \[
+    D_z = A + B\left(\frac{q}{p}\right)^z + \frac{z}{q - p}.
+  \]
+  Applying $D_0 = D_a = 0$ yields the stated formula.
 
-We have the following conditions: $U_{0, 0} = 1$; $U_{z, 0} = 0$ for $0 < z \leq a$; $U_{0, n} = U_{a, n} = 0$ for $n > 0$.
+  \emph{Case $p = q = \frac{1}{2}$.}
+  Try $D_z = Cz^2$: substituting gives $C = -1$.
+  The general solution is $D_z = -z^2 + A + Bz$, and the boundary conditions give $D_z = z(a - z)$.
+\end{proof}
 
-We define a pgf-like function.
-\[
-  U_z(s) = \sum_{n = 0 }^\infty U_{z, n}s^n.
-\]
-We know that
-\[
-  U_{z, n + 1} = p U_{z + 1, n} + qU_{z - 1, n}.
-\]
-Multiply by $s^{n + 1}$ and sum on $n = 0, 1, \cdots$. Then
-\[
-  U_z(s) = psU_{z + 1}(s) + qsU_{z - 1}(s).
-\]
-We try $U_z(s) = [\lambda(s)]^z$. Then
-\[
-  \lambda(s) = ps\lambda(s)^2 + qs.
-\]
-Then
-\[
-  \lambda_1(s), \lambda_2(s) = \frac{1 \pm \sqrt{1 - 4pqs^2}}{2ps}.
-\]
-So
-\[
-  U_z(s) = A(s) \lambda_1(s)^z + B(s)\lambda_2(s)^z.
-\]
-Since $U_0(s) = 1$ and $U_a(s) = 0$, we know that
-\[
-  A(s) + B(s) = 1
-\]
-and
-\[
-  A(s)\lambda_1(s)^a + B(s)\lambda_2(s)^a = 0.
-\]
-Then we find that
-\[
-  U_z(s) = \frac{\lambda_1(s)^a\lambda_2(s)^z - \lambda_2(s)^a\lambda_1(s)^z}{\lambda_1(s)^a - \lambda_2(s)^a}.
-\]
-Since $\lambda_1(s)\lambda_2(s) = \frac{q}{p}$, we can ``simplify'' this to obtain
-\[
-  U_z(s) = \left(\frac{q}{p}\right)^z \cdot \frac{\lambda_1(s)^{a - z} - \lambda_2(s)^{a - z}}{\lambda_1(s)^a - \lambda_2(s)^a}.
-\]
-We see that $U_z(1) = q_z$. We can apply the same method to find the generating function for absorption at $a$, say $V_z(s)$. Then the generating function for the duration is $U_z + V_z$. Hence the expected duration is $D_z = U'_z(1) + V'_z(1).$
+\begin{eg}[Generating function approach to gambler's ruin]
+  Let $U_{z,n} = \P(\text{walk absorbed at $0$ at step $n$} \mid S_0 = z)$, and define the generating function
+  \[
+    U_z(s) = \sum_{n=0}^\infty U_{z,n}\,s^n.
+  \]
+  The boundary conditions are $U_{0,0} = 1$, $U_{z,0} = 0$ for $0 < z \leq a$, and $U_{0,n} = U_{a,n} = 0$ for $n > 0$.
+
+  From the recurrence $U_{z,n+1} = p\,U_{z+1,n} + q\,U_{z-1,n}$, multiplying by $s^{n+1}$ and summing over $n \geq 0$ gives
+  \[
+    U_z(s) = ps\,U_{z+1}(s) + qs\,U_{z-1}(s).
+  \]
+  Trying $U_z(s) = \lambda(s)^z$ leads to $ps\,\lambda^2 - \lambda + qs = 0$, with roots
+  \[
+    \lambda_1(s),\, \lambda_2(s) = \frac{1 \pm \sqrt{1 - 4pqs^2}}{2ps}.
+  \]
+  The general solution $U_z(s) = A(s)\,\lambda_1(s)^z + B(s)\,\lambda_2(s)^z$, together with $U_0(s) = 1$ and $U_a(s) = 0$, gives
+  \[
+    U_z(s) = \frac{\lambda_1(s)^a\,\lambda_2(s)^z - \lambda_2(s)^a\,\lambda_1(s)^z}{\lambda_1(s)^a - \lambda_2(s)^a}.
+  \]
+  Since $\lambda_1(s)\,\lambda_2(s) = q/p$, this simplifies to
+  \[
+    U_z(s) = \left(\frac{q}{p}\right)^z \cdot \frac{\lambda_1(s)^{a-z} - \lambda_2(s)^{a-z}}{\lambda_1(s)^a - \lambda_2(s)^a}.
+  \]
+  One can verify $U_z(1) = q_z$.
+  Similarly, if $V_z(s)$ is the generating function for absorption at $a$, then the expected duration is $D_z = U_z'(1) + V_z'(1)$.
+\end{eg}
 \section{Continuous random variables}
 \subsection{Continuous random variables}
-So far, we have only looked at the case where the outcomes $\Omega$ are discrete. Consider an experiment where we throw a needle randomly onto the ground and record the angle it makes with a fixed horizontal. Then our sample space is $\Omega = \{\omega\in \R: 0 \leq \omega < 2\pi\}$. Then we have
-\[
-  \P(\omega \in [0, \theta]) = \frac{\theta}{2\pi}, \quad 0 \leq \theta \leq 2\pi.
-\]
-With continuous distributions, we can no longer talk about the probability of getting a particular number, since this is always zero. For example, we will almost never get an angle of \emph{exactly} $0.42$ radians.
+\begin{eg}
+  Consider throwing a needle randomly onto the ground and recording the angle it makes with a fixed horizontal.
+  The sample space is $\Omega = \{\omega \in \R : 0 \leq \omega < 2\pi\}$, and
+  \[
+    \P(\omega \in [0, \theta]) = \frac{\theta}{2\pi}, \quad 0 \leq \theta \leq 2\pi.
+  \]
+  We cannot assign nonzero probability to any single outcome.
+\end{eg}
 
-Instead, we can only meaningfully talk about the probability of $X$ falling into a particular range. To capture the distribution of $X$, we want to define a function $f$ such that for each $x$ and small $\delta x$, the probability of $X$ lying in $[x, x + \delta x]$ is given by $f(x) \delta x + o(\delta x)$. This $f$ is known as the \emph{probability density function}. Integrating this, we know that the probability of $X\in [a, b]$ is $\int_a^b f(x)\;\d x$. We take this as the definition of $f$.
+\begin{remark}
+  For continuous distributions, we describe probabilities via a \emph{probability density function} $f$: for small $\delta x$,
+  \[
+    \P(X \in [x, x + \delta x]) = f(x)\,\delta x + o(\delta x).
+  \]
+  Integrating, $\P(X \in [a, b]) = \int_a^b f(x)\;\d x$.
+\end{remark}
 
 \begin{defi}[Continuous random variable]
   A random variable $X : \Omega \to \R$ is \emph{continuous} if there is a function $f : \R \to \R_{\geq 0}$ such that
   \[
     \P(a \leq X \leq b) = \int_a^b f(x) \;\d x.
   \]
-  We call $f$ the \emph{probability density function}, which satisfies
+  We call $f$ the \emph{probability density function} (pdf), which satisfies
   \begin{itemize}
-    \item $f \geq 0$
-    \item $\int_{-\infty}^\infty f(x) = 1$.
+    \item $f \geq 0$;
+    \item $\int_{-\infty}^\infty f(x)\;\d x = 1$.
   \end{itemize}
 \end{defi}
-Note that $\P(X = a) = 0$ since it is $\int_a^a f(x)\;\d x$. Then we also have
-\[
-  \P\left(\bigcup_{a\in \Q} [X = a]\right) = 0,
-\]
-since it is a countable union of probability 0 events (and axiom 3 states that the probability of the countable union is the sum of probabilities, i.e.\ 0).
+
+\begin{remark}
+  For any continuous random variable, $\P(X = a) = 0$ since $\int_a^a f(x)\;\d x = 0$.
+  Hence $\P\bigl(\bigcup_{a \in \Q} [X = a]\bigr) = 0$ by countable additivity.
+\end{remark}
 
 \begin{defi}[Cumulative distribution function]
-  The \emph{cumulative distribution function} (or simply \emph{distribution function}) of a random variable $X$ (discrete, continuous, or neither) is
+  The \emph{cumulative distribution function} (cdf) of a random variable $X$ (discrete, continuous, or neither) is
   \[
     F(x) = \P(X \leq x).
   \]
 \end{defi}
-We can see that $F(x)$ is increasing and $F(x) \to 1$ as $x\to \infty$.
 
-In the case of continuous random variables, we have
-\[
-  F(x) = \int_{-\infty}^x f(z) \;\d z.
-\]
-Then $F$ is continuous and differentiable. In general, $F'(x) = f(x)$ whenever $F$ is differentiable.
+\begin{remark}
+  The cdf $F$ is non-decreasing, with $F(x) \to 0$ as $x \to -\infty$ and $F(x) \to 1$ as $x \to \infty$.
+  For a continuous random variable,
+  \[
+    F(x) = \int_{-\infty}^x f(z)\;\d z,
+  \]
+  so $F$ is continuous and differentiable, with $F'(x) = f(x)$.
+  The name ``continuous random variable'' reflects the (absolute) continuity of $F$.
+\end{remark}
 
-The name of \emph{continuous} random variables comes from the fact that $F(x)$ is (absolutely) continuous.
+\begin{eg}
+  The cdf of a continuous random variable might look like this:
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (3, 0);
+      \draw [->] (0, 0) -- (0, 2) node [above] {$\P$};
+      \draw (0, 0) parabola (2.5, 1.5);
+    \end{tikzpicture}
+  \end{center}
+  The cdf of a discrete random variable might look like this:
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (3, 0);
+      \draw [->] (0, 0) -- (0, 2) node [above] {$\P$};
+      \draw (0, 0) -- (1, 0) -- (1, 0.5) -- (2, 0.5) -- (2, 1) -- (3, 1) -- (3, 1.5);
+    \end{tikzpicture}
+  \end{center}
+  The cdf of a random variable that is neither discrete nor continuous might look like this:
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (0, 0) -- (3, 0);
+      \draw [->] (0, 0) -- (0, 2) node [above] {$\P$};
+      \draw (0, 0) parabola (1, 1);
+      \draw (1, 1) -- (2.5, 1) -- (2.5, 2);
+      \node [circ] at (2.5, 2) {};
+    \end{tikzpicture}
+  \end{center}
+\end{eg}
 
-The cdf of a continuous random variable might look like this:
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (3, 0);
-    \draw [->] (0, 0) -- (0, 2) node [above] {$\P$};
-    \draw (0, 0) parabola (2.5, 1.5);
-  \end{tikzpicture}
-\end{center}
-The cdf of a discrete random variable might look like this:
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (3, 0);
-    \draw [->] (0, 0) -- (0, 2) node [above] {$\P$};
-    \draw (0, 0) -- (1, 0) -- (1, 0.5) -- (2, 0.5) -- (2, 1) -- (3, 1) -- (3, 1.5);
-  \end{tikzpicture}
-\end{center}
-The cdf of a random variable that is neither discrete nor continuous might look like this:
-\begin{center}
-  \begin{tikzpicture}
-    \draw [->] (0, 0) -- (3, 0);
-    \draw [->] (0, 0) -- (0, 2) node [above] {$\P$};
-    \draw (0, 0) parabola (1, 1);
-    \draw (1, 1) -- (2.5, 1) -- (2.5, 2);
-    \node [circ] at (2.5, 2) {};
-  \end{tikzpicture}
-\end{center}
-Note that we always have
-\[
-  \P(a < x \leq b) = F(b) - F(a).
-\]
-This will be equal to $\int_a^b f(x)\;\d x$ in the case of continuous random variables.
+\begin{remark}
+  For any random variable, $\P(a < X \leq b) = F(b) - F(a)$.
+  For continuous random variables, this equals $\int_a^b f(x)\;\d x$.
+\end{remark}
 
 \begin{defi}[Uniform distribution]
   The \emph{uniform distribution} on $[a, b]$ has pdf
   \[
-    f(x) = \frac{1}{b - a}.
+    f(x) = \frac{1}{b - a}, \quad a \leq x \leq b,
   \]
-  Then
-  \[
-    F(x) = \int_a^x f(z)\;\d z = \frac{x - a}{b - a}
-  \]
-  for $a \leq x \leq b$.
-
-  If $X$ follows a uniform distribution on $[a, b]$, we write $X\sim U[a, b]$.
+  and cdf $F(x) = \frac{x - a}{b - a}$ for $a \leq x \leq b$.
+  We write $X \sim U[a, b]$.
 \end{defi}
-\begin{defi}[Exponential random variable]
-  The \emph{exponential random variable with parameter $\lambda$} has pdf
-  \[
-    f(x) = \lambda e^{-\lambda x}
-  \]
-  and
-  \[
-    F(x) = 1 - e^{-\lambda x}
-  \]
-  for $x \geq 0$.
 
+\begin{defi}[Exponential distribution]
+  The \emph{exponential distribution with parameter $\lambda > 0$} has pdf $f(x) = \lambda e^{-\lambda x}$ and cdf $F(x) = 1 - e^{-\lambda x}$ for $x \geq 0$.
   We write $X \sim \mathcal{E}(\lambda)$.
 \end{defi}
 
-Then
-\[
-  \P(a \leq x \leq b) = \int_a^b f(z) \;\d z = e^{-\lambda a} - e^{-\lambda b}.
-\]
-\begin{prop}
-  The exponential random variable is \emph{memoryless}, i.e.
+\begin{prop}[Memoryless property]
+  The exponential distribution is \emph{memoryless}:
   \[
     \P(X \geq x + z \mid X \geq x) = \P(X \geq z).
   \]
-  This means that, say if $X$ measures the lifetime of a light bulb, knowing it has already lasted for 3 hours does not give any information about how much longer it will last.
 \end{prop}
-Recall that the geometric random variable is the discrete memoryless random variable.
 
 \begin{proof}
   \begin{align*}
     \P(X \geq x + z \mid X \geq x) &= \frac{\P(X \geq x + z)}{\P(X \geq x)}\\
-    &= \frac{\int_{x + z}^\infty f(u)\;\d u}{\int_x^\infty f(u)\;\d u}\\
     &= \frac{e^{-\lambda(x + z)}}{e^{-\lambda x}}\\
     &= e^{-\lambda z}\\
     &= \P(X \geq z).\qedhere
   \end{align*}
 \end{proof}
 
-Similarly, given that, you have lived for $x$ days, what is the probability of dying within the next $\delta x$ days?
-\begin{align*}
-  \P(X \leq x + \delta x \mid X \geq x) &= \frac{\P(x \leq X \leq x + \delta x)}{\P(X \geq x)}\\
-  &= \frac{\lambda e^{-\lambda x} \delta x}{e^{-\lambda x}}\\
-  &= \lambda \delta x.
-\end{align*}
-So it is independent of how old you currently are, assuming your survival follows an exponential distribution.
+\begin{remark}
+  The geometric distribution is the discrete analogue: it is the unique discrete memoryless distribution.
+\end{remark}
 
-In general, we can define the hazard rate to be
-\[
-  h(x) = \frac{f(x)}{1 - F(x)}.
-\]
-Then
-\[
-  \P(x \leq X \leq x + \delta x \mid X \geq x) = \frac{\P(x \leq X \leq x + \delta x)}{\P(X \geq x)} = \frac{\delta x f(x)}{1 - F(x)} = \delta x\cdot h(x).
-\]
-In the case of exponential distribution, $h(x)$ is constant and equal to $\lambda$.
-
-Similar to discrete variables, we can define the expected value and the variance. However, we will (obviously) have to replace the sum with an integral.
-\begin{defi}[Expectation]
-  The \emph{expectation} (or \emph{mean}) of a continuous random variable is
+\begin{defi}[Hazard rate]
+  The \emph{hazard rate} of a continuous random variable with pdf $f$ and cdf $F$ is
   \[
-    \E[X] = \int_{-\infty}^\infty xf(x) \;\d x,
+    h(x) = \frac{f(x)}{1 - F(x)}.
   \]
-  provided not both $\int_0^\infty xf(x)\;\d x$ and $\int_{-\infty}^0 xf(x) \;\d x$ are infinite.
+  This satisfies $\P(x \leq X \leq x + \delta x \mid X \geq x) = h(x)\,\delta x + o(\delta x)$.
 \end{defi}
 
-\begin{thm}
+\begin{remark}
+  The exponential distribution has constant hazard rate $h(x) = \lambda$.
+\end{remark}
+
+\begin{defi}[Expectation]
+  The \emph{expectation} (or \emph{mean}) of a continuous random variable $X$ is
+  \[
+    \E[X] = \int_{-\infty}^\infty x\,f(x)\;\d x,
+  \]
+  provided $\int_0^\infty x\,f(x)\;\d x$ and $\int_{-\infty}^0 x\,f(x)\;\d x$ are not both infinite.
+\end{defi}
+
+\begin{thm}[Tail sum formula]
   If $X$ is a continuous random variable, then
   \[
     \E[X] = \int_0^\infty \P(X \geq x)\;\d x - \int_0^\infty \P(X \leq -x)\;\d x.
   \]
 \end{thm}
-This result is more intuitive in the discrete case:
-\[
-  \sum_{x = 0}^\infty x \P(X = x) = \sum_{x = 0}^\infty \sum_{y = x + 1}^\infty \P(X = y) = \sum_{x = 0}^\infty \P(X > x),
-\]
-where the first equality holds because on both sides, we have $x$ copies of $\P(X = x)$ in the sum.
+
+\begin{remark}
+  In the discrete case, this becomes $\sum_{x=0}^\infty x\,\P(X = x) = \sum_{x=0}^\infty \P(X > x)$, since both sides contain $x$ copies of $\P(X = x)$.
+\end{remark}
 
 \begin{proof}
   \begin{align*}
     \int_0^\infty \P(X \geq x)\;\d x &= \int_0^\infty \int_x^\infty f(y)\;\d y\;\d x\\
-    &= \int_0^\infty \int_0^\infty I[y\geq x]f(y)\;\d y\;\d x\\
-    &= \int_0^\infty \left(\int_0^\infty I[x\leq y]\;\d x\right) f(y)\;\d y\\
-    &= \int_0^\infty yf(y)\;\d y.
+    &= \int_0^\infty \int_0^\infty I[y \geq x]\,f(y)\;\d y\;\d x\\
+    &= \int_0^\infty \left(\int_0^\infty I[x \leq y]\;\d x\right) f(y)\;\d y\\
+    &= \int_0^\infty y\,f(y)\;\d y.
   \end{align*}
-  We can similarly show that $\int_0^\infty \P(X \leq -x)\;\d x = -\int_{-\infty}^0 yf(y)\;\d y$.
+  Similarly, $\int_0^\infty \P(X \leq -x)\;\d x = -\int_{-\infty}^0 y\,f(y)\;\d y$.
 \end{proof}
 
 \begin{eg}
-  Suppose $X\sim \mathcal{E}(\lambda)$. Then
+  If $X \sim \mathcal{E}(\lambda)$, then $\P(X \geq x) = e^{-\lambda x}$, so
   \[
-    \P(X \geq x) = \int_x^{\infty} \lambda e^{-\lambda t}\;\d t = e^{-\lambda x}.
-  \]
-  So
-  \[
-    \E[X] = \int_0^\infty e^{-\lambda x}\;\d x = \frac{1}{\lambda}.\qedhere
+    \E[X] = \int_0^\infty e^{-\lambda x}\;\d x = \frac{1}{\lambda}.
   \]
 \end{eg}
 
 \begin{defi}[Variance]
-  The \emph{variance} of a continuous random variable is
+  The \emph{variance} of a continuous random variable $X$ is
   \[
-    \var (X) = \E[(X - \E[X])^2] = \E[X^2] - (E[X])^2.
+    \var(X) = \E[(X - \E[X])^2] = \E[X^2] - (\E[X])^2.
   \]
 \end{defi}
-So we have
-\[
-  \var (X) = \int_{-\infty}^\infty x^2 f(x) \;\d x - \left(\int_{-\infty}^\infty xf(x)\;\d x\right)^2.
-\]
+
 \begin{eg}
-  Let $X\sim U[a, b]$. Then
+  Let $X \sim U[a, b]$. Then
   \[
-    \E[X] = \int_a^b x\frac{1}{b - a}\;d x = \frac{a + b}{2}.
+    \E[X] = \int_a^b \frac{x}{b - a}\;\d x = \frac{a + b}{2},
   \]
-  So
-  \begin{align*}
-    \var (X) &= \int_a^b x^2\frac{1}{b - a}\;\d x - (\E[X])^2\\
-    &= \frac{1}{12}(b - a)^2.
-  \end{align*}
+  and
+  \[
+    \var(X) = \int_a^b \frac{x^2}{b - a}\;\d x - (\E[X])^2 = \frac{(b - a)^2}{12}.
+  \]
 \end{eg}
 
-Apart from the mean, or expected value, we can also have other notions of ``average values''.
 \begin{defi}[Mode and median]
-  Given a pdf $f(x)$, we call $\hat x$ a \emph{mode} if
-  \[
-    f(\hat x) \geq f(x)
-  \]
-  for all $x$. Note that a distribution can have many modes. For example, in the uniform distribution, all $x$ are modes.
+  Given a pdf $f$, a value $\hat{x}$ is a \emph{mode} if $f(\hat{x}) \geq f(x)$ for all $x$.
 
-  We say it is a median if
+  A value $\hat{x}$ is a \emph{median} if
   \[
-    \int_{-\infty}^{\hat x}f(x)\;\d x = \frac{1}{2} = \int_{\hat x}^\infty f(x)\;\d x.
+    \int_{-\infty}^{\hat{x}} f(x)\;\d x = \frac{1}{2} = \int_{\hat{x}}^\infty f(x)\;\d x.
   \]
-  For a discrete random variable, the median is $\hat x$ such that
-  \[
-    \P(X \leq \hat x) \geq \frac{1}{2}, \quad \P(X \geq \hat x) \geq \frac{1}{2}.
-  \]
-  Here we have a non-strict inequality since if the random variable, say, always takes value $0$, then both probabilities will be 1.
+  For a discrete random variable, $\hat{x}$ is a median if $\P(X \leq \hat{x}) \geq \frac{1}{2}$ and $\P(X \geq \hat{x}) \geq \frac{1}{2}$.
 \end{defi}
 
-Suppose that we have an experiment whose outcome follows the distribution of $X$. We can perform the experiment many times and obtain many results $X_1, \cdots, X_n$. The average of these results is known as the \emph{sample mean}.
-
 \begin{defi}[Sample mean]
-  If $X_1, \cdots, X_n$ is a random sample from some distribution, then the \emph{sample mean} is
+  If $X_1, \dotsc, X_n$ is a random sample from some distribution, the \emph{sample mean} is
   \[
-    \bar X = \frac{1}{n}\sum_1^n X_i.
+    \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i.
   \]
 \end{defi}
 
 \subsection{Stochastic ordering and inspection paradox}
-We want to define a (partial) order on two different random variables. For example, we might want to say that $X + 2 > X$, where $X$ is a random variable.
-
-A simple definition might be \emph{expectation ordering}, where $X \geq Y$ if $\E[X] \geq \E[Y]$. This, however, is not satisfactory since $X \geq Y$ and $Y \geq X$ does not imply $X = Y$. Instead, we can use the \emph{stochastic order}.
 \begin{defi}[Stochastic order]
-  The \emph{stochastic order} is defined as: $X \geq_{\mathrm{st}} Y$ if $\P(X > t) \geq \P(Y > t)$ for all $t$.
+  We write $X \geq_{\mathrm{st}} Y$ (\emph{stochastic order}) if $\P(X > t) \geq \P(Y > t)$ for all $t$.
 \end{defi}
-This is clearly transitive. Stochastic ordering implies expectation ordering, since
-\[
-  X \geq_{\mathrm{st}} Y \Rightarrow \int_0^\infty \P(X > x)\;\d x \geq \int_0^\infty \P(y > x)\;\d x \Rightarrow \E[X] \geq \E[Y].
-\]
-Alternatively, we can also order things by hazard rate.
+
+\begin{remark}
+  Stochastic order is transitive.
+  It implies expectation ordering: if $X \geq_{\mathrm{st}} Y$, then
+  \[
+    \E[X] = \int_0^\infty \P(X > x)\;\d x \geq \int_0^\infty \P(Y > x)\;\d x = \E[Y].
+  \]
+  The converse is false: $\E[X] \geq \E[Y]$ does not imply $X \geq_{\mathrm{st}} Y$.
+\end{remark}
+
 \begin{eg}[Inspection paradox]
-  Suppose that $n$ families have children attending a school. Family $i$ has $X_i$ children at the school, where $X_1, \cdots, X_n$ are iid random variables, with $P(X_i = k) = p_k$. Suppose that the average family size is $\mu$.
+  Suppose $n$ families have children attending a school.
+  Family $i$ has $X_i$ children at the school, where $X_1, \dotsc, X_n$ are iid with $\P(X_i = k) = p_k$ and mean $\mu$.
 
-  Now pick a child at random. What is the probability distribution of his family size? Let $J$ be the index of the family from which she comes (which is a random variable). Then
+  Pick a child at random, and let $J$ be the index of the family from which they come. Then
   \[
-    \P(X_J = k\mid J = j) = \frac{\P(J = j, X_j = k)}{\P(J = j)}.
+    \P(X_J = k \mid J = j) = \frac{\P(J = j,\, X_j = k)}{\P(J = j)}.
   \]
-  The denominator is $1/n$. The numerator is more complex. This would require the $j$th family to have $k$ members, which happens with probability $p_k$; and that we picked a member from the $j$th family, which happens with probability $\E\left[\frac{k}{k + \sum_{i \not=j} X_i}\right]$. So
+  The denominator is $1/n$.
+  The numerator requires the $j$th family to have $k$ members (probability $p_k$) and that we picked a member from that family (probability $\E\bigl[\frac{k}{k + \sum_{i \neq j} X_i}\bigr]$).
+  So
   \[
-    \P(X_J = k \mid J = j) = \E\left[\frac{nkp_k}{k + \sum_{i \not=j} X_i}\right].
+    \P(X_J = k \mid J = j) = \E\left[\frac{nkp_k}{k + \sum_{i \neq j} X_i}\right],
   \]
-  Note that this is independent of $j$. So
+  which is independent of $j$.
+  Hence
   \[
-    \P(X_J = k) = \E\left[\frac{nkp_k}{k + \sum_{i \not=j} X_i}\right].
+    \frac{\P(X_J = k)}{\P(X_1 = k)} = \E\left[\frac{nk}{k + \sum_{i \neq j} X_i}\right].
   \]
-  Also, $\P(X_1 = k) = p_k$. So
-  \[
-    \frac{\P(X_J = k)}{\P(X_1 = k)} = \E\left[\frac{nk}{k + \sum_{i \not= j}X_i}\right].
-  \]
-  This is increasing in $k$, and greater than $1$ for $k > \mu$. So the average value of the family size of the child we picked is greater than the average family size. It can be shown that $X_J$ is stochastically greater than $X_1$.
-
-  This means that if we pick the children randomly, the sample mean of the family size will be greater than the actual mean. This is since for the larger a family is, the more likely it is for us to pick a child from the family.
+  This ratio is increasing in $k$ and exceeds $1$ for $k > \mu$, so $X_J \geq_{\mathrm{st}} X_1$: the family size of a randomly chosen child is stochastically larger than the family size of a randomly chosen family.
 \end{eg}
 
 \subsection{Jointly distributed random variables}
 \begin{defi}[Joint distribution]
-  Two random variables $X, Y$ have \emph{joint distribution} $F: \R^2 \mapsto [0, 1]$ defined by
+  Two random variables $X, Y$ have \emph{joint distribution} $F \colon \R^2 \to [0, 1]$ defined by
   \[
-    F(x, y) = \P(X \leq x, Y \leq y).
+    F(x, y) = \P(X \leq x,\, Y \leq y).
   \]
   The \emph{marginal distribution} of $X$ is
   \[
-    F_X(x) = \P(X \leq x) = \P(X \leq x, Y < \infty) = F(x, \infty) = \lim_{y \to \infty}F(x, y)
+    F_X(x) = \P(X \leq x) = \P(X \leq x,\, Y < \infty) = F(x, \infty) = \lim_{y \to \infty} F(x, y).
   \]
 \end{defi}
 
-\begin{defi}[Jointly distributed random variables]
-  We say $X_1, \cdots, X_n$ are \emph{jointly distributed continuous random variables} and have \emph{joint pdf} $f$ if for any set $A\subseteq \R^n$
+\begin{defi}[Joint pdf]
+  We say $X_1, \dotsc, X_n$ are \emph{jointly continuous random variables} with \emph{joint pdf} $f$ if for any $A \subseteq \R^n$,
   \[
-    \P((X_1, \cdots, X_n)\in A) = \int_{(x_1, \cdots x_n)\in A} f(x_1, \cdots, x_n)\;\d x_1\cdots \d x_n.
+    \P((X_1, \dotsc, X_n) \in A) = \int_{(x_1, \dotsc, x_n) \in A} f(x_1, \dotsc, x_n)\;\d x_1 \dotsm \d x_n,
   \]
-  where
+  where $f(x_1, \dotsc, x_n) \geq 0$ and
   \[
-    f(x_1, \cdots, x_n) \geq 0
-  \]
-  and
-  \[
-    \int_{\R^n} f(x_1, \cdots, x_n)\;\d x_1 \cdots \d x_n = 1.
+    \int_{\R^n} f(x_1, \dotsc, x_n)\;\d x_1 \dotsm \d x_n = 1.
   \]
 \end{defi}
 
 \begin{eg}
-  In the case where $n = 2$,
+  When $n = 2$,
   \[
-    F(x, y) = \P(X \leq x,Y \leq y) = \int_{-\infty}^x\int_{-\infty}^y f(x, y)\;\d x\;\d y.
+    F(x, y) = \P(X \leq x,\, Y \leq y) = \int_{-\infty}^x \int_{-\infty}^y f(s, t)\;\d t\;\d s.
   \]
   If $F$ is differentiable, then
   \[
-    f(x, y) = \frac{\partial^2}{\partial x\partial y}F(x, y).
+    f(x, y) = \frac{\partial^2}{\partial x\,\partial y} F(x, y).
   \]
 \end{eg}
 
@@ -2125,65 +2054,59 @@ Alternatively, we can also order things by hazard rate.
 \end{thm}
 
 \begin{proof}
-  We prove this by showing that $X$ has a density function.
-
-  We know that
+  We show that $X$ has a density function.
   \begin{align*}
-    \P(X \in A) &= \P(X \in A, Y\in (-\infty, +\infty))\\
-    &= \int_{x\in A}\int_{-\infty}^\infty f(x, y)\;\d y\;\d x\\
-    &= \int_{x\in A} f_X(x)\;\d x
+    \P(X \in A) &= \P(X \in A,\, Y \in (-\infty, +\infty))\\
+    &= \int_{x \in A} \int_{-\infty}^\infty f(x, y)\;\d y\;\d x\\
+    &= \int_{x \in A} f_X(x)\;\d x,
   \end{align*}
-  So
+  where
   \[
     f_X(x) = \int_{-\infty}^\infty f(x, y)\;\d y
   \]
-  is the (marginal) pdf of $X$.
+  is the marginal pdf of $X$.
 \end{proof}
 
 \begin{defi}[Independent continuous random variables]
-  Continuous random variables $X_1, \cdots, X_n$ are independent if
+  Continuous random variables $X_1, \dotsc, X_n$ are \emph{independent} if
   \[
-    \P(X_1\in A_1, X_2 \in A_2, \cdots, X_n\in A_n) = \P(X_1 \in A_1)\P(X_2 \in A_2) \cdots \P(X_n \in A_n)
+    \P(X_1 \in A_1,\, X_2 \in A_2,\, \dotsc,\, X_n \in A_n) = \P(X_1 \in A_1)\P(X_2 \in A_2) \dotsm \P(X_n \in A_n)
   \]
-  for all $A_i\subseteq \Omega_{X_i}$.
-
-  If we let $F_{X_i}$ and $f_{X_i}$ be the cdf, pdf of $X$, then
+  for all $A_i \subseteq \Omega_{X_i}$.
+  Equivalently, letting $F_{X_i}$ and $f_{X_i}$ denote the cdf and pdf of $X_i$,
   \[
-    F(x_1, \cdots, x_n) = F_{X_1}(x_1)\cdots F_{X_n}(x_n)
+    F(x_1, \dotsc, x_n) = F_{X_1}(x_1) \dotsm F_{X_n}(x_n)
+    \quad\text{or}\quad
+    f(x_1, \dotsc, x_n) = f_{X_1}(x_1) \dotsm f_{X_n}(x_n).
   \]
-  and
-  \[
-    f(x_1, \cdots, x_n) = f_{X_1}(x_1) \cdots f_{X_n}(x_n)
-  \]
-  are each individually equivalent to the definition above.
 \end{defi}
 
-To show that two (or more) random variables are independent, we only have to factorize the joint pdf into factors that each only involve one variable.
-\begin{eg}
-  If $(X_1, X_2)$ takes a random value from $[0, 1] \times [0, 1]$, then $f(x_1, x_2) = 1$. Then we can see that $f(x_1, x_2) = 1\cdot 1 = f(x_1)\cdot f(x_2)$. So $X_1$ and $X_2$ are independent.
+\begin{remark}
+  To verify independence, it suffices to factorise the joint pdf into factors each involving only one variable.
+\end{remark}
 
-  On the other hand, if $(Y_1, Y_2)$ takes a random value from $[0, 1] \times [0, 1]$ with the restriction that $Y_1 \leq Y_2$, then they are not independent, since $f(x_1, x_2) = 2 I[Y_1 \leq Y_2]$, which cannot be split into two parts.
+\begin{eg}
+  If $(X_1, X_2)$ is uniform on $[0, 1]^2$, then $f(x_1, x_2) = 1 = f_{X_1}(x_1) \cdot f_{X_2}(x_2)$, so $X_1$ and $X_2$ are independent.
+
+  If instead $(Y_1, Y_2)$ is uniform on $\{(y_1, y_2) \in [0, 1]^2 : y_1 \leq y_2\}$, then $f(y_1, y_2) = 2\, \mathbf{1}[y_1 \leq y_2]$, which does not factorise, so $Y_1$ and $Y_2$ are not independent.
 \end{eg}
 
 \begin{prop}
-  For independent continuous random variables $X_i$,
+  For independent continuous random variables $X_1, \dotsc, X_n$,
   \begin{enumerate}
-    \item $\E [\prod X_i] = \prod \E [X_i]$
-    \item $\var (\sum X_i) = \sum \var (X_i)$
+    \item $\E[\prod_i X_i] = \prod_i \E[X_i]$;
+    \item $\var(\sum_i X_i) = \sum_i \var(X_i)$.
   \end{enumerate}
 \end{prop}
 
 \subsection{Geometric probability}
-Often, when doing probability problems that involve geometry, we can visualize the outcomes with the aid of a picture.
-
 \begin{eg}
-  Two points $X$ and $Y$ are chosen independently on a line segment of length $L$. What is the probability that $|X - Y| \leq \ell$? By ``at random'', we mean
+  Two points $X$ and $Y$ are chosen independently and uniformly on a line segment of length $L$.
+  What is the probability that $|X - Y| \leq \ell$?
+  Since each of $X$ and $Y$ has pdf $1/L$, the joint pdf is
   \[
-    f(x, y) = \frac{1}{L^2},
+    f(x, y) = \frac{1}{L^2}.
   \]
-  since each of $X$ and $Y$ have pdf $1/L$.
-
-  We can visualize this on a graph:
   \begin{center}
     \begin{tikzpicture}
       \draw (0, 0) rectangle (3, 3);
@@ -2195,18 +2118,22 @@ Often, when doing probability problems that involve geometry, we can visualize t
       \node at (0, 3) [left] {$L$};
     \end{tikzpicture}
   \end{center}
-  Here the two axes are the values of $X$ and $Y$, and $A$ is the permitted region. The total area of the white part is simply the area of a square with length $L - \ell$. So the area of $A$ is $L^2 - (L - \ell)^2 = 2L\ell - \ell^2$. So the desired probability is
+  The shaded region $A$ is where $|x - y| \leq \ell$.
+  The unshaded region is a square of side $L - \ell$, so the area of $A$ is $L^2 - (L - \ell)^2 = 2L\ell - \ell^2$.
+  Hence
   \[
-    \int_A f(x, y)\;\d x\;\d y = \frac{2L\ell - \ell^2}{L^2}.
+    \P(|X - Y| \leq \ell) = \int_A f(x, y)\;\d x\;\d y = \frac{2L\ell - \ell^2}{L^2}.
   \]
 \end{eg}
 
 \begin{eg}[Bertrand's paradox]
-  Suppose we draw a random chord in a circle. What is the probability that the length of the chord is greater than the length of the side of an inscribed equilateral triangle?
+  What is the probability that a random chord of a circle is longer than the side of an inscribed equilateral triangle?
 
-  There are three ways of ``drawing a random chord''.
+  There are three natural interpretations of ``random chord''.
   \begin{enumerate}
-    \item We randomly pick two end points over the circumference independently. Now draw the inscribed triangle with the vertex at one end point. For the length of the chord to be longer than a side of the triangle, the other end point must between the two other vertices of the triangle. This happens with probability $1/3$.
+    \item Pick two endpoints independently and uniformly on the circumference.
+      Draw the inscribed triangle with one vertex at an endpoint.
+      The chord is longer than a side of the triangle if and only if the other endpoint lies between the two remaining vertices, which happens with probability $1/3$.
       \begin{center}
         \begin{tikzpicture}
           \draw circle [radius = 1];
@@ -2217,7 +2144,9 @@ Often, when doing probability problems that involve geometry, we can visualize t
           \draw [mblue] (0, 1) -- (1, 0);
         \end{tikzpicture}
       \end{center}
-    \item wlog the chord is horizontal, on the lower side of the circle. The mid-point is uniformly distributed along the middle (dashed) line. Then the probability of getting a long line is $1/2$.
+    \item WLOG the chord is horizontal, on the lower side of the circle.
+      The midpoint is uniformly distributed along the dashed line.
+      The chord is long if and only if the midpoint lies in the lower half, giving probability $1/2$.
       \begin{center}
         \begin{tikzpicture}
           \draw circle [radius = 1];
@@ -2230,7 +2159,8 @@ Often, when doing probability problems that involve geometry, we can visualize t
           \draw [mred] (-1, 0) -- (1, 0);
         \end{tikzpicture}
       \end{center}
-    \item The mid point of the chord is distributed uniformly across the circle. Then you get a long line if and only if the mid-point lies in the smaller circle shown below. This occurs with probability $1/4$.
+    \item The midpoint of the chord is uniformly distributed over the disc.
+      The chord is long if and only if the midpoint lies in the inscribed circle of half the radius, giving probability $1/4$.
        \begin{center}
         \begin{tikzpicture}
           \draw circle [radius = 1];
@@ -2244,11 +2174,13 @@ Often, when doing probability problems that involve geometry, we can visualize t
         \end{tikzpicture}
       \end{center}
   \end{enumerate}
-  We get different answers for different notions of ``random''! This is why when we say ``randomly'', we should be explicit in what we mean by that.
+  The three interpretations give different answers.
+  This illustrates why one must specify the probability model precisely when saying ``at random''.
 \end{eg}
 
 \begin{eg}[Buffon's needle]
-  A needle of length $\ell$ is tossed at random onto a floor marked with parallel lines a distance $L$ apart, where $\ell \leq L$. Let $A$ be the event that the needle intersects a line. What is $\P(A)$?
+  A needle of length $\ell$ is tossed at random onto a floor marked with parallel lines a distance $L$ apart, where $\ell \leq L$.
+  Let $A$ be the event that the needle intersects a line.
   \begin{center}
     \begin{tikzpicture}
       \draw (-3, -1) -- (3, -1);
@@ -2263,29 +2195,29 @@ Often, when doing probability problems that involve geometry, we can visualize t
       \draw [->] (2, 1) -- (2, -1);
     \end{tikzpicture}
   \end{center}
-  Suppose that $X\sim U[0, L]$ and $\theta\sim U[0, \pi]$. Then
+  Let $X \sim U[0, L]$ be the distance from the needle's centre to the nearest line, and $\theta \sim U[0, \pi]$ the angle of the needle.
+  Since $X$ and $\theta$ are independent,
   \[
     f(x, \theta) = \frac{1}{L\pi}.
   \]
-  This touches a line iff $X \leq \ell \sin \theta$. Hence
+  The needle touches a line if and only if $X \leq \ell \sin \theta$, so
   \[
-    \P(A) = \int_{\theta = 0}^\pi \underbrace{\frac{\ell \sin \theta}{L}}_{\P(X \leq \ell\sin \theta)}\frac{1}{\pi}\d \theta = \frac{2\ell }{\pi L}.
+    \P(A) = \int_{\theta = 0}^\pi \underbrace{\frac{\ell \sin \theta}{L}}_{\P(X \leq \ell \sin \theta)} \frac{1}{\pi}\;\d \theta = \frac{2\ell}{\pi L}.
   \]
-  Since the answer involves $\pi$, we can estimate $\pi$ by conducting repeated experiments! Suppose we have $N$ hits out of $n$ tosses. Then an estimator for $p$ is $\hat{p} = \frac{N}{n}$. Hence
+  Since the answer involves $\pi$, one can estimate $\pi$ by repeated experiment.
+  If $N$ out of $n$ tosses produce a hit, then $\hat{p} = N/n$ estimates $p = \P(A)$, giving
   \[
     \hat{\pi} = \frac{2\ell}{\hat{p}L}.
   \]
-  We will later find out that this is a really inefficient way of estimating $\pi$ (as you could have guessed).
+  We will later see that this is an inefficient estimator of $\pi$.
 \end{eg}
 \subsection{The normal distribution}
 \begin{defi}[Normal distribution]
-  The \emph{normal distribution} with parameters $\mu, \sigma^2$, written $N(\mu, \sigma^2)$ has pdf
+  The \emph{normal distribution} with parameters $\mu, \sigma^2$, written $N(\mu, \sigma^2)$, has pdf
   \[
-    f(x) = \frac{1}{\sqrt{2 \pi}\sigma}\exp\left(-\frac{(x - \mu)^2}{2\sigma^2}\right),
+    f(x) = \frac{1}{\sqrt{2\pi}\,\sigma}\exp\left(-\frac{(x - \mu)^2}{2\sigma^2}\right),
   \]
-  for $-\infty < x < \infty$.
-
-  It looks approximately like this:
+  for $x \in \R$.
   \begin{center}
     \begin{tikzpicture}[yscale=1.5]
       \draw (-3, 0) -- (3, 0);
@@ -2293,117 +2225,111 @@ Often, when doing probability problems that involve geometry, we can visualize t
       \draw [domain=-3:3,samples=50, mblue] plot (\x, {exp(-\x * \x)});
     \end{tikzpicture}
   \end{center}
-  The \emph{standard normal} is when $\mu = 0, \sigma^2 = 1$, i.e.\ $X\sim N(0, 1)$.
-
-  We usually write $\phi(x)$ for the pdf and $\Phi(x)$ for the cdf of the standard normal.
+  The \emph{standard normal} is $N(0, 1)$.
+  We write $\phi(x)$ for its pdf and $\Phi(x)$ for its cdf.
 \end{defi}
-This is a rather important probability distribution. This is partly due to the central limit theorem, which says that if we have a large number of iid random variables, then the distribution of their averages are approximately normal. Many distributions in physics and other sciences are also approximately or exactly normal.
 
-We first have to show that this makes sense, i.e.
-\begin{prop}
+\begin{remark}
+  The normal distribution is of central importance, largely because of the central limit theorem: the average of a large number of iid random variables is approximately normal.
+  By symmetry, the mode and median of $N(\mu, \sigma^2)$ are both $\mu$.
+\end{remark}
+
+\begin{prop}[Normalisation]
   \[
-    \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{1}{2\sigma^2}(x - \mu)^2}\;\d x = 1.
+    \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi\sigma^2}}\, e^{-(x - \mu)^2 / 2\sigma^2}\;\d x = 1.
   \]
 \end{prop}
+
 \begin{proof}
-  Substitute $z = \frac{(x - \mu)}{\sigma}$. Then
+  Substituting $z = (x - \mu)/\sigma$ gives
   \[
-    I = \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}z^2}\;\d z.
+    I = \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}}\,e^{-z^2/2}\;\d z.
   \]
   Then
   \begin{align*}
-    I^2 &= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}} e^{-x^2/2}\;\d x\int_{\infty}^\infty \frac{1}{\sqrt{2\pi}} e^{-y^2/2}\;\d y\\
-    &= \int_0^\infty \int_0^{2\pi}\frac{1}{2\pi}e^{-r^2/2}r\;\d r\;\d \theta\\
+    I^2 &= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}}\, e^{-x^2/2}\;\d x \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}}\, e^{-y^2/2}\;\d y\\
+    &= \int_0^\infty \int_0^{2\pi} \frac{1}{2\pi}\,e^{-r^2/2}\,r\;\d\theta\;\d r\\
     &= 1.\qedhere
   \end{align*}
 \end{proof}
 
-We also have
 \begin{prop}
-  $\E[X] = \mu$.
+  If $X \sim N(\mu, \sigma^2)$, then $\E[X] = \mu$.
 \end{prop}
+
 \begin{proof}
-\begin{align*}
-  \E[X] &= \frac{1}{\sqrt{2\pi}\sigma} \int_{-\infty}^\infty x e^{-(x - \mu)^2/2\sigma^2}\;\d x\\
-  &= \frac{1}{\sqrt{2\pi} \sigma}\int_{-\infty}^\infty (x - \mu)e^{-(x - \mu)^2/2\sigma^2}\;\d x + \frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^\infty \mu e^{-(x - \mu)^2/2\sigma^2}\;\d x.
-\end{align*}
-The first term is antisymmetric about $\mu$ and gives $0$. The second is just $\mu$ times the integral we did above. So we get $\mu$.
+  \begin{align*}
+    \E[X] &= \frac{1}{\sqrt{2\pi}\,\sigma} \int_{-\infty}^\infty x\, e^{-(x - \mu)^2/2\sigma^2}\;\d x\\
+    &= \frac{1}{\sqrt{2\pi}\,\sigma}\int_{-\infty}^\infty (x - \mu)\,e^{-(x - \mu)^2/2\sigma^2}\;\d x + \frac{\mu}{\sqrt{2\pi}\,\sigma}\int_{-\infty}^\infty e^{-(x - \mu)^2/2\sigma^2}\;\d x.
+  \end{align*}
+  The first integral vanishes by antisymmetry about $\mu$; the second equals $\mu$ by normalisation.
 \end{proof}
-Also, by symmetry, the mode and median of a normal distribution are also both $\mu$.
 
 \begin{prop}
-  $\var(X) = \sigma^2$.
+  If $X \sim N(\mu, \sigma^2)$, then $\var(X) = \sigma^2$.
 \end{prop}
 
 \begin{proof}
-  We have $\var (X) = \E[X^2] - (\E[X])^2$. Substitute $Z = \frac{X - \mu}{\sigma}$. Then $\E[Z] = 0$, $\E[Z^2] = \frac{1}{\sigma^2}\E[X^2]$.
-
-  Then
+  Substituting $Z = (X - \mu)/\sigma$ gives $\E[Z] = 0$ and $\var(X) = \sigma^2 \var(Z)$.
+  By integration by parts,
   \begin{align*}
     \var(Z) &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty z^2 e^{-z^2/2}\;\d z\\
-    &= \left[-\frac{1}{\sqrt{2\pi}}ze^{-z^2/2}\right]_{-\infty}^\infty + \frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{-z^2/2}\;\d z\\
-    &= 0 + 1\\
-    &= 1
+    &= \left[-\frac{1}{\sqrt{2\pi}}\,z\,e^{-z^2/2}\right]_{-\infty}^\infty + \frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{-z^2/2}\;\d z\\
+    &= 0 + 1 = 1.
   \end{align*}
-  So $\var X = \sigma^2$.
+  Hence $\var(X) = \sigma^2$.
 \end{proof}
 
 \begin{eg}
-  UK adult male heights are normally distributed with mean 70'' and standard deviation 3''. In the Netherlands, these figures are 71'' and 3''.
+  UK adult male heights are normally distributed with mean $70''$ and standard deviation $3''$.
+  In the Netherlands, these figures are $71''$ and $3''$.
 
-  What is $\P(Y > X)$, where $X$ and $Y$ are the heights of randomly chosen UK and Netherlands males, respectively?
-
-  We have $X\sim N(70, 3^2)$ and $Y\sim N(71, 3^2)$. Then (as we will show in later lectures) $Y - X \sim N(1, 18)$.
+  Let $X \sim N(70, 9)$ and $Y \sim N(71, 9)$ be the heights of randomly chosen UK and Dutch males, respectively.
+  Then (as we will show later) $Y - X \sim N(1, 18)$, so
   \[
-    \P(Y > X) = \P(Y - X > 0) = \P\left(\frac{Y - X - 1}{\sqrt{18}} > \frac{-1}{\sqrt{18}}\right) = 1 - \Phi(-1/\sqrt{18}),
+    \P(Y > X) = \P\left(\frac{Y - X - 1}{\sqrt{18}} > \frac{-1}{\sqrt{18}}\right) = 1 - \Phi(-1/\sqrt{18}) \approx 0.5931.
   \]
-  since $\frac{(Y - X) - 1}{\sqrt{18}}\sim N(0, 1)$, and the answer is approximately 0.5931.
 
-  Now suppose that in both countries, the Olympic male basketball teams are selected from that portion of male whose hight is at least above 4'' above the mean (which corresponds to the $9.1\%$ tallest males of the country). What is the probability that a randomly chosen Netherlands player is taller than a randomly chosen UK player?
-
-  For the second part, we have
+  Now suppose that in both countries, Olympic basketball players are selected from males whose height exceeds the mean by at least $4''$ (the tallest $9.1\%$).
+  Then
   \[
-    \P(Y > X\mid X \geq 74, Y \geq 75) = \frac{\int_{x = 74}^{75} \phi_X(x)\;\d x + \int_{x = 75}^\infty \int_{y=x}^\infty \phi_Y(y)\phi_X(x)\;\d y\;\d x}{\int_{x=74}^\infty \phi_X(x)\;\d x \int_{y=75}^\infty \phi_Y(y)\;\d y},
+    \P(Y > X \mid X \geq 74,\, Y \geq 75) = \frac{\int_{x = 74}^{75} \phi_X(x)\;\d x + \int_{x = 75}^\infty \int_{y=x}^\infty \phi_Y(y)\,\phi_X(x)\;\d y\;\d x}{\int_{x=74}^\infty \phi_X(x)\;\d x \int_{y=75}^\infty \phi_Y(y)\;\d y} \approx 0.7558.
   \]
-  which is approximately 0.7558. So even though the Netherlands people are only slightly taller, if we consider the tallest bunch, the Netherlands people will be much taller on average.
+  Although the means differ by only $1''$, conditioning on the upper tails greatly amplifies the difference.
 \end{eg}
 
 \subsection{Transformation of random variables}
-We will now look at what happens when we apply a function to random variables. We first look at the simple case where there is just one variable, and then move on to the general case where we have multiple variables and can mix them together.
 \subsubsection*{Single random variable}
 \begin{thm}
-  If $X$ is a continuous random variable with a pdf $f(x)$, and $h(x)$ is a continuous, strictly increasing function with $h^{-1}(x)$ differentiable, then $Y = h(X)$ is a random variable with pdf
+  Let $X$ be a continuous random variable with pdf $f_X$.
+  If $h$ is continuous and strictly increasing with $h^{-1}$ differentiable, then $Y = h(X)$ has pdf
   \[
-    f_Y(y) = f_X(h^{-1}(y))\frac{\d }{\d y}h^{-1}(y).
+    f_Y(y) = f_X(h^{-1}(y))\,\frac{\d}{\d y}h^{-1}(y).
   \]
 \end{thm}
+
 \begin{proof}
   \begin{align*}
-    F_Y(y) &= \P(Y \leq y)\\
-    &= \P(h(X) \leq y)\\
-    &= \P(X \leq h^{-1}(y))\\
-    &= F(h^{-1}(y))
+    F_Y(y) &= \P(Y \leq y) = \P(h(X) \leq y) = \P(X \leq h^{-1}(y)) = F_X(h^{-1}(y)).
   \end{align*}
-  Take the derivative with respect to $y$ to obtain
-  \[
-    f_Y(y) = F'_Y(y) = f(h^{-1}(y))\frac{\d}{\d y}h^{-1}(y).\qedhere
-  \]
+  Differentiating with respect to $y$ gives the result.
 \end{proof}
-It is often easier to redo the proof than to remember the result.
+
+\begin{remark}
+  It is often easier to redo this proof than to remember the formula.
+\end{remark}
 
 \begin{eg}
-  Let $X\sim U[0, 1]$. Let $Y = -\log X$. Then
+  Let $X \sim U[0, 1]$ and $Y = -\log X$. Then
   \begin{align*}
-    \P(Y \leq y) &= \P(-\log X \leq y)\\
-    &= \P(X \geq e^{-y})\\
-    &= 1 - e^{-y}.
+    \P(Y \leq y) &= \P(-\log X \leq y) = \P(X \geq e^{-y}) = 1 - e^{-y},
   \end{align*}
-  But this is the cumulative distribution function of $\mathcal{E}(1)$. So $Y$ is exponentially distributed with $\lambda = 1$.
+  which is the cdf of $\mathcal{E}(1)$.
 \end{eg}
 
-In general, we get the following result:
-\begin{thm}
-  Let $U\sim U[0, 1]$. For any strictly increasing distribution function $F$, the random variable $X = F^{-1}U$ has distribution function $F$.
+\begin{thm}[Inverse transform sampling]
+  Let $U \sim U[0, 1]$.
+  For any strictly increasing cdf $F$, the random variable $X = F^{-1}(U)$ has distribution function $F$.
 \end{thm}
 
 \begin{proof}
@@ -2411,82 +2337,73 @@ In general, we get the following result:
     \P(X \leq x) = \P(F^{-1}(U) \leq x) = \P(U \leq F(x)) = F(x).\qedhere
   \]
 \end{proof}
-This condition ``strictly increasing'' is needed for the inverse to exist. If it is not, we can define
-\[
-  F^{-1}(u) = \inf\{x: F(x)\geq u, 0 < u < 1\},
-\]
-and the same result holds.
 
-This can also be done for discrete random variables $\P(X = x_i) = p_i$ by letting
-\[
-  X = x_j\text{ if }\sum_{i = 0}^{j - 1}p_i \leq U < \sum_{i = 0}^j p_i,
-\]
-for $U\sim U[0, 1]$.
+\begin{remark}
+  If $F$ is not strictly increasing, we define $F^{-1}(u) = \inf\{x : F(x) \geq u\}$ for $0 < u < 1$, and the same result holds.
+  For discrete random variables with $\P(X = x_i) = p_i$, the analogous construction sets $X = x_j$ when $\sum_{i=0}^{j-1} p_i \leq U < \sum_{i=0}^{j} p_i$.
+\end{remark}
 
 \subsubsection*{Multiple random variables}
-Suppose $X_1, X_2, \cdots, X_n$ are random variables with joint pdf $f$. Let
+Suppose $X_1, \dotsc, X_n$ have joint pdf $f$, and let
 \begin{align*}
-  Y_1 &= r_1(X_1, \cdots, X_n)\\
-  Y_2 &= r_2(X_1, \cdots, X_n)\\
-  &\vdots \\
-  Y_n &= r_n(X_1, \cdots, X_n).
+  Y_1 &= r_1(X_1, \dotsc, X_n),\\
+  Y_2 &= r_2(X_1, \dotsc, X_n),\\
+  &\;\;\vdots \\
+  Y_n &= r_n(X_1, \dotsc, X_n).
 \end{align*}
-For example, we might have $Y_1 = \frac{X_1}{X_1 + X_2}$ and $Y_2 = X_1 + X_2$.
-
-Let $R\subseteq \R^n$ such that $\P((X_1, \cdots, X_n)\in R) = 1$, i.e.\ $R$ is the set of all values $(X_i)$ can take.
-
-Suppose $S$ is the image of $R$ under the above transformation, and the map $R\to S$ is bijective. Then there exists an inverse function
+Let $R \subseteq \R^n$ with $\P((X_1, \dotsc, X_n) \in R) = 1$, and suppose the map $r \colon R \to S$ is bijective with inverse
 \begin{align*}
-  X_1 &= s_1(Y_1, \cdots, Y_n)\\
-  X_2 &= s_2(Y_1, \cdots, Y_n)\\
-  &\vdots\\
-  X_n &= s_n(Y_1, \cdots, Y_n).
+  X_1 &= s_1(Y_1, \dotsc, Y_n),\\
+  X_2 &= s_2(Y_1, \dotsc, Y_n),\\
+  &\;\;\vdots\\
+  X_n &= s_n(Y_1, \dotsc, Y_n).
 \end{align*}
-For example, if $X_1, X_2$ refers to the coordinates of a random point in Cartesian coordinates, $Y_1, Y_2$ might be the coordinates in polar coordinates.
 
 \begin{defi}[Jacobian determinant]
-  Suppose $\frac{\partial s_i}{\partial y_j}$ exists and is continuous at every point $(y_1, \cdots, y_n)\in S$. Then the \emph{Jacobian determinant} is
+  Suppose $\frac{\partial s_i}{\partial y_j}$ exists and is continuous for all $(y_1, \dotsc, y_n) \in S$. The \emph{Jacobian determinant} is
   \[
-    J = \frac{\partial (s_1, \cdots, s_n)}{\partial (y_1, \cdots, y_n)} =
+    J = \frac{\partial(s_1, \dotsc, s_n)}{\partial(y_1, \dotsc, y_n)} =
     \det
     \begin{pmatrix}
       \frac{\partial s_1}{\partial y_1} & \cdots & \frac{\partial s_1}{\partial y_n}\\
       \vdots & \ddots & \vdots\\
-      \frac{\partial s_n}{\partial y_1} & \cdots & \frac{\partial s_n}{\partial y_n}\\
+      \frac{\partial s_n}{\partial y_1} & \cdots & \frac{\partial s_n}{\partial y_n}
     \end{pmatrix}
   \]
 \end{defi}
-Take $A\subseteq \R$ and $B = r(A)$. Then using results from IA Vector Calculus, we get
-\begin{align*}
-  \P((X_1, \cdots, X_n)\in A) &= \int_A f(x_1, \cdots, x_n) \;\d x_1\cdots \d x_n\\
-  &= \int_B f(s_1(y_1, \cdots y_n), s_2, \cdots, s_n) |J|\;\d y_1\cdots \;\d y_n\\
-  &= \P((Y_1, \cdots Y_n)\in B).
-\end{align*}
-So
+
 \begin{prop}
-  $(Y_1, \cdots, Y_n)$ has density
+  $(Y_1, \dotsc, Y_n)$ has pdf
   \[
-    g(y_1, \cdots, y_n) = f(s_1(y_1, \cdots, y_n), \cdots s_n(y_1, \cdots, y_n))|J|
+    g(y_1, \dotsc, y_n) = f(s_1(y_1, \dotsc, y_n), \dotsc, s_n(y_1, \dotsc, y_n))\,|J|
   \]
-  if $(y_1, \cdots, y_n)\in S$, $0$ otherwise.
+  for $(y_1, \dotsc, y_n) \in S$, and $0$ otherwise.
 \end{prop}
 
+\begin{proof}
+  For $A \subseteq R$ with image $B = r(A)$, the change of variables formula gives
+  \begin{align*}
+    \P((X_1, \dotsc, X_n) \in A) &= \int_A f(x_1, \dotsc, x_n)\;\d x_1 \dotsm \d x_n\\
+    &= \int_B f(s_1(y_1, \dotsc, y_n), \dotsc, s_n(y_1, \dotsc, y_n))\,|J|\;\d y_1 \dotsm \d y_n\\
+    &= \P((Y_1, \dotsc, Y_n) \in B).\qedhere
+  \end{align*}
+\end{proof}
+
 \begin{eg}
-  Suppose $(X, Y)$ has density
+  Suppose $(X, Y)$ has pdf
   \[
     f(x, y) =
     \begin{cases}
-      4xy & 0 \leq x \leq 1, 0\leq y \leq 1\\
-      0 & \text{otherwise}
+      4xy & 0 \leq x \leq 1,\; 0 \leq y \leq 1\\
+      0 & \text{otherwise.}
     \end{cases}
   \]
-  We see that $X$ and $Y$ are independent, with each having a density $f(x) = 2x$.
+  Note that $X$ and $Y$ are independent, each with pdf $f(x) = 2x$.
 
-  Define $U = X/Y$, $V = XY$. Then we have $X = \sqrt{UV}$ and $Y = \sqrt{V/U}$.
-
+  Define $U = X/Y$, $V = XY$, so $X = \sqrt{UV}$ and $Y = \sqrt{V/U}$.
   The Jacobian is
   \[
-    \det
+    J = \det
     \begin{pmatrix}
       \partial x/\partial u & \partial x/\partial v\\
       \partial y/\partial u & \partial y/\partial v
@@ -2495,49 +2412,36 @@ So
     \det
     \begin{pmatrix}
       \frac{1}{2}\sqrt{v/u} & \frac{1}{2}\sqrt{u/v}\\
-      -\frac{1}{2}\sqrt{v/u^3} & \frac{1}{2}\sqrt{1/uv}
+      -\frac{1}{2}\sqrt{v/u^3} & \frac{1}{2}\sqrt{1/(uv)}
     \end{pmatrix}
-    = \frac{1}{2u}
+    = \frac{1}{2u}.
   \]
-  Alternatively, we can find this by considering
+  Alternatively, the forward Jacobian is
   \[
     \det
     \begin{pmatrix}
       \partial u/\partial x & \partial u/\partial y\\
-      \partial v/\partial x & \partial u/\partial y
+      \partial v/\partial x & \partial v/\partial y
     \end{pmatrix} = 2u,
   \]
-  and then inverting the matrix. So
+  so $|J| = 1/(2u)$.
+  Hence
   \[
-    g(u, v) = 4\sqrt{uv}\sqrt{\frac{v}{u}}\frac{1}{2u} = \frac{2v}{u},
+    g(u, v) = 4\sqrt{uv}\sqrt{\frac{v}{u}} \cdot \frac{1}{2u} = \frac{2v}{u}\,\mathbf{1}[(u, v) \in S].
   \]
-  if $(u, v)$ is in the image $S$, $0$ otherwise. So
-  \[
-    g(u, v) = \frac{2v}{u}I[(u, v)\in S].
-  \]
-  Since this is not separable, we know that $U$ and $V$ are not independent.
+  Since this does not factorise, $U$ and $V$ are not independent.
 \end{eg}
 
-In the linear case, life is easy. Suppose
-\[
-  \mathbf{Y} = \begin{pmatrix}
-    Y_1\\
-    \vdots\\
-    Y_n
-  \end{pmatrix} = A
-  \begin{pmatrix}
-    X_1\\
-    \vdots\\
-    X_n
-  \end{pmatrix} = A\mathbf{X}
-\]
-Then $\mathbf{X} = A^{-1}\mathbf{Y}$. Then $\frac{\partial x_i}{\partial y_j} = (A^{-1})_{ij}$. So $|J| = |\det(A^{-1})| = |\det A|^{-1}$. So
-\[
-  g(y_1, \cdots, y_n) = \frac{1}{|\det A|}f(A^{-1}\mathbf{y}).
-\]
+\begin{remark}
+  In the linear case $\mathbf{Y} = A\mathbf{X}$ with $A$ invertible, we have $\mathbf{X} = A^{-1}\mathbf{Y}$ and $|J| = |\det A|^{-1}$, so
+  \[
+    g(y_1, \dotsc, y_n) = \frac{1}{|\det A|}\,f(A^{-1}\mathbf{y}).
+  \]
+\end{remark}
 
 \begin{eg}
-  Suppose $X_1, X_2$ have joint pdf $f(x_1,x_2)$. Suppose we want to find the pdf of $Y = X_1 + X_2$. We let $Z = X_2$. Then $X_1 = Y - Z$ and $X_2 = Z$. Then
+  Let $X_1, X_2$ have joint pdf $f$.
+  To find the pdf of $Y = X_1 + X_2$, introduce $Z = X_2$, so
   \[
     \begin{pmatrix}
       Y\\
@@ -2550,169 +2454,117 @@ Then $\mathbf{X} = A^{-1}\mathbf{Y}$. Then $\frac{\partial x_i}{\partial y_j} = 
     \begin{pmatrix}
       X_1\\
       X_2
-    \end{pmatrix}
-    = A\mathbf{X}
+    \end{pmatrix}.
   \]
-  Then $|J| = 1/|\det A| = 1$. Then
+  Since $|\det A| = 1$, the joint pdf of $(Y, Z)$ is $g(y, z) = f(y - z, z)$, and marginalising gives
   \[
-    g(y, z) = f(y - z, z)
+    f_Y(y) = \int_{-\infty}^\infty f(y - z, z)\;\d z.
   \]
-  So
+  If $X_1$ and $X_2$ are independent with pdfs $f_1, f_2$, this becomes the \emph{convolution}
   \[
-    g_Y(y) = \int_{-\infty}^\infty f(y - z, z)\;\d z = \int_{-\infty}^\infty f(z, y - z)\;\d z.
-  \]
-  If $X_1$ and $X_2$ are independent, $f(x_1, x_2) = f_1(x_1) f_2(x_2)$. Then
-  \[
-    g(y) = \int_{-\infty}^\infty f_1(z) f_2(y - z)\;\d z.
+    f_Y(y) = \int_{-\infty}^\infty f_1(y - z)\, f_2(z)\;\d z.
   \]
 \end{eg}
 
 \subsubsection*{Non-injective transformations}
-We previously discussed transformation of random variables by injective maps. What if the mapping is not? There is no simple formula for that, and we have to work out each case individually.
+When the transformation is not injective, there is no single formula; each case must be handled individually.
 
 \begin{eg}
-  Suppose $X$ has pdf $f$. What is the pdf of $Y=|X|$?
-
-  We use our definition. We have
+  Let $X$ have pdf $f$. For $Y = |X|$ and $0 < a < b$,
   \[
-    \P(|X| \in (a, b)) = \int_a^b f(x) + \int_{-b}^{-a} f(x)\;\d x = \int_a^b (f(x) + f(-x))\;\d x.
+    \P(|X| \in (a, b)) = \int_a^b f(x)\;\d x + \int_{-b}^{-a} f(x)\;\d x = \int_a^b (f(x) + f(-x))\;\d x,
   \]
-  So
-  \[
-    f_Y(x) = f(x) + f(-x),
-  \]
-  which makes sense, since getting $|X| = x$ is equivalent to getting $X = x$ or $X = -x$.
+  so $f_Y(y) = f(y) + f(-y)$ for $y > 0$.
 \end{eg}
 
 \begin{eg}
-  Suppose $X_1\sim \mathcal{E}(\lambda), X_2\sim \mathcal{E}(\mu)$ are independent random variables. Let $Y = \min(X_1, X_2)$. Then
+  Let $X_1 \sim \mathcal{E}(\lambda)$, $X_2 \sim \mathcal{E}(\mu)$ be independent, and $Y = \min(X_1, X_2)$. Then
   \begin{align*}
-    \P(Y \geq t) &= \P(X_1 \geq t, X_2 \geq t)\\
-    &= \P(X_1\geq t)\P(X_2 \geq t)\\
-    &= e^{-\lambda t}e^{-\mu t}\\
-    &= e^{-(\lambda +\mu)t}.
+    \P(Y \geq t) &= \P(X_1 \geq t,\, X_2 \geq t) = e^{-\lambda t} e^{-\mu t} = e^{-(\lambda + \mu)t},
   \end{align*}
-  So $Y\sim \mathcal{E}(\lambda + \mu)$.
+  so $Y \sim \mathcal{E}(\lambda + \mu)$.
 \end{eg}
 
-Given random variables, not only can we ask for the minimum of the variables, but also ask for, say, the second-smallest one. In general, we define the \emph{order statistics} as follows:
 \begin{defi}[Order statistics]
-  Suppose that $X_1, \cdots, X_n$ are some random variables, and $Y_1, \cdots, Y_n$ is $X_1, \cdots, X_n$ arranged in increasing order, i.e.\ $Y_1 \leq Y_2 \leq \cdots \leq Y_n$. This is the \emph{order statistics}.
-
-  We sometimes write $Y_i = X_{(i)}$.
+  Given random variables $X_1, \dotsc, X_n$, the \emph{order statistics} $Y_1 \leq Y_2 \leq \dotsb \leq Y_n$ are $X_1, \dotsc, X_n$ arranged in increasing order.
+  We also write $Y_i = X_{(i)}$.
 \end{defi}
 
-Assume the $X_i$ are iid with cdf $F$ and pdf $f$. Then the cdf of $Y_n$ is
-\[
-  \P(Y_n \leq y) = \P(X_1 \leq y, \cdots, X_n \leq y) = \P(X_1 \leq y)\cdots\P(X_n \leq y) = F(y)^n.
-\]
-So the pdf of $Y_n$ is
-\[
-  \frac{\d }{\d y}F(y)^n = nf(y)F(y)^{n - 1}.
-\]
-Also,
-\[
-  \P(Y_1 \geq y) = \P(X_1\geq y, \cdots, X_n \geq y) = (1 - F(y))^n.
-\]
-What about the joint distribution of $Y_1, Y_n$?
-\begin{align*}
-  G(y_1, y_n) &= \P(Y_1\leq y_1, Y_n \leq y_n)\\
-  &= \P(Y_n \leq y_n) - \P(Y_1 \geq y_1 , Y_n \leq y_n)\\
-  &= F(y_n)^n - (F(y_n) - F(y_1))^n.
-\end{align*}
-Then the pdf is
-\[
-  \frac{\partial^2}{\partial y_1 \partial y_n}G(y_1, y_n) = n(n - 1)(F(y_n) - F(y_1))^{n - 2}f(y_1)f(y_n).
-\]
-We can think about this result in terms of the multinomial distribution. By definition, the probability that $Y_1\in [y_1, y_1 + \delta)$ and $Y_n\in (y_n - \delta, y_n]$ is approximately $g(y_1, y_n)$.
+\begin{prop}
+  If $X_1, \dotsc, X_n$ are iid with cdf $F$ and pdf $f$, then:
+  \begin{enumerate}
+    \item $\P(Y_n \leq y) = F(y)^n$, so $f_{Y_n}(y) = n f(y) F(y)^{n-1}$;
+    \item $\P(Y_1 \geq y) = (1 - F(y))^n$;
+    \item the joint pdf of $(Y_1, Y_n)$ is $n(n-1)(F(y_n) - F(y_1))^{n-2} f(y_1) f(y_n)$ for $y_1 \leq y_n$;
+    \item the joint pdf of all order statistics is $g(y_1, \dotsc, y_n) = n!\, f(y_1) \dotsm f(y_n)$ for $y_1 \leq \dotsb \leq y_n$, and $0$ otherwise.
+  \end{enumerate}
+\end{prop}
 
-Suppose that $\delta$ is sufficiently small that all other $n - 2$ $X_i$'s are very unlikely to fall into $[y_1, y_1 + \delta)$ and $(y_n - \delta, y_n]$. Then to find the probability required, we can treat the sample space as three bins. We want exactly one $X_i$ to fall into the first and last bins, and $n - 2$ $X_i$'s to fall into the middle one. There are $\binom{n}{1, n-2, 1} = n(n - 1)$ ways of doing so.
+\begin{proof}
+  Parts (i) and (ii) follow from independence:
+  \[
+    \P(Y_n \leq y) = \prod_{i=1}^n \P(X_i \leq y) = F(y)^n, \qquad \P(Y_1 \geq y) = \prod_{i=1}^n \P(X_i \geq y) = (1 - F(y))^n.
+  \]
+  For (iii), the joint cdf is
+  \[
+    G(y_1, y_n) = \P(Y_n \leq y_n) - \P(Y_1 \geq y_1,\, Y_n \leq y_n) = F(y_n)^n - (F(y_n) - F(y_1))^n,
+  \]
+  and differentiating gives the result.
+  Alternatively, for small $\delta$, think of three bins: $[y_1, y_1 + \delta)$, $(y_1 + \delta, y_n - \delta)$, and $(y_n - \delta, y_n]$.
+  There are $\binom{n}{1,\, n-2,\, 1} = n(n-1)$ ways to place one $X_i$ in the first bin, $n - 2$ in the middle, and one in the last, giving probability
+  \[
+    n(n-1)(F(y_n) - F(y_1))^{n-2} f(y_1) f(y_n)\,\delta^2.
+  \]
+  For (iv), there are $n!$ permutations of $x_1, \dotsc, x_n$ producing a given ordering $y_1 \leq \dotsb \leq y_n$, each with pdf $f(y_1) \dotsm f(y_n)$.
+\end{proof}
 
-The probability of each thing falling into the middle bin is $F(y_n) - F(y_1)$, and the probabilities of falling into the first and last bins are $f(y_1)\delta$ and $f(y_n)\delta$. Then the probability of $Y_1\in [y_1, y_1 + \delta)$ and $Y_n\in (y_n - \delta, y_n]$ is
-\[
-  n(n - 1)(F(y_n) - F(y_1))^{n - 2} f(y_1)f(y_n)\delta^2,
-\]
-and the result follows.
-
-We can also find the joint distribution of the order statistics, say $g$, since it is just given by
-\[
-  g(y_1, \cdots y_n) = n! f(y_1)\cdots f(y_n),
-\]
-if $y_1 \leq y_2\leq \cdots \leq y_n$, 0 otherwise. We have this formula because there are $n!$ combinations of $x_1, \cdots, x_n$ that produces a given order statistics $y_1, \cdots, y_n$, and the pdf of each combination is $f(y_1)\cdots f(y_n)$.
-
-In the case of iid exponential variables, we find a nice distribution for the order statistic.
 \begin{eg}
-  Let $X_1, \cdots, X_n$ be iid $\mathcal{E}(\lambda)$, and $Y_1, \cdots, Y_n$ be the order statistic. Let
+  Let $X_1, \dotsc, X_n$ be iid $\mathcal{E}(\lambda)$, with order statistics $Y_1 \leq \dotsb \leq Y_n$.
+  Define the spacings
   \begin{align*}
-    Z_1 &= Y_1\\
-    Z_2 &= Y_2 - Y_1\\
-    &\vdots\\
-    Z_n &= Y_n - Y_{n - 1}.
+    Z_1 &= Y_1,\\
+    Z_2 &= Y_2 - Y_1,\\
+    &\;\;\vdots\\
+    Z_n &= Y_n - Y_{n-1}.
   \end{align*}
-  These are the distances between the occurrences. We can write this as a $\mathbf{Z} = A\mathbf{Y}$, with
-  \[
-    A =
-    \begin{pmatrix}
-      1 & 0 & 0 & \cdots& 0\\
-      -1 & 1 & 0 & \cdots & 0\\
-      \vdots & \vdots & \vdots & \ddots & \vdots\\
-      0 & 0 & 0 & \cdots & 1\\
-    \end{pmatrix}
-  \]
-  Then $\det (A) = 1$ and hence $|J| = 1$. Suppose that the pdf of $Z_1, \cdots, Z_n$ is, say $h$. Then
+  Writing $\mathbf{Z} = A\mathbf{Y}$ where $A$ is lower-triangular with $\det A = 1$, the joint pdf of $(Z_1, \dotsc, Z_n)$ is
   \begin{align*}
-    h(z_1, \cdots, z_n) &= g(y_1, \cdots, y_n)\cdot 1\\
-    &= n!f(y_1) \cdots f(y_n)\\
-    &= n!\lambda^n e^{-\lambda (y_1 + \cdots + y_n)}\\
-    &= n!\lambda^n e^{-\lambda (nz_1 + (n - 1)z_2 + \cdots + z_n)}\\
-    &= \prod_{i = 1}^n (\lambda i)e^{-(\lambda i)z_{n + 1 - i}}
+    h(z_1, \dotsc, z_n) &= g(y_1, \dotsc, y_n) = n!\,\lambda^n e^{-\lambda(y_1 + \dotsb + y_n)}\\
+    &= n!\,\lambda^n e^{-\lambda(nz_1 + (n-1)z_2 + \dotsb + z_n)} = \prod_{i=1}^n (i\lambda)\, e^{-i\lambda\, z_{n+1-i}}.
   \end{align*}
-  Since $h$ is expressed as a product of $n$ density functions, we have
-  \[
-    Z_i \sim \mathcal{E}((n + 1 - i)\lambda).
-  \]
-  with all $Z_i$ independent.
+  Since $h$ factorises, the $Z_i$ are independent with $Z_i \sim \mathcal{E}((n+1-i)\lambda)$.
 \end{eg}
 
 
 \subsection{Moment generating functions}
-If $X$ is a continuous random variable, then the analogue of the probability generating function is the moment generating function:
 \begin{defi}[Moment generating function]
-  The \emph{moment generating function} of a random variable $X$ is
+  The \emph{moment generating function} (mgf) of a random variable $X$ is
   \[
     m(\theta) = \E[e^{\theta X}].
   \]
-  For those $\theta$ in which $m(\theta)$ is finite, we have
-  \[
-    m(\theta) = \int_{-\infty}^\infty e^{\theta x}f(x)\;\d x.
-  \]
+  For continuous $X$ with pdf $f$, this equals $\int_{-\infty}^\infty e^{\theta x} f(x)\;\d x$ whenever finite.
 \end{defi}
-We can prove results similar to that we had for probability generating functions.
 
-We will assume the following without proof:
 \begin{thm}
-  The mgf determines the distribution of $X$ provided $m(\theta)$ is finite for all $\theta$ in some interval containing the origin.
+  The mgf determines the distribution of $X$, provided $m(\theta)$ is finite for all $\theta$ in some interval containing the origin.
 \end{thm}
+We state this without proof.
 
 \begin{defi}[Moment]
   The $r$th \emph{moment} of $X$ is $\E[X^r]$.
 \end{defi}
 
 \begin{thm}
-  The $r$th moment $X$ is the coefficient of $\frac{\theta^r}{r!}$ in the power series expansion of $m(\theta)$, and is
+  The $r$th moment of $X$ is the coefficient of $\frac{\theta^r}{r!}$ in the power series expansion of $m(\theta)$:
   \[
-    \E[X^r] = \left.\frac{\d ^n}{\d \theta^n}m(\theta)\right|_{\theta = 0} = m^{(n)}(0).
+    \E[X^r] = \left.\frac{\d^r}{\d\theta^r} m(\theta)\right|_{\theta = 0} = m^{(r)}(0).
   \]
 \end{thm}
 
 \begin{proof}
-  We have
+  Expanding gives
   \[
-    e^{\theta X} = 1 + \theta X + \frac{\theta^2}{2!}X^2 + \cdots.
-  \]
-  So
-  \[
-    m(\theta) = \E[e^{\theta X}] = 1 + \theta \E[X] + \frac{\theta^2}{2!}\E [X^2] + \cdots\qedhere
+    m(\theta) = \E[e^{\theta X}] = 1 + \theta\,\E[X] + \frac{\theta^2}{2!}\,\E[X^2] + \dotsb\,.\qedhere
   \]
 \end{proof}
 
@@ -2750,42 +2602,41 @@ We will assume the following without proof:
 \begin{defi}[Cauchy distribution]
   The \emph{Cauchy distribution} has pdf
   \[
-    f(x) = \frac{1}{\pi(1 + x^2)}
+    f(x) = \frac{1}{\pi(1 + x^2)}, \qquad x \in \R.
   \]
-  for $-\infty < x < \infty$.
+  This integrates to $1$ by the substitution $x = \tan\theta$.
 \end{defi}
-We check that this is a genuine distribution:
-\[
-  \int_{-\infty}^\infty \frac{1}{\pi(1 + x^2)}\;\d x = \int_{-\pi/2}^{\pi/2}\frac{1}{\pi}\;\d \theta = 1
-\]
-with the substitution $x = \tan \theta$. The distribution is a bell-shaped curve.
 
 \begin{prop}
-  The mean of the Cauchy distribution is undefined, while $\E[X^2] = \infty$.
+  The mean of the Cauchy distribution is undefined, and $\E[X^2] = \infty$.
 \end{prop}
 
 \begin{proof}
   \[
-    \E[X] = \int_0^\infty \frac{x}{\pi(1 + x^2)}\;\d x + \int_{-\infty}^0 \frac{x}{\pi(1 + x^2)}\;\d x = \infty - \infty
+    \E[X] = \int_0^\infty \frac{x}{\pi(1 + x^2)}\;\d x + \int_{-\infty}^0 \frac{x}{\pi(1 + x^2)}\;\d x = \infty - \infty,
   \]
-  which is undefined, but $\E[X^2] = \infty + \infty = \infty$.
+  which is undefined, while $\E[X^2] = \infty + \infty = \infty$.
 \end{proof}
 
-Suppose $X, Y$ are independent Cauchy distributions. Let $Z = X + Y$. Then
-\begin{align*}
-  f(z) &= \int_{-\infty}^\infty f_X(x)f_Y(z - x)\;\d x\\
-  &= \int_{-\infty}^\infty \frac{1}{\pi^2} \frac{1}{(1 + x^2)(1 + (z - x)^2)}\;\d x\\
-  &= \frac{1/2}{\pi(1 + (z/2)^2)}
-\end{align*}
-for all $-\infty < z < \infty$ (the integral can be evaluated using a tedious partial fraction expansion).
+\begin{prop}
+  If $X, Y$ are independent Cauchy random variables, then $\frac{1}{2}(X + Y)$ is also Cauchy. More generally, if $X_1, \dotsc, X_n$ are iid Cauchy, then $\frac{1}{n}(X_1 + \dotsb + X_n)$ is Cauchy.
+\end{prop}
 
-So $\frac{1}{2}Z$ has a Cauchy distribution. Alternatively the arithmetic mean of Cauchy random variables is a Cauchy random variable.
+\begin{proof}
+  Setting $Z = X + Y$ and convolving,
+  \begin{align*}
+    f_Z(z) &= \int_{-\infty}^\infty \frac{1}{\pi^2} \frac{1}{(1 + x^2)(1 + (z - x)^2)}\;\d x = \frac{1/2}{\pi(1 + (z/2)^2)},
+  \end{align*}
+  so $\frac{1}{2}Z$ has a Cauchy distribution. The general case follows by induction.
+\end{proof}
 
-By induction, we can show that $\frac{1}{n}(X_1 + \cdots + X_n)$ follows Cauchy distribution. This becomes a ``counter-example'' to things like the weak law of large numbers and the central limit theorem. Of course, this is because those theorems require the random variable to have a mean, which the Cauchy distribution lacks.
+\begin{remark}
+  The sample mean of iid Cauchy random variables is itself Cauchy, so the Cauchy distribution provides a counterexample to the weak law of large numbers and the central limit theorem (whose hypotheses require a finite mean).
+\end{remark}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-    \item If $\Theta\sim U[-\frac{\pi}{2}, \frac{\pi}{2}]$, then $X = \tan \theta$ has a Cauchy distribution. For example, if we fire a bullet at a wall 1 meter apart at a random angle $\theta$, the vertical displacement follows a Cauchy distribution.
+    \item If $\Theta \sim U[-\frac{\pi}{2}, \frac{\pi}{2}]$, then $X = \tan\Theta$ has a Cauchy distribution.
       \begin{center}
         \begin{tikzpicture}
           \node [circ] {};
@@ -2793,63 +2644,64 @@ By induction, we can show that $\frac{1}{n}(X_1 + \cdots + X_n)$ follows Cauchy 
           \draw [dashed] (0, 0) -- (3, 2);
           \draw [->] (0, 0) -- (1.5, 1);
           \draw (0.5, 0) arc (0:33.69:0.5);
-          \node at (0.7, 0.2) {$\theta$};
-          \draw [->] (3.2, 0) -- (3.2, 2) node [pos = 0.5, right] {$X = \tan \theta$};
+          \node at (0.7, 0.2) {$\Theta$};
+          \draw [->] (3.2, 0) -- (3.2, 2) node [pos = 0.5, right] {$X = \tan\Theta$};
           \draw [->] (3.2, 2) -- (3.2, 0);
           \draw (3, -2.5) -- (3, 2.5);
         \end{tikzpicture}
       \end{center}
-    \item If $X, Y\sim N(0, 1)$, then $X/Y$ has a Cauchy distribution.
+    \item If $X, Y \sim N(0, 1)$ independently, then $X/Y$ has a Cauchy distribution.
   \end{enumerate}
 \end{eg}
 
 \subsection{Gamma distribution}
-Suppose $X_1, \cdots, X_n$ are iid $\mathcal{E}(\lambda)$. Let $S_n = X_1 + \cdots + X_n$. Then the mgf of $S_n$ is
-\[
-  \E\left[e^{\theta(X_1 + \ldots + X_n)}\right] = \E\left[e^{\theta X_1}\right]\cdots \E\left[e^{\theta X_n}\right] = \left(\E\left[e^{\theta X}\right]\right)^n = \left(\frac{\lambda}{\lambda - \theta}\right)^n.
-\]
-We call this a gamma distribution.
-
-We claim that this has a distribution given by the following formula:
 \begin{defi}[Gamma distribution]
   The \emph{gamma distribution} $\Gamma(n, \lambda)$ has pdf
   \[
-    f(x) = \frac{\lambda^n x^{n - 1}e^{-\lambda x}}{(n - 1)!}.
+    f(x) = \frac{\lambda^n x^{n-1} e^{-\lambda x}}{(n-1)!}, \qquad x \geq 0.
   \]
-  We can show that this is a distribution by showing that it integrates to $1$.
 \end{defi}
-We now show that this is indeed the sum of $n$ iid $\mathcal{E}(\lambda)$:
-\begin{align*}
-  \E[e^{\theta X}] &= \int_0^\infty e^{\theta x} \frac{\lambda^n x^{n - 1}e^{-\lambda x}}{(n - 1)!}\;\d x\\
-  &= \left(\frac{\lambda}{\lambda - \theta}\right)^n \int_0^\infty \frac{(\lambda - \theta)^n x^{n - 1}e^{-(\lambda - \theta)x}}{(n - 1)!}\;\d x
-\end{align*}
-The integral is just integrating over $\Gamma(n, \lambda - \theta)$, which gives one. So we have
-\[
-  \E[e^{\theta X}]= \left(\frac{\lambda}{\lambda - \theta}\right)^n.
-\]
+
+\begin{prop}
+  If $X_1, \dotsc, X_n$ are iid $\mathcal{E}(\lambda)$, then $S_n = X_1 + \dotsb + X_n \sim \Gamma(n, \lambda)$.
+\end{prop}
+
+\begin{proof}
+  The mgf of $S_n$ is
+  \[
+    \E[e^{\theta S_n}] = \prod_{i=1}^n \E[e^{\theta X_i}] = \left(\frac{\lambda}{\lambda - \theta}\right)^n.
+  \]
+  The mgf of $\Gamma(n, \lambda)$ is
+  \begin{align*}
+    \int_0^\infty e^{\theta x} \frac{\lambda^n x^{n-1} e^{-\lambda x}}{(n-1)!}\;\d x
+    &= \left(\frac{\lambda}{\lambda - \theta}\right)^n \underbrace{\int_0^\infty \frac{(\lambda - \theta)^n x^{n-1} e^{-(\lambda - \theta)x}}{(n-1)!}\;\d x}_{= 1,\text{ pdf of }\Gamma(n, \lambda - \theta)}.
+  \end{align*}
+  Since the mgfs agree, $S_n \sim \Gamma(n, \lambda)$.
+\end{proof}
 
 \subsection{Beta distribution*}
-Suppose $X_1, \cdots, X_n$ are iid $U[0, 1]$. Let $Y_1 \leq Y_2 \leq \cdots \leq Y_n$ be the order statistics. Then the pdf of $Y_i$ is
-\[
-  f(y) = \frac{n!}{(i - 1)!(n - i)!}y^{i - 1}(1 - y)^{n - i}.
-\]
-Note that the leading term is the multinomial coefficient $\binom{n}{i - 1, 1, n - 1}$. The formula is obtained using the same technique for finding the pdf of order statistics.
-
-This is the \emph{beta distribution}: $Y_i \sim \beta(i, n - i + 1)$. In general
 \begin{defi}[Beta distribution]
   The \emph{beta distribution} $\beta(a, b)$ has pdf
   \[
-    f(x; a, b) = \frac{\Gamma(a + b)}{\Gamma(a)\Gamma(b)}x^{a - 1}(1 - x)^{b - 1}
+    f(x; a, b) = \frac{\Gamma(a + b)}{\Gamma(a)\Gamma(b)}x^{a - 1}(1 - x)^{b - 1}, \qquad 0 \leq x \leq 1.
   \]
-  for $0 \leq x \leq 1$.
-
   This has mean $a/(a + b)$.
 \end{defi}
-Its moment generating function is
-\[
-  m(\theta) = 1 + \sum_{k = 1}^\infty \left(\prod_{r = 0}^{k - 1}\frac{a + r}{a + b + r}\right)\frac{\theta^k}{k!},
-\]
-which is horrendous!
+
+\begin{prop}
+  If $X_1, \dotsc, X_n$ are iid $U[0,1]$ with order statistics $Y_1 \leq Y_2 \leq \dotsc \leq Y_n$, then $Y_i \sim \beta(i, n - i + 1)$, with pdf
+  \[
+    f(y) = \frac{n!}{(i - 1)!(n - i)!}\,y^{i - 1}(1 - y)^{n - i}.
+  \]
+  The leading coefficient is the multinomial coefficient $\binom{n}{i - 1, 1, n - i}$.
+\end{prop}
+
+\begin{rem}
+  The mgf of $\beta(a, b)$ is
+  \[
+    m(\theta) = 1 + \sum_{k = 1}^\infty \left(\prod_{r = 0}^{k - 1}\frac{a + r}{a + b + r}\right)\frac{\theta^k}{k!}.
+  \]
+\end{rem}
 
 \subsection{More on the normal distribution}
 \begin{prop}
@@ -2860,10 +2712,10 @@ which is horrendous!
 \end{prop}
 
 \begin{proof}
- \[
-  \E[e^{\theta X}] = \int_{-\infty}^\infty e^{\theta x} \frac{1}{\sqrt{2\pi} \sigma} e^{-\frac{1}{2} \frac{(x - \mu)^2}{\sigma^2}}\;\d x.
-\]
-Substitute $z = \frac{x - \mu}{\sigma}$. Then
+  \[
+    \E[e^{\theta X}] = \int_{-\infty}^\infty e^{\theta x} \frac{1}{\sqrt{2\pi} \sigma} e^{-\frac{1}{2} \frac{(x - \mu)^2}{\sigma^2}}\;\d x.
+  \]
+  Substituting $z = \frac{x - \mu}{\sigma}$,
 \begin{align*}
   \E[e^{\theta X}] &= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}}e^{\theta(\mu + \sigma z)} e^{-\frac{1}{2}z^2}\;\d z\\
   &= e^{\theta\mu + \frac{1}{2}\theta^2\sigma^2}\int_{-\infty}^\infty \underbrace{\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}(z - \theta \sigma)^2}}_{\text{pdf of }N(\sigma\theta, 1)}\;\d z\\
@@ -2872,7 +2724,7 @@ Substitute $z = \frac{x - \mu}{\sigma}$. Then
 \end{proof}
 
 \begin{thm}
-  Suppose $X, Y$ are independent random variables with $X\sim N(\mu_1, \sigma_1^2)$, and $Y\sim (\mu_2, \sigma_2^2)$. Then
+  Suppose $X, Y$ are independent random variables with $X\sim N(\mu_1, \sigma_1^2)$ and $Y\sim N(\mu_2, \sigma_2^2)$. Then
   \begin{enumerate}
     \item $X + Y \sim N(\mu_1 + \mu_2 , \sigma_1^2 + \sigma_2^2)$.
     \item $aX \sim N(a\mu_1, a^2 \sigma_1^2)$.
@@ -2884,205 +2736,177 @@ Substitute $z = \frac{x - \mu}{\sigma}$. Then
     \item
       \begin{align*}
         \E[e^{\theta(X + Y)}] &= \E[e^{\theta X}] \cdot \E[e^{\theta Y}]\\
-        &= e^{\mu_1 \theta + \frac{1}{2}\sigma_1^2\theta^2} \cdot e^{\mu_2 \theta + \frac{1}{2}\sigma_2^2 \theta}\\
+        &= e^{\mu_1 \theta + \frac{1}{2}\sigma_1^2\theta^2} \cdot e^{\mu_2 \theta + \frac{1}{2}\sigma_2^2 \theta^2}\\
         &= e^{(\mu_1 + \mu_2)\theta + \frac{1}{2}(\sigma_1^2 + \sigma_2^2)\theta^2}
       \end{align*}
       which is the mgf of $N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)$.
     \item
       \begin{align*}
         \E[e^{\theta (aX)}] &= \E[e^{(\theta a)X}]\\
-        &= e^{\mu(a\theta) + \frac{1}{2}\sigma^2 (a \theta)^2}\\
-        &= e^{(a\mu)\theta + \frac{1}{2}(a^2\sigma^2)\theta^2}\qedhere
+        &= e^{\mu_1(a\theta) + \frac{1}{2}\sigma_1^2 (a \theta)^2}\\
+        &= e^{(a\mu_1)\theta + \frac{1}{2}(a^2\sigma_1^2)\theta^2}\qedhere
       \end{align*}%\qedhere
   \end{enumerate}
 \end{proof}
 
-Finally, suppose $X\sim N(0, 1)$. Write $\phi(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}$ for its pdf. It would be very difficult to find a closed form for its cumulative distribution function, but we can find an upper bound for it:
-\begin{align*}
-  \P(X \geq x) &= \int_x^\infty \phi(t)\;\d t\\
-  &\leq \int_x^\infty \left(1 + \frac{1}{t^2}\right)\phi(t)\;\d t \\
-  &= \frac{1}{x}\phi(x)
-\end{align*}
-To see the last step works, simply differentiate the result and see that you get $\left(1 + \frac{1}{x^2}\right)\phi(x)$.
-So
-\[
-  \P(X \geq x) \leq \frac{1}{x}\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}.
-\]
-Then
-\[
-  \log \P(X \geq x)\sim -\frac{1}{2}x^2.
-\]
+\begin{prop}
+  Let $X \sim N(0,1)$ and write $\phi(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}$ for its pdf. Then for $x > 0$,
+  \[
+    \P(X \geq x) \leq \frac{1}{x}\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}.
+  \]
+  In particular, $\log \P(X \geq x) \sim -\frac{1}{2}x^2$.
+\end{prop}
+
+\begin{proof}
+  We have
+  \begin{align*}
+    \P(X \geq x) &= \int_x^\infty \phi(t)\;\d t\\
+    &\leq \int_x^\infty \left(1 + \frac{1}{t^2}\right)\phi(t)\;\d t \\
+    &= \frac{1}{x}\phi(x),
+  \end{align*}
+  where the last equality follows by differentiating $\frac{1}{t}\phi(t)$ to obtain $\left(1 + \frac{1}{t^2}\right)\phi(t)$.
+\end{proof}
 
 \subsection{Multivariate normal}
-Let $X_1, \cdots, X_n$ be iid $N(0, 1)$. Then their joint density is
+If $X_1, \dotsc, X_n$ are iid $N(0, 1)$ and $\mathbf{x} = (x_1, \dotsc, x_n)^T$, then their joint density is
 \begin{align*}
-  g(x_1, \cdots, x_n) &= \prod_{i = 1}^n \phi(x_i) \\
-  &= \prod_{1}^n\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x_i^2}\\
-  &= \frac{1}{(2\pi)^{n/2}} e^{-\frac{1}{2}\sum_1^n x_i^2}\\
-  &= \frac{1}{(2\pi)^{n/2}}e^{-\frac{1}{2}\mathbf{x}^T \mathbf{x}},
+  g(x_1, \dotsc, x_n) &= \prod_{i = 1}^n \phi(x_i)
+  = \frac{1}{(2\pi)^{n/2}} e^{-\frac{1}{2}\sum_1^n x_i^2}
+  = \frac{1}{(2\pi)^{n/2}}e^{-\frac{1}{2}\mathbf{x}^T \mathbf{x}}.
 \end{align*}
-where $\mathbf{x} = (x_1, \cdots, x_n)^T$.
 
-This result works if $X_1, \cdots, X_n$ are iid $N(0, 1)$. Suppose we are interested in
-\[
-  \mathbf{Z} = \boldsymbol\mu + A\mathbf{X},
-\]
-where $A$ is an invertible $n\times n$ matrix. We can think of this as $n$ measurements $\mathbf{Z}$ that are affected by underlying standard-normal factors $\mathbf{X}$. Then
-\[
-  \mathbf{X} = A^{-1}(\mathbf{Z} - \boldsymbol\mu)
-\]
-and
-\[
-  |J| = |\det (A^{-1})| = \frac{1}{\det A}
-\]
-So
-\begin{align*}
-  f(z_1, \cdots, z_n) &= \frac{1}{(2\pi)^{n/2}}\frac{1}{\det A}\exp\left[-\frac{1}{2}\big((A^{-1}(\mathbf{z} - \boldsymbol\mu))^T(A^{-1}(\mathbf{z} - \boldsymbol\mu))\big)\right]\\
-  &= \frac{1}{(2\pi)^{n/2}\det A}\exp\left[-\frac{1}{2}(\mathbf{z} - \boldsymbol\mu)^T \Sigma^{-1}(\mathbf{z} - \boldsymbol\mu)\right]\\
-  &= \frac{1}{(2\pi)^{n/2}\sqrt{\det \Sigma}}\exp\left[-\frac{1}{2}(\mathbf{z} - \boldsymbol\mu)^T \Sigma^{-1}(\mathbf{z} - \boldsymbol\mu)\right].
-\end{align*}
-where $\Sigma = AA^T$ and $\Sigma^{-1} = (A^{-1})^TA^{-1}$. We say
-\[
-  \mathbf{Z} =
-  \begin{pmatrix}
-    Z_1\\
-    \vdots\\
-    Z_n
-  \end{pmatrix}
-  \sim MVN(\boldsymbol\mu, \Sigma)\text{ or }N(\boldsymbol\mu, \Sigma).
-\]
-This is the multivariate normal.
+\begin{defi}[Multivariate normal]
+  Let $\mathbf{X} = (X_1, \dotsc, X_n)^T$ with $X_i$ iid $N(0,1)$, let $A$ be an invertible $n \times n$ matrix, and let $\boldsymbol\mu \in \R^n$. The random vector $\mathbf{Z} = \boldsymbol\mu + A\mathbf{X}$ has the \emph{multivariate normal} distribution
+  \[
+    \mathbf{Z} \sim N(\boldsymbol\mu, \Sigma),
+  \]
+  where $\Sigma = AA^T$ is the \emph{covariance matrix}, with pdf
+  \[
+    f(\mathbf{z}) = \frac{1}{(2\pi)^{n/2}\sqrt{\det \Sigma}}\exp\left[-\frac{1}{2}(\mathbf{z} - \boldsymbol\mu)^T \Sigma^{-1}(\mathbf{z} - \boldsymbol\mu)\right].
+  \]
+\end{defi}
 
-What is this matrix $\Sigma$? Recall that $\cov(Z_i, Z_j) = \E[(Z_i - \mu_i)(Z_j - \mu_j)]$. It turns out this covariance is the $i, j$th entry of $\Sigma$, since
-\begin{align*}
-  \E[(\mathbf{Z} - \boldsymbol\mu)(\mathbf{Z} - \boldsymbol\mu)^T] &= \E[AX(AX)^T]\\
-  &= \E(AXX^TA^T) = A\E[XX^T]A^T\\
-  &= AIA^T\\
-  &= AA^T \\
-  &= \Sigma
-\end{align*}
-So we also call $\Sigma$ the covariance matrix.
+\begin{proof}[Derivation]
+  Since $\mathbf{X} = A^{-1}(\mathbf{Z} - \boldsymbol\mu)$ and $|J| = |\det(A^{-1})| = \frac{1}{\det A}$, we have
+  \begin{align*}
+    f(z_1, \dotsc, z_n) &= \frac{1}{(2\pi)^{n/2}\det A}\exp\left[-\frac{1}{2}(A^{-1}(\mathbf{z} - \boldsymbol\mu))^T(A^{-1}(\mathbf{z} - \boldsymbol\mu))\right]\\
+    &= \frac{1}{(2\pi)^{n/2}\sqrt{\det \Sigma}}\exp\left[-\frac{1}{2}(\mathbf{z} - \boldsymbol\mu)^T \Sigma^{-1}(\mathbf{z} - \boldsymbol\mu)\right],
+  \end{align*}
+  where $\Sigma^{-1} = (A^{-1})^T A^{-1}$ and $\det \Sigma = (\det A)^2$.
+\end{proof}
 
-In the special case where $n = 1$, this is a normal distribution and $\Sigma = \sigma^2$.
+\begin{prop}
+  The matrix $\Sigma$ is the covariance matrix of $\mathbf{Z}$, i.e.\ $\Sigma_{ij} = \cov(Z_i, Z_j)$.
+\end{prop}
 
-Now suppose $Z_1, \cdots, Z_n$ have covariances $0$. Then $\Sigma = \diag(\sigma_1^2, \cdots, \sigma_n^2)$. Then
-\[
-  f(z_1, \cdots, z_n) = \prod_1^n \frac{1}{\sqrt{2\pi}\sigma_i} e^{-\frac{1}{2\sigma_i^2}(z_i - \mu_i)^2}.
-\]
-So $Z_1, \cdots, Z_n$ are independent, with $Z_i\sim N(\mu_i, \sigma_i^2)$.
+\begin{proof}
+  \begin{align*}
+    \E[(\mathbf{Z} - \boldsymbol\mu)(\mathbf{Z} - \boldsymbol\mu)^T] &= \E[A\mathbf{X}(A\mathbf{X})^T]
+    = A\,\E[\mathbf{X}\mathbf{X}^T]\,A^T
+    = AIA^T
+    = \Sigma.\qedhere
+  \end{align*}
+\end{proof}
 
-Here we proved that if $\cov = 0$, then the variables are independent. However, this is only true when $Z_i$ are multivariate normal. It is generally not true for arbitrary distributions.
+\begin{prop}
+  If $Z_1, \dotsc, Z_n$ are jointly multivariate normal with $\cov(Z_i, Z_j) = 0$ for $i \neq j$, then $Z_1, \dotsc, Z_n$ are independent, with $Z_i \sim N(\mu_i, \sigma_i^2)$.
+\end{prop}
 
-For these random variables that involve vectors, we will need to modify our definition of moment generating functions. We define it to be
-\[
-  m(\boldsymbol\theta) = \E[e^{\boldsymbol\theta^T \mathbf{X}}] = \E[e^{\theta_1 X_1 + \cdots + \theta_n X_n}].
-\]
+\begin{proof}
+  If the covariances are zero, then $\Sigma = \diag(\sigma_1^2, \dotsc, \sigma_n^2)$, so
+  \[
+    f(z_1, \dotsc, z_n) = \prod_{i=1}^n \frac{1}{\sqrt{2\pi}\,\sigma_i} e^{-\frac{1}{2\sigma_i^2}(z_i - \mu_i)^2}.\qedhere
+  \]
+\end{proof}
+
+\begin{rem}
+  Zero covariance implies independence for multivariate normal random variables, but not in general.
+\end{rem}
+
+\begin{defi}[Multivariate mgf]
+  The \emph{moment generating function} of a random vector $\mathbf{X} = (X_1, \dotsc, X_n)^T$ is
+  \[
+    m(\boldsymbol\theta) = \E[e^{\boldsymbol\theta^T \mathbf{X}}] = \E[e^{\theta_1 X_1 + \dotsb + \theta_n X_n}].
+  \]
+\end{defi}
+
 \subsubsection*{Bivariate normal}
-This is the special case of the multivariate normal when $n = 2$. Since there aren't too many terms, we can actually write them out.
-
-The \emph{bivariate normal} has
+In the case $n = 2$, the \emph{bivariate normal} has covariance matrix
 \[
   \Sigma=
   \begin{pmatrix}
     \sigma_1^2 & \rho\sigma_1\sigma_2\\
     \rho\sigma_1\sigma_2 & \sigma_2^2
-  \end{pmatrix}.
-\]
-Then
-\[
-  \mathrm{corr}(X_1, X_2) = \frac{\cov(X_1, X_2)}{\sqrt{\var(X_1)\var(X_2)}} = \frac{\rho\sigma_1\sigma_2}{\sigma_1\sigma_2} = \rho.
-\]
-And
-\[
+  \end{pmatrix},
+  \qquad
   \Sigma^{-1} = \frac{1}{1 - \rho^2}
   \begin{pmatrix}
     \sigma_1^{-2} & -\rho\sigma_1^{-1}\sigma_2^{-1}\\
     -\rho\sigma_1^{-1}\sigma_2^{-1} & \sigma_2^{-2}
-  \end{pmatrix}
+  \end{pmatrix},
 \]
-The joint pdf of the bivariate normal with zero mean is
+where $\rho = \mathrm{corr}(X_1, X_2)$. The joint pdf with mean $\boldsymbol\mu = \mathbf{0}$ is
 \[
-  f(x_1, x_2) = \frac{1}{2\pi \sigma_1 \sigma_2 \sqrt{1 - \rho^2}} \exp\left(-\frac{1}{2(1 - \rho^2)}\left(\frac{x_1^2}{\sigma_1^2} - \frac{2\rho x_1x_2}{\sigma_1\sigma_2} + \frac{x_2^2}{\sigma_2^2}\right)\right)
+  f(x_1, x_2) = \frac{1}{2\pi \sigma_1 \sigma_2 \sqrt{1 - \rho^2}} \exp\left(-\frac{1}{2(1 - \rho^2)}\left(\frac{x_1^2}{\sigma_1^2} - \frac{2\rho x_1x_2}{\sigma_1\sigma_2} + \frac{x_2^2}{\sigma_2^2}\right)\right).
 \]
-If the mean is non-zero, replace $x_i$ with $x_i - \mu_i$.
-
-The joint mgf of the bivariate normal is
+For non-zero mean, replace $x_i$ with $x_i - \mu_i$. The joint mgf is
 \[
   m(\theta_1, \theta_2) = e^{\theta_1\mu_1 + \theta_2 \mu_2 + \frac{1}{2}(\theta_1^2\sigma_1^2 + 2\theta_1\theta_2\rho\sigma_1\sigma_2 + \theta_2^2\sigma_2^2)}.
 \]
-Nice and elegant.
 
 \section{Central limit theorem}
-Suppose $X_1, \cdots, X_n$ are iid random variables with mean $\mu$ and variance $\sigma^2$. Let $S_n = X_1 + \cdots + X_n$. Then we have previously shown that
-\[
-  \var(S_n/\sqrt{n}) = \var\left(\frac{S_n - n \mu}{\sqrt{n}}\right) = \sigma^2.
-\]
 \begin{thm}[Central limit theorem]
-  Let $X_1, X_2, \cdots$ be iid random variables with $\E[X_i] = \mu$, $\var(X_i) = \sigma^2 < \infty$. Define
+  Let $X_1, X_2, \dotsc$ be iid random variables with $\E[X_i] = \mu$ and $\var(X_i) = \sigma^2 < \infty$. Let $S_n = X_1 + \dotsb + X_n$. Then
   \[
-    S_n = X_1 + \cdots + X_n.
+    \frac{S_n - n\mu}{\sigma\sqrt{n}} \to_{D} N(0, 1),
   \]
-  Then for all finite intervals $(a, b)$,
+  i.e.\ for all $a < b$,
   \[
     \lim_{n \to \infty}\P\left(a \leq \frac{S_{n} - n\mu}{\sigma\sqrt{n}} \leq b\right) = \int_a^b \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}t^2}\;\d t.
   \]
-  Note that the final term is the pdf of a standard normal. We say
-  \[
-    \frac{S_n - n\mu}{\sigma\sqrt{n}} \to_{D} N(0, 1).
-  \]
 \end{thm}
 
-To show this, we will use the continuity theorem without proof:
 \begin{thm}[Continuity theorem]
-  If the random variables $X_1, X_2, \cdots$ have mgf's $m_1(\theta), m_2(\theta), \cdots$ and $m_n(\theta) \to m(\theta)$ as $n\to\infty$ for all $\theta$, then $X_n \to_D $ the random variable with mgf $m(\theta)$.
+  If random variables $X_1, X_2, \dotsc$ have mgfs $m_1(\theta), m_2(\theta), \dotsc$ and $m_n(\theta) \to m(\theta)$ as $n\to\infty$ for all $\theta$, then $X_n \to_D$ the random variable with mgf $m(\theta)$.
 \end{thm}
 
-We now provide a sketch-proof of the central limit theorem:
-\begin{proof}
-  wlog, assume $\mu = 0, \sigma^2 = 1$ (otherwise replace $X_i$ with $\frac{X_i - \mu}{\sigma}$).
-
-  Then
+\begin{proof}[Sketch proof of CLT]
+  Without loss of generality, assume $\mu = 0$ and $\sigma^2 = 1$ (otherwise replace $X_i$ with $\frac{X_i - \mu}{\sigma}$). Then
   \begin{align*}
-    m_{X_i}(\theta) &= \E[e^{\theta X_i}] = 1 + \theta \E[X_i] + \frac{\theta^2}{2!} \E[X_i^2] + \cdots\\
-    &=1 + \frac{1}{2}\theta^2 + \frac{1}{3!}\theta^3 \E[X_i^3] + \cdots
+    m_{X_i}(\theta) &= \E[e^{\theta X_i}] = 1 + \theta \E[X_i] + \frac{\theta^2}{2!} \E[X_i^2] + \dotsb\\
+    &= 1 + \frac{1}{2}\theta^2 + \frac{1}{3!}\theta^3 \E[X_i^3] + \dotsb
   \end{align*}
-  Now consider $S_n/\sqrt{n}$. Then
+  The mgf of $S_n/\sqrt{n}$ is
   \begin{align*}
-    \E[e^{\theta S_n/\sqrt{n}}] &= \E[e^{\theta(X_1 + \ldots + X_n)/\sqrt{n}}]\\
-    &= \E[e^{\theta X_1/\sqrt{n}}] \cdots \E[e^{\theta X_n/\sqrt{n}}]\\
+    \E[e^{\theta S_n/\sqrt{n}}] &= \E[e^{\theta(X_1 + \dotsb + X_n)/\sqrt{n}}]\\
     &= \left(\E[e^{\theta X_1/\sqrt{n}}]\right)^n\\
-    &= \left(1 + \frac{1}{2}\theta^2 \frac{1}{n} + \frac{1}{3!}\theta^3 \E[X^3]\frac{1}{n^{3/2}} + \cdots\right)^{n}\\
+    &= \left(1 + \frac{1}{2}\theta^2 \frac{1}{n} + \frac{1}{3!}\theta^3 \E[X^3]\frac{1}{n^{3/2}} + \dotsb\right)^{n}\\
     &\to e^{\frac{1}{2}\theta^2}
   \end{align*}
-  as $n \to \infty$ since $(1 + a/n)^n \to e^a$. And this is the mgf of the standard normal. So the result follows from the continuity theorem.
+  as $n \to \infty$, since $(1 + a/n)^n \to e^a$. This is the mgf of $N(0,1)$, so the result follows from the continuity theorem.
 \end{proof}
-Note that this is not a very formal proof, since we have to require $\E[X^3]$ to be finite. Also, sometimes the moment generating function is not defined. But this will work for many ``nice'' distributions we will ever meet.
 
-The proper proof uses the characteristic function
-\[
-  \chi_X(\theta) = E[e^{i\theta X}].
-\]
-An important application is to use the normal distribution to approximate a large binomial.
+\begin{rem}
+  This sketch proof requires $\E[X^3]$ to be finite. The proper proof uses the \emph{characteristic function} $\chi_X(\theta) = \E[e^{i\theta X}]$, which is always defined.
+\end{rem}
 
-Let $X_i \sim B(1, p)$. Then $S_n \sim B(n, p)$. So $\E[S_n] = np$ and $\var (S_n) = p(1 - p)$. So
-\[
-  \frac{S_n - np}{\sqrt{np(1 - p)}} \to_D N(0, 1).
-\]
+\begin{eg}[Normal approximation to the binomial]
+  Let $X_i \sim B(1, p)$. Then $S_n \sim B(n, p)$, and the CLT gives
+  \[
+    \frac{S_n - np}{\sqrt{np(1 - p)}} \to_D N(0, 1).
+  \]
+\end{eg}
 
 \begin{eg}
   Suppose two planes fly a route. Each of $n$ passengers chooses a plane at random. The number of people choosing plane 1 is $S\sim B(n, \frac{1}{2})$. Suppose each has $s$ seats. What is
   \[
     F(s) = \P(S > s),
   \]
-  i.e.\ the probability that plane 1 is over-booked? We have
+  i.e.\ the probability that plane 1 is overbooked? We have
   \[
-    F(s) = \P(S > s) = \P\left(\frac{S - n/2}{\sqrt{n\cdot \frac{1}{2}\cdot \frac{1}{2}}} > \frac{s - n/2}{\sqrt{n}/2}\right).
+    F(s) = \P(S > s) = \P\left(\frac{S - n/2}{\sqrt{n}/2} > \frac{s - n/2}{\sqrt{n}/2}\right).
   \]
-  Since
-  \[
-    \frac{S - np}{\sqrt{n}/2}\sim N(0, 1),
-  \]
-  we have
+  By the CLT, $\frac{S - n/2}{\sqrt{n}/2} \to_D N(0, 1)$, so
   \[
     F(s) \approx 1 - \Phi\left(\frac{s - n/2}{\sqrt{n}/2}\right).
   \]
@@ -3105,13 +2929,13 @@ Let $X_i \sim B(1, p)$. Then $S_n \sim B(n, p)$. So $\E[S_n] = np$ and $\var (S_
   \[
     \frac{0.005n}{\sqrt{np(1 - p)}} \geq \Phi^{-1}(0.975) = 1.96.
   \]
-  (we use 0.975 instead of 0.95 since we are doing a two-tailed test) Since the maximum possible value of $p(1 - p)$ is $1/4$, we have
+  We use $0.975$ instead of $0.95$ since this is a two-tailed test. Since the maximum possible value of $p(1 - p)$ is $1/4$, we have
   \[
     n \geq 38416.
   \]
   In practice, we don't have that many samples. Instead, we go by
   \[
-    \P(|p' < p| \leq 0.03) \geq 0.95.
+    \P(|p' - p| \leq 0.03) \geq 0.95.
   \]
   This just requires $n \geq 1068$.
 \end{eg}
@@ -3141,7 +2965,7 @@ Let $X_i \sim B(1, p)$. Then $S_n \sim B(n, p)$. So $\E[S_n] = np$ and $\var (S_
     \hat{\pi} &= \frac{2\ell}{(N/n) L} \\
     &= \frac{\pi 2\ell/(\pi L)}{p'}\\
     &= \frac{\pi p}{p + (p' - p)}\\
-    &= \pi \left(1 - \frac{p' - p}{p} + \cdots \right)
+    &= \pi \left(1 - \frac{p' - p}{p} + \dotsb \right)
   \end{align*}
   Hence
   \[
@@ -3171,7 +2995,7 @@ Let $X_i \sim B(1, p)$. Then $S_n \sim B(n, p)$. So $\E[S_n] = np$ and $\var (S_
   \[
     0.001\sqrt{\frac{2n}{(\pi - 2)(\pi^2)}} \geq \Phi^{-1}(0.975) = 1.96
   \]
-  So $n\geq 2.16 \times 10^7$. So we can obtain $\pi$ to 3 decimal places just by throwing a stick 20 million times! Isn't that exciting?
+  So $n\geq 2.16 \times 10^7$.
 \end{eg}
 
 \ifx \nhtml \undefined
@@ -3185,7 +3009,7 @@ Let $X_i \sim B(1, p)$. Then $S_n \sim B(n, p)$. So $\E[S_n] = np$ and $\var (S_
     \midrule
     Bernoulli & $p^k(1 - p)^{1 - k}$ & $p$ & $p(1 - p)$ & $q + pz$\\
     Binomial & $\displaystyle\binom{n}{k}p^k(1 - p)^{n - k}$ & $np$ & $np(1 - p)$ & $(q + pz)^n$\\
-    Geometric & $(1 - p)^k p$ & $\displaystyle\frac{1 - p}{p}$ & $\displaystyle\frac{1 - p}{p^2}$ & $\displaystyle\frac{1 - p}{1 - pz}$\\
+    Geometric & $(1 - p)^k p$ & $\displaystyle\frac{1 - p}{p}$ & $\displaystyle\frac{1 - p}{p^2}$ & $\displaystyle\frac{p}{1 - (1-p)z}$\\
     Poisson & $\displaystyle\frac{\lambda^k}{k!}e^{-\lambda}$ & $\lambda$ & $\lambda$ & $e^{\lambda(z - 1)}$\\
     \bottomrule
   \end{tabular}
@@ -3197,11 +3021,11 @@ Let $X_i \sim B(1, p)$. Then $S_n \sim B(n, p)$. So $\E[S_n] = np$ and $\var (S_
     \textbf{Distribution} & \textbf{PDF} & \textbf{CDF} & \textbf{Mean} & \textbf{Variance} & \textbf{MGF} \\
     \midrule
     Uniform & $\displaystyle\frac{1}{b - a}$ & $\displaystyle\frac{x - a}{b - a}$ & $\displaystyle\frac{a + b}{2}$ & $\displaystyle \frac{1}{12}(b - a)^2$ & $\displaystyle\frac{e^{\theta b} - e^{\theta a}}{\theta (b - a)}$ \\
-    Normal & $\displaystyle \frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x - \mu)^2}{2\sigma^2}\right)$ & / & $\mu$ & $\sigma^2$ & $e^{\theta\mu + \frac{1}{2}\theta^2\sigma^2}$\\
+    Normal & $\displaystyle \frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x - \mu)^2}{2\sigma^2}\right)$ & --- & $\mu$ & $\sigma^2$ & $e^{\theta\mu + \frac{1}{2}\theta^2\sigma^2}$\\
     Exponential & $\lambda e^{-\lambda x}$ & $1 - e^{-\lambda x}$ & $\displaystyle \frac{1}{\lambda}$ & $\displaystyle\frac{1}{\lambda^2}$ & $\displaystyle\frac{\lambda}{\lambda - \theta}$ \\
-    Cauchy & $\displaystyle \frac{1}{\pi(1 + x^2)}$ & / & undefined & undefined & undefined\\
-    Gamma & $\displaystyle \frac{\lambda^n x^{n - 1}e^{-\lambda x}}{(n - 1)!}$ & / & $\displaystyle\frac{n}{\lambda}$ & $\displaystyle \frac{n}{\lambda^2}$ & $\displaystyle\left(\frac{\lambda}{\lambda - \theta}\right)^n$ \\
-    Multivariate normal & $\displaystyle \frac{1}{(2\pi)^{n/2}\sqrt{\det \Sigma}} \exp\left[-\frac{1}{2}(\mathbf{z} - \boldsymbol\mu)^T\Sigma^{-1}(\mathbf{z} - \boldsymbol\mu)\right]$ & / & $\boldsymbol\mu$ & $\Sigma$ & /\\
+    Cauchy & $\displaystyle \frac{1}{\pi(1 + x^2)}$ & --- & undefined & undefined & undefined\\
+    Gamma & $\displaystyle \frac{\lambda^n x^{n - 1}e^{-\lambda x}}{(n - 1)!}$ & --- & $\displaystyle\frac{n}{\lambda}$ & $\displaystyle \frac{n}{\lambda^2}$ & $\displaystyle\left(\frac{\lambda}{\lambda - \theta}\right)^n$ \\
+    Multivariate normal & $\displaystyle \frac{1}{(2\pi)^{n/2}\sqrt{\det \Sigma}} \exp\left[-\frac{1}{2}(\mathbf{z} - \boldsymbol\mu)^T\Sigma^{-1}(\mathbf{z} - \boldsymbol\mu)\right]$ & --- & $\boldsymbol\mu$ & $\Sigma$ & ---\\
     \bottomrule
   \end{tabular}
 \end{center}
