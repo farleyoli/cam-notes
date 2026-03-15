@@ -2537,43 +2537,34 @@ When the transformation is not injective, there is no single formula; each case 
 
 
 \subsection{Moment generating functions}
-If $X$ is a continuous random variable, then the analogue of the probability generating function is the moment generating function:
 \begin{defi}[Moment generating function]
-  The \emph{moment generating function} of a random variable $X$ is
+  The \emph{moment generating function} (mgf) of a random variable $X$ is
   \[
     m(\theta) = \E[e^{\theta X}].
   \]
-  For those $\theta$ in which $m(\theta)$ is finite, we have
-  \[
-    m(\theta) = \int_{-\infty}^\infty e^{\theta x}f(x)\;\d x.
-  \]
+  For continuous $X$ with pdf $f$, this equals $\int_{-\infty}^\infty e^{\theta x} f(x)\;\d x$ whenever finite.
 \end{defi}
-We can prove results similar to that we had for probability generating functions.
 
-We will assume the following without proof:
 \begin{thm}
-  The mgf determines the distribution of $X$ provided $m(\theta)$ is finite for all $\theta$ in some interval containing the origin.
+  The mgf determines the distribution of $X$, provided $m(\theta)$ is finite for all $\theta$ in some interval containing the origin.
 \end{thm}
+We state this without proof.
 
 \begin{defi}[Moment]
   The $r$th \emph{moment} of $X$ is $\E[X^r]$.
 \end{defi}
 
 \begin{thm}
-  The $r$th moment $X$ is the coefficient of $\frac{\theta^r}{r!}$ in the power series expansion of $m(\theta)$, and is
+  The $r$th moment of $X$ is the coefficient of $\frac{\theta^r}{r!}$ in the power series expansion of $m(\theta)$:
   \[
-    \E[X^r] = \left.\frac{\d ^n}{\d \theta^n}m(\theta)\right|_{\theta = 0} = m^{(n)}(0).
+    \E[X^r] = \left.\frac{\d^r}{\d\theta^r} m(\theta)\right|_{\theta = 0} = m^{(r)}(0).
   \]
 \end{thm}
 
 \begin{proof}
-  We have
+  Expanding gives
   \[
-    e^{\theta X} = 1 + \theta X + \frac{\theta^2}{2!}X^2 + \cdots.
-  \]
-  So
-  \[
-    m(\theta) = \E[e^{\theta X}] = 1 + \theta \E[X] + \frac{\theta^2}{2!}\E [X^2] + \cdots\qedhere
+    m(\theta) = \E[e^{\theta X}] = 1 + \theta\,\E[X] + \frac{\theta^2}{2!}\,\E[X^2] + \dotsb\,.\qedhere
   \]
 \end{proof}
 
