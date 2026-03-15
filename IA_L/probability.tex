@@ -2696,12 +2696,12 @@ We state this without proof.
   The leading coefficient is the multinomial coefficient $\binom{n}{i - 1, 1, n - i}$.
 \end{prop}
 
-\begin{rem}
+\begin{remark}
   The mgf of $\beta(a, b)$ is
   \[
     m(\theta) = 1 + \sum_{k = 1}^\infty \left(\prod_{r = 0}^{k - 1}\frac{a + r}{a + b + r}\right)\frac{\theta^k}{k!}.
   \]
-\end{rem}
+\end{remark}
 
 \subsection{More on the normal distribution}
 \begin{prop}
@@ -2819,9 +2819,9 @@ If $X_1, \dotsc, X_n$ are iid $N(0, 1)$ and $\mathbf{x} = (x_1, \dotsc, x_n)^T$,
   \]
 \end{proof}
 
-\begin{rem}
+\begin{remark}
   Zero covariance implies independence for multivariate normal random variables, but not in general.
-\end{rem}
+\end{remark}
 
 \begin{defi}[Multivariate mgf]
   The \emph{moment generating function} of a random vector $\mathbf{X} = (X_1, \dotsc, X_n)^T$ is
@@ -2886,9 +2886,9 @@ For non-zero mean, replace $x_i$ with $x_i - \mu_i$. The joint mgf is
   as $n \to \infty$, since $(1 + a/n)^n \to e^a$. This is the mgf of $N(0,1)$, so the result follows from the continuity theorem.
 \end{proof}
 
-\begin{rem}
+\begin{remark}
   This sketch proof requires $\E[X^3]$ to be finite. The proper proof uses the \emph{characteristic function} $\chi_X(\theta) = \E[e^{i\theta X}]$, which is always defined.
-\end{rem}
+\end{remark}
 
 \begin{eg}[Normal approximation to the binomial]
   Let $X_i \sim B(1, p)$. Then $S_n \sim B(n, p)$, and the CLT gives
