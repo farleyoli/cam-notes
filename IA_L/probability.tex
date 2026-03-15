@@ -2855,76 +2855,58 @@ For non-zero mean, replace $x_i$ with $x_i - \mu_i$. The joint mgf is
 \]
 
 \section{Central limit theorem}
-Suppose $X_1, \cdots, X_n$ are iid random variables with mean $\mu$ and variance $\sigma^2$. Let $S_n = X_1 + \cdots + X_n$. Then we have previously shown that
-\[
-  \var(S_n/\sqrt{n}) = \var\left(\frac{S_n - n \mu}{\sqrt{n}}\right) = \sigma^2.
-\]
 \begin{thm}[Central limit theorem]
-  Let $X_1, X_2, \cdots$ be iid random variables with $\E[X_i] = \mu$, $\var(X_i) = \sigma^2 < \infty$. Define
+  Let $X_1, X_2, \dotsc$ be iid random variables with $\E[X_i] = \mu$ and $\var(X_i) = \sigma^2 < \infty$. Let $S_n = X_1 + \dotsb + X_n$. Then
   \[
-    S_n = X_1 + \cdots + X_n.
+    \frac{S_n - n\mu}{\sigma\sqrt{n}} \to_{D} N(0, 1),
   \]
-  Then for all finite intervals $(a, b)$,
+  i.e.\ for all $a < b$,
   \[
     \lim_{n \to \infty}\P\left(a \leq \frac{S_{n} - n\mu}{\sigma\sqrt{n}} \leq b\right) = \int_a^b \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}t^2}\;\d t.
   \]
-  Note that the final term is the pdf of a standard normal. We say
-  \[
-    \frac{S_n - n\mu}{\sigma\sqrt{n}} \to_{D} N(0, 1).
-  \]
 \end{thm}
 
-To show this, we will use the continuity theorem without proof:
 \begin{thm}[Continuity theorem]
-  If the random variables $X_1, X_2, \cdots$ have mgf's $m_1(\theta), m_2(\theta), \cdots$ and $m_n(\theta) \to m(\theta)$ as $n\to\infty$ for all $\theta$, then $X_n \to_D $ the random variable with mgf $m(\theta)$.
+  If random variables $X_1, X_2, \dotsc$ have mgfs $m_1(\theta), m_2(\theta), \dotsc$ and $m_n(\theta) \to m(\theta)$ as $n\to\infty$ for all $\theta$, then $X_n \to_D$ the random variable with mgf $m(\theta)$.
 \end{thm}
 
-We now provide a sketch-proof of the central limit theorem:
-\begin{proof}
-  wlog, assume $\mu = 0, \sigma^2 = 1$ (otherwise replace $X_i$ with $\frac{X_i - \mu}{\sigma}$).
-
-  Then
+\begin{proof}[Sketch proof of CLT]
+  Without loss of generality, assume $\mu = 0$ and $\sigma^2 = 1$ (otherwise replace $X_i$ with $\frac{X_i - \mu}{\sigma}$). Then
   \begin{align*}
-    m_{X_i}(\theta) &= \E[e^{\theta X_i}] = 1 + \theta \E[X_i] + \frac{\theta^2}{2!} \E[X_i^2] + \cdots\\
-    &=1 + \frac{1}{2}\theta^2 + \frac{1}{3!}\theta^3 \E[X_i^3] + \cdots
+    m_{X_i}(\theta) &= \E[e^{\theta X_i}] = 1 + \theta \E[X_i] + \frac{\theta^2}{2!} \E[X_i^2] + \dotsb\\
+    &= 1 + \frac{1}{2}\theta^2 + \frac{1}{3!}\theta^3 \E[X_i^3] + \dotsb
   \end{align*}
-  Now consider $S_n/\sqrt{n}$. Then
+  The mgf of $S_n/\sqrt{n}$ is
   \begin{align*}
-    \E[e^{\theta S_n/\sqrt{n}}] &= \E[e^{\theta(X_1 + \ldots + X_n)/\sqrt{n}}]\\
-    &= \E[e^{\theta X_1/\sqrt{n}}] \cdots \E[e^{\theta X_n/\sqrt{n}}]\\
+    \E[e^{\theta S_n/\sqrt{n}}] &= \E[e^{\theta(X_1 + \dotsb + X_n)/\sqrt{n}}]\\
     &= \left(\E[e^{\theta X_1/\sqrt{n}}]\right)^n\\
-    &= \left(1 + \frac{1}{2}\theta^2 \frac{1}{n} + \frac{1}{3!}\theta^3 \E[X^3]\frac{1}{n^{3/2}} + \cdots\right)^{n}\\
+    &= \left(1 + \frac{1}{2}\theta^2 \frac{1}{n} + \frac{1}{3!}\theta^3 \E[X^3]\frac{1}{n^{3/2}} + \dotsb\right)^{n}\\
     &\to e^{\frac{1}{2}\theta^2}
   \end{align*}
-  as $n \to \infty$ since $(1 + a/n)^n \to e^a$. And this is the mgf of the standard normal. So the result follows from the continuity theorem.
+  as $n \to \infty$, since $(1 + a/n)^n \to e^a$. This is the mgf of $N(0,1)$, so the result follows from the continuity theorem.
 \end{proof}
-Note that this is not a very formal proof, since we have to require $\E[X^3]$ to be finite. Also, sometimes the moment generating function is not defined. But this will work for many ``nice'' distributions we will ever meet.
 
-The proper proof uses the characteristic function
-\[
-  \chi_X(\theta) = E[e^{i\theta X}].
-\]
-An important application is to use the normal distribution to approximate a large binomial.
+\begin{rem}
+  This sketch proof requires $\E[X^3]$ to be finite. The proper proof uses the \emph{characteristic function} $\chi_X(\theta) = \E[e^{i\theta X}]$, which is always defined.
+\end{rem}
 
-Let $X_i \sim B(1, p)$. Then $S_n \sim B(n, p)$. So $\E[S_n] = np$ and $\var (S_n) = p(1 - p)$. So
-\[
-  \frac{S_n - np}{\sqrt{np(1 - p)}} \to_D N(0, 1).
-\]
+\begin{eg}[Normal approximation to the binomial]
+  Let $X_i \sim B(1, p)$. Then $S_n \sim B(n, p)$, and the CLT gives
+  \[
+    \frac{S_n - np}{\sqrt{np(1 - p)}} \to_D N(0, 1).
+  \]
+\end{eg}
 
 \begin{eg}
   Suppose two planes fly a route. Each of $n$ passengers chooses a plane at random. The number of people choosing plane 1 is $S\sim B(n, \frac{1}{2})$. Suppose each has $s$ seats. What is
   \[
     F(s) = \P(S > s),
   \]
-  i.e.\ the probability that plane 1 is over-booked? We have
+  i.e.\ the probability that plane 1 is overbooked? We have
   \[
-    F(s) = \P(S > s) = \P\left(\frac{S - n/2}{\sqrt{n\cdot \frac{1}{2}\cdot \frac{1}{2}}} > \frac{s - n/2}{\sqrt{n}/2}\right).
+    F(s) = \P(S > s) = \P\left(\frac{S - n/2}{\sqrt{n}/2} > \frac{s - n/2}{\sqrt{n}/2}\right).
   \]
-  Since
-  \[
-    \frac{S - np}{\sqrt{n}/2}\sim N(0, 1),
-  \]
-  we have
+  By the CLT, $\frac{S - n/2}{\sqrt{n}/2} \to_D N(0, 1)$, so
   \[
     F(s) \approx 1 - \Phi\left(\frac{s - n/2}{\sqrt{n}/2}\right).
   \]
@@ -2947,13 +2929,13 @@ Let $X_i \sim B(1, p)$. Then $S_n \sim B(n, p)$. So $\E[S_n] = np$ and $\var (S_
   \[
     \frac{0.005n}{\sqrt{np(1 - p)}} \geq \Phi^{-1}(0.975) = 1.96.
   \]
-  (we use 0.975 instead of 0.95 since we are doing a two-tailed test) Since the maximum possible value of $p(1 - p)$ is $1/4$, we have
+  We use $0.975$ instead of $0.95$ since this is a two-tailed test. Since the maximum possible value of $p(1 - p)$ is $1/4$, we have
   \[
     n \geq 38416.
   \]
   In practice, we don't have that many samples. Instead, we go by
   \[
-    \P(|p' < p| \leq 0.03) \geq 0.95.
+    \P(|p' - p| \leq 0.03) \geq 0.95.
   \]
   This just requires $n \geq 1068$.
 \end{eg}
@@ -2983,7 +2965,7 @@ Let $X_i \sim B(1, p)$. Then $S_n \sim B(n, p)$. So $\E[S_n] = np$ and $\var (S_
     \hat{\pi} &= \frac{2\ell}{(N/n) L} \\
     &= \frac{\pi 2\ell/(\pi L)}{p'}\\
     &= \frac{\pi p}{p + (p' - p)}\\
-    &= \pi \left(1 - \frac{p' - p}{p} + \cdots \right)
+    &= \pi \left(1 - \frac{p' - p}{p} + \dotsb \right)
   \end{align*}
   Hence
   \[
@@ -3013,7 +2995,7 @@ Let $X_i \sim B(1, p)$. Then $S_n \sim B(n, p)$. So $\E[S_n] = np$ and $\var (S_
   \[
     0.001\sqrt{\frac{2n}{(\pi - 2)(\pi^2)}} \geq \Phi^{-1}(0.975) = 1.96
   \]
-  So $n\geq 2.16 \times 10^7$. So we can obtain $\pi$ to 3 decimal places just by throwing a stick 20 million times! Isn't that exciting?
+  So $n\geq 2.16 \times 10^7$.
 \end{eg}
 
 \ifx \nhtml \undefined
