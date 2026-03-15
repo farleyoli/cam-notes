@@ -1270,130 +1270,120 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 
 
 \subsection{Multiple random variables}
-If we have two random variables, we can study the relationship between them.
 
 \begin{defi}[Covariance]
-  Given two random variables $X, Y$, the \emph{covariance} is
+  Let $X$ and $Y$ be random variables with finite expectations. The \emph{covariance} of $X$ and $Y$ is
   \[
     \cov(X, Y) = \E[(X - \E[X])(Y - \E[Y])].
   \]
 \end{defi}
 
-\begin{prop}\leavevmode
+\begin{prop}[Properties of covariance]
+  Let $X, Y$ be random variables and $c \in \R$ a constant.
   \begin{enumerate}
-    \item $\cov(X, c) = 0$ for constant $c$.
+    \item $\cov(X, c) = 0$.
     \item $\cov(X + c, Y) = \cov (X, Y)$.
-    \item $\cov (X, Y) = \cov (Y, X)$.
-    \item $\cov (X, Y) = \E[XY] - \E[X]\E[Y]$.
+    \item $\cov (X, Y) = \cov (Y, X)$ (symmetry).
+    \item $\cov (X, Y) = \E[XY] - \E[X]\,\E[Y]$.
     \item $\cov (X, X) = \var (X)$.
     \item $\var (X + Y) = \var (X) + \var (Y) + 2\cov (X, Y)$.
-    \item If $X$, $Y$ are independent, $\cov(X, Y) = 0$.
+    \item If $X$ and $Y$ are independent, then $\cov(X, Y) = 0$.
   \end{enumerate}
 \end{prop}
-These are all trivial to prove and proof is omitted.
 
-It is important to note that $\cov(X, Y) = 0$ does not imply $X$ and $Y$ are independent.
-\begin{eg}\leavevmode
-  \begin{itemize}
-    \item Let $(X, Y) = (2, 0), (-1, -1)$ or $(-1, 1)$ with equal probabilities of $1/3$. These are not independent since $Y = 0\Rightarrow X = 2$.
+\begin{proof}
+  All parts follow by expanding the definition and using linearity of expectation.
+\end{proof}
 
-      However, $\cov (X, Y) = \E[XY] - \E[X]\E[Y] = 0 - 0\cdot 0 = 0$.
+\begin{remark}
+  The converse of (7) is false: $\cov(X, Y) = 0$ does not imply independence.
+\end{remark}
 
-    \item If we randomly pick a point on the unit circle, and let the coordinates be $(X, Y)$, then $\E[X] = \E[Y] = \E[XY] = 0$ by symmetry. So $\cov(X, Y) = 0$ but $X$ and $Y$ are clearly not independent (they have to satisfy $x^2 + y^2 = 1$).
-  \end{itemize}
+\begin{eg}[Zero covariance without independence]
+  \begin{enumerate}
+    \item Let $(X, Y)$ take values $(2, 0)$, $(-1, -1)$, $(-1, 1)$ each with probability $1/3$. Then $\E[X] = 0$, $\E[Y] = 0$, and $\E[XY] = 0$, so $\cov(X, Y) = 0$. But $X$ and $Y$ are not independent, since $Y = 0 \Rightarrow X = 2$.
+    \item Pick a point uniformly at random on the unit circle and let $(X, Y)$ be its coordinates. By symmetry, $\E[X] = \E[Y] = \E[XY] = 0$, so $\cov(X, Y) = 0$. But $X$ and $Y$ are dependent since $X^2 + Y^2 = 1$.
+  \end{enumerate}
 \end{eg}
 
-The covariance is not that useful in measuring how well two variables correlate. For one, the covariance can (potentially) have dimensions, which means that the numerical value of the covariance can depend on what units we are using. Also, the magnitude of the covariance depends largely on the variance of $X$ and $Y$ themselves. To solve these problems, we define
-
 \begin{defi}[Correlation coefficient]
-  The \emph{correlation coefficient} of $X$ and $Y$ is
+  Let $X$ and $Y$ be random variables with $\var(X), \var(Y) > 0$. The \emph{correlation coefficient} of $X$ and $Y$ is
   \[
-    \corr(X, Y) = \frac{\cov (X, Y)}{\sqrt{\var (X)\var (Y)}}.
+    \corr(X, Y) = \frac{\cov (X, Y)}{\sqrt{\var (X)\,\var (Y)}}.
   \]
 \end{defi}
 
 \begin{prop}
-  $|\corr(X, Y)| \leq 1$.
+  $|\corr(X, Y)| \leq 1$, with equality if and only if $Y = a + bX$ for some constants $a, b$ with $b \neq 0$.
 \end{prop}
 
 \begin{proof}
-  Apply Cauchy-Schwarz to $X - \E[X]$ and $Y - \E[Y]$.
+  Apply the Cauchy--Schwarz inequality to $X - \E[X]$ and $Y - \E[Y]$.
 \end{proof}
 
-Again, zero correlation does not necessarily imply independence.
+\begin{remark}
+  The correlation coefficient is a dimensionless, normalised measure of linear dependence. As with covariance, zero correlation does not imply independence.
+\end{remark}
 
-Alternatively, apart from finding a fixed covariance or correlation number, we can see how the distribution of $X$ depends on $Y$. Given two random variables $X, Y$, $\P(X = x, Y = y)$ is known as the \emph{joint distribution}. From this joint distribution, we can retrieve the probabilities $\P(X = x)$ and $\P(Y = y)$. We can also consider different conditional expectations.
-
-\begin{defi}[Conditional distribution]
-  Let $X$ and $Y$ be random variables (in general not independent) with joint distribution $\P(X = x, Y = y)$. Then the \emph{marginal distribution} (or simply \emph{distribution}) of $X$ is
+\begin{defi}[Joint and marginal distributions]
+  Let $X$ and $Y$ be discrete random variables. Their \emph{joint distribution} is $\P(X = x, Y = y)$ for all $x \in \Omega_X$, $y \in \Omega_Y$. The \emph{marginal distribution} of $X$ is
   \[
-    \P(X = x) = \sum_{y\in \Omega_y}\P(X = x, Y = y).
+    \P(X = x) = \sum_{y\in \Omega_Y}\P(X = x, Y = y).
   \]
-  The \emph{conditional distribution} of $X$ given $Y$ is
+\end{defi}
+
+\begin{defi}[Conditional distribution and conditional expectation]
+  Let $X$ and $Y$ be discrete random variables with $\P(Y = y) > 0$. The \emph{conditional distribution} of $X$ given $Y = y$ is
   \[
     \P(X = x\mid Y = y) = \frac{\P(X = x, Y = y)}{\P(Y = y)}.
   \]
-  The \emph{conditional expectation} of $X$ given $Y$ is
+  The \emph{conditional expectation} of $X$ given $Y = y$ is
   \[
-    \E[X\mid Y = y] = \sum_{x\in \Omega_X}x\P(X = x\mid Y = y).
+    \E[X\mid Y = y] = \sum_{x\in \Omega_X}x\,\P(X = x\mid Y = y).
   \]
-  We can view $\E[X\mid Y]$ as a random variable in $Y$: given a value of $Y$, we return the expectation of $X$.
+  We write $\E[X\mid Y]$ for the random variable that takes the value $\E[X \mid Y = y]$ when $Y = y$.
 \end{defi}
 
-\begin{eg}
-  Consider a dice roll. Let $Y = 1$ denote an even roll and $Y = 0$ denote an odd roll. Let $X$ be the value of the roll. Then $\E[X\mid Y] = 3 + Y$, ie 4 if even, 3 if odd.
+\begin{eg}[Die roll]
+  Let $X$ be the value of a fair die roll, and let $Y = I_{\{X \text{ is even}\}}$. Then $\E[X\mid Y = 1] = (2 + 4 + 6)/3 = 4$ and $\E[X\mid Y = 0] = (1 + 3 + 5)/3 = 3$, so $\E[X\mid Y] = 3 + Y$.
 \end{eg}
 
-\begin{eg}
-  Let $X_1, \cdots, X_n$ be iid $B(1, p)$. Let $Y = X_1 + \cdots + X_n$. Then
+\begin{eg}[Bernoulli sum]
+  Let $X_1, \dotsc, X_n$ be i.i.d.\ $B(1, p)$ and let $Y = X_1 + \cdots + X_n$. Then for $1 \leq r \leq n$,
   \begin{align*}
-    \P(X_1 = 1\mid Y = r) &= \frac{\P(X_1 = 1, \sum_{2}^n X_i = r - 1)}{\P(Y = r)}\\
-    &= \frac{p\binom{n - 1}{r - 1}p^{r - 1}(1 - p)^{(n - 1) - (r - 1)}}{\binom{n}{r} p^r (1 - p)^{n - 1}} = \frac{r}{n}.
+    \P(X_1 = 1\mid Y = r) &= \frac{\P(X_1 = 1)\,\P(\sum_{i=2}^n X_i = r - 1)}{\P(Y = r)} = \frac{p\binom{n - 1}{r - 1}p^{r - 1}(1 - p)^{n - r}}{\binom{n}{r} p^r (1 - p)^{n - r}} = \frac{r}{n}.
   \end{align*}
-  So
-  \[
-    \E[X_1\mid Y] = 1 \cdot \frac{r}{n} + 0\left(1 - \frac{r}{n}\right) = \frac{r}{n} = \frac{Y}{n}.
-  \]
-  Note that this is a random variable!
+  Therefore $\E[X_1\mid Y = r] = r/n$, and so $\E[X_1\mid Y] = Y/n$ as a random variable.
 \end{eg}
 
-\begin{thm}
-  If $X$ and $Y$ are independent, then
+\begin{prop}
+  If $X$ and $Y$ are independent, then $\E[X\mid Y] = \E[X]$.
+\end{prop}
+
+\begin{proof}
+  For any $y$ with $\P(Y = y) > 0$, independence gives $\P(X = x \mid Y = y) = \P(X = x)$, so $\E[X\mid Y = y] = \sum_x x\,\P(X = x) = \E[X]$.
+\end{proof}
+
+\begin{thm}[Law of total expectation / tower property]
+  Let $X$ and $Y$ be discrete random variables with $\E[|X|] < \infty$. Then
   \[
-    \E[X\mid Y] = \E[X]
+    \E[\E[X\mid Y]] = \E[X].
   \]
 \end{thm}
 
 \begin{proof}
   \begin{align*}
-    \E[X\mid Y = y] &= \sum_{x}x\P(X = x\mid Y = y)\\
-    &= \sum_x x\P(X = x)\\
-    &= \E[X]\qedhere
+    \E[\E[X\mid Y]] &= \sum_y \P(Y = y)\,\E[X\mid Y = y] = \sum_y \P(Y = y) \sum_{x}x\,\P(X = x\mid Y = y)\\
+    &= \sum_x\sum_y x\,\P(X = x, Y = y) = \sum_x x\,\P(X = x) = \E[X].\qedhere
   \end{align*}
 \end{proof}
 
-We know that the expected value of a dice roll given it is even is 4, and the expected value given it is odd is 3. Since it is equally likely to be even or odd, the expected value of the dice roll is 3.5. This is formally captured by
-\begin{thm}[Tower property of conditional expectation]
+\begin{remark}
+  Equivalently, if $A_1, A_2, \dotsc, A_n$ is a partition of $\Omega$ with $\P(A_i) > 0$ for all $i$, then
   \[
-    \E_Y[\E_X[X\mid Y]] = \E_X[X],
+    \E[X] = \sum_{i=1}^{n}\E[X\mid A_i]\,\P(A_i).
   \]
-  where the subscripts indicate what variable the expectation is taken over.
-\end{thm}
-
-\begin{proof}
-  \begin{align*}
-    \E_Y[\E_X[X\mid Y]] &= \sum_y \P(Y = y)\E[X\mid Y = y]\\
-    &= \sum _y \P(Y = y) \sum_{x}x\P(X = x\mid Y = y)\\
-    &= \sum_x\sum_y x\P(X = x, Y = y)\\
-    &= \sum _x x\sum_y \P(X = x, Y = y)\\
-    &= \sum_x x\P(X = x)\\
-    &= \E[X].\qedhere
-  \end{align*}
-\end{proof}
-This is also called the law of total expectation. We can also state it as: suppose $A_1, A_2, \cdots, A_n$ is a partition of $\Omega$. Then
-\[
-  \E[X] = \sum_{i: \P(A_i) > 0}\E[X\mid A_i]\P(A_i).
-\]
+\end{remark}
 
 \subsection{Probability generating functions}
 Consider a random variable $X$, taking values $0, 1, 2, \cdots$. Let $p_r = \P(X = r)$.
