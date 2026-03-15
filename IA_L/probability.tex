@@ -123,139 +123,143 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
   \]
 \end{eg}
 \subsection{Counting}
-To find probabilities, we often need to \emph{count} things. For example, in our example above, we had to count the number of elements in $B_k$.
-\begin{eg}
-  A menu has 6 starters, 7 mains and 6 desserts. How many possible meals combinations are there? Clearly $6 \times 7 \times 6 = 252$.
-\end{eg}
-Here we are using the fundamental rule of counting:
+
 \begin{thm}[Fundamental rule of counting]
-  Suppose we have to make $r$ multiple choices in sequence. There are $m_1$ possibilities for the first choice, $m_2$ possibilities for the second etc. Then the total number of choices is $m_1\times m_2\times \cdots m_r$.
+  Suppose we make $r$ choices in sequence, where there are $m_1$ possibilities for the first choice, $m_2$ for the second, and so on. Then the total number of ways to make all $r$ choices is $m_1\times m_2\times \cdots \times m_r$.
 \end{thm}
 
-\begin{eg}
-  How many ways can $1, 2, \cdots, n$ be ordered? The first choice has $n$ possibilities, the second has $n - 1$ possibilities etc. So there are $n\times (n - 1)\times\cdots \times 1 = n!$.
+\begin{eg}[Meal combinations]
+  A menu has 6 starters, 7 mains and 6 desserts. By the fundamental rule of counting, the number of possible meal combinations is $6 \times 7 \times 6 = 252$.
+\end{eg}
+
+\begin{eg}[Permutations]
+  The number of ways to order the elements $1, 2, \dotsc, n$ is $n\times (n - 1)\times\cdots \times 1 = n!$, since there are $n$ choices for the first position, $n-1$ for the second, and so on.
 \end{eg}
 
 \subsubsection*{Sampling with or without replacement}
-Suppose we have to pick $n$ items from a total of $x$ items. We can model this as follows: Let $N = \{1, 2, \cdots, n\}$ be the list. Let $X = \{1, 2, \cdots, x\}$ be the items. Then each way of picking the items is a function $f: N\to X$ with $f(i) =$ item at the $i$th position.
 
-\begin{defi}[Sampling with replacement]
-  When we \emph{sample with replacement}, after choosing at item, it is put back and can be chosen again. Then \emph{any} sampling function $f$ satisfies sampling with replacement.
+\begin{defi}[Sampling model]
+  Suppose we wish to pick $n$ items from a collection of $x$ items. Let $N = \{1, 2, \dotsc, n\}$ index the positions in our sample and let $X = \{1, 2, \dotsc, x\}$ be the set of items. Each way of picking is described by a function $f\colon N\to X$, where $f(i)$ is the item chosen at position $i$.
+  \begin{itemize}
+    \item We \emph{sample with replacement} if $f$ is allowed to be any function $N \to X$ (items may be chosen more than once).
+    \item We \emph{sample without replacement} if $f$ must be injective (each item is chosen at most once). This requires $x \geq n$.
+  \end{itemize}
 \end{defi}
 
-\begin{defi}[Sampling without replacement]
-  When we \emph{sample without replacement}, after choosing an item, we kill it with fire and cannot choose it again. Then $f$ must be an injective function, and clearly we must have $x \geq n$.
-\end{defi}
+\begin{remark}
+  One can also require that every item be chosen at least once, in which case $f$ must be surjective.
+\end{remark}
 
-We can also have sampling with replacement, but we require each item to be chosen at least once. In this case, $f$ must be surjective.
-
-\begin{eg}
-  Suppose $N = \{a, b, c\}$ and $X = \{p, q, r, s\}$. How many injective functions are there $N\to X$?
-
-  When we choose $f(a)$, we have 4 options. When we choose $f(b)$, we have 3 left. When we choose $f(c)$, we have 2 choices left. So there are $24$ possible choices.
+\begin{eg}[Injective functions]
+  Let $N = \{a, b, c\}$ and $X = \{p, q, r, s\}$. The number of injective functions $f\colon N\to X$ is $4 \times 3 \times 2 = 24$, since there are 4 choices for $f(a)$, then 3 remaining for $f(b)$, and 2 remaining for $f(c)$.
 \end{eg}
 
-\begin{eg}
-  I have $n$ keys in my pocket. We select one at random once and try to unlock. What is the possibility that I succeed at the $r$th trial?
+\begin{eg}[Keys]
+  Suppose we have $n$ keys, exactly one of which unlocks a door. We try keys one at a time at random. Let $r \geq 1$. What is the probability of first succeeding on the $r$th trial?
 
-  Suppose we do it with replacement. We have to fail the first $r - 1$ trials and succeed in the $r$th. So the probability is
+  \emph{With replacement}: we must fail the first $r - 1$ trials and succeed on the $r$th. The probability is
   \[
-    \frac{(n - 1)(n - 1) \cdots (n - 1)(1)}{n^r} = \frac{(n - 1)^{r - 1}}{n^r}.
+    \frac{(n - 1)^{r - 1} \cdot 1}{n^r} = \frac{(n - 1)^{r - 1}}{n^r}.
   \]
-  Now suppose we are smarter and try without replacement. Then the probability is
+  \emph{Without replacement}: the probability is
   \[
-    \frac{(n - 1)(n - 2)\cdots (n - r + 1)(1)}{n(n - 1) \cdots (n - r + 1)} = \frac{1}{n}.
+    \frac{(n - 1)(n - 2)\cdots (n - r + 1) \cdot 1}{n(n - 1) \cdots (n - r + 1)} = \frac{1}{n}.
   \]
 \end{eg}
+
 \begin{eg}[Birthday problem]
-  How many people are needed in a room for there to be a probability that two people have the same birthday to be at least a half?
+  Suppose there are $r$ people in a room, each with a birthday chosen uniformly at random from $365$ days (ignoring leap years). Let $f(r)$ denote the probability that at least two people share a birthday. How large must $r$ be for $f(r) \geq 1/2$?
 
-  Suppose $f(r)$ is the probability that, in a room of $r$ people, there is a birthday match.
-
-  We solve this by finding the probability of no match, $1 - f(r)$. The total number of possibilities of birthday combinations is $365^r$. For nobody to have the same birthday, the first person can have any birthday. The second has 364 else to choose, etc. So
+  It is easier to compute the complementary probability. The total number of birthday assignments is $365^r$. For all birthdays to be distinct, the first person can have any of $365$ days, the second any of $364$, and so on. Hence
   \[
-    \P(\text{no match}) = \frac{365\cdot 364\cdot 363 \cdots (366 - r)}{365\cdot 365\cdot 365 \cdots 365}.
+    \P(\text{no match}) = 1 - f(r) = \frac{365 \cdot 364 \cdot 363 \cdots (366 - r)}{365^r}.
   \]
-  If we calculate this with a computer, we find that $f(22) = 0.475695$ and $f(23) = 0.507297$.
+  Computing numerically, $f(22) = 0.4757$ and $f(23) = 0.5073$, so $r = 23$ suffices.
 
-  While this might sound odd since 23 is small, this is because we are thinking about the wrong thing. The probability of match is related more to the number of \emph{pairs} of people, not the number of people. With 23 people, we have $23\times 22/2 = 253$ pairs, which is quite large compared to 365.
+  This may seem surprisingly small. The intuition is that the probability of a match depends on the number of \emph{pairs}, not the number of people. With 23 people there are $\binom{23}{2} = 253$ pairs, which is a substantial fraction of $365$.
 \end{eg}
+
 \subsubsection*{Sampling with or without regard to ordering}
-There are cases where we don't care about, say list positions. For example, if we pick two representatives from a class, the order of picking them doesn't matter.
 
-In terms of the function $f: N\to X$, after mapping to $f(1), f(2), \cdots, f(n)$, we can
-\begin{itemize}
-  \item Leave the list alone
-  \item Sort the list ascending. i.e.\ we might get $(2, 5, 4)$ and $(4, 2, 5)$. If we don't care about list positions, these are just equivalent to $(2, 4, 5)$.
-  \item Re-number each item by the number of the draw on which it was first seen. For example, we can rename $(2, 5, 2)$ and $(5, 4, 5)$ both as $(1, 2, 1)$. This happens if the labelling of items doesn't matter.
-  \item Both of above. So we can rename $(2, 5, 2)$ and $(8, 5, 5)$ both as $(1, 1, 2)$.
-\end{itemize}
+\begin{remark}
+  In the sampling model above, the function $f\colon N \to X$ produces an ordered list $f(1), f(2), \dotsc, f(n)$. There are situations where the ordering is irrelevant:
+  \begin{itemize}
+    \item \emph{With ordering}: the list $f(1), f(2), \dotsc, f(n)$ is kept as is.
+    \item \emph{Without ordering}: we sort the list, so that e.g.\ $(2, 5, 4)$ and $(4, 2, 5)$ are both identified with $(2, 4, 5)$.
+  \end{itemize}
+\end{remark}
 
-\subsubsection*{Total number of cases}
-Combining these four possibilities with whether we have replacement, no replacement, or ``everything has to be chosen at least once'', we have 12 possible cases of counting. The most important ones are:
-\begin{itemize}
-  \item Replacement + with ordering: the number of ways is $x^n$.
-  \item Without replacement + with ordering: the number of ways is $x_{(n)} = x^{\underline{n}} = x(x - 1)\cdots (x - n + 1)$.
-  \item Without replacement + without order: we only care which items get selected. The number of ways is $\binom{x}{n} = C^x_n = x_{(n)}/n!$.
-  \item Replacement + without ordering: we only care how many times the item got chosen. This is equivalent to partitioning $n$ into $n_1 + n_2 + \cdots + n_k$. Say $n = 6$ and $k = 3$. We can write a particular partition as
-    \[
-      **\mid *\mid ***
-    \]
-  So we have $n + k - 1$ symbols and $k - 1$ of them are bars. So the number of ways is $\binom{n + k - 1}{k - 1}$.
-\end{itemize}
+\subsubsection*{Summary of counting formulae}
+
+\begin{prop}[Counting formulae]
+  Let $x, n \geq 1$ be integers. The number of ways to sample $n$ items from $x$ items is as follows.
+  \begin{itemize}
+    \item \emph{With replacement, with ordering}: $x^n$.
+    \item \emph{Without replacement, with ordering}: $x^{\underline{n}} = x(x - 1)\cdots (x - n + 1)$, the \emph{falling factorial}.
+    \item \emph{Without replacement, without ordering}: $\binom{x}{n} = \dfrac{x^{\underline{n}}}{n!}$.
+    \item \emph{With replacement, without ordering}: $\binom{n + x - 1}{x - 1}$. This follows from a \emph{stars and bars} argument: represent a selection as $n$ stars distributed among $x$ bins separated by $x - 1$ bars, giving a total of $n + x - 1$ symbols of which $x - 1$ are bars.
+  \end{itemize}
+\end{prop}
+
+\begin{eg}[Stars and bars]
+  With $n = 6$ items and $x = 3$ bins, a particular selection can be represented as
+  \[
+    **\mid *\mid ***.
+  \]
+  The total number of such selections is $\binom{6 + 3 - 1}{3 - 1} = \binom{8}{2} = 28$.
+\end{eg}
 
 \subsubsection*{Multinomial coefficient}
-Suppose that we have to pick $n$ items, and each item can either be an apple or an orange. The number of ways of picking such that $k$ apples are chosen is, by definition, $\binom{n}{k}$.
-
-In general, suppose we have to fill successive positions in a list of length $n$, with replacement, from a set of $k$ items. The number of ways of doing so such that item $i$ is picked $n_i$ times is defined to be the \emph{multinomial coefficient} $\binom{n}{n_1, n_2, \cdots, n_k}$.
 
 \begin{defi}[Multinomial coefficient]
-  A \emph{multinomial coefficient} is
+  Let $n, k \geq 1$ be integers, and let $n_1, n_2, \dotsc, n_k \geq 0$ with $n_1 + n_2 + \cdots + n_k = n$. The \emph{multinomial coefficient} is
   \[
-    \binom{n}{n_1, n_2, \cdots, n_k} = \binom{n}{n_1}\binom{n - n_1}{n_2}\cdots \binom{n - n_1\cdots - n_{k - 1}}{n_k} = \frac{n!}{n_1!n_2!\cdots n_k!}.
+    \binom{n}{n_1, n_2, \dotsc, n_k} = \frac{n!}{n_1!\, n_2!\cdots n_k!}.
   \]
-  It is the number of ways to distribute $n$ items into $k$ positions, in which the $i$th position has $n_i$ items.
+  It counts the number of ways to partition a set of $n$ elements into $k$ labelled groups of sizes $n_1, n_2, \dotsc, n_k$.
 \end{defi}
 
-\begin{eg}
-  We know that
+\begin{remark}
+  The multinomial coefficient can also be written as a product of binomial coefficients:
   \[
-    (x + y)^n = x^n + \binom{n}{1}x^{n - 1}y + \cdots + y^n.
+    \binom{n}{n_1, n_2, \dotsc, n_k} = \binom{n}{n_1}\binom{n - n_1}{n_2}\cdots \binom{n - n_1 - \cdots - n_{k-1}}{n_k}.
   \]
-  If we have a trinomial, then
+  When $k = 2$, this reduces to the ordinary binomial coefficient $\binom{n}{n_1}$.
+\end{remark}
+
+\begin{eg}[Multinomial theorem]
+  The binomial theorem states that
   \[
-    (x + y + z)^n = \sum_{n_1, n_2, n_3} \binom{n}{n_1, n_2, n_3} x^{n_1}y^{n_2}z^{n_3}.
+    (x + y)^n = \sum_{j=0}^{n} \binom{n}{j}\, x^{j}\, y^{n-j}.
+  \]
+  More generally, the \emph{multinomial theorem} gives
+  \[
+    (x_1 + x_2 + \cdots + x_k)^n = \sum_{\substack{n_1, \dotsc, n_k \geq 0 \\ n_1 + \cdots + n_k = n}} \binom{n}{n_1, n_2, \dotsc, n_k}\, x_1^{n_1}\, x_2^{n_2} \cdots x_k^{n_k}.
   \]
 \end{eg}
 
-\begin{eg}
-  How many ways can we deal 52 cards to 4 player, each with a hand of 13? The total number of ways is
+\begin{eg}[Dealing cards]
+  The number of ways to deal 52 cards to 4 players, each receiving a hand of 13, is
   \[
-    \binom{52}{13, 13, 13, 13} = \frac{52!}{(13!)^4} = 53644737765488792839237440000 = 5.36\times 10^{28}.
+    \binom{52}{13, 13, 13, 13} = \frac{52!}{(13!)^4} \approx 5.36\times 10^{28}.
   \]
 \end{eg}
 
-
-While computers are still capable of calculating that, what if we tried more \st{power} cards? Suppose each person has $n$ cards. Then the number of ways is
-\[
-  \frac{(4n)!}{(n!)^4},
-\]
-which is \emph{huge}. We can use Stirling's Formula to approximate it:
+\begin{remark}
+  If each of 4 players receives $n$ cards, the number of ways to deal is $(4n)!/(n!)^4$, which grows extremely rapidly with $n$. Stirling's formula, which we develop next, provides a useful approximation for such expressions.
+\end{remark}
 \subsection{Stirling's formula}
-Before we state and prove Stirling's formula, we prove a weaker (but examinable) version:
-\begin{prop}
-  $\log n!\sim n\log n$
+
+\begin{prop}[Weak Stirling approximation]
+  \label{prop:weak-stirling}
+  $\log n! \sim n\log n$ as $n \to \infty$.
 \end{prop}
 \begin{proof}
-  Note that
+  Since $\log$ is increasing, we have
   \[
-    \log n! = \sum_{k=1}^n \log k.
+    \int_1^n \log x\;\d x \leq \sum_{k=1}^n \log k \leq \int_1^{n + 1}\log x\;\d x,
   \]
-  Now we claim that
-  \[
-    \int_1^n \log x\;\d x \leq \sum_1^n \log k\leq \int_1^{n + 1}\log x\;\d x.
-  \]
-  This is true by considering the diagram:
+  as can be seen by comparing the sum with left and right Riemann sums:
   \begin{center}
     \begin{tikzpicture}[xscale=0.7, yscale=1.3]
      \draw [->] (0, 0) -- (11, 0) node [right] {$x$};
@@ -272,356 +276,312 @@ Before we state and prove Stirling's formula, we prove a weaker (but examinable)
      \draw [fill = black, fill opacity=0.2] (9, 0)-- (9, 2.19722457733622) -- (10, 2.19722457733622) -- (10, 0);
     \end{tikzpicture}
   \end{center}
-  We actually evaluate the integral to obtain
+  Evaluating the integrals gives
   \[
-    n\log n - n + 1 \leq \log n! \leq (n+ 1)\log (n + 1) - n;
+    n\log n - n + 1 \leq \log n! \leq (n+ 1)\log (n + 1) - n.
   \]
-  Divide both sides by $n\log n$ and let $n\to \infty$. Both sides tend to $1$. So
+  Dividing by $n\log n$ and letting $n\to \infty$, both sides tend to $1$, so
   \[
     \frac{\log n!}{n\log n} \to 1.\qedhere
   \]
 \end{proof}
 
-Now we prove Stirling's Formula:
 \begin{thm}[Stirling's formula]
   As $n\to \infty$,
   \[
-    \log\left(\frac{n! e^n}{n^{n + \frac{1}{2}}}\right) = \log \sqrt{2\pi} + O\left(\frac{1}{n}\right)
+    \log\left(\frac{n!\, e^n}{n^{n + 1/2}}\right) = \log \sqrt{2\pi} + O\left(\frac{1}{n}\right).
   \]
 \end{thm}
+
 \begin{cor}
-  \[
-    n!\sim \sqrt{2\pi}n^{n + \frac{1}{2}} e^{-n}
-  \]
+  $n!\sim \sqrt{2\pi}\, n^{n + 1/2}\, e^{-n}$ as $n \to \infty$.
 \end{cor}
-\begin{proof}(non-examinable)
-  Define
+
+\begin{proof}[Proof of Stirling's formula (non-examinable)]
+  Define the sequence
   \[
-    d_n = \log \left(\frac{n!e^n}{n^{n + 1/2}}\right) = \log n! - (n + 1/2)\log n + n
+    d_n = \log \left(\frac{n!\,e^n}{n^{n + 1/2}}\right) = \log n! - \left(n + \tfrac{1}{2}\right)\log n + n.
   \]
   Then
   \[
-    d_n - d_{n + 1} = (n + 1/2)\log\left(\frac{n + 1}{n}\right) - 1.
+    d_n - d_{n + 1} = \left(n + \tfrac{1}{2}\right)\log\left(\frac{n + 1}{n}\right) - 1.
   \]
-  Write $t = 1/(2n + 1)$. Then
+  Writing $t = 1/(2n + 1)$, so that $(n+1)/n = (1+t)/(1-t)$, this becomes
   \[
     d_n - d_{n + 1} = \frac{1}{2t}\log\left(\frac{1 + t}{1 - t}\right) - 1.
   \]
-  We can simplifying by noting that
+  Using the Taylor expansions
   \begin{align*}
-    \log (1 + t) - t &= -\frac{1}{2}t^2 + \frac{1}{3}t^3 - \frac{1}{4}t^4 + \cdots\\
-    \log (1 - t) + t &= -\frac{1}{2}t^2 - \frac{1}{3}t^3 - \frac{1}{4}t^4 - \cdots
+    \log (1 + t) &= t -\frac{1}{2}t^2 + \frac{1}{3}t^3 - \frac{1}{4}t^4 + \cdots,\\
+    \log (1 - t) &= -t -\frac{1}{2}t^2 - \frac{1}{3}t^3 - \frac{1}{4}t^4 - \cdots,
   \end{align*}
-  Then if we subtract the equations and divide by $2t$, we obtain
+  and subtracting, we obtain $\log\bigl(\frac{1+t}{1-t}\bigr) = 2t + \frac{2}{3}t^3 + \frac{2}{5}t^5 + \cdots$. Dividing by $2t$ and subtracting $1$ gives
   \begin{align*}
     d_n - d_{n + 1} &= \frac{1}{3}t^2 + \frac{1}{5}t^4 + \frac{1}{7}t^6 + \cdots\\
     &< \frac{1}{3}t^2 + \frac{1}{3}t^4 + \frac{1}{3}t^6 + \cdots\\
-    &= \frac{1}{3}\frac{t^2}{1 - t^2}\\
-    &= \frac{1}{3}\frac{1}{(2n + 1)^2 - 1}\\
-    &= \frac{1}{12}\left(\frac{1}{n} - \frac{1}{n + 1}\right)
+    &= \frac{t^2}{3(1 - t^2)}\\
+    &= \frac{1}{3\bigl((2n + 1)^2 - 1\bigr)}\\
+    &= \frac{1}{12}\left(\frac{1}{n} - \frac{1}{n + 1}\right).
   \end{align*}
-  By summing these bounds, we know that
+  In particular, $d_n - d_{n+1} > 0$, so $(d_n)$ is strictly decreasing. Summing the bound telescopically,
   \[
-    d_1 - d_n < \frac{1}{12}\left(1 - \frac{1}{n}\right)
+    d_n - d_m < \frac{1}{12}\left(\frac{1}{n} - \frac{1}{m}\right) \quad \text{for all } m > n.
   \]
-  Then we know that $d_n$ is bounded below by $d_1 +$ something, and is decreasing since $d_n - d_{n + 1}$ is positive. So it converges to a limit $A$. We know $A$ is a lower bound for $d_n$ since $(d_n)$ is decreasing.
+  Setting $n = 1$ shows $d_m > d_1 - \frac{1}{12}$ for all $m$, so $(d_n)$ is bounded below. Being decreasing and bounded below, it converges to a limit $A$. Letting $m \to \infty$ in the bound above gives
+  \[
+    A \leq d_n < A + \frac{1}{12n}.
+  \]
 
-  Suppose $m > n$. Then $d_n - d_m < \left(\frac{1}{n} - \frac{1}{m}\right)\frac{1}{12}$. So taking the limit as $m\to \infty$, we obtain an upper bound for $d_n$: $d_n < A + 1/(12n)$. Hence we know that
-  \[
-    A < d_n < A + \frac{1}{12n}.
-  \]
-  However, all these results are useless if we don't know what $A$ is. To find $A$, we have a small detour to prove a formula:
-
-  Take $I_n = \int_0^{\pi/2} \sin^n\theta\;\d \theta$. This is decreasing for increasing $n$ as $\sin^n\theta$ gets smaller. We also know that
+  It remains to identify $A$. Define $I_n = \int_0^{\pi/2} \sin^n\theta\;\d \theta$. Since $0 \leq \sin\theta \leq 1$ on $[0, \pi/2]$, the sequence $(I_n)$ is decreasing. Integration by parts gives the recurrence
   \begin{align*}
-    I_n &= \int_0^{\pi/2}\sin^n \theta\;\d \theta\\
-    &= \left[-\cos\theta\sin^{n - 1}\theta \right]_0^{\pi/2} + \int_0^{\pi/2} (n - 1)\cos^2\theta \sin^{n - 2}\theta \;\d\theta\\
-    &= 0 + \int_0^{\pi/2}(n - 1)(1 - \sin^2 \theta)\sin^{n - 2}\theta \;\d \theta\\
-    &= (n - 1)(I_{n - 2} - I_n)
+    I_n &= \int_0^{\pi/2}\sin^n \theta\;\d \theta = \left[-\cos\theta\sin^{n - 1}\theta \right]_0^{\pi/2} + (n - 1)\int_0^{\pi/2}\cos^2\theta \sin^{n - 2}\theta \;\d\theta\\
+    &= (n - 1)(I_{n - 2} - I_n),
   \end{align*}
-  So
-  \[
-    I_n = \frac{n - 1}{n}I_{n - 2}.
-  \]
-  We can directly evaluate the integral to obtain $I_0 = \pi/2$, $I_1 = 1$. Then
+  so $I_n = \frac{n - 1}{n}\,I_{n - 2}$. Since $I_0 = \pi/2$ and $I_1 = 1$, iterating gives
   \begin{align*}
-    I_{2n} &= \frac{1}{2}\cdot\frac{3}{4}\cdots \frac{2n - 1}{2n} \pi/2 = \frac{(2n)!}{(2^nn!)^2}\frac{\pi}{2}\\
-    I_{2n + 1} &= \frac{2}{3}\cdot\frac{4}{5}\cdots\frac{2n}{2n + 1} = \frac{(2^nn!)^2}{(2n + 1)!}
+    I_{2n} &= \frac{1}{2}\cdot\frac{3}{4}\cdots \frac{2n - 1}{2n}\cdot \frac{\pi}{2} = \frac{(2n)!}{(2^n n!)^2}\cdot\frac{\pi}{2},\\
+    I_{2n + 1} &= \frac{2}{3}\cdot\frac{4}{5}\cdots\frac{2n}{2n + 1} = \frac{(2^n n!)^2}{(2n + 1)!}.
   \end{align*}
-  So using the fact that $I_n$ is decreasing, we know that
+  Since $(I_n)$ is decreasing, $I_{2n+1} \leq I_{2n} \leq I_{2n-1}$, and so
   \[
-    1 \leq \frac{I_{2n}}{I_{2n + 1}} \leq \frac{I_{2n - 1}}{I_{2n + 1}} = 1 + \frac{1}{2n} \to 1.
+    1 \leq \frac{I_{2n}}{I_{2n + 1}} \leq \frac{I_{2n - 1}}{I_{2n + 1}} = \frac{2n+1}{2n} \to 1.
   \]
-  Using the approximation $n!\sim n^{n + 1/2}e^{-n + A}$, where $A$ is the limit we want to find, we can approximate
+  Using $n!\sim n^{n + 1/2}e^{-n + A}$, we can compute
   \[
-    \frac{I_{2n}}{I_{2n + 1}} = \pi(2n + 1)\left[\frac{( (2n)!)^2}{2^{4n + 1}(n!)^4}\right] \sim \pi(2n + 1)\frac{1}{ne^{2A}}\to \frac{2\pi}{e^{2A}}.
+    \frac{I_{2n}}{I_{2n + 1}} = \pi(2n + 1)\cdot\frac{\bigl((2n)!\bigr)^2}{2^{4n + 1}(n!)^4} \sim \frac{2\pi}{e^{2A}}.
   \]
-  Since the last expression is equal to 1, we know that $A = \log\sqrt{2\pi}$. Hooray for magic!
+  Since $I_{2n}/I_{2n+1} \to 1$, we conclude $e^{2A} = 2\pi$, i.e.\ $A = \log\sqrt{2\pi}$.
 \end{proof}
 
-This approximation can be improved:
-\begin{prop}[non-examinable]
-  We use the $1/12n$ term from the proof above to get a better approximation:
+\begin{prop}[Sharper bounds (non-examinable)]
+  For all $n \geq 1$,
   \[
-    \sqrt{2\pi}n^{n + 1/2}e^{-n + \frac{1}{12n + 1}} \leq n! \leq \sqrt{2\pi} n^{n + 1/2} e^{-n + \frac{1}{12n}}.
+    \sqrt{2\pi}\, n^{n + 1/2}\, e^{-n + \frac{1}{12n + 1}} \leq n! \leq \sqrt{2\pi}\, n^{n + 1/2}\, e^{-n + \frac{1}{12n}}.
   \]
 \end{prop}
 
-\begin{eg}
-  Suppose we toss a coin $2n$ times. What is the probability of equal number of heads and tails? The probability is
+\begin{eg}[Fair coin]
+  Suppose a fair coin is tossed $2n$ times. The probability of obtaining exactly $n$ heads and $n$ tails is
   \[
-    \frac{\binom{2n}{n}}{2^{2n}} = \frac{(2n)!}{(n!)^2 2^{2n}} \sim \frac{1}{\sqrt{n\pi}}
+    \frac{\binom{2n}{n}}{2^{2n}} = \frac{(2n)!}{(n!)^2\, 2^{2n}} \sim \frac{1}{\sqrt{n\pi}},
   \]
+  by Stirling's formula.
 \end{eg}
 
-\begin{eg}
-  Suppose we draw 26 cards from 52. What is the probability of getting 13 reds and 13 blacks? The probability is
+\begin{eg}[Drawing cards]
+  Suppose we draw 26 cards from a standard deck of 52. The probability of obtaining exactly 13 red and 13 black cards is
   \[
-    \frac{\binom{26}{13}\binom{26}{13}}{\binom{52}{26}} = 0.2181.
+    \frac{\binom{26}{13}^2}{\binom{52}{26}} \approx 0.2181.
   \]
 \end{eg}
 \section{Axioms of probability}
 \label{sec:axioms}
 \subsection{Axioms and definitions}
-So far, we have semi-formally defined some probabilistic notions. However, what we had above was rather restrictive. We were only allowed to have a finite number of possible outcomes, and all outcomes occur with the same probability. However, most things in the real world do not fit these descriptions. For example, we cannot use this to model a coin that gives heads with probability $\pi^{-1}$.
 
-In general, ``probability'' can be defined as follows:
+\begin{remark}
+  In Chapter~1, we defined probability only for finite sample spaces with equally likely outcomes. This is too restrictive for many applications --- for instance, it cannot model a biased coin with $\P(\text{heads}) = \pi^{-1}$. We now give a general axiomatic framework.
+\end{remark}
+
 \begin{defi}[Probability space]
-  A \emph{probability space} is a triple $(\Omega, \mathcal{F}, \P)$. $\Omega$ is a set called the \emph{sample space}, $\mathcal{F}$ is a collection of subsets of $\Omega$, and $\P: \mathcal{F}\to [0, 1]$ is the \emph{probability measure}.
-
-  $\mathcal{F}$ has to satisfy the following axioms:
-  \begin{enumerate}
-    \item $\emptyset, \Omega\in \mathcal{F}$.
-    \item $A\in \mathcal{F} \Rightarrow A^C\in \mathcal{F}$.
-    \item $A_1, A_2, \cdots \in \mathcal{F} \Rightarrow \bigcup_{i = 1}^\infty A_i \in \mathcal{F}$.
-  \end{enumerate}
-  And $\P$ has to satisfy the following \emph{Kolmogorov axioms}:
-  \begin{enumerate}
-    \item $0 \leq \P(A) \leq 1 $ for all $A\in \mathcal{F}$
-    \item $\P(\Omega) = 1$
-    \item For any countable collection of events $A_1, A_2, \cdots$ which are disjoint, i.e.\ $A_i\cap A_j = \emptyset$ for all $i, j$, we have
+  A \emph{probability space} is a triple $(\Omega, \mathcal{F}, \P)$, where:
+  \begin{itemize}
+    \item $\Omega$ is a set called the \emph{sample space}. Elements of $\Omega$ are called \emph{outcomes}.
+    \item $\mathcal{F}$ is a collection of subsets of $\Omega$ satisfying:
+    \begin{enumerate}
+      \item $\emptyset, \Omega\in \mathcal{F}$;
+      \item if $A\in \mathcal{F}$, then $A^C\in \mathcal{F}$;
+      \item if $A_1, A_2, \dotsc \in \mathcal{F}$, then $\bigcup_{i = 1}^\infty A_i \in \mathcal{F}$.
+    \end{enumerate}
+    Elements of $\mathcal{F}$ are called \emph{events}.
+    \item $\P\colon \mathcal{F}\to [0, 1]$ is the \emph{probability measure}, satisfying the \emph{Kolmogorov axioms}:
+    \begin{enumerate}
+      \item $0 \leq \P(A) \leq 1$ for all $A\in \mathcal{F}$;
+      \item $\P(\Omega) = 1$;
+      \item (\emph{countable additivity}) for any countable collection of pairwise disjoint events $A_1, A_2, \dotsc \in \mathcal{F}$ (i.e.\ $A_i\cap A_j = \emptyset$ for all $i \neq j$),
       \[
-        \P\left(\bigcup_i A_i\right) = \sum_i \P(A_i).
+        \P\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} \P(A_i).
       \]
-  \end{enumerate}
-  Items in $\Omega$ are known as the \emph{outcomes}, items in $\mathcal{F}$ are known as the \emph{events}, and $\P(A)$ is the \emph{probability} of the event $A$.
+    \end{enumerate}
+  \end{itemize}
+  For an event $A \in \mathcal{F}$, the number $\P(A)$ is called the \emph{probability} of $A$.
 \end{defi}
 
-If $\Omega$ is finite (or countable), we usually take $\mathcal{F}$ to be all the subsets of $\Omega$, i.e.\ the power set of $\Omega$. However, if $\Omega$ is, say, $\R$, we have to be a bit more careful and only include nice subsets, or else we cannot have a well-defined $\P$.
-
-Often it is not helpful to specify the full function $\P$. Instead, in discrete cases, we just specify the probabilities of each outcome, and use the third axiom to obtain the full $\P$.
+\begin{remark}
+  If $\Omega$ is finite or countable, we usually take $\mathcal{F}$ to be the power set of $\Omega$ (i.e.\ the collection of all subsets). If $\Omega$ is uncountable (e.g.\ $\Omega = \R$), one must restrict $\mathcal{F}$ to a suitable collection of subsets in order for $\P$ to be well-defined.
+\end{remark}
 
 \begin{defi}[Probability distribution]
-  Let $\Omega = \{\omega_1, \omega_2, \cdots\}$. Choose numbers $p_1, p_2, \cdots $ such that $\sum_{i = 1}^\infty p_i= 1$. Let $p(\omega_i) = p_i$. Then define
+  Let $\Omega = \{\omega_1, \omega_2, \dotsc\}$ be a countable sample space. A \emph{probability distribution} on $\Omega$ is a sequence of non-negative numbers $p_1, p_2, \dotsc$ with $\sum_{i = 1}^\infty p_i = 1$. Setting $p(\omega_i) = p_i$, we define
   \[
-    \P(A) = \sum_{\omega_i\in A} p(\omega_i).
+    \P(A) = \sum_{\omega_i\in A} p(\omega_i)
   \]
-  This $\P(A)$ satisfies the above axioms, and $p_1, p_2, \cdots$ is the \emph{probability distribution}
+  for every event $A \subseteq \Omega$. This defines a probability measure on $\Omega$.
 \end{defi}
 
-Using the axioms, we can quickly prove a few rather obvious results.
-\begin{thm}\leavevmode
+\begin{prop}[Elementary properties]\leavevmode
   \begin{enumerate}
-    \item $\P(\emptyset) = 0$
-    \item $\P(A^C) = 1 - \P(A)$
-    \item $A\subseteq B \Rightarrow \P(A) \leq \P(B)$
-    \item $\P (A\cup B) = \P(A) + \P(B) - \P(A\cap B)$.
+    \item $\P(\emptyset) = 0$.
+    \item $\P(A^C) = 1 - \P(A)$ for any event $A$.
+    \item If $A\subseteq B$, then $\P(A) \leq \P(B)$ (monotonicity).
+    \item $\P (A\cup B) = \P(A) + \P(B) - \P(A\cap B)$ (inclusion-exclusion for two events).
   \end{enumerate}
-\end{thm}
+\end{prop}
 
 \begin{proof}\leavevmode
   \begin{enumerate}
-    \item $\Omega$ and $\emptyset$ are disjoint. So $\P(\Omega) + \P(\emptyset) = \P(\Omega \cup \emptyset) = \P(\Omega)$. So $\P(\emptyset) = 0$.
-    \item $\P(A) + \P(A^C) = \P(\Omega) = 1$ since $A$ and $A^C$ are disjoint.
-    \item Write $B = A\cup (B\cap A^C)$. Then $\\P(B) = \P(A) + \P(B\cap A^C) \geq \P(A)$.
-    \item $\P(A\cup B) = \P(A) + \P(B\cap A^C)$. We also know that $\P(B) = \P(A\cap B) + \P(B\cap A^C)$. Then the result follows.\qedhere
+    \item $\Omega$ and $\emptyset$ are disjoint, so $\P(\Omega) = \P(\Omega \cup \emptyset) = \P(\Omega) + \P(\emptyset)$. Hence $\P(\emptyset) = 0$.
+    \item $A$ and $A^C$ are disjoint with $A \cup A^C = \Omega$, so $\P(A) + \P(A^C) = \P(\Omega) = 1$.
+    \item Write $B = A\cup (B\cap A^C)$, a disjoint union. Then $\P(B) = \P(A) + \P(B\cap A^C) \geq \P(A)$.
+    \item Write $A\cup B = A\cup (B\cap A^C)$, a disjoint union, so $\P(A\cup B) = \P(A) + \P(B\cap A^C)$. Also $B = (A\cap B) \cup (B\cap A^C)$ is a disjoint union, so $\P(B\cap A^C) = \P(B) - \P(A\cap B)$. Substituting gives the result.\qedhere
   \end{enumerate}
 \end{proof}
 
-From above, we know that $\P(A\cup B) \leq \P(A) + \P(B)$. So we say that $\P$ is a \emph{subadditive} function. Also, $\P(A\cap B) + \P(A \cup B) \leq \P(A) + \P(B)$ (in fact both sides are equal!). We say $\P$ is \emph{submodular}.
+\begin{remark}
+  Part (4) implies $\P(A\cup B) \leq \P(A) + \P(B)$, i.e.\ $\P$ is \emph{subadditive}. We also have $\P(A\cap B) + \P(A \cup B) = \P(A) + \P(B)$, so $\P$ is \emph{submodular} (since in general submodularity requires only the inequality $\leq$).
+\end{remark}
 
-The next theorem is better expressed in terms of \emph{limits}.
 \begin{defi}[Limit of events]
-  A sequence of events $A_1, A_2, \cdots$ is \emph{increasing} if $A_1 \subseteq A_2 \cdots$. Then we define the \emph{limit} as
+  Let $A_1, A_2, \dotsc$ be a sequence of events. If the sequence is \emph{increasing}, i.e.\ $A_1 \subseteq A_2 \subseteq \cdots$, we define
   \[
-    \lim_{n\to \infty} A_n = \bigcup_{1}^\infty A_n.
+    \lim_{n\to \infty} A_n = \bigcup_{n=1}^\infty A_n.
   \]
-  Similarly, if they are \emph{decreasing}, i.e.\ $A_1\supseteq A_2\cdots$, then
+  If it is \emph{decreasing}, i.e.\ $A_1\supseteq A_2 \supseteq \cdots$, we define
   \[
-    \lim_{n\to \infty} A_n = \bigcap_{1}^\infty A_n.
+    \lim_{n\to \infty} A_n = \bigcap_{n=1}^\infty A_n.
   \]
 \end{defi}
 
-\begin{thm}
-  If $A_1, A_2, \cdots$ is increasing or decreasing, then
+\begin{thm}[Continuity of probability]
+  Let $A_1, A_2, \dotsc$ be an increasing or decreasing sequence of events. Then
   \[
-    \lim_{n\to \infty} \P(A_n) = \P\left(\lim_{n\to \infty} A_n\right).
+    \P\left(\lim_{n\to \infty} A_n\right) = \lim_{n\to \infty} \P(A_n).
   \]
 \end{thm}
 
 \begin{proof}
-  Take $B_1 = A_1$, $B_2 = A_2\setminus A_1$. In general,
+  We prove the increasing case. Define $B_1 = A_1$ and $B_n = A_n \setminus A_{n-1}$ for $n \geq 2$. Then $B_1, B_2, \dotsc$ are pairwise disjoint, and
   \[
-    B_n = A_n\setminus\bigcup_1^{n - 1}A_i.
+    \bigcup_{i=1}^n B_i = A_n, \quad \bigcup_{i=1}^\infty B_i = \bigcup_{i=1}^\infty A_i.
   \]
-  Then
-  \[
-    \bigcup_1^n B_i = \bigcup_1^n A_i,\quad \bigcup_1^\infty B_i = \bigcup _1^\infty A_i.
-  \]
-  Then
+  Therefore
   \begin{align*}
-    \P(\lim A_n) &= \P\left(\bigcup_1^\infty A_i\right)\\
-  &= \P\left(\bigcup_1^\infty B_i\right)\\
-  &=\sum_1^\infty \P(B_i)\text{ (Axiom III)}\\
-  &= \lim_{n \to \infty}\sum_{i = 1}^n \P(B_i)\\
-  &= \lim_{n \to \infty} \P\left(\bigcup_1^n A_i\right)\\
-  &= \lim_{n \to \infty} \P(A_n).
+    \P\left(\lim_{n \to \infty} A_n\right) &= \P\left(\bigcup_{i=1}^\infty B_i\right) = \sum_{i=1}^\infty \P(B_i) = \lim_{n \to \infty}\sum_{i = 1}^n \P(B_i) = \lim_{n \to \infty} \P(A_n).
   \end{align*}
-  and the decreasing case is proven similarly (or we can simply apply the above to $A_i^C$).
+  The decreasing case follows by applying the above to the increasing sequence $A_1^C \subseteq A_2^C \subseteq \cdots$ and using $\P(A_n^C) = 1 - \P(A_n)$.
 \end{proof}
 
 \subsection{Inequalities and formulae}
-\begin{thm}[Boole's inequality]
-  For any $A_1, A_2, \cdots$,
+
+\begin{thm}[Boole's inequality / union bound]
+  For any events $A_1, A_2, \dotsc$ in a probability space,
   \[
     \P\left(\bigcup_{i = 1}^\infty A_i\right) \leq \sum_{i = 1}^\infty \P(A_i).
   \]
 \end{thm}
-This is also known as the ``union bound''.
 
 \begin{proof}
-  Our third axiom states a similar formula that only holds for disjoint sets. So we need a (not so) clever trick to make them disjoint. We define
-  \begin{align*}
-    B_1 &= A_1\\
-    B_2 &= A_2\setminus A_1\\
-    B_i &= A_i\setminus \bigcup_{k = 1}^{i - 1}A_k.
-  \end{align*}
-  So we know that
+  Define $B_1 = A_1$ and $B_i = A_i\setminus \bigcup_{k = 1}^{i - 1}A_k$ for $i \geq 2$. Then the $B_i$ are pairwise disjoint and $\bigcup_i B_i = \bigcup_i A_i$. Since $B_i \subseteq A_i$, monotonicity gives $\P(B_i) \leq \P(A_i)$. By countable additivity,
   \[
-    \bigcup B_i = \bigcup A_i.
+    \P\left(\bigcup_i A_i\right) = \P\left(\bigcup _i B_i\right) = \sum_i \P(B_i) \leq \sum_i \P(A_i).\qedhere
   \]
-  But the $B_i$ are disjoint. So our Axiom (iii) gives
-  \[
-    \P\left(\bigcup_i A_i\right) = \P\left(\bigcup _i B_i\right) = \sum_i \P\left(B_i\right) \leq \sum_i \P\left(A_i\right).
-  \]
-  Where the last inequality follows from (iii) of the theorem above.
 \end{proof}
 
-\begin{eg}
-  Suppose we have countably infinite number of biased coins. Let $A_k = [k$th toss head$]$ and $\P(A_k) = p_k$. Suppose $\sum_1^\infty p_k < \infty$. What is the probability that there are infinitely many heads?
-
-  The event ``there is at least one more head after the $i$th coin toss'' is $\bigcup_{k = i}^\infty A_k$. There are infinitely many heads if and only if there are unboundedly many coin tosses, i.e.\ no matter how high $i$ is, there is still at least more head after the $i$th toss.
-
-  So the probability required is
+\begin{eg}[Infinitely many heads]
+  Suppose we toss a countably infinite sequence of biased coins. Let $A_k$ be the event that the $k$th toss is heads, and let $\P(A_k) = p_k$, where $\sum_{k=1}^\infty p_k < \infty$. The event that infinitely many heads occur is
   \[
-    \P\left(\bigcap_{i = 1}^\infty\bigcup _{k = i}^\infty A_k\right) = \lim_{i \to \infty} \P\left(\bigcup_{k = i}^\infty A_k\right) \leq \lim_{i\to \infty}\sum_{k = i}^\infty p_k = 0
+    \bigcap_{i = 1}^\infty\bigcup_{k = i}^\infty A_k,
   \]
-  Therefore $\P($infinite number of heads$) = 0$.
+  since this is the event that, for every $i$, at least one head occurs among tosses $i, i+1, i+2, \dotsc$. The sets $C_i = \bigcup_{k=i}^{\infty} A_k$ form a decreasing sequence, so by continuity of $\P$ and Boole's inequality,
+  \[
+    \P\left(\bigcap_{i = 1}^\infty\bigcup _{k = i}^\infty A_k\right) = \lim_{i \to \infty} \P\left(\bigcup_{k = i}^\infty A_k\right) \leq \lim_{i\to \infty}\sum_{k = i}^\infty p_k = 0.
+  \]
+  Therefore the probability of infinitely many heads is $0$.
 \end{eg}
 
-\begin{eg}[Erd\"os 1947]
-  Is it possible to colour a complete $n$-graph (i.e.\ a graph of $n$ vertices with edges between every pair of vertices) red and black such that there is no $k$-vertex complete subgraph with monochrome edges?
+\begin{eg}[Erd\H{o}s 1947 --- Ramsey lower bound]
+  Let $n, k \geq 1$ be integers. Consider the complete graph $K_n$ on $n$ vertices (i.e.\ the graph with an edge between every pair of vertices). We ask: is it possible to $2$-colour the edges of $K_n$ (say red and blue) so that no complete subgraph on $k$ vertices is monochromatic?
 
-  Erd\"os said this is possible if
+  Colour each edge independently and uniformly at random. For each $k$-element subset $S$ of vertices, let $A_S$ be the event that all $\binom{k}{2}$ edges of $S$ receive the same colour. Then $\P(A_S) = 2 \cdot 2^{-\binom{k}{2}}$, since the subgraph can be monochromatic in either colour. By Boole's inequality,
   \[
-    \binom{n}{k} 2^{1 - \binom{k}{2}} < 1.
+    \P\left(\bigcup_S A_S\right) \leq \sum_S \P(A_S) = \binom{n}{k}\cdot 2^{1 - \binom{k}{2}}.
   \]
-  We colour edges randomly, and let $A_i=[i$th subgraph has monochrome edges$]$. Then the probability that at least one subgraph has monochrome edges is
-  \[
-    \P\left(\bigcup A_i\right) \leq \sum \P(A_i) = \binom{n}{k} 2\cdot 2^{-\binom{k}{2}}.
-  \]
-  The last expression is obtained since there are $\binom{n}{k}$ ways to choose a subgraph; a monochrome subgraph can be either red or black, thus the multiple of 2; and the probability of getting all red (or black) is $2^{-\binom{k}{2}}$.
-
-  If this probability is less than 1, then there must be a way to colour them in which it is impossible to find a monochrome subgraph, or else the probability is 1. So if $\binom{n}{k} 2^{1 - \binom{k}{2}} < 1$, the colouring is possible.
+  If $\binom{n}{k}\, 2^{1 - \binom{k}{2}} < 1$, then this probability is strictly less than $1$, so there exists a colouring with no monochromatic $k$-clique.
 \end{eg}
 
 \begin{thm}[Inclusion-exclusion formula]
+  Let $A_1, A_2, \dotsc, A_n$ be events. Then
   \begin{align*}
-    \P\left(\bigcup_i^n A_i\right) &= \sum_1^n \P(A_i) - \sum_{i_1 < i_2} \P(A_{i_1}\cap A_{j_2}) + \sum_{i_1 < i_2 < i_3}\P(A_{i_1}\cap A_{i_2} \cap A_{i_3}) - \cdots\\
-    &+ (-1)^{n - 1} \P(A_1\cap \cdots \cap A_n).
+    \P\left(\bigcup_{i=1}^n A_i\right) &= \sum_{i} \P(A_i) - \sum_{i_1 < i_2} \P(A_{i_1}\cap A_{i_2}) + \sum_{i_1 < i_2 < i_3}\P(A_{i_1}\cap A_{i_2} \cap A_{i_3}) - \cdots\\
+    &\quad + (-1)^{n - 1} \P(A_1\cap \cdots \cap A_n).
   \end{align*}
 \end{thm}
 
 \begin{proof}
-  Perform induction on $n$. $n = 2$ is proven above.
-
-  Then
+  By induction on $n$. The case $n = 2$ is the inclusion-exclusion identity for two events. For the inductive step, write
   \[
-    \P(A_1\cup A_2\cup \cdots A_n) = \P(A_1) + \P(A_2\cup\cdots\cup A_n) - \P\left(\bigcup_{i = 2}^n (A_1\cap A_i)\right).
+    \P\left(\bigcup_{i=1}^{n} A_i\right) = \P(A_1) + \P\left(\bigcup_{i = 2}^n A_i\right) - \P\left(\bigcup_{i = 2}^n (A_1\cap A_i)\right)
   \]
-  Then we can apply the induction hypothesis for $n - 1$, and expand the mess. The details are very similar to that in IA Numbers and Sets.
+  and apply the inductive hypothesis to the two unions of $n-1$ events on the right-hand side.
 \end{proof}
 
-\begin{eg}
-  Let $1, 2, \cdots, n$ be randomly permuted to $\pi(1), \pi(2), \cdots, \pi(n)$. If
-  $i \not= \pi(i)$ for all $i$, we say we have a \emph{derangement}.
+\begin{eg}[Derangements]
+  Let $\pi$ be a uniformly random permutation of $\{1, 2, \dotsc, n\}$. A \emph{derangement} is a permutation with no fixed points, i.e.\ $\pi(i) \neq i$ for all $i$. Let $A_i = \{\pi(i) = i\}$ be the event that $i$ is a fixed point.
 
-  Let $A_i = [i = \pi(i)]$.
-
-  Then
+  By symmetry, for any subset $\{i_1, \dotsc, i_r\} \subseteq \{1, \dotsc, n\}$,
+  \[
+    \P(A_{i_1} \cap \cdots \cap A_{i_r}) = \frac{(n-r)!}{n!},
+  \]
+  since there are $(n-r)!$ permutations fixing all of $i_1, \dotsc, i_r$. Since there are $\binom{n}{r}$ such subsets, inclusion-exclusion gives
   \begin{align*}
-    \P\left(\bigcup _{i = 1}^n A_i\right) &= \sum_{k} \P(A_k) - \sum_{k_1 < k_2} \P(A_{k_1} \cap A_{k_2}) + \cdots\\
-    &= n\cdot \frac{1}{n} - \binom{n}{2}\frac{1}{n}\frac{1}{n - 1} + \binom{n}{3}\frac{1}{n}\frac{1}{n - 1}\frac{1}{n - 2} + \cdots\\
-    &= 1 - \frac{1}{2!} + \frac{1}{3!} - \cdots + (-1)^{n - 1}\frac{1}{n!}\\
-    &\to e^{-1}
+    \P\left(\bigcup_{i = 1}^n A_i\right) &= \sum_{r=1}^{n} (-1)^{r-1} \binom{n}{r} \frac{(n-r)!}{n!} = \sum_{r=1}^{n} \frac{(-1)^{r-1}}{r!} \to 1 - e^{-1}.
   \end{align*}
-  So the probability of derangement is $1 - \P(\bigcup A_k) \approx 1 - e^{-1}\approx 0.632$.
+  Therefore, for large $n$, the probability of a derangement is approximately $1 - (1 - e^{-1}) = e^{-1}\approx 0.368$.
 \end{eg}
 
-Recall that, from inclusion exclusion,
-\[
-  \P(A\cup B\cup C) = \P(A) + \P(B) + \P(C) - \P(AB) - \P(BC) - \P(AC) + \P(ABC),
-\]
-where $\P(AB)$ is a shorthand for $\P(A\cap B)$. If we only take the first three terms, then we get Boole's inequality
-\[
-  \P(A\cup B\cup C) \leq \P(A) + \P(B) + \P(C).
-\]
-In general
 \begin{thm}[Bonferroni's inequalities]
-  For any events $A_1, A_2, \cdots, A_n$ and $1 \leq r\leq n$, if $r$ is odd, then
-  \begin{align*}
-    \P\left(\bigcup_{1}^n A_i\right) &\leq \sum_{i_1} \P(A_{i_1}) - \sum_{i_1 < i_2} \P(A_{i_1}A_{i_2}) + \sum_{i_1 < i_2 < i_3} \P(A_{i_1}A_{i_2}A_{i_3}) + \cdots\\
-    &+ \sum_{i_1 < i_2 < \cdots < i_r} \P(A_{i_1}A_{i_2}A_{i_3}\cdots A_{i_r}).\\
-    \intertext{If $r$ is even, then}
-    \P\left(\bigcup_{1}^n A_i\right) &\geq \sum_{i_1} \P(A_{i_1}) - \sum_{i_1 < i_2} \P(A_{i_1}A_{i_2}) + \sum_{i_1 < i_2 < i_3} \P(A_{i_1}A_{i_2}A_{i_3}) + \cdots\\
-    &- \sum_{i_1 < i_2 < \cdots < i_r} \P(A_{i_1}A_{i_2}A_{i_3}\cdots A_{i_r}).
-  \end{align*}
+  Let $A_1, A_2, \dotsc, A_n$ be events and let $1 \leq r\leq n$. For $1 \leq j \leq n$, define the $j$th inclusion-exclusion term
+  \[
+    S_j = \sum_{i_1 < i_2 < \cdots < i_j} \P(A_{i_1}\cap A_{i_2}\cap \cdots \cap A_{i_j}).
+  \]
+  If $r$ is odd, then
+  \[
+    \P\left(\bigcup_{i=1}^n A_i\right) \leq S_1 - S_2 + S_3 - \cdots + S_r.
+  \]
+  If $r$ is even, then
+  \[
+    \P\left(\bigcup_{i=1}^n A_i\right) \geq S_1 - S_2 + S_3 - \cdots - S_r.
+  \]
 \end{thm}
 
+\begin{remark}
+  The case $r = 1$ recovers Boole's inequality. The case $r = n$ recovers the inclusion-exclusion formula with equality.
+\end{remark}
+
 \begin{proof}
-  Easy induction on $n$.
+  By induction on $n$.
 \end{proof}
 
-\begin{eg}
-  Let $\Omega = \{1, 2, \cdots, m\}$ and $1 \leq j, k \leq m$. Write $A_k = \{1, 2, \cdots, k\}$. Then
+\begin{eg}[Bonferroni applied to initial segments]
+  Let $m \geq 1$ and let $\Omega = \{1, 2, \dotsc, m\}$ with uniform probabilities. For $1 \leq k \leq m$, define $A_k = \{1, 2, \dotsc, k\}$, so that $\P(A_k) = k/m$. Then for any $j, k$,
   \[
-    A_k \cap A_j = \{1, 2, \cdots, \min(j, k)\} = A_{\min(j, k)}
+    A_j \cap A_k = A_{\min(j, k)}, \qquad A_j \cup A_k = A_{\max(j, k)}.
   \]
-  and
+  Let $x_1, \dotsc, x_n \in \{1, \dotsc, m\}$. Applying Bonferroni's inequality with $r = 2$ gives
   \[
-    A_k \cup A_j = \{1, 2, \cdots, \max(j, k)\} = A_{\max(j, k)}.
+    \frac{\max\{x_1, \dotsc, x_n\}}{m} = \P\left(\bigcup_{i=1}^{n} A_{x_{i}}\right) \geq \sum_{i=1}^{n} \frac{x_i}{m} - \sum_{i < j} \frac{\min\{x_i, x_j\}}{m},
   \]
-  We also have $\P(A_k) = k/m$.
-
-  Now let $1 \leq x_1, \cdots, x_n \leq m$ be some numbers. Then Bonferroni's inequality says
-  \[
-    \P\left(\bigcup A_{x_{i}}\right) \geq \sum \P(A_{x_i}) - \sum_{i < j} \P(A_{x_i}\cap A_{x_j}).
-  \]
-  So
-  \[
-    \max\{x_1, x_2, \cdots, x_n\} \geq \sum x_i - \sum_{i_1 < i_2} \min\{x_1, x_2\}.
-  \]
+  and hence $\max\{x_1, \dotsc, x_n\} \geq \sum_i x_i - \sum_{i < j} \min\{x_i, x_j\}$.
 \end{eg}
 
 \subsection{Independence}
+
 \begin{defi}[Independent events]
   Two events $A$ and $B$ are \emph{independent} if
   \[
-    \P(A\cap B) = \P(A)\P(B).
+    \P(A\cap B) = \P(A)\,\P(B).
   \]
   Otherwise, they are said to be \emph{dependent}.
 \end{defi}
-Two events are independent if they are not related to each other. For example, if you roll two dice separately, the outcomes will be independent.
 
 \begin{prop}
   If $A$ and $B$ are independent, then $A$ and $B^C$ are independent.
@@ -629,16 +589,12 @@ Two events are independent if they are not related to each other. For example, i
 
 \begin{proof}
   \begin{align*}
-    \P(A\cap B^C) &= \P(A) - \P(A\cap B)\\
-    &= \P(A) - \P(A)\P(B)\\
-    &= \P(A)(1 - \P(B))\\
-    &= \P(A)\P(B^C)
+    \P(A\cap B^C) &= \P(A) - \P(A\cap B) = \P(A) - \P(A)\,\P(B) = \P(A)\bigl(1 - \P(B)\bigr) = \P(A)\,\P(B^C).\qedhere
   \end{align*}
 \end{proof}
 
-This definition applies to two events. What does it mean to say that three or more events are independent?
-\begin{eg}
-  Roll two fair dice. Let $A_1$ and $A_2$ be the event that the first and second die is odd respectively. Let $A_3 = [$sum is odd$]$. The event probabilities are as follows:
+\begin{eg}[Pairwise independence does not imply mutual independence]
+  Roll two fair dice. Let $A_1$ be the event that the first die is odd, $A_2$ the event that the second die is odd, and $A_3$ the event that the sum is odd. The relevant probabilities are:
   \begin{center}
     \begin{tabular}{cc}
       \toprule
@@ -654,230 +610,220 @@ This definition applies to two events. What does it mean to say that three or mo
       \bottomrule
     \end{tabular}
   \end{center}
-  We see that $A_1$ and $A_2$ are independent, $A_1$ and $A_3$ are independent, and $A_2$ and $A_3$ are independent. However, the collection of all three are \emph{not} independent, since if $A_1$ and $A_2$ are true, then $A_3$ cannot possibly be true.
+  Every pair is independent (e.g.\ $\P(A_1 \cap A_2) = 1/4 = \P(A_1)\,\P(A_2)$), but the three events are not mutually independent, since $\P(A_1\cap A_2\cap A_3) = 0 \neq 1/8 = \P(A_1)\,\P(A_2)\,\P(A_3)$.
 \end{eg}
 
-From the example above, we see that just because a set of events is pairwise independent does not mean they are independent all together. We define:
-\begin{defi}[Independence of multiple events]
-  Events $A_1, A_2, \cdots$ are said to be \emph{mutually independent} if
+\begin{defi}[Mutual independence]
+  Events $A_1, A_2, \dotsc$ are \emph{mutually independent} if for every finite subset of distinct indices $i_1, i_2, \dotsc, i_r$ with $r \geq 2$,
   \[
-    \P(A_{i_1}\cap A_{i_2} \cap \cdots \cap A_{i_r}) = \P(A_{i_1})\P(A_{i_2})\cdots \P(A_{i_r})
+    \P(A_{i_1}\cap A_{i_2} \cap \cdots \cap A_{i_r}) = \P(A_{i_1})\,\P(A_{i_2})\cdots \P(A_{i_r}).
   \]
-  for any $i_1, i_2, \cdots i_r$ and $r \geq 2$.
 \end{defi}
-\begin{eg}
-  Let $A_{ij}$ be the event that $i$ and $j$ roll the same. We roll 4 dice. Then
+
+\begin{eg}[Matching dice]
+  Roll 4 fair dice. For $1 \leq i < j \leq 4$, let $A_{ij}$ be the event that dice $i$ and $j$ show the same value. Then $\P(A_{ij}) = 1/6$ for each pair. We have
   \[
-    \P(A_{12}\cap A_{13}) = \frac{1}{6}\cdot \frac{1}{6} = \frac{1}{36} = \P(A_{12})\P(A_{13}).
+    \P(A_{12}\cap A_{13}) = \frac{1}{36} = \P(A_{12})\,\P(A_{13}),
   \]
-  But
+  since dice 1, 2 and 3 must all show the same value. However,
   \[
-    \P(A_{12}\cap A_{13}\cap A_{23}) = \frac{1}{36} \not= \P(A_{12})\P(A_{13})\P(A_{23}).
+    \P(A_{12}\cap A_{13}\cap A_{23}) = \frac{1}{36} \neq \frac{1}{216} = \P(A_{12})\,\P(A_{13})\,\P(A_{23}),
   \]
-  So they are not mutually independent.
+  since $A_{23}$ is implied by $A_{12} \cap A_{13}$. So these events are not mutually independent.
 \end{eg}
 
-We can also apply this concept to experiments. Suppose we model two independent experiments with $\Omega_1 = \{\alpha_1, \alpha_2, \cdots\}$ and $\Omega_2 = \{\beta_1, \beta_2, \cdots\}$ with probabilities $\P(\alpha_i) = p_i$ and $\P(\beta_i) = q_i$. Further suppose that these two experiments are independent, i.e.
-\[
-  \P((\alpha_i, \beta_j)) = p_iq_j
-\]
-for all $i, j$. Then we can have a new sample space $\Omega = \Omega_1\times \Omega_2$.
+\begin{defi}[Product of probability spaces]
+  Let $(\Omega_1, \mathcal{F}_1, \P_1)$ and $(\Omega_2, \mathcal{F}_2, \P_2)$ be two probability spaces with $\Omega_1 = \{\alpha_1, \alpha_2, \dotsc\}$ and $\Omega_2 = \{\beta_1, \beta_2, \dotsc\}$. The \emph{product probability space} is $\Omega = \Omega_1\times \Omega_2$ with
+  \[
+    \P\bigl((\alpha_i, \beta_j)\bigr) = \P_1(\alpha_i)\,\P_2(\beta_j)
+  \]
+  for all $i, j$.
+\end{defi}
 
-Now suppose $A\subseteq \Omega_1$ and $B\subseteq \Omega_2$ are results (i.e.\ events) of the two experiments. We can view them as subspaces of $\Omega$ by rewriting them as $A\times \Omega_2$ and $\Omega_1\times B$. Then the probability
-\[
-  \P(A\cap B) = \sum_{\alpha_i\in A, \beta_i\in B} p_iq_i = \sum_{\alpha_i\in A} p_i\sum_{\beta_i\in B}q_i = \P(A)\P(B).
-\]
-So we say the two experiments are ``independent'' even though the term usually refers to different events in the same experiment. We can generalize this to $n$ independent experiments, or even countably many infinite experiments.
+\begin{prop}
+  In the product space, let $A\subseteq \Omega_1$ and $B\subseteq \Omega_2$ be events. Viewing these as events in $\Omega$ via $A \times \Omega_2$ and $\Omega_1 \times B$ respectively, we have $\P(A\cap B) = \P_1(A)\,\P_2(B)$. That is, events from different component experiments are independent.
+\end{prop}
+
+\begin{proof}
+  Writing $p_i = \P_1(\alpha_i)$ and $q_j = \P_2(\beta_j)$,
+  \[
+    \P(A\cap B) = \sum_{\alpha_i\in A}\sum_{\beta_j\in B} p_i\, q_j = \left(\sum_{\alpha_i\in A} p_i\right)\left(\sum_{\beta_j\in B}q_j\right) = \P_1(A)\,\P_2(B).\qedhere
+  \]
+\end{proof}
+
+\begin{remark}
+  This construction generalises to products of $n$ or even countably many probability spaces.
+\end{remark}
 
 
 \subsection{Important discrete distributions}
-We're now going to quickly go through a few important discrete probability distributions. By \emph{discrete} we mean the sample space is countable. The sample space is $\Omega = \{\omega_1, \omega_2, \cdots\}$ and $p_i = \P(\{\omega_i\})$.
 
 \begin{defi}[Bernoulli distribution]
-  Suppose we toss a coin. $\Omega=\{H, T\}$ and $p\in [0, 1]$. The \emph{Bernoulli distribution}, denoted $B(1, p)$ has
+  Let $p\in [0, 1]$. A random variable with the \emph{Bernoulli distribution} $B(1, p)$ takes values in $\{0, 1\}$ with
   \[
-    \P(H) = p;\quad \P(T) = 1- p.
+    \P(X = 1) = p, \qquad \P(X = 0) = 1- p.
   \]
+  We think of $1$ as ``success'' and $0$ as ``failure''.
 \end{defi}
 
 \begin{defi}[Binomial distribution]
-  Suppose we toss a coin $n$ times, each with probability $p$ of getting heads. Then
+  Let $n \geq 1$ be an integer and $p \in [0,1]$. The \emph{binomial distribution} $B(n, p)$ is the distribution of the number of successes in $n$ independent Bernoulli trials, each with success probability $p$. It takes values in $\{0, 1, \dotsc, n\}$ with
   \[
-    \P(HHTT\cdots T) = pp(1 - p)\cdots (1 - p).
+    \P(X = k) = \binom{n}{k}p^k(1 - p)^{n - k}, \qquad k = 0, 1, \dotsc, n.
   \]
-  So
-  \[
-    \P(\text{two heads}) = \binom{n}{2}p^2(1 - p)^{n -2}.
-  \]
-  In general,
-  \[
-    \P(k\text{ heads}) = \binom{n}{k}p^k(1 - p)^{n - k}.
-  \]
-  We call this the \emph{binomial distribution} and write it as $B(n, p)$.
 \end{defi}
 
 \begin{defi}[Geometric distribution]
-  Suppose we toss a coin with probability $p$ of getting heads. The probability of having a head after $k$ consecutive tails is
+  Let $p \in (0, 1]$. The \emph{geometric distribution} $\mathrm{Geom}(p)$ is the distribution of the number of failures before the first success in a sequence of independent Bernoulli trials with success probability $p$. It takes values in $\{0, 1, 2, \dotsc\}$ with
   \[
-    p_k = (1- p)^k p
+    \P(X = k) = (1- p)^k\, p, \qquad k = 0, 1, 2, \dotsc
   \]
-  This is \emph{geometric distribution}. We say it is \emph{memoryless} because how many tails we've got in the past does not give us any information to how long I'll have to wait until I get a head.
 \end{defi}
 
+\begin{remark}
+  The geometric distribution is \emph{memoryless}: given that no success has occurred in the first $m$ trials, the number of additional trials until the first success has the same distribution as the original. This is because the remaining trials are still independent Bernoulli trials with the same parameter $p$.
+\end{remark}
+
 \begin{defi}[Hypergeometric distribution]
-  Suppose we have an urn with $n_1$ red balls and $n_2$ black balls. We choose $n$ balls. The probability that there are $k$ red balls is
+  Suppose an urn contains $n_1$ red balls and $n_2$ black balls. We draw $n \leq n_1 + n_2$ balls without replacement. The number of red balls drawn has the \emph{hypergeometric distribution}: for $\max(0, n - n_2) \leq k \leq \min(n, n_1)$,
   \[
-    \P(k\text{ red}) = \frac{\binom{n_1}{k}\binom{n_2}{n - k}}{\binom{n_1 + n_2}{n}}.
+    \P(X = k) = \frac{\binom{n_1}{k}\binom{n_2}{n - k}}{\binom{n_1 + n_2}{n}}.
   \]
 \end{defi}
 
 \begin{defi}[Poisson distribution]
-  The \emph{Poisson distribution} denoted $P(\lambda)$ is
+  Let $\lambda > 0$. The \emph{Poisson distribution} $\mathrm{Poisson}(\lambda)$ takes values in $\{0, 1, 2, \dotsc\}$ with
   \[
-    p_k = \frac{\lambda^k}{k!}e^{-\lambda}
+    \P(X = k) = \frac{\lambda^k}{k!}\,e^{-\lambda}, \qquad k = 0, 1, 2, \dotsc
   \]
-  for $k\in \N$.
 \end{defi}
-What is this weird distribution? It is a distribution used to model rare events. Suppose that an event happens at a rate of $\lambda$. We can think of this as there being a lot of trials, say $n$ of them, and each has a probability $\lambda/n$ of succeeding. As we take the limit $n\to \infty$, we obtain the Poisson distribution.
 
-\begin{thm}[Poisson approximation to binomial]
-  Suppose $n\to \infty$ and $p\to 0$ such that $np = \lambda$. Then
+\begin{remark}
+  The Poisson distribution models the number of occurrences of a rare event. Informally, if an event occurs at rate $\lambda$ over many independent trials --- say $n$ trials each with success probability $\lambda/n$ --- then as $n \to \infty$, the number of successes approaches a $\mathrm{Poisson}(\lambda)$ distribution. The following theorem makes this precise.
+\end{remark}
+
+\begin{thm}[Poisson approximation to the binomial]
+  Let $\lambda > 0$ be fixed, and let $k \geq 0$ be a fixed integer. If $n\to \infty$ and $p = p_n \to 0$ in such a way that $np \to \lambda$, then
   \[
-    q_k = \binom{n}{k}p^k(1 -p)^{n - k} \to \frac{\lambda^k}{k!}e^{-\lambda}.
+    \binom{n}{k}p^k(1 -p)^{n - k} \to \frac{\lambda^k}{k!}\,e^{-\lambda}.
   \]
 \end{thm}
 
 \begin{proof}
-\begin{align*}
-  q_k &= \binom{n}{k}p^k(1 - p)^{n - k}\\
-  &= \frac{1}{k!} \frac{n(n - 1)\cdots(n - k + 1)}{n^k}(np)^k \left(1 - \frac{np}{n}\right)^{n - k}\\
-  &\to \frac{1}{k!}\lambda^ke^{-\lambda}
-\end{align*}
-since $(1 - a/n)^n \to e^{-a}$.
+  Write $q_k = \binom{n}{k}p^k(1 - p)^{n - k}$. Then
+  \begin{align*}
+    q_k &= \frac{1}{k!} \cdot \frac{n(n - 1)\cdots(n - k + 1)}{n^k}\cdot (np)^k \cdot \left(1 - \frac{np}{n}\right)^{n - k}.
+  \end{align*}
+  As $n \to \infty$ with $np \to \lambda$: the ratio $n(n-1)\cdots(n-k+1)/n^k \to 1$ (since $k$ is fixed), $(np)^k \to \lambda^k$, and $(1 - np/n)^{n-k} \to e^{-\lambda}$ (since $(1 - a/n)^n \to e^{-a}$). Hence $q_k \to \lambda^k e^{-\lambda}/k!$.
 \end{proof}
 \subsection{Conditional probability}
+
 \begin{defi}[Conditional probability]
-  Suppose $B$ is an event with $\P(B) > 0$. For any event $A\subseteq \Omega$, the \emph{conditional probability of $A$ given $B$} is
+  Let $B$ be an event with $\P(B) > 0$. For any event $A$, the \emph{conditional probability of $A$ given $B$} is
   \[
     \P(A\mid B) = \frac{\P(A\cap B)}{\P(B)}.
   \]
-  We interpret as the probability of $A$ happening given that $B$ has happened.
 \end{defi}
-Note that if $A$ and $B$ are independent, then
-\[
-  \P(A\mid B) = \frac{\P(A\cap B)}{\P(B)} = \frac{\P(A)\P(B)}{\P(B)} = \P(A).
-\]
-\begin{eg}
-  In a game of poker, let $A_i = [$player $i$ gets royal flush$]$. Then
-  \[
-    \P(A_1) = 1.539\times 10^{-6}.
-  \]
-  and
-  \[
-    \P(A_2\mid A_1) = 1.969\times 10^{-6}.
-  \]
-  It is significantly bigger, albeit still incredibly tiny. So we say ``good hands attract''.
 
-  If $\P(A\mid B) > \P(A)$, then we say that $B$ attracts $A$. Since
+\begin{remark}
+  If $A$ and $B$ are independent, then $\P(A\mid B) = \P(A)$, since $\P(A \cap B) = \P(A)\,\P(B)$.
+\end{remark}
+
+\begin{defi}[Attraction and repulsion]
+  We say that $B$ \emph{attracts} $A$ if $\P(A\mid B) > \P(A)$. Since
   \[
-    \frac{\P(A\cap B)}{\P(B)} > \P(A) \Leftrightarrow \frac{\P(A\cap B)}{\P(A)} > \P(B),
+    \frac{\P(A\cap B)}{\P(B)} > \P(A) \iff \frac{\P(A\cap B)}{\P(A)} > \P(B),
   \]
-  $A$ attracts $B$ if and only if $B$ attracts $A$. We can also say $A$ repels $B$ if $A$ attracts $B^C$.
+  attraction is symmetric: $B$ attracts $A$ if and only if $A$ attracts $B$. We say $B$ \emph{repels} $A$ if $B^C$ attracts $A$.
+\end{defi}
+
+\begin{eg}[Poker hands]
+  In a game of poker, let $A_i$ be the event that player $i$ is dealt a royal flush. Then $\P(A_1) = 1.539\times 10^{-6}$, while $\P(A_2\mid A_1) = 1.969\times 10^{-6}$. Since $\P(A_2 \mid A_1) > \P(A_2)$, good hands attract: given that player 1 has a royal flush, it is (slightly) more likely that player 2 also has one.
 \end{eg}
-\begin{thm}\leavevmode
-  \begin{enumerate}
-    \item $\P(A\cap B) = \P(A\mid B)\P(B)$.
-    \item $\P(A\cap B\cap C) = \P(A\mid B\cap C) \P(B\mid C) \P(C)$.
-    \item $\P(A\mid B\cap C) = \frac{\P(A\cap B\mid C)}{\P(B\mid C)}$.
-    \item The function $\P(\ph \mid B)$ restricted to subsets of $B$ is a probability function (or measure).
-  \end{enumerate}
-\end{thm}
-\begin{proof}
-  Proofs of (i), (ii) and (iii) are trivial. So we only prove (iv). To prove this, we have to check the axioms.
 
+\begin{prop}[Properties of conditional probability]\leavevmode
   \begin{enumerate}
-    \item Let $A\subseteq B$. Then $\P(A\mid B) = \frac{\P(A\cap B)}{\P(B)} \leq 1$.
-    \item $\P(B\mid B) = \frac{\P(B)}{\P(B)} = 1$.
-    \item Let $A_i$ be disjoint events that are subsets of $B$. Then
-      \begin{align*}
-        \P\left(\left.\bigcup_i A_i\right\vert B\right) &= \frac{\P(\bigcup_i A_i\cap B)}{\P(B)}\\
-        &= \frac{\P\left(\bigcup_i A_i\right)}{\P(B)}\\
-        &= \sum \frac{\P(A_i)}{\P(B)}\\
-        &=\sum \frac{\P(A_i\cap B)}{\P(B)}\\
-        &= \sum \P(A_i \mid B).\qedhere
-      \end{align*}%\qedhere
+    \item (Multiplication rule) $\P(A\cap B) = \P(A\mid B)\,\P(B)$.
+    \item (Chain rule) $\P(A\cap B\cap C) = \P(A\mid B\cap C)\, \P(B\mid C)\, \P(C)$.
+    \item $\P(A\mid B\cap C) = \dfrac{\P(A\cap B\mid C)}{\P(B\mid C)}$, provided $\P(B \cap C) > 0$.
+    \item The function $\P(\ph \mid B)$, restricted to subsets of $B$, is a probability measure on $B$.
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  Parts (1)--(3) follow directly from the definition. For (4), we verify the Kolmogorov axioms:
+  \begin{enumerate}
+    \item For $A\subseteq B$, $\P(A\mid B) = \P(A\cap B)/\P(B) = \P(A)/\P(B) \leq 1$.
+    \item $\P(B\mid B) = \P(B)/\P(B) = 1$.
+    \item Let $A_1, A_2, \dotsc$ be pairwise disjoint events with $A_i \subseteq B$ for all $i$. Then
+      \[
+        \P\left(\left.\bigcup_i A_i\right\vert B\right) = \frac{\P\bigl(\bigcup_i A_i\bigr)}{\P(B)} = \sum_i \frac{\P(A_i)}{\P(B)} = \sum_i \P(A_i \mid B).\qedhere
+      \]
   \end{enumerate}
 \end{proof}
-\begin{defi}[Partition]
-  A \emph{partition of the sample space} is a collection of disjoint events $\{B_i\}_{i = 0}^\infty$ such that $\bigcup_i B_i = \Omega$.
-\end{defi}
-For example, ``odd'' and ``even'' partition the sample space into two events.
 
-The following result should be clear:
-\begin{prop}
-  If $B_i$ is a partition of the sample space, and $A$ is any event, then
+\begin{defi}[Partition]
+  A \emph{partition} of the sample space $\Omega$ is a countable collection of pairwise disjoint events $B_1, B_2, \dotsc$ with $\P(B_i) > 0$ for all $i$ and $\bigcup_i B_i = \Omega$.
+\end{defi}
+
+\begin{eg}
+  When rolling a die, the events ``odd'' $= \{1,3,5\}$ and ``even'' $= \{2,4,6\}$ form a partition of $\Omega = \{1, \dotsc, 6\}$.
+\end{eg}
+
+\begin{prop}[Law of total probability]
+  Let $B_1, B_2, \dotsc$ be a partition of $\Omega$, and let $A$ be any event. Then
   \[
-    \P(A) = \sum_{i = 1}^\infty \P(A\cap B_i) = \sum_{i = 1}^\infty \P(A\mid B_i) \P(B_i).
+    \P(A) = \sum_{i} \P(A\cap B_i) = \sum_{i} \P(A\mid B_i)\, \P(B_i).
   \]
 \end{prop}
 
-\begin{eg}
-  A fair coin is tossed repeatedly. The gambler gets $+1$ for head, and $-1$ for tail. Continue until he is broke or achieves $\$a$. Let
+\begin{eg}[Gambler's ruin]
+  A gambler starts with $\$x$ and tosses a fair coin repeatedly, winning $\$1$ for heads and losing $\$1$ for tails. The game ends when the gambler is broke or reaches $\$a$, where $a > x > 0$ is a fixed target. Let
   \[
-    p_x = \P(\text{goes broke}\mid \text{starts with \$}x),
+    p_x = \P(\text{goes broke}\mid \text{starts with }\$x).
   \]
-  and $B_1$ be the event that he gets head on the first toss. Then
-  \begin{align*}
-    p_x &= \P(B_1)p_{x + 1} + \P(B_1^C) p_{x - 1}\\
-    p_x &= \frac{1}{2}p_{x + 1} + \frac{1}{2}p_{x - 1}
-  \end{align*}
-  We have two boundary conditions $p_0 = 1$, $p_a = 0$. Then solving the recurrence relation, we have
+  Let $H$ be the event that the first toss is heads. By the law of total probability,
   \[
-    p_x = 1 - \frac{x}{a}.
+    p_x = \P(H)\,p_{x + 1} + \P(H^C)\, p_{x - 1} = \frac{1}{2}\,p_{x + 1} + \frac{1}{2}\,p_{x - 1}.
   \]
+  With boundary conditions $p_0 = 1$ and $p_a = 0$, solving this recurrence gives $p_x = 1 - x/a$.
 \end{eg}
 
 \begin{thm}[Bayes' formula]
-  Suppose $B_i$ is a partition of the sample space, and $A$ and $B_i$ all have non-zero probability. Then for any $B_i$,
+  Let $B_1, B_2, \dotsc$ be a partition of $\Omega$, and let $A$ be an event with $\P(A) > 0$. Then for each $i$,
   \[
-    \P(B_i \mid A) = \frac{\P(A \mid B_i)\P(B_i)}{\sum_j\P(A \mid B_j)\P(B_j)}.
+    \P(B_i \mid A) = \frac{\P(A \mid B_i)\,\P(B_i)}{\sum_j\P(A \mid B_j)\,\P(B_j)}.
   \]
-  Note that the denominator is simply $\P(A)$ written in a fancy way.
 \end{thm}
 
-\begin{eg}[Screen test]
-  Suppose we have a screening test that tests whether a patient has a particular disease. We denote positive and negative results as $+$ and $-$ respectively, and $D$ denotes the person having disease. Suppose that the test is not absolutely accurate, and
+\begin{remark}
+  The denominator is simply $\P(A)$, expressed via the law of total probability. Bayes' formula ``inverts'' the conditioning: given $\P(A \mid B_i)$ and the prior probabilities $\P(B_i)$, it computes the posterior probability $\P(B_i \mid A)$.
+\end{remark}
+
+\begin{eg}[Screening test]
+  A screening test for a disease has the following characteristics: let $D$ be the event that a patient has the disease and $+$ the event of a positive test result. Suppose
+  \[
+    \P(+ \mid D) = 0.98, \qquad \P(+ \mid D^C) = 0.01, \qquad \P(D) = 0.001.
+  \]
+  By Bayes' formula,
   \begin{align*}
-    \P(+ \mid D) &= 0.98\\
-    \P(+ \mid D^C) &= 0.01\\
-    \P(D) &= 0.001.
+    \P(D\mid +) &= \frac{\P(+ \mid D)\,\P(D)}{\P(+\mid D)\,\P(D) + \P(+\mid D^C)\,\P(D^C)} = \frac{0.98\cdot 0.001}{0.98\cdot 0.001 + 0.01\cdot 0.999} \approx 0.09.
   \end{align*}
-  So what is the probability that a person has the disease given that he received a positive result?
-  \begin{align*}
-    \P(D\mid +) &= \frac{\P(+ \mid D)\P(D)}{\P(+\mid D)\P(D) + \P(+\mid D^C)\P(D^C)}\\
-    &= \frac{0.98\cdot 0.001}{0.98\cdot 0.001 + 0.01\cdot 0.999}\\
-    &= 0.09
-  \end{align*}
-  So this test is pretty useless. Even if you get a positive result, since the disease is so rare, it is more likely that you don't have the disease and get a false positive.
+  Despite the test's high sensitivity, the low prevalence of the disease means that a positive result is far more likely to be a false positive than a true positive.
 \end{eg}
 
-\begin{eg}
-  Consider the two following cases:
+\begin{eg}[Boy born on a Tuesday]
+  Suppose a family has two children, each equally likely to be a boy or a girl, independently. Consider two scenarios:
   \begin{enumerate}
-    \item I have 2 children, one of whom is a boy.
-    \item I have two children, one of whom is a son born on a Tuesday.
+    \item Given that at least one child is a boy, the probability that both are boys is
+    \[
+      \P(BB\mid \text{at least one }B) = \frac{\P(BB)}{\P(BB) + \P(BG) + \P(GB)} = \frac{1/4}{3/4} = \frac{1}{3}.
+    \]
+    \item Now suppose each child is equally likely to be born on any of 7 days. Given that at least one child is a boy born on a Tuesday, the probability that both are boys is $13/27$.
   \end{enumerate}
-  What is the probability that both of them are boys?
+  To see (2), let $B^*$ denote a boy born on a Tuesday (probability $1/14$ per child) and let $C$ be the event that at least one child is $B^*$. Each child is one of $14$ equally likely types ($2$ sexes $\times$ $7$ days), so the pair has $14^2 = 196$ equally likely outcomes. The number of outcomes in which at least one child is $B^*$ is $2 \cdot 14 - 1 = 27$ (by inclusion-exclusion). Among these, the number in which both children are boys is $2 \cdot 7 - 1 = 13$ (both are boys, at least one born on Tuesday). Hence $\P(\text{both boys} \mid C) = 13/27$.
 
-  \begin{enumerate}
-    \item $\P(BB\mid BB\cup BG) = \frac{1/4}{1/4 + 2/4} = \frac{1}{3}$.
-    \item Let $B^*$ denote a boy born on a Tuesday, and $B$ a boy not born on a Tuesday. Then
-      \begin{align*}
-        \P(B^*B^* \cup B^*B\mid BB^* \cup B^*B^*\cup B^*G)&=\frac{\frac{1}{14}\cdot \frac{1}{14} + 2\cdot \frac{1}{14}\cdot\frac{6}{14}}{\frac{1}{14}\cdot \frac{1}{14} + 2\cdot \frac{1}{14}\cdot\frac{6}{14} + 2\cdot \frac{1}{14}\cdot \frac{1}{2}}\\
-        &= \frac{13}{27}.
-      \end{align*}
-  \end{enumerate}
-  How can we understand this? It is much easier to have a boy born on a Tuesday if you have two boys than one boy. So if we have the information that a boy is born on a Tuesday, it is now less likely that there is just one boy. In other words, it is more likely that there are two boys.
+  The shift from $1/3$ to $13/27 \approx 0.481$ occurs because having two boys makes it more likely that at least one is born on a specific day, so the extra information shifts the posterior toward two boys.
 \end{eg}
 
 \section{Discrete random variables}
@@ -886,415 +832,294 @@ With what we've got so far, we are able to answer questions like ``what is the p
 To make some sense of this notion, we have to assign, to each outcome, a number. For example, if let ``heads'' correspond to $1$ and ``tails'' correspond to $0$. Then on average, we can expect to get $0.5$. This is the idea of a random variable.
 
 \subsection{Discrete random variables}
-\begin{defi}[Random variable]
-  A \emph{random variable} $X$ taking values in a set $\Omega_X$ is a function $X: \Omega \to \Omega_X$. $\Omega_X$ is usually a set of numbers, e.g.\ $\R$ or $\N$.
-\end{defi}
-Intuitively, a random variable assigns a ``number'' (or a thing in $\Omega_X$) to each event (e.g.\ assign $6$ to the event ``dice roll gives 6'').
 
-\begin{defi}[Discrete random variables]
-  A random variable is \emph{discrete} if $\Omega_X$ is finite or countably infinite.
+\begin{defi}[Random variable]
+  A \emph{random variable} $X$ is a function $X\colon \Omega \to \Omega_X$, where $\Omega_X$ is a set (usually $\R$ or a subset of $\R$). A random variable is \emph{discrete} if $\Omega_X$ is finite or countably infinite.
 \end{defi}
 
 \begin{notation}
-  Let $T\subseteq \Omega_X$, define
+  For $T\subseteq \Omega_X$, we write
   \[
     \P(X\in T) = \P(\{\omega \in \Omega: X(\omega) \in T\}).
   \]
-  i.e.\ the probability that the outcome is in $T$.
+  We write $\P_X(x) = \P(X = x)$ for the \emph{probability mass function} of $X$. If $X$ has a named distribution, we write e.g.\ $X\sim B(n, p)$ to mean $\P(X = k) = \binom{n}{k}p^k(1 - p)^{n - k}$ for $k = 0, 1, \dotsc, n$.
 \end{notation}
-Here, instead of talking about the probability of getting a particular outcome or event, we are concerned with the probability of a random variable taking a particular value. If $\Omega$ is itself countable, then we can write this as
-\[
-  \P(X \in T) = \sum_{\omega \in \Omega: X(\omega)\in T}p_\omega.
-\]
-\begin{eg}
-  Let $X$ be the value shown by rolling a fair die. Then $\Omega_X = \{1, 2, 3, 4, 5, 6\}$. We know that
-  \[
-    \P(X = i) = \frac{1}{6}.
-  \]
-  We call this the discrete uniform distribution.
-\end{eg}
+
 \begin{defi}[Discrete uniform distribution]
-  A \emph{discrete uniform distribution} is a discrete distribution with finitely many possible outcomes, in which each outcome is equally likely.
+  A discrete random variable has the \emph{discrete uniform distribution} on a finite set $S$ if $\P(X = s) = 1/|S|$ for all $s \in S$.
 \end{defi}
 
 \begin{eg}
-  Suppose we roll two dice, and let the values obtained by $X$ and $Y$. Then the sum can be represented by $X + Y$, with
-  \[
-    \Omega_{X + Y} = \{2, 3, \cdots, 12\}.
-  \]
+  Let $X$ be the value shown by rolling a fair die. Then $X$ has the discrete uniform distribution on $\{1, 2, 3, 4, 5, 6\}$, with $\P(X = i) = 1/6$ for each $i$.
 \end{eg}
-This shows that we can add random variables to get a new random variable.
 
-\begin{notation}
-  We write
-  \[
-    \P_X(x) = \P(X = x).
-  \]
-  We can also write $X\sim B(n, p)$ to mean
-  \[
-    \P(X = r) = \binom{n}{r}p^r(1 - p)^{n - r},
-  \]
-  and similarly for the other distributions we have come up with before.
-\end{notation}
+\begin{eg}[Sum of two dice]
+  If $X$ and $Y$ are the values of two independent fair dice, then $X + Y$ is a new random variable taking values in $\{2, 3, \dotsc, 12\}$.
+\end{eg}
 
 \begin{defi}[Expectation]
-  The \emph{expectation} (or \emph{mean}) of a real-valued $X$ is equal to
+  The \emph{expectation} (or \emph{mean}) of a discrete real-valued random variable $X$ is
   \[
-    \E[X] = \sum_{\omega\in \Omega}p_\omega X(\omega).
+    \E[X] = \sum_{x\in \Omega_X}x\,\P(X = x),
   \]
-  provided this is \emph{absolutely convergent}. Otherwise, we say the expectation doesn't exist. Alternatively,
-  \begin{align*}
-    \E[X] &= \sum_{x\in \Omega_X}\sum_{\omega: X(\omega) = x}p_\omega X(\omega)\\
-    &= \sum_{x\in \Omega_X}x\sum_{\omega:X(\omega) = x}p_\omega\\
-    &= \sum_{x\in \Omega_X}xP(X = x).
-  \end{align*}
-  We are sometimes lazy and just write $\E X$.
+  provided this sum is absolutely convergent. Equivalently, $\E[X] = \sum_{\omega\in \Omega}p_\omega\, X(\omega)$, where $p_\omega = \P(\{\omega\})$.
 \end{defi}
-This is the ``average'' value of $X$ we expect to get. Note that this definition only holds in the case where the sample space $\Omega$ is countable. If $\Omega$ is continuous (e.g.\ the whole of $\R$), then we have to define the expectation as an integral.
 
-\begin{eg}
-  Let $X$ be the sum of the outcomes of two dice. Then
+\begin{eg}[Sum of two dice]
+  Let $X$ be the sum of the outcomes of two fair dice. Then
   \[
     \E[X] = 2\cdot \frac{1}{36} + 3\cdot \frac{2}{36} + \cdots + 12\cdot \frac{1}{36} = 7.
   \]
 \end{eg}
-Note that $\E[X]$ can be non-existent if the sum is not absolutely convergent. However, it is possible for the expected value to be infinite:
 
-\begin{eg}[St. Petersburg paradox]
-  Suppose we play a game in which we keep tossing a coin until you get a tail. If you get a tail on the $i$th round, then I pay you $\$2^i$. The expected value is
+\begin{eg}[St.\ Petersburg paradox]
+  A fair coin is tossed repeatedly until the first tail appears. If the first tail occurs on toss $i$, the player receives $\$2^i$. The expected payout is
   \[
-    \E[X] = \frac{1}{2}\cdot 2 + \frac{1}{4}\cdot 4 + \frac{1}{8}\cdot 8 + \cdots = \infty.
+    \E[X] = \sum_{i=1}^{\infty} 2^i \cdot \frac{1}{2^i} = \sum_{i=1}^{\infty} 1 = \infty.
   \]
-  This means that on average, you can expect to get an infinite amount of money! In real life, though, people would hardly be willing to pay $\$20$ to play this game. There are many ways to resolve this paradox, such as taking into account the fact that the host of the game has only finitely many money and thus your real expected gain is much smaller.
+  The expected value is infinite, yet few people would pay more than $\$20$ to play. This illustrates that expected value alone does not capture rational decision-making under uncertainty.
 \end{eg}
 
-\begin{eg}
-  We calculate the expected values of different distributions:
-  \begin{enumerate}
-    \item Poisson $P(\lambda)$. Let $X\sim P(\lambda)$. Then
-      \[
-        P_X(r) = \frac{\lambda^r e^{-\lambda}}{r!}.
-      \]
-      So
-      \begin{align*}
-        \E[X] &= \sum_{r = 0}^\infty rP(X = r)\\
-        &= \sum_{r = 0}^\infty \frac{r \lambda^r e^{-\lambda}}{r!}\\
-        &= \sum_{r = 1}^\infty \lambda \frac{\lambda^{r - 1}e^{-\lambda}}{(r - 1)!}\\
-        &= \lambda\sum_{r = 0}^\infty\frac{\lambda^r e^{-\lambda}}{r!}\\
-        &= \lambda.
-      \end{align*}
-    \item Let $X\sim B(n, p)$. Then
-      \begin{align*}
-        \E[X] &= \sum_0^n rP(x = r)\\
-        &= \sum_0^n r\binom{n}{r} p^r(1 - p)^{n - r}\\
-        &= \sum_0^n r\frac{n!}{r!(n - r)!}p^r (1 - p)^{n - r}\\
-        &= np\sum_{r = 1}^n \frac{(n - 1)!}{(r - 1)![(n - 1) - (r - 1)]!}p^{r - 1}(1 - p)^{(n - 1) - (r - 1)}\\
-        &= np\sum_{0}^{n - 1}\binom{n - 1}{r}p^r(1 - p)^{n - 1 - r}\\
-        &= np.
-      \end{align*}
-  \end{enumerate}
-\end{eg}
-Given a random variable $X$, we can create new random variables such as $X + 3$ or $X^2$. Formally, let $f: \R \to \R$ and $X$ be a real-valued random variable. Then $f(X)$ is a new random variable that maps $\omega \mapsto f(X(\omega))$.
-
-\begin{eg}
-  if $a, b, c$ are constants, then $a + bX$ and $(X - c)^2$ are random variables, defined as
+\begin{eg}[Expectation of the Poisson distribution]
+  Let $X\sim \mathrm{Poisson}(\lambda)$. Then
   \begin{align*}
-    (a + bX)(\omega) &= a + bX(\omega)\\
-    (X - c)^2(\omega) &= (X(\omega) - c)^2.
+    \E[X] &= \sum_{r = 0}^\infty r\,\frac{\lambda^r e^{-\lambda}}{r!} = \sum_{r = 1}^\infty \lambda\, \frac{\lambda^{r - 1}e^{-\lambda}}{(r - 1)!} = \lambda\sum_{r = 0}^\infty\frac{\lambda^r e^{-\lambda}}{r!} = \lambda.
   \end{align*}
 \end{eg}
 
-\begin{thm}\leavevmode
-\begin{enumerate}
-  \item If $X \geq 0$, then $\E[X] \geq 0$.
-  \item If $X\geq 0$ and $\E[X] = 0$, then $\P(X = 0) = 1$.
-  \item If $a$ and $b$ are constants, then $\E[a + bX] = a + b\E[X]$.
-  \item If $X$ and $Y$ are random variables, then $\E[X + Y] = \E[X] + \E[Y]$. This is true even if $X$ and $Y$ are not independent.
-  \item $\E[X]$ is a constant that minimizes $\E[(X - c)^2]$ over $c$.
-\end{enumerate}
-\end{thm}
+\begin{eg}[Expectation of the binomial distribution]
+  Let $X\sim B(n, p)$. Then
+  \begin{align*}
+    \E[X] &= \sum_{r=0}^n r\binom{n}{r} p^r(1 - p)^{n - r} = np\sum_{r = 1}^n \binom{n - 1}{r-1}p^{r - 1}(1 - p)^{n - 1 - (r - 1)} = np,
+  \end{align*}
+  since the remaining sum equals $(p + (1-p))^{n-1} = 1$.
+\end{eg}
+
+\begin{defi}[Functions of a random variable]
+  Let $X$ be a random variable and $f\colon \R \to \R$. Then $f(X)$ is the random variable defined by $f(X)(\omega) = f(X(\omega))$.
+\end{defi}
+
+\begin{prop}[Properties of expectation]\leavevmode
+  \begin{enumerate}
+    \item If $X \geq 0$, then $\E[X] \geq 0$.
+    \item If $X\geq 0$ and $\E[X] = 0$, then $\P(X = 0) = 1$.
+    \item (Linearity) For constants $a, b \in \R$, $\E[a + bX] = a + b\,\E[X]$.
+    \item (Additivity) For any random variables $X$ and $Y$, $\E[X + Y] = \E[X] + \E[Y]$, regardless of whether $X$ and $Y$ are independent.
+    \item The constant $c$ that minimises $\E[(X - c)^2]$ is $c = \E[X]$.
+  \end{enumerate}
+\end{prop}
+
 \begin{proof}\leavevmode
   \begin{enumerate}
-    \item $X \geq 0$ means that $X(\omega) \geq 0$ for all $\omega$. Then
-      \[
-        \E[X] = \sum_\omega p_\omega X(\omega) \geq 0.
-      \]
-    \item If there exists $\omega$ such that $X(\omega) > 0$ and $p_\omega > 0$, then $\E[X] > 0$. So $X(\omega) = 0$ for all $\omega$.
-    \item
-      \[
-        \E[a + bX] = \sum_\omega (a + bX(\omega))p_\omega = a + b\sum_\omega p_\omega= a + b\ \E[X].
-      \]
-    \item
-      \[ \E[X + Y] = \sum_\omega p_\omega[X(\omega) + Y(\omega)] = \sum_\omega p_\omega X(\omega) + \sum_\omega p_\omega Y(\omega) = \E[X] + \E[Y].
-      \]
-    \item
-      \begin{align*}
-        \E[(X - c)^2] &= \E[(X - \E[X] + \E[X] - c)^2]\\
-        &= \E[(X - \E[X])^2 + 2(\E[X] - c)(X - \E[X]) + (\E[X] - c)^2]\\
-        &= \E(X - \E[X])^2 + 0 + (\E[X] - c)^2.
-      \end{align*}
-      This is clearly minimized when $c = \E[X]$. Note that we obtained the zero in the middle because $\E[X - \E[X]] = \E[X] - \E[X] = 0$.\qedhere
+    \item $\E[X] = \sum_\omega p_\omega X(\omega) \geq 0$ since every term is non-negative.
+    \item If $X(\omega) > 0$ for some $\omega$ with $p_\omega > 0$, then $\E[X] > 0$. Hence $\P(X = 0) = 1$.
+    \item $\E[a + bX] = \sum_\omega (a + bX(\omega))\,p_\omega = a\sum_\omega p_\omega + b\sum_\omega X(\omega)\,p_\omega = a + b\,\E[X]$.
+    \item $\E[X + Y] = \sum_\omega p_\omega(X(\omega) + Y(\omega)) = \E[X] + \E[Y]$.
+    \item Write $\E[(X - c)^2] = \E[(X - \E[X])^2] + (\E[X] - c)^2$, using $\E[X - \E[X]] = 0$ to eliminate the cross term. This is minimised when $c = \E[X]$.\qedhere
   \end{enumerate}
 \end{proof}
-An easy generalization of (iv) above is
-\begin{thm}
-  For any random variables $X_1, X_2, \cdots X_n$, for which the following expectations exist,
+
+\begin{prop}[Linearity of expectation for finite sums]
+  For any random variables $X_1, \dotsc, X_n$ whose expectations exist,
   \[
     \E\left[\sum_{i = 1}^n X_i\right] = \sum_{i = 1}^n \E[X_i].
   \]
-\end{thm}
+\end{prop}
 
 \begin{proof}
-  \[
-    \sum_\omega p(\omega)[X_1(\omega) + \cdots + X_n(\omega)] = \sum_\omega p(\omega)X_1(\omega) + \cdots + \sum_\omega p(\omega) X_n(\omega).\qedhere
-  \]
+  Immediate from additivity and induction on $n$.
 \end{proof}
 
 \begin{defi}[Variance and standard deviation]
-  The \emph{variance} of a random variable $X$ is defined as
+  The \emph{variance} of a random variable $X$ with finite expectation is
   \[
     \var(X) = \E[(X - \E[X])^2].
   \]
-  The \emph{standard deviation} is the square root of the variance, $\sqrt{\var(X)}$.
+  The \emph{standard deviation} of $X$ is $\sqrt{\var(X)}$. The variance measures how dispersed $X$ is around its mean.
 \end{defi}
-This is a measure of how ``dispersed'' the random variable $X$ is. If we have a low variance, then the value of $X$ is very likely to be close to $\E[X]$.
 
-\begin{thm}\leavevmode
+\begin{prop}[Properties of variance]\leavevmode
   \begin{enumerate}
-    \item $\var X \geq 0$. If $\var X = 0$, then $\P(X = \E[X]) = 1$.
-    \item $\var (a + bX) = b^2 \var(X)$. This can be proved by expanding the definition and using the linearity of the expected value.
-    \item $\var(X) = \E[X^2] - \E[X]^2$, also proven by expanding the definition.
+    \item $\var(X) \geq 0$, with equality if and only if $\P(X = \E[X]) = 1$.
+    \item For constants $a, b \in \R$, $\var(a + bX) = b^2\, \var(X)$.
+    \item $\var(X) = \E[X^2] - (\E[X])^2$.
   \end{enumerate}
-\end{thm}
+\end{prop}
 
-\begin{eg}[Binomial distribution]
-  Let $X\sim B(n, p)$ be a binomial distribution. Then $\E[X] = np$. We also have
+\begin{proof}
+  Part (1) follows from the fact that $(X - \E[X])^2 \geq 0$. Parts (2) and (3) follow by expanding the definition and using linearity of expectation.
+\end{proof}
+
+\begin{eg}[Variance of the binomial distribution]
+  Let $X\sim B(n, p)$ and write $q = 1 - p$. Using the factorial moment,
   \begin{align*}
-    \E[X(X - 1)] &= \sum_{r = 0}^n r(r - 1)\frac{n!}{r!(n - r)!} p^r(1 - p)^{n - r}\\
-    &= n(n - 1)p^2\sum_{r = 2}^n \binom{n - 2}{r - 2} p^{r - 2}(1 - p)^{(n - 2) - (r - 2)}\\
-    &= n(n - 1)p^2.
+    \E[X(X - 1)] &= \sum_{r = 0}^n r(r - 1)\binom{n}{r} p^r q^{n - r} = n(n - 1)p^2\sum_{r = 2}^n \binom{n - 2}{r - 2} p^{r - 2}q^{n - 2 - (r - 2)} = n(n - 1)p^2,
   \end{align*}
-  The sum goes to $1$ since it is the sum of all probabilities of a binomial $N(n - 2, p)$
-  So $\E[X^2] = n(n - 1)p^2 + \E[X] = n(n - 1)p^2 + np$. So
-  \[
-    \var(X) = \E[X^2] - (\E[X])^2 = np(1 - p) = npq.
-  \]
+  so $\E[X^2] = n(n - 1)p^2 + np$ and $\var(X) = \E[X^2] - (np)^2 = np(1 - p) = npq$.
 \end{eg}
 
-\begin{eg}[Poisson distribution]
-  If $X\sim P(\lambda)$, then $\E[X] = \lambda$, and $\var(X) = \lambda$, since $P(\lambda)$ is $B(n, p)$ with $n\to \infty, p \to 0, np \to \lambda$.
+\begin{eg}[Variance of the Poisson distribution]
+  Let $X\sim \mathrm{Poisson}(\lambda)$. A similar factorial moment computation gives $\E[X(X-1)] = \lambda^2$, so $\E[X^2] = \lambda^2 + \lambda$ and $\var(X) = \lambda$.
 \end{eg}
 
-\begin{eg}[Geometric distribution]
-  Suppose $\P(X = r) = q^r p$ for $r= 0, 1, 2, \cdots$. Then
+\begin{eg}[Variance of the geometric distribution]
+  Let $X\sim \mathrm{Geom}(p)$, so $\P(X = r) = q^r p$ for $r= 0, 1, 2, \dotsc$, where $q = 1 - p$. Using the generating function $\sum_{r=0}^{\infty} q^r = (1 - q)^{-1}$ and differentiating,
   \begin{align*}
-    \E[X] &= \sum_{0}^\infty rpq^r \\
-    &= pq\sum_{0}^\infty rq^{r - 1}\\
-    &= pq\sum_{0}^\infty \frac{\d }{\d q}q^r\\
-    &= pq\frac{\d }{\d q}\sum_{0}^\infty q^r\\
-    &= pq\frac{\d }{\d q}\frac{1}{1 - q}\\
-    &= \frac{pq}{(1 - q)^2}\\
-    &= \frac{q}{p}.
+    \E[X] &= pq\sum_{r=0}^\infty rq^{r - 1} = pq\,\frac{\d }{\d q}\frac{1}{1 - q} = \frac{pq}{(1 - q)^2} = \frac{q}{p}.
   \end{align*}
-  Then
-  \begin{align*}
-    \E[X(X - 1)] &= \sum_{0}^\infty r(r - 1)pq^r\\
-    &= pq^2 \sum_0^\infty r(r - 1)q^{r - 2}\\
-    &= pq^2\frac{\d ^2}{\d q^2}\frac{1}{1 - q}\\
-    &= \frac{2pq^2}{(1 - q)^3}
-  \end{align*}
-  So the variance is
-  \[
-    \var(X) = \frac{2pq^2}{(1 - q)^3}+ \frac{q}{p} - \frac{q^2}{p^2} = \frac{q}{p^2}.
-  \]
+  Similarly, $\E[X(X - 1)] = 2q^2/p^2$, and so $\var(X) = \E[X(X-1)] + \E[X] - (\E[X])^2 = q/p^2$.
 \end{eg}
 
 \begin{defi}[Indicator function]
-  The \emph{indicator function} or \emph{indicator variable} $I[A]$ (or $I_A$) of an event $A\subseteq \Omega$ is
+  The \emph{indicator function} (or \emph{indicator variable}) of an event $A\subseteq \Omega$ is the random variable
   \[
-    I[A](\omega) =
+    I_A(\omega) =
     \begin{cases}
-      1 & \omega\in A\\
-      0 & \omega\not\in A
+      1 & \text{if } \omega\in A,\\
+      0 & \text{if } \omega\not\in A.
     \end{cases}
   \]
 \end{defi}
-This indicator random variable is not interesting by itself. However, it is a rather useful tool to prove results.
 
-It has the following properties:
-\begin{prop}\leavevmode
-  \begin{itemize}
-    \item $\E[I[A]] = \sum_\omega p(\omega) I[A](\omega) = \P(A)$.
-    \item $I[A^C] = 1 - I[A]$.
-    \item $I[A\cap B] = I[A]I[B]$.
-    \item $I[A\cup B] = I[A] + I[B] - I[A]I[B]$.
-    \item $I[A]^2 = I[A]$.
-  \end{itemize}
+\begin{prop}[Properties of indicator functions]
+  Let $A, B \subseteq \Omega$ be events. Then:
+  \begin{enumerate}
+    \item $\E[I_A] = \P(A)$.
+    \item $I_{A^C} = 1 - I_A$.
+    \item $I_{A\cap B} = I_A\, I_B$.
+    \item $I_{A\cup B} = I_A + I_B - I_A\, I_B$.
+    \item $I_A^2 = I_A$.
+  \end{enumerate}
 \end{prop}
-These are easy to prove from definition. In particular, the last property comes from the fact that $I[A]$ is either $0$ and $1$, and $0^2 = 0, 1^2 = 1$.
 
-\begin{eg}
-  Let $2n$ people ($n$ husbands and $n$ wives, with $n > 2$) sit alternate man-woman around the table randomly. Let $N$ be the number of couples sitting next to each other.
+\begin{proof}
+  Each identity follows from the fact that $I_A(\omega) \in \{0, 1\}$ and by checking both cases.
+\end{proof}
 
-  Let $A_i = [i$th couple sits together$]$. Then
+\begin{eg}[Couples at a dinner table]
+  Let $2n$ people ($n$ married couples, $n > 2$) sit in alternating man-woman positions around a circular table, uniformly at random. Let $N$ be the number of couples sitting next to each other, and let $A_i$ be the event that the $i$th couple sits together. Then $N = \sum_{i = 1}^n I_{A_i}$.
+
+  By symmetry, $\P(A_i) = 2/n$ for each $i$ (each wife has $n$ possible seats, and 2 of them are adjacent to her husband). So
   \[
-    N = \sum_{i = 1}^n I[A_i].
+    \E[N] = \sum_{i=1}^n \P(A_i) = n\cdot \frac{2}{n} = 2.
   \]
-  Then
-  \[
-    \E[N] = \E\left[\sum I[A_i]\right] = \sum_{1}^n \E\big[I[A_i]\big] = n\E\big[I[A_1]\big] = n\P(A_i) = n\cdot \frac{2}{n} = 2.
-  \]
-  We also have
-  \begin{align*}
-    \E[N^2] &= \E\left[\left(\sum I[A_i]\right)^2\right]\\
-    &= \E\left[\sum_i I[A_i]^2 + 2\sum_{i < j}I[A_i]I[A_j]\right]\\
-    &= n\E\big[I[A_i]\big] + n(n - 1)\E\big[I[A_1]I[A_2]\big]
-  \end{align*}
-  We have $\E[I[A_1]I[A_2]] = \P(A_1\cap A_2) = \frac{2}{n}\left(\frac{1}{n - 1}\frac{1}{n - 1} + \frac{n - 2}{n - 1}\frac{2}{n - 1}\right)$. Plugging in, we ultimately obtain $\var(N) = \frac{2(n- 2)}{n - 1}$.
+  To find $\var(N)$, we compute $\E[N^2] = \sum_i \E[I_{A_i}] + 2\sum_{i < j}\P(A_i \cap A_j)$.  One finds $\P(A_1\cap A_2) = \frac{2}{n}\bigl(\frac{1}{(n - 1)^2} + \frac{2(n - 2)}{(n - 1)^2}\bigr)$, which gives $\var(N) = \frac{2(n- 2)}{n - 1}$.
 
-  In fact, as $n\to \infty$, $N\sim P(2)$.
+  In fact, as $n\to \infty$, $N$ converges in distribution to $\mathrm{Poisson}(2)$.
 \end{eg}
 
-We can use these to prove the inclusion-exclusion formula:
-\begin{thm}[Inclusion-exclusion formula]
+\begin{thm}[Inclusion-exclusion via indicators]
+  Let $A_1, \dotsc, A_n$ be events. Then
   \begin{align*}
-    \P\left(\bigcup_i^n A_i\right) &= \sum_1^n \P(A_i) - \sum_{i_1 < i_2} \P(A_{i_1}\cap A_{j_2}) + \sum_{i_1 < i_2 < i_3}\P(A_{i_1}\cap A_{i_2} \cap A_{i_3}) - \cdots\\
-    &+ (-1)^{n - 1} \P(A_1\cap \cdots \cap A_n).
+    \P\left(\bigcup_{i=1}^n A_i\right) &= \sum_{i} \P(A_i) - \sum_{i_1 < i_2} \P(A_{i_1}\cap A_{i_2}) + \cdots + (-1)^{n - 1} \P(A_1\cap \cdots \cap A_n).
   \end{align*}
 \end{thm}
 
 \begin{proof}
-  Let $I_j$ be the indicator function for $A_j$. Write
+  Let $I_j = I_{A_j}$. For $1 \leq r \leq n$, define $S_r = \sum_{i_1 < \cdots < i_r}I_{i_1}\cdots I_{i_r}$ and $s_r = \E[S_r] = \sum_{i_1 < \cdots < i_r}\P(A_{i_1}\cap \cdots \cap A_{i_r})$. Expanding the product gives the identity
   \[
-    S_r = \sum_{i_1 < i_2 < \cdots < i_r}I_{i_1}I_{i_2}\cdots I_{i_r},
+    I_{\bigcup_j A_j} = 1 - \prod_{j = 1}^n(1 - I_j) = S_1 - S_2 + S_3 - \cdots + (-1)^{n - 1}S_n.
   \]
-  and
-  \[
-    s_r = \E[S_r] = \sum_{i_1 < \cdots < i_r}\P(A_{i_1}\cap \cdots \cap A_{i_r}).
-  \]
-  Then
-  \[
-    1 - \prod_{j = 1}^n(1 - I_j) = S_1 - S_2 + S_3 \cdots + (-1)^{n - 1}S_n.
-  \]
-  So
-  \[
-    \P\left(\bigcup_1^n A_j\right) = \E\left[1 - \prod_1^n(1 - I_j)\right] = s_1 - s_2 + s_3 - \cdots + (-1)^{n - 1}s_n.\qedhere
-  \]
+  Taking expectations yields $\P\bigl(\bigcup_j A_j\bigr) = s_1 - s_2 + s_3 - \cdots + (-1)^{n - 1}s_n$.
 \end{proof}
 
-We can extend the idea of independence to random variables. Two random variables are independent if the value of the first does not affect the value of the second.
-
 \begin{defi}[Independent random variables]
-  Let $X_1, X_2, \cdots, X_n$ be discrete random variables. They are \emph{independent} iff for any $x_1, x_2, \cdots, x_n$,
+  Discrete random variables $X_1, X_2, \dotsc, X_n$ are \emph{independent} if for all $x_1, x_2, \dotsc, x_n$,
   \[
-    \P(X_1 = x_1, \cdots, X_n = x_n) = \P(X_1 = x_1)\cdots \P(X_n = x_n).
+    \P(X_1 = x_1, \dotsc, X_n = x_n) = \P(X_1 = x_1)\cdots \P(X_n = x_n).
   \]
 \end{defi}
 
-\begin{thm}
-  If $X_1, \cdots, X_n$ are independent random variables, and $f_1, \cdots, f_n$ are functions $\R \to \R$, then $f_1(X_1), \cdots, f_n(X_n)$ are independent random variables.
-\end{thm}
+\begin{prop}
+  If $X_1, \dotsc, X_n$ are independent random variables and $f_1, \dotsc, f_n\colon \R \to \R$, then $f_1(X_1), \dotsc, f_n(X_n)$ are independent.
+\end{prop}
 
 \begin{proof}
-  Note that given a particular $y_i$, there can be many different $x_i$ for which $f_i(x_i) = y_i$. When finding $\P(f_i(x_i)= y_i)$, we need to sum over all $x_i$ such that $f_i(x_i) = f_i$. Then
+  For any $y_1, \dotsc, y_n$,
   \begin{align*}
-    \P(f_1(X_1) = y_1, \cdots f_n(X_n) = y_n) &= \sum_{\substack{x_1: f_1(x_1) = y_1\\\cdot\vspace{-2pt}\\\cdot\\x_n: f_n(x_n) = y_n}} \P(X_1 = x_1, \cdots, X_n = x_n)\\
-    &= \sum_{\substack{x_1: f_1(x_1) = y_1\\\cdot\vspace{-2pt}\\\cdot\\x_n: f_n(x_n) = y_n}} \prod_{i = 1}^n \P(X_i = x_i)\\
-    &= \prod_{i = 1}^n \sum_{x_i:f_i(x_i) = y_i} \P(X_i = x_i)\\
-    &= \prod_{i = 1}^n \P(f_i(x_i) = y_i).
+    \P(f_1(X_1) = y_1, \dotsc, f_n(X_n) = y_n) &= \sum_{\substack{x_1: f_1(x_1) = y_1\\\vdots\\x_n: f_n(x_n) = y_n}} \prod_{i = 1}^n \P(X_i = x_i) = \prod_{i = 1}^n \sum_{x_i:f_i(x_i) = y_i} \P(X_i = x_i) = \prod_{i = 1}^n \P(f_i(X_i) = y_i),
   \end{align*}
-  Note that the switch from the second to third line is valid since they both expand to the same mess.
+  where the factorisation of the multi-sum into a product of single sums holds because the summand is a product of terms each depending on a single index.
 \end{proof}
 
-\begin{thm}
-  If $X_1, \cdots, X_n$ are independent random variables and all the following expectations exists, then
+\begin{thm}[Expectation of a product of independent random variables]
+  If $X_1, \dotsc, X_n$ are independent random variables with finite expectations, then
   \[
-    \E\left[\prod X_i\right] = \prod \E[X_i].
+    \E\left[\prod_{i=1}^{n} X_i\right] = \prod_{i=1}^{n} \E[X_i].
   \]
 \end{thm}
 
 \begin{proof}
-  Write $R_i$ for the range of $X_i$. Then
+  Let $R_i$ denote the range of $X_i$. Then
   \begin{align*}
-    \E\left[\prod_1^n X_i\right] &= \sum_{x_1\in R_1}\cdots \sum_{x_n\in R_n}x_1x_2\cdots x_n\times \P(X_1 = x_1, \cdots, X_n = x_n)\\
-    &= \prod_{i = 1}^n \sum_{x_i \in R_i}x_i\P(X_i = x_i)\\
-    &= \prod_{i = 1}^n \E[X_i].\qedhere
+    \E\left[\prod_{i=1}^n X_i\right] &= \sum_{x_1\in R_1}\cdots \sum_{x_n\in R_n}\left(\prod_{i=1}^{n} x_i\right) \P(X_1 = x_1, \dotsc, X_n = x_n)\\
+    &= \prod_{i = 1}^n \sum_{x_i \in R_i}x_i\,\P(X_i = x_i) = \prod_{i = 1}^n \E[X_i].\qedhere
   \end{align*}
 \end{proof}
 
 \begin{cor}
-  Let $X_1,\cdots X_n$ be independent random variables, and $f_1, f_2, \cdots f_n$ are functions $\R\to \R$. Then
+  If $X_1,\dotsc, X_n$ are independent and $f_1, \dotsc, f_n\colon \R\to \R$, then
   \[
-    \E\left[\prod f_i(x_i)\right] = \prod \E[f_i(x_i)].
+    \E\left[\prod_{i=1}^{n} f_i(X_i)\right] = \prod_{i=1}^{n} \E[f_i(X_i)].
   \]
 \end{cor}
 
-\begin{thm}
-  If $X_1, X_2, \cdots X_n$ are independent random variables, then
+\begin{thm}[Variance of a sum of independent random variables]
+  If $X_1, X_2, \dotsc, X_n$ are independent random variables with finite variances, then
   \[
-    \var\left(\sum X_i\right) = \sum \var (X_i).
+    \var\left(\sum_{i=1}^{n} X_i\right) = \sum_{i=1}^{n} \var (X_i).
   \]
 \end{thm}
 
 \begin{proof}
   \begin{align*}
-    \var\left(\sum X_i\right) &= \E\left[\left(\sum X_i\right)^2\right] - \left(\E\left[\sum X_i\right]\right)^2\\
-    &= \E\left[\sum X_i^2 + \sum_{i \not =j} X_iX_j\right] - \left(\sum\E [X_i]\right)^2\\
-    &= \sum \E[X_i^2] + \sum_{i\not= j}\E[X_i]\E[X_j] - \sum(\E[X_i])^2 - \sum_{i\not= j}\E[X_i]\E[X_j]\\
-    &= \sum \E[X_i^2] - (\E[X_i])^2.\qedhere
+    \var\left(\sum_i X_i\right) &= \E\left[\left(\sum_i X_i\right)^2\right] - \left(\sum_i\E[X_i]\right)^2\\
+    &= \sum_i \E[X_i^2] + \sum_{i\neq j}\E[X_i]\E[X_j] - \sum_i(\E[X_i])^2 - \sum_{i\neq j}\E[X_i]\E[X_j]\\
+    &= \sum_i \bigl(\E[X_i^2] - (\E[X_i])^2\bigr) = \sum_i \var(X_i),
   \end{align*}
+  where we used independence to write $\E[X_i X_j] = \E[X_i]\E[X_j]$ for $i \neq j$.
 \end{proof}
 
-\begin{cor}
- Let $X_1, X_2, \cdots X_n$ be independent identically distributed random variables (iid rvs). Then
- \[
-   \var\left(\frac{1}{n}\sum X_i\right) = \frac{1}{n}\var (X_1).
- \]
+\begin{cor}[Variance of a sample mean]
+  Let $X_1, \dotsc, X_n$ be independent and identically distributed (i.i.d.)\ random variables. Then
+  \[
+    \var\left(\frac{1}{n}\sum_{i=1}^{n} X_i\right) = \frac{1}{n}\,\var (X_1).
+  \]
 \end{cor}
 
 \begin{proof}
-  \begin{align*}
-    \var\left(\frac{1}{n}\sum X_i\right) &= \frac{1}{n^2}\var\left(\sum X_i\right)\\
-    &= \frac{1}{n^2}\sum \var(X_i)\\
-    &= \frac{1}{n^2} n \var(X_1)\\
-    &= \frac{1}{n}\var (X_1)
-  \end{align*}
+  By the scaling property of variance and the additivity for independent variables,
+  $\var\bigl(\frac{1}{n}\sum_i X_i\bigr) = \frac{1}{n^2}\sum_i \var(X_i) = \frac{1}{n}\,\var(X_1)$.
 \end{proof}
-This result is important in statistics. This means that if we want to reduce the variance of our experimental results, then we can repeat the experiment many times (corresponding to a large $n$), and then the sample average will have a small variance.
 
-\begin{eg}
-  Let $X_i$ be iid $B(1, p)$, i.e.\ $\P(1) = p$ and $\P(0) = 1 - p$. Then $Y = X_1 + X_2 + \cdots + X_n \sim B(n, p)$.
+\begin{remark}
+  This shows that repeated independent measurements reduce variance: the sample mean $\bar{X}_n = \frac{1}{n}\sum_i X_i$ has variance that decreases as $1/n$.
+\end{remark}
 
-  Since $\var(X_i) = \E[X_i^2] - (\E[X_i])^2 = p - p^2 = p(1 - p)$, we have $\var (Y) = np(1 - p)$.
+\begin{eg}[Binomial as a sum of Bernoulli variables]
+  Let $X_1, \dotsc, X_n$ be i.i.d.\ $B(1, p)$. Then $Y = X_1 + \cdots + X_n \sim B(n, p)$.  Since $\var(X_i) = p(1 - p)$, we obtain $\var(Y) = np(1 - p)$.
 \end{eg}
 
-\begin{eg}
-  Suppose we have two rods of unknown lengths $a, b$. We can measure the lengths, but is not accurate. Let $A$ and $B$ be the measured value. Suppose
+\begin{eg}[Measuring rods]
+  Suppose we wish to estimate the lengths $a$ and $b$ of two rods. Direct measurements $A$ and $B$ are unbiased ($\E[A] = a$, $\E[B] = b$) with $\var(A) = \var(B) = \sigma^2$, and $A, B$ are independent. Instead of using $A$ and $B$ directly, we measure $X = A + B$ and $Y = A - B$, and estimate
   \[
-    \E[A] = a,\quad \var(A) = \sigma^2
+    \hat{a} = \frac{X + Y}{2},\qquad \hat{b} = \frac{X - Y}{2}.
   \]
+  Then $\hat{a}$ and $\hat{b}$ are unbiased, and
   \[
-    \E[B] = b, \quad \var(B) = \sigma^2.
+    \var(\hat{a}) = \frac{1}{4}\var(X + Y) = \frac{1}{4}\cdot 2\sigma^2 = \frac{\sigma^2}{2},
   \]
-  We can measure it more accurately by measuring $X = A + B$ and $Y = A - B$. Then we estimate $a$ and $b$ by
-  \[
-    \hat{a} = \frac{X + Y}{2},\; \hat{b} = \frac{X - Y}{2}.
-  \]
-  Then $\E[\hat{a}] = a$ and $\E[\hat{b}] = b$, i.e.\ they are unbiased. Also
-  \[
-    \var (\hat{a}) = \frac{1}{4}\var(X + Y) = \frac{1}{4}2\sigma^2 = \frac{1}{2}\sigma^2,
-  \]
-  and similarly for $b$. So we can measure it more accurately by measuring the sticks together instead of separately.
+  and similarly $\var(\hat{b}) = \sigma^2/2$. So measuring the rods together halves the variance of each estimate.
 \end{eg}
 
 \subsection{Inequalities}
-Here we prove a lot of different inequalities which may be useful for certain calculations. In particular, Chebyshev's inequality will allow us to prove the weak law of large numbers.
 
-\begin{defi}[Convex function]
-  A function $f: (a, b) \to \R$ is \emph{convex} if for all $x_1, x_2\in (a, b)$ and $\lambda_1, \lambda_2 \geq 0$ such that $\lambda_1 + \lambda_2 = 1$,\[
-    \lambda_1f(x_1) + \lambda_2 f(x_2) \geq f(\lambda_1x_1 + \lambda_2 x_2).
+\begin{defi}[Convex and concave functions]
+  A function $f\colon (a, b) \to \R$ is \emph{convex} if for all $x_1, x_2\in (a, b)$ and all $\lambda \in [0, 1]$,
+  \[
+    \lambda\, f(x_1) + (1 - \lambda)\, f(x_2) \geq f(\lambda\, x_1 + (1 - \lambda)\, x_2).
   \]
-  It is \emph{strictly convex} if the inequality above is strict (except when $x_1 = x_2$ or $\lambda_1$ or $\lambda_2 = 0$).
+  It is \emph{strictly convex} if the inequality is strict whenever $x_1 \neq x_2$ and $0 < \lambda < 1$.
   \begin{center}
     \begin{tikzpicture}
       \draw(-2, 4) -- (-2, 0) -- (2, 0) -- (2, 4);
@@ -1304,442 +1129,336 @@ Here we prove a lot of different inequalities which may be useful for certain ca
       \draw [dashed] (-1.3, 0) -- (-1.3, 1.53) node [circ] {};
       \draw [dashed] (1.3, 0) -- (1.3, 2.42) node [circ] {};
       \draw (-1.3, 1.53) -- (1.3, 2.42);
-      \draw [dashed] (0, 0) node [below] {\tiny $\lambda_1x_1 + \lambda_2x_2$} -- (0, 1.975) node [above] {\tiny$\lambda_1 f(x_1) + \lambda_2 f(x_2)\quad\quad\quad\quad\quad\quad$} node [circ] {};
+      \draw [dashed] (0, 0) node [below] {\tiny $\lambda x_1 + (1-\lambda)x_2$} -- (0, 1.975) node [above] {\tiny$\lambda f(x_1) + (1-\lambda) f(x_2)\quad\quad\quad\quad\quad\quad$} node [circ] {};
     \end{tikzpicture}
   \end{center}
-  A function is \emph{concave} if $-f$ is convex.
+  A function $f$ is \emph{concave} if $-f$ is convex.
 \end{defi}
 
-A useful criterion for convexity is
-\begin{prop}
-  If $f$ is differentiable and $f''(x) \geq 0$ for all $x\in (a, b)$, then it is convex. It is strictly convex if $f''(x) > 0$.
+\begin{prop}[Second derivative test for convexity]
+  If $f\colon (a, b) \to \R$ is twice differentiable and $f''(x) \geq 0$ for all $x\in (a, b)$, then $f$ is convex. If $f''(x) > 0$ for all $x$, then $f$ is strictly convex.
 \end{prop}
 
 \begin{thm}[Jensen's inequality]
-  If $f:(a, b) \to \R$ is convex, then
+  Let $f\colon (a, b) \to \R$ be convex. Let $X$ be a random variable taking values in $(a,b)$ with finite expectation. Then
   \[
-    \sum_{i = 1}^n p_i f(x_i) \geq f\left(\sum_{i = 1}^n p_ix_i\right)
+    \E[f(X)] \geq f(\E[X]).
   \]
-  for all $p_1, p_2, \cdots, p_n$ such that $p_i \geq 0$ and $\sum p_i = 1$, and $x_i \in (a, b)$.
-
-  This says that $\E[f(X)] \geq f(\E[X])$ (where $\P(X=x_i) = p_i$).
-
-  If $f$ is strictly convex, then equalities hold only if all $x_i$ are equal, i.e.\ $X$ takes only one possible value.
+  Equivalently, for any $x_1, \dotsc, x_n \in (a, b)$ and $p_1, \dotsc, p_n \geq 0$ with $\sum_{i=1}^{n} p_i = 1$,
+  \[
+    \sum_{i = 1}^n p_i\, f(x_i) \geq f\left(\sum_{i = 1}^n p_i\, x_i\right).
+  \]
+  If $f$ is strictly convex, equality holds only if $X$ is constant with probability $1$.
 \end{thm}
 
 \begin{proof}
-  Induct on $n$. It is true for $n = 2$ by the definition of convexity. Then
+  By induction on $n$. The case $n = 2$ is the definition of convexity. For the inductive step, write $q = p_2 + \cdots + p_n > 0$ and note that
   \begin{align*}
-    f(p_1x_1 + \cdots + p_nx_n) &= f\left(p_1x_1 + (p_2 + \cdots + p_n)\frac{p_2x_2 + \cdots + l_nx_n}{p_2 + \cdots + p_n}\right)\\
-    &\leq p_1f(x_1) + (p_2 + \cdots p_n)f\left(\frac{p_2x_2 + \cdots + p_n x_n}{p_2 + \cdots + p_n }\right).\\
-    &\leq p_1f(x_1) + (p_2 + \cdots + p_n)\left[\frac{p_2}{(\;)}f(x_2) + \cdots + \frac{p_n}{(\;)}f(x_n)\right]\\
-    &= p_1f(x_1) + \cdots + p_n(x_n).
+    f(p_1 x_1 + q \cdot \tfrac{p_2 x_2 + \cdots + p_n x_n}{q}) &\leq p_1\, f(x_1) + q\, f\!\left(\frac{p_2 x_2 + \cdots + p_n x_n}{q}\right)\\
+    &\leq p_1\, f(x_1) + q\left[\frac{p_2}{q}\, f(x_2) + \cdots + \frac{p_n}{q}\, f(x_n)\right]\\
+    &= p_1\, f(x_1) + \cdots + p_n\, f(x_n),
   \end{align*}
-  where the $(\;)$ is $p_2 + \cdots + p_n$.
-
-  Strictly convex case is proved with $\leq$ replaced by $<$ by definition of strict convexity.
+  where the first inequality uses convexity (case $n = 2$) and the second uses the inductive hypothesis (with $n - 1$ points and weights $p_2/q, \dotsc, p_n/q$).
 \end{proof}
 
 \begin{cor}[AM-GM inequality]
-  Given $x_1, \cdots, x_n$ positive reals, then
+  For positive reals $x_1, \dotsc, x_n$,
   \[
-    \left(\prod x_i\right)^{1/n} \leq \frac{1}{n}\sum x_i.
+    \left(\prod_{i=1}^{n} x_i\right)^{1/n} \leq \frac{1}{n}\sum_{i=1}^{n} x_i,
   \]
+  with equality if and only if all $x_i$ are equal.
 \end{cor}
 
 \begin{proof}
-  Take $f(x) = -\log x$. This is convex since its second derivative is $x^{-2} > 0$.
-
-  Take $\P(x = x_i) = 1/n$. Then
-  \[
-    \E[f(x)] = \frac{1}{n}\sum -\log x_i = -\log \text{GM}
-  \]
-  and
-  \[
-    f(\E[x]) = -\log \frac{1}{n}\sum x_i = -\log\text{AM}
-  \]
-  Since $f(\E[x]) \leq \E[f(x)]$, AM $\geq$ GM. Since $-\log x$ is strictly convex, AM $=$ GM only if all $x_i$ are equal.
+  Apply Jensen's inequality to the strictly convex function $f(x) = -\log x$ on $(0, \infty)$ with $p_i = 1/n$. This gives $-\frac{1}{n}\sum \log x_i \geq -\log\bigl(\frac{1}{n}\sum x_i\bigr)$, i.e.\ $\log\mathrm{GM} \leq \log\mathrm{AM}$. Exponentiating yields the result.
 \end{proof}
 
-\begin{thm}[Cauchy-Schwarz inequality]
-  For any two random variables $X, Y$,
+\begin{thm}[Cauchy--Schwarz inequality]
+  For any two random variables $X, Y$ with $\E[X^2], \E[Y^2] < \infty$,
   \[
-    (\E[XY])^2 \leq \E[X^2]\E[Y^2].
+    (\E[XY])^2 \leq \E[X^2]\,\E[Y^2].
   \]
 \end{thm}
 
 \begin{proof}
-  If $Y = 0$, then both sides are $0$. Otherwise, $\E[Y^2] > 0$. Let
+  If $\P(Y = 0) = 1$, both sides are $0$. Otherwise, $\E[Y^2] > 0$. Define $W = X - Y\cdot \frac{\E[XY]}{\E[Y^2]}$. Then
   \[
-    w = X - Y\cdot \frac{\E[XY]}{\E[Y^2]}.
+    0 \leq \E[W^2] = \E[X^2] - \frac{(\E[XY])^2}{\E[Y^2]},
   \]
-  Then
-  \begin{align*}
-    \E[w^2] &= \E\left[X^2 - 2XY\frac{\E[XY]}{\E[Y^2]} + Y^2\frac{(\E[XY])^2}{(\E[Y^2])^2}\right]\\
-    &= \E[X^2] - 2\frac{(\E[XY])^2}{\E[Y^2]} + \frac{(\E[XY])^2}{\E[Y^2]}\\
-    &= \E[X^2] - \frac{(\E[XY])^2}{\E[Y^2]}
-  \end{align*}
-  Since $\E[w^2] \geq 0$, the Cauchy-Schwarz inequality follows.
+  which rearranges to the desired inequality.
 \end{proof}
 
-\begin{thm}[Markov inequality]
-  If $X$ is a random variable with $\E|X| < \infty$ and $\varepsilon > 0$, then
+\begin{thm}[Markov's inequality]
+  Let $X$ be a random variable with $\E[|X|] < \infty$. For any $\varepsilon > 0$,
   \[
-    \P(|X| \geq \varepsilon) \leq \frac{\E|X|}{\varepsilon}.
+    \P(|X| \geq \varepsilon) \leq \frac{\E[|X|]}{\varepsilon}.
   \]
 \end{thm}
 
 \begin{proof}
-  We make use of the indicator function. We have
-  \[
-    I[|X|\geq \varepsilon] \leq \frac{|X|}{\varepsilon}.
-  \]
-  This is proved by exhaustion: if $|X| \geq \varepsilon$, then LHS = 1 and RHS $\geq$ 1; If $|X| < \varepsilon$, then LHS = 0 and RHS is non-negative.
-
-  Take the expected value to obtain
-  \[
-    \P(|X| \geq \varepsilon) \leq \frac{\E |X|}{\varepsilon}.\qedhere
-  \]
+  The pointwise inequality $I_{|X|\geq \varepsilon} \leq |X|/\varepsilon$ holds, since: if $|X| \geq \varepsilon$, the left side is $1$ and the right side is $\geq 1$; if $|X| < \varepsilon$, the left side is $0$. Taking expectations gives the result.
 \end{proof}
 
-Similarly, we have
-\begin{thm}[Chebyshev inequality]
-  If $X$ is a random variable with $\E[X^2] < \infty$ and $\varepsilon > 0$, then
+\begin{thm}[Chebyshev's inequality]
+  Let $X$ be a random variable with $\E[X^2] < \infty$. For any $\varepsilon > 0$,
   \[
     \P(|X| \geq \varepsilon) \leq \frac{\E[X^2]}{\varepsilon^2}.
   \]
 \end{thm}
 
 \begin{proof}
-  Again, we have
-  \[
-    I[\{|X|\geq \varepsilon\}] \leq \frac{x^2}{\varepsilon^2}.
-  \]
-  Then take the expected value and the result follows.
+  The pointwise inequality $I_{|X|\geq \varepsilon} \leq X^2/\varepsilon^2$ holds (since $|X| \geq \varepsilon$ implies $X^2/\varepsilon^2 \geq 1$). Taking expectations gives the result.
 \end{proof}
-Note that these are really powerful results, since they do not make \emph{any} assumptions about the distribution of $X$. On the other hand, if we know something about the distribution, we can often get a larger bound.
 
-An important corollary is that if $\mu = \E[X]$, then
-\[
-  \P(|X - \mu| \geq \varepsilon) \leq \frac{\E[(X - \mu)^2]}{\varepsilon^2} = \frac{\var X}{\varepsilon^2}
-\]
+\begin{cor}[Chebyshev's inequality for the variance]
+  Let $X$ be a random variable with mean $\mu = \E[X]$ and finite variance. For any $\varepsilon > 0$,
+  \[
+    \P(|X - \mu| \geq \varepsilon) \leq \frac{\var(X)}{\varepsilon^2}.
+  \]
+\end{cor}
+
+\begin{proof}
+  Apply Chebyshev's inequality to the random variable $X - \mu$.
+\end{proof}
+
+\begin{remark}
+  Markov's and Chebyshev's inequalities are powerful precisely because they make no assumptions about the distribution of $X$. If more is known about the distribution, sharper bounds are often available.
+\end{remark}
 
 \subsection{Weak law of large numbers}
-\begin{thm}[Weak law of large numbers]
-  Let $X_1, X_2, \cdots$ be iid random variables, with mean $\mu$ and $\var \sigma^2$.
 
-  Let $S_n = \sum_{i = 1}^n X_i$.
-
-  Then for all $\varepsilon > 0$,
+\begin{defi}[Convergence in probability]
+  A sequence of random variables $(Y_n)$ \emph{converges in probability} to a constant $c$, written $Y_n \to_p c$, if for every $\varepsilon > 0$,
   \[
-    \P\left(\left|\frac{S_n}{n} - \mu\right| \geq \varepsilon\right) \to 0
+    \P(|Y_n - c| \geq \varepsilon) \to 0 \quad \text{as } n \to \infty.
   \]
-  as $n\to \infty$.
+\end{defi}
 
-  We say, $\frac{S_n}{n}$ tends to $\mu$ (in probability), or
+\begin{thm}[Weak law of large numbers]
+  Let $X_1, X_2, \dotsc$ be i.i.d.\ random variables with mean $\mu = \E[X_1]$ and finite variance $\sigma^2 = \var(X_1)$. Let $S_n = \sum_{i = 1}^n X_i$. Then
   \[
     \frac{S_n}{n}\to_p \mu.
   \]
 \end{thm}
 
 \begin{proof}
-  By Chebyshev,
-  \begin{align*}
-    \P\left(\left|\frac{S_n}{n} - \mu\right| \geq \varepsilon\right)&\leq \frac{\E\left(\frac{S_n}{n} - \mu\right)^2}{\varepsilon^2}\\
-    &= \frac{1}{n^2}\frac{\E(S_n -n\mu)^2}{\varepsilon^2}\\
-    &= \frac{1}{n^2\varepsilon^2}\var (S_n)\\
-    &= \frac{n}{n^2\varepsilon^2}\var (X_1)\\
-    &= \frac{\sigma^2}{n\varepsilon^2} \to 0\qedhere
-  \end{align*}
+  By Chebyshev's inequality applied to $S_n/n - \mu$,
+  \[
+    \P\left(\left|\frac{S_n}{n} - \mu\right| \geq \varepsilon\right) \leq \frac{\var(S_n/n)}{\varepsilon^2} = \frac{\sigma^2}{n\varepsilon^2} \to 0. \qedhere
+  \]
 \end{proof}
 
-Note that we cannot relax the ``independent'' condition. For example, if $X_1 = X_2 = X_3 = \cdots = $ 1 or 0, each with probability $1/2$. Then $S_n/n \not\to 1/2$ since it is either 1 or 0.
+\begin{remark}
+  The independence hypothesis is essential. For example, if $X_1 = X_2 = X_3 = \cdots$, where $X_1$ takes values $0$ and $1$ each with probability $1/2$, then $S_n/n = X_1$ for all $n$, which does not converge in probability to $1/2$.
+\end{remark}
 
-\begin{eg}
-  Suppose we toss a coin with probability $p$ of heads. Then
-  \[
-    \frac{S_n}{n} = \frac{\text{number of heads}}{\text{number of tosses}}.
-  \]
-  Since $\E[X_i] = p$, then the weak law of large number tells us that
-  \[
-    \frac{S_n}{n} \to_p p.
-  \]
-  This means that as we toss more and more coins, the proportion of heads will tend towards $p$.
+\begin{eg}[Coin tossing]
+  Toss a coin with $\P(\text{heads}) = p$ repeatedly, and let $X_i = 1$ if toss $i$ is heads, $X_i = 0$ otherwise. Then $S_n/n$ is the proportion of heads after $n$ tosses, and the weak law gives $S_n/n \to_p p$.
 \end{eg}
 
-Since we called the above the \emph{weak} law, we also have the \emph{strong} law, which is a stronger statement.
-\begin{thm}[Strong law of large numbers]
+\begin{thm}[Strong law of large numbers (stated without proof)]
+  Under the same hypotheses as the weak law,
   \[
     \P\left(\frac{S_n}{n}\to \mu\text{ as }n\to \infty\right) = 1.
   \]
-  We say
-  \[
-    \frac{S_n}{n}\to_{\mathrm{as}} \mu,
-  \]
-  where ``as'' means ``almost surely''.
+  We write $S_n/n \to_{\mathrm{as}} \mu$ and say that $S_n/n$ converges to $\mu$ \emph{almost surely}.
 \end{thm}
-It can be shown that the weak law follows from the strong law, but not the other way round. The proof is left for Part II because it is too hard.
+
+\begin{remark}
+  The strong law implies the weak law, but not conversely. The proof requires techniques from Part II Probability and Measure.
+\end{remark}
 
 
 \subsection{Multiple random variables}
-If we have two random variables, we can study the relationship between them.
 
 \begin{defi}[Covariance]
-  Given two random variables $X, Y$, the \emph{covariance} is
+  Let $X$ and $Y$ be random variables with finite expectations. The \emph{covariance} of $X$ and $Y$ is
   \[
     \cov(X, Y) = \E[(X - \E[X])(Y - \E[Y])].
   \]
 \end{defi}
 
-\begin{prop}\leavevmode
+\begin{prop}[Properties of covariance]
+  Let $X, Y$ be random variables and $c \in \R$ a constant.
   \begin{enumerate}
-    \item $\cov(X, c) = 0$ for constant $c$.
+    \item $\cov(X, c) = 0$.
     \item $\cov(X + c, Y) = \cov (X, Y)$.
-    \item $\cov (X, Y) = \cov (Y, X)$.
-    \item $\cov (X, Y) = \E[XY] - \E[X]\E[Y]$.
+    \item $\cov (X, Y) = \cov (Y, X)$ (symmetry).
+    \item $\cov (X, Y) = \E[XY] - \E[X]\,\E[Y]$.
     \item $\cov (X, X) = \var (X)$.
     \item $\var (X + Y) = \var (X) + \var (Y) + 2\cov (X, Y)$.
-    \item If $X$, $Y$ are independent, $\cov(X, Y) = 0$.
+    \item If $X$ and $Y$ are independent, then $\cov(X, Y) = 0$.
   \end{enumerate}
 \end{prop}
-These are all trivial to prove and proof is omitted.
 
-It is important to note that $\cov(X, Y) = 0$ does not imply $X$ and $Y$ are independent.
-\begin{eg}\leavevmode
-  \begin{itemize}
-    \item Let $(X, Y) = (2, 0), (-1, -1)$ or $(-1, 1)$ with equal probabilities of $1/3$. These are not independent since $Y = 0\Rightarrow X = 2$.
+\begin{proof}
+  All parts follow by expanding the definition and using linearity of expectation.
+\end{proof}
 
-      However, $\cov (X, Y) = \E[XY] - \E[X]\E[Y] = 0 - 0\cdot 0 = 0$.
+\begin{remark}
+  The converse of (7) is false: $\cov(X, Y) = 0$ does not imply independence.
+\end{remark}
 
-    \item If we randomly pick a point on the unit circle, and let the coordinates be $(X, Y)$, then $\E[X] = \E[Y] = \E[XY] = 0$ by symmetry. So $\cov(X, Y) = 0$ but $X$ and $Y$ are clearly not independent (they have to satisfy $x^2 + y^2 = 1$).
-  \end{itemize}
+\begin{eg}[Zero covariance without independence]
+  \begin{enumerate}
+    \item Let $(X, Y)$ take values $(2, 0)$, $(-1, -1)$, $(-1, 1)$ each with probability $1/3$. Then $\E[X] = 0$, $\E[Y] = 0$, and $\E[XY] = 0$, so $\cov(X, Y) = 0$. But $X$ and $Y$ are not independent, since $Y = 0 \Rightarrow X = 2$.
+    \item Pick a point uniformly at random on the unit circle and let $(X, Y)$ be its coordinates. By symmetry, $\E[X] = \E[Y] = \E[XY] = 0$, so $\cov(X, Y) = 0$. But $X$ and $Y$ are dependent since $X^2 + Y^2 = 1$.
+  \end{enumerate}
 \end{eg}
 
-The covariance is not that useful in measuring how well two variables correlate. For one, the covariance can (potentially) have dimensions, which means that the numerical value of the covariance can depend on what units we are using. Also, the magnitude of the covariance depends largely on the variance of $X$ and $Y$ themselves. To solve these problems, we define
-
 \begin{defi}[Correlation coefficient]
-  The \emph{correlation coefficient} of $X$ and $Y$ is
+  Let $X$ and $Y$ be random variables with $\var(X), \var(Y) > 0$. The \emph{correlation coefficient} of $X$ and $Y$ is
   \[
-    \corr(X, Y) = \frac{\cov (X, Y)}{\sqrt{\var (X)\var (Y)}}.
+    \corr(X, Y) = \frac{\cov (X, Y)}{\sqrt{\var (X)\,\var (Y)}}.
   \]
 \end{defi}
 
 \begin{prop}
-  $|\corr(X, Y)| \leq 1$.
+  $|\corr(X, Y)| \leq 1$, with equality if and only if $Y = a + bX$ for some constants $a, b$ with $b \neq 0$.
 \end{prop}
 
 \begin{proof}
-  Apply Cauchy-Schwarz to $X - \E[X]$ and $Y - \E[Y]$.
+  Apply the Cauchy--Schwarz inequality to $X - \E[X]$ and $Y - \E[Y]$.
 \end{proof}
 
-Again, zero correlation does not necessarily imply independence.
+\begin{remark}
+  The correlation coefficient is a dimensionless, normalised measure of linear dependence. As with covariance, zero correlation does not imply independence.
+\end{remark}
 
-Alternatively, apart from finding a fixed covariance or correlation number, we can see how the distribution of $X$ depends on $Y$. Given two random variables $X, Y$, $\P(X = x, Y = y)$ is known as the \emph{joint distribution}. From this joint distribution, we can retrieve the probabilities $\P(X = x)$ and $\P(Y = y)$. We can also consider different conditional expectations.
-
-\begin{defi}[Conditional distribution]
-  Let $X$ and $Y$ be random variables (in general not independent) with joint distribution $\P(X = x, Y = y)$. Then the \emph{marginal distribution} (or simply \emph{distribution}) of $X$ is
+\begin{defi}[Joint and marginal distributions]
+  Let $X$ and $Y$ be discrete random variables. Their \emph{joint distribution} is $\P(X = x, Y = y)$ for all $x \in \Omega_X$, $y \in \Omega_Y$. The \emph{marginal distribution} of $X$ is
   \[
-    \P(X = x) = \sum_{y\in \Omega_y}\P(X = x, Y = y).
+    \P(X = x) = \sum_{y\in \Omega_Y}\P(X = x, Y = y).
   \]
-  The \emph{conditional distribution} of $X$ given $Y$ is
+\end{defi}
+
+\begin{defi}[Conditional distribution and conditional expectation]
+  Let $X$ and $Y$ be discrete random variables with $\P(Y = y) > 0$. The \emph{conditional distribution} of $X$ given $Y = y$ is
   \[
     \P(X = x\mid Y = y) = \frac{\P(X = x, Y = y)}{\P(Y = y)}.
   \]
-  The \emph{conditional expectation} of $X$ given $Y$ is
+  The \emph{conditional expectation} of $X$ given $Y = y$ is
   \[
-    \E[X\mid Y = y] = \sum_{x\in \Omega_X}x\P(X = x\mid Y = y).
+    \E[X\mid Y = y] = \sum_{x\in \Omega_X}x\,\P(X = x\mid Y = y).
   \]
-  We can view $\E[X\mid Y]$ as a random variable in $Y$: given a value of $Y$, we return the expectation of $X$.
+  We write $\E[X\mid Y]$ for the random variable that takes the value $\E[X \mid Y = y]$ when $Y = y$.
 \end{defi}
 
-\begin{eg}
-  Consider a dice roll. Let $Y = 1$ denote an even roll and $Y = 0$ denote an odd roll. Let $X$ be the value of the roll. Then $\E[X\mid Y] = 3 + Y$, ie 4 if even, 3 if odd.
+\begin{eg}[Die roll]
+  Let $X$ be the value of a fair die roll, and let $Y = I_{\{X \text{ is even}\}}$. Then $\E[X\mid Y = 1] = (2 + 4 + 6)/3 = 4$ and $\E[X\mid Y = 0] = (1 + 3 + 5)/3 = 3$, so $\E[X\mid Y] = 3 + Y$.
 \end{eg}
 
-\begin{eg}
-  Let $X_1, \cdots, X_n$ be iid $B(1, p)$. Let $Y = X_1 + \cdots + X_n$. Then
+\begin{eg}[Bernoulli sum]
+  Let $X_1, \dotsc, X_n$ be i.i.d.\ $B(1, p)$ and let $Y = X_1 + \cdots + X_n$. Then for $1 \leq r \leq n$,
   \begin{align*}
-    \P(X_1 = 1\mid Y = r) &= \frac{\P(X_1 = 1, \sum_{2}^n X_i = r - 1)}{\P(Y = r)}\\
-    &= \frac{p\binom{n - 1}{r - 1}p^{r - 1}(1 - p)^{(n - 1) - (r - 1)}}{\binom{n}{r} p^r (1 - p)^{n - 1}} = \frac{r}{n}.
+    \P(X_1 = 1\mid Y = r) &= \frac{\P(X_1 = 1)\,\P(\sum_{i=2}^n X_i = r - 1)}{\P(Y = r)} = \frac{p\binom{n - 1}{r - 1}p^{r - 1}(1 - p)^{n - r}}{\binom{n}{r} p^r (1 - p)^{n - r}} = \frac{r}{n}.
   \end{align*}
-  So
-  \[
-    \E[X_1\mid Y] = 1 \cdot \frac{r}{n} + 0\left(1 - \frac{r}{n}\right) = \frac{r}{n} = \frac{Y}{n}.
-  \]
-  Note that this is a random variable!
+  Therefore $\E[X_1\mid Y = r] = r/n$, and so $\E[X_1\mid Y] = Y/n$ as a random variable.
 \end{eg}
 
-\begin{thm}
-  If $X$ and $Y$ are independent, then
+\begin{prop}
+  If $X$ and $Y$ are independent, then $\E[X\mid Y] = \E[X]$.
+\end{prop}
+
+\begin{proof}
+  For any $y$ with $\P(Y = y) > 0$, independence gives $\P(X = x \mid Y = y) = \P(X = x)$, so $\E[X\mid Y = y] = \sum_x x\,\P(X = x) = \E[X]$.
+\end{proof}
+
+\begin{thm}[Law of total expectation / tower property]
+  Let $X$ and $Y$ be discrete random variables with $\E[|X|] < \infty$. Then
   \[
-    \E[X\mid Y] = \E[X]
+    \E[\E[X\mid Y]] = \E[X].
   \]
 \end{thm}
 
 \begin{proof}
   \begin{align*}
-    \E[X\mid Y = y] &= \sum_{x}x\P(X = x\mid Y = y)\\
-    &= \sum_x x\P(X = x)\\
-    &= \E[X]\qedhere
+    \E[\E[X\mid Y]] &= \sum_y \P(Y = y)\,\E[X\mid Y = y] = \sum_y \P(Y = y) \sum_{x}x\,\P(X = x\mid Y = y)\\
+    &= \sum_x\sum_y x\,\P(X = x, Y = y) = \sum_x x\,\P(X = x) = \E[X].\qedhere
   \end{align*}
 \end{proof}
 
-We know that the expected value of a dice roll given it is even is 4, and the expected value given it is odd is 3. Since it is equally likely to be even or odd, the expected value of the dice roll is 3.5. This is formally captured by
-\begin{thm}[Tower property of conditional expectation]
+\begin{remark}
+  Equivalently, if $A_1, A_2, \dotsc, A_n$ is a partition of $\Omega$ with $\P(A_i) > 0$ for all $i$, then
   \[
-    \E_Y[\E_X[X\mid Y]] = \E_X[X],
+    \E[X] = \sum_{i=1}^{n}\E[X\mid A_i]\,\P(A_i).
   \]
-  where the subscripts indicate what variable the expectation is taken over.
-\end{thm}
-
-\begin{proof}
-  \begin{align*}
-    \E_Y[\E_X[X\mid Y]] &= \sum_y \P(Y = y)\E[X\mid Y = y]\\
-    &= \sum _y \P(Y = y) \sum_{x}x\P(X = x\mid Y = y)\\
-    &= \sum_x\sum_y x\P(X = x, Y = y)\\
-    &= \sum _x x\sum_y \P(X = x, Y = y)\\
-    &= \sum_x x\P(X = x)\\
-    &= \E[X].\qedhere
-  \end{align*}
-\end{proof}
-This is also called the law of total expectation. We can also state it as: suppose $A_1, A_2, \cdots, A_n$ is a partition of $\Omega$. Then
-\[
-  \E[X] = \sum_{i: \P(A_i) > 0}\E[X\mid A_i]\P(A_i).
-\]
+\end{remark}
 
 \subsection{Probability generating functions}
-Consider a random variable $X$, taking values $0, 1, 2, \cdots$. Let $p_r = \P(X = r)$.
-\begin{defi}[Probability generating function (pgf)]
-  The \emph{probability generating function (pgf)} of $X$ is
+
+\begin{defi}[Probability generating function]
+  Let $X$ be a discrete random variable taking values in $\{0, 1, 2, \dotsc\}$, with $p_r = \P(X = r)$. The \emph{probability generating function (pgf)} of $X$ is
   \[
-    p(z) = \E[z^X] = \sum_{r = 0}^\infty \P(X = r)z^r = p_0 + p_1z + p_2z^2\cdots = \sum_0^\infty p_rz^r.
+    p_X(z) = \E[z^X] = \sum_{r = 0}^\infty p_r\, z^r.
   \]
-  This is a power series (or polynomial), and converges if $|z| \leq 1$, since
-  \[
-    |p(z)| \leq \sum_r p_r |z^r| \leq \sum_r p_r = 1.
-  \]
-  We sometimes write as $p_X(z)$ to indicate what the random variable.
+  This power series converges absolutely for $|z| \leq 1$, since $|p_X(z)| \leq \sum_r p_r\, |z|^r \leq \sum_r p_r = 1$.
 \end{defi}
-This definition might seem a bit out of the blue. However, it turns out to be a rather useful algebraic tool that can concisely summarize information about the probability distribution.
 
-\begin{eg}
-  Consider a fair di.e.\ Then $p_r = 1/6$ for $r = 1, \cdots, 6$. So
+\begin{eg}[Fair die]
+  Let $X$ be the outcome of a fair die roll. Then $p_r = 1/6$ for $r = 1, \dotsc, 6$, and
   \[
-    p(z) = \E[z^X] = \frac{1}{6}(z + z^2 + \cdots + z^6) = \frac{1}{6}z\left(\frac{1 - z^6}{1 - z}\right).
+    p_X(z) = \frac{1}{6}(z + z^2 + \cdots + z^6) = \frac{z(1 - z^6)}{6(1 - z)}.
   \]
 \end{eg}
 
 \begin{thm}
-  The distribution of $X$ is uniquely determined by its probability generating function.
+  The distribution of $X$ is uniquely determined by its pgf.
 \end{thm}
 
 \begin{proof}
-  By definition, $p_0 = p(0)$, $p_1 = p'(0)$ etc. (where $p'$ is the derivative of $p$). In general,
-  \[
-    \left. \frac{\d ^i}{\d z^i}p(z) \right|_{z = 0} = i! p_i.
-  \]
-  So we can recover $(p_0, p_1, \cdots)$ from $p(z)$.
+  The coefficients of a power series are uniquely determined: $p_r = p_X^{(r)}(0)/r!$.
 \end{proof}
 
-\begin{thm}[Abel's lemma]
+\begin{thm}[Moments from the pgf]
+  Let $X$ be a non-negative integer-valued random variable with pgf $p_X$. Then
   \[
-    \E[X] = \lim_{z\to 1}p'(z).
+    \E[X] = \lim_{z\to 1^-}p_X'(z), \qquad \E[X(X - 1)] = \lim_{z \to 1^-}p_X''(z).
   \]
-  If $p'(z)$ is continuous, then simply $\E[X] = p'(1)$.
+  In particular, if $\E[X] < \infty$ (respectively $\E[X^2] < \infty$), then $p_X'(1)$ (respectively $p_X''(1)$) exists and equals the corresponding moment.
 \end{thm}
-Note that this theorem is trivial if $p'(1)$ exists, as long as we know that we can differentiate power series term by term. What is important here is that even if $p'(1)$ doesn't exist, we can still take the limit and obtain the expected value, e.g.\ when $\E[X] = \infty$.
 
 \begin{proof}
-  For $z < 1$, we have
-  \[
-    p'(z) = \sum_1^\infty rp_r z^{r - 1} \leq \sum_1^\infty rp_r = \E[X].
-  \]
-  So we must have
-  \[
-    \lim_{z\to 1}p'(z) \leq \E[X].
-  \]
-  On the other hand, for any $\varepsilon$, if we pick $N$ large, then
-  \[
-    \sum_{1}^N rp_r \geq \E[X] - \varepsilon.
-  \]
-  So
-  \[
-    \E[X] - \varepsilon \leq \sum_1^N rp_r = \lim_{z\to 1}\sum _1^N rp_r z^{r - 1}\leq \lim_{z \to 1} \sum_1^\infty rp_r z^{r - 1} = \lim_{z\to 1} p' (z).
-  \]
-  So $\E[X] \leq \lim\limits_{z \to 1}p'(z)$. So the result follows
+  For $0 < z < 1$, $p_X'(z) = \sum_{r=1}^\infty r\,p_r\, z^{r - 1}$. Each term is non-negative and increasing in $z$, so by the monotone convergence theorem, $\lim_{z \to 1^-} p_X'(z) = \sum_{r=1}^\infty r\,p_r = \E[X]$ (allowing $+\infty$). The argument for $p_X''$ is identical.
 \end{proof}
 
-\begin{thm}
+\begin{eg}[Poisson pgf]
+  Let $X\sim \mathrm{Poisson}(\lambda)$. Then
   \[
-    \E[X(X - 1)] = \lim_{z \to 1}p''(z).
+    p_X(z) = \sum_{r=0}^\infty \frac{(\lambda z)^r}{r!}\, e^{-\lambda} = e^{\lambda(z - 1)}.
   \]
-\end{thm}
-\begin{proof}
-  Same as above.
-\end{proof}
-
-\begin{eg}
-  Consider the Poisson distribution. Then
-  \[
-    p_r = \P(X = r) = \frac{1}{r!}\lambda^r e^{-\lambda}.
-  \]
-  Then
-  \[
-    p(z) = \E[z^X] = \sum_0^\infty z^r \frac{1}{r!}\lambda^r e^{-\lambda} = e^{\lambda z}e^{-\lambda} = e^{\lambda(z - 1)}.
-  \]
-  We can have a sanity check: $p(1) = 1$, which makes sense, since $p(1)$ is the sum of probabilities.
-
-  We have
-  \[
-    \E[X]= \left.\frac{\d }{\d z}e^{\lambda(z - 1)}\right|_{z = 1} = \lambda,
-  \]
-  and
-  \[
-    \E[X(X - 1)] = \left.\frac{\d ^2}{\d x^2}e^{\lambda(z - 1)}\right|_{z = 1} = \lambda^2
-  \]
-  So
-  \[
-    \var(X) = \E[X^2] - \E[X]^2 = \lambda^2 + \lambda - \lambda^2 = \lambda.
-  \]
+  Differentiating, $p_X'(z) = \lambda\, e^{\lambda(z-1)}$ and $p_X''(z) = \lambda^2\, e^{\lambda(z-1)}$. So $\E[X] = p_X'(1) = \lambda$, $\E[X(X-1)] = \lambda^2$, and $\var(X) = \lambda^2 + \lambda - \lambda^2 = \lambda$.
 \end{eg}
 
-\begin{thm}
-  Suppose $X_1, X_2, \cdots, X_n$ are independent random variables with pgfs $p_1, p_2, \cdots, p_n$. Then the pgf of $X_1 + X_2 + \cdots + X_n$ is $p_1(z)p_2(z)\cdots p_n(z)$.
+\begin{thm}[PGF of a sum of independent random variables]
+  If $X_1, \dotsc, X_n$ are independent non-negative integer-valued random variables with pgfs $p_{X_1}, \dotsc, p_{X_n}$, then the pgf of $S = X_1 + \cdots + X_n$ is
+  \[
+    p_S(z) = p_{X_1}(z)\, p_{X_2}(z) \cdots p_{X_n}(z).
+  \]
 \end{thm}
 
 \begin{proof}
-  \[
-    \E[z^{X_1 + \cdots + X_n}] = \E[z^{X_1}\cdots z^{X_n}] = \E[z^{X_1}]\cdots\E[z^{X_n}] = p_1(z)\cdots p_n(z).\qedhere
-  \]
+  $\E[z^{X_1 + \cdots + X_n}] = \E[z^{X_1}]\cdots\E[z^{X_n}]$, by independence.
 \end{proof}
 
-\begin{eg}
-  Let $X\sim B(n, p)$. Then
+\begin{eg}[Binomial pgf]
+  Let $X\sim B(n, p)$ and write $q = 1 - p$. Then
   \[
-    p(z) = \sum_{r = 0}^{n} \P(X = r)z^r = \sum \binom{n}{r} p^r(1 - p)^{n - r}z^r = (pz + (1 - p))^n = (pz + q)^n.
+    p_X(z) = \sum_{r = 0}^{n} \binom{n}{r} (pz)^r q^{n - r} = (pz + q)^n.
   \]
-  So $p(z)$ is the product of $n$ copies of $pz + q$. But $pz + q$ is the pgf of $Y\sim B(1, p)$.
-
-  This shows that $X = Y_1 + Y_2 + \cdots + Y_n$ (which we already knew), i.e.\ a binomial distribution is the sum of Bernoulli trials.
+  Since $pz + q$ is the pgf of a $B(1,p)$ variable, this confirms that $X$ is the sum of $n$ independent Bernoulli trials.
 \end{eg}
 
-\begin{eg}
-  If $X$ and $Y$ are independent Poisson random variables with parameters $\lambda, \mu$ respectively, then
+\begin{eg}[Sum of independent Poisson variables]
+  If $X \sim \mathrm{Poisson}(\lambda)$ and $Y \sim \mathrm{Poisson}(\mu)$ are independent, then
   \[
-    \E[t^{X + Y}] = \E[t^X]\E[t^Y] = e^{\lambda(t - 1)}e^{\mu(t - 1)} = e^{(\lambda + \mu)(t - 1)}
+    p_{X+Y}(z) = e^{\lambda(z - 1)}\, e^{\mu(z - 1)} = e^{(\lambda + \mu)(z - 1)},
   \]
-  So $X + Y\sim \P(\lambda + \mu)$.
-
-  We can also do it directly:
-  \[
-    \P(X + Y = r) = \sum_{i = 0}^r \P(X = i, Y = r - i) = \sum_{i = 0}^r \P(X = i)\P(X = r - i),
-  \]
-  but is much more complicated.
+  so $X + Y \sim \mathrm{Poisson}(\lambda + \mu)$.
 \end{eg}
 
-We can use pgf-like functions to obtain some combinatorial results.
-\begin{eg}
-  Suppose we want to tile a $2\times n$ bathroom by $2\times 1$ tiles. One way to do it is
+\begin{eg}[Tiling a $2 \times n$ grid --- Fibonacci numbers]
+  Let $f_n$ denote the number of ways to tile a $2 \times n$ grid with $2 \times 1$ tiles.
   \begin{center}
     \begin{tikzpicture}
      \draw (0, 0) rectangle (6, 2);
@@ -1749,241 +1468,179 @@ We can use pgf-like functions to obtain some combinatorial results.
      \draw (4, 1) rectangle (6, 2);
     \end{tikzpicture}
   \end{center}
-  We can do it recursively: suppose there are $f_n$ ways to tile a $2\times n$ grid. Then if we start tiling, the first tile is either vertical, in which we have $f_{n - 1}$ ways to tile the remaining ones; or the first tile is horizontal, in which we have $f_{n - 2}$ ways to tile the remaining. So
-  \[
-    f_n = f_{n - 1} + f_{n - 2},
-  \]
-  which is simply the Fibonacci sequence, with $f_0 = f_1 = 1$.
+  The first tile is either vertical (leaving a $2 \times (n-1)$ grid) or horizontal (forcing a second horizontal tile and leaving a $2 \times (n-2)$ grid), so $f_n = f_{n-1} + f_{n-2}$ with $f_0 = f_1 = 1$.
 
-  Let
+  Define the generating function $F(z) = \sum_{n=0}^\infty f_n z^n$. The recurrence gives
   \[
-    F(z) = \sum_{n = 0}^\infty f_nz^n.
+    F(z) - 1 - z = z(F(z) - 1) + z^2 F(z),
   \]
-  Then from our recurrence relation, we obtain
+  so $F(z) = (1 - z - z^2)^{-1}$. Writing $\alpha = \frac{1+\sqrt{5}}{2}$ and $\beta = \frac{1-\sqrt{5}}{2}$ for the roots of $t^2 - t - 1 = 0$, partial fractions give
   \[
-    f_nz^n = f_{n - 1}z^n + f_{n - 2}z^n.
+    F(z) = \frac{1}{(\alpha - \beta)}\left(\frac{\alpha}{1 - \alpha z} - \frac{\beta}{1 - \beta z}\right),
   \]
-  So
-  \[
-    \sum_{n = 2}^\infty f_n z^n = \sum_{n = 2}^{\infty} f_{n - 1}z^n + \sum_{n = 2}^\infty f_{n - 2}z^n.
-  \]
-  Since $f_0 = f_1 = 1$, we have
-  \[
-    F(z) - f_0 - zf_1 = z(F(z) - f_0) + z^2F(z).
-  \]
-  Thus $F(z) = (1 - z - z^2)^{-1}$. If we write
-  \[
-    \alpha_1 = \frac{1}{2}(1 + \sqrt{5}),\quad \alpha_2 = \frac{1}{2}(1 - \sqrt{5}).
-  \]
-  then we have
-  \begin{align*}
-    F(z) &= (1 - z - z^2)^{-1}\\
-    &= \frac{1}{(1 - \alpha_1 z)(1 - \alpha_2 z)}\\
-    &= \frac{1}{\alpha_1 - \alpha_2}\left(\frac{\alpha_1}{1 - \alpha_1 z} - \frac{\alpha_2}{1 - \alpha_2 z}\right)\\
-    &= \frac{1}{\alpha_1 - \alpha_2}\left(\alpha_1 \sum_{n = 0}^\infty \alpha_1^nz^n - \alpha_2\sum_{n = 0}^\infty \alpha_2^n z^n\right).
-  \end{align*}
-  So
-  \[
-    f_n = \frac{\alpha_1^{n + 1} - \alpha_2^{n + 1}}{\alpha_1 - \alpha_2}.
-  \]
+  and extracting coefficients yields $f_n = (\alpha^{n+1} - \beta^{n+1})/(\alpha - \beta)$.
 \end{eg}
 
-\begin{eg}
-  A \emph{Dyck word} is a string of brackets that match, such as (), or ((())()).
-
-  There is only one Dyck word of length 2, (). There are 2 of length 4, (()) and ()(). Similarly, there are 5 Dyck words of length 5.
-
-  Let $C_n$ be the number of Dyck words of length $2n$. We can split each Dyck word into $(w_1)w_2$, where $w_1$ and $w_2$ are Dyck words. Since the lengths of $w_1$ and $w_2$ must sum up to $2(n -1)$,
+\begin{eg}[Catalan numbers]
+  A \emph{Dyck word} of length $2n$ is a string of $n$ opening and $n$ closing brackets that is correctly matched (e.g.\ $(()())$). Let $C_n$ denote the number of Dyck words of length $2n$, with $C_0 = 1$. Every non-empty Dyck word can be uniquely decomposed as $(w_1)w_2$ where $w_1$ and $w_2$ are Dyck words, giving the recurrence
   \[
-    C_{n + 1} = \sum_{i = 0}^n C_iC_{n - i}.\tag{$*$}
+    C_{n + 1} = \sum_{i = 0}^n C_i\, C_{n - i}.\tag{$*$}
   \]
-  We again use pgf-like functions: let
+  Define $c(x) = \sum_{n=0}^\infty C_n x^n$. The convolution in $(*)$ gives $c(x) = 1 + x\,c(x)^2$. Solving and taking the root with $c(0) = 1$,
   \[
-    c(x) = \sum_{n = 0}^\infty C_n x^n.
+    c(x) = \frac{1 - \sqrt{1 - 4x}}{2x},
   \]
-  From $(*)$, we can show that
-  \[
-    c(x) = 1 + xc(x)^2.
-  \]
-  We can solve to show that
-  \[
-    c(x) = \frac{1 - \sqrt{1 - 4x}}{2x} = \sum_0^\infty \binom{2n}{n}\frac{x^n}{n + 1},
-  \]
-  noting that $C_0 = 1$. Then
-  \[
-    C_n = \frac{1}{n + 1}\binom{2n}{n}.
-  \]
+  and expanding via the generalised binomial theorem yields $C_n = \frac{1}{n+1}\binom{2n}{n}$.
 \end{eg}
 
 \subsubsection*{Sums with a random number of terms}
-A useful application of generating functions is the sum with a random number of random terms. For example, an insurance company may receive a random number of claims, each demanding a random amount of money. Then we have a sum of a random number of terms. This can be answered using probability generating functions.
 
-\begin{eg}
-Let $X_1, X_2, \cdots, X_n$ be iid with pgf $p(z) = \E[z^X]$. Let $N$ be a random variable independent of $X_i$ with pgf $h(z)$. What is the pgf of $S = X_1 + \cdots + X_N$?
-\begin{align*}
-  \E[z^{S}] &= \E[z^{X_1 + \cdots + X_N}]\\
-  &= \E_N[\underbrace{\E_{X_i}[z^{X_1 + \ldots + X_N}\mid N]}_{\text{assuming fixed }N}]\\
-  &= \sum_{n = 0}^\infty \P(N = n) \E[z^{X_1 + X_2 + \cdots + X_n}]\\
-  &= \sum_{n = 0}^\infty \P(N = n) \E[z^{X_1}] \E[z^{X_2}]\cdots\E[z^{X_n}]\\
-  &= \sum_{n = 0}^\infty \P(N = n) (\E[z^{X_1}])^n\\
-  &= \sum_{n = 0}^\infty \P(N = n) p(z)^n \\
-  &= h(p(z))
-\end{align*}
-since $h(x) = \sum_{n = 0}^\infty \P(N = n) x^n$.
+\begin{thm}[Random sum formula]
+  Let $X_1, X_2, \dotsc$ be i.i.d.\ non-negative integer-valued random variables with pgf $p(z)$, and let $N$ be a non-negative integer-valued random variable, independent of the $X_i$, with pgf $h(z)$. Then $S = X_1 + \cdots + X_N$ has pgf
+  \[
+    p_S(z) = h(p(z)).
+  \]
+\end{thm}
 
-So
-\begin{align*}
-  \E[S] &= \left.\frac{\d }{\d z}h(p(z))\right|_{z = 1}\\
-  &= h'(p(1))p'(1)\\
-  &= \E[N]\E[X_1]
-\end{align*}
-To calculate the variance, use the fact that
-\[
-  \E[S(S - 1)] = \left.\frac{\d ^2}{\d z^2}h(p(z))\right|_{z = 1}.
-\]
-Then we can find that
-\[
-  \var (S) = \E[N]\var(X_1) + \E[X_1^2]\var(N).
-\]
-\end{eg}
+\begin{proof}
+  By the tower property, conditioning on $N$:
+  \begin{align*}
+    \E[z^{S}] &= \sum_{n = 0}^\infty \P(N = n)\, \E[z^{X_1 + \cdots + X_n}] = \sum_{n = 0}^\infty \P(N = n)\, p(z)^n = h(p(z)).\qedhere
+  \end{align*}
+\end{proof}
+
+\begin{cor}[Mean and variance of a random sum]
+  Under the hypotheses above, if all relevant moments are finite, then
+  \[
+    \E[S] = \E[N]\,\E[X_1], \qquad \var(S) = \E[N]\,\var(X_1) + (\E[X_1])^2\,\var(N).
+  \]
+\end{cor}
+
+\begin{proof}
+  Differentiating $h(p(z))$ at $z = 1$: $\E[S] = h'(p(1))\,p'(1) = \E[N]\,\E[X_1]$. For the variance, compute $\E[S(S-1)]$ via the second derivative $\frac{\d^2}{\d z^2}h(p(z))\big|_{z=1}$ and use $\var(S) = \E[S(S-1)] + \E[S] - (\E[S])^2$.
+\end{proof}
 
 
 \section{Interesting problems}
-Here we are going to study two rather important and interesting probabilistic processes --- branching processes and random walks. Solutions to these will typically involve the use of probability generating functions.
+\begin{remark}
+  In this section we study two important probabilistic processes: branching processes and random walks.
+  Both make essential use of probability generating functions.
+\end{remark}
 
 \subsection{Branching processes}
-Branching processes are used to model population growth by reproduction. At the beginning, there is only one individual. At each iteration, the individual produces a random number of offsprings. In the next iteration, each offspring will individually independently reproduce randomly according to the same distribution. We will ask questions such as the expected number of individuals in a particular generation and the probability of going extinct.
+\begin{defi}[Branching process]
+  A \emph{branching process} is a sequence of random variables $X_0, X_1, X_2, \dotsc$, where $X_n$ denotes the number of individuals in the $n$th generation, satisfying:
+  \begin{enumerate}
+    \item $X_0 = 1$.
+    \item Each individual independently produces $k$ offspring with probability $p_k$, for $k = 0, 1, 2, \dotsc$.
+    \item $X_{n+1} = Y_1^{(n)} + Y_2^{(n)} + \cdots + Y_{X_n}^{(n)}$, where $Y_i^{(n)}$ are independent and identically distributed with the same distribution as $X_1$.
+  \end{enumerate}
+  We write $F(z) = \E[z^{X_1}] = \sum_{k=0}^\infty p_k z^k$ for the \emph{probability generating function} of the offspring distribution, and $F_n(z) = \E[z^{X_n}]$ for the probability generating function of $X_n$.
+\end{defi}
 
-Consider $X_0, X_1, \cdots$, where $X_n$ is the number of individuals in the $n$th generation. We assume the following:
-\begin{enumerate}
-  \item $X_0 = 1$
-  \item Each individual lives for unit time and produces $k$ offspring with probability $p_k$.
-  \item Suppose all offspring behave independently. Then
-    \[
-      X_{n + 1} = Y_1^n + Y_2^n + \cdots + Y_{X_n}^n,
-    \]
-    where $Y_i^n$ are iid random variables, which is the same as $X_1$ (the superscript denotes the generation).
-\end{enumerate}
-It is useful to consider the pgf of a branching process. Let $F(z)$ be the pgf of $Y_i^n$. Then
-\[
-  F(z) = E[z^{Y_i^n}] = E[z^{X_1}] = \sum_{k = 0}^\infty p_k z^k.
-\]
-Define
-\[
-  F_n(z) = E[z^{X_n}].
-\]
-The main theorem of branching processes here is
-\begin{thm}
-  \[
-    F_{n + 1}(z) = F_n(F(z)) = F(F(F(\cdots F(z) \cdots )))) = F(F_n(z)).
-  \]
+\begin{thm}[PGF recursion]
+  $F_{n+1}(z) = F(F_n(z)) = F_n(F(z))$.
 \end{thm}
 
 \begin{proof}
   \begin{align*}
-    F_{n + 1}(z) &= \E[z^{X_{n + 1}}]\\
-    &= \E[\E[z^{X_{n + 1}}\mid X_n]]\\
-    &= \sum_{k = 0}^\infty \P(X_n = k)\E[z^{X_{n + 1}}\mid X_n = k]\\
-    &= \sum_{k = 0}^\infty \P(X_n = k)\E[z^{Y_1^n + \cdots + Y_k^n}\mid X_n = k]\\
-    &= \sum_{k = 0}^\infty \P(X_n = k)\E[z^{Y_1}]\E[z^{Y_2}]\cdots\E[z^{Y_n}]\\
-    &= \sum_{k = 0}^\infty \P(X_n = k)(\E[z^{X_1}])^k\\
-    &= \sum_{k = 0}\P(X_n = k)F(z)^k\\
-    &= F_n(F(z))
+    F_{n+1}(z)
+    &= \E[z^{X_{n+1}}]\\
+    &= \E\bigl[\E[z^{X_{n+1}} \mid X_n]\bigr]\\
+    &= \sum_{k=0}^\infty \P(X_n = k)\,\E[z^{X_{n+1}} \mid X_n = k]\\
+    &= \sum_{k=0}^\infty \P(X_n = k)\,\E[z^{Y_1^{(n)} + \cdots + Y_k^{(n)}}]\\
+    &= \sum_{k=0}^\infty \P(X_n = k)\, F(z)^k\\
+    &= F_n(F(z)).
   \end{align*}
+  Applying this recursion starting from $F_1(z) = F(z)$, we obtain $F_{n+1}(z) = F(F(\cdots F(z) \cdots))$ with $n+1$ applications of $F$, whence $F_{n+1}(z) = F(F_n(z))$ as well.
 \end{proof}
 
-\begin{thm}
-  Suppose
-  \[
-    \E[X_1] = \sum k p_k = \mu
-  \]
-  and
-  \[
-    \var (X_1) = \E[(X - \mu)^2] = \sum (k - \mu)^2 p_k < \infty.
-  \]
+\begin{thm}[Mean and variance of a branching process]
+  Let $\mu = \E[X_1] = \sum_{k=0}^\infty k\,p_k$ and $\sigma^2 = \var(X_1) < \infty$.
   Then
   \[
-    \E[X_n] = \mu^n,\quad \var X_n = \sigma^2\mu^{n - 1}(1 + \mu + \mu^2 + \cdots + \mu^{n - 1}).
+    \E[X_n] = \mu^n, \quad \var(X_n) = \sigma^2 \mu^{n-1}(1 + \mu + \mu^2 + \cdots + \mu^{n-1}).
   \]
 \end{thm}
-\begin{proof}
-\begin{align*}
-  \E[X_n] &= \E[\E[X_n\mid X_{n - 1}]]\\
-  &= \E[\mu X_{n - 1}]\\
-  &= \mu \E[X_{n - 1}]
-\end{align*}
-Then by induction, $\E[X_n] = \mu^n$ (since $X_0 = 1$).
-
-To calculate the variance, note that
-\[
-  \var (X_n) = \E[X_n^2] - (\E[X_n])^2
-\]
-and hence
-\[
-  \E[X_n^2] = \var(X_n) + (\E[X])^2
-\]
-We then calculate
-\begin{align*}
-  \E[X_n^2] &= \E[\E[X_n^2\mid X_{n - 1}]]\\
-  &= \E[\var(X_n) + (\E[X_n])^2 \mid X_{n - 1}]\\
-  &= \E[X_{n - 1}\var (X_1) + (\mu X_{n - 1})^2]\\
-  &= \E[X_{n - 1}\sigma^2 + (\mu X_{n - 1})^2]\\
-  &= \sigma^2 \mu^{n - 1} + \mu^2 \E[X_{n - 1}^2].
-\end{align*}
-So
-\begin{align*}
-  \var X_n &= \E[X_n^2] - (\E[X_n])^2 \\
-  &= \mu^2 \E[X_{n -1}^2] + \sigma^2 \mu^{n - 1} - \mu^2 (\E[X_{n - 1}])^2\\
-  &= \mu^2(\E[X_{n - 1}^2] - \E[X_{n - 1}]^2) + \sigma^2\mu^{n - 1}\\
-  &= \mu^2 \var (X_{n - 1}) + \sigma^2 \mu^{n -1 }\\
-  &= \mu^4 \var(X_{n - 2}) + \sigma^2(\mu^{n - 1} + \mu^n)\\
-  &= \cdots\\
-  &= \mu^{2(n - 1)}\var (X_1) + \sigma^2 (\mu^{n - 1} + \mu^{n} + \cdots + \mu^{2n - 3})\\
-  &= \sigma^2\mu^{n - 1}(1 + \mu + \cdots + \mu^{n - 1}).
-\end{align*}
-Of course, we can also obtain this using the probability generating function as well.
-\end{proof}
-\subsubsection*{Extinction probability}
-Let $A_n$ be the event $X_n = 0$, ie extinction has occurred by the $n$th generation. Let $q$ be the probability that extinction eventually occurs. Let
-\[
-  A = \bigcup_{n = 1}^\infty A_n = [\text{extinction eventually occurs}].
-\]
-Since $A_1 \subseteq A_2 \subseteq A_3 \subseteq \cdots$, we know that
-\[
-  q = \P(A) = \lim_{n\to \infty} \P(A_n) = \lim_{n \to \infty} \P(X_n = 0).
-\]
-But
-\[
-  \P(X_n = 0) = F_n(0),
-\]
-since $F_n(0) = \sum \P(X_n = k)z^k$. So
-\[
-  F(q) = F\left(\lim_{n\to \infty} F_n(0)\right) = \lim_{n\to \infty} F(F_n(0)) = \lim_{n\to \infty}F_{n + 1}(0) = q.
-\]
-So
-\[
-  F(q) = q.
-\]
-Alternatively, using the law of total probability
-\[
-  q = \sum_k \P(X_1 = k) \P(\text{extinction}\mid X_1 = k) = \sum_k p_k q^k = F(q),
-\]
-where the second equality comes from the fact that for the whole population to go extinct, each individual population must go extinct.
-
-This means that to find the probability of extinction, we need to find a fixed point of $F$. However, if there are many fixed points, which should we pick?
-
-\begin{thm}
-  The probability of extinction $q$ is the smallest root to the equation $q = F(q)$. Write $\mu = \E[X_1]$. Then if $\mu \leq 1$, then $q = 1$; if $\mu > 1$, then $q < 1$.
-\end{thm}
 
 \begin{proof}
-  To show that it is the smallest root, let $\alpha$ be the smallest root. Then note that $0 \leq \alpha \Rightarrow F(0) \leq F(\alpha) = \alpha$ since $F$ is increasing (proof: write the function out!). Hence $F(F(0)) \leq \alpha$. Continuing inductively, $F_n(0) \leq \alpha$ for all $n$. So
+  By the tower property,
   \[
-    q = \lim_{n \to \infty}F_n(0) \leq \alpha.
+    \E[X_n] = \E[\E[X_n \mid X_{n-1}]] = \E[\mu X_{n-1}] = \mu\,\E[X_{n-1}].
   \]
-  So $q = \alpha$.
+  Since $X_0 = 1$, induction gives $\E[X_n] = \mu^n$.
 
-  To show that $q = 1$ when $\mu \leq 1$, we show that $q = 1$ is the only root. We know that $F'(z), F''(z) \geq 0$ for $z\in (0, 1)$ (proof: write it out again!). So $F$ is increasing and convex. Since $F'(1) = \mu \leq 1$, it must approach $(1, 1)$ from above the $F = z$ line. So it must look like this:
+  For the variance, by the tower property,
+  \begin{align*}
+    \E[X_n^2]
+    &= \E[\E[X_n^2 \mid X_{n-1}]]\\
+    &= \E[\var(X_n \mid X_{n-1}) + (\E[X_n \mid X_{n-1}])^2]\\
+    &= \E[X_{n-1}\,\sigma^2 + \mu^2 X_{n-1}^2]\\
+    &= \sigma^2 \mu^{n-1} + \mu^2\,\E[X_{n-1}^2].
+  \end{align*}
+  Therefore
+  \begin{align*}
+    \var(X_n)
+    &= \E[X_n^2] - \mu^{2n}\\
+    &= \mu^2(\E[X_{n-1}^2] - \mu^{2(n-1)}) + \sigma^2 \mu^{n-1}\\
+    &= \mu^2\,\var(X_{n-1}) + \sigma^2 \mu^{n-1}.
+  \end{align*}
+  Iterating and using $\var(X_0) = 0$ gives
+  \[
+    \var(X_n) = \sigma^2 \mu^{n-1}(1 + \mu + \cdots + \mu^{n-1}). \qedhere
+  \]
+\end{proof}
+
+\subsubsection*{Extinction probability}
+\begin{defi}[Extinction probability]
+  The \emph{extinction probability} of a branching process is
+  \[
+    q = \P\Bigl(\bigcup_{n=1}^\infty \{X_n = 0\}\Bigr) = \lim_{n \to \infty} \P(X_n = 0),
+  \]
+  where the second equality holds because $\{X_1 = 0\} \subseteq \{X_2 = 0\} \subseteq \cdots$ and by continuity of probability.
+\end{defi}
+
+\begin{prop}
+  The extinction probability satisfies $F(q) = q$.
+\end{prop}
+
+\begin{proof}
+  Since $F_n(0) = \sum_{k=0}^\infty \P(X_n = k) \cdot 0^k = \P(X_n = 0)$, we have $q = \lim_{n \to \infty} F_n(0)$.
+  By continuity of $F$ on $[0,1]$,
+  \[
+    F(q) = F\!\left(\lim_{n \to \infty} F_n(0)\right) = \lim_{n \to \infty} F(F_n(0)) = \lim_{n \to \infty} F_{n+1}(0) = q. \qedhere
+  \]
+\end{proof}
+
+\begin{remark}
+  Alternatively, by the law of total probability,
+  \[
+    q = \sum_{k=0}^\infty p_k\,\P(\text{extinction} \mid X_1 = k) = \sum_{k=0}^\infty p_k\,q^k = F(q),
+  \]
+  since for the population to go extinct, each of the $k$ independent sub-populations must go extinct, each with probability $q$.
+\end{remark}
+
+\begin{thm}[Extinction criterion]
+  The extinction probability $q$ is the smallest root of $F(z) = z$ in $[0,1]$.
+  If $\mu \leq 1$, then $q = 1$; if $\mu > 1$, then $q < 1$.
+\end{thm}
+
+\begin{proof}
+  Let $\alpha$ be the smallest root of $F(z) = z$ in $[0,1]$.
+  Since $F$ is increasing on $[0,1]$ and $F(0) = p_0 \geq 0$, we have $F(0) \leq \alpha$.
+  By monotonicity, $F(F(0)) \leq F(\alpha) = \alpha$.
+  Inductively, $F_n(0) \leq \alpha$ for all $n$, so
+  \[
+    q = \lim_{n \to \infty} F_n(0) \leq \alpha.
+  \]
+  Since $q$ is itself a root of $F(z) = z$, we conclude $q = \alpha$.
+
+  For the second part, note that $F'(z) \geq 0$ and $F''(z) \geq 0$ for $z \in [0,1]$, so $F$ is increasing and convex.
+  Since $F(1) = 1$ and $F'(1) = \mu$:
+  \begin{itemize}
+    \item If $\mu \leq 1$, then convexity implies $F(z) \geq z$ for all $z \in [0,1]$, so $z = 1$ is the only root.
+    \item If $\mu > 1$, then $F$ crosses the line $F = z$ at some $q < 1$.
+  \end{itemize}
   \begin{center}
     \begin{tikzpicture}
       \draw (0, 0) -- (4, 0) node [right] {$z$};
@@ -1992,7 +1649,6 @@ This means that to find the probability of extinction, we need to find a fixed p
       \draw (0, 2.3) parabola (4, 4);
     \end{tikzpicture}
   \end{center}
-  So $z = 1$ is the only root.
 \end{proof}
 
 \subsection{Random walk and gambler's ruin}
