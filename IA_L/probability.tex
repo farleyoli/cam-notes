@@ -3009,7 +3009,7 @@ For non-zero mean, replace $x_i$ with $x_i - \mu_i$. The joint mgf is
     \midrule
     Bernoulli & $p^k(1 - p)^{1 - k}$ & $p$ & $p(1 - p)$ & $q + pz$\\
     Binomial & $\displaystyle\binom{n}{k}p^k(1 - p)^{n - k}$ & $np$ & $np(1 - p)$ & $(q + pz)^n$\\
-    Geometric & $(1 - p)^k p$ & $\displaystyle\frac{1 - p}{p}$ & $\displaystyle\frac{1 - p}{p^2}$ & $\displaystyle\frac{1 - p}{1 - pz}$\\
+    Geometric & $(1 - p)^k p$ & $\displaystyle\frac{1 - p}{p}$ & $\displaystyle\frac{1 - p}{p^2}$ & $\displaystyle\frac{p}{1 - (1-p)z}$\\
     Poisson & $\displaystyle\frac{\lambda^k}{k!}e^{-\lambda}$ & $\lambda$ & $\lambda$ & $e^{\lambda(z - 1)}$\\
     \bottomrule
   \end{tabular}
@@ -3021,11 +3021,11 @@ For non-zero mean, replace $x_i$ with $x_i - \mu_i$. The joint mgf is
     \textbf{Distribution} & \textbf{PDF} & \textbf{CDF} & \textbf{Mean} & \textbf{Variance} & \textbf{MGF} \\
     \midrule
     Uniform & $\displaystyle\frac{1}{b - a}$ & $\displaystyle\frac{x - a}{b - a}$ & $\displaystyle\frac{a + b}{2}$ & $\displaystyle \frac{1}{12}(b - a)^2$ & $\displaystyle\frac{e^{\theta b} - e^{\theta a}}{\theta (b - a)}$ \\
-    Normal & $\displaystyle \frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x - \mu)^2}{2\sigma^2}\right)$ & / & $\mu$ & $\sigma^2$ & $e^{\theta\mu + \frac{1}{2}\theta^2\sigma^2}$\\
+    Normal & $\displaystyle \frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x - \mu)^2}{2\sigma^2}\right)$ & --- & $\mu$ & $\sigma^2$ & $e^{\theta\mu + \frac{1}{2}\theta^2\sigma^2}$\\
     Exponential & $\lambda e^{-\lambda x}$ & $1 - e^{-\lambda x}$ & $\displaystyle \frac{1}{\lambda}$ & $\displaystyle\frac{1}{\lambda^2}$ & $\displaystyle\frac{\lambda}{\lambda - \theta}$ \\
-    Cauchy & $\displaystyle \frac{1}{\pi(1 + x^2)}$ & / & undefined & undefined & undefined\\
-    Gamma & $\displaystyle \frac{\lambda^n x^{n - 1}e^{-\lambda x}}{(n - 1)!}$ & / & $\displaystyle\frac{n}{\lambda}$ & $\displaystyle \frac{n}{\lambda^2}$ & $\displaystyle\left(\frac{\lambda}{\lambda - \theta}\right)^n$ \\
-    Multivariate normal & $\displaystyle \frac{1}{(2\pi)^{n/2}\sqrt{\det \Sigma}} \exp\left[-\frac{1}{2}(\mathbf{z} - \boldsymbol\mu)^T\Sigma^{-1}(\mathbf{z} - \boldsymbol\mu)\right]$ & / & $\boldsymbol\mu$ & $\Sigma$ & /\\
+    Cauchy & $\displaystyle \frac{1}{\pi(1 + x^2)}$ & --- & undefined & undefined & undefined\\
+    Gamma & $\displaystyle \frac{\lambda^n x^{n - 1}e^{-\lambda x}}{(n - 1)!}$ & --- & $\displaystyle\frac{n}{\lambda}$ & $\displaystyle \frac{n}{\lambda^2}$ & $\displaystyle\left(\frac{\lambda}{\lambda - \theta}\right)^n$ \\
+    Multivariate normal & $\displaystyle \frac{1}{(2\pi)^{n/2}\sqrt{\det \Sigma}} \exp\left[-\frac{1}{2}(\mathbf{z} - \boldsymbol\mu)^T\Sigma^{-1}(\mathbf{z} - \boldsymbol\mu)\right]$ & --- & $\boldsymbol\mu$ & $\Sigma$ & ---\\
     \bottomrule
   \end{tabular}
 \end{center}
