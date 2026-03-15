@@ -2017,39 +2017,35 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 
 \subsection{Jointly distributed random variables}
 \begin{defi}[Joint distribution]
-  Two random variables $X, Y$ have \emph{joint distribution} $F: \R^2 \mapsto [0, 1]$ defined by
+  Two random variables $X, Y$ have \emph{joint distribution} $F \colon \R^2 \to [0, 1]$ defined by
   \[
-    F(x, y) = \P(X \leq x, Y \leq y).
+    F(x, y) = \P(X \leq x,\, Y \leq y).
   \]
   The \emph{marginal distribution} of $X$ is
   \[
-    F_X(x) = \P(X \leq x) = \P(X \leq x, Y < \infty) = F(x, \infty) = \lim_{y \to \infty}F(x, y)
+    F_X(x) = \P(X \leq x) = \P(X \leq x,\, Y < \infty) = F(x, \infty) = \lim_{y \to \infty} F(x, y).
   \]
 \end{defi}
 
-\begin{defi}[Jointly distributed random variables]
-  We say $X_1, \cdots, X_n$ are \emph{jointly distributed continuous random variables} and have \emph{joint pdf} $f$ if for any set $A\subseteq \R^n$
+\begin{defi}[Joint pdf]
+  We say $X_1, \dotsc, X_n$ are \emph{jointly continuous random variables} with \emph{joint pdf} $f$ if for any $A \subseteq \R^n$,
   \[
-    \P((X_1, \cdots, X_n)\in A) = \int_{(x_1, \cdots x_n)\in A} f(x_1, \cdots, x_n)\;\d x_1\cdots \d x_n.
+    \P((X_1, \dotsc, X_n) \in A) = \int_{(x_1, \dotsc, x_n) \in A} f(x_1, \dotsc, x_n)\;\d x_1 \dotsm \d x_n,
   \]
-  where
+  where $f(x_1, \dotsc, x_n) \geq 0$ and
   \[
-    f(x_1, \cdots, x_n) \geq 0
-  \]
-  and
-  \[
-    \int_{\R^n} f(x_1, \cdots, x_n)\;\d x_1 \cdots \d x_n = 1.
+    \int_{\R^n} f(x_1, \dotsc, x_n)\;\d x_1 \dotsm \d x_n = 1.
   \]
 \end{defi}
 
 \begin{eg}
-  In the case where $n = 2$,
+  When $n = 2$,
   \[
-    F(x, y) = \P(X \leq x,Y \leq y) = \int_{-\infty}^x\int_{-\infty}^y f(x, y)\;\d x\;\d y.
+    F(x, y) = \P(X \leq x,\, Y \leq y) = \int_{-\infty}^x \int_{-\infty}^y f(s, t)\;\d t\;\d s.
   \]
   If $F$ is differentiable, then
   \[
-    f(x, y) = \frac{\partial^2}{\partial x\partial y}F(x, y).
+    f(x, y) = \frac{\partial^2}{\partial x\,\partial y} F(x, y).
   \]
 \end{eg}
 
@@ -2058,51 +2054,48 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
-  We prove this by showing that $X$ has a density function.
-
-  We know that
+  We show that $X$ has a density function.
   \begin{align*}
-    \P(X \in A) &= \P(X \in A, Y\in (-\infty, +\infty))\\
-    &= \int_{x\in A}\int_{-\infty}^\infty f(x, y)\;\d y\;\d x\\
-    &= \int_{x\in A} f_X(x)\;\d x
+    \P(X \in A) &= \P(X \in A,\, Y \in (-\infty, +\infty))\\
+    &= \int_{x \in A} \int_{-\infty}^\infty f(x, y)\;\d y\;\d x\\
+    &= \int_{x \in A} f_X(x)\;\d x,
   \end{align*}
-  So
+  where
   \[
     f_X(x) = \int_{-\infty}^\infty f(x, y)\;\d y
   \]
-  is the (marginal) pdf of $X$.
+  is the marginal pdf of $X$.
 \end{proof}
 
 \begin{defi}[Independent continuous random variables]
-  Continuous random variables $X_1, \cdots, X_n$ are independent if
+  Continuous random variables $X_1, \dotsc, X_n$ are \emph{independent} if
   \[
-    \P(X_1\in A_1, X_2 \in A_2, \cdots, X_n\in A_n) = \P(X_1 \in A_1)\P(X_2 \in A_2) \cdots \P(X_n \in A_n)
+    \P(X_1 \in A_1,\, X_2 \in A_2,\, \dotsc,\, X_n \in A_n) = \P(X_1 \in A_1)\P(X_2 \in A_2) \dotsm \P(X_n \in A_n)
   \]
-  for all $A_i\subseteq \Omega_{X_i}$.
-
-  If we let $F_{X_i}$ and $f_{X_i}$ be the cdf, pdf of $X$, then
+  for all $A_i \subseteq \Omega_{X_i}$.
+  Equivalently, letting $F_{X_i}$ and $f_{X_i}$ denote the cdf and pdf of $X_i$,
   \[
-    F(x_1, \cdots, x_n) = F_{X_1}(x_1)\cdots F_{X_n}(x_n)
+    F(x_1, \dotsc, x_n) = F_{X_1}(x_1) \dotsm F_{X_n}(x_n)
+    \quad\text{or}\quad
+    f(x_1, \dotsc, x_n) = f_{X_1}(x_1) \dotsm f_{X_n}(x_n).
   \]
-  and
-  \[
-    f(x_1, \cdots, x_n) = f_{X_1}(x_1) \cdots f_{X_n}(x_n)
-  \]
-  are each individually equivalent to the definition above.
 \end{defi}
 
-To show that two (or more) random variables are independent, we only have to factorize the joint pdf into factors that each only involve one variable.
-\begin{eg}
-  If $(X_1, X_2)$ takes a random value from $[0, 1] \times [0, 1]$, then $f(x_1, x_2) = 1$. Then we can see that $f(x_1, x_2) = 1\cdot 1 = f(x_1)\cdot f(x_2)$. So $X_1$ and $X_2$ are independent.
+\begin{remark}
+  To verify independence, it suffices to factorise the joint pdf into factors each involving only one variable.
+\end{remark}
 
-  On the other hand, if $(Y_1, Y_2)$ takes a random value from $[0, 1] \times [0, 1]$ with the restriction that $Y_1 \leq Y_2$, then they are not independent, since $f(x_1, x_2) = 2 I[Y_1 \leq Y_2]$, which cannot be split into two parts.
+\begin{eg}
+  If $(X_1, X_2)$ is uniform on $[0, 1]^2$, then $f(x_1, x_2) = 1 = f_{X_1}(x_1) \cdot f_{X_2}(x_2)$, so $X_1$ and $X_2$ are independent.
+
+  If instead $(Y_1, Y_2)$ is uniform on $\{(y_1, y_2) \in [0, 1]^2 : y_1 \leq y_2\}$, then $f(y_1, y_2) = 2\, \mathbf{1}[y_1 \leq y_2]$, which does not factorise, so $Y_1$ and $Y_2$ are not independent.
 \end{eg}
 
 \begin{prop}
-  For independent continuous random variables $X_i$,
+  For independent continuous random variables $X_1, \dotsc, X_n$,
   \begin{enumerate}
-    \item $\E [\prod X_i] = \prod \E [X_i]$
-    \item $\var (\sum X_i) = \sum \var (X_i)$
+    \item $\E[\prod_i X_i] = \prod_i \E[X_i]$;
+    \item $\var(\sum_i X_i) = \sum_i \var(X_i)$.
   \end{enumerate}
 \end{prop}
 
