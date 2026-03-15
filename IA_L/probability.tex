@@ -717,128 +717,113 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
   As $n \to \infty$ with $np \to \lambda$: the ratio $n(n-1)\cdots(n-k+1)/n^k \to 1$ (since $k$ is fixed), $(np)^k \to \lambda^k$, and $(1 - np/n)^{n-k} \to e^{-\lambda}$ (since $(1 - a/n)^n \to e^{-a}$). Hence $q_k \to \lambda^k e^{-\lambda}/k!$.
 \end{proof}
 \subsection{Conditional probability}
+
 \begin{defi}[Conditional probability]
-  Suppose $B$ is an event with $\P(B) > 0$. For any event $A\subseteq \Omega$, the \emph{conditional probability of $A$ given $B$} is
+  Let $B$ be an event with $\P(B) > 0$. For any event $A$, the \emph{conditional probability of $A$ given $B$} is
   \[
     \P(A\mid B) = \frac{\P(A\cap B)}{\P(B)}.
   \]
-  We interpret as the probability of $A$ happening given that $B$ has happened.
 \end{defi}
-Note that if $A$ and $B$ are independent, then
-\[
-  \P(A\mid B) = \frac{\P(A\cap B)}{\P(B)} = \frac{\P(A)\P(B)}{\P(B)} = \P(A).
-\]
-\begin{eg}
-  In a game of poker, let $A_i = [$player $i$ gets royal flush$]$. Then
-  \[
-    \P(A_1) = 1.539\times 10^{-6}.
-  \]
-  and
-  \[
-    \P(A_2\mid A_1) = 1.969\times 10^{-6}.
-  \]
-  It is significantly bigger, albeit still incredibly tiny. So we say ``good hands attract''.
 
-  If $\P(A\mid B) > \P(A)$, then we say that $B$ attracts $A$. Since
+\begin{remark}
+  If $A$ and $B$ are independent, then $\P(A\mid B) = \P(A)$, since $\P(A \cap B) = \P(A)\,\P(B)$.
+\end{remark}
+
+\begin{defi}[Attraction and repulsion]
+  We say that $B$ \emph{attracts} $A$ if $\P(A\mid B) > \P(A)$. Since
   \[
-    \frac{\P(A\cap B)}{\P(B)} > \P(A) \Leftrightarrow \frac{\P(A\cap B)}{\P(A)} > \P(B),
+    \frac{\P(A\cap B)}{\P(B)} > \P(A) \iff \frac{\P(A\cap B)}{\P(A)} > \P(B),
   \]
-  $A$ attracts $B$ if and only if $B$ attracts $A$. We can also say $A$ repels $B$ if $A$ attracts $B^C$.
+  attraction is symmetric: $B$ attracts $A$ if and only if $A$ attracts $B$. We say $B$ \emph{repels} $A$ if $B^C$ attracts $A$.
+\end{defi}
+
+\begin{eg}[Poker hands]
+  In a game of poker, let $A_i$ be the event that player $i$ is dealt a royal flush. Then $\P(A_1) = 1.539\times 10^{-6}$, while $\P(A_2\mid A_1) = 1.969\times 10^{-6}$. Since $\P(A_2 \mid A_1) > \P(A_2)$, good hands attract: given that player 1 has a royal flush, it is (slightly) more likely that player 2 also has one.
 \end{eg}
-\begin{thm}\leavevmode
-  \begin{enumerate}
-    \item $\P(A\cap B) = \P(A\mid B)\P(B)$.
-    \item $\P(A\cap B\cap C) = \P(A\mid B\cap C) \P(B\mid C) \P(C)$.
-    \item $\P(A\mid B\cap C) = \frac{\P(A\cap B\mid C)}{\P(B\mid C)}$.
-    \item The function $\P(\ph \mid B)$ restricted to subsets of $B$ is a probability function (or measure).
-  \end{enumerate}
-\end{thm}
-\begin{proof}
-  Proofs of (i), (ii) and (iii) are trivial. So we only prove (iv). To prove this, we have to check the axioms.
 
+\begin{prop}[Properties of conditional probability]\leavevmode
   \begin{enumerate}
-    \item Let $A\subseteq B$. Then $\P(A\mid B) = \frac{\P(A\cap B)}{\P(B)} \leq 1$.
-    \item $\P(B\mid B) = \frac{\P(B)}{\P(B)} = 1$.
-    \item Let $A_i$ be disjoint events that are subsets of $B$. Then
-      \begin{align*}
-        \P\left(\left.\bigcup_i A_i\right\vert B\right) &= \frac{\P(\bigcup_i A_i\cap B)}{\P(B)}\\
-        &= \frac{\P\left(\bigcup_i A_i\right)}{\P(B)}\\
-        &= \sum \frac{\P(A_i)}{\P(B)}\\
-        &=\sum \frac{\P(A_i\cap B)}{\P(B)}\\
-        &= \sum \P(A_i \mid B).\qedhere
-      \end{align*}%\qedhere
+    \item (Multiplication rule) $\P(A\cap B) = \P(A\mid B)\,\P(B)$.
+    \item (Chain rule) $\P(A\cap B\cap C) = \P(A\mid B\cap C)\, \P(B\mid C)\, \P(C)$.
+    \item $\P(A\mid B\cap C) = \dfrac{\P(A\cap B\mid C)}{\P(B\mid C)}$, provided $\P(B \cap C) > 0$.
+    \item The function $\P(\ph \mid B)$, restricted to subsets of $B$, is a probability measure on $B$.
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  Parts (1)--(3) follow directly from the definition. For (4), we verify the Kolmogorov axioms:
+  \begin{enumerate}
+    \item For $A\subseteq B$, $\P(A\mid B) = \P(A\cap B)/\P(B) = \P(A)/\P(B) \leq 1$.
+    \item $\P(B\mid B) = \P(B)/\P(B) = 1$.
+    \item Let $A_1, A_2, \dotsc$ be pairwise disjoint events with $A_i \subseteq B$ for all $i$. Then
+      \[
+        \P\left(\left.\bigcup_i A_i\right\vert B\right) = \frac{\P\bigl(\bigcup_i A_i\bigr)}{\P(B)} = \sum_i \frac{\P(A_i)}{\P(B)} = \sum_i \P(A_i \mid B).\qedhere
+      \]
   \end{enumerate}
 \end{proof}
-\begin{defi}[Partition]
-  A \emph{partition of the sample space} is a collection of disjoint events $\{B_i\}_{i = 0}^\infty$ such that $\bigcup_i B_i = \Omega$.
-\end{defi}
-For example, ``odd'' and ``even'' partition the sample space into two events.
 
-The following result should be clear:
-\begin{prop}
-  If $B_i$ is a partition of the sample space, and $A$ is any event, then
+\begin{defi}[Partition]
+  A \emph{partition} of the sample space $\Omega$ is a countable collection of pairwise disjoint events $B_1, B_2, \dotsc$ with $\P(B_i) > 0$ for all $i$ and $\bigcup_i B_i = \Omega$.
+\end{defi}
+
+\begin{eg}
+  When rolling a die, the events ``odd'' $= \{1,3,5\}$ and ``even'' $= \{2,4,6\}$ form a partition of $\Omega = \{1, \dotsc, 6\}$.
+\end{eg}
+
+\begin{prop}[Law of total probability]
+  Let $B_1, B_2, \dotsc$ be a partition of $\Omega$, and let $A$ be any event. Then
   \[
-    \P(A) = \sum_{i = 1}^\infty \P(A\cap B_i) = \sum_{i = 1}^\infty \P(A\mid B_i) \P(B_i).
+    \P(A) = \sum_{i} \P(A\cap B_i) = \sum_{i} \P(A\mid B_i)\, \P(B_i).
   \]
 \end{prop}
 
-\begin{eg}
-  A fair coin is tossed repeatedly. The gambler gets $+1$ for head, and $-1$ for tail. Continue until he is broke or achieves $\$a$. Let
+\begin{eg}[Gambler's ruin]
+  A gambler starts with $\$x$ and tosses a fair coin repeatedly, winning $\$1$ for heads and losing $\$1$ for tails. The game ends when the gambler is broke or reaches $\$a$, where $a > x > 0$ is a fixed target. Let
   \[
-    p_x = \P(\text{goes broke}\mid \text{starts with \$}x),
+    p_x = \P(\text{goes broke}\mid \text{starts with }\$x).
   \]
-  and $B_1$ be the event that he gets head on the first toss. Then
-  \begin{align*}
-    p_x &= \P(B_1)p_{x + 1} + \P(B_1^C) p_{x - 1}\\
-    p_x &= \frac{1}{2}p_{x + 1} + \frac{1}{2}p_{x - 1}
-  \end{align*}
-  We have two boundary conditions $p_0 = 1$, $p_a = 0$. Then solving the recurrence relation, we have
+  Let $H$ be the event that the first toss is heads. By the law of total probability,
   \[
-    p_x = 1 - \frac{x}{a}.
+    p_x = \P(H)\,p_{x + 1} + \P(H^C)\, p_{x - 1} = \frac{1}{2}\,p_{x + 1} + \frac{1}{2}\,p_{x - 1}.
   \]
+  With boundary conditions $p_0 = 1$ and $p_a = 0$, solving this recurrence gives $p_x = 1 - x/a$.
 \end{eg}
 
 \begin{thm}[Bayes' formula]
-  Suppose $B_i$ is a partition of the sample space, and $A$ and $B_i$ all have non-zero probability. Then for any $B_i$,
+  Let $B_1, B_2, \dotsc$ be a partition of $\Omega$, and let $A$ be an event with $\P(A) > 0$. Then for each $i$,
   \[
-    \P(B_i \mid A) = \frac{\P(A \mid B_i)\P(B_i)}{\sum_j\P(A \mid B_j)\P(B_j)}.
+    \P(B_i \mid A) = \frac{\P(A \mid B_i)\,\P(B_i)}{\sum_j\P(A \mid B_j)\,\P(B_j)}.
   \]
-  Note that the denominator is simply $\P(A)$ written in a fancy way.
 \end{thm}
 
-\begin{eg}[Screen test]
-  Suppose we have a screening test that tests whether a patient has a particular disease. We denote positive and negative results as $+$ and $-$ respectively, and $D$ denotes the person having disease. Suppose that the test is not absolutely accurate, and
+\begin{remark}
+  The denominator is simply $\P(A)$, expressed via the law of total probability. Bayes' formula ``inverts'' the conditioning: given $\P(A \mid B_i)$ and the prior probabilities $\P(B_i)$, it computes the posterior probability $\P(B_i \mid A)$.
+\end{remark}
+
+\begin{eg}[Screening test]
+  A screening test for a disease has the following characteristics: let $D$ be the event that a patient has the disease and $+$ the event of a positive test result. Suppose
+  \[
+    \P(+ \mid D) = 0.98, \qquad \P(+ \mid D^C) = 0.01, \qquad \P(D) = 0.001.
+  \]
+  By Bayes' formula,
   \begin{align*}
-    \P(+ \mid D) &= 0.98\\
-    \P(+ \mid D^C) &= 0.01\\
-    \P(D) &= 0.001.
+    \P(D\mid +) &= \frac{\P(+ \mid D)\,\P(D)}{\P(+\mid D)\,\P(D) + \P(+\mid D^C)\,\P(D^C)} = \frac{0.98\cdot 0.001}{0.98\cdot 0.001 + 0.01\cdot 0.999} \approx 0.09.
   \end{align*}
-  So what is the probability that a person has the disease given that he received a positive result?
-  \begin{align*}
-    \P(D\mid +) &= \frac{\P(+ \mid D)\P(D)}{\P(+\mid D)\P(D) + \P(+\mid D^C)\P(D^C)}\\
-    &= \frac{0.98\cdot 0.001}{0.98\cdot 0.001 + 0.01\cdot 0.999}\\
-    &= 0.09
-  \end{align*}
-  So this test is pretty useless. Even if you get a positive result, since the disease is so rare, it is more likely that you don't have the disease and get a false positive.
+  Despite the test's high sensitivity, the low prevalence of the disease means that a positive result is far more likely to be a false positive than a true positive.
 \end{eg}
 
-\begin{eg}
-  Consider the two following cases:
+\begin{eg}[Boy born on a Tuesday]
+  Suppose a family has two children, each equally likely to be a boy or a girl, independently. Consider two scenarios:
   \begin{enumerate}
-    \item I have 2 children, one of whom is a boy.
-    \item I have two children, one of whom is a son born on a Tuesday.
+    \item Given that at least one child is a boy, the probability that both are boys is
+    \[
+      \P(BB\mid \text{at least one }B) = \frac{\P(BB)}{\P(BB) + \P(BG) + \P(GB)} = \frac{1/4}{3/4} = \frac{1}{3}.
+    \]
+    \item Now suppose each child is equally likely to be born on any of 7 days. Given that at least one child is a boy born on a Tuesday, the probability that both are boys is $13/27$.
   \end{enumerate}
-  What is the probability that both of them are boys?
+  To see (2), let $B^*$ denote a boy born on a Tuesday (probability $1/14$ per child) and let $C$ be the event that at least one child is $B^*$. Each child is one of $14$ equally likely types ($2$ sexes $\times$ $7$ days), so the pair has $14^2 = 196$ equally likely outcomes. The number of outcomes in which at least one child is $B^*$ is $2 \cdot 14 - 1 = 27$ (by inclusion-exclusion). Among these, the number in which both children are boys is $2 \cdot 7 - 1 = 13$ (both are boys, at least one born on Tuesday). Hence $\P(\text{both boys} \mid C) = 13/27$.
 
-  \begin{enumerate}
-    \item $\P(BB\mid BB\cup BG) = \frac{1/4}{1/4 + 2/4} = \frac{1}{3}$.
-    \item Let $B^*$ denote a boy born on a Tuesday, and $B$ a boy not born on a Tuesday. Then
-      \begin{align*}
-        \P(B^*B^* \cup B^*B\mid BB^* \cup B^*B^*\cup B^*G)&=\frac{\frac{1}{14}\cdot \frac{1}{14} + 2\cdot \frac{1}{14}\cdot\frac{6}{14}}{\frac{1}{14}\cdot \frac{1}{14} + 2\cdot \frac{1}{14}\cdot\frac{6}{14} + 2\cdot \frac{1}{14}\cdot \frac{1}{2}}\\
-        &= \frac{13}{27}.
-      \end{align*}
-  \end{enumerate}
-  How can we understand this? It is much easier to have a boy born on a Tuesday if you have two boys than one boy. So if we have the information that a boy is born on a Tuesday, it is now less likely that there is just one boy. In other words, it is more likely that there are two boys.
+  The shift from $1/3$ to $13/27 \approx 0.481$ occurs because having two boys makes it more likely that at least one is born on a specific day, so the extra information shifts the posterior toward two boys.
 \end{eg}
 
 \section{Discrete random variables}
