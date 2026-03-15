@@ -2602,42 +2602,41 @@ We state this without proof.
 \begin{defi}[Cauchy distribution]
   The \emph{Cauchy distribution} has pdf
   \[
-    f(x) = \frac{1}{\pi(1 + x^2)}
+    f(x) = \frac{1}{\pi(1 + x^2)}, \qquad x \in \R.
   \]
-  for $-\infty < x < \infty$.
+  This integrates to $1$ by the substitution $x = \tan\theta$.
 \end{defi}
-We check that this is a genuine distribution:
-\[
-  \int_{-\infty}^\infty \frac{1}{\pi(1 + x^2)}\;\d x = \int_{-\pi/2}^{\pi/2}\frac{1}{\pi}\;\d \theta = 1
-\]
-with the substitution $x = \tan \theta$. The distribution is a bell-shaped curve.
 
 \begin{prop}
-  The mean of the Cauchy distribution is undefined, while $\E[X^2] = \infty$.
+  The mean of the Cauchy distribution is undefined, and $\E[X^2] = \infty$.
 \end{prop}
 
 \begin{proof}
   \[
-    \E[X] = \int_0^\infty \frac{x}{\pi(1 + x^2)}\;\d x + \int_{-\infty}^0 \frac{x}{\pi(1 + x^2)}\;\d x = \infty - \infty
+    \E[X] = \int_0^\infty \frac{x}{\pi(1 + x^2)}\;\d x + \int_{-\infty}^0 \frac{x}{\pi(1 + x^2)}\;\d x = \infty - \infty,
   \]
-  which is undefined, but $\E[X^2] = \infty + \infty = \infty$.
+  which is undefined, while $\E[X^2] = \infty + \infty = \infty$.
 \end{proof}
 
-Suppose $X, Y$ are independent Cauchy distributions. Let $Z = X + Y$. Then
-\begin{align*}
-  f(z) &= \int_{-\infty}^\infty f_X(x)f_Y(z - x)\;\d x\\
-  &= \int_{-\infty}^\infty \frac{1}{\pi^2} \frac{1}{(1 + x^2)(1 + (z - x)^2)}\;\d x\\
-  &= \frac{1/2}{\pi(1 + (z/2)^2)}
-\end{align*}
-for all $-\infty < z < \infty$ (the integral can be evaluated using a tedious partial fraction expansion).
+\begin{prop}
+  If $X, Y$ are independent Cauchy random variables, then $\frac{1}{2}(X + Y)$ is also Cauchy. More generally, if $X_1, \dotsc, X_n$ are iid Cauchy, then $\frac{1}{n}(X_1 + \dotsb + X_n)$ is Cauchy.
+\end{prop}
 
-So $\frac{1}{2}Z$ has a Cauchy distribution. Alternatively the arithmetic mean of Cauchy random variables is a Cauchy random variable.
+\begin{proof}
+  Setting $Z = X + Y$ and convolving,
+  \begin{align*}
+    f_Z(z) &= \int_{-\infty}^\infty \frac{1}{\pi^2} \frac{1}{(1 + x^2)(1 + (z - x)^2)}\;\d x = \frac{1/2}{\pi(1 + (z/2)^2)},
+  \end{align*}
+  so $\frac{1}{2}Z$ has a Cauchy distribution. The general case follows by induction.
+\end{proof}
 
-By induction, we can show that $\frac{1}{n}(X_1 + \cdots + X_n)$ follows Cauchy distribution. This becomes a ``counter-example'' to things like the weak law of large numbers and the central limit theorem. Of course, this is because those theorems require the random variable to have a mean, which the Cauchy distribution lacks.
+\begin{remark}
+  The sample mean of iid Cauchy random variables is itself Cauchy, so the Cauchy distribution provides a counterexample to the weak law of large numbers and the central limit theorem (whose hypotheses require a finite mean).
+\end{remark}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-    \item If $\Theta\sim U[-\frac{\pi}{2}, \frac{\pi}{2}]$, then $X = \tan \theta$ has a Cauchy distribution. For example, if we fire a bullet at a wall 1 meter apart at a random angle $\theta$, the vertical displacement follows a Cauchy distribution.
+    \item If $\Theta \sim U[-\frac{\pi}{2}, \frac{\pi}{2}]$, then $X = \tan\Theta$ has a Cauchy distribution.
       \begin{center}
         \begin{tikzpicture}
           \node [circ] {};
@@ -2645,13 +2644,13 @@ By induction, we can show that $\frac{1}{n}(X_1 + \cdots + X_n)$ follows Cauchy 
           \draw [dashed] (0, 0) -- (3, 2);
           \draw [->] (0, 0) -- (1.5, 1);
           \draw (0.5, 0) arc (0:33.69:0.5);
-          \node at (0.7, 0.2) {$\theta$};
-          \draw [->] (3.2, 0) -- (3.2, 2) node [pos = 0.5, right] {$X = \tan \theta$};
+          \node at (0.7, 0.2) {$\Theta$};
+          \draw [->] (3.2, 0) -- (3.2, 2) node [pos = 0.5, right] {$X = \tan\Theta$};
           \draw [->] (3.2, 2) -- (3.2, 0);
           \draw (3, -2.5) -- (3, 2.5);
         \end{tikzpicture}
       \end{center}
-    \item If $X, Y\sim N(0, 1)$, then $X/Y$ has a Cauchy distribution.
+    \item If $X, Y \sim N(0, 1)$ independently, then $X/Y$ has a Cauchy distribution.
   \end{enumerate}
 \end{eg}
 
