@@ -832,405 +832,284 @@ With what we've got so far, we are able to answer questions like ``what is the p
 To make some sense of this notion, we have to assign, to each outcome, a number. For example, if let ``heads'' correspond to $1$ and ``tails'' correspond to $0$. Then on average, we can expect to get $0.5$. This is the idea of a random variable.
 
 \subsection{Discrete random variables}
-\begin{defi}[Random variable]
-  A \emph{random variable} $X$ taking values in a set $\Omega_X$ is a function $X: \Omega \to \Omega_X$. $\Omega_X$ is usually a set of numbers, e.g.\ $\R$ or $\N$.
-\end{defi}
-Intuitively, a random variable assigns a ``number'' (or a thing in $\Omega_X$) to each event (e.g.\ assign $6$ to the event ``dice roll gives 6'').
 
-\begin{defi}[Discrete random variables]
-  A random variable is \emph{discrete} if $\Omega_X$ is finite or countably infinite.
+\begin{defi}[Random variable]
+  A \emph{random variable} $X$ is a function $X\colon \Omega \to \Omega_X$, where $\Omega_X$ is a set (usually $\R$ or a subset of $\R$). A random variable is \emph{discrete} if $\Omega_X$ is finite or countably infinite.
 \end{defi}
 
 \begin{notation}
-  Let $T\subseteq \Omega_X$, define
+  For $T\subseteq \Omega_X$, we write
   \[
     \P(X\in T) = \P(\{\omega \in \Omega: X(\omega) \in T\}).
   \]
-  i.e.\ the probability that the outcome is in $T$.
+  We write $\P_X(x) = \P(X = x)$ for the \emph{probability mass function} of $X$. If $X$ has a named distribution, we write e.g.\ $X\sim B(n, p)$ to mean $\P(X = k) = \binom{n}{k}p^k(1 - p)^{n - k}$ for $k = 0, 1, \dotsc, n$.
 \end{notation}
-Here, instead of talking about the probability of getting a particular outcome or event, we are concerned with the probability of a random variable taking a particular value. If $\Omega$ is itself countable, then we can write this as
-\[
-  \P(X \in T) = \sum_{\omega \in \Omega: X(\omega)\in T}p_\omega.
-\]
-\begin{eg}
-  Let $X$ be the value shown by rolling a fair die. Then $\Omega_X = \{1, 2, 3, 4, 5, 6\}$. We know that
-  \[
-    \P(X = i) = \frac{1}{6}.
-  \]
-  We call this the discrete uniform distribution.
-\end{eg}
+
 \begin{defi}[Discrete uniform distribution]
-  A \emph{discrete uniform distribution} is a discrete distribution with finitely many possible outcomes, in which each outcome is equally likely.
+  A discrete random variable has the \emph{discrete uniform distribution} on a finite set $S$ if $\P(X = s) = 1/|S|$ for all $s \in S$.
 \end{defi}
 
 \begin{eg}
-  Suppose we roll two dice, and let the values obtained by $X$ and $Y$. Then the sum can be represented by $X + Y$, with
-  \[
-    \Omega_{X + Y} = \{2, 3, \cdots, 12\}.
-  \]
+  Let $X$ be the value shown by rolling a fair die. Then $X$ has the discrete uniform distribution on $\{1, 2, 3, 4, 5, 6\}$, with $\P(X = i) = 1/6$ for each $i$.
 \end{eg}
-This shows that we can add random variables to get a new random variable.
 
-\begin{notation}
-  We write
-  \[
-    \P_X(x) = \P(X = x).
-  \]
-  We can also write $X\sim B(n, p)$ to mean
-  \[
-    \P(X = r) = \binom{n}{r}p^r(1 - p)^{n - r},
-  \]
-  and similarly for the other distributions we have come up with before.
-\end{notation}
+\begin{eg}[Sum of two dice]
+  If $X$ and $Y$ are the values of two independent fair dice, then $X + Y$ is a new random variable taking values in $\{2, 3, \dotsc, 12\}$.
+\end{eg}
 
 \begin{defi}[Expectation]
-  The \emph{expectation} (or \emph{mean}) of a real-valued $X$ is equal to
+  The \emph{expectation} (or \emph{mean}) of a discrete real-valued random variable $X$ is
   \[
-    \E[X] = \sum_{\omega\in \Omega}p_\omega X(\omega).
+    \E[X] = \sum_{x\in \Omega_X}x\,\P(X = x),
   \]
-  provided this is \emph{absolutely convergent}. Otherwise, we say the expectation doesn't exist. Alternatively,
-  \begin{align*}
-    \E[X] &= \sum_{x\in \Omega_X}\sum_{\omega: X(\omega) = x}p_\omega X(\omega)\\
-    &= \sum_{x\in \Omega_X}x\sum_{\omega:X(\omega) = x}p_\omega\\
-    &= \sum_{x\in \Omega_X}xP(X = x).
-  \end{align*}
-  We are sometimes lazy and just write $\E X$.
+  provided this sum is absolutely convergent. Equivalently, $\E[X] = \sum_{\omega\in \Omega}p_\omega\, X(\omega)$, where $p_\omega = \P(\{\omega\})$.
 \end{defi}
-This is the ``average'' value of $X$ we expect to get. Note that this definition only holds in the case where the sample space $\Omega$ is countable. If $\Omega$ is continuous (e.g.\ the whole of $\R$), then we have to define the expectation as an integral.
 
-\begin{eg}
-  Let $X$ be the sum of the outcomes of two dice. Then
+\begin{eg}[Sum of two dice]
+  Let $X$ be the sum of the outcomes of two fair dice. Then
   \[
     \E[X] = 2\cdot \frac{1}{36} + 3\cdot \frac{2}{36} + \cdots + 12\cdot \frac{1}{36} = 7.
   \]
 \end{eg}
-Note that $\E[X]$ can be non-existent if the sum is not absolutely convergent. However, it is possible for the expected value to be infinite:
 
-\begin{eg}[St. Petersburg paradox]
-  Suppose we play a game in which we keep tossing a coin until you get a tail. If you get a tail on the $i$th round, then I pay you $\$2^i$. The expected value is
+\begin{eg}[St.\ Petersburg paradox]
+  A fair coin is tossed repeatedly until the first tail appears. If the first tail occurs on toss $i$, the player receives $\$2^i$. The expected payout is
   \[
-    \E[X] = \frac{1}{2}\cdot 2 + \frac{1}{4}\cdot 4 + \frac{1}{8}\cdot 8 + \cdots = \infty.
+    \E[X] = \sum_{i=1}^{\infty} 2^i \cdot \frac{1}{2^i} = \sum_{i=1}^{\infty} 1 = \infty.
   \]
-  This means that on average, you can expect to get an infinite amount of money! In real life, though, people would hardly be willing to pay $\$20$ to play this game. There are many ways to resolve this paradox, such as taking into account the fact that the host of the game has only finitely many money and thus your real expected gain is much smaller.
+  The expected value is infinite, yet few people would pay more than $\$20$ to play. This illustrates that expected value alone does not capture rational decision-making under uncertainty.
 \end{eg}
 
-\begin{eg}
-  We calculate the expected values of different distributions:
-  \begin{enumerate}
-    \item Poisson $P(\lambda)$. Let $X\sim P(\lambda)$. Then
-      \[
-        P_X(r) = \frac{\lambda^r e^{-\lambda}}{r!}.
-      \]
-      So
-      \begin{align*}
-        \E[X] &= \sum_{r = 0}^\infty rP(X = r)\\
-        &= \sum_{r = 0}^\infty \frac{r \lambda^r e^{-\lambda}}{r!}\\
-        &= \sum_{r = 1}^\infty \lambda \frac{\lambda^{r - 1}e^{-\lambda}}{(r - 1)!}\\
-        &= \lambda\sum_{r = 0}^\infty\frac{\lambda^r e^{-\lambda}}{r!}\\
-        &= \lambda.
-      \end{align*}
-    \item Let $X\sim B(n, p)$. Then
-      \begin{align*}
-        \E[X] &= \sum_0^n rP(x = r)\\
-        &= \sum_0^n r\binom{n}{r} p^r(1 - p)^{n - r}\\
-        &= \sum_0^n r\frac{n!}{r!(n - r)!}p^r (1 - p)^{n - r}\\
-        &= np\sum_{r = 1}^n \frac{(n - 1)!}{(r - 1)![(n - 1) - (r - 1)]!}p^{r - 1}(1 - p)^{(n - 1) - (r - 1)}\\
-        &= np\sum_{0}^{n - 1}\binom{n - 1}{r}p^r(1 - p)^{n - 1 - r}\\
-        &= np.
-      \end{align*}
-  \end{enumerate}
-\end{eg}
-Given a random variable $X$, we can create new random variables such as $X + 3$ or $X^2$. Formally, let $f: \R \to \R$ and $X$ be a real-valued random variable. Then $f(X)$ is a new random variable that maps $\omega \mapsto f(X(\omega))$.
-
-\begin{eg}
-  if $a, b, c$ are constants, then $a + bX$ and $(X - c)^2$ are random variables, defined as
+\begin{eg}[Expectation of the Poisson distribution]
+  Let $X\sim \mathrm{Poisson}(\lambda)$. Then
   \begin{align*}
-    (a + bX)(\omega) &= a + bX(\omega)\\
-    (X - c)^2(\omega) &= (X(\omega) - c)^2.
+    \E[X] &= \sum_{r = 0}^\infty r\,\frac{\lambda^r e^{-\lambda}}{r!} = \sum_{r = 1}^\infty \lambda\, \frac{\lambda^{r - 1}e^{-\lambda}}{(r - 1)!} = \lambda\sum_{r = 0}^\infty\frac{\lambda^r e^{-\lambda}}{r!} = \lambda.
   \end{align*}
 \end{eg}
 
-\begin{thm}\leavevmode
-\begin{enumerate}
-  \item If $X \geq 0$, then $\E[X] \geq 0$.
-  \item If $X\geq 0$ and $\E[X] = 0$, then $\P(X = 0) = 1$.
-  \item If $a$ and $b$ are constants, then $\E[a + bX] = a + b\E[X]$.
-  \item If $X$ and $Y$ are random variables, then $\E[X + Y] = \E[X] + \E[Y]$. This is true even if $X$ and $Y$ are not independent.
-  \item $\E[X]$ is a constant that minimizes $\E[(X - c)^2]$ over $c$.
-\end{enumerate}
-\end{thm}
+\begin{eg}[Expectation of the binomial distribution]
+  Let $X\sim B(n, p)$. Then
+  \begin{align*}
+    \E[X] &= \sum_{r=0}^n r\binom{n}{r} p^r(1 - p)^{n - r} = np\sum_{r = 1}^n \binom{n - 1}{r-1}p^{r - 1}(1 - p)^{n - 1 - (r - 1)} = np,
+  \end{align*}
+  since the remaining sum equals $(p + (1-p))^{n-1} = 1$.
+\end{eg}
+
+\begin{defi}[Functions of a random variable]
+  Let $X$ be a random variable and $f\colon \R \to \R$. Then $f(X)$ is the random variable defined by $f(X)(\omega) = f(X(\omega))$.
+\end{defi}
+
+\begin{prop}[Properties of expectation]\leavevmode
+  \begin{enumerate}
+    \item If $X \geq 0$, then $\E[X] \geq 0$.
+    \item If $X\geq 0$ and $\E[X] = 0$, then $\P(X = 0) = 1$.
+    \item (Linearity) For constants $a, b \in \R$, $\E[a + bX] = a + b\,\E[X]$.
+    \item (Additivity) For any random variables $X$ and $Y$, $\E[X + Y] = \E[X] + \E[Y]$, regardless of whether $X$ and $Y$ are independent.
+    \item The constant $c$ that minimises $\E[(X - c)^2]$ is $c = \E[X]$.
+  \end{enumerate}
+\end{prop}
+
 \begin{proof}\leavevmode
   \begin{enumerate}
-    \item $X \geq 0$ means that $X(\omega) \geq 0$ for all $\omega$. Then
-      \[
-        \E[X] = \sum_\omega p_\omega X(\omega) \geq 0.
-      \]
-    \item If there exists $\omega$ such that $X(\omega) > 0$ and $p_\omega > 0$, then $\E[X] > 0$. So $X(\omega) = 0$ for all $\omega$.
-    \item
-      \[
-        \E[a + bX] = \sum_\omega (a + bX(\omega))p_\omega = a + b\sum_\omega p_\omega= a + b\ \E[X].
-      \]
-    \item
-      \[ \E[X + Y] = \sum_\omega p_\omega[X(\omega) + Y(\omega)] = \sum_\omega p_\omega X(\omega) + \sum_\omega p_\omega Y(\omega) = \E[X] + \E[Y].
-      \]
-    \item
-      \begin{align*}
-        \E[(X - c)^2] &= \E[(X - \E[X] + \E[X] - c)^2]\\
-        &= \E[(X - \E[X])^2 + 2(\E[X] - c)(X - \E[X]) + (\E[X] - c)^2]\\
-        &= \E(X - \E[X])^2 + 0 + (\E[X] - c)^2.
-      \end{align*}
-      This is clearly minimized when $c = \E[X]$. Note that we obtained the zero in the middle because $\E[X - \E[X]] = \E[X] - \E[X] = 0$.\qedhere
+    \item $\E[X] = \sum_\omega p_\omega X(\omega) \geq 0$ since every term is non-negative.
+    \item If $X(\omega) > 0$ for some $\omega$ with $p_\omega > 0$, then $\E[X] > 0$. Hence $\P(X = 0) = 1$.
+    \item $\E[a + bX] = \sum_\omega (a + bX(\omega))\,p_\omega = a\sum_\omega p_\omega + b\sum_\omega X(\omega)\,p_\omega = a + b\,\E[X]$.
+    \item $\E[X + Y] = \sum_\omega p_\omega(X(\omega) + Y(\omega)) = \E[X] + \E[Y]$.
+    \item Write $\E[(X - c)^2] = \E[(X - \E[X])^2] + (\E[X] - c)^2$, using $\E[X - \E[X]] = 0$ to eliminate the cross term. This is minimised when $c = \E[X]$.\qedhere
   \end{enumerate}
 \end{proof}
-An easy generalization of (iv) above is
-\begin{thm}
-  For any random variables $X_1, X_2, \cdots X_n$, for which the following expectations exist,
+
+\begin{prop}[Linearity of expectation for finite sums]
+  For any random variables $X_1, \dotsc, X_n$ whose expectations exist,
   \[
     \E\left[\sum_{i = 1}^n X_i\right] = \sum_{i = 1}^n \E[X_i].
   \]
-\end{thm}
+\end{prop}
 
 \begin{proof}
-  \[
-    \sum_\omega p(\omega)[X_1(\omega) + \cdots + X_n(\omega)] = \sum_\omega p(\omega)X_1(\omega) + \cdots + \sum_\omega p(\omega) X_n(\omega).\qedhere
-  \]
+  Immediate from additivity and induction on $n$.
 \end{proof}
 
 \begin{defi}[Variance and standard deviation]
-  The \emph{variance} of a random variable $X$ is defined as
+  The \emph{variance} of a random variable $X$ with finite expectation is
   \[
     \var(X) = \E[(X - \E[X])^2].
   \]
-  The \emph{standard deviation} is the square root of the variance, $\sqrt{\var(X)}$.
+  The \emph{standard deviation} of $X$ is $\sqrt{\var(X)}$. The variance measures how dispersed $X$ is around its mean.
 \end{defi}
-This is a measure of how ``dispersed'' the random variable $X$ is. If we have a low variance, then the value of $X$ is very likely to be close to $\E[X]$.
 
-\begin{thm}\leavevmode
+\begin{prop}[Properties of variance]\leavevmode
   \begin{enumerate}
-    \item $\var X \geq 0$. If $\var X = 0$, then $\P(X = \E[X]) = 1$.
-    \item $\var (a + bX) = b^2 \var(X)$. This can be proved by expanding the definition and using the linearity of the expected value.
-    \item $\var(X) = \E[X^2] - \E[X]^2$, also proven by expanding the definition.
+    \item $\var(X) \geq 0$, with equality if and only if $\P(X = \E[X]) = 1$.
+    \item For constants $a, b \in \R$, $\var(a + bX) = b^2\, \var(X)$.
+    \item $\var(X) = \E[X^2] - (\E[X])^2$.
   \end{enumerate}
-\end{thm}
+\end{prop}
 
-\begin{eg}[Binomial distribution]
-  Let $X\sim B(n, p)$ be a binomial distribution. Then $\E[X] = np$. We also have
+\begin{proof}
+  Part (1) follows from the fact that $(X - \E[X])^2 \geq 0$. Parts (2) and (3) follow by expanding the definition and using linearity of expectation.
+\end{proof}
+
+\begin{eg}[Variance of the binomial distribution]
+  Let $X\sim B(n, p)$ and write $q = 1 - p$. Using the factorial moment,
   \begin{align*}
-    \E[X(X - 1)] &= \sum_{r = 0}^n r(r - 1)\frac{n!}{r!(n - r)!} p^r(1 - p)^{n - r}\\
-    &= n(n - 1)p^2\sum_{r = 2}^n \binom{n - 2}{r - 2} p^{r - 2}(1 - p)^{(n - 2) - (r - 2)}\\
-    &= n(n - 1)p^2.
+    \E[X(X - 1)] &= \sum_{r = 0}^n r(r - 1)\binom{n}{r} p^r q^{n - r} = n(n - 1)p^2\sum_{r = 2}^n \binom{n - 2}{r - 2} p^{r - 2}q^{n - 2 - (r - 2)} = n(n - 1)p^2,
   \end{align*}
-  The sum goes to $1$ since it is the sum of all probabilities of a binomial $N(n - 2, p)$
-  So $\E[X^2] = n(n - 1)p^2 + \E[X] = n(n - 1)p^2 + np$. So
-  \[
-    \var(X) = \E[X^2] - (\E[X])^2 = np(1 - p) = npq.
-  \]
+  so $\E[X^2] = n(n - 1)p^2 + np$ and $\var(X) = \E[X^2] - (np)^2 = np(1 - p) = npq$.
 \end{eg}
 
-\begin{eg}[Poisson distribution]
-  If $X\sim P(\lambda)$, then $\E[X] = \lambda$, and $\var(X) = \lambda$, since $P(\lambda)$ is $B(n, p)$ with $n\to \infty, p \to 0, np \to \lambda$.
+\begin{eg}[Variance of the Poisson distribution]
+  Let $X\sim \mathrm{Poisson}(\lambda)$. A similar factorial moment computation gives $\E[X(X-1)] = \lambda^2$, so $\E[X^2] = \lambda^2 + \lambda$ and $\var(X) = \lambda$.
 \end{eg}
 
-\begin{eg}[Geometric distribution]
-  Suppose $\P(X = r) = q^r p$ for $r= 0, 1, 2, \cdots$. Then
+\begin{eg}[Variance of the geometric distribution]
+  Let $X\sim \mathrm{Geom}(p)$, so $\P(X = r) = q^r p$ for $r= 0, 1, 2, \dotsc$, where $q = 1 - p$. Using the generating function $\sum_{r=0}^{\infty} q^r = (1 - q)^{-1}$ and differentiating,
   \begin{align*}
-    \E[X] &= \sum_{0}^\infty rpq^r \\
-    &= pq\sum_{0}^\infty rq^{r - 1}\\
-    &= pq\sum_{0}^\infty \frac{\d }{\d q}q^r\\
-    &= pq\frac{\d }{\d q}\sum_{0}^\infty q^r\\
-    &= pq\frac{\d }{\d q}\frac{1}{1 - q}\\
-    &= \frac{pq}{(1 - q)^2}\\
-    &= \frac{q}{p}.
+    \E[X] &= pq\sum_{r=0}^\infty rq^{r - 1} = pq\,\frac{\d }{\d q}\frac{1}{1 - q} = \frac{pq}{(1 - q)^2} = \frac{q}{p}.
   \end{align*}
-  Then
-  \begin{align*}
-    \E[X(X - 1)] &= \sum_{0}^\infty r(r - 1)pq^r\\
-    &= pq^2 \sum_0^\infty r(r - 1)q^{r - 2}\\
-    &= pq^2\frac{\d ^2}{\d q^2}\frac{1}{1 - q}\\
-    &= \frac{2pq^2}{(1 - q)^3}
-  \end{align*}
-  So the variance is
-  \[
-    \var(X) = \frac{2pq^2}{(1 - q)^3}+ \frac{q}{p} - \frac{q^2}{p^2} = \frac{q}{p^2}.
-  \]
+  Similarly, $\E[X(X - 1)] = 2q^2/p^2$, and so $\var(X) = \E[X(X-1)] + \E[X] - (\E[X])^2 = q/p^2$.
 \end{eg}
 
 \begin{defi}[Indicator function]
-  The \emph{indicator function} or \emph{indicator variable} $I[A]$ (or $I_A$) of an event $A\subseteq \Omega$ is
+  The \emph{indicator function} (or \emph{indicator variable}) of an event $A\subseteq \Omega$ is the random variable
   \[
-    I[A](\omega) =
+    I_A(\omega) =
     \begin{cases}
-      1 & \omega\in A\\
-      0 & \omega\not\in A
+      1 & \text{if } \omega\in A,\\
+      0 & \text{if } \omega\not\in A.
     \end{cases}
   \]
 \end{defi}
-This indicator random variable is not interesting by itself. However, it is a rather useful tool to prove results.
 
-It has the following properties:
-\begin{prop}\leavevmode
-  \begin{itemize}
-    \item $\E[I[A]] = \sum_\omega p(\omega) I[A](\omega) = \P(A)$.
-    \item $I[A^C] = 1 - I[A]$.
-    \item $I[A\cap B] = I[A]I[B]$.
-    \item $I[A\cup B] = I[A] + I[B] - I[A]I[B]$.
-    \item $I[A]^2 = I[A]$.
-  \end{itemize}
+\begin{prop}[Properties of indicator functions]
+  Let $A, B \subseteq \Omega$ be events. Then:
+  \begin{enumerate}
+    \item $\E[I_A] = \P(A)$.
+    \item $I_{A^C} = 1 - I_A$.
+    \item $I_{A\cap B} = I_A\, I_B$.
+    \item $I_{A\cup B} = I_A + I_B - I_A\, I_B$.
+    \item $I_A^2 = I_A$.
+  \end{enumerate}
 \end{prop}
-These are easy to prove from definition. In particular, the last property comes from the fact that $I[A]$ is either $0$ and $1$, and $0^2 = 0, 1^2 = 1$.
 
-\begin{eg}
-  Let $2n$ people ($n$ husbands and $n$ wives, with $n > 2$) sit alternate man-woman around the table randomly. Let $N$ be the number of couples sitting next to each other.
+\begin{proof}
+  Each identity follows from the fact that $I_A(\omega) \in \{0, 1\}$ and by checking both cases.
+\end{proof}
 
-  Let $A_i = [i$th couple sits together$]$. Then
+\begin{eg}[Couples at a dinner table]
+  Let $2n$ people ($n$ married couples, $n > 2$) sit in alternating man-woman positions around a circular table, uniformly at random. Let $N$ be the number of couples sitting next to each other, and let $A_i$ be the event that the $i$th couple sits together. Then $N = \sum_{i = 1}^n I_{A_i}$.
+
+  By symmetry, $\P(A_i) = 2/n$ for each $i$ (each wife has $n$ possible seats, and 2 of them are adjacent to her husband). So
   \[
-    N = \sum_{i = 1}^n I[A_i].
+    \E[N] = \sum_{i=1}^n \P(A_i) = n\cdot \frac{2}{n} = 2.
   \]
-  Then
-  \[
-    \E[N] = \E\left[\sum I[A_i]\right] = \sum_{1}^n \E\big[I[A_i]\big] = n\E\big[I[A_1]\big] = n\P(A_i) = n\cdot \frac{2}{n} = 2.
-  \]
-  We also have
-  \begin{align*}
-    \E[N^2] &= \E\left[\left(\sum I[A_i]\right)^2\right]\\
-    &= \E\left[\sum_i I[A_i]^2 + 2\sum_{i < j}I[A_i]I[A_j]\right]\\
-    &= n\E\big[I[A_i]\big] + n(n - 1)\E\big[I[A_1]I[A_2]\big]
-  \end{align*}
-  We have $\E[I[A_1]I[A_2]] = \P(A_1\cap A_2) = \frac{2}{n}\left(\frac{1}{n - 1}\frac{1}{n - 1} + \frac{n - 2}{n - 1}\frac{2}{n - 1}\right)$. Plugging in, we ultimately obtain $\var(N) = \frac{2(n- 2)}{n - 1}$.
+  To find $\var(N)$, we compute $\E[N^2] = \sum_i \E[I_{A_i}] + 2\sum_{i < j}\P(A_i \cap A_j)$.  One finds $\P(A_1\cap A_2) = \frac{2}{n}\bigl(\frac{1}{(n - 1)^2} + \frac{2(n - 2)}{(n - 1)^2}\bigr)$, which gives $\var(N) = \frac{2(n- 2)}{n - 1}$.
 
-  In fact, as $n\to \infty$, $N\sim P(2)$.
+  In fact, as $n\to \infty$, $N$ converges in distribution to $\mathrm{Poisson}(2)$.
 \end{eg}
 
-We can use these to prove the inclusion-exclusion formula:
-\begin{thm}[Inclusion-exclusion formula]
+\begin{thm}[Inclusion-exclusion via indicators]
+  Let $A_1, \dotsc, A_n$ be events. Then
   \begin{align*}
-    \P\left(\bigcup_i^n A_i\right) &= \sum_1^n \P(A_i) - \sum_{i_1 < i_2} \P(A_{i_1}\cap A_{j_2}) + \sum_{i_1 < i_2 < i_3}\P(A_{i_1}\cap A_{i_2} \cap A_{i_3}) - \cdots\\
-    &+ (-1)^{n - 1} \P(A_1\cap \cdots \cap A_n).
+    \P\left(\bigcup_{i=1}^n A_i\right) &= \sum_{i} \P(A_i) - \sum_{i_1 < i_2} \P(A_{i_1}\cap A_{i_2}) + \cdots + (-1)^{n - 1} \P(A_1\cap \cdots \cap A_n).
   \end{align*}
 \end{thm}
 
 \begin{proof}
-  Let $I_j$ be the indicator function for $A_j$. Write
+  Let $I_j = I_{A_j}$. For $1 \leq r \leq n$, define $S_r = \sum_{i_1 < \cdots < i_r}I_{i_1}\cdots I_{i_r}$ and $s_r = \E[S_r] = \sum_{i_1 < \cdots < i_r}\P(A_{i_1}\cap \cdots \cap A_{i_r})$. Expanding the product gives the identity
   \[
-    S_r = \sum_{i_1 < i_2 < \cdots < i_r}I_{i_1}I_{i_2}\cdots I_{i_r},
+    I_{\bigcup_j A_j} = 1 - \prod_{j = 1}^n(1 - I_j) = S_1 - S_2 + S_3 - \cdots + (-1)^{n - 1}S_n.
   \]
-  and
-  \[
-    s_r = \E[S_r] = \sum_{i_1 < \cdots < i_r}\P(A_{i_1}\cap \cdots \cap A_{i_r}).
-  \]
-  Then
-  \[
-    1 - \prod_{j = 1}^n(1 - I_j) = S_1 - S_2 + S_3 \cdots + (-1)^{n - 1}S_n.
-  \]
-  So
-  \[
-    \P\left(\bigcup_1^n A_j\right) = \E\left[1 - \prod_1^n(1 - I_j)\right] = s_1 - s_2 + s_3 - \cdots + (-1)^{n - 1}s_n.\qedhere
-  \]
+  Taking expectations yields $\P\bigl(\bigcup_j A_j\bigr) = s_1 - s_2 + s_3 - \cdots + (-1)^{n - 1}s_n$.
 \end{proof}
 
-We can extend the idea of independence to random variables. Two random variables are independent if the value of the first does not affect the value of the second.
-
 \begin{defi}[Independent random variables]
-  Let $X_1, X_2, \cdots, X_n$ be discrete random variables. They are \emph{independent} iff for any $x_1, x_2, \cdots, x_n$,
+  Discrete random variables $X_1, X_2, \dotsc, X_n$ are \emph{independent} if for all $x_1, x_2, \dotsc, x_n$,
   \[
-    \P(X_1 = x_1, \cdots, X_n = x_n) = \P(X_1 = x_1)\cdots \P(X_n = x_n).
+    \P(X_1 = x_1, \dotsc, X_n = x_n) = \P(X_1 = x_1)\cdots \P(X_n = x_n).
   \]
 \end{defi}
 
-\begin{thm}
-  If $X_1, \cdots, X_n$ are independent random variables, and $f_1, \cdots, f_n$ are functions $\R \to \R$, then $f_1(X_1), \cdots, f_n(X_n)$ are independent random variables.
-\end{thm}
+\begin{prop}
+  If $X_1, \dotsc, X_n$ are independent random variables and $f_1, \dotsc, f_n\colon \R \to \R$, then $f_1(X_1), \dotsc, f_n(X_n)$ are independent.
+\end{prop}
 
 \begin{proof}
-  Note that given a particular $y_i$, there can be many different $x_i$ for which $f_i(x_i) = y_i$. When finding $\P(f_i(x_i)= y_i)$, we need to sum over all $x_i$ such that $f_i(x_i) = f_i$. Then
+  For any $y_1, \dotsc, y_n$,
   \begin{align*}
-    \P(f_1(X_1) = y_1, \cdots f_n(X_n) = y_n) &= \sum_{\substack{x_1: f_1(x_1) = y_1\\\cdot\vspace{-2pt}\\\cdot\\x_n: f_n(x_n) = y_n}} \P(X_1 = x_1, \cdots, X_n = x_n)\\
-    &= \sum_{\substack{x_1: f_1(x_1) = y_1\\\cdot\vspace{-2pt}\\\cdot\\x_n: f_n(x_n) = y_n}} \prod_{i = 1}^n \P(X_i = x_i)\\
-    &= \prod_{i = 1}^n \sum_{x_i:f_i(x_i) = y_i} \P(X_i = x_i)\\
-    &= \prod_{i = 1}^n \P(f_i(x_i) = y_i).
+    \P(f_1(X_1) = y_1, \dotsc, f_n(X_n) = y_n) &= \sum_{\substack{x_1: f_1(x_1) = y_1\\\vdots\\x_n: f_n(x_n) = y_n}} \prod_{i = 1}^n \P(X_i = x_i) = \prod_{i = 1}^n \sum_{x_i:f_i(x_i) = y_i} \P(X_i = x_i) = \prod_{i = 1}^n \P(f_i(X_i) = y_i),
   \end{align*}
-  Note that the switch from the second to third line is valid since they both expand to the same mess.
+  where the factorisation of the multi-sum into a product of single sums holds because the summand is a product of terms each depending on a single index.
 \end{proof}
 
-\begin{thm}
-  If $X_1, \cdots, X_n$ are independent random variables and all the following expectations exists, then
+\begin{thm}[Expectation of a product of independent random variables]
+  If $X_1, \dotsc, X_n$ are independent random variables with finite expectations, then
   \[
-    \E\left[\prod X_i\right] = \prod \E[X_i].
+    \E\left[\prod_{i=1}^{n} X_i\right] = \prod_{i=1}^{n} \E[X_i].
   \]
 \end{thm}
 
 \begin{proof}
-  Write $R_i$ for the range of $X_i$. Then
+  Let $R_i$ denote the range of $X_i$. Then
   \begin{align*}
-    \E\left[\prod_1^n X_i\right] &= \sum_{x_1\in R_1}\cdots \sum_{x_n\in R_n}x_1x_2\cdots x_n\times \P(X_1 = x_1, \cdots, X_n = x_n)\\
-    &= \prod_{i = 1}^n \sum_{x_i \in R_i}x_i\P(X_i = x_i)\\
-    &= \prod_{i = 1}^n \E[X_i].\qedhere
+    \E\left[\prod_{i=1}^n X_i\right] &= \sum_{x_1\in R_1}\cdots \sum_{x_n\in R_n}\left(\prod_{i=1}^{n} x_i\right) \P(X_1 = x_1, \dotsc, X_n = x_n)\\
+    &= \prod_{i = 1}^n \sum_{x_i \in R_i}x_i\,\P(X_i = x_i) = \prod_{i = 1}^n \E[X_i].\qedhere
   \end{align*}
 \end{proof}
 
 \begin{cor}
-  Let $X_1,\cdots X_n$ be independent random variables, and $f_1, f_2, \cdots f_n$ are functions $\R\to \R$. Then
+  If $X_1,\dotsc, X_n$ are independent and $f_1, \dotsc, f_n\colon \R\to \R$, then
   \[
-    \E\left[\prod f_i(x_i)\right] = \prod \E[f_i(x_i)].
+    \E\left[\prod_{i=1}^{n} f_i(X_i)\right] = \prod_{i=1}^{n} \E[f_i(X_i)].
   \]
 \end{cor}
 
-\begin{thm}
-  If $X_1, X_2, \cdots X_n$ are independent random variables, then
+\begin{thm}[Variance of a sum of independent random variables]
+  If $X_1, X_2, \dotsc, X_n$ are independent random variables with finite variances, then
   \[
-    \var\left(\sum X_i\right) = \sum \var (X_i).
+    \var\left(\sum_{i=1}^{n} X_i\right) = \sum_{i=1}^{n} \var (X_i).
   \]
 \end{thm}
 
 \begin{proof}
   \begin{align*}
-    \var\left(\sum X_i\right) &= \E\left[\left(\sum X_i\right)^2\right] - \left(\E\left[\sum X_i\right]\right)^2\\
-    &= \E\left[\sum X_i^2 + \sum_{i \not =j} X_iX_j\right] - \left(\sum\E [X_i]\right)^2\\
-    &= \sum \E[X_i^2] + \sum_{i\not= j}\E[X_i]\E[X_j] - \sum(\E[X_i])^2 - \sum_{i\not= j}\E[X_i]\E[X_j]\\
-    &= \sum \E[X_i^2] - (\E[X_i])^2.\qedhere
+    \var\left(\sum_i X_i\right) &= \E\left[\left(\sum_i X_i\right)^2\right] - \left(\sum_i\E[X_i]\right)^2\\
+    &= \sum_i \E[X_i^2] + \sum_{i\neq j}\E[X_i]\E[X_j] - \sum_i(\E[X_i])^2 - \sum_{i\neq j}\E[X_i]\E[X_j]\\
+    &= \sum_i \bigl(\E[X_i^2] - (\E[X_i])^2\bigr) = \sum_i \var(X_i),
   \end{align*}
+  where we used independence to write $\E[X_i X_j] = \E[X_i]\E[X_j]$ for $i \neq j$.
 \end{proof}
 
-\begin{cor}
- Let $X_1, X_2, \cdots X_n$ be independent identically distributed random variables (iid rvs). Then
- \[
-   \var\left(\frac{1}{n}\sum X_i\right) = \frac{1}{n}\var (X_1).
- \]
+\begin{cor}[Variance of a sample mean]
+  Let $X_1, \dotsc, X_n$ be independent and identically distributed (i.i.d.)\ random variables. Then
+  \[
+    \var\left(\frac{1}{n}\sum_{i=1}^{n} X_i\right) = \frac{1}{n}\,\var (X_1).
+  \]
 \end{cor}
 
 \begin{proof}
-  \begin{align*}
-    \var\left(\frac{1}{n}\sum X_i\right) &= \frac{1}{n^2}\var\left(\sum X_i\right)\\
-    &= \frac{1}{n^2}\sum \var(X_i)\\
-    &= \frac{1}{n^2} n \var(X_1)\\
-    &= \frac{1}{n}\var (X_1)
-  \end{align*}
+  By the scaling property of variance and the additivity for independent variables,
+  $\var\bigl(\frac{1}{n}\sum_i X_i\bigr) = \frac{1}{n^2}\sum_i \var(X_i) = \frac{1}{n}\,\var(X_1)$.
 \end{proof}
-This result is important in statistics. This means that if we want to reduce the variance of our experimental results, then we can repeat the experiment many times (corresponding to a large $n$), and then the sample average will have a small variance.
 
-\begin{eg}
-  Let $X_i$ be iid $B(1, p)$, i.e.\ $\P(1) = p$ and $\P(0) = 1 - p$. Then $Y = X_1 + X_2 + \cdots + X_n \sim B(n, p)$.
+\begin{remark}
+  This shows that repeated independent measurements reduce variance: the sample mean $\bar{X}_n = \frac{1}{n}\sum_i X_i$ has variance that decreases as $1/n$.
+\end{remark}
 
-  Since $\var(X_i) = \E[X_i^2] - (\E[X_i])^2 = p - p^2 = p(1 - p)$, we have $\var (Y) = np(1 - p)$.
+\begin{eg}[Binomial as a sum of Bernoulli variables]
+  Let $X_1, \dotsc, X_n$ be i.i.d.\ $B(1, p)$. Then $Y = X_1 + \cdots + X_n \sim B(n, p)$.  Since $\var(X_i) = p(1 - p)$, we obtain $\var(Y) = np(1 - p)$.
 \end{eg}
 
-\begin{eg}
-  Suppose we have two rods of unknown lengths $a, b$. We can measure the lengths, but is not accurate. Let $A$ and $B$ be the measured value. Suppose
+\begin{eg}[Measuring rods]
+  Suppose we wish to estimate the lengths $a$ and $b$ of two rods. Direct measurements $A$ and $B$ are unbiased ($\E[A] = a$, $\E[B] = b$) with $\var(A) = \var(B) = \sigma^2$, and $A, B$ are independent. Instead of using $A$ and $B$ directly, we measure $X = A + B$ and $Y = A - B$, and estimate
   \[
-    \E[A] = a,\quad \var(A) = \sigma^2
+    \hat{a} = \frac{X + Y}{2},\qquad \hat{b} = \frac{X - Y}{2}.
   \]
+  Then $\hat{a}$ and $\hat{b}$ are unbiased, and
   \[
-    \E[B] = b, \quad \var(B) = \sigma^2.
+    \var(\hat{a}) = \frac{1}{4}\var(X + Y) = \frac{1}{4}\cdot 2\sigma^2 = \frac{\sigma^2}{2},
   \]
-  We can measure it more accurately by measuring $X = A + B$ and $Y = A - B$. Then we estimate $a$ and $b$ by
-  \[
-    \hat{a} = \frac{X + Y}{2},\; \hat{b} = \frac{X - Y}{2}.
-  \]
-  Then $\E[\hat{a}] = a$ and $\E[\hat{b}] = b$, i.e.\ they are unbiased. Also
-  \[
-    \var (\hat{a}) = \frac{1}{4}\var(X + Y) = \frac{1}{4}2\sigma^2 = \frac{1}{2}\sigma^2,
-  \]
-  and similarly for $b$. So we can measure it more accurately by measuring the sticks together instead of separately.
+  and similarly $\var(\hat{b}) = \sigma^2/2$. So measuring the rods together halves the variance of each estimate.
 \end{eg}
 
 \subsection{Inequalities}
