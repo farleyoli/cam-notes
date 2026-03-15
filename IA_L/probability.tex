@@ -1386,138 +1386,79 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{remark}
 
 \subsection{Probability generating functions}
-Consider a random variable $X$, taking values $0, 1, 2, \cdots$. Let $p_r = \P(X = r)$.
-\begin{defi}[Probability generating function (pgf)]
-  The \emph{probability generating function (pgf)} of $X$ is
+
+\begin{defi}[Probability generating function]
+  Let $X$ be a discrete random variable taking values in $\{0, 1, 2, \dotsc\}$, with $p_r = \P(X = r)$. The \emph{probability generating function (pgf)} of $X$ is
   \[
-    p(z) = \E[z^X] = \sum_{r = 0}^\infty \P(X = r)z^r = p_0 + p_1z + p_2z^2\cdots = \sum_0^\infty p_rz^r.
+    p_X(z) = \E[z^X] = \sum_{r = 0}^\infty p_r\, z^r.
   \]
-  This is a power series (or polynomial), and converges if $|z| \leq 1$, since
-  \[
-    |p(z)| \leq \sum_r p_r |z^r| \leq \sum_r p_r = 1.
-  \]
-  We sometimes write as $p_X(z)$ to indicate what the random variable.
+  This power series converges absolutely for $|z| \leq 1$, since $|p_X(z)| \leq \sum_r p_r\, |z|^r \leq \sum_r p_r = 1$.
 \end{defi}
-This definition might seem a bit out of the blue. However, it turns out to be a rather useful algebraic tool that can concisely summarize information about the probability distribution.
 
-\begin{eg}
-  Consider a fair di.e.\ Then $p_r = 1/6$ for $r = 1, \cdots, 6$. So
+\begin{eg}[Fair die]
+  Let $X$ be the outcome of a fair die roll. Then $p_r = 1/6$ for $r = 1, \dotsc, 6$, and
   \[
-    p(z) = \E[z^X] = \frac{1}{6}(z + z^2 + \cdots + z^6) = \frac{1}{6}z\left(\frac{1 - z^6}{1 - z}\right).
+    p_X(z) = \frac{1}{6}(z + z^2 + \cdots + z^6) = \frac{z(1 - z^6)}{6(1 - z)}.
   \]
 \end{eg}
 
 \begin{thm}
-  The distribution of $X$ is uniquely determined by its probability generating function.
+  The distribution of $X$ is uniquely determined by its pgf.
 \end{thm}
 
 \begin{proof}
-  By definition, $p_0 = p(0)$, $p_1 = p'(0)$ etc. (where $p'$ is the derivative of $p$). In general,
-  \[
-    \left. \frac{\d ^i}{\d z^i}p(z) \right|_{z = 0} = i! p_i.
-  \]
-  So we can recover $(p_0, p_1, \cdots)$ from $p(z)$.
+  The coefficients of a power series are uniquely determined: $p_r = p_X^{(r)}(0)/r!$.
 \end{proof}
 
-\begin{thm}[Abel's lemma]
+\begin{thm}[Moments from the pgf]
+  Let $X$ be a non-negative integer-valued random variable with pgf $p_X$. Then
   \[
-    \E[X] = \lim_{z\to 1}p'(z).
+    \E[X] = \lim_{z\to 1^-}p_X'(z), \qquad \E[X(X - 1)] = \lim_{z \to 1^-}p_X''(z).
   \]
-  If $p'(z)$ is continuous, then simply $\E[X] = p'(1)$.
+  In particular, if $\E[X] < \infty$ (respectively $\E[X^2] < \infty$), then $p_X'(1)$ (respectively $p_X''(1)$) exists and equals the corresponding moment.
 \end{thm}
-Note that this theorem is trivial if $p'(1)$ exists, as long as we know that we can differentiate power series term by term. What is important here is that even if $p'(1)$ doesn't exist, we can still take the limit and obtain the expected value, e.g.\ when $\E[X] = \infty$.
 
 \begin{proof}
-  For $z < 1$, we have
-  \[
-    p'(z) = \sum_1^\infty rp_r z^{r - 1} \leq \sum_1^\infty rp_r = \E[X].
-  \]
-  So we must have
-  \[
-    \lim_{z\to 1}p'(z) \leq \E[X].
-  \]
-  On the other hand, for any $\varepsilon$, if we pick $N$ large, then
-  \[
-    \sum_{1}^N rp_r \geq \E[X] - \varepsilon.
-  \]
-  So
-  \[
-    \E[X] - \varepsilon \leq \sum_1^N rp_r = \lim_{z\to 1}\sum _1^N rp_r z^{r - 1}\leq \lim_{z \to 1} \sum_1^\infty rp_r z^{r - 1} = \lim_{z\to 1} p' (z).
-  \]
-  So $\E[X] \leq \lim\limits_{z \to 1}p'(z)$. So the result follows
+  For $0 < z < 1$, $p_X'(z) = \sum_{r=1}^\infty r\,p_r\, z^{r - 1}$. Each term is non-negative and increasing in $z$, so by the monotone convergence theorem, $\lim_{z \to 1^-} p_X'(z) = \sum_{r=1}^\infty r\,p_r = \E[X]$ (allowing $+\infty$). The argument for $p_X''$ is identical.
 \end{proof}
 
-\begin{thm}
+\begin{eg}[Poisson pgf]
+  Let $X\sim \mathrm{Poisson}(\lambda)$. Then
   \[
-    \E[X(X - 1)] = \lim_{z \to 1}p''(z).
+    p_X(z) = \sum_{r=0}^\infty \frac{(\lambda z)^r}{r!}\, e^{-\lambda} = e^{\lambda(z - 1)}.
   \]
-\end{thm}
-\begin{proof}
-  Same as above.
-\end{proof}
-
-\begin{eg}
-  Consider the Poisson distribution. Then
-  \[
-    p_r = \P(X = r) = \frac{1}{r!}\lambda^r e^{-\lambda}.
-  \]
-  Then
-  \[
-    p(z) = \E[z^X] = \sum_0^\infty z^r \frac{1}{r!}\lambda^r e^{-\lambda} = e^{\lambda z}e^{-\lambda} = e^{\lambda(z - 1)}.
-  \]
-  We can have a sanity check: $p(1) = 1$, which makes sense, since $p(1)$ is the sum of probabilities.
-
-  We have
-  \[
-    \E[X]= \left.\frac{\d }{\d z}e^{\lambda(z - 1)}\right|_{z = 1} = \lambda,
-  \]
-  and
-  \[
-    \E[X(X - 1)] = \left.\frac{\d ^2}{\d x^2}e^{\lambda(z - 1)}\right|_{z = 1} = \lambda^2
-  \]
-  So
-  \[
-    \var(X) = \E[X^2] - \E[X]^2 = \lambda^2 + \lambda - \lambda^2 = \lambda.
-  \]
+  Differentiating, $p_X'(z) = \lambda\, e^{\lambda(z-1)}$ and $p_X''(z) = \lambda^2\, e^{\lambda(z-1)}$. So $\E[X] = p_X'(1) = \lambda$, $\E[X(X-1)] = \lambda^2$, and $\var(X) = \lambda^2 + \lambda - \lambda^2 = \lambda$.
 \end{eg}
 
-\begin{thm}
-  Suppose $X_1, X_2, \cdots, X_n$ are independent random variables with pgfs $p_1, p_2, \cdots, p_n$. Then the pgf of $X_1 + X_2 + \cdots + X_n$ is $p_1(z)p_2(z)\cdots p_n(z)$.
+\begin{thm}[PGF of a sum of independent random variables]
+  If $X_1, \dotsc, X_n$ are independent non-negative integer-valued random variables with pgfs $p_{X_1}, \dotsc, p_{X_n}$, then the pgf of $S = X_1 + \cdots + X_n$ is
+  \[
+    p_S(z) = p_{X_1}(z)\, p_{X_2}(z) \cdots p_{X_n}(z).
+  \]
 \end{thm}
 
 \begin{proof}
-  \[
-    \E[z^{X_1 + \cdots + X_n}] = \E[z^{X_1}\cdots z^{X_n}] = \E[z^{X_1}]\cdots\E[z^{X_n}] = p_1(z)\cdots p_n(z).\qedhere
-  \]
+  $\E[z^{X_1 + \cdots + X_n}] = \E[z^{X_1}]\cdots\E[z^{X_n}]$, by independence.
 \end{proof}
 
-\begin{eg}
-  Let $X\sim B(n, p)$. Then
+\begin{eg}[Binomial pgf]
+  Let $X\sim B(n, p)$ and write $q = 1 - p$. Then
   \[
-    p(z) = \sum_{r = 0}^{n} \P(X = r)z^r = \sum \binom{n}{r} p^r(1 - p)^{n - r}z^r = (pz + (1 - p))^n = (pz + q)^n.
+    p_X(z) = \sum_{r = 0}^{n} \binom{n}{r} (pz)^r q^{n - r} = (pz + q)^n.
   \]
-  So $p(z)$ is the product of $n$ copies of $pz + q$. But $pz + q$ is the pgf of $Y\sim B(1, p)$.
-
-  This shows that $X = Y_1 + Y_2 + \cdots + Y_n$ (which we already knew), i.e.\ a binomial distribution is the sum of Bernoulli trials.
+  Since $pz + q$ is the pgf of a $B(1,p)$ variable, this confirms that $X$ is the sum of $n$ independent Bernoulli trials.
 \end{eg}
 
-\begin{eg}
-  If $X$ and $Y$ are independent Poisson random variables with parameters $\lambda, \mu$ respectively, then
+\begin{eg}[Sum of independent Poisson variables]
+  If $X \sim \mathrm{Poisson}(\lambda)$ and $Y \sim \mathrm{Poisson}(\mu)$ are independent, then
   \[
-    \E[t^{X + Y}] = \E[t^X]\E[t^Y] = e^{\lambda(t - 1)}e^{\mu(t - 1)} = e^{(\lambda + \mu)(t - 1)}
+    p_{X+Y}(z) = e^{\lambda(z - 1)}\, e^{\mu(z - 1)} = e^{(\lambda + \mu)(z - 1)},
   \]
-  So $X + Y\sim \P(\lambda + \mu)$.
-
-  We can also do it directly:
-  \[
-    \P(X + Y = r) = \sum_{i = 0}^r \P(X = i, Y = r - i) = \sum_{i = 0}^r \P(X = i)\P(X = r - i),
-  \]
-  but is much more complicated.
+  so $X + Y \sim \mathrm{Poisson}(\lambda + \mu)$.
 \end{eg}
 
-We can use pgf-like functions to obtain some combinatorial results.
-\begin{eg}
-  Suppose we want to tile a $2\times n$ bathroom by $2\times 1$ tiles. One way to do it is
+\begin{eg}[Tiling a $2 \times n$ grid --- Fibonacci numbers]
+  Let $f_n$ denote the number of ways to tile a $2 \times n$ grid with $2 \times 1$ tiles.
   \begin{center}
     \begin{tikzpicture}
      \draw (0, 0) rectangle (6, 2);
@@ -1527,103 +1468,57 @@ We can use pgf-like functions to obtain some combinatorial results.
      \draw (4, 1) rectangle (6, 2);
     \end{tikzpicture}
   \end{center}
-  We can do it recursively: suppose there are $f_n$ ways to tile a $2\times n$ grid. Then if we start tiling, the first tile is either vertical, in which we have $f_{n - 1}$ ways to tile the remaining ones; or the first tile is horizontal, in which we have $f_{n - 2}$ ways to tile the remaining. So
-  \[
-    f_n = f_{n - 1} + f_{n - 2},
-  \]
-  which is simply the Fibonacci sequence, with $f_0 = f_1 = 1$.
+  The first tile is either vertical (leaving a $2 \times (n-1)$ grid) or horizontal (forcing a second horizontal tile and leaving a $2 \times (n-2)$ grid), so $f_n = f_{n-1} + f_{n-2}$ with $f_0 = f_1 = 1$.
 
-  Let
+  Define the generating function $F(z) = \sum_{n=0}^\infty f_n z^n$. The recurrence gives
   \[
-    F(z) = \sum_{n = 0}^\infty f_nz^n.
+    F(z) - 1 - z = z(F(z) - 1) + z^2 F(z),
   \]
-  Then from our recurrence relation, we obtain
+  so $F(z) = (1 - z - z^2)^{-1}$. Writing $\alpha = \frac{1+\sqrt{5}}{2}$ and $\beta = \frac{1-\sqrt{5}}{2}$ for the roots of $t^2 - t - 1 = 0$, partial fractions give
   \[
-    f_nz^n = f_{n - 1}z^n + f_{n - 2}z^n.
+    F(z) = \frac{1}{(\alpha - \beta)}\left(\frac{\alpha}{1 - \alpha z} - \frac{\beta}{1 - \beta z}\right),
   \]
-  So
-  \[
-    \sum_{n = 2}^\infty f_n z^n = \sum_{n = 2}^{\infty} f_{n - 1}z^n + \sum_{n = 2}^\infty f_{n - 2}z^n.
-  \]
-  Since $f_0 = f_1 = 1$, we have
-  \[
-    F(z) - f_0 - zf_1 = z(F(z) - f_0) + z^2F(z).
-  \]
-  Thus $F(z) = (1 - z - z^2)^{-1}$. If we write
-  \[
-    \alpha_1 = \frac{1}{2}(1 + \sqrt{5}),\quad \alpha_2 = \frac{1}{2}(1 - \sqrt{5}).
-  \]
-  then we have
-  \begin{align*}
-    F(z) &= (1 - z - z^2)^{-1}\\
-    &= \frac{1}{(1 - \alpha_1 z)(1 - \alpha_2 z)}\\
-    &= \frac{1}{\alpha_1 - \alpha_2}\left(\frac{\alpha_1}{1 - \alpha_1 z} - \frac{\alpha_2}{1 - \alpha_2 z}\right)\\
-    &= \frac{1}{\alpha_1 - \alpha_2}\left(\alpha_1 \sum_{n = 0}^\infty \alpha_1^nz^n - \alpha_2\sum_{n = 0}^\infty \alpha_2^n z^n\right).
-  \end{align*}
-  So
-  \[
-    f_n = \frac{\alpha_1^{n + 1} - \alpha_2^{n + 1}}{\alpha_1 - \alpha_2}.
-  \]
+  and extracting coefficients yields $f_n = (\alpha^{n+1} - \beta^{n+1})/(\alpha - \beta)$.
 \end{eg}
 
-\begin{eg}
-  A \emph{Dyck word} is a string of brackets that match, such as (), or ((())()).
-
-  There is only one Dyck word of length 2, (). There are 2 of length 4, (()) and ()(). Similarly, there are 5 Dyck words of length 5.
-
-  Let $C_n$ be the number of Dyck words of length $2n$. We can split each Dyck word into $(w_1)w_2$, where $w_1$ and $w_2$ are Dyck words. Since the lengths of $w_1$ and $w_2$ must sum up to $2(n -1)$,
+\begin{eg}[Catalan numbers]
+  A \emph{Dyck word} of length $2n$ is a string of $n$ opening and $n$ closing brackets that is correctly matched (e.g.\ $(()())$). Let $C_n$ denote the number of Dyck words of length $2n$, with $C_0 = 1$. Every non-empty Dyck word can be uniquely decomposed as $(w_1)w_2$ where $w_1$ and $w_2$ are Dyck words, giving the recurrence
   \[
-    C_{n + 1} = \sum_{i = 0}^n C_iC_{n - i}.\tag{$*$}
+    C_{n + 1} = \sum_{i = 0}^n C_i\, C_{n - i}.\tag{$*$}
   \]
-  We again use pgf-like functions: let
+  Define $c(x) = \sum_{n=0}^\infty C_n x^n$. The convolution in $(*)$ gives $c(x) = 1 + x\,c(x)^2$. Solving and taking the root with $c(0) = 1$,
   \[
-    c(x) = \sum_{n = 0}^\infty C_n x^n.
+    c(x) = \frac{1 - \sqrt{1 - 4x}}{2x},
   \]
-  From $(*)$, we can show that
-  \[
-    c(x) = 1 + xc(x)^2.
-  \]
-  We can solve to show that
-  \[
-    c(x) = \frac{1 - \sqrt{1 - 4x}}{2x} = \sum_0^\infty \binom{2n}{n}\frac{x^n}{n + 1},
-  \]
-  noting that $C_0 = 1$. Then
-  \[
-    C_n = \frac{1}{n + 1}\binom{2n}{n}.
-  \]
+  and expanding via the generalised binomial theorem yields $C_n = \frac{1}{n+1}\binom{2n}{n}$.
 \end{eg}
 
 \subsubsection*{Sums with a random number of terms}
-A useful application of generating functions is the sum with a random number of random terms. For example, an insurance company may receive a random number of claims, each demanding a random amount of money. Then we have a sum of a random number of terms. This can be answered using probability generating functions.
 
-\begin{eg}
-Let $X_1, X_2, \cdots, X_n$ be iid with pgf $p(z) = \E[z^X]$. Let $N$ be a random variable independent of $X_i$ with pgf $h(z)$. What is the pgf of $S = X_1 + \cdots + X_N$?
-\begin{align*}
-  \E[z^{S}] &= \E[z^{X_1 + \cdots + X_N}]\\
-  &= \E_N[\underbrace{\E_{X_i}[z^{X_1 + \ldots + X_N}\mid N]}_{\text{assuming fixed }N}]\\
-  &= \sum_{n = 0}^\infty \P(N = n) \E[z^{X_1 + X_2 + \cdots + X_n}]\\
-  &= \sum_{n = 0}^\infty \P(N = n) \E[z^{X_1}] \E[z^{X_2}]\cdots\E[z^{X_n}]\\
-  &= \sum_{n = 0}^\infty \P(N = n) (\E[z^{X_1}])^n\\
-  &= \sum_{n = 0}^\infty \P(N = n) p(z)^n \\
-  &= h(p(z))
-\end{align*}
-since $h(x) = \sum_{n = 0}^\infty \P(N = n) x^n$.
+\begin{thm}[Random sum formula]
+  Let $X_1, X_2, \dotsc$ be i.i.d.\ non-negative integer-valued random variables with pgf $p(z)$, and let $N$ be a non-negative integer-valued random variable, independent of the $X_i$, with pgf $h(z)$. Then $S = X_1 + \cdots + X_N$ has pgf
+  \[
+    p_S(z) = h(p(z)).
+  \]
+\end{thm}
 
-So
-\begin{align*}
-  \E[S] &= \left.\frac{\d }{\d z}h(p(z))\right|_{z = 1}\\
-  &= h'(p(1))p'(1)\\
-  &= \E[N]\E[X_1]
-\end{align*}
-To calculate the variance, use the fact that
-\[
-  \E[S(S - 1)] = \left.\frac{\d ^2}{\d z^2}h(p(z))\right|_{z = 1}.
-\]
-Then we can find that
-\[
-  \var (S) = \E[N]\var(X_1) + \E[X_1^2]\var(N).
-\]
-\end{eg}
+\begin{proof}
+  By the tower property, conditioning on $N$:
+  \begin{align*}
+    \E[z^{S}] &= \sum_{n = 0}^\infty \P(N = n)\, \E[z^{X_1 + \cdots + X_n}] = \sum_{n = 0}^\infty \P(N = n)\, p(z)^n = h(p(z)).\qedhere
+  \end{align*}
+\end{proof}
+
+\begin{cor}[Mean and variance of a random sum]
+  Under the hypotheses above, if all relevant moments are finite, then
+  \[
+    \E[S] = \E[N]\,\E[X_1], \qquad \var(S) = \E[N]\,\var(X_1) + (\E[X_1])^2\,\var(N).
+  \]
+\end{cor}
+
+\begin{proof}
+  Differentiating $h(p(z))$ at $z = 1$: $\E[S] = h'(p(1))\,p'(1) = \E[N]\,\E[X_1]$. For the variance, compute $\E[S(S-1)]$ via the second derivative $\frac{\d^2}{\d z^2}h(p(z))\big|_{z=1}$ and use $\var(S) = \E[S(S-1)] + \E[S] - (\E[S])^2$.
+\end{proof}
 
 
 \section{Interesting problems}
