@@ -471,136 +471,106 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
 \end{proof}
 
 \subsection{Inequalities and formulae}
-\begin{thm}[Boole's inequality]
-  For any $A_1, A_2, \cdots$,
+
+\begin{thm}[Boole's inequality / union bound]
+  For any events $A_1, A_2, \dotsc$ in a probability space,
   \[
     \P\left(\bigcup_{i = 1}^\infty A_i\right) \leq \sum_{i = 1}^\infty \P(A_i).
   \]
 \end{thm}
-This is also known as the ``union bound''.
 
 \begin{proof}
-  Our third axiom states a similar formula that only holds for disjoint sets. So we need a (not so) clever trick to make them disjoint. We define
-  \begin{align*}
-    B_1 &= A_1\\
-    B_2 &= A_2\setminus A_1\\
-    B_i &= A_i\setminus \bigcup_{k = 1}^{i - 1}A_k.
-  \end{align*}
-  So we know that
+  Define $B_1 = A_1$ and $B_i = A_i\setminus \bigcup_{k = 1}^{i - 1}A_k$ for $i \geq 2$. Then the $B_i$ are pairwise disjoint and $\bigcup_i B_i = \bigcup_i A_i$. Since $B_i \subseteq A_i$, monotonicity gives $\P(B_i) \leq \P(A_i)$. By countable additivity,
   \[
-    \bigcup B_i = \bigcup A_i.
+    \P\left(\bigcup_i A_i\right) = \P\left(\bigcup _i B_i\right) = \sum_i \P(B_i) \leq \sum_i \P(A_i).\qedhere
   \]
-  But the $B_i$ are disjoint. So our Axiom (iii) gives
-  \[
-    \P\left(\bigcup_i A_i\right) = \P\left(\bigcup _i B_i\right) = \sum_i \P\left(B_i\right) \leq \sum_i \P\left(A_i\right).
-  \]
-  Where the last inequality follows from (iii) of the theorem above.
 \end{proof}
 
-\begin{eg}
-  Suppose we have countably infinite number of biased coins. Let $A_k = [k$th toss head$]$ and $\P(A_k) = p_k$. Suppose $\sum_1^\infty p_k < \infty$. What is the probability that there are infinitely many heads?
-
-  The event ``there is at least one more head after the $i$th coin toss'' is $\bigcup_{k = i}^\infty A_k$. There are infinitely many heads if and only if there are unboundedly many coin tosses, i.e.\ no matter how high $i$ is, there is still at least more head after the $i$th toss.
-
-  So the probability required is
+\begin{eg}[Infinitely many heads]
+  Suppose we toss a countably infinite sequence of biased coins. Let $A_k$ be the event that the $k$th toss is heads, and let $\P(A_k) = p_k$, where $\sum_{k=1}^\infty p_k < \infty$. The event that infinitely many heads occur is
   \[
-    \P\left(\bigcap_{i = 1}^\infty\bigcup _{k = i}^\infty A_k\right) = \lim_{i \to \infty} \P\left(\bigcup_{k = i}^\infty A_k\right) \leq \lim_{i\to \infty}\sum_{k = i}^\infty p_k = 0
+    \bigcap_{i = 1}^\infty\bigcup_{k = i}^\infty A_k,
   \]
-  Therefore $\P($infinite number of heads$) = 0$.
+  since this is the event that, for every $i$, at least one head occurs among tosses $i, i+1, i+2, \dotsc$. The sets $C_i = \bigcup_{k=i}^{\infty} A_k$ form a decreasing sequence, so by continuity of $\P$ and Boole's inequality,
+  \[
+    \P\left(\bigcap_{i = 1}^\infty\bigcup _{k = i}^\infty A_k\right) = \lim_{i \to \infty} \P\left(\bigcup_{k = i}^\infty A_k\right) \leq \lim_{i\to \infty}\sum_{k = i}^\infty p_k = 0.
+  \]
+  Therefore the probability of infinitely many heads is $0$.
 \end{eg}
 
-\begin{eg}[Erd\"os 1947]
-  Is it possible to colour a complete $n$-graph (i.e.\ a graph of $n$ vertices with edges between every pair of vertices) red and black such that there is no $k$-vertex complete subgraph with monochrome edges?
+\begin{eg}[Erd\H{o}s 1947 --- Ramsey lower bound]
+  Let $n, k \geq 1$ be integers. Consider the complete graph $K_n$ on $n$ vertices (i.e.\ the graph with an edge between every pair of vertices). We ask: is it possible to $2$-colour the edges of $K_n$ (say red and blue) so that no complete subgraph on $k$ vertices is monochromatic?
 
-  Erd\"os said this is possible if
+  Colour each edge independently and uniformly at random. For each $k$-element subset $S$ of vertices, let $A_S$ be the event that all $\binom{k}{2}$ edges of $S$ receive the same colour. Then $\P(A_S) = 2 \cdot 2^{-\binom{k}{2}}$, since the subgraph can be monochromatic in either colour. By Boole's inequality,
   \[
-    \binom{n}{k} 2^{1 - \binom{k}{2}} < 1.
+    \P\left(\bigcup_S A_S\right) \leq \sum_S \P(A_S) = \binom{n}{k}\cdot 2^{1 - \binom{k}{2}}.
   \]
-  We colour edges randomly, and let $A_i=[i$th subgraph has monochrome edges$]$. Then the probability that at least one subgraph has monochrome edges is
-  \[
-    \P\left(\bigcup A_i\right) \leq \sum \P(A_i) = \binom{n}{k} 2\cdot 2^{-\binom{k}{2}}.
-  \]
-  The last expression is obtained since there are $\binom{n}{k}$ ways to choose a subgraph; a monochrome subgraph can be either red or black, thus the multiple of 2; and the probability of getting all red (or black) is $2^{-\binom{k}{2}}$.
-
-  If this probability is less than 1, then there must be a way to colour them in which it is impossible to find a monochrome subgraph, or else the probability is 1. So if $\binom{n}{k} 2^{1 - \binom{k}{2}} < 1$, the colouring is possible.
+  If $\binom{n}{k}\, 2^{1 - \binom{k}{2}} < 1$, then this probability is strictly less than $1$, so there exists a colouring with no monochromatic $k$-clique.
 \end{eg}
 
 \begin{thm}[Inclusion-exclusion formula]
+  Let $A_1, A_2, \dotsc, A_n$ be events. Then
   \begin{align*}
-    \P\left(\bigcup_i^n A_i\right) &= \sum_1^n \P(A_i) - \sum_{i_1 < i_2} \P(A_{i_1}\cap A_{j_2}) + \sum_{i_1 < i_2 < i_3}\P(A_{i_1}\cap A_{i_2} \cap A_{i_3}) - \cdots\\
-    &+ (-1)^{n - 1} \P(A_1\cap \cdots \cap A_n).
+    \P\left(\bigcup_{i=1}^n A_i\right) &= \sum_{i} \P(A_i) - \sum_{i_1 < i_2} \P(A_{i_1}\cap A_{i_2}) + \sum_{i_1 < i_2 < i_3}\P(A_{i_1}\cap A_{i_2} \cap A_{i_3}) - \cdots\\
+    &\quad + (-1)^{n - 1} \P(A_1\cap \cdots \cap A_n).
   \end{align*}
 \end{thm}
 
 \begin{proof}
-  Perform induction on $n$. $n = 2$ is proven above.
-
-  Then
+  By induction on $n$. The case $n = 2$ is the inclusion-exclusion identity for two events. For the inductive step, write
   \[
-    \P(A_1\cup A_2\cup \cdots A_n) = \P(A_1) + \P(A_2\cup\cdots\cup A_n) - \P\left(\bigcup_{i = 2}^n (A_1\cap A_i)\right).
+    \P\left(\bigcup_{i=1}^{n} A_i\right) = \P(A_1) + \P\left(\bigcup_{i = 2}^n A_i\right) - \P\left(\bigcup_{i = 2}^n (A_1\cap A_i)\right)
   \]
-  Then we can apply the induction hypothesis for $n - 1$, and expand the mess. The details are very similar to that in IA Numbers and Sets.
+  and apply the inductive hypothesis to the two unions of $n-1$ events on the right-hand side.
 \end{proof}
 
-\begin{eg}
-  Let $1, 2, \cdots, n$ be randomly permuted to $\pi(1), \pi(2), \cdots, \pi(n)$. If
-  $i \not= \pi(i)$ for all $i$, we say we have a \emph{derangement}.
+\begin{eg}[Derangements]
+  Let $\pi$ be a uniformly random permutation of $\{1, 2, \dotsc, n\}$. A \emph{derangement} is a permutation with no fixed points, i.e.\ $\pi(i) \neq i$ for all $i$. Let $A_i = \{\pi(i) = i\}$ be the event that $i$ is a fixed point.
 
-  Let $A_i = [i = \pi(i)]$.
-
-  Then
+  By symmetry, for any subset $\{i_1, \dotsc, i_r\} \subseteq \{1, \dotsc, n\}$,
+  \[
+    \P(A_{i_1} \cap \cdots \cap A_{i_r}) = \frac{(n-r)!}{n!},
+  \]
+  since there are $(n-r)!$ permutations fixing all of $i_1, \dotsc, i_r$. Since there are $\binom{n}{r}$ such subsets, inclusion-exclusion gives
   \begin{align*}
-    \P\left(\bigcup _{i = 1}^n A_i\right) &= \sum_{k} \P(A_k) - \sum_{k_1 < k_2} \P(A_{k_1} \cap A_{k_2}) + \cdots\\
-    &= n\cdot \frac{1}{n} - \binom{n}{2}\frac{1}{n}\frac{1}{n - 1} + \binom{n}{3}\frac{1}{n}\frac{1}{n - 1}\frac{1}{n - 2} + \cdots\\
-    &= 1 - \frac{1}{2!} + \frac{1}{3!} - \cdots + (-1)^{n - 1}\frac{1}{n!}\\
-    &\to e^{-1}
+    \P\left(\bigcup_{i = 1}^n A_i\right) &= \sum_{r=1}^{n} (-1)^{r-1} \binom{n}{r} \frac{(n-r)!}{n!} = \sum_{r=1}^{n} \frac{(-1)^{r-1}}{r!} \to 1 - e^{-1}.
   \end{align*}
-  So the probability of derangement is $1 - \P(\bigcup A_k) \approx 1 - e^{-1}\approx 0.632$.
+  Therefore, for large $n$, the probability of a derangement is approximately $1 - (1 - e^{-1}) = e^{-1}\approx 0.368$.
 \end{eg}
 
-Recall that, from inclusion exclusion,
-\[
-  \P(A\cup B\cup C) = \P(A) + \P(B) + \P(C) - \P(AB) - \P(BC) - \P(AC) + \P(ABC),
-\]
-where $\P(AB)$ is a shorthand for $\P(A\cap B)$. If we only take the first three terms, then we get Boole's inequality
-\[
-  \P(A\cup B\cup C) \leq \P(A) + \P(B) + \P(C).
-\]
-In general
 \begin{thm}[Bonferroni's inequalities]
-  For any events $A_1, A_2, \cdots, A_n$ and $1 \leq r\leq n$, if $r$ is odd, then
-  \begin{align*}
-    \P\left(\bigcup_{1}^n A_i\right) &\leq \sum_{i_1} \P(A_{i_1}) - \sum_{i_1 < i_2} \P(A_{i_1}A_{i_2}) + \sum_{i_1 < i_2 < i_3} \P(A_{i_1}A_{i_2}A_{i_3}) + \cdots\\
-    &+ \sum_{i_1 < i_2 < \cdots < i_r} \P(A_{i_1}A_{i_2}A_{i_3}\cdots A_{i_r}).\\
-    \intertext{If $r$ is even, then}
-    \P\left(\bigcup_{1}^n A_i\right) &\geq \sum_{i_1} \P(A_{i_1}) - \sum_{i_1 < i_2} \P(A_{i_1}A_{i_2}) + \sum_{i_1 < i_2 < i_3} \P(A_{i_1}A_{i_2}A_{i_3}) + \cdots\\
-    &- \sum_{i_1 < i_2 < \cdots < i_r} \P(A_{i_1}A_{i_2}A_{i_3}\cdots A_{i_r}).
-  \end{align*}
+  Let $A_1, A_2, \dotsc, A_n$ be events and let $1 \leq r\leq n$. For $1 \leq j \leq n$, define the $j$th inclusion-exclusion term
+  \[
+    S_j = \sum_{i_1 < i_2 < \cdots < i_j} \P(A_{i_1}\cap A_{i_2}\cap \cdots \cap A_{i_j}).
+  \]
+  If $r$ is odd, then
+  \[
+    \P\left(\bigcup_{i=1}^n A_i\right) \leq S_1 - S_2 + S_3 - \cdots + S_r.
+  \]
+  If $r$ is even, then
+  \[
+    \P\left(\bigcup_{i=1}^n A_i\right) \geq S_1 - S_2 + S_3 - \cdots - S_r.
+  \]
 \end{thm}
 
+\begin{remark}
+  The case $r = 1$ recovers Boole's inequality. The case $r = n$ recovers the inclusion-exclusion formula with equality.
+\end{remark}
+
 \begin{proof}
-  Easy induction on $n$.
+  By induction on $n$.
 \end{proof}
 
-\begin{eg}
-  Let $\Omega = \{1, 2, \cdots, m\}$ and $1 \leq j, k \leq m$. Write $A_k = \{1, 2, \cdots, k\}$. Then
+\begin{eg}[Bonferroni applied to initial segments]
+  Let $m \geq 1$ and let $\Omega = \{1, 2, \dotsc, m\}$ with uniform probabilities. For $1 \leq k \leq m$, define $A_k = \{1, 2, \dotsc, k\}$, so that $\P(A_k) = k/m$. Then for any $j, k$,
   \[
-    A_k \cap A_j = \{1, 2, \cdots, \min(j, k)\} = A_{\min(j, k)}
+    A_j \cap A_k = A_{\min(j, k)}, \qquad A_j \cup A_k = A_{\max(j, k)}.
   \]
-  and
+  Let $x_1, \dotsc, x_n \in \{1, \dotsc, m\}$. Applying Bonferroni's inequality with $r = 2$ gives
   \[
-    A_k \cup A_j = \{1, 2, \cdots, \max(j, k)\} = A_{\max(j, k)}.
+    \frac{\max\{x_1, \dotsc, x_n\}}{m} = \P\left(\bigcup_{i=1}^{n} A_{x_{i}}\right) \geq \sum_{i=1}^{n} \frac{x_i}{m} - \sum_{i < j} \frac{\min\{x_i, x_j\}}{m},
   \]
-  We also have $\P(A_k) = k/m$.
-
-  Now let $1 \leq x_1, \cdots, x_n \leq m$ be some numbers. Then Bonferroni's inequality says
-  \[
-    \P\left(\bigcup A_{x_{i}}\right) \geq \sum \P(A_{x_i}) - \sum_{i < j} \P(A_{x_i}\cap A_{x_j}).
-  \]
-  So
-  \[
-    \max\{x_1, x_2, \cdots, x_n\} \geq \sum x_i - \sum_{i_1 < i_2} \min\{x_1, x_2\}.
-  \]
+  and hence $\max\{x_1, \dotsc, x_n\} \geq \sum_i x_i - \sum_{i < j} \min\{x_i, x_j\}$.
 \end{eg}
 
 \subsection{Independence}
