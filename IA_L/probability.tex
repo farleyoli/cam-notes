@@ -1226,60 +1226,47 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{remark}
 
 \subsection{Weak law of large numbers}
-\begin{thm}[Weak law of large numbers]
-  Let $X_1, X_2, \cdots$ be iid random variables, with mean $\mu$ and $\var \sigma^2$.
 
-  Let $S_n = \sum_{i = 1}^n X_i$.
-
-  Then for all $\varepsilon > 0$,
+\begin{defi}[Convergence in probability]
+  A sequence of random variables $(Y_n)$ \emph{converges in probability} to a constant $c$, written $Y_n \to_p c$, if for every $\varepsilon > 0$,
   \[
-    \P\left(\left|\frac{S_n}{n} - \mu\right| \geq \varepsilon\right) \to 0
+    \P(|Y_n - c| \geq \varepsilon) \to 0 \quad \text{as } n \to \infty.
   \]
-  as $n\to \infty$.
+\end{defi}
 
-  We say, $\frac{S_n}{n}$ tends to $\mu$ (in probability), or
+\begin{thm}[Weak law of large numbers]
+  Let $X_1, X_2, \dotsc$ be i.i.d.\ random variables with mean $\mu = \E[X_1]$ and finite variance $\sigma^2 = \var(X_1)$. Let $S_n = \sum_{i = 1}^n X_i$. Then
   \[
     \frac{S_n}{n}\to_p \mu.
   \]
 \end{thm}
 
 \begin{proof}
-  By Chebyshev,
-  \begin{align*}
-    \P\left(\left|\frac{S_n}{n} - \mu\right| \geq \varepsilon\right)&\leq \frac{\E\left(\frac{S_n}{n} - \mu\right)^2}{\varepsilon^2}\\
-    &= \frac{1}{n^2}\frac{\E(S_n -n\mu)^2}{\varepsilon^2}\\
-    &= \frac{1}{n^2\varepsilon^2}\var (S_n)\\
-    &= \frac{n}{n^2\varepsilon^2}\var (X_1)\\
-    &= \frac{\sigma^2}{n\varepsilon^2} \to 0\qedhere
-  \end{align*}
+  By Chebyshev's inequality applied to $S_n/n - \mu$,
+  \[
+    \P\left(\left|\frac{S_n}{n} - \mu\right| \geq \varepsilon\right) \leq \frac{\var(S_n/n)}{\varepsilon^2} = \frac{\sigma^2}{n\varepsilon^2} \to 0. \qedhere
+  \]
 \end{proof}
 
-Note that we cannot relax the ``independent'' condition. For example, if $X_1 = X_2 = X_3 = \cdots = $ 1 or 0, each with probability $1/2$. Then $S_n/n \not\to 1/2$ since it is either 1 or 0.
+\begin{remark}
+  The independence hypothesis is essential. For example, if $X_1 = X_2 = X_3 = \cdots$, where $X_1$ takes values $0$ and $1$ each with probability $1/2$, then $S_n/n = X_1$ for all $n$, which does not converge in probability to $1/2$.
+\end{remark}
 
-\begin{eg}
-  Suppose we toss a coin with probability $p$ of heads. Then
-  \[
-    \frac{S_n}{n} = \frac{\text{number of heads}}{\text{number of tosses}}.
-  \]
-  Since $\E[X_i] = p$, then the weak law of large number tells us that
-  \[
-    \frac{S_n}{n} \to_p p.
-  \]
-  This means that as we toss more and more coins, the proportion of heads will tend towards $p$.
+\begin{eg}[Coin tossing]
+  Toss a coin with $\P(\text{heads}) = p$ repeatedly, and let $X_i = 1$ if toss $i$ is heads, $X_i = 0$ otherwise. Then $S_n/n$ is the proportion of heads after $n$ tosses, and the weak law gives $S_n/n \to_p p$.
 \end{eg}
 
-Since we called the above the \emph{weak} law, we also have the \emph{strong} law, which is a stronger statement.
-\begin{thm}[Strong law of large numbers]
+\begin{thm}[Strong law of large numbers (stated without proof)]
+  Under the same hypotheses as the weak law,
   \[
     \P\left(\frac{S_n}{n}\to \mu\text{ as }n\to \infty\right) = 1.
   \]
-  We say
-  \[
-    \frac{S_n}{n}\to_{\mathrm{as}} \mu,
-  \]
-  where ``as'' means ``almost surely''.
+  We write $S_n/n \to_{\mathrm{as}} \mu$ and say that $S_n/n$ converges to $\mu$ \emph{almost surely}.
 \end{thm}
-It can be shown that the weak law follows from the strong law, but not the other way round. The proof is left for Part II because it is too hard.
+
+\begin{remark}
+  The strong law implies the weak law, but not conversely. The proof requires techniques from Part II Probability and Measure.
+\end{remark}
 
 
 \subsection{Multiple random variables}
