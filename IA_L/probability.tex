@@ -2768,103 +2768,91 @@ We state this without proof.
 \end{proof}
 
 \subsection{Multivariate normal}
-Let $X_1, \cdots, X_n$ be iid $N(0, 1)$. Then their joint density is
+If $X_1, \dotsc, X_n$ are iid $N(0, 1)$ and $\mathbf{x} = (x_1, \dotsc, x_n)^T$, then their joint density is
 \begin{align*}
-  g(x_1, \cdots, x_n) &= \prod_{i = 1}^n \phi(x_i) \\
-  &= \prod_{1}^n\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x_i^2}\\
-  &= \frac{1}{(2\pi)^{n/2}} e^{-\frac{1}{2}\sum_1^n x_i^2}\\
-  &= \frac{1}{(2\pi)^{n/2}}e^{-\frac{1}{2}\mathbf{x}^T \mathbf{x}},
+  g(x_1, \dotsc, x_n) &= \prod_{i = 1}^n \phi(x_i)
+  = \frac{1}{(2\pi)^{n/2}} e^{-\frac{1}{2}\sum_1^n x_i^2}
+  = \frac{1}{(2\pi)^{n/2}}e^{-\frac{1}{2}\mathbf{x}^T \mathbf{x}}.
 \end{align*}
-where $\mathbf{x} = (x_1, \cdots, x_n)^T$.
 
-This result works if $X_1, \cdots, X_n$ are iid $N(0, 1)$. Suppose we are interested in
-\[
-  \mathbf{Z} = \boldsymbol\mu + A\mathbf{X},
-\]
-where $A$ is an invertible $n\times n$ matrix. We can think of this as $n$ measurements $\mathbf{Z}$ that are affected by underlying standard-normal factors $\mathbf{X}$. Then
-\[
-  \mathbf{X} = A^{-1}(\mathbf{Z} - \boldsymbol\mu)
-\]
-and
-\[
-  |J| = |\det (A^{-1})| = \frac{1}{\det A}
-\]
-So
-\begin{align*}
-  f(z_1, \cdots, z_n) &= \frac{1}{(2\pi)^{n/2}}\frac{1}{\det A}\exp\left[-\frac{1}{2}\big((A^{-1}(\mathbf{z} - \boldsymbol\mu))^T(A^{-1}(\mathbf{z} - \boldsymbol\mu))\big)\right]\\
-  &= \frac{1}{(2\pi)^{n/2}\det A}\exp\left[-\frac{1}{2}(\mathbf{z} - \boldsymbol\mu)^T \Sigma^{-1}(\mathbf{z} - \boldsymbol\mu)\right]\\
-  &= \frac{1}{(2\pi)^{n/2}\sqrt{\det \Sigma}}\exp\left[-\frac{1}{2}(\mathbf{z} - \boldsymbol\mu)^T \Sigma^{-1}(\mathbf{z} - \boldsymbol\mu)\right].
-\end{align*}
-where $\Sigma = AA^T$ and $\Sigma^{-1} = (A^{-1})^TA^{-1}$. We say
-\[
-  \mathbf{Z} =
-  \begin{pmatrix}
-    Z_1\\
-    \vdots\\
-    Z_n
-  \end{pmatrix}
-  \sim MVN(\boldsymbol\mu, \Sigma)\text{ or }N(\boldsymbol\mu, \Sigma).
-\]
-This is the multivariate normal.
+\begin{defi}[Multivariate normal]
+  Let $\mathbf{X} = (X_1, \dotsc, X_n)^T$ with $X_i$ iid $N(0,1)$, let $A$ be an invertible $n \times n$ matrix, and let $\boldsymbol\mu \in \R^n$. The random vector $\mathbf{Z} = \boldsymbol\mu + A\mathbf{X}$ has the \emph{multivariate normal} distribution
+  \[
+    \mathbf{Z} \sim N(\boldsymbol\mu, \Sigma),
+  \]
+  where $\Sigma = AA^T$ is the \emph{covariance matrix}, with pdf
+  \[
+    f(\mathbf{z}) = \frac{1}{(2\pi)^{n/2}\sqrt{\det \Sigma}}\exp\left[-\frac{1}{2}(\mathbf{z} - \boldsymbol\mu)^T \Sigma^{-1}(\mathbf{z} - \boldsymbol\mu)\right].
+  \]
+\end{defi}
 
-What is this matrix $\Sigma$? Recall that $\cov(Z_i, Z_j) = \E[(Z_i - \mu_i)(Z_j - \mu_j)]$. It turns out this covariance is the $i, j$th entry of $\Sigma$, since
-\begin{align*}
-  \E[(\mathbf{Z} - \boldsymbol\mu)(\mathbf{Z} - \boldsymbol\mu)^T] &= \E[AX(AX)^T]\\
-  &= \E(AXX^TA^T) = A\E[XX^T]A^T\\
-  &= AIA^T\\
-  &= AA^T \\
-  &= \Sigma
-\end{align*}
-So we also call $\Sigma$ the covariance matrix.
+\begin{proof}[Derivation]
+  Since $\mathbf{X} = A^{-1}(\mathbf{Z} - \boldsymbol\mu)$ and $|J| = |\det(A^{-1})| = \frac{1}{\det A}$, we have
+  \begin{align*}
+    f(z_1, \dotsc, z_n) &= \frac{1}{(2\pi)^{n/2}\det A}\exp\left[-\frac{1}{2}(A^{-1}(\mathbf{z} - \boldsymbol\mu))^T(A^{-1}(\mathbf{z} - \boldsymbol\mu))\right]\\
+    &= \frac{1}{(2\pi)^{n/2}\sqrt{\det \Sigma}}\exp\left[-\frac{1}{2}(\mathbf{z} - \boldsymbol\mu)^T \Sigma^{-1}(\mathbf{z} - \boldsymbol\mu)\right],
+  \end{align*}
+  where $\Sigma^{-1} = (A^{-1})^T A^{-1}$ and $\det \Sigma = (\det A)^2$.
+\end{proof}
 
-In the special case where $n = 1$, this is a normal distribution and $\Sigma = \sigma^2$.
+\begin{prop}
+  The matrix $\Sigma$ is the covariance matrix of $\mathbf{Z}$, i.e.\ $\Sigma_{ij} = \cov(Z_i, Z_j)$.
+\end{prop}
 
-Now suppose $Z_1, \cdots, Z_n$ have covariances $0$. Then $\Sigma = \diag(\sigma_1^2, \cdots, \sigma_n^2)$. Then
-\[
-  f(z_1, \cdots, z_n) = \prod_1^n \frac{1}{\sqrt{2\pi}\sigma_i} e^{-\frac{1}{2\sigma_i^2}(z_i - \mu_i)^2}.
-\]
-So $Z_1, \cdots, Z_n$ are independent, with $Z_i\sim N(\mu_i, \sigma_i^2)$.
+\begin{proof}
+  \begin{align*}
+    \E[(\mathbf{Z} - \boldsymbol\mu)(\mathbf{Z} - \boldsymbol\mu)^T] &= \E[A\mathbf{X}(A\mathbf{X})^T]
+    = A\,\E[\mathbf{X}\mathbf{X}^T]\,A^T
+    = AIA^T
+    = \Sigma.\qedhere
+  \end{align*}
+\end{proof}
 
-Here we proved that if $\cov = 0$, then the variables are independent. However, this is only true when $Z_i$ are multivariate normal. It is generally not true for arbitrary distributions.
+\begin{prop}
+  If $Z_1, \dotsc, Z_n$ are jointly multivariate normal with $\cov(Z_i, Z_j) = 0$ for $i \neq j$, then $Z_1, \dotsc, Z_n$ are independent, with $Z_i \sim N(\mu_i, \sigma_i^2)$.
+\end{prop}
 
-For these random variables that involve vectors, we will need to modify our definition of moment generating functions. We define it to be
-\[
-  m(\boldsymbol\theta) = \E[e^{\boldsymbol\theta^T \mathbf{X}}] = \E[e^{\theta_1 X_1 + \cdots + \theta_n X_n}].
-\]
+\begin{proof}
+  If the covariances are zero, then $\Sigma = \diag(\sigma_1^2, \dotsc, \sigma_n^2)$, so
+  \[
+    f(z_1, \dotsc, z_n) = \prod_{i=1}^n \frac{1}{\sqrt{2\pi}\,\sigma_i} e^{-\frac{1}{2\sigma_i^2}(z_i - \mu_i)^2}.\qedhere
+  \]
+\end{proof}
+
+\begin{rem}
+  Zero covariance implies independence for multivariate normal random variables, but not in general.
+\end{rem}
+
+\begin{defi}[Multivariate mgf]
+  The \emph{moment generating function} of a random vector $\mathbf{X} = (X_1, \dotsc, X_n)^T$ is
+  \[
+    m(\boldsymbol\theta) = \E[e^{\boldsymbol\theta^T \mathbf{X}}] = \E[e^{\theta_1 X_1 + \dotsb + \theta_n X_n}].
+  \]
+\end{defi}
+
 \subsubsection*{Bivariate normal}
-This is the special case of the multivariate normal when $n = 2$. Since there aren't too many terms, we can actually write them out.
-
-The \emph{bivariate normal} has
+In the case $n = 2$, the \emph{bivariate normal} has covariance matrix
 \[
   \Sigma=
   \begin{pmatrix}
     \sigma_1^2 & \rho\sigma_1\sigma_2\\
     \rho\sigma_1\sigma_2 & \sigma_2^2
-  \end{pmatrix}.
-\]
-Then
-\[
-  \mathrm{corr}(X_1, X_2) = \frac{\cov(X_1, X_2)}{\sqrt{\var(X_1)\var(X_2)}} = \frac{\rho\sigma_1\sigma_2}{\sigma_1\sigma_2} = \rho.
-\]
-And
-\[
+  \end{pmatrix},
+  \qquad
   \Sigma^{-1} = \frac{1}{1 - \rho^2}
   \begin{pmatrix}
     \sigma_1^{-2} & -\rho\sigma_1^{-1}\sigma_2^{-1}\\
     -\rho\sigma_1^{-1}\sigma_2^{-1} & \sigma_2^{-2}
-  \end{pmatrix}
+  \end{pmatrix},
 \]
-The joint pdf of the bivariate normal with zero mean is
+where $\rho = \mathrm{corr}(X_1, X_2)$. The joint pdf with mean $\boldsymbol\mu = \mathbf{0}$ is
 \[
-  f(x_1, x_2) = \frac{1}{2\pi \sigma_1 \sigma_2 \sqrt{1 - \rho^2}} \exp\left(-\frac{1}{2(1 - \rho^2)}\left(\frac{x_1^2}{\sigma_1^2} - \frac{2\rho x_1x_2}{\sigma_1\sigma_2} + \frac{x_2^2}{\sigma_2^2}\right)\right)
+  f(x_1, x_2) = \frac{1}{2\pi \sigma_1 \sigma_2 \sqrt{1 - \rho^2}} \exp\left(-\frac{1}{2(1 - \rho^2)}\left(\frac{x_1^2}{\sigma_1^2} - \frac{2\rho x_1x_2}{\sigma_1\sigma_2} + \frac{x_2^2}{\sigma_2^2}\right)\right).
 \]
-If the mean is non-zero, replace $x_i$ with $x_i - \mu_i$.
-
-The joint mgf of the bivariate normal is
+For non-zero mean, replace $x_i$ with $x_i - \mu_i$. The joint mgf is
 \[
   m(\theta_1, \theta_2) = e^{\theta_1\mu_1 + \theta_2 \mu_2 + \frac{1}{2}(\theta_1^2\sigma_1^2 + 2\theta_1\theta_2\rho\sigma_1\sigma_2 + \theta_2^2\sigma_2^2)}.
 \]
-Nice and elegant.
 
 \section{Central limit theorem}
 Suppose $X_1, \cdots, X_n$ are iid random variables with mean $\mu$ and variance $\sigma^2$. Let $S_n = X_1 + \cdots + X_n$. Then we have previously shown that
