@@ -255,6 +255,8 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
   $\log n! \sim n\log n$ as $n \to \infty$.
 \end{prop}
 \begin{proof}
+  \textbf{Hint: Bound $\log n!$ between left and right Riemann sums of $\log x$; squeeze.}
+
   Since $\log$ is increasing, we have
   \[
     \int_1^n \log x\;\d x \leq \sum_{k=1}^n \log k \leq \int_1^{n + 1}\log x\;\d x,
@@ -298,6 +300,8 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
 \end{cor}
 
 \begin{proof}[Proof of Stirling's formula (non-examinable)]
+  \textbf{Hint: Show $d_n = \log(n!\,e^n/n^{n+1/2})$ is decreasing and bounded below via $t = 1/(2n+1)$ substitution and Taylor series. Identify limit using Wallis-type integrals $I_n = \int_0^{\pi/2}\sin^n\theta\;\d\theta$.}
+
   Define the sequence
   \[
     d_n = \log \left(\frac{n!\,e^n}{n^{n + 1/2}}\right) = \log n! - \left(n + \tfrac{1}{2}\right)\log n + n.
@@ -427,7 +431,9 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
   \end{enumerate}
 \end{prop}
 
-\begin{proof}\leavevmode
+\begin{proof}
+  \textbf{Hint: Decompose into disjoint unions and apply additivity.}
+\leavevmode
   \begin{enumerate}
     \item $\Omega$ and $\emptyset$ are disjoint, so $\P(\Omega) = \P(\Omega \cup \emptyset) = \P(\Omega) + \P(\emptyset)$. Hence $\P(\emptyset) = 0$.
     \item $A$ and $A^C$ are disjoint with $A \cup A^C = \Omega$, so $\P(A) + \P(A^C) = \P(\Omega) = 1$.
@@ -459,6 +465,8 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Disjointify via $B_n = A_n \setminus A_{n-1}$; apply countable additivity. Decreasing case by complements.}
+
   We prove the increasing case. Define $B_1 = A_1$ and $B_n = A_n \setminus A_{n-1}$ for $n \geq 2$. Then $B_1, B_2, \dotsc$ are pairwise disjoint, and
   \[
     \bigcup_{i=1}^n B_i = A_n, \quad \bigcup_{i=1}^\infty B_i = \bigcup_{i=1}^\infty A_i.
@@ -480,6 +488,8 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Disjointify; $B_i \subseteq A_i$ gives $\P(B_i) \leq \P(A_i)$.}
+
   Define $B_1 = A_1$ and $B_i = A_i\setminus \bigcup_{k = 1}^{i - 1}A_k$ for $i \geq 2$. Then the $B_i$ are pairwise disjoint and $\bigcup_i B_i = \bigcup_i A_i$. Since $B_i \subseteq A_i$, monotonicity gives $\P(B_i) \leq \P(A_i)$. By countable additivity,
   \[
     \P\left(\bigcup_i A_i\right) = \P\left(\bigcup _i B_i\right) = \sum_i \P(B_i) \leq \sum_i \P(A_i).\qedhere
@@ -517,6 +527,8 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Induction; split off $A_1$ using the two-event formula.}
+
   By induction on $n$. The case $n = 2$ is the inclusion-exclusion identity for two events. For the inductive step, write
   \[
     \P\left(\bigcup_{i=1}^{n} A_i\right) = \P(A_1) + \P\left(\bigcup_{i = 2}^n A_i\right) - \P\left(\bigcup_{i = 2}^n (A_1\cap A_i)\right)
@@ -558,6 +570,8 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
 \end{remark}
 
 \begin{proof}
+  \textbf{Hint: Induction on $n$.}
+
   By induction on $n$.
 \end{proof}
 
@@ -588,6 +602,8 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: $\P(A \cap B^C) = \P(A) - \P(A \cap B)$; factor out $\P(A)$.}
+
   \begin{align*}
     \P(A\cap B^C) &= \P(A) - \P(A\cap B) = \P(A) - \P(A)\,\P(B) = \P(A)\bigl(1 - \P(B)\bigr) = \P(A)\,\P(B^C).\qedhere
   \end{align*}
@@ -645,6 +661,8 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Double sum factorises into a product of single sums.}
+
   Writing $p_i = \P_1(\alpha_i)$ and $q_j = \P_2(\beta_j)$,
   \[
     \P(A\cap B) = \sum_{\alpha_i\in A}\sum_{\beta_j\in B} p_i\, q_j = \left(\sum_{\alpha_i\in A} p_i\right)\left(\sum_{\beta_j\in B}q_j\right) = \P_1(A)\,\P_2(B).\qedhere
@@ -710,6 +728,8 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Factor out $1/k!$; remaining factors $\to 1$, $\lambda^k$, and $e^{-\lambda}$ separately.}
+
   Write $q_k = \binom{n}{k}p^k(1 - p)^{n - k}$. Then
   \begin{align*}
     q_k &= \frac{1}{k!} \cdot \frac{n(n - 1)\cdots(n - k + 1)}{n^k}\cdot (np)^k \cdot \left(1 - \frac{np}{n}\right)^{n - k}.
@@ -751,6 +771,8 @@ We start with a rather informal introduction to probability. Afterwards, in Chap
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: (1)--(3) from definition. (4): verify Kolmogorov axioms for $\P(\ph \mid B)$.}
+
   Parts (1)--(3) follow directly from the definition. For (4), we verify the Kolmogorov axioms:
   \begin{enumerate}
     \item For $A\subseteq B$, $\P(A\mid B) = \P(A\cap B)/\P(B) = \P(A)/\P(B) \leq 1$.
@@ -909,7 +931,9 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
   \end{enumerate}
 \end{prop}
 
-\begin{proof}\leavevmode
+\begin{proof}
+  \textbf{Hint: Expand definition; (5): complete the square.}
+\leavevmode
   \begin{enumerate}
     \item $\E[X] = \sum_\omega p_\omega X(\omega) \geq 0$ since every term is non-negative.
     \item If $X(\omega) > 0$ for some $\omega$ with $p_\omega > 0$, then $\E[X] > 0$. Hence $\P(X = 0) = 1$.
@@ -927,6 +951,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Additivity plus induction.}
+
   Immediate from additivity and induction on $n$.
 \end{proof}
 
@@ -947,6 +973,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Expand the square; use linearity.}
+
   Part (1) follows from the fact that $(X - \E[X])^2 \geq 0$. Parts (2) and (3) follow by expanding the definition and using linearity of expectation.
 \end{proof}
 
@@ -993,6 +1021,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Check both cases $\omega \in A$ and $\omega \notin A$.}
+
   Each identity follows from the fact that $I_A(\omega) \in \{0, 1\}$ and by checking both cases.
 \end{proof}
 
@@ -1016,6 +1046,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Expand $1 - \prod(1 - I_j)$ and take expectations.}
+
   Let $I_j = I_{A_j}$. For $1 \leq r \leq n$, define $S_r = \sum_{i_1 < \cdots < i_r}I_{i_1}\cdots I_{i_r}$ and $s_r = \E[S_r] = \sum_{i_1 < \cdots < i_r}\P(A_{i_1}\cap \cdots \cap A_{i_r})$. Expanding the product gives the identity
   \[
     I_{\bigcup_j A_j} = 1 - \prod_{j = 1}^n(1 - I_j) = S_1 - S_2 + S_3 - \cdots + (-1)^{n - 1}S_n.
@@ -1035,6 +1067,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Sum the joint pmf over preimages; the product factorises.}
+
   For any $y_1, \dotsc, y_n$,
   \begin{align*}
     \P(f_1(X_1) = y_1, \dotsc, f_n(X_n) = y_n) &= \sum_{\substack{x_1: f_1(x_1) = y_1\\\vdots\\x_n: f_n(x_n) = y_n}} \prod_{i = 1}^n \P(X_i = x_i) = \prod_{i = 1}^n \sum_{x_i:f_i(x_i) = y_i} \P(X_i = x_i) = \prod_{i = 1}^n \P(f_i(X_i) = y_i),
@@ -1050,6 +1084,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Independence factorises the joint pmf; multi-sum becomes a product of single sums.}
+
   Let $R_i$ denote the range of $X_i$. Then
   \begin{align*}
     \E\left[\prod_{i=1}^n X_i\right] &= \sum_{x_1\in R_1}\cdots \sum_{x_n\in R_n}\left(\prod_{i=1}^{n} x_i\right) \P(X_1 = x_1, \dotsc, X_n = x_n)\\
@@ -1072,6 +1108,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Expand the square; cross terms vanish by independence ($\E[X_i X_j] = \E[X_i]\E[X_j]$).}
+
   \begin{align*}
     \var\left(\sum_i X_i\right) &= \E\left[\left(\sum_i X_i\right)^2\right] - \left(\sum_i\E[X_i]\right)^2\\
     &= \sum_i \E[X_i^2] + \sum_{i\neq j}\E[X_i]\E[X_j] - \sum_i(\E[X_i])^2 - \sum_{i\neq j}\E[X_i]\E[X_j]\\
@@ -1088,6 +1126,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{cor}
 
 \begin{proof}
+  \textbf{Hint: Pull $1/n$ out as $1/n^2$; apply the sum rule; use identical distributions.}
+
   By the scaling property of variance and the additivity for independent variables,
   $\var\bigl(\frac{1}{n}\sum_i X_i\bigr) = \frac{1}{n^2}\sum_i \var(X_i) = \frac{1}{n}\,\var(X_1)$.
 \end{proof}
@@ -1152,6 +1192,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Induction. Group last $n-1$ points into one with weight $q = p_2 + \dotsb + p_n$; apply $n = 2$ case, then inductive hypothesis.}
+
   By induction on $n$. The case $n = 2$ is the definition of convexity. For the inductive step, write $q = p_2 + \cdots + p_n > 0$ and note that
   \begin{align*}
     f(p_1 x_1 + q \cdot \tfrac{p_2 x_2 + \cdots + p_n x_n}{q}) &\leq p_1\, f(x_1) + q\, f\!\left(\frac{p_2 x_2 + \cdots + p_n x_n}{q}\right)\\
@@ -1170,6 +1212,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{cor}
 
 \begin{proof}
+  \textbf{Hint: Apply Jensen to $f(x) = -\log x$ with $p_i = 1/n$.}
+
   Apply Jensen's inequality to the strictly convex function $f(x) = -\log x$ on $(0, \infty)$ with $p_i = 1/n$. This gives $-\frac{1}{n}\sum \log x_i \geq -\log\bigl(\frac{1}{n}\sum x_i\bigr)$, i.e.\ $\log\mathrm{GM} \leq \log\mathrm{AM}$. Exponentiating yields the result.
 \end{proof}
 
@@ -1181,6 +1225,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Optimise $\E[(X - tY)^2] \geq 0$ over $t$; set $t = \E[XY]/\E[Y^2]$.}
+
   If $\P(Y = 0) = 1$, both sides are $0$. Otherwise, $\E[Y^2] > 0$. Define $W = X - Y\cdot \frac{\E[XY]}{\E[Y^2]}$. Then
   \[
     0 \leq \E[W^2] = \E[X^2] - \frac{(\E[XY])^2}{\E[Y^2]},
@@ -1196,6 +1242,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Pointwise bound $I_{|X| \geq \varepsilon} \leq |X|/\varepsilon$; take expectations.}
+
   The pointwise inequality $I_{|X|\geq \varepsilon} \leq |X|/\varepsilon$ holds, since: if $|X| \geq \varepsilon$, the left side is $1$ and the right side is $\geq 1$; if $|X| < \varepsilon$, the left side is $0$. Taking expectations gives the result.
 \end{proof}
 
@@ -1207,6 +1255,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Pointwise bound $I_{|X| \geq \varepsilon} \leq X^2/\varepsilon^2$; take expectations.}
+
   The pointwise inequality $I_{|X|\geq \varepsilon} \leq X^2/\varepsilon^2$ holds (since $|X| \geq \varepsilon$ implies $X^2/\varepsilon^2 \geq 1$). Taking expectations gives the result.
 \end{proof}
 
@@ -1218,6 +1268,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{cor}
 
 \begin{proof}
+  \textbf{Hint: Apply Chebyshev to $X - \mu$.}
+
   Apply Chebyshev's inequality to the random variable $X - \mu$.
 \end{proof}
 
@@ -1242,6 +1294,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Chebyshev on $S_n/n$; variance is $\sigma^2/n \to 0$.}
+
   By Chebyshev's inequality applied to $S_n/n - \mu$,
   \[
     \P\left(\left|\frac{S_n}{n} - \mu\right| \geq \varepsilon\right) \leq \frac{\var(S_n/n)}{\varepsilon^2} = \frac{\sigma^2}{n\varepsilon^2} \to 0. \qedhere
@@ -1292,6 +1346,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Expand $\E[(X - \E[X])(Y - \E[Y])]$; use linearity.}
+
   All parts follow by expanding the definition and using linearity of expectation.
 \end{proof}
 
@@ -1318,6 +1374,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Cauchy--Schwarz on centred variables.}
+
   Apply the Cauchy--Schwarz inequality to $X - \E[X]$ and $Y - \E[Y]$.
 \end{proof}
 
@@ -1361,6 +1419,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Independence gives $\P(X = x \mid Y = y) = \P(X = x)$.}
+
   For any $y$ with $\P(Y = y) > 0$, independence gives $\P(X = x \mid Y = y) = \P(X = x)$, so $\E[X\mid Y = y] = \sum_x x\,\P(X = x) = \E[X]$.
 \end{proof}
 
@@ -1372,6 +1432,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Expand $\E[\E[X \mid Y]]$ as a double sum; swap order and marginalise.}
+
   \begin{align*}
     \E[\E[X\mid Y]] &= \sum_y \P(Y = y)\,\E[X\mid Y = y] = \sum_y \P(Y = y) \sum_{x}x\,\P(X = x\mid Y = y)\\
     &= \sum_x\sum_y x\,\P(X = x, Y = y) = \sum_x x\,\P(X = x) = \E[X].\qedhere
@@ -1407,6 +1469,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Power series coefficients are unique.}
+
   The coefficients of a power series are uniquely determined: $p_r = p_X^{(r)}(0)/r!$.
 \end{proof}
 
@@ -1419,6 +1483,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Differentiate term by term; monotone convergence as $z \to 1^-$.}
+
   For $0 < z < 1$, $p_X'(z) = \sum_{r=1}^\infty r\,p_r\, z^{r - 1}$. Each term is non-negative and increasing in $z$, so by the monotone convergence theorem, $\lim_{z \to 1^-} p_X'(z) = \sum_{r=1}^\infty r\,p_r = \E[X]$ (allowing $+\infty$). The argument for $p_X''$ is identical.
 \end{proof}
 
@@ -1438,6 +1504,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: $\E[z^{X_1 + \dotsb + X_n}]$ factorises by independence.}
+
   $\E[z^{X_1 + \cdots + X_n}] = \E[z^{X_1}]\cdots\E[z^{X_n}]$, by independence.
 \end{proof}
 
@@ -1503,6 +1571,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Condition on $N$; given $N = n$, the pgf is $p(z)^n$.}
+
   By the tower property, conditioning on $N$:
   \begin{align*}
     \E[z^{S}] &= \sum_{n = 0}^\infty \P(N = n)\, \E[z^{X_1 + \cdots + X_n}] = \sum_{n = 0}^\infty \P(N = n)\, p(z)^n = h(p(z)).\qedhere
@@ -1517,6 +1587,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{cor}
 
 \begin{proof}
+  \textbf{Hint: Chain rule on $h(p(z))$ at $z = 1$.}
+
   Differentiating $h(p(z))$ at $z = 1$: $\E[S] = h'(p(1))\,p'(1) = \E[N]\,\E[X_1]$. For the variance, compute $\E[S(S-1)]$ via the second derivative $\frac{\d^2}{\d z^2}h(p(z))\big|_{z=1}$ and use $\var(S) = \E[S(S-1)] + \E[S] - (\E[S])^2$.
 \end{proof}
 
@@ -1543,6 +1615,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Tower property; condition on $X_n = k$, then use independence of offspring.}
+
   \begin{align*}
     F_{n+1}(z)
     &= \E[z^{X_{n+1}}]\\
@@ -1564,6 +1638,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Mean: tower property gives $\E[X_n] = \mu\,\E[X_{n-1}]$; iterate. Variance: use $\E[X_n^2 \mid X_{n-1}] = X_{n-1}\sigma^2 + \mu^2 X_{n-1}^2$; set up recurrence and iterate.}
+
   By the tower property,
   \[
     \E[X_n] = \E[\E[X_n \mid X_{n-1}]] = \E[\mu X_{n-1}] = \mu\,\E[X_{n-1}].
@@ -1605,6 +1681,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: $q = \lim F_n(0)$; use $F_{n+1} = F \circ F_n$ and continuity of $F$.}
+
   Since $F_n(0) = \sum_{k=0}^\infty \P(X_n = k) \cdot 0^k = \P(X_n = 0)$, we have $q = \lim_{n \to \infty} F_n(0)$.
   By continuity of $F$ on $[0,1]$,
   \[
@@ -1626,6 +1704,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Show $F_n(0) \leq \alpha$ by induction (monotonicity of $F$). For $\mu$ dichotomy: $F$ is convex with $F(1) = 1$, $F'(1) = \mu$.}
+
   Let $\alpha$ be the smallest root of $F(z) = z$ in $[0,1]$.
   Since $F$ is increasing on $[0,1]$ and $F(0) = p_0 \geq 0$, we have $F(0) \leq \alpha$.
   By monotonicity, $F(F(0)) \leq F(\alpha) = \alpha$.
@@ -1675,6 +1755,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Condition on first step to get $p_z = p\,p_{z+1} + q\,p_{z-1}$. Try $p_z = t^z$; characteristic equation $pt^2 - t + q = 0$ has roots $1$ and $q/p$.}
+
   Conditioning on the first step,
   \[
     p_z = p\,p_{z+1} + q\,p_{z-1},
@@ -1702,6 +1784,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{cor}
 
 \begin{proof}
+  \textbf{Hint: Let $a \to \infty$ in $q_z$; use continuity of probability.}
+
   The events $\{\text{walk hits $0$ before $a$}\}$ increase with $a$, so by continuity of probability,
   \[
     \P(\text{walk hits $0$ eventually}) = \lim_{a \to \infty} q_z,
@@ -1726,6 +1810,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Finiteness: probability of absorption in $a$ steps is $\geq p^a + q^a > 0$. Recurrence $D_z = 1 + p\,D_{z+1} + q\,D_{z-1}$; try particular solution $D_z = Cz$.}
+
   We first show $D_z < \infty$.
   In any block of $a$ consecutive steps, the probability of all steps being $+1$ or all being $-1$ is at least $p^a + q^a > 0$, which guarantees absorption.
   Hence $D_z \leq \frac{a}{p^a + q^a} < \infty$.
@@ -1884,6 +1970,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Exponentials cancel: $e^{-\lambda(x+z)}/e^{-\lambda x} = e^{-\lambda z}$.}
+
   \begin{align*}
     \P(X \geq x + z \mid X \geq x) &= \frac{\P(X \geq x + z)}{\P(X \geq x)}\\
     &= \frac{e^{-\lambda(x + z)}}{e^{-\lambda x}}\\
@@ -1928,6 +2016,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{remark}
 
 \begin{proof}
+  \textbf{Hint: Fubini: swap order of integration; inner integral $\int_0^y \d x = y$.}
+
   \begin{align*}
     \int_0^\infty \P(X \geq x)\;\d x &= \int_0^\infty \int_x^\infty f(y)\;\d y\;\d x\\
     &= \int_0^\infty \int_0^\infty I[y \geq x]\,f(y)\;\d y\;\d x\\
@@ -2054,6 +2144,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Integrate out $y$: $f_X(x) = \int f(x,y)\;\d y$.}
+
   We show that $X$ has a density function.
   \begin{align*}
     \P(X \in A) &= \P(X \in A,\, Y \in (-\infty, +\infty))\\
@@ -2241,6 +2333,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Reduce to standard normal; compute $I^2$ via polar coordinates.}
+
   Substituting $z = (x - \mu)/\sigma$ gives
   \[
     I = \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}}\,e^{-z^2/2}\;\d z.
@@ -2258,6 +2352,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Split $x = (x - \mu) + \mu$; odd integrand vanishes by symmetry.}
+
   \begin{align*}
     \E[X] &= \frac{1}{\sqrt{2\pi}\,\sigma} \int_{-\infty}^\infty x\, e^{-(x - \mu)^2/2\sigma^2}\;\d x\\
     &= \frac{1}{\sqrt{2\pi}\,\sigma}\int_{-\infty}^\infty (x - \mu)\,e^{-(x - \mu)^2/2\sigma^2}\;\d x + \frac{\mu}{\sqrt{2\pi}\,\sigma}\int_{-\infty}^\infty e^{-(x - \mu)^2/2\sigma^2}\;\d x.
@@ -2270,6 +2366,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Standardise to $Z$; integration by parts on $\int z^2 e^{-z^2/2}\;\d z$.}
+
   Substituting $Z = (X - \mu)/\sigma$ gives $\E[Z] = 0$ and $\var(X) = \sigma^2 \var(Z)$.
   By integration by parts,
   \begin{align*}
@@ -2309,6 +2407,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Compute $F_Y(y) = F_X(h^{-1}(y))$; differentiate by chain rule.}
+
   \begin{align*}
     F_Y(y) &= \P(Y \leq y) = \P(h(X) \leq y) = \P(X \leq h^{-1}(y)) = F_X(h^{-1}(y)).
   \end{align*}
@@ -2333,6 +2433,8 @@ To make some sense of this notion, we have to assign, to each outcome, a number.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Apply $F$ to both sides: $\P(F^{-1}(U) \leq x) = \P(U \leq F(x)) = F(x)$.}
+
   \[
     \P(X \leq x) = \P(F^{-1}(U) \leq x) = \P(U \leq F(x)) = F(x).\qedhere
   \]
@@ -2381,6 +2483,8 @@ Let $R \subseteq \R^n$ with $\P((X_1, \dotsc, X_n) \in R) = 1$, and suppose the 
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Multivariable substitution; Jacobian accounts for volume distortion.}
+
   For $A \subseteq R$ with image $B = r(A)$, the change of variables formula gives
   \begin{align*}
     \P((X_1, \dotsc, X_n) \in A) &= \int_A f(x_1, \dotsc, x_n)\;\d x_1 \dotsm \d x_n\\
@@ -2501,6 +2605,8 @@ When the transformation is not injective, there is no single formula; each case 
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: (i)--(ii): all $X_i$ must be $\leq y$ (or $\geq y$). (iii): joint cdf, then differentiate. (iv): $n!$ orderings of iid variables.}
+
   Parts (i) and (ii) follow from independence:
   \[
     \P(Y_n \leq y) = \prod_{i=1}^n \P(X_i \leq y) = F(y)^n, \qquad \P(Y_1 \geq y) = \prod_{i=1}^n \P(X_i \geq y) = (1 - F(y))^n.
@@ -2562,6 +2668,8 @@ We state this without proof.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: Taylor expand $e^{\theta X}$; take expectations term by term.}
+
   Expanding gives
   \[
     m(\theta) = \E[e^{\theta X}] = 1 + \theta\,\E[X] + \frac{\theta^2}{2!}\,\E[X^2] + \dotsb\,.\qedhere
@@ -2592,6 +2700,8 @@ We state this without proof.
 \end{thm}
 
 \begin{proof}
+  \textbf{Hint: $e^{\theta(X+Y)} = e^{\theta X} e^{\theta Y}$; factorise by independence.}
+
   \[
     \E[e^{\theta(X + Y)}] = \E[e^{\theta X}e^{\theta Y}] = \E[e^{\theta X}]\E[e^{\theta Y}] = m_X(\theta)m_Y(\theta).\qedhere
   \]
@@ -2612,6 +2722,8 @@ We state this without proof.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: $\int_0^\infty x/(1+x^2)\;\d x$ diverges ($\sim \log$); both halves are $\pm\infty$.}
+
   \[
     \E[X] = \int_0^\infty \frac{x}{\pi(1 + x^2)}\;\d x + \int_{-\infty}^0 \frac{x}{\pi(1 + x^2)}\;\d x = \infty - \infty,
   \]
@@ -2623,6 +2735,8 @@ We state this without proof.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Convolve the pdfs; partial fractions to evaluate the integral. Induction for general $n$.}
+
   Setting $Z = X + Y$ and convolving,
   \begin{align*}
     f_Z(z) &= \int_{-\infty}^\infty \frac{1}{\pi^2} \frac{1}{(1 + x^2)(1 + (z - x)^2)}\;\d x = \frac{1/2}{\pi(1 + (z/2)^2)},
@@ -2667,6 +2781,8 @@ We state this without proof.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Compute mgf of $S_n$ by independence; match with $\Gamma(n, \lambda)$ mgf.}
+
   The mgf of $S_n$ is
   \[
     \E[e^{\theta S_n}] = \prod_{i=1}^n \E[e^{\theta X_i}] = \left(\frac{\lambda}{\lambda - \theta}\right)^n.
@@ -2712,6 +2828,8 @@ We state this without proof.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Standardise; complete the square in the exponent; recognise the remaining integral as a normal pdf.}
+
   \[
     \E[e^{\theta X}] = \int_{-\infty}^\infty e^{\theta x} \frac{1}{\sqrt{2\pi} \sigma} e^{-\frac{1}{2} \frac{(x - \mu)^2}{\sigma^2}}\;\d x.
   \]
@@ -2731,7 +2849,9 @@ We state this without proof.
   \end{enumerate}
 \end{thm}
 
-\begin{proof}\leavevmode
+\begin{proof}
+  \textbf{Hint: Multiply mgfs (independence); exponents add. For scaling, replace $\theta$ by $a\theta$.}
+\leavevmode
   \begin{enumerate}
     \item
       \begin{align*}
@@ -2758,6 +2878,8 @@ We state this without proof.
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: Multiply integrand by $1 \leq 1 + 1/t^2$; note $\frac{\d}{\d t}[\phi(t)/t] = -(1 + 1/t^2)\phi(t)$.}
+
   We have
   \begin{align*}
     \P(X \geq x) &= \int_x^\infty \phi(t)\;\d t\\
@@ -2787,6 +2909,8 @@ If $X_1, \dotsc, X_n$ are iid $N(0, 1)$ and $\mathbf{x} = (x_1, \dotsc, x_n)^T$,
 \end{defi}
 
 \begin{proof}[Derivation]
+  \textbf{Hint: Change of variables $\mathbf{X} = A^{-1}(\mathbf{Z} - \boldsymbol\mu)$ with Jacobian $1/\det A$; use $\Sigma = AA^T$.}
+
   Since $\mathbf{X} = A^{-1}(\mathbf{Z} - \boldsymbol\mu)$ and $|J| = |\det(A^{-1})| = \frac{1}{\det A}$, we have
   \begin{align*}
     f(z_1, \dotsc, z_n) &= \frac{1}{(2\pi)^{n/2}\det A}\exp\left[-\frac{1}{2}(A^{-1}(\mathbf{z} - \boldsymbol\mu))^T(A^{-1}(\mathbf{z} - \boldsymbol\mu))\right]\\
@@ -2800,6 +2924,8 @@ If $X_1, \dotsc, X_n$ are iid $N(0, 1)$ and $\mathbf{x} = (x_1, \dotsc, x_n)^T$,
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: $\E[A\mathbf{X}\mathbf{X}^T A^T] = A\,\E[\mathbf{X}\mathbf{X}^T]\,A^T = AI A^T = \Sigma$.}
+
   \begin{align*}
     \E[(\mathbf{Z} - \boldsymbol\mu)(\mathbf{Z} - \boldsymbol\mu)^T] &= \E[A\mathbf{X}(A\mathbf{X})^T]
     = A\,\E[\mathbf{X}\mathbf{X}^T]\,A^T
@@ -2813,6 +2939,8 @@ If $X_1, \dotsc, X_n$ are iid $N(0, 1)$ and $\mathbf{x} = (x_1, \dotsc, x_n)^T$,
 \end{prop}
 
 \begin{proof}
+  \textbf{Hint: $\Sigma$ diagonal $\Rightarrow$ joint pdf factorises into a product of univariate normal pdfs.}
+
   If the covariances are zero, then $\Sigma = \diag(\sigma_1^2, \dotsc, \sigma_n^2)$, so
   \[
     f(z_1, \dotsc, z_n) = \prod_{i=1}^n \frac{1}{\sqrt{2\pi}\,\sigma_i} e^{-\frac{1}{2\sigma_i^2}(z_i - \mu_i)^2}.\qedhere
@@ -2871,6 +2999,8 @@ For non-zero mean, replace $x_i$ with $x_i - \mu_i$. The joint mgf is
 \end{thm}
 
 \begin{proof}[Sketch proof of CLT]
+  \textbf{Hint: WLOG $\mu = 0$, $\sigma^2 = 1$. Taylor expand mgf of $X_i$; raise to the $n$th power with $\theta/\sqrt{n}$; use $(1 + a/n)^n \to e^a$. Apply continuity theorem.}
+
   Without loss of generality, assume $\mu = 0$ and $\sigma^2 = 1$ (otherwise replace $X_i$ with $\frac{X_i - \mu}{\sigma}$). Then
   \begin{align*}
     m_{X_i}(\theta) &= \E[e^{\theta X_i}] = 1 + \theta \E[X_i] + \frac{\theta^2}{2!} \E[X_i^2] + \dotsb\\
