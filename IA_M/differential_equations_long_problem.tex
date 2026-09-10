@@ -1,0 +1,713 @@
+\documentclass[10pt,a4paper]{article}
+
+\def\npart {IA}
+\def\nterm {Michaelmas}
+\def\nyear {2014}
+\def\nlecturer {M.\ G.\ Worster}
+\def\ncourse {Differential Equations}
+\def\ncoursehead {Differential Equations --- Long Problem}
+\def\nisofficial {true}
+
+\input{header}
+
+\usepackage[
+  a4paper,
+  left=40mm,
+  right=40mm,
+  top=24mm,
+  bottom=24mm,
+  headheight=14pt,
+  headsep=6mm,
+  footskip=10mm,
+  heightrounded
+]{geometry}
+\usepackage{lastpage}
+\usepackage{needspace}
+
+\hypersetup{
+  pdfauthor={Adapted from notes by Dexter Chua},
+  pdftitle={Differential Equations: From Local Change to Evolution},
+  pdfsubject={An extended problem in differential equations}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\setlist[enumerate]{itemsep=2pt,topsep=4pt}
+\frenchspacing
+\flushbottom
+
+\newcounter{examquestion}
+\newcommand{\examquestion}[1]{%
+  \Needspace{5\baselineskip}%
+  \refstepcounter{examquestion}%
+  \par\addvspace{0.8\baselineskip}%
+  \noindent\textbf{\theexamquestion)}\enspace #1\par
+}
+\newenvironment{subquestions}
+  {\begin{enumerate}[label=\alph*),leftmargin=2.1em]}
+  {\end{enumerate}}
+\newcommand{\nameditem}[2]{%
+  \textbf{\textsf{#1}}\enspace\emph{#2.}\enspace
+}
+\newenvironment{properties}
+  {\begin{enumerate}[label=(\roman*),leftmargin=2.4em]}
+  {\end{enumerate}}
+\newcommand{\indication}[1]{%
+  \par\smallskip\noindent\emph{Indication.---} #1\par
+}
+\newcommand{\admitted}[3]{%
+  \par\smallskip\noindent\emph{Admitted result.}\enspace
+  \nameditem{#1}{#2}#3\par
+}
+\newcommand{\concept}[1]{%
+  \par\addvspace{0.55\baselineskip}\noindent\textbf{#1.}\enspace
+}
+\newcommand{\exampart}[2]{%
+  \clearpage
+  \markboth{Part #1}{}
+  \begin{center}
+    {\large\bfseries Part #1. --- #2}
+  \end{center}
+}
+\newcommand{\subpart}[1]{%
+  \begin{center}
+    \textbf{#1}
+  \end{center}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headwidth}{\textwidth}
+\lhead{\emph{\nouppercase{\leftmark}}}
+\rhead{\ncoursehead}
+\cfoot{\thepage\ of \pageref{LastPage}}
+
+\begin{document}
+\pagenumbering{roman}
+
+\begin{titlepage}
+  \thispagestyle{empty}
+  \begin{center}
+    \vspace*{1.3cm}
+    {\Large\bfseries DIFFERENTIAL EQUATIONS\par}
+    \vspace{0.35cm}
+    \rule{0.72\textwidth}{0.6pt}
+    \vspace{0.65cm}
+
+    {\huge\bfseries From Local Change to Evolution\par}
+    \vspace{0.2cm}
+    {\Large Calculus, Dynamics, and Waves\par}
+
+    \vfill
+
+    {\Large Extended mathematical problem\par}
+    \vspace{0.3cm}
+    {\large Part I\par}
+
+    \vfill
+
+    \begin{minipage}{0.72\textwidth}
+      \centering
+      \textbf{Extended paper --- intended for several sittings}\par
+      \vspace{0.25cm}
+      Calculators and electronic aids are not required.
+    \end{minipage}
+
+    \vfill
+
+    \begin{minipage}{0.82\textwidth}
+      \centering\small
+      Adapted from the \emph{Differential Equations} notes based on lectures
+      by M.\ G.\ Worster. Original notes by Dexter Chua.
+    \end{minipage}
+    \vspace*{0.8cm}
+  \end{center}
+\end{titlepage}
+
+\pagenumbering{arabic}
+
+\begin{center}
+  {\large\bfseries Instructions and planned structure}
+\end{center}
+
+The completed paper will consist of one problem divided into the following
+ten parts.  This instalment contains Part I.
+
+\begin{enumerate}[label=\Roman*.,leftmargin=3.1em,itemsep=1pt]
+  \item Differentiation, asymptotics, and local approximation;
+  \item integration and multivariable differentiation;
+  \item first-order linear differential equations;
+  \item nonlinear first-order equations and discrete dynamics;
+  \item homogeneous second-order equations and phase space;
+  \item forced and equidimensional equations, recurrences, damping, and
+  impulses;
+  \item series solutions near ordinary and singular points;
+  \item gradients, Taylor forms, and stationary points;
+  \item differential systems and phase portraits;
+  \item characteristics, waves, and diffusion.
+\end{enumerate}
+
+Question numbers will remain continuous when later parts are added.  The
+result of any question may be used later, even if that question has not
+been answered, provided its number is cited clearly.  Indications are
+optional.  Definitions and notation are introduced when they first become
+necessary.  No result may be used unless it belongs to the calculus background
+specified below, has been stated as an admitted result, or has been proved in
+an earlier question.
+
+\exampart{I}{Differentiation, asymptotics, and local approximation}
+
+As in the original notes, the reader is assumed to know elementary
+single-variable real calculus: real limits and their algebra, continuity, the
+usual elementary functions and their derivatives, the mean-value theorem,
+and mathematical induction.  The definitions and results emphasized by the
+course are nevertheless stated and developed here.
+
+\subpart{A. --- Derivatives and equations of evolution}
+
+\concept{Derivative and differentiability}
+Let $I\subseteq\R$ be an open interval, let $f\colon I\to\R$, and let
+$x_0\in I$.  The \emph{derivative} of $f$ at $x_0$ is
+\[
+  f'(x_0)=\lim_{h\to0}\frac{f(x_0+h)-f(x_0)}{h},
+\]
+provided this real limit exists.  In that case, $f$ is
+\emph{differentiable at $x_0$}.  It is differentiable on $I$ if it is
+differentiable at every $x_0\in I$.  The right-hand and left-hand derivatives
+are defined by replacing $h\to0$ with $h\to0^+$ and $h\to0^-$,
+respectively.  Thus $f$ is differentiable at $x_0$ precisely when both
+one-sided derivatives exist and are equal.
+
+\examquestion{\label{q:derivative}
+\begin{subquestions}
+  \item \nameditem{DQPL}{Difference Quotient for a Power Law}
+  Define $p\colon\R\to\R$ by $p(x)=x^2$ for every $x\in\R$.
+  Starting from the difference quotient, prove that $p'(x_0)=2x_0$
+  for every $x_0\in\R$.
+
+  \item \nameditem{ONDD}{One-sided Non-Differentiability Demonstration}
+  Define $a\colon\R\to\R$ by $a(x)=|x|$ for every $x\in\R$.
+  Compute the right-hand and left-hand derivatives of $a$ at $0$ and
+  prove that $a$ is not differentiable there.
+
+  \item \nameditem{HDC}{Higher Derivative Conventions}
+  When $f$ is differentiable, its derivative function is also written
+  \[
+    \frac{\d f}{\d x}=f'(x)=\frac{\d}{\d x}f(x).
+  \]
+  If $f'$ is differentiable, define
+  $f''=(f')'$ and write
+  $\d^2f/\d x^2=f''(x)$.
+  Let $f\colon I\to\R$ be differentiable, put
+  $J=\{t\in\R:2t\in I\}$, and define $g\colon J\to\R$ by
+  $g(t)=f(2t)$.  Use the difference quotient to prove
+  $g'(t)=2f'(2t)$ for every $t\in J$.
+\end{subquestions}}
+
+\concept{Differential and difference equations}
+Let $I\subseteq\R$ be an interval.  A \emph{differential equation} is an
+equation imposed on an unknown function $x\colon I\to\R$ and some of its
+derivatives.  A \emph{solution on $I$} is a function possessing the required
+derivatives and satisfying the equation at every $t\in I$.  When the argument
+is time $t$, write
+\[
+  \dot x(t)=\frac{\d x}{\d t}(t),
+  \qquad
+  \ddot x(t)=\frac{\d^2x}{\d t^2}(t).
+\]
+An \emph{initial condition} prescribes one or more values of the unknown
+function and its derivatives at a specified time.
+
+\examquestion{\label{q:differential-models}
+Let $m\in\R$ satisfy $m>0$.  In a one-dimensional Newtonian model,
+$t\in\R$ denotes time, a twice differentiable function
+$x\colon\R\to\R$ gives the particle's position, and its force is the
+function $F_x\colon\R\to\R$ defined by
+\[
+  F_x(t)=m\ddot x(t)\qquad(t\in\R).
+\]
+\begin{subquestions}
+  \item \nameditem{PADE}{Prescribed Acceleration Differential Equation}
+  Suppose that $F_x(t)=t^2-1$ for every $t\in\R$.  Find all possible
+  position functions, or equivalently all twice differentiable functions
+  $x\colon\R\to\R$ satisfying
+  \[
+    m\ddot x(t)=t^2-1\qquad(t\in\R).
+  \]
+  Prove that they are exactly the functions
+  \[
+    x(t)=\frac{t^4}{12m}-\frac{t^2}{2m}+c_1t+c_0
+    \qquad(t\in\R),
+  \]
+  where $c_0,c_1\in\R$.
+
+  \item \nameditem{PDNDE}{Position-Dependent Nonlinear Differential Equation}
+  Suppose instead that $F_x(t)=x(t)^2-1$ for every $t\in\R$, so that
+  \[
+    m\ddot x(t)=x(t)^2-1\qquad(t\in\R).
+  \]
+  Explain why the occurrence of $x(t)^2$ makes this equation nonlinear.
+  Determine all constant solutions $x\colon\R\to\R$.
+
+  \item \nameditem{ICSU}{Initial Conditions Select Uniquely}
+  Let $x_0,v_0\in\R$.  Among the solutions in part (a), find the unique
+  one satisfying $x(0)=x_0$ and $\dot x(0)=v_0$.
+\end{subquestions}}
+
+\indication{For the converse statement in part (a), subtract the displayed
+candidate from an arbitrary solution and use the standard consequence of the
+mean-value theorem that a function with zero second derivative is affine.}
+
+Write $\N_0=\{0,1,2,\ldots\}$.  A real sequence is a map
+$F\colon\N_0\to\R$, whose value at $n\in\N_0$ is denoted by $F_n$.
+A \emph{difference equation} is a relation between terms of an unknown
+sequence.  A solution is a sequence satisfying that relation for every index
+for which it is stated.
+
+\examquestion{\label{q:difference-equations}
+Consider the Fibonacci difference equation
+\[
+  F_{n+2}-F_{n+1}-F_n=0\qquad(n\in\N_0).
+\]
+\begin{subquestions}
+  \item \nameditem{FRCS}{Fibonacci Recurrence Computes Successors}
+  For the solution with $F_0=0$ and $F_1=1$, compute
+  $F_2,F_3,\ldots,F_7$.
+
+  \item \nameditem{TRIVFS}{Two Recurrence Initial Values Fix the Sequence}
+  Let $F,G\colon\N_0\to\R$ be two solutions.  Prove by induction that
+  $F_0=G_0$ and $F_1=G_1$ imply $F_n=G_n$ for every $n\in\N_0$.
+
+  \item \nameditem{RANC}{Recurrence Alone is Not Complete}
+  Exhibit two distinct solutions of the difference equation.  Explain why the
+  recurrence without two initial values does not specify a unique sequence.
+\end{subquestions}}
+
+The explicit formula for the Fibonacci solution will be derived in Part VI.
+These first examples also illustrate a recurring method: one may guess a
+candidate solution, but the candidate becomes a solution only after its
+domain, differentiability, and governing equation have been checked.
+
+\subpart{B. --- Small and bounded asymptotic orders}
+
+\concept{Asymptotic notation}
+Let $I\subseteq\R$ be an interval, let
+$x_0\in\R\cup\{-\infty,+\infty\}$ be a limit point of $I$ in the
+relevant direction, and let $f,g\colon I\to\R$.  All limits below are taken
+through points $x\in I$.  A \emph{deleted neighbourhood} of a finite $x_0$
+consists of the points satisfying $0<|x-x_0|<\delta$ for some
+$\delta>0$; at $+\infty$ it consists of the points satisfying $x>M$ for
+some $M\in\R$, and at $-\infty$ it is defined analogously.
+
+Suppose first that $g(x)\ne0$ throughout some deleted neighbourhood of
+$x_0$.  We write
+\[
+  f(x)=o(g(x))\quad\hbox{as }x\to x_0
+\]
+if
+\[
+  \lim_{x\to x_0}\frac{f(x)}{g(x)}=0.
+\]
+We write
+\[
+  f(x)=O(g(x))\quad\hbox{as }x\to x_0
+\]
+if there exist $C\in\R$ with $C\geq0$ and a deleted neighbourhood of
+$x_0$ throughout which
+\[
+  |f(x)|\leq C|g(x)|.
+\]
+The latter definition remains meaningful without the non-vanishing
+assumption on $g$.  Informally, $o(g)$ is negligible compared with $g$,
+whereas $O(g)$ is bounded in magnitude by a constant multiple of $g$.
+
+\examquestion{\label{q:asymptotic-examples}
+\begin{subquestions}
+  \item \nameditem{SROZ}{Square-Root Order near Zero}
+  On the interval $(0,\infty)$, prove that
+  $x=o(\sqrt{x})$ as $x\to0^+$.
+
+  \item \nameditem{SRGI}{Square Root Growth at Infinity}
+  On the interval $(0,\infty)$, prove that
+  $\sqrt{x}=o(x)$ as $x\to+\infty$.
+
+  \item \nameditem{LSOB}{Local Sine Order Bound}
+  Using the elementary inequality $|\sin u|\leq|u|$ for every $u\in\R$,
+  prove that
+  $\sin(2x)=O(x)$ as $x\to0$.
+
+  \item \nameditem{SBI}{Sine Bounded at Infinity}
+  Prove that $\sin(2x)=O(1)$ as $x\to+\infty$, although
+  $\sin(2x)$ has no limit as $x\to+\infty$.
+
+  \item \nameditem{VRGBR}{Vanishing Ratio Gives a Bounded Ratio}
+  Let $f,g\colon I\to\R$ satisfy the hypotheses in the definition of
+  small order.  Prove that
+  \[
+    f(x)=o(g(x))\quad\Longrightarrow\quad f(x)=O(g(x))
+    \qquad(x\to x_0).
+  \]
+
+  \item \nameditem{ONCRF}{Order Notation denotes a Class Rather than a Function}
+  Explain why $o(g)$ denotes a class of functions rather than one function.
+  Interpret the conventional equality $f=o(g)$ as a membership assertion,
+  and state that assertion using the symbol $\in$.
+\end{subquestions}}
+
+\examquestion{\label{q:asymptotic-algebra}
+In every part, all functions are real-valued and all asymptotic statements
+refer to the same limit $x\to x_0$.
+\begin{subquestions}
+  \item \nameditem{SRAC}{Scaling Rules for Asymptotic Classes}
+  Let $\lambda\in\R$.  Prove that $f=o(g)$ implies
+  $\lambda f=o(g)$, and that $f=O(g)$ implies $\lambda f=O(g)$.
+
+  \item \nameditem{SAR}{Sum of Asymptotic Remainders}
+  Prove that $f_1=o(g)$ and $f_2=o(g)$ imply
+  $f_1+f_2=o(g)$.  Prove the analogous assertion with $O$ in place
+  of $o$.
+
+  \item \nameditem{PROB}{Product Remainder Order Bound}
+  Prove that $f=O(g)$ and $p=O(q)$ imply $fp=O(gq)$.
+  Deduce that, as $h\to0$, the relations
+  $r(h)=o(h)$ and $s(h)=O(h)$ imply
+  $r(h)s(h)=o(h^2)$.
+
+  \item \nameditem{CRCL}{Composition Remainder Control Lemma}
+  Let $\delta>0$, let $k\colon(-\delta,\delta)\to\R$ satisfy
+  $k(h)\to0$ and $k(h)=O(h)$ as $h\to0$, and let
+  $\varepsilon$ be a real-valued function defined on an open interval
+  containing $0$, with $\varepsilon(u)\to0$ as $u\to0$.
+  Prove
+  \[
+    k(h)\varepsilon(k(h))=o(h)\qquad(h\to0).
+  \]
+\end{subquestions}}
+
+\examquestion{\label{q:linear-approximation}
+Let $I\subseteq\R$ be an open interval, let $x_0\in I$, and let
+$f\colon I\to\R$.
+\begin{subquestions}
+  \item \nameditem{DILA}{Derivative Implies Linear Approximation}
+  Suppose that $f$ is differentiable at $x_0$.  Starting from the
+  derivative limit, prove
+  \[
+    f(x_0+h)=f(x_0)+f'(x_0)h+o(h)
+    \qquad(h\to0).
+  \]
+
+  \item \nameditem{LADD}{Linear Approximation Determines the Derivative}
+  Conversely, suppose that $A\in\R$ and a function $r$, defined near
+  $0$, satisfy
+  \[
+    f(x_0+h)=f(x_0)+Ah+r(h),
+    \qquad r(h)=o(h)\quad(h\to0).
+  \]
+  Prove that $f$ is differentiable at $x_0$ and $f'(x_0)=A$.
+
+  \item \nameditem{LAC}{Linear Approximation Coefficient}
+  Prove that at most one number $A\in\R$ can occur as the coefficient of
+  $h$ in an expansion of the form in part (b).
+
+  \item \nameditem{QEO}{Quadratic Error Order}
+  For $f(x)=x^2$ on $\R$, show directly that
+  \[
+    f(x_0+h)=f(x_0)+2x_0h+h^2.
+  \]
+  Prove that $h^2=O(h^2)$ and $h^2=o(h)$ as $h\to0$.
+\end{subquestions}}
+
+\subpart{C. --- Product, composition, and repeated differentiation}
+
+\examquestion{\label{q:product-rule}
+Let $I\subseteq\R$ be an open interval, let $x_0\in I$, and let
+$u,v\colon I\to\R$ be differentiable at $x_0$.
+\begin{subquestions}
+  \item \nameditem{PRE}{Product Remainder Expansion}
+  Introduce functions $r_u,r_v$, defined near $0$, such that
+  $r_u(h)=o(h)$, $r_v(h)=o(h)$, and
+  \[
+    u(x_0+h)=u(x_0)+hu'(x_0)+r_u(h),
+  \]
+  \[
+    v(x_0+h)=v(x_0)+hv'(x_0)+r_v(h).
+  \]
+  Multiply these two identities.
+
+  \item \nameditem{CTRC}{Cross-Term Remainder Control}
+  Using Question \ref{q:asymptotic-algebra}, prove that all terms in the
+  product from part (a), other than the constant term and the terms linear in
+  $h$, have sum $o(h)$.
+
+  \item \nameditem{DPR}{Derivative Product Rule}
+  Apply Question \ref{q:linear-approximation} to prove that
+  \[
+    (uv)'(x_0)=u'(x_0)v(x_0)+u(x_0)v'(x_0).
+  \]
+\end{subquestions}}
+
+\examquestion{\label{q:chain-rule}
+Let $I,J\subseteq\R$ be open intervals, let $g\colon I\to J$, let
+$F\colon J\to\R$, and let $x_0\in I$.  Suppose that $g$ is
+differentiable at $x_0$ and $F$ is differentiable at
+$y_0=g(x_0)$.
+\begin{subquestions}
+  \item \nameditem{ICI}{Inner Composition Increment}
+  For all sufficiently small $h\in\R$, put
+  $k(h)=g(x_0+h)-g(x_0)$.  Prove that
+  \[
+    k(h)=hg'(x_0)+o(h),\qquad k(h)=O(h),\qquad k(h)\to0
+    \quad(h\to0).
+  \]
+
+  \item \nameditem{ORF}{Outer Remainder Function}
+  For every sufficiently small $s\in\R$ with $y_0+s\in J$, define
+  \[
+    \varepsilon(s)=
+    \begin{cases}
+      \dfrac{F(y_0+s)-F(y_0)-F'(y_0)s}{s},&s\ne0,\\[6pt]
+      0,&s=0.
+    \end{cases}
+  \]
+  Prove that $\varepsilon(s)\to0$ as $s\to0$.
+
+  \item \nameditem{CRB}{Composed Remainder Bound}
+  Prove
+  \[
+    F(g(x_0+h))-F(g(x_0))
+      =F'(y_0)k(h)+k(h)\varepsilon(k(h)).
+  \]
+  Use Question \ref{q:asymptotic-algebra}(d) to obtain a linear
+  approximation in $h$.
+
+  \item \nameditem{DCR}{Derivative Chain Rule}
+  Conclude that $F\circ g$ is differentiable at $x_0$ and
+  \[
+    (F\circ g)'(x_0)=F'(g(x_0))g'(x_0).
+  \]
+\end{subquestions}}
+
+\concept{Repeated derivatives and binomial coefficients}
+For $n\in\N_0$, set $f^{(0)}=f$ and, whenever the required derivatives
+exist, define $f^{(n+1)}=(f^{(n)})'$.  Define $0!=1$ and
+$n!=1\cdot2\cdots n$ for $n\in\N$.  If $n\in\N_0$ and
+$r\in\N_0$ satisfies $0\leq r\leq n$, define
+\[
+  \binom nr=\frac{n!}{r!(n-r)!}.
+\]
+
+\examquestion{\label{q:leibniz}
+Let $I\subseteq\R$ be an open interval.  The functions below are assumed to
+possess every derivative that occurs.
+\begin{subquestions}
+  \item \nameditem{ZOPC}{Zeroth and Onefold Product Cases}
+  For $u,v\colon I\to\R$, verify that
+  \[
+    (uv)^{(n)}
+      =\sum_{r=0}^{n}\binom nr u^{(r)}v^{(n-r)}
+      \tag{$L_n$}
+  \]
+  holds for $n=0$ and $n=1$.
+
+  \item \nameditem{DIH}{Differentiated Induction Hypothesis}
+  Let $n\in\N$.  Assume $(L_n)$ and differentiate its two sides.
+  Use the product rule to obtain two finite sums representing
+  $(uv)^{(n+1)}$.
+
+  \item \nameditem{PCR}{Pascal Combination after Reindexing}
+  Reindex one of the sums from part (b), and prove directly from the
+  factorial definition that
+  \[
+    \binom nr+\binom n{r-1}=\binom{n+1}r
+    \qquad(1\leq r\leq n).
+  \]
+  Combine the two sums, treating the terms with $r=0$ and $r=n+1$
+  separately.
+
+  \item \nameditem{GLDFP}{General Leibniz Derivative Formula for Products}
+  Use induction to prove that, for every $n\in\N_0$ and all
+  $n$-times differentiable functions $u,v\colon I\to\R$,
+  \[
+    (uv)^{(n)}(x)
+      =\sum_{r=0}^{n}\binom nr
+        u^{(r)}(x)v^{(n-r)}(x)
+    \qquad(x\in I).
+  \]
+\end{subquestions}}
+\indication{In part (c), replace $r+1$ by a new index in the sum containing
+$u^{(r+1)}v^{(n-r)}$ before combining coefficients.}
+
+\subpart{D. --- Taylor polynomials and formal series}
+
+\concept{Taylor polynomial}
+Let $n\in\N_0$, let $I\subseteq\R$ be open, let $x_0\in I$, and let
+$f\colon I\to\R$ possess derivatives through order $n$ at $x_0$.
+The \emph{Taylor polynomial of order $n$ about $x_0$} is
+\[
+  T_{n,x_0}f(x)
+    =\sum_{r=0}^{n}\frac{f^{(r)}(x_0)}{r!}(x-x_0)^r
+    \qquad(x\in\R).
+\]
+
+\admitted{TTPR}{Taylor Theorem with Peano Remainder}{Let $n\in\N_0$, let
+$I\subseteq\R$ be an open interval, let $x_0\in I$, and let
+$f\colon I\to\R$.  Suppose that the derivatives
+$f^{(0)},f^{(1)},\ldots,f^{(n)}$ exist on a neighbourhood of $x_0$ and
+that $f^{(n)}$ is continuous at $x_0$.  Then, as $h\to0$ with
+$x_0+h\in I$,
+\[
+  f(x_0+h)
+    =\sum_{r=0}^{n}\frac{f^{(r)}(x_0)}{r!}h^r+o(h^n).
+\]
+If, in addition, $f^{(n+1)}$ exists and is bounded on a neighbourhood of
+$x_0$, the remainder after the displayed finite sum is $O(h^{n+1})$.}
+
+\examquestion{\label{q:taylor}
+Retain the notation and hypotheses of the admitted Taylor theorem.
+\begin{subquestions}
+  \item \nameditem{FTPC}{Finite Taylor Polynomial Construction}
+  Prove that, for every integer $k\in\N_0$ with $0\leq k\leq n$,
+  \[
+    \bigl(T_{n,x_0}f\bigr)^{(k)}(x_0)=f^{(k)}(x_0).
+  \]
+
+  \item \nameditem{EVTF}{Equivalent Variable Taylor Form}
+  Put $x=x_0+h$ and rewrite the admitted result as an expansion of
+  $f(x)$ as $x\to x_0$.  State the remainder in both the $o$ form and,
+  under the additional hypothesis, the $O$ form.
+
+  \item \nameditem{LNAL}{Local Nature and Analytic Limitation}
+  Explain precisely why a statement as $x\to x_0$ controls $f$ only near
+  $x_0$.  Explain also why the admitted theorem, for one fixed finite
+  $n\in\N_0$, does not assert that an infinite series converges to $f(x)$.
+
+  \item \nameditem{CTE}{Cubic Taylor Expansion}
+  Define $f\colon\R\to\R$ by $f(x)=x^3$.  Compute
+  $T_{3,1}f(x)$ and verify directly that it equals $f(x)$ for every
+  $x\in\R$.
+\end{subquestions}}
+
+\concept{Taylor series}
+Let $I\subseteq\R$ be open, let $x_0\in I$, and let
+$f\colon I\to\R$ possess derivatives of every order at $x_0$.
+The \emph{Taylor series of $f$ about $x_0$} is the formal power series
+\[
+  \sum_{n=0}^{\infty}
+    \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n.
+\]
+The Taylor series about $x_0=0$ is also called the \emph{Maclaurin
+series}.  The word \emph{formal} means that this definition alone asserts
+neither convergence of the series nor equality of its sum with $f(x)$.
+
+\examquestion{\label{q:taylor-series}
+\begin{subquestions}
+  \item \nameditem{PTSF}{Polynomial Taylor Series is Finite}
+  Let $m\in\N_0$, let $a_0,\ldots,a_m\in\R$, and define
+  $p\colon\R\to\R$ by
+  \[
+    p(x)=\sum_{r=0}^{m}a_rx^r.
+  \]
+  Prove that the Taylor series of $p$ about $0$ has no non-zero terms
+  after degree $m$ and is equal to $p(x)$ for every $x\in\R$.
+
+  \item \nameditem{FSD}{Formal Series Distinction}
+  State separately the following three assertions about a Taylor series:
+  its coefficients are defined; the resulting numerical series converges at
+  a specified $x\in I$; its sum at that $x$ equals $f(x)$.  Explain which
+  assertion follows from the definition alone.
+
+  \item \nameditem{MTRF}{Maclaurin Terms for a Rational Function}
+  Define $f\colon\R\setminus\{1\}\to\R$ by
+  $f(x)=(1-x)^{-1}$.  Prove that $f^{(n)}(0)=n!$ for every
+  $n\in\N_0$ and hence determine its formal Maclaurin series.
+\end{subquestions}}
+
+\subpart{E. --- Quotients with vanishing numerator and denominator}
+
+An expression $f(x)/g(x)$ has the \emph{indeterminate form $0/0$} at
+$x_0\in\R$ when $f(x)\to0$ and $g(x)\to0$ as $x\to x_0$.
+The phrase does not assert that the quotient has a limit.
+
+\examquestion{\label{q:local-lhopital}
+Let $I\subseteq\R$ be an open interval, let $x_0\in I$, and let
+$f,g\colon I\to\R$ be differentiable at $x_0$.  Suppose
+$f(x_0)=g(x_0)=0$ and $g'(x_0)\ne0$.
+\begin{subquestions}
+  \item \nameditem{FLQE}{First-order Linear Quotient Expansions}
+  Use Question \ref{q:linear-approximation} to write expansions of
+  $f(x_0+h)$ and $g(x_0+h)$ to first order, with remainders in
+  $o(h)$.
+
+  \item \nameditem{PNNZD}{Punctured-Neighbourhood Non-Zero Denominator}
+  Prove that there exists $\delta>0$ such that
+  $g(x_0+h)\ne0$ whenever $0<|h|<\delta$.
+
+  \item \nameditem{LQDL}{Local Quotient Derivative Limit}
+  Divide the expansions from part (a) by $h$, justify the quotient using
+  part (b), and prove
+  \[
+    \lim_{x\to x_0}\frac{f(x)}{g(x)}
+      =\frac{f'(x_0)}{g'(x_0)}.
+  \]
+\end{subquestions}}
+\indication{For part (b), use
+$g(x_0+h)/h\to g'(x_0)\ne0$ and the fact that a function with a
+non-zero limit is non-zero sufficiently near the limit point.}
+
+\admitted{GDQLR}{General Derivative Quotient Limit Rule}{Let
+$x_0\in\R$, let $\delta>0$, put
+$I=(x_0-\delta,x_0+\delta)$, and let $f,g\colon I\to\R$ be continuous.
+Suppose that $f$ and $g$ are differentiable at every
+$x\in I\setminus\{x_0\}$, that
+\[
+  f(x_0)=g(x_0)=0,\qquad
+  g'(x)\ne0\quad(x\in I\setminus\{x_0\}),
+\]
+and that there exists $L\in\R$ such that
+\[
+  \lim_{x\to x_0}\frac{f'(x)}{g'(x)}=L.
+\]
+Then $g(x)\ne0$ throughout some deleted neighbourhood of $x_0$ and
+\[
+  \lim_{x\to x_0}\frac{f(x)}{g(x)}=L.
+\]}
+
+\examquestion{\label{q:lhopital-applications}
+\begin{subquestions}
+  \item \nameditem{SQR}{Sine Quotient Recovery}
+  Apply Question \ref{q:local-lhopital} to
+  $f(x)=\sin x$ and $g(x)=x$ on $\R$ to recover
+  \[
+    \lim_{x\to0}\frac{\sin x}{x}=1.
+  \]
+
+  \item \nameditem{CSOQL}{Cosine Second-Order Quotient Limit}
+  Explain why Question \ref{q:local-lhopital} does not apply directly to
+  $(1-\cos x)/x^2$ at $0$.  Use the admitted general rule and part (a)
+  to prove
+  \[
+    \lim_{x\to0}\frac{1-\cos x}{x^2}=\frac12.
+  \]
+
+  \item \nameditem{RDQE}{Repeated Derivative Quotient Evaluation}
+  Use the admitted general rule and part (b) to prove
+  \[
+    \lim_{x\to0}\frac{x-\sin x}{x^3}=\frac16.
+  \]
+
+  \item \nameditem{HRVA}{Hypothesis Review before Valid Application}
+  Define $f,g\colon\R\to\R$ by $g(x)=x$ for every $x\in\R$,
+  $f(0)=0$, and
+  \[
+    f(x)=x^2\sin(1/x)\qquad(x\in\R\setminus\{0\}).
+  \]
+  Prove directly that $f(x)/g(x)\to0$ as $x\to0$.  Compute
+  $f'(x)/g'(x)$ for $x\ne0$ and show that this derivative quotient has
+  no limit as $x\to0$.  Identify the failed hypothesis of the admitted
+  general rule and explain why the original quotient may nevertheless
+  converge.
+\end{subquestions}}
+
+\hfill\emph{End of Part I}
+
+\end{document}

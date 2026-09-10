@@ -1,0 +1,414 @@
+{
+  "original_source": "IA_M/differential_equations.tex",
+  "source": "IA_M/differential_equations_long_problem.tex",
+  "uniqueness_scope": "source",
+  "acronym_rule": "Read the phrase from left to right and concatenate the initial of each capitalized word or capitalized hyphen component. Lowercase words do not contribute.",
+  "outline": [
+    {
+      "part": "I",
+      "title": "Differentiation, asymptotics, and local approximation",
+      "source_scope": "Introduction and Section 1, lines 44--234"
+    },
+    {
+      "part": "II",
+      "title": "Integration and multivariable differentiation",
+      "source_scope": "Sections 2--3, lines 235--547"
+    },
+    {
+      "part": "III",
+      "title": "First-order linear differential equations",
+      "source_scope": "Sections 4.1--4.4, lines 548--981"
+    },
+    {
+      "part": "IV",
+      "title": "Nonlinear first-order equations and discrete dynamics",
+      "source_scope": "Sections 4.5--4.8, lines 982--1546"
+    },
+    {
+      "part": "V",
+      "title": "Homogeneous second-order equations and phase space",
+      "source_scope": "Section 5.1, lines 1547--1745"
+    },
+    {
+      "part": "VI",
+      "title": "Forced and equidimensional equations, recurrences, damping, and impulses",
+      "source_scope": "Sections 5.2--5.6, lines 1746--2329"
+    },
+    {
+      "part": "VII",
+      "title": "Series solutions near ordinary and singular points",
+      "source_scope": "Section 6, lines 2330--2565"
+    },
+    {
+      "part": "VIII",
+      "title": "Gradients, Taylor forms, and stationary points",
+      "source_scope": "Section 7, lines 2566--2818"
+    },
+    {
+      "part": "IX",
+      "title": "Differential systems and phase portraits",
+      "source_scope": "Section 8, lines 2819--3225"
+    },
+    {
+      "part": "X",
+      "title": "Characteristics, waves, and diffusion",
+      "source_scope": "Section 9, lines 3226--3483"
+    }
+  ],
+  "coverage": [
+    {
+      "source_lines": "44--65",
+      "kind": "motivation and definitions",
+      "content": "differential equations, position-dependent force, difference equations, and the Fibonacci recurrence",
+      "target": "Part I, Questions q:differential-models and q:difference-equations",
+      "status": "checked"
+    },
+    {
+      "source_lines": "70--91",
+      "kind": "definition, notation, and example",
+      "content": "derivative, differentiability, one-sided limits, absolute value, prime and higher-derivative notation",
+      "target": "Part I, Question q:derivative",
+      "status": "checked"
+    },
+    {
+      "source_lines": "93--116",
+      "kind": "definitions, remark, and examples",
+      "content": "small-o and big-O notation, class-valued convention, and all four asymptotic examples",
+      "target": "Part I, Questions q:asymptotic-examples and q:asymptotic-algebra",
+      "status": "checked"
+    },
+    {
+      "source_lines": "117--134",
+      "kind": "proposition and proof",
+      "content": "linear approximation characterization of differentiability",
+      "target": "Part I, Question q:linear-approximation",
+      "status": "checked"
+    },
+    {
+      "source_lines": "137--153",
+      "kind": "theorem and proof",
+      "content": "chain rule",
+      "target": "Part I, Question q:chain-rule",
+      "status": "checked"
+    },
+    {
+      "source_lines": "155--170",
+      "kind": "theorem and proof",
+      "content": "product rule",
+      "target": "Part I, Question q:product-rule",
+      "status": "checked"
+    },
+    {
+      "source_lines": "172--182",
+      "kind": "theorem and proof",
+      "content": "Leibniz formula and induction argument",
+      "target": "Part I, Question q:leibniz",
+      "status": "checked"
+    },
+    {
+      "source_lines": "184--202",
+      "kind": "stated theorem and remark",
+      "content": "finite Taylor expansion, remainder orders, equivalent variable form, and local nature",
+      "target": "Part I, admitted result TTPR and Question q:taylor",
+      "status": "checked"
+    },
+    {
+      "source_lines": "204--210",
+      "kind": "definition",
+      "content": "formal Taylor series",
+      "target": "Part I, Question q:taylor-series and its preceding definition",
+      "status": "checked"
+    },
+    {
+      "source_lines": "212--233",
+      "kind": "theorem and proof",
+      "content": "local quotient limit and the more general derivative-quotient form",
+      "target": "Part I, Question q:local-lhopital, admitted result GDQLR, and Question q:lhopital-applications",
+      "status": "checked"
+    }
+  ],
+  "parts": {
+    "I": {
+      "title": "Differentiation, asymptotics, and local approximation",
+      "status": "complete",
+      "questions": {
+        "q:derivative": [
+          {
+            "letter": "a",
+            "code": "DQPL",
+            "phrase": "Difference Quotient for a Power Law"
+          },
+          {
+            "letter": "b",
+            "code": "ONDD",
+            "phrase": "One-sided Non-Differentiability Demonstration"
+          },
+          {
+            "letter": "c",
+            "code": "HDC",
+            "phrase": "Higher Derivative Conventions"
+          }
+        ],
+        "q:differential-models": [
+          {
+            "letter": "a",
+            "code": "PADE",
+            "phrase": "Prescribed Acceleration Differential Equation"
+          },
+          {
+            "letter": "b",
+            "code": "PDNDE",
+            "phrase": "Position-Dependent Nonlinear Differential Equation"
+          },
+          {
+            "letter": "c",
+            "code": "ICSU",
+            "phrase": "Initial Conditions Select Uniquely"
+          }
+        ],
+        "q:difference-equations": [
+          {
+            "letter": "a",
+            "code": "FRCS",
+            "phrase": "Fibonacci Recurrence Computes Successors"
+          },
+          {
+            "letter": "b",
+            "code": "TRIVFS",
+            "phrase": "Two Recurrence Initial Values Fix the Sequence"
+          },
+          {
+            "letter": "c",
+            "code": "RANC",
+            "phrase": "Recurrence Alone is Not Complete"
+          }
+        ],
+        "q:asymptotic-examples": [
+          {
+            "letter": "a",
+            "code": "SROZ",
+            "phrase": "Square-Root Order near Zero"
+          },
+          {
+            "letter": "b",
+            "code": "SRGI",
+            "phrase": "Square Root Growth at Infinity"
+          },
+          {
+            "letter": "c",
+            "code": "LSOB",
+            "phrase": "Local Sine Order Bound"
+          },
+          {
+            "letter": "d",
+            "code": "SBI",
+            "phrase": "Sine Bounded at Infinity"
+          },
+          {
+            "letter": "e",
+            "code": "VRGBR",
+            "phrase": "Vanishing Ratio Gives a Bounded Ratio"
+          },
+          {
+            "letter": "f",
+            "code": "ONCRF",
+            "phrase": "Order Notation denotes a Class Rather than a Function"
+          }
+        ],
+        "q:asymptotic-algebra": [
+          {
+            "letter": "a",
+            "code": "SRAC",
+            "phrase": "Scaling Rules for Asymptotic Classes"
+          },
+          {
+            "letter": "b",
+            "code": "SAR",
+            "phrase": "Sum of Asymptotic Remainders"
+          },
+          {
+            "letter": "c",
+            "code": "PROB",
+            "phrase": "Product Remainder Order Bound"
+          },
+          {
+            "letter": "d",
+            "code": "CRCL",
+            "phrase": "Composition Remainder Control Lemma"
+          }
+        ],
+        "q:linear-approximation": [
+          {
+            "letter": "a",
+            "code": "DILA",
+            "phrase": "Derivative Implies Linear Approximation"
+          },
+          {
+            "letter": "b",
+            "code": "LADD",
+            "phrase": "Linear Approximation Determines the Derivative"
+          },
+          {
+            "letter": "c",
+            "code": "LAC",
+            "phrase": "Linear Approximation Coefficient"
+          },
+          {
+            "letter": "d",
+            "code": "QEO",
+            "phrase": "Quadratic Error Order"
+          }
+        ],
+        "q:product-rule": [
+          {
+            "letter": "a",
+            "code": "PRE",
+            "phrase": "Product Remainder Expansion"
+          },
+          {
+            "letter": "b",
+            "code": "CTRC",
+            "phrase": "Cross-Term Remainder Control"
+          },
+          {
+            "letter": "c",
+            "code": "DPR",
+            "phrase": "Derivative Product Rule"
+          }
+        ],
+        "q:chain-rule": [
+          {
+            "letter": "a",
+            "code": "ICI",
+            "phrase": "Inner Composition Increment"
+          },
+          {
+            "letter": "b",
+            "code": "ORF",
+            "phrase": "Outer Remainder Function"
+          },
+          {
+            "letter": "c",
+            "code": "CRB",
+            "phrase": "Composed Remainder Bound"
+          },
+          {
+            "letter": "d",
+            "code": "DCR",
+            "phrase": "Derivative Chain Rule"
+          }
+        ],
+        "q:leibniz": [
+          {
+            "letter": "a",
+            "code": "ZOPC",
+            "phrase": "Zeroth and Onefold Product Cases"
+          },
+          {
+            "letter": "b",
+            "code": "DIH",
+            "phrase": "Differentiated Induction Hypothesis"
+          },
+          {
+            "letter": "c",
+            "code": "PCR",
+            "phrase": "Pascal Combination after Reindexing"
+          },
+          {
+            "letter": "d",
+            "code": "GLDFP",
+            "phrase": "General Leibniz Derivative Formula for Products"
+          }
+        ],
+        "q:taylor": [
+          {
+            "letter": "a",
+            "code": "FTPC",
+            "phrase": "Finite Taylor Polynomial Construction"
+          },
+          {
+            "letter": "b",
+            "code": "EVTF",
+            "phrase": "Equivalent Variable Taylor Form"
+          },
+          {
+            "letter": "c",
+            "code": "LNAL",
+            "phrase": "Local Nature and Analytic Limitation"
+          },
+          {
+            "letter": "d",
+            "code": "CTE",
+            "phrase": "Cubic Taylor Expansion"
+          }
+        ],
+        "q:taylor-series": [
+          {
+            "letter": "a",
+            "code": "PTSF",
+            "phrase": "Polynomial Taylor Series is Finite"
+          },
+          {
+            "letter": "b",
+            "code": "FSD",
+            "phrase": "Formal Series Distinction"
+          },
+          {
+            "letter": "c",
+            "code": "MTRF",
+            "phrase": "Maclaurin Terms for a Rational Function"
+          }
+        ],
+        "q:local-lhopital": [
+          {
+            "letter": "a",
+            "code": "FLQE",
+            "phrase": "First-order Linear Quotient Expansions"
+          },
+          {
+            "letter": "b",
+            "code": "PNNZD",
+            "phrase": "Punctured-Neighbourhood Non-Zero Denominator"
+          },
+          {
+            "letter": "c",
+            "code": "LQDL",
+            "phrase": "Local Quotient Derivative Limit"
+          }
+        ],
+        "q:lhopital-applications": [
+          {
+            "letter": "a",
+            "code": "SQR",
+            "phrase": "Sine Quotient Recovery"
+          },
+          {
+            "letter": "b",
+            "code": "CSOQL",
+            "phrase": "Cosine Second-Order Quotient Limit"
+          },
+          {
+            "letter": "c",
+            "code": "RDQE",
+            "phrase": "Repeated Derivative Quotient Evaluation"
+          },
+          {
+            "letter": "d",
+            "code": "HRVA",
+            "phrase": "Hypothesis Review before Valid Application"
+          }
+        ]
+      },
+      "admitted_results": [
+        {
+          "code": "TTPR",
+          "phrase": "Taylor Theorem with Peano Remainder"
+        },
+        {
+          "code": "GDQLR",
+          "phrase": "General Derivative Quotient Limit Rule"
+        }
+      ]
+    }
+  }
+}

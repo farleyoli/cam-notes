@@ -1,0 +1,2026 @@
+{
+  "source": "IA_M/numbers_and_sets.tex",
+  "uniqueness_scope": "source",
+  "acronym_rule": "Read the phrase from left to right and concatenate the initial of each capitalized word or capitalized hyphen component. Lowercase words do not contribute.",
+  "parts": {
+    "I": {
+      "status": "complete",
+      "questions": {
+        "q:logic": [
+          {
+            "letter": "a",
+            "code": "ITT",
+            "phrase": "Implication Truth Table"
+          },
+          {
+            "letter": "b",
+            "code": "TTLE",
+            "phrase": "Truth Table Logical Equivalences"
+          },
+          {
+            "letter": "c",
+            "code": "NQN",
+            "phrase": "Nested Quantifier Negation"
+          },
+          {
+            "letter": "d",
+            "code": "IMPQF",
+            "phrase": "Infinitely Many Primes in Quantifier Form"
+          }
+        ],
+        "q:proofs": [
+          {
+            "letter": "a",
+            "code": "FPD",
+            "phrase": "Flawed Proof Direction"
+          },
+          {
+            "letter": "b",
+            "code": "ESP",
+            "phrase": "Even Squares and Parity"
+          },
+          {
+            "letter": "c",
+            "code": "LPRF",
+            "phrase": "Least Positive Real Fallacy"
+          }
+        ],
+        "q:sets": [
+          {
+            "letter": "a",
+            "code": "SEC",
+            "phrase": "Set Equality Criterion"
+          },
+          {
+            "letter": "b",
+            "code": "DMLIF",
+            "phrase": "De Morgan Laws for Indexed Families"
+          },
+          {
+            "letter": "c",
+            "code": "DIU",
+            "phrase": "Distribution over an Indexed Union"
+          },
+          {
+            "letter": "d",
+            "code": "ASD",
+            "phrase": "Associativity of Symmetric Difference"
+          },
+          {
+            "letter": "e",
+            "code": "RUSP",
+            "phrase": "Russell's Universal Set Paradox"
+          }
+        ],
+        "q:ordered-pairs": [
+          {
+            "letter": "a",
+            "code": "OPEFD",
+            "phrase": "Ordered Pair Equality in the Forward Direction"
+          },
+          {
+            "letter": "b",
+            "code": "OPECD",
+            "phrase": "Ordered Pair Equality in the Converse Direction"
+          }
+        ],
+        "q:products": [
+          {
+            "letter": "a",
+            "code": "CPE",
+            "phrase": "Cartesian Product Emptiness"
+          },
+          {
+            "letter": "b",
+            "code": "CPFC",
+            "phrase": "Cartesian Product Factor Cancellation"
+          },
+          {
+            "letter": "c",
+            "code": "EFC",
+            "phrase": "Empty-Factor Counterexample"
+          },
+          {
+            "letter": "d",
+            "code": "FGC",
+            "phrase": "Function Graph Characterization"
+          }
+        ],
+        "q:image-preimage": [
+          {
+            "letter": "a",
+            "code": "IPU",
+            "phrase": "Images and Pre-images of Unions"
+          },
+          {
+            "letter": "b",
+            "code": "PCI",
+            "phrase": "Pre-images of Complements and Intersections"
+          },
+          {
+            "letter": "c",
+            "code": "III",
+            "phrase": "Image of an Intersection Inclusion"
+          },
+          {
+            "letter": "d",
+            "code": "IECI",
+            "phrase": "Intersection Equality Characterizes Injectivity"
+          }
+        ],
+        "q:map-criteria": [
+          {
+            "letter": "a",
+            "code": "PICI",
+            "phrase": "Pre-image--Image Criterion for Injectivity"
+          },
+          {
+            "letter": "b",
+            "code": "IPCS",
+            "phrase": "Image--Pre-image Criterion for Surjectivity"
+          },
+          {
+            "letter": "c",
+            "code": "CPIS",
+            "phrase": "Composition Preserves Injectivity and Surjectivity"
+          },
+          {
+            "letter": "d",
+            "code": "CAIL",
+            "phrase": "Composition Associativity and Identity Laws"
+          }
+        ],
+        "q:inverses": [
+          {
+            "letter": "a",
+            "code": "IIIS",
+            "phrase": "Inverses Imply Injectivity and Surjectivity"
+          },
+          {
+            "letter": "b",
+            "code": "ILI",
+            "phrase": "Injectivity gives a Left Inverse"
+          },
+          {
+            "letter": "c",
+            "code": "SRI",
+            "phrase": "Surjectivity gives a Right Inverse"
+          },
+          {
+            "letter": "d",
+            "code": "BUI",
+            "phrase": "Bijection has a Unique Inverse"
+          },
+          {
+            "letter": "e",
+            "code": "EDLIO",
+            "phrase": "Empty Domain and Left Inverse Obstruction"
+          },
+          {
+            "letter": "f",
+            "code": "ACRI",
+            "phrase": "Axiom of Choice and Right Inverses"
+          }
+        ],
+        "q:equivalence": [
+          {
+            "letter": "a",
+            "code": "EEC",
+            "phrase": "Equivalent Elements have the same Class"
+          },
+          {
+            "letter": "b",
+            "code": "ECED",
+            "phrase": "Equivalence Classes are Equal or Disjoint"
+          },
+          {
+            "letter": "c",
+            "code": "ECPS",
+            "phrase": "Equivalence Classes Partition the Set"
+          },
+          {
+            "letter": "d",
+            "code": "PDER",
+            "phrase": "Partitions Define Equivalence Relations"
+          }
+        ],
+        "q:quotient": [
+          {
+            "letter": "a",
+            "code": "QMS",
+            "phrase": "Quotient Maps are Surjective"
+          },
+          {
+            "letter": "b",
+            "code": "FQWD",
+            "phrase": "Factorization through Quotients is Well-Defined"
+          },
+          {
+            "letter": "c",
+            "code": "FQU",
+            "phrase": "Factorization through Quotients is Unique"
+          },
+          {
+            "letter": "d",
+            "code": "FCC",
+            "phrase": "Factorization and Constancy on Classes"
+          }
+        ],
+        "q:orders": [
+          {
+            "letter": "a",
+            "code": "IOPS",
+            "phrase": "Inclusion Orders the Power Set"
+          },
+          {
+            "letter": "b",
+            "code": "DPO",
+            "phrase": "Divisibility as a Partial Order"
+          },
+          {
+            "letter": "c",
+            "code": "CER",
+            "phrase": "Congruence is an Equivalence Relation"
+          }
+        ]
+      },
+      "admitted_results": []
+    },
+    "II": {
+      "status": "complete",
+      "questions": {
+        "q:peano-induction": [
+          {
+            "letter": "a",
+            "code": "WIPA",
+            "phrase": "Weak Induction from Peano Axioms"
+          },
+          {
+            "letter": "b",
+            "code": "ISO",
+            "phrase": "Induction Starting at One"
+          }
+        ],
+        "q:strong-induction": [
+          {
+            "letter": "a",
+            "code": "SIIWI",
+            "phrase": "Strong Induction Implies Weak Induction"
+          },
+          {
+            "letter": "b",
+            "code": "WIPSI",
+            "phrase": "Weak Induction Proves Strong Induction"
+          },
+          {
+            "letter": "c",
+            "code": "SICBC",
+            "phrase": "Strong Induction Contains its Base Case"
+          }
+        ],
+        "q:well-ordering": [
+          {
+            "letter": "a",
+            "code": "WONI",
+            "phrase": "Well-Ordering of Non-negative Integers"
+          },
+          {
+            "letter": "b",
+            "code": "SIWO",
+            "phrase": "Strong Induction from Well-Ordering"
+          },
+          {
+            "letter": "c",
+            "code": "WOSI",
+            "phrase": "Well-Ordering from Strong Induction"
+          },
+          {
+            "letter": "d",
+            "code": "PPLC",
+            "phrase": "Prime Products by Least Counterexample"
+          }
+        ],
+        "q:lexicographic": [
+          {
+            "letter": "a",
+            "code": "LWOP",
+            "phrase": "Lexicographic Well-Ordering of Pairs"
+          },
+          {
+            "letter": "b",
+            "code": "ARWF",
+            "phrase": "Ackermann Recursion is Well-Founded"
+          }
+        ],
+        "q:hanoi": [
+          {
+            "letter": "a",
+            "code": "EOHS",
+            "phrase": "Existence of an Optimal Hanoi Strategy"
+          },
+          {
+            "letter": "b",
+            "code": "HRUB",
+            "phrase": "Hanoi Recurrence Upper Bound"
+          },
+          {
+            "letter": "c",
+            "code": "HRLB",
+            "phrase": "Hanoi Recurrence Lower Bound"
+          },
+          {
+            "letter": "d",
+            "code": "EHMC",
+            "phrase": "Exact Hanoi Move Count"
+          }
+        ],
+        "q:binary-trees": [
+          {
+            "letter": "a",
+            "code": "FBTVFI",
+            "phrase": "Full Binary Tree Vertex Formula by Induction"
+          },
+          {
+            "letter": "b",
+            "code": "FBTFEC",
+            "phrase": "Full Binary Tree Formula by Edge Counting"
+          }
+        ],
+        "q:finite-injection": [
+          {
+            "letter": "a",
+            "code": "FSIS",
+            "phrase": "Finite Self-Injection is Surjective"
+          },
+          {
+            "letter": "b",
+            "code": "FSSI",
+            "phrase": "Finite Self-Surjection is Injective"
+          }
+        ],
+        "q:finite-cardinality": [
+          {
+            "letter": "a",
+            "code": "UFC",
+            "phrase": "Uniqueness of Finite Cardinality"
+          },
+          {
+            "letter": "b",
+            "code": "FPP",
+            "phrase": "Finite Pigeonhole Principle"
+          },
+          {
+            "letter": "c",
+            "code": "GFPP",
+            "phrase": "Generalized Finite Pigeonhole Principle"
+          }
+        ],
+        "q:counting-maps": [
+          {
+            "letter": "a",
+            "code": "CFFS",
+            "phrase": "Counting Functions between Finite Sets"
+          },
+          {
+            "letter": "b",
+            "code": "CIP",
+            "phrase": "Counting Injections and Permutations"
+          },
+          {
+            "letter": "c",
+            "code": "BCFF",
+            "phrase": "Binomial Coefficient Factorial Formula"
+          },
+          {
+            "letter": "d",
+            "code": "SBC",
+            "phrase": "Sum of Binomial Coefficients"
+          }
+        ],
+        "q:indicators": [
+          {
+            "letter": "a",
+            "code": "IIBSO",
+            "phrase": "Indicator Identities for Basic Set Operations"
+          },
+          {
+            "letter": "b",
+            "code": "IFSD",
+            "phrase": "Indicator Formula for Symmetric Difference"
+          },
+          {
+            "letter": "c",
+            "code": "IEIE",
+            "phrase": "Inclusion Exclusion by Indicator Expansion"
+          }
+        ],
+        "q:binomial": [
+          {
+            "letter": "a",
+            "code": "BTPE",
+            "phrase": "Binomial Theorem by Product Expansion"
+          },
+          {
+            "letter": "b",
+            "code": "BCSC",
+            "phrase": "Binomial Coefficient Symmetry from Complements"
+          },
+          {
+            "letter": "c",
+            "code": "PISP",
+            "phrase": "Pascal Identity by Subset Partition"
+          },
+          {
+            "letter": "d",
+            "code": "PIF",
+            "phrase": "Pascal Identity from Factorials"
+          }
+        ],
+        "q:double-counting": [
+          {
+            "letter": "a",
+            "code": "NSDC",
+            "phrase": "Nested Subset Double Counting"
+          },
+          {
+            "letter": "b",
+            "code": "VIDC",
+            "phrase": "Vandermonde Identity by Double Counting"
+          },
+          {
+            "letter": "c",
+            "code": "FFVI",
+            "phrase": "Falling Factorial Vandermonde Identity"
+          }
+        ],
+        "q:stars-bars": [
+          {
+            "letter": "a",
+            "code": "SBE",
+            "phrase": "Star-Bar Encoding"
+          },
+          {
+            "letter": "b",
+            "code": "WCCF",
+            "phrase": "Weak Composition Counting Formula"
+          },
+          {
+            "letter": "c",
+            "code": "SCIE",
+            "phrase": "Surjection Count by Inclusion Exclusion"
+          }
+        ],
+        "q:derangements": [
+          {
+            "letter": "a",
+            "code": "DFIE",
+            "phrase": "Derangement Formula by Inclusion Exclusion"
+          },
+          {
+            "letter": "b",
+            "code": "DRF",
+            "phrase": "Derangement Recurrence Formula"
+          }
+        ]
+      },
+      "admitted_results": [
+        {
+          "code": "WFRT",
+          "phrase": "Well-Founded Recursion Theorem"
+        }
+      ]
+    },
+    "III": {
+      "status": "complete",
+      "questions": {
+        "q:division": [
+          {
+            "letter": "a",
+            "code": "LRE",
+            "phrase": "Least Remainder Existence"
+          },
+          {
+            "letter": "b",
+            "code": "DRB",
+            "phrase": "Division Remainder Bounds"
+          },
+          {
+            "letter": "c",
+            "code": "QRU",
+            "phrase": "Quotient and Remainder Uniqueness"
+          },
+          {
+            "letter": "d",
+            "code": "SEDE",
+            "phrase": "Signed Euclidean Division Example"
+          }
+        ],
+        "q:gcd-construction": [
+          {
+            "letter": "a",
+            "code": "LPLC",
+            "phrase": "Least Positive Linear Combination"
+          },
+          {
+            "letter": "b",
+            "code": "LLCDI",
+            "phrase": "Least Linear Combination Divides both Inputs"
+          },
+          {
+            "letter": "c",
+            "code": "CDDM",
+            "phrase": "Common Divisors Divide the Minimum"
+          },
+          {
+            "letter": "d",
+            "code": "GCDBI",
+            "phrase": "Greatest Common Divisor and Bezout Identity"
+          },
+          {
+            "letter": "e",
+            "code": "GCDZS",
+            "phrase": "Greatest Common Divisor with Zero and Signs"
+          }
+        ],
+        "q:euclid": [
+          {
+            "letter": "a",
+            "code": "CDPR",
+            "phrase": "Common Divisors are Preserved by Remainders"
+          },
+          {
+            "letter": "b",
+            "code": "SDT",
+            "phrase": "Strict Descent and Termination"
+          },
+          {
+            "letter": "c",
+            "code": "LNRGCD",
+            "phrase": "Last Non-zero Remainder is the Greatest Common Divisor"
+          }
+        ],
+        "q:euclid-complexity": [
+          {
+            "letter": "a",
+            "code": "BLWD",
+            "phrase": "Binary Length is Well-Defined"
+          },
+          {
+            "letter": "b",
+            "code": "TESH",
+            "phrase": "Two Euclidean Steps Halve"
+          },
+          {
+            "letter": "c",
+            "code": "LEDB",
+            "phrase": "Logarithmic Euclidean Division Bound"
+          }
+        ],
+        "q:extended-euclid": [
+          {
+            "letter": "a",
+            "code": "EELCI",
+            "phrase": "Extended Euclidean Linear Combination Invariant"
+          },
+          {
+            "letter": "b",
+            "code": "EEDI",
+            "phrase": "Extended Euclidean Determinant Identity"
+          },
+          {
+            "letter": "c",
+            "code": "EBREE",
+            "phrase": "Explicit Bezout Relation by Extended Euclid"
+          },
+          {
+            "letter": "d",
+            "code": "EQCFC",
+            "phrase": "Euclidean Quotients and Continued Fraction Convergents"
+          }
+        ],
+        "q:diophantine": [
+          {
+            "letter": "a",
+            "code": "LDSC",
+            "phrase": "Linear Diophantine Solvability Criterion"
+          },
+          {
+            "letter": "b",
+            "code": "PLDS",
+            "phrase": "Parametrization of Linear Diophantine Solutions"
+          },
+          {
+            "letter": "c",
+            "code": "SCLDE",
+            "phrase": "Solving a Concrete Linear Diophantine Equation"
+          }
+        ],
+        "q:euclid-primes": [
+          {
+            "letter": "a",
+            "code": "EPALPD",
+            "phrase": "Euclidean Product Avoids Listed Prime Divisors"
+          },
+          {
+            "letter": "b",
+            "code": "EPIP",
+            "phrase": "Euclid Proof of Infinite Primes"
+          },
+          {
+            "letter": "c",
+            "code": "CPEP",
+            "phrase": "Composite Possibility for the Euclidean Product"
+          }
+        ],
+        "q:erdos-primes": [
+          {
+            "letter": "a",
+            "code": "SDFP",
+            "phrase": "Squarefree Decomposition over Finite Primes"
+          },
+          {
+            "letter": "b",
+            "code": "CBSR",
+            "phrase": "Counting Bounded Squarefree Representations"
+          },
+          {
+            "letter": "c",
+            "code": "ECCIP",
+            "phrase": "Erdos Counting Contradiction for Infinite Primes"
+          }
+        ],
+        "q:coprime-divisibility": [
+          {
+            "letter": "a",
+            "code": "CDPDOF",
+            "phrase": "Coprime Divisor of a Product Divides the Other Factor"
+          },
+          {
+            "letter": "b",
+            "code": "ELPD",
+            "phrase": "Euclid Lemma for Prime Divisors"
+          },
+          {
+            "letter": "c",
+            "code": "PDFP",
+            "phrase": "Prime Divisor of a Finite Product"
+          }
+        ],
+        "q:fta": [
+          {
+            "letter": "a",
+            "code": "MPFEL",
+            "phrase": "Matching Prime Factors by Euclid Lemma"
+          },
+          {
+            "letter": "b",
+            "code": "UPF",
+            "phrase": "Uniqueness of Prime Factorization"
+          },
+          {
+            "letter": "c",
+            "code": "UPFT",
+            "phrase": "Unique Prime Factorization Theorem"
+          }
+        ],
+        "q:valuations": [
+          {
+            "letter": "a",
+            "code": "VFGCDLCM",
+            "phrase": "Valuation Formulas for Greatest Common Divisor and Least Common Multiple"
+          },
+          {
+            "letter": "b",
+            "code": "PGCDLCM",
+            "phrase": "Product of Greatest Common Divisor and Least Common Multiple"
+          },
+          {
+            "letter": "c",
+            "code": "MQN",
+            "phrase": "Multiplicativity of the Quadratic Norm"
+          },
+          {
+            "letter": "d",
+            "code": "UQIR",
+            "phrase": "Units in the Quadratic Integer Ring"
+          },
+          {
+            "letter": "e",
+            "code": "IFU",
+            "phrase": "Irreducible Factorizations are not Unique"
+          },
+          {
+            "letter": "f",
+            "code": "FELQIR",
+            "phrase": "Failure of Euclid Lemma in the Quadratic Integer Ring"
+          }
+        ]
+      },
+      "admitted_results": []
+    },
+    "IV": {
+      "status": "complete",
+      "questions": {
+        "q:congruence": [
+          {
+            "letter": "a",
+            "code": "CERR",
+            "phrase": "Congruence is an Equivalence Relation Reproved"
+          },
+          {
+            "letter": "b",
+            "code": "CRAM",
+            "phrase": "Congruence Respects Addition and Multiplication"
+          },
+          {
+            "letter": "c",
+            "code": "WDARC",
+            "phrase": "Well-Defined Arithmetic on Residue Classes"
+          },
+          {
+            "letter": "d",
+            "code": "RRCR",
+            "phrase": "Reduction between Residue Class Rings"
+          },
+          {
+            "letter": "e",
+            "code": "CLRC",
+            "phrase": "Complete List of Residue Classes"
+          }
+        ],
+        "q:modular-obstruction": [
+          {
+            "letter": "a",
+            "code": "SCT",
+            "phrase": "Square Classes modulo Three"
+          },
+          {
+            "letter": "b",
+            "code": "MODE",
+            "phrase": "Modular Obstruction to a Diophantine Equation"
+          },
+          {
+            "letter": "c",
+            "code": "TSRSE",
+            "phrase": "Three Squares do not Represent Seven modulo Eight"
+          }
+        ],
+        "q:primes-three-mod-four": [
+          {
+            "letter": "a",
+            "code": "NNALP",
+            "phrase": "New Number Avoids Listed Primes"
+          },
+          {
+            "letter": "b",
+            "code": "PDCTF",
+            "phrase": "Prime Divisor Congruent to Three modulo Four"
+          },
+          {
+            "letter": "c",
+            "code": "IMPCTF",
+            "phrase": "Infinitely Many Primes Congruent to Three modulo Four"
+          }
+        ],
+        "q:linear-congruence": [
+          {
+            "letter": "a",
+            "code": "UECRC",
+            "phrase": "Units are Exactly Coprime Residue Classes"
+          },
+          {
+            "letter": "b",
+            "code": "LCSC",
+            "phrase": "Linear Congruence Solvability Criterion"
+          },
+          {
+            "letter": "c",
+            "code": "RSLC",
+            "phrase": "Reduction of a Solvable Linear Congruence"
+          },
+          {
+            "letter": "d",
+            "code": "CSCLC",
+            "phrase": "Complete Solution Classes of a Linear Congruence"
+          },
+          {
+            "letter": "e",
+            "code": "CLCS",
+            "phrase": "Concrete Linear Congruence Solution"
+          }
+        ],
+        "q:crt": [
+          {
+            "letter": "a",
+            "code": "TMCRC",
+            "phrase": "Two-Modulus Chinese Remainder Construction"
+          },
+          {
+            "letter": "b",
+            "code": "CRUP",
+            "phrase": "Chinese Remainder Uniqueness modulo the Product"
+          },
+          {
+            "letter": "c",
+            "code": "FCRT",
+            "phrase": "Finite Chinese Remainder Theorem"
+          },
+          {
+            "letter": "d",
+            "code": "CRNE",
+            "phrase": "Chinese Remainder Numerical Example"
+          }
+        ],
+        "q:crt-map": [
+          {
+            "letter": "a",
+            "code": "CRMB",
+            "phrase": "Chinese Remainder Map is a Bijection"
+          },
+          {
+            "letter": "b",
+            "code": "CRMPRO",
+            "phrase": "Chinese Remainder Map Preserves Ring Operations"
+          },
+          {
+            "letter": "c",
+            "code": "UCRD",
+            "phrase": "Units under Chinese Remainder Decomposition"
+          }
+        ],
+        "q:totient": [
+          {
+            "letter": "a",
+            "code": "TPP",
+            "phrase": "Totient of a Prime Power"
+          },
+          {
+            "letter": "b",
+            "code": "MTF",
+            "phrase": "Multiplicativity of the Totient Function"
+          },
+          {
+            "letter": "c",
+            "code": "EPFT",
+            "phrase": "Euler Product Formula for the Totient"
+          },
+          {
+            "letter": "d",
+            "code": "TFIE",
+            "phrase": "Totient Formula by Inclusion Exclusion"
+          },
+          {
+            "letter": "e",
+            "code": "TNE",
+            "phrase": "Totient Numerical Example"
+          }
+        ],
+        "q:wilson": [
+          {
+            "letter": "a",
+            "code": "SROP",
+            "phrase": "Square Roots of One modulo a Prime"
+          },
+          {
+            "letter": "b",
+            "code": "WT",
+            "phrase": "Wilson Theorem"
+          },
+          {
+            "letter": "c",
+            "code": "WCCP",
+            "phrase": "Wilson Converse Characterizes Primes"
+          }
+        ],
+        "q:fermat-euler": [
+          {
+            "letter": "a",
+            "code": "MPNPR",
+            "phrase": "Multiplication Permutes Non-zero Prime Residues"
+          },
+          {
+            "letter": "b",
+            "code": "FLT",
+            "phrase": "Fermat Little Theorem"
+          },
+          {
+            "letter": "c",
+            "code": "FET",
+            "phrase": "Fermat Euler Theorem"
+          }
+        ],
+        "q:quadratic-residues": [
+          {
+            "letter": "a",
+            "code": "ECSP",
+            "phrase": "Equality Criterion for Squares modulo a Prime"
+          },
+          {
+            "letter": "b",
+            "code": "NNQR",
+            "phrase": "Number of Non-zero Quadratic Residues"
+          },
+          {
+            "letter": "c",
+            "code": "QRT",
+            "phrase": "Quadratic Residue Tables"
+          }
+        ],
+        "q:minus-one": [
+          {
+            "letter": "a",
+            "code": "CSRMO",
+            "phrase": "Constructing Square Roots of Minus One"
+          },
+          {
+            "letter": "b",
+            "code": "NSRMO",
+            "phrase": "Non-existence of Square Roots of Minus One"
+          },
+          {
+            "letter": "c",
+            "code": "MOQRC",
+            "phrase": "Minus One Quadratic Residue Criterion"
+          }
+        ],
+        "q:two-squares": [
+          {
+            "letter": "a",
+            "code": "ICSP",
+            "phrase": "Integer between Consecutive Squares below a Prime"
+          },
+          {
+            "letter": "b",
+            "code": "CBRP",
+            "phrase": "Collision among Bounded Residue Pairs"
+          },
+          {
+            "letter": "c",
+            "code": "SNLRP",
+            "phrase": "Small Non-zero Linear Relation modulo a Prime"
+          },
+          {
+            "letter": "d",
+            "code": "PSTS",
+            "phrase": "Prime as a Sum of Two Squares"
+          },
+          {
+            "letter": "e",
+            "code": "OPSTSN",
+            "phrase": "Odd Prime Sum of Two Squares Necessity"
+          },
+          {
+            "letter": "f",
+            "code": "PSTSC",
+            "phrase": "Prime Sum of Two Squares Criterion"
+          }
+        ],
+        "q:primes-one-mod-four": [
+          {
+            "letter": "a",
+            "code": "FSCALP",
+            "phrase": "Fourfold Square Construction Avoids Listed Primes"
+          },
+          {
+            "letter": "b",
+            "code": "PDMMOS",
+            "phrase": "Prime Divisors Make Minus One a Square"
+          },
+          {
+            "letter": "c",
+            "code": "IMPCOF",
+            "phrase": "Infinitely Many Primes Congruent to One modulo Four"
+          }
+        ],
+        "q:square-root-formula": [
+          {
+            "letter": "a",
+            "code": "SRFPTF",
+            "phrase": "Square Root Formula for Primes Three modulo Four"
+          },
+          {
+            "letter": "b",
+            "code": "SRSN",
+            "phrase": "Square Roots of Seven modulo Nineteen"
+          },
+          {
+            "letter": "c",
+            "code": "BERSA",
+            "phrase": "Binary Expansion and Repeated Squaring Algorithm"
+          },
+          {
+            "letter": "d",
+            "code": "MENE",
+            "phrase": "Modular Exponentiation Numerical Example"
+          }
+        ],
+        "q:four-roots": [
+          {
+            "letter": "a",
+            "code": "TSRP",
+            "phrase": "Two Square Roots modulo each Prime"
+          },
+          {
+            "letter": "b",
+            "code": "FSRS",
+            "phrase": "Four Square Roots modulo a Semiprime"
+          },
+          {
+            "letter": "c",
+            "code": "OPFSR",
+            "phrase": "Opposite Pairing of Four Square Roots"
+          }
+        ],
+        "q:carmichael": [
+          {
+            "letter": "a",
+            "code": "FCN",
+            "phrase": "Factorization of the Carmichael Number"
+          },
+          {
+            "letter": "b",
+            "code": "FCPF",
+            "phrase": "Fermat Congruence at Prime Factors"
+          },
+          {
+            "letter": "c",
+            "code": "CCCR",
+            "phrase": "Carmichael Congruence by Chinese Remainders"
+          },
+          {
+            "letter": "d",
+            "code": "FNFPT",
+            "phrase": "Failure of Naive Fermat Primality Testing"
+          }
+        ]
+      },
+      "admitted_results": []
+    },
+    "V": {
+      "status": "complete",
+      "questions": {
+        "q:factor-from-roots": [
+          {
+            "letter": "a",
+            "code": "NZDSR",
+            "phrase": "Non-trivial Zero Divisors from Square Roots"
+          },
+          {
+            "letter": "b",
+            "code": "RPFGCD",
+            "phrase": "Recovering Prime Factors by Greatest Common Divisors"
+          },
+          {
+            "letter": "c",
+            "code": "FNSR",
+            "phrase": "Factorization from Non-opposite Square Roots"
+          }
+        ],
+        "q:coin-protocol": [
+          {
+            "letter": "a",
+            "code": "CFSRF",
+            "phrase": "Computing Four Square Roots from a Factorization"
+          },
+          {
+            "letter": "b",
+            "code": "HCPF",
+            "phrase": "Honest Coin Protocol is Fair"
+          },
+          {
+            "letter": "c",
+            "code": "CSRF",
+            "phrase": "Cheating Strategy Reveals a Factor"
+          },
+          {
+            "letter": "d",
+            "code": "CAMC",
+            "phrase": "Computational Assumption versus Mathematical Conclusion"
+          }
+        ],
+        "q:rsa-keys": [
+          {
+            "letter": "a",
+            "code": "EUPE",
+            "phrase": "Existence and Uniqueness of the Private Exponent"
+          },
+          {
+            "letter": "b",
+            "code": "CPEEE",
+            "phrase": "Computing the Private Exponent by Extended Euclid"
+          },
+          {
+            "letter": "c",
+            "code": "EPD",
+            "phrase": "Exponent Product Decomposition"
+          }
+        ],
+        "q:rsa-coprime": [
+          {
+            "letter": "a",
+            "code": "ECCM",
+            "phrase": "Euler Congruence for Coprime Messages"
+          },
+          {
+            "letter": "b",
+            "code": "RSACMC",
+            "phrase": "Rivest Shamir Adleman Coprime Message Correctness"
+          }
+        ],
+        "q:rsa-all-messages": [
+          {
+            "letter": "a",
+            "code": "DCFP",
+            "phrase": "Decryption Correctness modulo the First Prime"
+          },
+          {
+            "letter": "b",
+            "code": "DCSP",
+            "phrase": "Decryption Correctness modulo the Second Prime"
+          },
+          {
+            "letter": "c",
+            "code": "RSACEM",
+            "phrase": "Rivest Shamir Adleman Correctness for Every Message"
+          }
+        ],
+        "q:rsa-example": [
+          {
+            "letter": "a",
+            "code": "RSAKGE",
+            "phrase": "Rivest Shamir Adleman Key Generation Example"
+          },
+          {
+            "letter": "b",
+            "code": "RSAEDE",
+            "phrase": "Rivest Shamir Adleman Encryption and Decryption Example"
+          },
+          {
+            "letter": "c",
+            "code": "TRPS",
+            "phrase": "Totient Reveals the Prime Sum"
+          },
+          {
+            "letter": "d",
+            "code": "FST",
+            "phrase": "Factoring a Semiprime from its Totient"
+          }
+        ]
+      },
+      "admitted_results": []
+    },
+    "VI": {
+      "status": "complete",
+      "questions": {
+        "q:peano-arithmetic": [
+          {
+            "letter": "a",
+            "code": "SRIA",
+            "phrase": "Successor Recursion Identities for Addition"
+          },
+          {
+            "letter": "b",
+            "code": "CPA",
+            "phrase": "Commutativity of Peano Addition"
+          },
+          {
+            "letter": "c",
+            "code": "APA",
+            "phrase": "Associativity of Peano Addition"
+          },
+          {
+            "letter": "d",
+            "code": "PMIC",
+            "phrase": "Peano Multiplication Identities and Commutativity"
+          },
+          {
+            "letter": "e",
+            "code": "DLPA",
+            "phrase": "Distributive Laws for Peano Arithmetic"
+          },
+          {
+            "letter": "f",
+            "code": "AMAC",
+            "phrase": "Associativity of Multiplication and Additive Cancellation"
+          },
+          {
+            "letter": "g",
+            "code": "TOPA",
+            "phrase": "Total Order from Peano Addition"
+          },
+          {
+            "letter": "h",
+            "code": "ZPPNN",
+            "phrase": "Zero Product Property for Natural Numbers"
+          }
+        ],
+        "q:integers": [
+          {
+            "letter": "a",
+            "code": "IPRER",
+            "phrase": "Integer-Pair Relation is an Equivalence Relation"
+          },
+          {
+            "letter": "b",
+            "code": "WDAIC",
+            "phrase": "Well-Defined Addition of Integer Classes"
+          },
+          {
+            "letter": "c",
+            "code": "WDMIC",
+            "phrase": "Well-Defined Multiplication of Integer Classes"
+          },
+          {
+            "letter": "d",
+            "code": "ICIAI",
+            "phrase": "Integer Class Identities and Additive Inverses"
+          },
+          {
+            "letter": "e",
+            "code": "NNEI",
+            "phrase": "Natural Number Embedding into the Integers"
+          },
+          {
+            "letter": "f",
+            "code": "ICSCRL",
+            "phrase": "Integer Classes Satisfy Commutative Ring Laws"
+          },
+          {
+            "letter": "g",
+            "code": "STOIC",
+            "phrase": "Strict Total Order on Integer Classes"
+          },
+          {
+            "letter": "h",
+            "code": "OCIO",
+            "phrase": "Order Compatibility with Integer Operations"
+          },
+          {
+            "letter": "i",
+            "code": "ZPCI",
+            "phrase": "Zero Product and Cancellation in the Integers"
+          }
+        ],
+        "q:rationals": [
+          {
+            "letter": "a",
+            "code": "RPRER",
+            "phrase": "Rational-Pair Relation is an Equivalence Relation"
+          },
+          {
+            "letter": "b",
+            "code": "WDRA",
+            "phrase": "Well-Defined Rational Arithmetic"
+          },
+          {
+            "letter": "c",
+            "code": "RII",
+            "phrase": "Rational Identities and Inverses"
+          },
+          {
+            "letter": "d",
+            "code": "RCFF",
+            "phrase": "Rational Classes Form a Field"
+          },
+          {
+            "letter": "e",
+            "code": "STORC",
+            "phrase": "Strict Total Order on Rational Classes"
+          },
+          {
+            "letter": "f",
+            "code": "IER",
+            "phrase": "Integer Embedding into the Rationals"
+          }
+        ],
+        "q:ordered-rationals": [
+          {
+            "letter": "a",
+            "code": "ROTI",
+            "phrase": "Rational Order is Translation-Invariant"
+          },
+          {
+            "letter": "b",
+            "code": "RORPM",
+            "phrase": "Rational Order Respects Positive Multiplication"
+          },
+          {
+            "letter": "c",
+            "code": "RFTOF",
+            "phrase": "Rationals Form a Totally Ordered Field"
+          },
+          {
+            "letter": "d",
+            "code": "RMDO",
+            "phrase": "Rational Midpoints and Dense Order"
+          }
+        ],
+        "q:sqrt-two-irrational": [
+          {
+            "letter": "a",
+            "code": "LTCRSR",
+            "phrase": "Lowest Terms Consequence of a Rational Square Root"
+          },
+          {
+            "letter": "b",
+            "code": "ENES",
+            "phrase": "Even Numerator from an Even Square"
+          },
+          {
+            "letter": "c",
+            "code": "ISRT",
+            "phrase": "Irrationality of the Square Root of Two"
+          }
+        ],
+        "q:q-incomplete": [
+          {
+            "letter": "a",
+            "code": "RSBSNB",
+            "phrase": "Rational Square-Bound Set is Non-empty and Bounded"
+          },
+          {
+            "letter": "b",
+            "code": "PRSA",
+            "phrase": "Positive Rational Supremum Assumption"
+          },
+          {
+            "letter": "c",
+            "code": "UPPRS",
+            "phrase": "Upward Perturbation of a Putative Rational Supremum"
+          },
+          {
+            "letter": "d",
+            "code": "DPPRS",
+            "phrase": "Downward Perturbation of a Putative Rational Supremum"
+          },
+          {
+            "letter": "e",
+            "code": "ROC",
+            "phrase": "Rational Order is not Complete"
+          }
+        ],
+        "q:sup-inf": [
+          {
+            "letter": "a",
+            "code": "ULUB",
+            "phrase": "Uniqueness of Least Upper Bounds"
+          },
+          {
+            "letter": "b",
+            "code": "GLBLUB",
+            "phrase": "Greatest Lower Bounds from Least Upper Bounds"
+          },
+          {
+            "letter": "c",
+            "code": "SIBS",
+            "phrase": "Suprema and Infima of Basic Sets"
+          }
+        ],
+        "q:archimedean": [
+          {
+            "letter": "a",
+            "code": "PPNUB",
+            "phrase": "Predecessor of a Putative Natural Upper Bound"
+          },
+          {
+            "letter": "b",
+            "code": "CNUB",
+            "phrase": "Contradiction to a Natural Upper Bound"
+          },
+          {
+            "letter": "c",
+            "code": "APR",
+            "phrase": "Archimedean Property of the Reals"
+          }
+        ],
+        "q:archimedean-density": [
+          {
+            "letter": "a",
+            "code": "RNIZ",
+            "phrase": "Reciprocal Naturals have Infimum Zero"
+          },
+          {
+            "letter": "b",
+            "code": "SRRG",
+            "phrase": "Small Reciprocal below a Real Gap"
+          },
+          {
+            "letter": "c",
+            "code": "LIRM",
+            "phrase": "Least Integer above a Real Multiple"
+          },
+          {
+            "letter": "d",
+            "code": "DRR",
+            "phrase": "Density of the Rationals in the Reals"
+          }
+        ],
+        "q:real-sqrt-two": [
+          {
+            "letter": "a",
+            "code": "RSBCSNB",
+            "phrase": "Real Square-Bound Candidate Set is Non-empty and Bounded"
+          },
+          {
+            "letter": "b",
+            "code": "RSSBT",
+            "phrase": "Real Supremum cannot Square Below Two"
+          },
+          {
+            "letter": "c",
+            "code": "RSSAT",
+            "phrase": "Real Supremum cannot Square Above Two"
+          },
+          {
+            "letter": "d",
+            "code": "ERSRT",
+            "phrase": "Existence of the Real Square Root of Two"
+          }
+        ],
+        "q:dedekind": [
+          {
+            "letter": "a",
+            "code": "ERNDDC",
+            "phrase": "Every Real Number Defines a Dedekind Cut"
+          },
+          {
+            "letter": "b",
+            "code": "RNEDC",
+            "phrase": "Real Numbers Embed into Dedekind Cuts"
+          },
+          {
+            "letter": "c",
+            "code": "UUBFC",
+            "phrase": "Union of an Upper-Bounded Family of Cuts"
+          },
+          {
+            "letter": "d",
+            "code": "CODC",
+            "phrase": "Completeness of the Ordered Dedekind Cuts"
+          }
+        ]
+      },
+      "admitted_results": [
+        {
+          "code": "DCFC",
+          "phrase": "Dedekind Cut Field Construction"
+        }
+      ]
+    },
+    "VII": {
+      "status": "complete",
+      "questions": {
+        "q:sequence-definition": [
+          {
+            "letter": "a",
+            "code": "AVLTI",
+            "phrase": "Absolute Value Laws and Triangle Inequality"
+          },
+          {
+            "letter": "b",
+            "code": "NSLD",
+            "phrase": "Negation of the Sequence Limit Definition"
+          },
+          {
+            "letter": "c",
+            "code": "RSCZ",
+            "phrase": "Reciprocal Sequence Converges to Zero"
+          },
+          {
+            "letter": "d",
+            "code": "ASSD",
+            "phrase": "Alternating Sign Sequence Diverges"
+          },
+          {
+            "letter": "e",
+            "code": "CSC",
+            "phrase": "Constant Sequence Convergence"
+          },
+          {
+            "letter": "f",
+            "code": "EESHSL",
+            "phrase": "Eventually Equal Sequences Have the Same Limit"
+          }
+        ],
+        "q:limit-basic": [
+          {
+            "letter": "a",
+            "code": "CSB",
+            "phrase": "Convergent Sequences are Bounded"
+          },
+          {
+            "letter": "b",
+            "code": "USL",
+            "phrase": "Uniqueness of Sequence Limits"
+          },
+          {
+            "letter": "c",
+            "code": "SPL",
+            "phrase": "Subsequences Preserve Limits"
+          }
+        ],
+        "q:limit-algebra": [
+          {
+            "letter": "a",
+            "code": "SLSL",
+            "phrase": "Sum Law for Sequence Limits"
+          },
+          {
+            "letter": "b",
+            "code": "PLSL",
+            "phrase": "Product Law for Sequence Limits"
+          },
+          {
+            "letter": "c",
+            "code": "RLSL",
+            "phrase": "Reciprocal Law for Sequence Limits"
+          },
+          {
+            "letter": "d",
+            "code": "STS",
+            "phrase": "Squeeze Theorem for Sequences"
+          }
+        ],
+        "q:monotone-convergence": [
+          {
+            "letter": "a",
+            "code": "SAST",
+            "phrase": "Supremum Approximation by Sequence Terms"
+          },
+          {
+            "letter": "b",
+            "code": "IBSCS",
+            "phrase": "Increasing Bounded Sequence Converges to its Supremum"
+          },
+          {
+            "letter": "c",
+            "code": "MCTS",
+            "phrase": "Monotone Convergence Theorem for Sequences"
+          }
+        ],
+        "q:monotone-subsequence": [
+          {
+            "letter": "a",
+            "code": "IMPDS",
+            "phrase": "Infinitely Many Peaks give a Decreasing Subsequence"
+          },
+          {
+            "letter": "b",
+            "code": "FMPIS",
+            "phrase": "Finitely Many Peaks give an Increasing Subsequence"
+          },
+          {
+            "letter": "c",
+            "code": "MST",
+            "phrase": "Monotone Subsequence Theorem"
+          },
+          {
+            "letter": "d",
+            "code": "BWTS",
+            "phrase": "Bolzano Weierstrass Theorem for Sequences"
+          }
+        ],
+        "q:series": [
+          {
+            "letter": "a",
+            "code": "TSE",
+            "phrase": "Telescoping Series Evaluation"
+          },
+          {
+            "letter": "b",
+            "code": "CTRS",
+            "phrase": "Comparison Test for Reciprocal Squares"
+          },
+          {
+            "letter": "c",
+            "code": "IGSF",
+            "phrase": "Infinite Geometric Series Formula"
+          },
+          {
+            "letter": "d",
+            "code": "DHS",
+            "phrase": "Divergence of the Harmonic Series"
+          }
+        ],
+        "q:decimal-existence": [
+          {
+            "letter": "a",
+            "code": "DSC",
+            "phrase": "Digit Series Convergence"
+          },
+          {
+            "letter": "b",
+            "code": "GDDC",
+            "phrase": "Greedy Decimal Digit Construction"
+          },
+          {
+            "letter": "c",
+            "code": "GDEB",
+            "phrase": "Greedy Decimal Error Bound"
+          },
+          {
+            "letter": "d",
+            "code": "EDE",
+            "phrase": "Existence of Decimal Expansions"
+          }
+        ],
+        "q:decimal-uniqueness": [
+          {
+            "letter": "a",
+            "code": "DTDB",
+            "phrase": "Decimal Tail Difference Bound"
+          },
+          {
+            "letter": "b",
+            "code": "ECDTB",
+            "phrase": "Equality Case in the Decimal Tail Bound"
+          },
+          {
+            "letter": "c",
+            "code": "TRNA",
+            "phrase": "Terminating and Repeating Nine Ambiguity"
+          },
+          {
+            "letter": "d",
+            "code": "UDE",
+            "phrase": "Uniqueness of Decimal Expansions"
+          }
+        ],
+        "q:periodic": [
+          {
+            "letter": "a",
+            "code": "EPDR",
+            "phrase": "Eventually Periodic Decimals are Rational"
+          },
+          {
+            "letter": "b",
+            "code": "LDPDD",
+            "phrase": "Long Division Produces Decimal Digits"
+          },
+          {
+            "letter": "c",
+            "code": "RDEP",
+            "phrase": "Rational Decimals are Eventually Periodic"
+          },
+          {
+            "letter": "d",
+            "code": "DPPB",
+            "phrase": "Decimal Preperiod and Period Bounds"
+          }
+        ],
+        "q:prime-digits": [
+          {
+            "letter": "a",
+            "code": "PPEP",
+            "phrase": "Prime Position beyond an Eventual Preperiod"
+          },
+          {
+            "letter": "b",
+            "code": "PIDCP",
+            "phrase": "Prime-Indexed Digits Contradict Periodicity"
+          },
+          {
+            "letter": "c",
+            "code": "IPID",
+            "phrase": "Irrationality from Prime-Indexed Digits"
+          }
+        ],
+        "q:e-irrational": [
+          {
+            "letter": "a",
+            "code": "CBES",
+            "phrase": "Convergence and Bounds for the Exponential Series"
+          },
+          {
+            "letter": "b",
+            "code": "FMRA",
+            "phrase": "Factorial Multiple under a Rationality Assumption"
+          },
+          {
+            "letter": "c",
+            "code": "ITFS",
+            "phrase": "Integral Truncated Factorial Sum"
+          },
+          {
+            "letter": "d",
+            "code": "SBFT",
+            "phrase": "Strict Bound on the Factorial Tail"
+          },
+          {
+            "letter": "e",
+            "code": "IEC",
+            "phrase": "Irrationality of the Exponential Constant"
+          }
+        ],
+        "q:algebraic-estimates": [
+          {
+            "letter": "a",
+            "code": "ERNA",
+            "phrase": "Every Rational Number is Algebraic"
+          },
+          {
+            "letter": "b",
+            "code": "LBNPVR",
+            "phrase": "Lower Bound for Non-zero Polynomial Values at Rationals"
+          },
+          {
+            "letter": "c",
+            "code": "LBPVUI",
+            "phrase": "Lipschitz Bound for Polynomial Values on the Unit Interval"
+          }
+        ],
+        "q:liouville": [
+          {
+            "letter": "a",
+            "code": "CBLS",
+            "phrase": "Convergence and Bounds for the Liouville Series"
+          },
+          {
+            "letter": "b",
+            "code": "QLTE",
+            "phrase": "Quantitative Liouville Tail Estimate"
+          },
+          {
+            "letter": "c",
+            "code": "DBLPS",
+            "phrase": "Denominator Bound for Liouville Partial Sums"
+          },
+          {
+            "letter": "d",
+            "code": "NRA",
+            "phrase": "Non-vanishing at Rational Approximants"
+          },
+          {
+            "letter": "e",
+            "code": "CPVB",
+            "phrase": "Contradictory Polynomial Value Bounds"
+          },
+          {
+            "letter": "f",
+            "code": "TLN",
+            "phrase": "Transcendence of the Liouville Number"
+          }
+        ]
+      },
+      "admitted_results": [
+        {
+          "code": "FTA",
+          "phrase": "Fundamental Theorem of Algebra"
+        },
+        {
+          "code": "PRB",
+          "phrase": "Polynomial Root Bound"
+        },
+        {
+          "code": "HLT",
+          "phrase": "Hermite Lindemann Transcendence"
+        }
+      ]
+    },
+    "VIII": {
+      "status": "complete",
+      "questions": {
+        "q:countability-criteria": [
+          {
+            "letter": "a",
+            "code": "ESNN",
+            "phrase": "Enumeration of a Subset of the Natural Numbers"
+          },
+          {
+            "letter": "b",
+            "code": "ECC",
+            "phrase": "Equivalent Criteria for Countability"
+          }
+        ],
+        "q:basic-countable": [
+          {
+            "letter": "a",
+            "code": "EBINN",
+            "phrase": "Explicit Bijection between the Integers and Natural Numbers"
+          },
+          {
+            "letter": "b",
+            "code": "CPB",
+            "phrase": "Cantor Pairing Bijection"
+          },
+          {
+            "letter": "c",
+            "code": "CINP",
+            "phrase": "Countability of Integer and Natural Pairs"
+          },
+          {
+            "letter": "d",
+            "code": "CFDIL",
+            "phrase": "Countability of Fixed-Dimensional Integer Lattices"
+          }
+        ],
+        "q:countable-unions": [
+          {
+            "letter": "a",
+            "code": "SCSC",
+            "phrase": "Subsets of Countable Sets are Countable"
+          },
+          {
+            "letter": "b",
+            "code": "SNPCU",
+            "phrase": "Surjection from Natural Pairs onto a Countable Union"
+          },
+          {
+            "letter": "c",
+            "code": "CUSE",
+            "phrase": "Countable Union with Supplied Enumerations"
+          },
+          {
+            "letter": "d",
+            "code": "CCGCUT",
+            "phrase": "Countable Choice Gives the Countable Union Theorem"
+          }
+        ],
+        "q:finite-codes": [
+          {
+            "letter": "a",
+            "code": "CRN",
+            "phrase": "Countability of the Rational Numbers"
+          },
+          {
+            "letter": "b",
+            "code": "CFSNS",
+            "phrase": "Countability of Fixed-Size Natural Subsets"
+          },
+          {
+            "letter": "c",
+            "code": "CFNS",
+            "phrase": "Countability of Finite Natural Subsets"
+          },
+          {
+            "letter": "d",
+            "code": "CFWCA",
+            "phrase": "Countability of Finite Words over a Countable Alphabet"
+          }
+        ],
+        "q:algebraics-countable": [
+          {
+            "letter": "a",
+            "code": "CBDIP",
+            "phrase": "Countability of Bounded-Degree Integer Polynomials"
+          },
+          {
+            "letter": "b",
+            "code": "IPRC",
+            "phrase": "Integer Polynomial Ring is Countable"
+          },
+          {
+            "letter": "c",
+            "code": "CARN",
+            "phrase": "Countability of Algebraic Real Numbers"
+          }
+        ],
+        "q:reals-uncountable": [
+          {
+            "letter": "a",
+            "code": "CDDC",
+            "phrase": "Cantor Decimal Diagonal Construction"
+          },
+          {
+            "letter": "b",
+            "code": "DDAELR",
+            "phrase": "Diagonal Decimal Avoids Every Listed Real"
+          },
+          {
+            "letter": "c",
+            "code": "URN",
+            "phrase": "Uncountability of the Real Numbers"
+          }
+        ],
+        "q:many-transcendentals": [
+          {
+            "letter": "a",
+            "code": "FUCS",
+            "phrase": "Finite Union of Countable Sets"
+          },
+          {
+            "letter": "b",
+            "code": "UMTRN",
+            "phrase": "Uncountably Many Transcendental Real Numbers"
+          },
+          {
+            "letter": "c",
+            "code": "AECT",
+            "phrase": "Abundance versus Explicit Construction of Transcendentals"
+          }
+        ],
+        "q:sequence-diagonals": [
+          {
+            "letter": "a",
+            "code": "SNNBS",
+            "phrase": "Subsets of Natural Numbers are Binary Sequences"
+          },
+          {
+            "letter": "b",
+            "code": "DSAELS",
+            "phrase": "Diagonal Subset Avoids Every Listed Subset"
+          },
+          {
+            "letter": "c",
+            "code": "DFAELF",
+            "phrase": "Diagonal Function Avoids Every Listed Function"
+          },
+          {
+            "letter": "d",
+            "code": "UPSFS",
+            "phrase": "Uncountability of Power Sets and Function Spaces"
+          }
+        ],
+        "q:cantor": [
+          {
+            "letter": "a",
+            "code": "CDC",
+            "phrase": "Cantor Diagonal Contradiction"
+          },
+          {
+            "letter": "b",
+            "code": "NSPS",
+            "phrase": "No Surjection onto a Power Set"
+          },
+          {
+            "letter": "c",
+            "code": "CPST",
+            "phrase": "Cantor Power Set Theorem"
+          }
+        ],
+        "q:csb": [
+          {
+            "letter": "a",
+            "code": "UPIR",
+            "phrase": "Unique Pre-images outside the Iterated Region"
+          },
+          {
+            "letter": "b",
+            "code": "PCSBMWD",
+            "phrase": "Piecewise Cantor Schroder Bernstein Map is Well-Defined"
+          },
+          {
+            "letter": "c",
+            "code": "ICSBM",
+            "phrase": "Injectivity of the Cantor Schroder Bernstein Map"
+          },
+          {
+            "letter": "d",
+            "code": "SCSBM",
+            "phrase": "Surjectivity of the Cantor Schroder Bernstein Map"
+          },
+          {
+            "letter": "e",
+            "code": "CSBT",
+            "phrase": "Cantor Schroder Bernstein Theorem"
+          }
+        ],
+        "q:continuum-power-set": [
+          {
+            "letter": "a",
+            "code": "IRNPS",
+            "phrase": "Injection from the Reals into the Natural Power Set"
+          },
+          {
+            "letter": "b",
+            "code": "TENSR",
+            "phrase": "Ternary Encoding of Natural Subsets as Reals"
+          },
+          {
+            "letter": "c",
+            "code": "ITSE",
+            "phrase": "Injectivity of the Ternary Subset Encoding"
+          },
+          {
+            "letter": "d",
+            "code": "ECNPS",
+            "phrase": "Equinumerosity of the Continuum and the Natural Power Set"
+          }
+        ],
+        "q:cardinal-hierarchy": [
+          {
+            "letter": "a",
+            "code": "IPSGICH",
+            "phrase": "Iterated Power Sets Give an Infinite Cardinal Hierarchy"
+          },
+          {
+            "letter": "b",
+            "code": "NUC",
+            "phrase": "Non-existence of a Universal Cardinal"
+          },
+          {
+            "letter": "c",
+            "code": "CHCGS",
+            "phrase": "Continuum Hypothesis as a Cardinal Gap Statement"
+          }
+        ]
+      },
+      "admitted_results": [
+        {
+          "code": "CHI",
+          "phrase": "Continuum Hypothesis Independence"
+        }
+      ]
+    }
+  }
+}
