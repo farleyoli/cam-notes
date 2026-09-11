@@ -11,6 +11,10 @@
 */*.script
 */*.table
 */*.fdb_latexmk */*.fls
+*.aux
+*.idx
+*.log
+*.out
 *.swp
 todo
 tmp/

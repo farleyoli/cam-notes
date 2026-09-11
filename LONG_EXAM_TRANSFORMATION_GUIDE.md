@@ -776,6 +776,17 @@ consistent.  No question number should be isolated from its opening text.
 Figures must remain legible at the final page size, and no acronym or phrase
 may run into the margin.
 
+After the final successful compilation and all checks, delete the auxiliary
+build files so they are not left in the repository or committed:
+
+```bash
+rm -f "$JOB".aux "$JOB".idx "$JOB".log "$JOB".out
+```
+
+These `.aux`, `.idx`, `.log`, and `.out` files are also listed in `.gitignore`
+and must never be committed; only the `.tex`, JSON catalogue, and PDF are
+deliverables.
+
 ## 13. Final mathematical audit
 
 Read the target as a student would, from the beginning, without consulting the
@@ -823,6 +834,8 @@ A conversion is complete only when all of these statements are true:
 - TeX and JSON name pairs agree exactly;
 - question numbers and references are continuous and resolved;
 - two LaTeX passes succeed without material warnings or layout defects;
+- the auxiliary `.aux`, `.idx`, `.log`, and `.out` files are deleted after the
+  final compilation and are not committed;
 - visual inspection confirms consistent margins, headers, footers, and page
   endings;
 - the coverage ledger and final student-style mathematical audit are complete.
