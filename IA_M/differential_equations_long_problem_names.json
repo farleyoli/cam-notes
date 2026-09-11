@@ -698,7 +698,7 @@
       ],
       "audit": {
         "status": "audited",
-        "date": "2026-09-10",
+        "date": "2026-09-11",
         "checks": [
           "source coverage and dependency order",
           "definitions, hypotheses, domains, and bound variables",
@@ -915,7 +915,7 @@
       ],
       "audit": {
         "status": "audited",
-        "date": "2026-09-10",
+        "date": "2026-09-11",
         "checks": [
           "source coverage and dependency order",
           "definitions, hypotheses, domains, and bound variables",
@@ -933,7 +933,8 @@
           "Corrected the coverage-ledger acronym CUII to CII.",
           "Restricted the elementary left-uniform-sum integral construction to continuous functions and deferred general Riemann integrability to Analysis I.",
           "Declared the function used in the rectangle interpretation of the uniform partition.",
-          "Defined differentiability for scalar functions of three variables before the implicit-differentiation argument uses its linear approximation."
+          "Defined differentiability for scalar functions of three variables before the implicit-differentiation argument uses its linear approximation.",
+          "Repaired an unbalanced parenthesis in the local and total rectangle-error orders."
         ]
       }
     },
@@ -1139,7 +1140,7 @@
       ],
       "audit": {
         "status": "audited",
-        "date": "2026-09-10",
+        "date": "2026-09-11",
         "checks": [
           "source coverage and dependency order",
           "definitions, hypotheses, domains, and bound variables",
@@ -1152,7 +1153,10 @@
           "Specified that the coefficient p is nonconstant and the forcing f is not identically zero in the classification exercise.",
           "Stated the exponential power-series identity as the named admitted result EPSI before it is used.",
           "Declared the forward-Euler sequence and separated the fixed-step construction from the mesh-refinement family indexed by N.",
-          "Changed the endpoint-limit reference to the local quotient theorem that proves the exponential quotient limit."
+          "Changed the endpoint-limit reference to the local quotient theorem that proves the exponential quotient limit.",
+          "Named the differential operator d/dx in the eigenfunction definition.",
+          "Restored the first-power/not-multiplied clause of the linear-equation definition.",
+          "Added the equivalent y=0-solution characterization of homogeneity."
         ]
       }
     },
@@ -1372,7 +1376,7 @@
       ],
       "audit": {
         "status": "audited",
-        "date": "2026-09-10",
+        "date": "2026-09-11",
         "checks": [
           "source coverage and dependency order",
           "definitions, hypotheses, domains, and bound variables",
@@ -1398,7 +1402,9 @@
           "Declared the separation codomain interval J.",
           "Rephrased the nonlinear Taylor estimate using an independent scalar increment before substitution of the perturbation.",
           "Declared the local domain, codomain, and fixed point in the discrete derivative criterion.",
-          "Restated the state set and function and quantified the periodic-orbit index."
+          "Restated the state set and function and quantified the periodic-orbit index.",
+          "Stated that exact equations have level-set general solutions Phi(x,y)=C.",
+          "Declared the equilibrium value a in the linearized-stability question."
         ]
       }
     },
@@ -1547,7 +1553,9 @@
           "Expanded LIVPEU into a fully quantified higher-order existence-and-uniqueness statement.",
           "Added the open-interval and coefficient-continuity hypotheses required when applying LIVPEU to phase data.",
           "Declared the interval and coefficients locally in both Wronskian questions.",
-          "Removed the preview formula involving an undefined coefficient matrix and trace; Part IX introduces them before use."
+          "Removed the preview formula involving an undefined coefficient matrix and trace; Part IX introduces them before use.",
+          "Typed the arbitrary complex initial data in the distinct-root classification.",
+          "Replaced the imprecise claim that two repeated-root basis functions have arbitrary data with the exact initial-state basis argument."
         ]
       }
     },
@@ -1811,7 +1819,30 @@
           "code": "DSP",
           "phrase": "Dirac Sifting Property"
         }
-      ]
+      ],
+      "audit": {
+        "status": "audited",
+        "date": "2026-09-11",
+        "checks": [
+          "source coverage and dependency order",
+          "definitions, hypotheses, domains, and bound variables",
+          "mathematical correctness and question solvability",
+          "admitted-result placement and naming",
+          "acronym catalogue correspondence",
+          "compiled layout"
+        ],
+        "corrections": [
+          "Typed the trial parameters and made the simple-root resonance multiplier an exact substitution calculation.",
+          "Declared the variation-of-parameters coefficient functions and restored the source terminology for homogeneous equidimensional equations.",
+          "Defined sequence component notation and treated zero and repeated characteristic roots explicitly.",
+          "Made the oscillator nondimensionalization a genuine function change of variables and scoped the derivative convention.",
+          "Replaced an invalid ratio asymptotic for an oscillatory response by a correct o(1) remainder statement.",
+          "Declared the impulse interval, force, and trajectory regularity and gave exact meanings to Gaussian height and width.",
+          "Restored the source's idealized bouncing-ball delta model.",
+          "Corrected the non-vanishing Wronskian citation to the independence criterion.",
+          "Specified constant coefficients in the second-order difference-equation definition."
+        ]
+      }
     },
     "VII": {
       "title": "Series solutions near ordinary and singular points",
@@ -1919,7 +1950,25 @@
           "code": "FSRD",
           "phrase": "Frobenius Solutions by Root Difference"
         }
-      ]
+      ],
+      "audit": {
+        "status": "audited",
+        "date": "2026-09-11",
+        "checks": [
+          "source coverage and dependency order",
+          "definitions, hypotheses, domains, and bound variables",
+          "mathematical correctness and question solvability",
+          "admitted-result placement and naming",
+          "acronym catalogue correspondence",
+          "compiled layout"
+        ],
+        "corrections": [
+          "Defined analyticity on an explicit open interval and formulated ordinary and singular points using analytic extensions from a punctured neighbourhood.",
+          "Expanded all three admitted series theorems into standalone statements with equations, domains, coefficient fields, convergence neighbourhoods, and branch choices.",
+          "Justified normalization of the logarithmic second solution from the failure of the lower-root Frobenius branch.",
+          "Moved the Frobenius series and indicial-equation definition before the admitted existence result that cites it."
+        ]
+      }
     },
     "VIII": {
       "title": "Gradients, Taylor forms, and stationary points",
@@ -1967,8 +2016,8 @@
           },
           {
             "letter": "b",
-            "code": "FOTC",
-            "phrase": "First-Order Term Components"
+            "code": "LRSD",
+            "phrase": "Line-Restricted Second Derivative"
           },
           {
             "letter": "c",
@@ -2051,8 +2100,35 @@
         {
           "code": "SCFD",
           "phrase": "Sylvester Conditions For Definiteness"
+        },
+        {
+          "code": "CSI",
+          "phrase": "Cauchy--Schwarz Inequality"
         }
-      ]
+      ],
+      "audit": {
+        "status": "audited",
+        "date": "2026-09-11",
+        "checks": [
+          "source coverage and dependency order",
+          "definitions, hypotheses, domains, and bound variables",
+          "mathematical correctness and question solvability",
+          "admitted-result placement and naming",
+          "acronym catalogue correspondence",
+          "compiled layout"
+        ],
+        "corrections": [
+          "Scoped differentiability along level curves and replaced informal local-extremum language by quantified neighbourhood definitions.",
+          "Renamed the line-restricted second-derivative item to match its actual mathematical content.",
+          "Replaced a non-uniform use of one-variable Taylor expansion by an exact integral remainder and Hessian-continuity argument.",
+          "Added the missing positive integer quantifier to both admitted matrix theorems and the principal-minor definition.",
+          "Supplied the coercive quadratic bound needed to deduce strict extrema from definite Hessians.",
+          "Restored the additive constant in the source's polynomial stationary-point example.",
+          "Added admitted Cauchy--Schwarz inequality before its use in the gradient bound.",
+          "Defined non-degenerate stationary points and strict local extrema.",
+          "Removed the early use of non-degenerate from the part introduction."
+        ]
+      }
     },
     "IX": {
       "title": "Differential systems and phase portraits",
@@ -2216,7 +2292,29 @@
           "code": "HLP",
           "phrase": "Hyperbolic Linearization Principle"
         }
-      ]
+      ],
+      "audit": {
+        "status": "audited",
+        "date": "2026-09-11",
+        "checks": [
+          "source coverage and dependency order",
+          "definitions, hypotheses, domains, and bound variables",
+          "mathematical correctness and question solvability",
+          "admitted-result placement and naming",
+          "acronym catalogue correspondence",
+          "compiled layout"
+        ],
+        "corrections": [
+          "Declared the time interval, forcing functions, unknown component functions, and identity-matrix notation in the system setup.",
+          "Added the missing matrix dimension quantifier to all three admitted system results.",
+          "Turned linear independence of distinct-eigenvalue eigenvectors into a guided proof instead of invoking an unstated theorem.",
+          "Scoped the matrix Abel applications independently of the admitted-result paragraph.",
+          "Replaced scalar little-o notation in a vector equation by an explicit vector remainder and norm limit.",
+          "Declared the time domain and differentiability of the predator and prey trajectories.",
+          "Restated the dominant eigendirection as the far-field tangent direction.",
+          "Replaced undefined sink/source language in the admitted linearization principle."
+        ]
+      }
     },
     "X": {
       "title": "Characteristics, waves, and diffusion",
@@ -2350,7 +2448,27 @@
           }
         ]
       },
-      "admitted_results": []
+      "admitted_results": [],
+      "audit": {
+        "status": "audited",
+        "date": "2026-09-11",
+        "checks": [
+          "source coverage and dependency order",
+          "definitions, hypotheses, domains, and bound variables",
+          "mathematical correctness and question solvability",
+          "admitted-result placement and naming",
+          "acronym catalogue correspondence",
+          "compiled layout"
+        ],
+        "corrections": [
+          "Scoped the unknown function in the forced characteristic problems.",
+          "Made the uniform-string assumptions explicit and identified the constant wave speed as the tension-to-density ratio.",
+          "Required verification that the characteristic-coordinate transformation is invertible.",
+          "Declared the heat-equation regularity and restored the source's switched-boundary interpretation through the Heaviside input.",
+          "Qualified both diffusion limits by their fixed variables and quantified the temperature level used in penetration scaling.",
+          "Restored the source's Laplace-equation example in the PDE overview."
+        ]
+      }
     }
   }
 }
