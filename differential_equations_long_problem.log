@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.3)  11 SEP 2026 00:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.3)  11 SEP 2026 08:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1629,12 +1629,12 @@ Package rerunfilecheck Info: File `differential_equations_long_problem.out' has
  ) 
 Here is how much of TeX's memory you used:
  55831 strings out of 469515
- 1294464 string characters out of 5470808
- 1873432 words of memory out of 5000000
+ 1294462 string characters out of 5470808
+ 1874433 words of memory out of 5000000
  82736 multiletter control sequences out of 15000+600000
  647599 words of font info for 247 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 104i,13n,121p,3287b,1248s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 104i,13n,121p,3287b,1244s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/publi
@@ -1651,7 +1651,7 @@ fonts/cm/cmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10
 .pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/shar
 e/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-d
 ist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on differential_equations_long_problem.pdf (48 pages, 476036 byt
+Output written on differential_equations_long_problem.pdf (48 pages, 477447 byt
 es).
 PDF statistics:
  914 PDF objects out of 1000 (max. 8388607)

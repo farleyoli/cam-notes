@@ -462,7 +462,7 @@ differentiable at $x_0$ and $F$ is differentiable at
 $y_0=g(x_0)$.
 \begin{subquestions}
   \item \nameditem{ICI}{Inner Composition Increment}
-  For all sufficiently small $h\in\R$, put
+  Define $k$ on a sufficiently small neighbourhood of $0$ by
   $k(h)=g(x_0+h)-g(x_0)$.  Prove that
   \[
     k(h)=hg'(x_0)+o(h),\qquad k(h)=O(h),\qquad k(h)\to0
@@ -612,10 +612,10 @@ neither convergence of the series nor equality of its sum with $f(x)$.
 \examquestion{\label{q:taylor-series}
 \begin{subquestions}
   \item \nameditem{PTSF}{Polynomial Taylor Series is Finite}
-  Let $m\in\N_0$, let $a_0,\ldots,a_m\in\R$, and define
-  $p\colon\R\to\R$ by
+  Let $m\in\N_0$, let $a_0,\ldots,a_m\in\R$, and define the polynomial
+  function $p\colon\R\to\R$ by
   \[
-    p(x)=\sum_{r=0}^{m}a_rx^r.
+    p(x)=\sum_{r=0}^{m}a_rx^r\qquad(x\in\R).
   \]
   Prove that the Taylor series of $p$ about $0$ has no non-zero terms
   after degree $m$ and is equal to $p(x)$ for every $x\in\R$.
@@ -685,8 +685,8 @@ Then $g(x)\ne0$ throughout some deleted neighbourhood of $x_0$ and
 \examquestion{\label{q:lhopital-applications}
 \begin{subquestions}
   \item \nameditem{SQR}{Sine Quotient Recovery}
-  Apply Question \ref{q:local-lhopital} to
-  $f(x)=\sin x$ and $g(x)=x$ on $\R$ to recover
+  Apply Question \ref{q:local-lhopital} to the functions
+  $f,g\colon\R\to\R$ defined by $f(x)=\sin x$ and $g(x)=x$ to recover
   \[
     \lim_{x\to0}\frac{\sin x}{x}=1.
   \]
@@ -1145,16 +1145,17 @@ $f\colon W\to\R$ have continuous partial derivatives.
 \begin{subquestions}
   \item \nameditem{FPDI}{Fixed-limit Parameter Differentiation under Integration}
   For fixed real numbers $\alpha<\beta$, define
-  $K(c)=\int_\alpha^\beta f(y,c)\,\d y$ whenever the segment of
-  integration lies in $W$.  State the derivative $K'(c)$ supplied by CII
-  and explain why continuity is sufficient for the admitted interchange.
+  $K(c)=\int_\alpha^\beta f(y,c)\,\d y$ for each $c$ for which the segment
+  $[\alpha,\beta]\times\{c\}$ lies in $W$.  State the derivative $K'(c)$
+  supplied by CII and explain why continuity is sufficient for the admitted
+  interchange.
 
   \item \nameditem{CULR}{Changing Upper Limit Rule}
   Fix $x_0\in J$.  By continuity, choose $d\in\R$ and a neighbourhood of
-  $x_0$ on which $a(x)<d<b(x)$.  Define, for arguments near the values in
-  question,
-  $H(u,v)=\int_d^u f(y,v)\,\d y$.  Compute $H_u$ and $H_v$, and apply the
-  multivariable chain rule to $H(b(x),c(x))-H(a(x),c(x))$.
+  $x_0$ on which $a(x)<d<b(x)$.  Define $H$ on a neighbourhood of
+  $(b(x_0),c(x_0))$ by $H(u,v)=\int_d^u f(y,v)\,\d y$.  Compute $H_u$ and
+  $H_v$, and apply the multivariable chain rule to
+  $H(b(x),c(x))-H(a(x),c(x))$.
 
   \item \nameditem{GLE}{General Leibniz Expression}
   Deduce the Leibniz integral rule
@@ -1261,7 +1262,7 @@ $\lambda\in\C$.
 
   \item \nameditem{OECG}{Only Exponential Candidates are General}
   Let $f\colon I\to\C$ be differentiable and satisfy $f'=\lambda f$.
-  Define $g(x)=f(x)e^{-\lambda x}$, prove $g'(x)=0$, and deduce that
+  Define $g\colon I\to\C$ by $g(x)=f(x)e^{-\lambda x}$, prove $g'(x)=0$, and deduce that
   \[
     f(x)=Ce^{\lambda x}\qquad(x\in I)
   \]
@@ -1499,7 +1500,7 @@ $a(x)y'+b(x)y=c(x)$ by $a(x)$ gives the \emph{standard form}
 \[
   y'+p(x)y=f(x),\qquad p=\frac ba,\quad f=\frac ca.
 \]
-Fix $x_0\in I$.  The positive function
+Fix $x_0\in I$.  The function $\mu\colon I\to(0,\infty)$ defined by
 \[
   \mu(x)=\exp\left(\int_{x_0}^x p(s)\,\d s\right)
   \qquad(x\in I)
@@ -1680,8 +1681,9 @@ $Q(x,y)=6y^2-6xy$.
 
   \item \nameditem{PRF}{Potential Reconstruction Function}
   Integrate $\Phi_x=P$ with respect to $x$ and write
-  $\Phi(x,y)=x^2-3xy^2+h(y)$.  Use $\Phi_y=Q$ to determine $h$ up to an
-  additive constant.
+  $\Phi(x,y)=x^2-3xy^2+h(y)$ for some differentiable function
+  $h\colon\R\to\R$.  Use $\Phi_y=Q$ to determine $h$ up to an additive
+  constant.
 
   \item \nameditem{ILS}{Implicit Level Solutions}
   Prove that the solution curves of
@@ -1882,9 +1884,9 @@ $\gamma>0$, giving $Y=r/\gamma$.
   into logistic form and identify $Y$.
 
   \item \nameditem{LESC}{Logistic Equilibria and Stability Classification}
-  Find the equilibria $0$ and $Y$, compute the derivative of
-  $f(y)=ry(1-y/Y)$ at each, and classify them using
-  Question~\ref{q:autonomous-stability}.
+  Find the equilibria $0$ and $Y$, compute the derivative of the function
+  $f\colon\R\to\R$ defined by $f(y)=ry(1-y/Y)$ at each, and classify them
+  using Question~\ref{q:autonomous-stability}.
 
   \item \nameditem{LES}{Logistic Explicit Solution}
   For $y_0\in(0,\infty)$, separate variables and prove
@@ -2139,9 +2141,10 @@ consider
 \]
 where $a_0,\ldots,a_n,f\colon I\to\R$ and $a_n(x)\ne0$ for every
 $x\in I$, for an unknown $n$-times differentiable function
-$y\colon I\to\R$.  Its \emph{state vector} or \emph{solution vector} is
+$y\colon I\to\R$.  Its \emph{state vector} or \emph{solution vector} is the function
+$\mathbf Y\colon I\to\R^n$ defined by
 \[
-  \mathbf Y(x)=\bigl(y(x),y'(x),\ldots,y^{(n-1)}(x)\bigr)\in\R^n.
+  \mathbf Y(x)=\bigl(y(x),y'(x),\ldots,y^{(n-1)}(x)\bigr).
 \]
 The ambient space $\R^n$ of possible states is the \emph{phase space}; a
 solution traces a phase-space trajectory.
@@ -2176,7 +2179,7 @@ solution traces a phase-space trajectory.
 \concept{Wronskian}
 Let $I\subseteq\R$ be an interval.  For differentiable functions
 $y_1,y_2\colon I\to\R$, their
-\emph{Wronskian} is
+\emph{Wronskian} is the function $W\colon I\to\R$ defined by
 \[
   W(x)=\begin{vmatrix}y_1(x)&y_2(x)\\y_1'(x)&y_2'(x)\end{vmatrix}
       =y_1(x)y_2'(x)-y_2(x)y_1'(x).
@@ -2319,9 +2322,13 @@ Let $\omega_0\in(0,\infty)$.
   explain why its linearly growing amplitude is the signature of resonance.
 
   \item \nameditem{GRM}{General Resonance Multiplier}
-  Let $a,b,c\in\R$ with $a\ne0$, let
-  $P(z)=az^2+bz+c$, and suppose that $\lambda\in\C$ is a simple root of
-  $P$.  For $L[y]=ay''+by'+cy$, verify
+  Let $a,b,c\in\R$ with $a\ne0$, and let $P\colon\C\to\C$ be the
+  polynomial with real coefficients
+  \[
+    P(z)=az^2+bz+c\qquad(z\in\C).
+  \]
+  Suppose that $\lambda\in\C$ is a simple root of $P$.  For
+  $L[y]=ay''+by'+cy$, verify
   \[
     L[Axe^{\lambda x}]=A(2a\lambda+b)e^{\lambda x},
   \]
@@ -2421,7 +2428,7 @@ equation''; here that phrase always means that the forcing is zero.
   $Ax^{k_1}+Bx^{k_2}$ is a solution for all $A,B\in\R$.
 
   \item \nameditem{LTCC}{Logarithmic Transformation to Constant Coefficients}
-  Put $z=\log x$ and $Y(z)=y(e^z)$.  Prove
+  Put $z=\log x$ and define $Y\colon\R\to\R$ by $Y(z)=y(e^z)$.  Prove
   \[
     xy'=Y_z,\qquad x^2y''=Y_{zz}-Y_z,
   \]
@@ -2461,17 +2468,18 @@ $S[y]_n=y_{n+1}$.
 \examquestion{\label{q:linear-recurrences}
 \begin{subquestions}
   \item \nameditem{SEGP}{Shift Eigenfunction as a Geometric Progression}
-  For $k\in\R$, define $g_n=k^n$, using $0^0=1$.  Show that
-  $S[g]_n=kg_n$ for every $n\in\N_0$.
+  For $k\in\R$, define the sequence $g=(g_n)_{n\in\N_0}$ by $g_n=k^n$,
+  using $0^0=1$.  Show that $S[g]_n=kg_n$ for every $n\in\N_0$.
 
   \item \nameditem{DCEC}{Difference Characteristic Equation Calculation}
-  Substitute $y_n=k^n$ and derive $ak^2+bk+c=0$.  If its two roots
-  $k_1,k_2$ are distinct and non-zero, prove that
+  Substitute $y_n=k^n$ and derive the \emph{characteristic equation}
+  $ak^2+bk+c=0$, whose coefficients $a,b,c\in\R$ satisfy $a\ne0$.  If its
+  two roots $k_1,k_2$ are distinct and non-zero, prove that
   $y_n=Ak_1^n+Bk_2^n$ realizes arbitrary initial data $y_0,y_1$ and hence
   is the general homogeneous solution.
 
   \item \nameditem{RRCF}{Repeated root Recurrence Complementary Form}
-  If the characteristic polynomial has a repeated non-zero root $k$, verify
+  If the characteristic equation has a repeated non-zero root $k$, verify
   directly that $k^n$ and $nk^n$ are solutions and deduce
   $y_n=(A+Bn)k^n$.
 
@@ -2532,9 +2540,10 @@ displacement.  The restoring and damping forces are $-kx$ and $-l\dot x$.
       \tau&=t\sqrt{k/M},
       &\kappa&=\frac{l}{2\sqrt{kM}},\\
       X(\tau)&=x\left(\tau\sqrt{M/k}\right),
-      &f(\tau)&=\frac{F\left(\tau\sqrt{M/k}\right)}k.
+      &f(\tau)&=\frac{F\left(\tau\sqrt{M/k}\right)}k,
     \end{aligned}
   \]
+  where $X\colon[0,\infty)\to\R$ and $f\colon[0,\infty)\to\R$.
   Transform derivatives carefully and derive
   $X''+2\kappa X'+X=f(\tau)$.  For the rest of Part C, relabel $X$ as
   $x$ and let dots denote differentiation with respect to $\tau$.
@@ -2626,7 +2635,7 @@ exists and equals $\sqrt\pi$.}
   where $I_\varepsilon=\int_{T-\varepsilon}^{T+\varepsilon}F(t)\,\d t$.
 
   \item \nameditem{GND}{Gaussian Nascent Delta}
-  For $\varepsilon>0$, define
+  For $\varepsilon>0$, define $D_\varepsilon\colon\R\to[0,\infty)$ by
   \[
     D_\varepsilon(t)=\frac1{\varepsilon\sqrt\pi}
        e^{-t^2/\varepsilon^2}.
@@ -2695,12 +2704,13 @@ from $x=\pi/2$.
 \end{subquestions}}
 
 \concept{Heaviside step}
-The \emph{Heaviside step function} is
+The \emph{Heaviside step function} is the function $H\colon\R\to\R$ defined
+by
 \[
   H(x)=\begin{cases}0,&x<0,\\1,&x>0,\end{cases}
 \]
-with its value at $0$ left unspecified.  It represents an input switched on
-at the origin.
+for $x\ne0$, with its value at $0$ left unspecified.  It represents an input
+switched on at the origin.
 
 \examquestion{\label{q:heaviside}
 \begin{subquestions}
@@ -2966,10 +2976,11 @@ $u=(u_1,\ldots,u_n),v=(v_1,\ldots,v_n)\in\R^n$, define
 $u\cdot v=\sum_{j=1}^n u_jv_j$ and
 $|u|=\sqrt{u\cdot u}$.  A vector $s\in\R^n$ is a unit vector if
 $|s|=1$.  Let $U\subseteq\R^n$ be open and let $f\colon U\to\R$ have
-first partial derivatives.  Its \emph{gradient} is
+first partial derivatives.  Its \emph{gradient} is the function
+$\nabla f\colon U\to\R^n$ defined by
 \[
   \nabla f(x)=\left(\frac{\partial f}{\partial x_1}(x),\ldots,
-  \frac{\partial f}{\partial x_n}(x)\right)\in\R^n.
+  \frac{\partial f}{\partial x_n}(x)\right).
 \]
 It is also written $\operatorname{grad}f$.
 For $x_0\in U$ and a unit vector $s\in\R^n$, the \emph{directional
@@ -3044,7 +3055,8 @@ stationary but neither a local minimum nor a local maximum.
 
 \concept{Hessian matrix}
 Let $U\subseteq\R^n$ be open and let $f\colon U\to\R$ have continuous
-second partial derivatives.  Its \emph{Hessian matrix} at $x\in U$ is
+second partial derivatives.  Its \emph{Hessian matrix} is the function
+$H_f\colon U\to\R^{n\times n}$ defined at $x\in U$ by
 \[
   H_f(x)=\left(\frac{\partial^2f}{\partial x_i\partial x_j}(x)
        \right)_{1\leq i,j\leq n}.
@@ -3095,8 +3107,9 @@ $g\colon[0,1]\to\R$ by $g(t)=f(x_0+th)$.
 \subpart{C. --- Classification and contours}
 
 \concept{Definiteness}
-For a real symmetric $n\times n$ matrix $H$, its quadratic form is
-$Q_H(h)=h^{\mathsf T}Hh$.  It is \emph{positive definite} if
+For a real symmetric $n\times n$ matrix $H$, its quadratic form is the
+function $Q_H\colon\R^n\to\R$ defined by $Q_H(h)=h^{\mathsf T}Hh$.  It is
+\emph{positive definite} if
 $Q_H(h)>0$ for every $h\ne0$, \emph{negative definite} if
 $Q_H(h)<0$ for every $h\ne0$, and \emph{indefinite} if it takes both
 positive and negative values.
@@ -3394,7 +3407,8 @@ first partial derivatives.  The \emph{autonomous system}
 \]
 has an \emph{equilibrium}, or \emph{fixed point}, at
 $(x_0,y_0)\in D$ when $f(x_0,y_0)=g(x_0,y_0)=0$.  Its
-\emph{Jacobian matrix} there is
+\emph{Jacobian matrix} is the function $J\colon D\to\R^{2\times2}$ defined
+at $(x_0,y_0)\in D$ by
 \[
  J(x_0,y_0)=
  \begin{pmatrix}f_x&f_y\\g_x&g_y\end{pmatrix}_{(x_0,y_0)}.
@@ -3667,11 +3681,13 @@ $T_t$ and $T_{xx}$, the \emph{diffusion equation}, or \emph{heat equation}, is
 \]
 Unlike the wave equation, it relates rate of change directly to curvature,
 so temperature irregularities smooth rather than propagate unchanged.
-For $\eta\in\R$, define
+Define the functions $\operatorname{erf},\operatorname{erfc}\colon\R\to\R$
+by
 \[
  \operatorname{erf}(\eta)=\frac2{\sqrt\pi}\int_0^\eta e^{-u^2}\,\d u,
  \qquad
- \operatorname{erfc}(\eta)=1-\operatorname{erf}(\eta).
+ \operatorname{erfc}(\eta)=1-\operatorname{erf}(\eta)
+ \quad(\eta\in\R).
 \]
 The Gaussian integral used in Question~\ref{q:nascent-delta} gives
 $\operatorname{erf}(\eta)\to1$ as $\eta\to\infty$.
@@ -3693,7 +3709,9 @@ Consider a semi-infinite bar satisfying, for $x>0$ and $t>0$,
 \begin{subquestions}
   \item \nameditem{DLS}{Diffusive Length Scale}
   Use dimensions $[\kappa]=L^2T^{-1}$ to show that
-  $\sqrt{\kappa t}$ is the natural penetration length.  Define
+  $\sqrt{\kappa t}$ is the natural penetration length.  For a twice
+  differentiable function $\theta\colon(0,\infty)\to\R$, define the
+  similarity variable and ansatz
   \[
     \eta=\frac{x}{2\sqrt{\kappa t}},\qquad T(x,t)=\theta(\eta).
   \]

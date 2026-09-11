@@ -710,7 +710,8 @@
         "corrections": [
           "Defined linear and nonlinear second-order equations before the first use of nonlinear.",
           "Defined the positive integers before the first use of the symbol N.",
-          "Scoped the function used to define repeated derivatives and the two functions shared by every Leibniz subquestion."
+          "Scoped the function used to define repeated derivatives and the two functions shared by every Leibniz subquestion.",
+          "Gave the sine and quotient comparison functions, the chain-rule increment, and the Taylor-series polynomial explicit domains and codomains."
         ]
       }
     },
@@ -934,7 +935,8 @@
           "Restricted the elementary left-uniform-sum integral construction to continuous functions and deferred general Riemann integrability to Analysis I.",
           "Declared the function used in the rectangle interpretation of the uniform partition.",
           "Defined differentiability for scalar functions of three variables before the implicit-differentiation argument uses its linear approximation.",
-          "Repaired an unbalanced parenthesis in the local and total rectangle-error orders."
+          "Repaired an unbalanced parenthesis in the local and total rectangle-error orders.",
+          "Gave the parameter-differentiation auxiliary functions K and H explicit domains."
         ]
       }
     },
@@ -1156,7 +1158,8 @@
           "Changed the endpoint-limit reference to the local quotient theorem that proves the exponential quotient limit.",
           "Named the differential operator d/dx in the eigenfunction definition.",
           "Restored the first-power/not-multiplied clause of the linear-equation definition.",
-          "Added the equivalent y=0-solution characterization of homogeneity."
+          "Added the equivalent y=0-solution characterization of homogeneity.",
+          "Declared the eigenfunction auxiliary function g and the integrating factor mu with domains and codomains."
         ]
       }
     },
@@ -1404,7 +1407,8 @@
           "Declared the local domain, codomain, and fixed point in the discrete derivative criterion.",
           "Restated the state set and function and quantified the periodic-orbit index.",
           "Stated that exact equations have level-set general solutions Phi(x,y)=C.",
-          "Declared the equilibrium value a in the linearized-stability question."
+          "Declared the equilibrium value a in the linearized-stability question.",
+          "Declared the potential reconstruction function h and the logistic right-hand side f with domains and codomains."
         ]
       }
     },
@@ -1538,7 +1542,7 @@
       ],
       "audit": {
         "status": "audited",
-        "date": "2026-09-10",
+        "date": "2026-09-11",
         "checks": [
           "source coverage and dependency order",
           "definitions, hypotheses, domains, and bound variables",
@@ -1555,7 +1559,8 @@
           "Declared the interval and coefficients locally in both Wronskian questions.",
           "Removed the preview formula involving an undefined coefficient matrix and trace; Part IX introduces them before use.",
           "Typed the arbitrary complex initial data in the distinct-root classification.",
-          "Replaced the imprecise claim that two repeated-root basis functions have arbitrary data with the exact initial-state basis argument."
+          "Replaced the imprecise claim that two repeated-root basis functions have arbitrary data with the exact initial-state basis argument.",
+          "Declared the Wronskian and state vector as functions with domains and codomains."
         ]
       }
     },
@@ -1840,7 +1845,8 @@
           "Declared the impulse interval, force, and trajectory regularity and gave exact meanings to Gaussian height and width.",
           "Restored the source's idealized bouncing-ball delta model.",
           "Corrected the non-vanishing Wronskian citation to the independence criterion.",
-          "Specified constant coefficients in the second-order difference-equation definition."
+          "Specified constant coefficients in the second-order difference-equation definition.",
+          "Declared P as a real-coefficient polynomial on C and gave the nondimensional functions, nascent delta, and Heaviside step explicit domains."
         ]
       }
     },
@@ -1966,7 +1972,8 @@
           "Defined analyticity on an explicit open interval and formulated ordinary and singular points using analytic extensions from a punctured neighbourhood.",
           "Expanded all three admitted series theorems into standalone statements with equations, domains, coefficient fields, convergence neighbourhoods, and branch choices.",
           "Justified normalization of the logarithmic second solution from the failure of the lower-root Frobenius branch.",
-          "Moved the Frobenius series and indicial-equation definition before the admitted existence result that cites it."
+          "Moved the Frobenius series and indicial-equation definition before the admitted existence result that cites it.",
+          "Named the characteristic equation with its coefficient field and declared the logarithmic-substitution function Y."
         ]
       }
     },
@@ -2126,7 +2133,8 @@
           "Restored the additive constant in the source's polynomial stationary-point example.",
           "Added admitted Cauchy--Schwarz inequality before its use in the gradient bound.",
           "Defined non-degenerate stationary points and strict local extrema.",
-          "Removed the early use of non-degenerate from the part introduction."
+          "Removed the early use of non-degenerate from the part introduction.",
+          "Declared the gradient, Hessian, and quadratic form as functions with domains and codomains."
         ]
       }
     },
@@ -2312,7 +2320,8 @@
           "Replaced scalar little-o notation in a vector equation by an explicit vector remainder and norm limit.",
           "Declared the time domain and differentiability of the predator and prey trajectories.",
           "Restated the dominant eigendirection as the far-field tangent direction.",
-          "Replaced undefined sink/source language in the admitted linearization principle."
+          "Replaced undefined sink/source language in the admitted linearization principle.",
+          "Declared the Jacobian matrix as a function on its domain."
         ]
       }
     },
@@ -2466,7 +2475,8 @@
           "Required verification that the characteristic-coordinate transformation is invertible.",
           "Declared the heat-equation regularity and restored the source's switched-boundary interpretation through the Heaviside input.",
           "Qualified both diffusion limits by their fixed variables and quantified the temperature level used in penetration scaling.",
-          "Restored the source's Laplace-equation example in the PDE overview."
+          "Restored the source's Laplace-equation example in the PDE overview.",
+          "Declared erf, erfc, and the similarity profile theta with domains and codomains."
         ]
       }
     }
