@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.3)  10 SEP 2026 02:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.3)  10 SEP 2026 18:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1595,7 +1595,28 @@ Package microtype Info: Loading generic protrusion settings for font family
  [2
 
 ] [3] [4] [5]
-[6] [7] [8] 
+[6] [7] [8] [9
+
+] [10] [11] [12] [13] [14] [15
+
+] [16] [17] [18] [19] [20
+
+] [21]
+[22] [23] [24] [25] [26
+
+] [27] [28] [29
+
+] [30] [31] [32] [33] [34] [35
+
+] [36]
+[37] [38
+
+] [39] [40] [41
+
+] [42] [43] [44] [45
+
+] [46] [47]
+
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (./differential_equations_long_problem.aux)
  ***********
@@ -1607,32 +1628,34 @@ Package rerunfilecheck Info: File `differential_equations_long_problem.out' has
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 55231 strings out of 469515
- 1287869 string characters out of 5470808
- 1869195 words of memory out of 5000000
- 82646 multiletter control sequences out of 15000+600000
- 641071 words of font info for 170 fonts, out of 8000000 for 9000
+ 55833 strings out of 469515
+ 1294482 string characters out of 5470808
+ 1872433 words of memory out of 5000000
+ 82736 multiletter control sequences out of 15000+600000
+ 647659 words of font info for 248 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 104i,12n,121p,3287b,1250s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 104i,13n,121p,3287b,1248s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
-/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><
-/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmti9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/
-msbm10.pfb>
-Output written on differential_equations_long_problem.pdf (9 pages, 241298 byte
-s).
+cmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr
+/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></us
+r/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10
+.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/shar
+e/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-d
+ist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on differential_equations_long_problem.pdf (48 pages, 465433 byt
+es).
 PDF statistics:
- 271 PDF objects out of 1000 (max. 8388607)
- 201 compressed objects within 3 object streams
- 82 named destinations out of 1000 (max. 500000)
- 28829 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 913 PDF objects out of 1000 (max. 8388607)
+ 793 compressed objects within 8 object streams
+ 444 named destinations out of 1000 (max. 500000)
+ 39069 words of extra memory for PDF output out of 42996 (max. 10000000)
 

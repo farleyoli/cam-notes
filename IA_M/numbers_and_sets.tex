@@ -266,17 +266,23 @@ Let $n\in\Z$.  Consider the assertion: if $n^2$ is even, then $n$ is even.
 \end{subquestions}}
 
 \concept{Set notation and operations}
-Two sets are \emph{equal} when they have exactly the same elements.  For
-sets $A$ and $B$, write $A\subseteq B$ and say that $A$ is a \emph{subset}
-of $B$ when every element of $A$ belongs to $B$.  The symbol $\varnothing$
-denotes the \emph{empty set}, which has no elements.  If $X$ is a set and
-$P(x)$ is a statement for each $x\in X$, then
+Two sets are \emph{equal}, written $A=B$, when
+\[
+  (\forall x)(x\in A\Longleftrightarrow x\in B).
+\]
+For sets $A$ and $B$, write $A\subseteq B$ and say that $A$ is a
+\emph{subset} of $B$ when
+\[
+  (\forall x)(x\in A\Rightarrow x\in B).
+\]
+The symbol $\varnothing$ denotes the \emph{empty set}, which has no
+elements.  If $X$ is a set and $P(x)$ is a statement for each $x\in X$, then
 $\{x\in X:P(x)\}$ denotes the subset of elements for which $P(x)$ is true.
 
 If $X$ is a set and $A,B\subseteq X$, define
 \[
-  A\cap B=\{x\in X:x\in A\text{ and }x\in B\},\qquad
-  A\cup B=\{x\in X:x\in A\text{ or }x\in B\},
+  A\cap B=\{x\in X:x\in A\wedge x\in B\},\qquad
+  A\cup B=\{x\in X:x\in A\vee x\in B\},
 \]
 \[
   A\setminus B=\{x\in A:x\notin B\},\qquad
@@ -348,12 +354,14 @@ case the displayed set has two distinct members, one of which is a
 \concept{Cartesian products and functions}
 For sets $A$ and $B$, their \emph{Cartesian product} is
 \[
-  A\times B=\{(a,b):a\in A\text{ and }b\in B\}.
+  A\times B=\{(a,b):a\in A\wedge b\in B\}.
 \]
-A \emph{function}, or \emph{map}, $f\colon A\to B$ is a rule assigning
-to every $a\in A$ exactly one element $f(a)\in B$.  The sets $A$ and $B$
-are called its \emph{domain} and \emph{codomain}.  Its \emph{graph} is
-the subset $\{(a,f(a)):a\in A\}$ of $A\times B$.
+A \emph{function}, or \emph{map}, $f\colon A\to B$ is a subset
+$f\subseteq A\times B$ such that, for every $a\in A$, there is exactly one
+$b\in B$ with $(a,b)\in f$.  This unique $b$ is denoted by $f(a)$, so that
+$f$ assigns to every $a\in A$ exactly one element $f(a)\in B$.  The sets
+$A$ and $B$ are called the \emph{domain} and \emph{codomain} of $f$, and
+the subset $f$ is called its \emph{graph}.
 
 \examquestion{\label{q:products}
 Let $A,B,C$ be sets.
@@ -367,10 +375,6 @@ Let $A,B,C$ be sets.
   \item \nameditem{EFC}{Empty-Factor Counterexample}
   Show by an example that the hypothesis $A\ne\varnothing$ cannot be
   omitted.
-  \item \nameditem{FGC}{Function Graph Characterization}
-  Identify each function $f\colon A\to B$ with its graph
-  $\{(a,f(a)):a\in A\}$.  Characterise among the subsets of $A\times B$
-  those which are graphs of functions $A\to B$.
 \end{subquestions}}
 
 \concept{Images and pre-images}

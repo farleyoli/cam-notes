@@ -125,6 +125,293 @@
       "content": "local quotient limit and the more general derivative-quotient form",
       "target": "Part I, Question q:local-lhopital, admitted result GDQLR, and Question q:lhopital-applications",
       "status": "checked"
+    },
+    {
+      "source_lines": "235--303",
+      "kind": "definition, theorem, corollary, and proof",
+      "content": "left Riemann sums, integral error estimate, Fundamental Theorem of Calculus, variable limits, and indefinite integrals",
+      "target": "Part II, Questions q:riemann-sums, q:fundamental-calculus, and q:variable-limits; admitted result BRIP",
+      "status": "checked"
+    },
+    {
+      "source_lines": "304--386",
+      "kind": "propositions, examples, and proof",
+      "content": "substitution, trigonometric and hyperbolic substitutions, integration by parts, improper exponential integral, and logarithm antiderivative",
+      "target": "Part II, Questions q:substitution and q:integration-parts",
+      "status": "checked"
+    },
+    {
+      "source_lines": "387--433",
+      "kind": "definitions, notation, example, theorem, and remarks",
+      "content": "partial derivatives, mixed-derivative notation, exponential example, and Schwarz theorem",
+      "target": "Part II, Question q:partial-derivatives and admitted result SCECP",
+      "status": "checked"
+    },
+    {
+      "source_lines": "434--473",
+      "kind": "derivation, definition, theorem, corollary, and example",
+      "content": "total differential, multivariable chain rule, path rule, and polar-coordinate transformation",
+      "target": "Part II, Questions q:total-differential and q:polar-change",
+      "status": "checked"
+    },
+    {
+      "source_lines": "474--508",
+      "kind": "example, theorem, and proof",
+      "content": "level surfaces and implicit differentiation formulas with non-vanishing condition",
+      "target": "Part II, Question q:implicit-differentiation",
+      "status": "checked"
+    },
+    {
+      "source_lines": "509--547",
+      "kind": "derivation, theorem, remark, and example",
+      "content": "parameter differentiation, moving endpoints, Leibniz integral rule, and exponential-integral example",
+      "target": "Part II, Question q:leibniz-integral and admitted result CII",
+      "status": "checked"
+    },
+    {
+      "source_lines": "548--645",
+      "kind": "definitions, propositions, examples, remarks, and proofs",
+      "content": "base exponentials, natural exponential and logarithm, differential-operator eigenfunctions, and uniqueness of exponential eigenfunctions",
+      "target": "Part III, Questions q:exponential-bases and q:derivative-eigenfunctions",
+      "status": "checked"
+    },
+    {
+      "source_lines": "646--789",
+      "kind": "definitions, remarks, and examples",
+      "content": "linear and homogeneous terminology, constant coefficients, homogeneous solution, initial conditions, forward-Euler approximation, and power-series solution",
+      "target": "Part III, Questions q:first-homogeneous, q:euler-discretization, and q:first-power-series; admitted results ELC and EPSI",
+      "status": "checked"
+    },
+    {
+      "source_lines": "790--903",
+      "kind": "definitions, proposition, proof, examples, and remarks",
+      "content": "forcing, particular and complementary solutions, superposition, constant forcing, and radioactive decay chain",
+      "target": "Part III, Questions q:superposition, q:constant-forcing, and q:radioactive-chain",
+      "status": "checked"
+    },
+    {
+      "source_lines": "904--981",
+      "kind": "definitions, proposition, proof, remark, and example",
+      "content": "standard form, integrating factors, general solution formula, and endpoint-regularity example",
+      "target": "Part III, Questions q:integrating-factor and q:integrating-example",
+      "status": "checked"
+    },
+    {
+      "source_lines": "982--1119",
+      "kind": "definitions, propositions, theorem, proofs, remarks, and examples",
+      "content": "separable equations, exact differentials, necessary mixed-partial condition, simple connectivity, exactness sufficiency, and worked exact equation",
+      "target": "Part IV, Questions q:separable-equations, q:exactness-necessity, and q:exact-equation-example; admitted result SCES",
+      "status": "checked"
+    },
+    {
+      "source_lines": "1120--1219",
+      "kind": "definitions, example, and qualitative remarks",
+      "content": "solution curves, explicit trajectory family, constant solutions, slope signs, isoclines, and sketching strategy",
+      "target": "Part IV, Question q:trajectory-example",
+      "status": "checked"
+    },
+    {
+      "source_lines": "1220--1346",
+      "kind": "definitions, proposition, proof, remarks, and examples",
+      "content": "equilibria, stability, perturbation linearisation, autonomous derivative criterion, and its limitations",
+      "target": "Part IV, Questions q:linearized-stability and q:autonomous-stability; admitted result SAUS",
+      "status": "checked"
+    },
+    {
+      "source_lines": "1347--1396",
+      "kind": "applied example, modelling remarks, definitions, proposition, and proof",
+      "content": "acid-base reaction model and continuous logistic growth, carrying capacity, stability, and explicit solutions",
+      "target": "Part IV, Questions q:neutralisation and q:continuous-logistic",
+      "status": "checked"
+    },
+    {
+      "source_lines": "1397--1546",
+      "kind": "definitions, derivation, proposition, proof, examples, and remarks",
+      "content": "discrete dynamical systems, logistic map scaling, fixed points, cobweb regimes, two-cycles, period doubling, persistence, and chaos",
+      "target": "Part IV, Questions q:logistic-map and q:logistic-two-cycle; admitted result LMPDB",
+      "status": "checked"
+    },
+    {
+      "source_lines": "1547--1633",
+      "kind": "definition, propositions, proofs, remarks, and examples",
+      "content": "second-order constant-coefficient equations, characteristic equation, distinct real and complex roots, harmonic real basis, detuning, and repeated roots",
+      "target": "Part V, Questions q:second-characteristic and q:complex-and-repeated-roots; admitted result LIVPEU",
+      "status": "checked"
+    },
+    {
+      "source_lines": "1634--1655",
+      "kind": "definition, remark, and example",
+      "content": "reduction of order and repeated-root calculation",
+      "target": "Part V, Question q:reduction-order",
+      "status": "checked"
+    },
+    {
+      "source_lines": "1656--1728",
+      "kind": "definitions, remarks, and examples",
+      "content": "state vectors, phase space, initial data, harmonic trajectories, basis states, Wronskian, and independence criterion",
+      "target": "Part V, Questions q:phase-space and q:wronskian-independence; admitted result LIVPEU",
+      "status": "checked"
+    },
+    {
+      "source_lines": "1729--1745",
+      "kind": "theorem, proof, and higher-order remark",
+      "content": "Abel Wronskian equation, zero-or-nonzero alternative, and announced higher-order system form",
+      "target": "Part V, Question q:abel-theorem, with higher-order form deferred explicitly to Part IX",
+      "status": "checked"
+    },
+    {
+      "source_lines": "1746--1915",
+      "kind": "definitions, theorem, propositions, proofs, examples, and remarks",
+      "content": "undetermined coefficients, superposed forcing, resonance, detuning, beating, resonant multiplier, variation of parameters, and resonant worked example",
+      "target": "Part VI, Questions q:undetermined-coefficients, q:resonance, q:variation-parameters, and q:variation-example",
+      "status": "checked"
+    },
+    {
+      "source_lines": "1916--2006",
+      "kind": "definitions, propositions, proofs, and remarks",
+      "content": "equidimensional terminology and dimensions, power ansatz, indicial equation, logarithmic reduction, repeated roots, and resonant forcing",
+      "target": "Part VI, Question q:equidimensional",
+      "status": "checked"
+    },
+    {
+      "source_lines": "2007--2089",
+      "kind": "definitions, propositions, proof, remark, and example",
+      "content": "second-order recurrences, shift eigenfunctions, characteristic roots, complementary and particular forms, and Fibonacci formula",
+      "target": "Part VI, Questions q:linear-recurrences and q:fibonacci-formula",
+      "status": "checked"
+    },
+    {
+      "source_lines": "2090--2191",
+      "kind": "physical model, scaling remarks, propositions, and example",
+      "content": "damped oscillator modelling, nondimensionalization, free-response regimes, time scales, transient growth, sinusoidal forcing, and asymptotic response",
+      "target": "Part VI, Questions q:damping-model, q:damping-regimes, and q:forced-damping",
+      "status": "checked"
+    },
+    {
+      "source_lines": "2192--2329",
+      "kind": "definitions, applied examples, and remarks",
+      "content": "impulse-momentum relation, nascent delta families, Gaussian approximation, Dirac sifting, impulsive boundary problem, regularity jumps, and Heaviside derivative",
+      "target": "Part VI, Questions q:nascent-delta, q:delta-boundary-problem, and q:heaviside; admitted results GIN and DSP",
+      "status": "checked"
+    },
+    {
+      "source_lines": "2330--2385",
+      "kind": "definitions, examples, remarks, and stated theorems",
+      "content": "ordinary, singular, regular singular, and irregular points; classifications; ordinary-point and Frobenius existence theorems",
+      "target": "Part VII, Question q:series-point-classification; admitted results OPSB and FRSE",
+      "status": "checked"
+    },
+    {
+      "source_lines": "2386--2430",
+      "kind": "method, example, and remark",
+      "content": "ordinary-point substitution, Legendre-type recurrence, free even and odd data, logarithmic closed form, and endpoint singularities",
+      "target": "Part VII, Question q:legendre-series",
+      "status": "checked"
+    },
+    {
+      "source_lines": "2431--2521",
+      "kind": "method and worked example",
+      "content": "Frobenius form, regularity check, general recurrence, indices zero and one-half, and both coefficient branches",
+      "target": "Part VII, Question q:frobenius-half-index",
+      "status": "checked"
+    },
+    {
+      "source_lines": "2522--2565",
+      "kind": "proposition, remarks, and example",
+      "content": "root-difference classification, logarithmic resonance exception, and failed lower-index recurrence",
+      "target": "Part VII, Question q:frobenius-resonance and admitted result FSRD",
+      "status": "checked"
+    },
+    {
+      "source_lines": "2566--2608",
+      "kind": "definitions, proposition, and remarks",
+      "content": "Euclidean total differential, gradient, directional derivative, maximum rate, steepest direction, and contour orthogonality",
+      "target": "Part VIII, Question q:gradient-direction",
+      "status": "checked"
+    },
+    {
+      "source_lines": "2609--2637",
+      "kind": "definitions and remarks",
+      "content": "stationary points, local extrema, saddle points, and directional behaviour",
+      "target": "Part VIII, Question q:stationary-directions",
+      "status": "checked"
+    },
+    {
+      "source_lines": "2638--2698",
+      "kind": "proposition, definition, and remarks",
+      "content": "line-restricted multivariable Taylor expansion, component form, Hessian matrix, symmetry, and quadratic notation",
+      "target": "Part VIII, Question q:multivariable-taylor and Hessian definition",
+      "status": "checked"
+    },
+    {
+      "source_lines": "2699--2771",
+      "kind": "remarks, propositions, and definition",
+      "content": "quadratic approximation, symmetric diagonalization, eigenvalue classification, leading principal minors, and Sylvester criterion",
+      "target": "Part VIII, Questions q:hessian-classification and q:sylvester-and-contours; admitted results SSTD and SCFD",
+      "status": "checked"
+    },
+    {
+      "source_lines": "2772--2818",
+      "kind": "contour discussion and example",
+      "content": "elliptic and hyperbolic principal-axis contours and classification of the intended polynomial example at its two stationary points",
+      "target": "Part VIII, Question q:stationary-example",
+      "status": "checked"
+    },
+    {
+      "source_lines": "2819--2866",
+      "kind": "definitions and conversion remarks",
+      "content": "two-component linear systems, vector and matrix notation, scalar elimination, and reduction of second order to first order",
+      "target": "Part IX, Question q:system-conversion",
+      "status": "checked"
+    },
+    {
+      "source_lines": "2867--3057",
+      "kind": "ansatz, proposition, example, and phase-space discussion",
+      "content": "matrix eigenmodes, distinct-eigenvalue solution, forced coupled example, eigenvector directions, and particular exponential response",
+      "target": "Part IX, Questions q:system-eigenmodes and q:coupled-forced-system; admitted result LSIVPEU",
+      "status": "checked"
+    },
+    {
+      "source_lines": "3058--3061 and 1721--1745",
+      "kind": "phase-portrait proposition and higher-order Wronskian remark",
+      "content": "saddle, node, spiral, and centre classification, orientation, and trace-determinant evolution of a fundamental matrix",
+      "target": "Part IX, Questions q:phase-portrait-types and q:matrix-abel; admitted result MDFE",
+      "status": "checked"
+    },
+    {
+      "source_lines": "3062--3100",
+      "kind": "definitions, linearisation remark, and proposition",
+      "content": "nonlinear autonomous systems, equilibria, perturbation expansion, Jacobian, and hyperbolic linearisation principle",
+      "target": "Part IX, Question q:system-linearization and admitted result HLP",
+      "status": "checked"
+    },
+    {
+      "source_lines": "3101--3225",
+      "kind": "applied nonlinear example",
+      "content": "predator-prey model, three equilibria, Jacobians, eigenvalues, phase types, and spiral orientation",
+      "target": "Part IX, Question q:predator-prey",
+      "status": "checked"
+    },
+    {
+      "source_lines": "3226--3333",
+      "kind": "definitions, proposition, proof, remarks, and examples",
+      "content": "PDE terminology, first-order advection, characteristics, translated initial profile, and forced characteristic solution",
+      "target": "Part X, Questions q:first-wave-characteristics and q:forced-characteristics",
+      "status": "checked"
+    },
+    {
+      "source_lines": "3334--3410",
+      "kind": "definition, physical remarks, proposition, proof, and initial-value example",
+      "content": "second-order wave equation, string curvature model, operator factorization, characteristic coordinates, d’Alembert solution, data counting, and Lorentzian pulse splitting",
+      "target": "Part X, Questions q:string-motivation, q:dalembert, and q:wave-initial-data",
+      "status": "checked"
+    },
+    {
+      "source_lines": "3411--3483",
+      "kind": "definition, remark, and similarity example",
+      "content": "diffusion equation, dissipative interpretation, semi-infinite heated bar, similarity scaling, reduced ODE, error functions, boundary selection, and penetration time scale",
+      "target": "Part X, Question q:diffusion-similarity",
+      "status": "checked"
     }
   ],
   "parts": {
@@ -408,7 +695,1662 @@
           "code": "GDQLR",
           "phrase": "General Derivative Quotient Limit Rule"
         }
+      ],
+      "audit": {
+        "status": "audited",
+        "date": "2026-09-10",
+        "checks": [
+          "source coverage and dependency order",
+          "definitions, hypotheses, domains, and bound variables",
+          "mathematical correctness and question solvability",
+          "admitted-result placement and naming",
+          "acronym catalogue correspondence",
+          "compiled layout"
+        ],
+        "corrections": [
+          "Defined linear and nonlinear second-order equations before the first use of nonlinear.",
+          "Defined the positive integers before the first use of the symbol N.",
+          "Scoped the function used to define repeated derivatives and the two functions shared by every Leibniz subquestion."
+        ]
+      }
+    },
+    "II": {
+      "title": "Integration and multivariable differentiation",
+      "status": "complete",
+      "questions": {
+        "q:riemann-sums": [
+          {
+            "letter": "a",
+            "code": "URSP",
+            "phrase": "Uniform Riemann Sum Partition"
+          },
+          {
+            "letter": "b",
+            "code": "LSRF",
+            "phrase": "Linear Sum Recovers Formula"
+          },
+          {
+            "letter": "c",
+            "code": "RSEO",
+            "phrase": "Rectangle Sum Error Order"
+          }
+        ],
+        "q:fundamental-calculus": [
+          {
+            "letter": "a",
+            "code": "IALI",
+            "phrase": "Integral Accumulation as a Local Increment"
+          },
+          {
+            "letter": "b",
+            "code": "CAML",
+            "phrase": "Continuity gives an Average Mean Limit"
+          },
+          {
+            "letter": "c",
+            "code": "FTCD",
+            "phrase": "Fundamental Theorem Connecting Differentiation"
+          }
+        ],
+        "q:variable-limits": [
+          {
+            "letter": "a",
+            "code": "ORL",
+            "phrase": "Orientation Reversal for Limits"
+          },
+          {
+            "letter": "b",
+            "code": "VLDF",
+            "phrase": "Variable-Limit Derivative Formula"
+          },
+          {
+            "letter": "c",
+            "code": "ACFC",
+            "phrase": "Antiderivatives Carry a Free Constant"
+          }
+        ],
+        "q:substitution": [
+          {
+            "letter": "a",
+            "code": "ICS",
+            "phrase": "Integral Chain Substitution"
+          },
+          {
+            "letter": "b",
+            "code": "QSSE",
+            "phrase": "Quadratic Square root Substitution Example"
+          },
+          {
+            "letter": "c",
+            "code": "STSI",
+            "phrase": "Shifted Trigonometric Substitution Integral"
+          },
+          {
+            "letter": "d",
+            "code": "HSCP",
+            "phrase": "Hyperbolic Substitution Choice Practice"
+          }
+        ],
+        "q:integration-parts": [
+          {
+            "letter": "a",
+            "code": "IBPF",
+            "phrase": "Integration By-Parts Formula"
+          },
+          {
+            "letter": "b",
+            "code": "EII",
+            "phrase": "Exponential Improper Integral"
+          },
+          {
+            "letter": "c",
+            "code": "LAI",
+            "phrase": "Logarithm Antiderivative Identity"
+          }
+        ],
+        "q:partial-derivatives": [
+          {
+            "letter": "a",
+            "code": "PDQ",
+            "phrase": "Partial Derivative Quotients"
+          },
+          {
+            "letter": "b",
+            "code": "EMPC",
+            "phrase": "Exponential Multivariable Partial Computation"
+          },
+          {
+            "letter": "c",
+            "code": "MPDN",
+            "phrase": "Mixed Partial Derivative Notation"
+          }
+        ],
+        "q:total-differential": [
+          {
+            "letter": "a",
+            "code": "RPLI",
+            "phrase": "Rectangular Path Linear Increment"
+          },
+          {
+            "letter": "b",
+            "code": "TDAE",
+            "phrase": "Total Differential Approximation Error"
+          },
+          {
+            "letter": "c",
+            "code": "MCR",
+            "phrase": "Multivariable Chain Rule"
+          },
+          {
+            "letter": "d",
+            "code": "CPR",
+            "phrase": "Chain rule along a Plane Route"
+          }
+        ],
+        "q:polar-change": [
+          {
+            "letter": "a",
+            "code": "PCC",
+            "phrase": "Polar Coordinate Chain rule"
+          },
+          {
+            "letter": "b",
+            "code": "RAD",
+            "phrase": "Radial and Angular Derivatives"
+          }
+        ],
+        "q:implicit-differentiation": [
+          {
+            "letter": "a",
+            "code": "IDCE",
+            "phrase": "Implicit Differentiation Computation Example"
+          },
+          {
+            "letter": "b",
+            "code": "IFD",
+            "phrase": "Implicit Formula Derivation"
+          },
+          {
+            "letter": "c",
+            "code": "NZCI",
+            "phrase": "Non-Zero Condition Interpretation"
+          }
+        ],
+        "q:leibniz-integral": [
+          {
+            "letter": "a",
+            "code": "FPDI",
+            "phrase": "Fixed-limit Parameter Differentiation under Integration"
+          },
+          {
+            "letter": "b",
+            "code": "CULR",
+            "phrase": "Changing Upper Limit Rule"
+          },
+          {
+            "letter": "c",
+            "code": "GLE",
+            "phrase": "General Leibniz Expression"
+          },
+          {
+            "letter": "d",
+            "code": "PGIE",
+            "phrase": "Parameterized Gaussian Integral Examples"
+          }
+        ]
+      },
+      "admitted_results": [
+        {
+          "code": "BRIP",
+          "phrase": "Basic Riemann Integral Properties"
+        },
+        {
+          "code": "SCECP",
+          "phrase": "Schwarz Commutation for Existing Continuous Partials"
+        },
+        {
+          "code": "CII",
+          "phrase": "Continuous Integral Interchange"
+        }
+      ],
+      "audit": {
+        "status": "audited",
+        "date": "2026-09-10",
+        "checks": [
+          "source coverage and dependency order",
+          "definitions, hypotheses, domains, and bound variables",
+          "mathematical correctness and question solvability",
+          "admitted-result placement and naming",
+          "acronym catalogue correspondence",
+          "compiled layout"
+        ],
+        "corrections": [
+          "Moved BRIP before the rectangle-error argument that uses its integral properties.",
+          "Strengthened the rectangle-error regularity hypotheses at the closed interval endpoints.",
+          "Defined the total differential first through its linear coefficients and defined differentiability on an open set.",
+          "Anchored the path chain rule at the stated differentiability point and supplied differentiability along the full plane route.",
+          "Chose the fixed splitting point inside every nearby moving integration interval so the Leibniz construction remains in the domain.",
+          "Corrected the coverage-ledger acronym CUII to CII.",
+          "Restricted the elementary left-uniform-sum integral construction to continuous functions and deferred general Riemann integrability to Analysis I.",
+          "Declared the function used in the rectangle interpretation of the uniform partition.",
+          "Defined differentiability for scalar functions of three variables before the implicit-differentiation argument uses its linear approximation."
+        ]
+      }
+    },
+    "III": {
+      "title": "First-order linear differential equations",
+      "status": "complete",
+      "questions": {
+        "q:exponential-bases": [
+          {
+            "letter": "a",
+            "code": "BPDP",
+            "phrase": "Base Power Derivative Proportionality"
+          },
+          {
+            "letter": "b",
+            "code": "NECL",
+            "phrase": "Natural Exponential Characterizing Limit"
+          },
+          {
+            "letter": "c",
+            "code": "GENE",
+            "phrase": "General Exponential through Natural Exponentiation"
+          }
+        ],
+        "q:derivative-eigenfunctions": [
+          {
+            "letter": "a",
+            "code": "CEDE",
+            "phrase": "Complex Exponential Derivative Eigenvalue"
+          },
+          {
+            "letter": "b",
+            "code": "OECG",
+            "phrase": "Only Exponential Candidates are General"
+          },
+          {
+            "letter": "c",
+            "code": "ICVS",
+            "phrase": "Initial Condition Value Selection"
+          }
+        ],
+        "q:first-homogeneous": [
+          {
+            "letter": "a",
+            "code": "LHC",
+            "phrase": "Linear Homogeneous Classification"
+          },
+          {
+            "letter": "b",
+            "code": "CAER",
+            "phrase": "Characteristic Ansatz Equation Reduction"
+          },
+          {
+            "letter": "c",
+            "code": "GSHS",
+            "phrase": "General Solution of a Homogeneous Scalar equation"
+          },
+          {
+            "letter": "d",
+            "code": "ICUS",
+            "phrase": "Initial Condition Uniquely Selects"
+          }
+        ],
+        "q:euler-discretization": [
+          {
+            "letter": "a",
+            "code": "FED",
+            "phrase": "Forward Euler Discretization"
+          },
+          {
+            "letter": "b",
+            "code": "RPF",
+            "phrase": "Recurrence Product Formula"
+          },
+          {
+            "letter": "c",
+            "code": "CEL",
+            "phrase": "Continuous Exponential Limit"
+          }
+        ],
+        "q:first-power-series": [
+          {
+            "letter": "a",
+            "code": "VPSC",
+            "phrase": "Vanishing Power Series Coefficients"
+          },
+          {
+            "letter": "b",
+            "code": "CRC",
+            "phrase": "Coefficient Recurrence Computation"
+          },
+          {
+            "letter": "c",
+            "code": "EPSR",
+            "phrase": "Exponential Power Series Recovery"
+          }
+        ],
+        "q:superposition": [
+          {
+            "letter": "a",
+            "code": "LODS",
+            "phrase": "Linear Operator Distribution over Sums"
+          },
+          {
+            "letter": "b",
+            "code": "DHS",
+            "phrase": "Difference is a Homogeneous Solution"
+          },
+          {
+            "letter": "c",
+            "code": "GSFS",
+            "phrase": "General Solution Follows Superposition"
+          }
+        ],
+        "q:constant-forcing": [
+          {
+            "letter": "a",
+            "code": "CEP",
+            "phrase": "Constant Equilibrium Particular solution"
+          },
+          {
+            "letter": "b",
+            "code": "FCGS",
+            "phrase": "Forced Constant General Solution"
+          },
+          {
+            "letter": "c",
+            "code": "BCAF",
+            "phrase": "Boundary Condition Applied to the Full solution"
+          }
+        ],
+        "q:radioactive-chain": [
+          {
+            "letter": "a",
+            "code": "PADS",
+            "phrase": "Parent Abundance Decay Solution"
+          },
+          {
+            "letter": "b",
+            "code": "DFES",
+            "phrase": "Daughter Forced Exponential Solution"
+          },
+          {
+            "letter": "c",
+            "code": "ICFR",
+            "phrase": "Initial Condition Fixes the Response"
+          },
+          {
+            "letter": "d",
+            "code": "IRFC",
+            "phrase": "Isotope Ratio Formula for Chronology"
+          }
+        ],
+        "q:integrating-factor": [
+          {
+            "letter": "a",
+            "code": "IFDE",
+            "phrase": "Integrating Factor Differential Equation"
+          },
+          {
+            "letter": "b",
+            "code": "PEDF",
+            "phrase": "Product Exact Derivative Form"
+          },
+          {
+            "letter": "c",
+            "code": "GIFF",
+            "phrase": "General Integrating Factor Formula"
+          }
+        ],
+        "q:integrating-example": [
+          {
+            "letter": "a",
+            "code": "SFDD",
+            "phrase": "Standard Form Domain Decision"
+          },
+          {
+            "letter": "b",
+            "code": "IFC",
+            "phrase": "Integrating Factor Computation"
+          },
+          {
+            "letter": "c",
+            "code": "GSBE",
+            "phrase": "General Solution Before the Endpoint"
+          },
+          {
+            "letter": "d",
+            "code": "FBC",
+            "phrase": "Finite Boundary Condition"
+          }
+        ]
+      },
+      "admitted_results": [
+        {
+          "code": "ELC",
+          "phrase": "Euler Limit Characterization"
+        },
+        {
+          "code": "EPSI",
+          "phrase": "Exponential Power Series Identity"
+        }
+      ],
+      "audit": {
+        "status": "audited",
+        "date": "2026-09-10",
+        "checks": [
+          "source coverage and dependency order",
+          "definitions, hypotheses, domains, and bound variables",
+          "mathematical correctness and question solvability",
+          "admitted-result placement and naming",
+          "acronym catalogue correspondence",
+          "compiled layout"
+        ],
+        "corrections": [
+          "Specified that the coefficient p is nonconstant and the forcing f is not identically zero in the classification exercise.",
+          "Stated the exponential power-series identity as the named admitted result EPSI before it is used.",
+          "Declared the forward-Euler sequence and separated the fixed-step construction from the mesh-refinement family indexed by N.",
+          "Changed the endpoint-limit reference to the local quotient theorem that proves the exponential quotient limit."
+        ]
+      }
+    },
+    "IV": {
+      "title": "Nonlinear first-order equations and discrete dynamics",
+      "status": "complete",
+      "questions": {
+        "q:separable-equations": [
+          {
+            "letter": "a",
+            "code": "SDF",
+            "phrase": "Separable Differential Form"
+          },
+          {
+            "letter": "b",
+            "code": "IISC",
+            "phrase": "Implicit Integral Solution Criterion"
+          },
+          {
+            "letter": "c",
+            "code": "NSE",
+            "phrase": "Nonlinear Separation Example"
+          },
+          {
+            "letter": "d",
+            "code": "DRC",
+            "phrase": "Domain Restriction Check"
+          }
+        ],
+        "q:exactness-necessity": [
+          {
+            "letter": "a",
+            "code": "EDC",
+            "phrase": "Exact Differential Components"
+          },
+          {
+            "letter": "b",
+            "code": "MEC",
+            "phrase": "Mixed Equality Condition"
+          },
+          {
+            "letter": "c",
+            "code": "HDO",
+            "phrase": "Holed Domain Obstruction"
+          }
+        ],
+        "q:exact-equation-example": [
+          {
+            "letter": "a",
+            "code": "EVC",
+            "phrase": "Exactness Verification Calculation"
+          },
+          {
+            "letter": "b",
+            "code": "PRF",
+            "phrase": "Potential Reconstruction Function"
+          },
+          {
+            "letter": "c",
+            "code": "ILS",
+            "phrase": "Implicit Level Solutions"
+          }
+        ],
+        "q:trajectory-example": [
+          {
+            "letter": "a",
+            "code": "EFSC",
+            "phrase": "Explicit Family of Solution Curves"
+          },
+          {
+            "letter": "b",
+            "code": "MSS",
+            "phrase": "Missing Stationary Solutions"
+          },
+          {
+            "letter": "c",
+            "code": "QSP",
+            "phrase": "Qualitative Slope Partition"
+          },
+          {
+            "letter": "d",
+            "code": "ICD",
+            "phrase": "Isocline Curve Derivation"
+          }
+        ],
+        "q:linearized-stability": [
+          {
+            "letter": "a",
+            "code": "EPE",
+            "phrase": "Equilibrium Perturbation Expansion"
+          },
+          {
+            "letter": "b",
+            "code": "LEM",
+            "phrase": "Linearized Evolution Model"
+          },
+          {
+            "letter": "c",
+            "code": "CSULE",
+            "phrase": "Contrasting Stability of Upper and Lower Equilibria"
+          },
+          {
+            "letter": "d",
+            "code": "VALE",
+            "phrase": "Validity Area of the Linearized Estimate"
+          }
+        ],
+        "q:autonomous-stability": [
+          {
+            "letter": "a",
+            "code": "ASDC",
+            "phrase": "Autonomous Stability Derivative Criterion"
+          },
+          {
+            "letter": "b",
+            "code": "NDC",
+            "phrase": "Non-hyperbolic Derivative Caveat"
+          }
+        ],
+        "q:neutralisation": [
+          {
+            "letter": "a",
+            "code": "MBM",
+            "phrase": "Mass Balance Model"
+          },
+          {
+            "letter": "b",
+            "code": "ECSA",
+            "phrase": "Equilibria and Chemical Stability Analysis"
+          },
+          {
+            "letter": "c",
+            "code": "SCNF",
+            "phrase": "Separable Chemical Neutralization Formula"
+          },
+          {
+            "letter": "d",
+            "code": "PDR",
+            "phrase": "Physical Domain Restriction"
+          }
+        ],
+        "q:continuous-logistic": [
+          {
+            "letter": "a",
+            "code": "ELG",
+            "phrase": "Exponential Low-density Growth"
+          },
+          {
+            "letter": "b",
+            "code": "CPC",
+            "phrase": "Competition Produces Carrying capacity"
+          },
+          {
+            "letter": "c",
+            "code": "LESC",
+            "phrase": "Logistic Equilibria and Stability Classification"
+          },
+          {
+            "letter": "d",
+            "code": "LES",
+            "phrase": "Logistic Explicit Solution"
+          }
+        ],
+        "q:logistic-map": [
+          {
+            "letter": "a",
+            "code": "FELM",
+            "phrase": "Forward Euler Logistic Map"
+          },
+          {
+            "letter": "b",
+            "code": "DFP",
+            "phrase": "Discrete Fixed Points"
+          },
+          {
+            "letter": "c",
+            "code": "DLSC",
+            "phrase": "Discrete Linear Stability Criterion"
+          },
+          {
+            "letter": "d",
+            "code": "PRC",
+            "phrase": "Parameter Regime Classification"
+          },
+          {
+            "letter": "e",
+            "code": "CWI",
+            "phrase": "Cobweb Walk Interpretation"
+          }
+        ],
+        "q:logistic-two-cycle": [
+          {
+            "letter": "a",
+            "code": "TPE",
+            "phrase": "Two-cycle Polynomial Extraction"
+          },
+          {
+            "letter": "b",
+            "code": "TCS",
+            "phrase": "Two-Cycle Stability"
+          }
+        ]
+      },
+      "admitted_results": [
+        {
+          "code": "SCES",
+          "phrase": "Simply-Connected Exactness Sufficiency"
+        },
+        {
+          "code": "LMPDB",
+          "phrase": "Logistic Map Period-Doubling Behaviour"
+        },
+        {
+          "code": "SAUS",
+          "phrase": "Scalar Autonomous Uniqueness for Solutions"
+        }
+      ],
+      "audit": {
+        "status": "audited",
+        "date": "2026-09-10",
+        "checks": [
+          "source coverage and dependency order",
+          "definitions, hypotheses, domains, and bound variables",
+          "mathematical correctness and question solvability",
+          "admitted-result placement and naming",
+          "acronym catalogue correspondence",
+          "compiled layout"
+        ],
+        "corrections": [
+          "Declared all interval, antiderivative, trajectory, chemical-model, and discrete-sequence objects at first use.",
+          "Removed the unnecessary condition y nonzero from the separation example and avoided division by y.",
+          "Defined domain and simple connectivity precisely.",
+          "Specified the integration constant range in the nonstationary trajectory family and treated the t equals zero isocline.",
+          "Separated stable, attracting, asymptotically stable, and unstable equilibria.",
+          "Marked scalar autonomous solution uniqueness as admitted result SAUS and used it in a guided sign proof of the stability criterion.",
+          "Required exact nonlinear reasoning, in addition to linearized growth, for the nonautonomous instability conclusion.",
+          "Introduced a separate real net rate for the exponential population model.",
+          "Declared the logistic map as a function from the real numbers to themselves and scoped its Euler sequence.",
+          "Defined stability, local attraction, and instability for discrete fixed points before applying the derivative criterion.",
+          "Required zero to belong to the solution interval before asserting a horizontal tangent there.",
+          "Introduced the differentiable solution and its perturbation function explicitly in the linearization question.",
+          "Added a mean-value-theorem indication for the discrete contraction and expansion criterion.",
+          "Declared the separation codomain interval J.",
+          "Rephrased the nonlinear Taylor estimate using an independent scalar increment before substitution of the perturbation.",
+          "Declared the local domain, codomain, and fixed point in the discrete derivative criterion.",
+          "Restated the state set and function and quantified the periodic-orbit index."
+        ]
+      }
+    },
+    "V": {
+      "title": "Homogeneous second-order equations and phase space",
+      "status": "complete",
+      "questions": {
+        "q:second-characteristic": [
+          {
+            "letter": "a",
+            "code": "CEFE",
+            "phrase": "Characteristic Equation From an Exponential"
+          },
+          {
+            "letter": "b",
+            "code": "LIDS",
+            "phrase": "Linear Independence for Distinct Solutions"
+          },
+          {
+            "letter": "c",
+            "code": "DRGS",
+            "phrase": "Distinct-Root General Solution"
+          },
+          {
+            "letter": "d",
+            "code": "DRWE",
+            "phrase": "Distinct Real-root Worked Example"
+          }
+        ],
+        "q:complex-and-repeated-roots": [
+          {
+            "letter": "a",
+            "code": "CSHM",
+            "phrase": "Complex Solutions of Harmonic Motion"
+          },
+          {
+            "letter": "b",
+            "code": "RBCT",
+            "phrase": "Real Basis through Complex Transformation"
+          },
+          {
+            "letter": "c",
+            "code": "DRSS",
+            "phrase": "Detuning Reveals a Second Solution"
+          },
+          {
+            "letter": "d",
+            "code": "RRGS",
+            "phrase": "Repeated-Root General Solution"
+          }
+        ],
+        "q:reduction-order": [
+          {
+            "letter": "a",
+            "code": "ROA",
+            "phrase": "Reduction of Order Ansatz"
+          },
+          {
+            "letter": "b",
+            "code": "REEC",
+            "phrase": "Repeated Equation Exact Cancellation"
+          },
+          {
+            "letter": "c",
+            "code": "SVLV",
+            "phrase": "Second solution Via a Linear Variation"
+          }
+        ],
+        "q:phase-space": [
+          {
+            "letter": "a",
+            "code": "SFOS",
+            "phrase": "State First-Order System"
+          },
+          {
+            "letter": "b",
+            "code": "PID",
+            "phrase": "Phase Initial Data"
+          },
+          {
+            "letter": "c",
+            "code": "SHPT",
+            "phrase": "Simple Harmonic Phase Trajectory"
+          },
+          {
+            "letter": "d",
+            "code": "SIBT",
+            "phrase": "Second Independent Basis Trajectory"
+          }
+        ],
+        "q:wronskian-independence": [
+          {
+            "letter": "a",
+            "code": "WIC",
+            "phrase": "Wronskian Independence Certificate"
+          },
+          {
+            "letter": "b",
+            "code": "WSH",
+            "phrase": "Wronskian for Simple Harmonics"
+          },
+          {
+            "letter": "c",
+            "code": "WRR",
+            "phrase": "Wronskian for a Repeated Root"
+          }
+        ],
+        "q:abel-theorem": [
+          {
+            "letter": "a",
+            "code": "SWI",
+            "phrase": "Subtracted Wronskian Identity"
+          },
+          {
+            "letter": "b",
+            "code": "AWE",
+            "phrase": "Abel Wronskian Equation"
+          },
+          {
+            "letter": "c",
+            "code": "ZONZ",
+            "phrase": "Zero Or Never Zero"
+          }
+        ]
+      },
+      "admitted_results": [
+        {
+          "code": "LIVPEU",
+          "phrase": "Linear Initial-Value Problem Existence and Uniqueness"
+        }
+      ],
+      "audit": {
+        "status": "audited",
+        "date": "2026-09-10",
+        "checks": [
+          "source coverage and dependency order",
+          "definitions, hypotheses, domains, and bound variables",
+          "mathematical correctness and question solvability",
+          "admitted-result placement and naming",
+          "acronym catalogue correspondence",
+          "compiled layout"
+        ],
+        "corrections": [
+          "Typed the complementary and particular functions and the reduction-of-order multiplier.",
+          "Declared the unknown n-times differentiable function in the phase-space construction.",
+          "Expanded LIVPEU into a fully quantified higher-order existence-and-uniqueness statement.",
+          "Added the open-interval and coefficient-continuity hypotheses required when applying LIVPEU to phase data.",
+          "Declared the interval and coefficients locally in both Wronskian questions.",
+          "Removed the preview formula involving an undefined coefficient matrix and trace; Part IX introduces them before use."
+        ]
+      }
+    },
+    "VI": {
+      "title": "Forced and equidimensional equations, recurrences, damping, and impulses",
+      "status": "complete",
+      "questions": {
+        "q:undetermined-coefficients": [
+          {
+            "letter": "a",
+            "code": "TSL",
+            "phrase": "Trial Shape List"
+          },
+          {
+            "letter": "b",
+            "code": "PEFC",
+            "phrase": "Polynomial and Exponential Forcing Computation"
+          },
+          {
+            "letter": "c",
+            "code": "CSFS",
+            "phrase": "Complementary Superposition Forms the Solution"
+          }
+        ],
+        "q:resonance": [
+          {
+            "letter": "a",
+            "code": "SGRF",
+            "phrase": "Standard Guess Resonance Failure"
+          },
+          {
+            "letter": "b",
+            "code": "DNPI",
+            "phrase": "Detuned Nonresonant Particular Integral"
+          },
+          {
+            "letter": "c",
+            "code": "BLS",
+            "phrase": "Beating Length Scales"
+          },
+          {
+            "letter": "d",
+            "code": "RPL",
+            "phrase": "Resonant Particular Limit"
+          },
+          {
+            "letter": "e",
+            "code": "GRM",
+            "phrase": "General Resonance Multiplier"
+          }
+        ],
+        "q:variation-parameters": [
+          {
+            "letter": "a",
+            "code": "VPA",
+            "phrase": "Variation Parameter Ansatz"
+          },
+          {
+            "letter": "b",
+            "code": "ADC",
+            "phrase": "Auxiliary Derivative Constraint"
+          },
+          {
+            "letter": "c",
+            "code": "WLS",
+            "phrase": "Wronskian Linear System"
+          },
+          {
+            "letter": "d",
+            "code": "VPIF",
+            "phrase": "Variation Parameters Integral Formula"
+          }
+        ],
+        "q:variation-example": [
+          {
+            "letter": "a",
+            "code": "WSEC",
+            "phrase": "Wronskian Sign and Elementary Coefficients"
+          },
+          {
+            "letter": "b",
+            "code": "VPIE",
+            "phrase": "Variation Parameter Integration Example"
+          },
+          {
+            "letter": "c",
+            "code": "DVA",
+            "phrase": "Detuning and Variation Agree"
+          }
+        ],
+        "q:equidimensional": [
+          {
+            "letter": "a",
+            "code": "IEPP",
+            "phrase": "Indicial Equation from a Power Profile"
+          },
+          {
+            "letter": "b",
+            "code": "DRCF",
+            "phrase": "Distinct-Root Complementary Form"
+          },
+          {
+            "letter": "c",
+            "code": "LTCC",
+            "phrase": "Logarithmic Transformation to Constant Coefficients"
+          },
+          {
+            "letter": "d",
+            "code": "RRL",
+            "phrase": "Repeated Root Logarithm"
+          },
+          {
+            "letter": "e",
+            "code": "RFR",
+            "phrase": "Resonant Forcing Response"
+          }
+        ],
+        "q:linear-recurrences": [
+          {
+            "letter": "a",
+            "code": "SEGP",
+            "phrase": "Shift Eigenfunction as a Geometric Progression"
+          },
+          {
+            "letter": "b",
+            "code": "DCEC",
+            "phrase": "Difference Characteristic Equation Calculation"
+          },
+          {
+            "letter": "c",
+            "code": "RRCF",
+            "phrase": "Repeated root Recurrence Complementary Form"
+          },
+          {
+            "letter": "d",
+            "code": "DZRH",
+            "phrase": "Degenerate Zero-Root Handling"
+          },
+          {
+            "letter": "e",
+            "code": "PIG",
+            "phrase": "Particular Inspection Guesses"
+          }
+        ],
+        "q:fibonacci-formula": [
+          {
+            "letter": "a",
+            "code": "FCR",
+            "phrase": "Fibonacci Characteristic Roots"
+          },
+          {
+            "letter": "b",
+            "code": "BIC",
+            "phrase": "Binet Initial Coefficients"
+          }
+        ],
+        "q:damping-model": [
+          {
+            "letter": "a",
+            "code": "NFM",
+            "phrase": "Newton Force Model"
+          },
+          {
+            "letter": "b",
+            "code": "NDS",
+            "phrase": "Nondimensional Derivative Scaling"
+          },
+          {
+            "letter": "c",
+            "code": "FRC",
+            "phrase": "Free Response Characteristic equation"
+          }
+        ],
+        "q:damping-regimes": [
+          {
+            "letter": "a",
+            "code": "UOD",
+            "phrase": "Underdamped Oscillatory Decay"
+          },
+          {
+            "letter": "b",
+            "code": "CDR",
+            "phrase": "Critically Damped Response"
+          },
+          {
+            "letter": "c",
+            "code": "ODTS",
+            "phrase": "Overdamped Dual Time Scales"
+          },
+          {
+            "letter": "d",
+            "code": "TGPD",
+            "phrase": "Transient Growth Precedes Decay"
+          }
+        ],
+        "q:forced-damping": [
+          {
+            "letter": "a",
+            "code": "SFPI",
+            "phrase": "Sinusoidal Forcing Particular Integral"
+          },
+          {
+            "letter": "b",
+            "code": "TAA",
+            "phrase": "Transient Approaches Asymptotic response"
+          }
+        ],
+        "q:nascent-delta": [
+          {
+            "letter": "a",
+            "code": "MJI",
+            "phrase": "Momentum Jump from an Impulse"
+          },
+          {
+            "letter": "b",
+            "code": "GND",
+            "phrase": "Gaussian Nascent Delta"
+          }
+        ],
+        "q:delta-boundary-problem": [
+          {
+            "letter": "a",
+            "code": "PRHS",
+            "phrase": "Piecewise Regional Homogeneous Solutions"
+          },
+          {
+            "letter": "b",
+            "code": "CCJ",
+            "phrase": "Continuity Condition and Jump"
+          },
+          {
+            "letter": "c",
+            "code": "BVDC",
+            "phrase": "Boundary Values Determine the Constants"
+          },
+          {
+            "letter": "d",
+            "code": "RDHS",
+            "phrase": "Regularity Drop at the Highest-order Source"
+          }
+        ],
+        "q:heaviside": [
+          {
+            "letter": "a",
+            "code": "HSD",
+            "phrase": "Heaviside Step Definition"
+          },
+          {
+            "letter": "b",
+            "code": "DDH",
+            "phrase": "Delta Derivative of Heaviside"
+          }
+        ]
+      },
+      "admitted_results": [
+        {
+          "code": "GIN",
+          "phrase": "Gaussian Integral Normalization"
+        },
+        {
+          "code": "DSP",
+          "phrase": "Dirac Sifting Property"
+        }
       ]
+    },
+    "VII": {
+      "title": "Series solutions near ordinary and singular points",
+      "status": "complete",
+      "questions": {
+        "q:series-point-classification": [
+          {
+            "letter": "a",
+            "code": "OSPD",
+            "phrase": "Ordinary and Singular Point Definition"
+          },
+          {
+            "letter": "b",
+            "code": "RSPT",
+            "phrase": "Regular Singularity through Pole Tests"
+          },
+          {
+            "letter": "c",
+            "code": "CPE",
+            "phrase": "Classification of Principal Examples"
+          }
+        ],
+        "q:legendre-series": [
+          {
+            "letter": "a",
+            "code": "OPSS",
+            "phrase": "Ordinary-Point Series Substitution"
+          },
+          {
+            "letter": "b",
+            "code": "LCR",
+            "phrase": "Legendre Coefficient Recurrence"
+          },
+          {
+            "letter": "c",
+            "code": "EOA",
+            "phrase": "Even and Odd Alternatives"
+          },
+          {
+            "letter": "d",
+            "code": "LSF",
+            "phrase": "Logarithmic Summation Form"
+          }
+        ],
+        "q:frobenius-half-index": [
+          {
+            "letter": "a",
+            "code": "RSC",
+            "phrase": "Regular Singularity Check"
+          },
+          {
+            "letter": "b",
+            "code": "GFR",
+            "phrase": "General Frobenius Recurrence"
+          },
+          {
+            "letter": "c",
+            "code": "IRI",
+            "phrase": "Indicial Roots Identification"
+          },
+          {
+            "letter": "d",
+            "code": "ASB",
+            "phrase": "Analytic Series Branch"
+          },
+          {
+            "letter": "e",
+            "code": "HIB",
+            "phrase": "Half-Integer Branch"
+          }
+        ],
+        "q:frobenius-resonance": [
+          {
+            "letter": "a",
+            "code": "RFRE",
+            "phrase": "Resonant Frobenius Recurrence Equation"
+          },
+          {
+            "letter": "b",
+            "code": "URB",
+            "phrase": "Upper Root Branch"
+          },
+          {
+            "letter": "c",
+            "code": "LRF",
+            "phrase": "Lower Root Failure"
+          },
+          {
+            "letter": "d",
+            "code": "LSS",
+            "phrase": "Logarithmic Second Solution"
+          }
+        ]
+      },
+      "admitted_results": [
+        {
+          "code": "OPSB",
+          "phrase": "Ordinary-Point Series Basis"
+        },
+        {
+          "code": "FRSE",
+          "phrase": "Frobenius Regular-Singularity Existence"
+        },
+        {
+          "code": "FSRD",
+          "phrase": "Frobenius Solutions by Root Difference"
+        }
+      ]
+    },
+    "VIII": {
+      "title": "Gradients, Taylor forms, and stationary points",
+      "status": "complete",
+      "questions": {
+        "q:gradient-direction": [
+          {
+            "letter": "a",
+            "code": "TDGGV",
+            "phrase": "Total Differential Gives the Gradient Vector"
+          },
+          {
+            "letter": "b",
+            "code": "DDGL",
+            "phrase": "Directional Derivative as a Gradient Limit"
+          },
+          {
+            "letter": "c",
+            "code": "MRG",
+            "phrase": "Maximum Rate from the Gradient"
+          },
+          {
+            "letter": "d",
+            "code": "GOLC",
+            "phrase": "Gradient Orthogonality to Level Curves"
+          }
+        ],
+        "q:stationary-directions": [
+          {
+            "letter": "a",
+            "code": "AVSD",
+            "phrase": "All Vanishing Stationary Directions"
+          },
+          {
+            "letter": "b",
+            "code": "SDD",
+            "phrase": "Saddle Direction Demonstration"
+          }
+        ],
+        "q:multivariable-taylor": [
+          {
+            "letter": "a",
+            "code": "LPR",
+            "phrase": "Line Parameter Restriction"
+          },
+          {
+            "letter": "b",
+            "code": "FOTC",
+            "phrase": "First-Order Term Components"
+          },
+          {
+            "letter": "c",
+            "code": "SOTQ",
+            "phrase": "Second-Order Term as a Quadratic form"
+          },
+          {
+            "letter": "d",
+            "code": "MTE",
+            "phrase": "Multivariable Taylor Expansion"
+          }
+        ],
+        "q:hessian-classification": [
+          {
+            "letter": "a",
+            "code": "QFDC",
+            "phrase": "Quadratic Form Definiteness Cases"
+          },
+          {
+            "letter": "b",
+            "code": "SEM",
+            "phrase": "Spectral Eigenvalue Method"
+          },
+          {
+            "letter": "c",
+            "code": "ISPC",
+            "phrase": "Indefinite Sign Produces a Crossing"
+          },
+          {
+            "letter": "d",
+            "code": "ZEC",
+            "phrase": "Zero Eigenvalue Caveat"
+          }
+        ],
+        "q:sylvester-and-contours": [
+          {
+            "letter": "a",
+            "code": "LPMD",
+            "phrase": "Leading Principal Minor Determinants"
+          },
+          {
+            "letter": "b",
+            "code": "SCPA",
+            "phrase": "Sylvester Criterion Positive Application"
+          },
+          {
+            "letter": "c",
+            "code": "SNA",
+            "phrase": "Sylvester Negative Application"
+          },
+          {
+            "letter": "d",
+            "code": "ITD",
+            "phrase": "Indefiniteness in Two Dimensions"
+          }
+        ],
+        "q:stationary-example": [
+          {
+            "letter": "a",
+            "code": "SPS",
+            "phrase": "Solving Polynomial Stationarity"
+          },
+          {
+            "letter": "b",
+            "code": "HCPE",
+            "phrase": "Hessian Computation at Principal Examples"
+          },
+          {
+            "letter": "c",
+            "code": "QCC",
+            "phrase": "Quadratic Contour Classification"
+          }
+        ]
+      },
+      "admitted_results": [
+        {
+          "code": "SSTD",
+          "phrase": "Symmetric Spectral Theorem and Diagonalization"
+        },
+        {
+          "code": "SCFD",
+          "phrase": "Sylvester Conditions For Definiteness"
+        }
+      ]
+    },
+    "IX": {
+      "title": "Differential systems and phase portraits",
+      "status": "complete",
+      "questions": {
+        "q:system-conversion": [
+          {
+            "letter": "a",
+            "code": "ESOE",
+            "phrase": "Elimination gives a Second-Order Equation"
+          },
+          {
+            "letter": "b",
+            "code": "SOFS",
+            "phrase": "Second Order as a First-order System"
+          },
+          {
+            "letter": "c",
+            "code": "SMN",
+            "phrase": "System Matrix Notation"
+          }
+        ],
+        "q:system-eigenmodes": [
+          {
+            "letter": "a",
+            "code": "EAS",
+            "phrase": "Eigenvector Ansatz for a System"
+          },
+          {
+            "letter": "b",
+            "code": "DES",
+            "phrase": "Distinct Eigenvalue Solutions"
+          },
+          {
+            "letter": "c",
+            "code": "RCMC",
+            "phrase": "Real Combinations from Matched Conjugates"
+          }
+        ],
+        "q:coupled-forced-system": [
+          {
+            "letter": "a",
+            "code": "CEC",
+            "phrase": "Coupled Eigenvalue Calculation"
+          },
+          {
+            "letter": "b",
+            "code": "CED",
+            "phrase": "Coupled Eigenvector Directions"
+          },
+          {
+            "letter": "c",
+            "code": "EFPI",
+            "phrase": "Exponential Forcing Particular Integral"
+          },
+          {
+            "letter": "d",
+            "code": "CGS",
+            "phrase": "Complete General Solution"
+          },
+          {
+            "letter": "e",
+            "code": "SSP",
+            "phrase": "Saddle State Portrait"
+          }
+        ],
+        "q:matrix-abel": [
+          {
+            "letter": "a",
+            "code": "TAFC",
+            "phrase": "Trace Abel Formula Connection"
+          },
+          {
+            "letter": "b",
+            "code": "IBFS",
+            "phrase": "Independence of a Basis of Fundamental Solutions"
+          }
+        ],
+        "q:phase-portrait-types": [
+          {
+            "letter": "a",
+            "code": "ROSS",
+            "phrase": "Real Opposite Signs give a Saddle"
+          },
+          {
+            "letter": "b",
+            "code": "RSSN",
+            "phrase": "Real Same Signs give a Node"
+          },
+          {
+            "letter": "c",
+            "code": "CCSP",
+            "phrase": "Complex Conjugates give a Spiral Portrait"
+          },
+          {
+            "letter": "d",
+            "code": "ZRCC",
+            "phrase": "Zero Real Component gives a Centre"
+          },
+          {
+            "letter": "e",
+            "code": "SOC",
+            "phrase": "Spiral Orientation Check"
+          }
+        ],
+        "q:system-linearization": [
+          {
+            "letter": "a",
+            "code": "PTE",
+            "phrase": "Perturbation Taylor Expansion"
+          },
+          {
+            "letter": "b",
+            "code": "JLM",
+            "phrase": "Jacobian Linear Model"
+          }
+        ],
+        "q:predator-prey": [
+          {
+            "letter": "a",
+            "code": "PPM",
+            "phrase": "Predator-Prey Modelling terms"
+          },
+          {
+            "letter": "b",
+            "code": "EEP",
+            "phrase": "Ecological Equilibrium Points"
+          },
+          {
+            "letter": "c",
+            "code": "OJS",
+            "phrase": "Origin Jacobian Saddle"
+          },
+          {
+            "letter": "d",
+            "code": "BJS",
+            "phrase": "Boundary Jacobian Saddle"
+          },
+          {
+            "letter": "e",
+            "code": "IJS",
+            "phrase": "Interior Jacobian Spiral"
+          },
+          {
+            "letter": "f",
+            "code": "SOD",
+            "phrase": "Spiral Orientation Direction"
+          }
+        ]
+      },
+      "admitted_results": [
+        {
+          "code": "LSIVPEU",
+          "phrase": "Linear System Initial-Value Problem Existence and Uniqueness"
+        },
+        {
+          "code": "MDFE",
+          "phrase": "Matrix Determinant Flow Equation"
+        },
+        {
+          "code": "HLP",
+          "phrase": "Hyperbolic Linearization Principle"
+        }
+      ]
+    },
+    "X": {
+      "title": "Characteristics, waves, and diffusion",
+      "status": "complete",
+      "questions": {
+        "q:first-wave-characteristics": [
+          {
+            "letter": "a",
+            "code": "PCD",
+            "phrase": "Path Chain-rule Derivative"
+          },
+          {
+            "letter": "b",
+            "code": "CLCC",
+            "phrase": "Characteristic Lines Carry Constants"
+          },
+          {
+            "letter": "c",
+            "code": "GSA",
+            "phrase": "General Solution of Advection"
+          }
+        ],
+        "q:forced-characteristics": [
+          {
+            "letter": "a",
+            "code": "TIPA",
+            "phrase": "Translated Initial Profile under Advection"
+          },
+          {
+            "letter": "b",
+            "code": "FCO",
+            "phrase": "Forced Characteristic Ordinary equation"
+          },
+          {
+            "letter": "c",
+            "code": "FIVP",
+            "phrase": "Forced Initial-Value Profile"
+          }
+        ],
+        "q:string-motivation": [
+          {
+            "letter": "a",
+            "code": "STI",
+            "phrase": "String Translation Invariance"
+          },
+          {
+            "letter": "b",
+            "code": "USBF",
+            "phrase": "Uniform Slope gives Balanced Forces"
+          },
+          {
+            "letter": "c",
+            "code": "RFC",
+            "phrase": "Restoring Force from Curvature"
+          }
+        ],
+        "q:dalembert": [
+          {
+            "letter": "a",
+            "code": "OFD",
+            "phrase": "Operator Factorization by Difference"
+          },
+          {
+            "letter": "b",
+            "code": "WNC",
+            "phrase": "Wave Nullspace Components"
+          },
+          {
+            "letter": "c",
+            "code": "CCT",
+            "phrase": "Characteristic Coordinate Transformation"
+          },
+          {
+            "letter": "d",
+            "code": "WDAS",
+            "phrase": "Wave Decomposition into Advancing Signals"
+          }
+        ],
+        "q:wave-initial-data": [
+          {
+            "letter": "a",
+            "code": "IDR",
+            "phrase": "Initial Data Relations"
+          },
+          {
+            "letter": "b",
+            "code": "DIF",
+            "phrase": "Dual-wave Initial Formula"
+          },
+          {
+            "letter": "c",
+            "code": "SZV",
+            "phrase": "Symmetric Zero-Velocity waves"
+          },
+          {
+            "letter": "d",
+            "code": "TLP",
+            "phrase": "Travelling Lorentzian Pulses"
+          }
+        ],
+        "q:diffusion-similarity": [
+          {
+            "letter": "a",
+            "code": "DLS",
+            "phrase": "Diffusive Length Scale"
+          },
+          {
+            "letter": "b",
+            "code": "SVD",
+            "phrase": "Similarity Variable Derivatives"
+          },
+          {
+            "letter": "c",
+            "code": "RSO",
+            "phrase": "Reduced Similarity Ordinary equation"
+          },
+          {
+            "letter": "d",
+            "code": "EFS",
+            "phrase": "Error Function Solution"
+          },
+          {
+            "letter": "e",
+            "code": "BCSS",
+            "phrase": "Boundary Conditions Select the Similarity solution"
+          },
+          {
+            "letter": "f",
+            "code": "PDS",
+            "phrase": "Penetration Distance Scaling"
+          }
+        ]
+      },
+      "admitted_results": []
     }
   }
 }

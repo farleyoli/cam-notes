@@ -139,11 +139,15 @@ Construct a dependency graph of the original material:
 4. applications and examples;
 5. culminating theorems or comparisons.
 
-Group this graph into a modest number of named parts.  Within a part, number
-questions continuously with one counter.  Across parts, keep the same counter;
-do not restart at 1.  A later question may cite a previous question explicitly.
-If the dependency structure branches, a small diagram on the instructions
-page is useful, but it must reflect actual dependencies.
+Group this graph into around ten named parts.  Treat ten as the planning
+target, while allowing a small variation when the mathematical dependency
+structure makes that clearer.  Do not collapse a full course into only a few
+oversized parts or create many tiny parts merely to reach an exact count.
+Within a part, number questions continuously with one counter.  Across parts,
+keep the same counter; do not restart at 1.  A later question may cite a
+previous question explicitly.  If the dependency structure branches, a small
+diagram on the instructions page is useful, but it must reflect actual
+dependencies.
 
 Avoid placing all definitions in a preliminary glossary.  Introduce a
 definition in the paragraph immediately before the first group of questions
@@ -155,6 +159,32 @@ one line before every occurrence.
 Each part should have a mathematical purpose.  A short opening paragraph may
 tell the reader what will be constructed or proved, but it must not give away
 the solution.
+
+### Mandatory part-by-part workflow
+
+Plan all of the approximately ten parts before drafting, then build the paper
+strictly one part at a time.  For each part, perform this complete cycle:
+
+1. write or revise that part in the new sibling TeX file;
+2. update its entries in the JSON catalogue at the same time;
+3. run the name-catalogue and basic source checks for the material written so
+   far;
+4. compile the cumulative paper to PDF twice, so the PDF contains every
+   completed part through the current one and its references and final-page
+   count resolve;
+5. inspect the new part in the PDF and fix mathematical, typographical, and
+   layout problems before starting the next part.
+
+Thus, complete and compile Part I before editing Part II, complete and compile
+Part II before editing Part III, and continue in the same way through the
+final part.  Do not draft all parts first and postpone compilation until the
+end.  The final audit in Sections 11--13 remains required after the last
+part, even though every intermediate version has already been compiled.
+
+This workflow does not create user-approval checkpoints.  Continue from one
+part to the next without asking for confirmation and finish all planned parts
+in the same task.  Pause after a part only when the user explicitly asks for
+part-by-part confirmation or gives another explicit stopping condition.
 
 ## 5. Write rigorously scoped statements
 

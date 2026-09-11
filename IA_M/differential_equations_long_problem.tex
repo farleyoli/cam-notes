@@ -102,7 +102,7 @@
 
     {\Large Extended mathematical problem\par}
     \vspace{0.3cm}
-    {\large Part I\par}
+    {\large Complete ten-part paper\par}
 
     \vfill
 
@@ -130,8 +130,8 @@
   {\large\bfseries Instructions and planned structure}
 \end{center}
 
-The completed paper will consist of one problem divided into the following
-ten parts.  This instalment contains Part I.
+This completed paper consists of one problem divided into the following ten
+parts.
 
 \begin{enumerate}[label=\Roman*.,leftmargin=3.1em,itemsep=1pt]
   \item Differentiation, asymptotics, and local approximation;
@@ -147,8 +147,8 @@ ten parts.  This instalment contains Part I.
   \item characteristics, waves, and diffusion.
 \end{enumerate}
 
-Question numbers will remain continuous when later parts are added.  The
-result of any question may be used later, even if that question has not
+Question numbers remain continuous across all ten parts.  The result of any
+question may be used later, even if that question has not
 been answered, provided its number is cited clearly.  Indications are
 optional.  Definitions and notation are introduced when they first become
 necessary.  No result may be used unless it belongs to the calculus background
@@ -218,6 +218,15 @@ is time $t$, write
 An \emph{initial condition} prescribes one or more values of the unknown
 function and its derivatives at a specified time.
 
+For equations involving an unknown twice differentiable function
+$x\colon\R\to\R$, call an equation \emph{linear} if it can be written
+\[
+  a_2(t)\ddot x(t)+a_1(t)\dot x(t)+a_0(t)x(t)=b(t)
+  \qquad(t\in\R),
+\]
+where $a_0,a_1,a_2,b\colon\R\to\R$ are prescribed functions independent of
+$x$.  An equation that cannot be written in this form is \emph{nonlinear}.
+
 \examquestion{\label{q:differential-models}
 Let $m\in\R$ satisfy $m>0$.  In a one-dimensional Newtonian model,
 $t\in\R$ denotes time, a twice differentiable function
@@ -258,7 +267,7 @@ function $F_x\colon\R\to\R$ defined by
 candidate from an arbitrary solution and use the standard consequence of the
 mean-value theorem that a function with zero second derivative is affine.}
 
-Write $\N_0=\{0,1,2,\ldots\}$.  A real sequence is a map
+Write $\N=\{1,2,3,\ldots\}$ and $\N_0=\{0,1,2,\ldots\}$.  A real sequence is a map
 $F\colon\N_0\to\R$, whose value at $n\in\N_0$ is denoted by $F_n$.
 A \emph{difference equation} is a relation between terms of an unknown
 sequence.  A solution is a sequence satisfying that relation for every index
@@ -488,6 +497,7 @@ $y_0=g(x_0)$.
 \end{subquestions}}
 
 \concept{Repeated derivatives and binomial coefficients}
+Let $I\subseteq\R$ be an open interval and let $f\colon I\to\R$.
 For $n\in\N_0$, set $f^{(0)}=f$ and, whenever the required derivatives
 exist, define $f^{(n+1)}=(f^{(n)})'$.  Define $0!=1$ and
 $n!=1\cdot2\cdots n$ for $n\in\N$.  If $n\in\N_0$ and
@@ -497,11 +507,11 @@ $r\in\N_0$ satisfies $0\leq r\leq n$, define
 \]
 
 \examquestion{\label{q:leibniz}
-Let $I\subseteq\R$ be an open interval.  The functions below are assumed to
-possess every derivative that occurs.
+Let $I\subseteq\R$ be an open interval and let $u,v\colon I\to\R$ possess
+every derivative that occurs below.
 \begin{subquestions}
   \item \nameditem{ZOPC}{Zeroth and Onefold Product Cases}
-  For $u,v\colon I\to\R$, verify that
+  Verify that
   \[
     (uv)^{(n)}
       =\sum_{r=0}^{n}\binom nr u^{(r)}v^{(n-r)}
@@ -709,5 +719,2912 @@ Then $g(x)\ne0$ throughout some deleted neighbourhood of $x_0$ and
 \end{subquestions}}
 
 \hfill\emph{End of Part I}
+
+\exampart{II}{Integration and multivariable differentiation}
+
+This part constructs integration from finite sums and then extends the local
+viewpoint of Part I to functions of several real variables.  The elementary
+algebra of real limits and continuous functions remains available.
+
+\subpart{A. --- Integrals and their evaluation}
+
+\concept{Left Riemann sums and definite integrals}
+Let $a,b\in\R$ satisfy $a<b$, and let $f\colon[a,b]\to\R$.  For each
+positive integer $N\in\N$, put
+\[
+  \Delta x_N=\frac{b-a}{N},\qquad
+  x_{n,N}=a+n\Delta x_N\quad(0\leq n\leq N),
+\]
+and define the \emph{left Riemann sum}
+\[
+  S_N(f;a,b)=\sum_{n=0}^{N-1}f(x_{n,N})\Delta x_N.
+\]
+For a continuous function $f$, the finite real limit
+$\lim_{N\to\infty}S_N(f;a,b)$ exists by the result stated immediately
+below; call it the
+\emph{definite integral} of $f$ over $[a,b]$ and write it as
+$\int_a^b f(x)\,\d x$.  Define
+$\int_b^a f(x)\,\d x=-\int_a^b f(x)\,\d x$ and
+$\int_a^a f(x)\,\d x=0$.  The complete theory of Riemann integration is,
+as in the original notes, part of Analysis I rather than this course; in
+particular, this paper does not use left sums as a definition for arbitrary
+discontinuous functions.
+
+\admitted{BRIP}{Basic Riemann Integral Properties}{Let $a,b,c\in\R$ satisfy
+$a\leq c\leq b$.  Every continuous real-valued function on $[a,b]$ is
+Riemann integrable.  If $f,g\colon[a,b]\to\R$ are continuous and
+$\alpha,\beta\in\R$, then
+\[
+  \int_a^b(\alpha f(x)+\beta g(x))\,\d x
+  =\alpha\int_a^b f(x)\,\d x+\beta\int_a^b g(x)\,\d x,
+\]
+and $\int_a^b f=\int_a^c f+\int_c^b f$.  If $m,M\in\R$ satisfy
+$m\leq f(x)\leq M$ for every $x\in[a,b]$, then
+$m(b-a)\leq\int_a^b f(x)\,\d x\leq M(b-a)$.}
+
+\examquestion{\label{q:riemann-sums}
+Let $a,b\in\R$ satisfy $a<b$.
+\begin{subquestions}
+  \item \nameditem{URSP}{Uniform Riemann Sum Partition}
+  Let $f\colon[a,b]\to\R$.
+  Prove that $x_{0,N}=a$, $x_{N,N}=b$, and
+  $x_{n+1,N}-x_{n,N}=\Delta x_N$ for every $N\in\N$ and every integer
+  $n$ with $0\leq n<N$.  Explain why the term indexed by $n$ is the
+  signed area of a rectangle of width $\Delta x_N$ and height
+  $f(x_{n,N})$.
+
+  \item \nameditem{LSRF}{Linear Sum Recovers Formula}
+  Let $f\colon[a,b]\to\R$ be defined by $f(x)=x$.  Using
+  $\sum_{n=0}^{N-1}n=N(N-1)/2$, compute $S_N(f;a,b)$ and prove that
+  \[
+    \int_a^b x\,\d x=\frac{b^2-a^2}{2}.
+  \]
+
+  \item \nameditem{RSEO}{Rectangle Sum Error Order}
+  Suppose that $f\colon[a,b]\to\R$ is continuous on $[a,b]$ and
+  differentiable on $(a,b)$, and that there is a real number $M\geq0$ such
+  that $|f'(x)|\leq M$ for every $x\in(a,b)$.
+  Use the mean-value theorem to prove that, for every $N\in\N$ and every
+  integer $n$ with $0\leq n<N$,
+  \[
+    \left|\int_{x_{n,N}}^{x_{n+1,N}}
+      \bigl(f(x)-f(x_{n,N})\bigr)\,\d x\right|
+      \leq \frac{M}{2}(\Delta x_N)^2.
+  \]
+  Deduce that
+  \[
+    \left|\int_a^b f(x)\,\d x-S_N(f;a,b)\right|
+      \leq\frac{M(b-a)}{2}\Delta x_N,
+  \]
+  which makes precise the $O(\bigl((\Delta x_N)^2\bigr)$ local error and
+  $O(\bigl(\Delta x_N\bigr))$ total error described in the notes.
+\end{subquestions}}
+
+\concept{Accumulation functions and the Fundamental Theorem}
+Let $a,b\in\R$ satisfy $a<b$, let $f\colon[a,b]\to\R$ be continuous,
+and define $F\colon[a,b]\to\R$ by
+\[
+  F(x)=\int_a^x f(t)\,\d t\qquad(x\in[a,b]).
+\]
+At an endpoint, a derivative below means the appropriate one-sided
+derivative.
+
+\examquestion{\label{q:fundamental-calculus}
+Let $x\in[a,b]$ and let $h\in\R\setminus\{0\}$ be such that
+$x+h\in[a,b]$.
+\begin{subquestions}
+  \item \nameditem{IALI}{Integral Accumulation as a Local Increment}
+  Use additivity and orientation of the integral to prove
+  \[
+    \frac{F(x+h)-F(x)}{h}
+      =\frac1h\int_x^{x+h}f(t)\,\d t.
+  \]
+
+  \item \nameditem{CAML}{Continuity gives an Average Mean Limit}
+  Let $\varepsilon\in\R$ satisfy $\varepsilon>0$.  Use continuity of $f$
+  at $x$ and the integral bound in BRIP to prove that, whenever $h$ is
+  sufficiently close to $0$,
+  \[
+    \left|\frac1h\int_x^{x+h}f(t)\,\d t-f(x)\right|
+      \leq\varepsilon.
+  \]
+  Treat both signs of $h$.
+
+  \item \nameditem{FTCD}{Fundamental Theorem Connecting Differentiation}
+  Deduce that $F$ is continuous on $[a,b]$, differentiable on $(a,b)$,
+  and satisfies $F'(x)=f(x)$ for every $x\in(a,b)$, with the corresponding
+  one-sided identities at $a$ and $b$.  This is the Fundamental Theorem of
+  Calculus in the form used in the original notes.
+\end{subquestions}}
+
+\concept{Variable limits and antiderivatives}
+Let $I\subseteq\R$ be an interval and let $f\colon I\to\R$ be continuous.
+An \emph{antiderivative} of $f$ on $I$ is a differentiable function
+$A\colon I\to\R$ such that $A'(x)=f(x)$ for every interior point $x\in I$,
+with one-sided derivatives at any included endpoint.  The notation
+$\int f(x)\,\d x=A(x)+C$ denotes the family of all antiderivatives, where
+$C\in\R$ is a constant of integration.
+
+\examquestion{\label{q:variable-limits}
+Let $a,b\in I$ and let $g\colon J\to I$ be differentiable on an interval
+$J\subseteq\R$.
+\begin{subquestions}
+  \item \nameditem{ORL}{Orientation Reversal for Limits}
+  Prove that
+  \[
+    \frac{\d}{\d x}\int_x^b f(t)\,\d t=-f(x)
+  \]
+  for every interior point $x\in I$ by first reversing the limits.
+
+  \item \nameditem{VLDF}{Variable-Limit Derivative Formula}
+  Use Question~\ref{q:fundamental-calculus} and the chain rule from
+  Question~\ref{q:chain-rule} to prove
+  \[
+    \frac{\d}{\d x}\int_a^{g(x)}f(t)\,\d t
+       =f(g(x))g'(x)
+  \]
+  at every interior point $x\in J$.
+
+  \item \nameditem{ACFC}{Antiderivatives Carry a Free Constant}
+  Let $A_1,A_2\colon I\to\R$ be antiderivatives of $f$.  Use the
+  mean-value theorem to prove that $A_1-A_2$ is constant on $I$ and hence
+  justify the constant $C$ in the indefinite-integral notation.
+\end{subquestions}}
+
+\examquestion{\label{q:substitution}
+\begin{subquestions}
+  \item \nameditem{ICS}{Integral Chain Substitution}
+  Let $I,J\subseteq\R$ be intervals, let $g\colon I\to J$ be
+  differentiable, and let $f\colon J\to\R$ be continuous.  If
+  $A\colon J\to\R$ is an antiderivative of $f$, use the chain rule to
+  prove
+  \[
+    \int f(g(x))g'(x)\,\d x=A(g(x))+C.
+  \]
+  Explain the conventional notation $u=g(x)$ and
+  $\d u=g'(x)\,\d x$.
+
+  \item \nameditem{QSSE}{Quadratic Square root Substitution Example}
+  On any open interval on which $x-x^2>0$, evaluate
+  \[
+    \int\frac{1-2x}{\sqrt{x-x^2}}\,\d x
+  \]
+  by using $u=x-x^2$.  Differentiate your answer to check it.
+
+  \item \nameditem{STSI}{Shifted Trigonometric Substitution Integral}
+  On the interval $(0,2)$, put $x-1=\sin\theta$ with
+  $\theta\in(-\pi/2,\pi/2)$.  Derive
+  \[
+    \int\sqrt{2x-x^2}\,\d x
+    =\frac12\arcsin(x-1)
+     +\frac12(x-1)\sqrt{2x-x^2}+C.
+  \]
+
+  \item \nameditem{HSCP}{Hyperbolic Substitution Choice Practice}
+  Match each expression
+  $\sqrt{1-x^2}$, $1+x^2$, $\sqrt{x^2-1}$,
+  $\sqrt{1+x^2}$, and $1-x^2$ with a useful substitution chosen from
+  \[
+    x=\sin\theta,\quad x=\tan\theta,\quad x=\cosh u,\quad
+    x=\sinh u,\quad x=\tanh u,
+  \]
+  and state the identity that makes each choice useful.  Specify a real
+  interval on which each substitution is valid and one-to-one.
+\end{subquestions}}
+
+\examquestion{\label{q:integration-parts}
+Let $I\subseteq\R$ be an interval and let $u,v\colon I\to\R$ be
+continuously differentiable.
+\begin{subquestions}
+  \item \nameditem{IBPF}{Integration By-Parts Formula}
+  Integrate the product-rule identity $(uv)'=u'v+uv'$ and prove
+  \[
+    \int_a^b u(x)v'(x)\,\d x
+    =[u(x)v(x)]_a^b-\int_a^b v(x)u'(x)\,\d x
+  \]
+  for every $a,b\in I$.  State the corresponding indefinite formula.
+
+  \item \nameditem{EII}{Exponential Improper Integral}
+  For a continuous function $q\colon[0,\infty)\to\R$, define
+  $\int_0^\infty q(x)\,\d x$ to be
+  $\lim_{R\to\infty}\int_0^R q(x)\,\d x$ when this finite limit exists.
+  Use integration by parts and the limit $Re^{-R}\to0$ to prove
+  \[
+    \int_0^\infty xe^{-x}\,\d x=1.
+  \]
+
+  \item \nameditem{LAI}{Logarithm Antiderivative Identity}
+  Use integration by parts to prove, for every $x\in(0,\infty)$,
+  \[
+    \int\log x\,\d x=x\log x-x+C.
+  \]
+\end{subquestions}}
+
+\subpart{B. --- Partial and total differentiation}
+
+\concept{Partial derivatives}
+Let $U\subseteq\R^2$ be open, let $f\colon U\to\R$, and let
+$(x_0,y_0)\in U$.  The \emph{partial derivative with respect to the first
+variable} is
+\[
+  f_x(x_0,y_0)=\frac{\partial f}{\partial x}(x_0,y_0)
+  =\lim_{h\to0}\frac{f(x_0+h,y_0)-f(x_0,y_0)}h,
+\]
+provided the real limit exists.  Define $f_y(x_0,y_0)$ analogously by
+holding $x_0$ fixed.  Iterated derivatives use the order indicated by the
+subscripts: $f_{xy}=(f_x)_y$ and $f_{yx}=(f_y)_x$.
+
+\examquestion{\label{q:partial-derivatives}
+Define $f\colon\R^2\to\R$ by
+$f(x,y)=x^2+y^3+e^{xy^2}$ for every $(x,y)\in\R^2$.
+\begin{subquestions}
+  \item \nameditem{PDQ}{Partial Derivative Quotients}
+  Starting with the defining limit, compute $f_x(x,y)$ and $f_y(x,y)$
+  for every $(x,y)\in\R^2$.
+
+  \item \nameditem{EMPC}{Exponential Multivariable Partial Computation}
+  Compute $f_{xx}(x,y)$ and $f_{xy}(x,y)$ for every
+  $(x,y)\in\R^2$.
+
+  \item \nameditem{MPDN}{Mixed Partial Derivative Notation}
+  Compute $f_{yx}(x,y)$ and verify directly that it equals
+  $f_{xy}(x,y)$.  Explain carefully which differentiation is performed
+  first in each subscript convention.
+\end{subquestions}}
+
+\admitted{SCECP}{Schwarz Commutation for Existing Continuous Partials}{Let
+$U\subseteq\R^2$ be open and let $f\colon U\to\R$.  If the second partial
+derivatives $f_{xy}$ and $f_{yx}$ exist and are continuous on $U$, then
+$f_{xy}(x,y)=f_{yx}(x,y)$ for every $(x,y)\in U$.}
+
+\concept{Differentiability and the total differential}
+Let $U\subseteq\R^2$ be open, let $f\colon U\to\R$, and let
+$(x_0,y_0)\in U$.  Say that $f$ is \emph{differentiable at $(x_0,y_0)$}
+if there exist $A,B\in\R$ and a function $r$ defined near $(0,0)$ such
+that, for all sufficiently small $(h,k)\in\R^2$,
+\[
+ f(x_0+h,y_0+k)-f(x_0,y_0)=Ah+Bk+r(h,k)
+\]
+and $r(h,k)/(|h|+|k|)\to0$ as $(h,k)\to(0,0)$ with $(h,k)\ne(0,0)$.
+The linear expression
+\[
+  \d f=A\,\d x+B\,\d y
+\]
+is called the \emph{total differential} at $(x_0,y_0)$.  A function is
+\emph{differentiable on $U$} if it is differentiable at every point of $U$.
+Question~\ref{q:total-differential}(a) identifies $A$ and $B$ with the two
+partial derivatives.
+
+\examquestion{\label{q:total-differential}
+Let $f\colon U\to\R$ be differentiable at $(x_0,y_0)\in U$.
+\begin{subquestions}
+  \item \nameditem{RPLI}{Rectangular Path Linear Increment}
+  Show from the definition that the coefficients satisfy
+  $A=f_x(x_0,y_0)$ and $B=f_y(x_0,y_0)$.  Hence prove
+  \[
+    \delta f=f_x(x_0,y_0)\delta x+f_y(x_0,y_0)\delta y
+      +o(|\delta x|+|\delta y|).
+  \]
+
+  \item \nameditem{TDAE}{Total Differential Approximation Error}
+  Suppose additionally that $f_x$ and $f_y$ exist near $(x_0,y_0)$ and
+  are continuous there.  Split the increment along the rectangular path
+  $(x_0,y_0)\to(x_0+\delta x,y_0)\to
+  (x_0+\delta x,y_0+\delta y)$ and use one-variable linear
+  approximations to recover the formula in part (a).
+
+  \item \nameditem{MCR}{Multivariable Chain Rule}
+  Let $J\subseteq\R$ be an open interval, let
+  $x,y\colon J\to\R$ be differentiable at $t_0\in J$, and suppose
+  $(x(t),y(t))\in U$ for every $t\in J$ and
+  $(x(t_0),y(t_0))=(x_0,y_0)$.  Substitute their one-variable linear
+  approximations into that of $f$ to prove
+  \[
+    \frac{\d}{\d t}f(x(t),y(t))\bigg|_{t=t_0}
+    =f_x(x(t_0),y(t_0))x'(t_0)
+     +f_y(x(t_0),y(t_0))y'(t_0).
+  \]
+
+  \item \nameditem{CPR}{Chain rule along a Plane Route}
+  Now suppose that $f$ is differentiable on $U$.  Let
+  $y\colon J\to\R$ be differentiable and suppose
+  $(x,y(x))\in U$ for every $x\in J$.  Deduce
+  \[
+    \frac{\d}{\d x}f(x,y(x))=f_x(x,y(x))+f_y(x,y(x))y'(x)
+  \]
+  at every $x\in J$.
+\end{subquestions}}
+
+\examquestion{\label{q:polar-change}
+Let $V=(0,\infty)\times\R$, define
+$T\colon V\to\R^2$ by
+$T(r,\theta)=(r\cos\theta,r\sin\theta)$, and let
+$f\colon\R^2\to\R$ be differentiable.  Put $F=f\circ T$.
+\begin{subquestions}
+  \item \nameditem{PCC}{Polar Coordinate Chain rule}
+  Apply Question~\ref{q:total-differential} with one variable fixed at a
+  time to prove
+  \[
+    F_\theta(r,\theta)
+      =-r\sin\theta\,f_x(T(r,\theta))
+       +r\cos\theta\,f_y(T(r,\theta)).
+  \]
+
+  \item \nameditem{RAD}{Radial and Angular Derivatives}
+  Derive a corresponding expression for $F_r(r,\theta)$.  For
+  $(x,y)=T(r,\theta)$, solve the resulting two linear equations for
+  $f_x(x,y)$ and $f_y(x,y)$ in terms of $F_r(r,\theta)$ and
+  $F_\theta(r,\theta)$.
+\end{subquestions}}
+
+\concept{Differentiability in three variables}
+Let $U\subseteq\R^3$ be open, let $F\colon U\to\R$, and let
+$(x_0,y_0,z_0)\in U$.  Say that $F$ is \emph{differentiable at
+$(x_0,y_0,z_0)$} if there exist $A,B,C\in\R$ and a function $r$ defined
+near $(0,0,0)$ such that, for all sufficiently small
+$(h,k,\ell)\in\R^3$,
+\[
+\begin{aligned}
+ F(x_0+h,y_0+k,z_0+\ell)-F(x_0,y_0,z_0)
+   =Ah+Bk+C\ell+r(h,k,\ell),
+\end{aligned}
+\]
+where
+\[
+  \frac{r(h,k,\ell)}{|h|+|k|+|\ell|}\longrightarrow0
+  \quad\hbox{as }(h,k,\ell)\to(0,0,0),
+\]
+through non-zero triples.  It is differentiable on $U$ if it is
+differentiable at every point of $U$.  As in two variables, setting two
+increments equal to zero shows that $A=F_x$, $B=F_y$, and $C=F_z$ at the
+point in question.
+
+\concept{Implicit differentiation}
+Let $U\subseteq\R^3$ be open, let $F\colon U\to\R$ be differentiable,
+let $c\in\R$, and let $D\subseteq\R^2$ be open.  Suppose that a
+differentiable function $z\colon D\to\R$ satisfies
+$(x,y,z(x,y))\in U$ and
+\[
+  F(x,y,z(x,y))=c\qquad((x,y)\in D).
+\]
+Thus this equation defines the graph of $z$ as part of the level surface of
+$F$ with value $c$.
+
+\examquestion{\label{q:implicit-differentiation}
+\begin{subquestions}
+  \item \nameditem{IDCE}{Implicit Differentiation Computation Example}
+  Let $F\colon\R^3\to\R$ be given by
+  $F(x,y,z)=xy^2+yz^2+xz^5$.  At a point on the level surface $F=5$
+  where $z$ is locally a differentiable function of $(x,y)$, differentiate
+  with respect to $x$ while holding $y$ fixed and prove that, whenever
+  $2yz+5xz^4\ne0$,
+  \[
+    z_x=-\frac{y^2+z^5}{2yz+5xz^4}.
+  \]
+
+  \item \nameditem{IFD}{Implicit Formula Derivation}
+  In the general setting above, fix $y$ and use the three-variable linear
+  approximation of $F$, together with the one-variable linear approximation
+  of $x\mapsto z(x,y)$, to prove that wherever
+  $F_z(x,y,z(x,y))\ne0$,
+  \[
+    z_x=-\frac{F_x}{F_z}.
+  \]
+  Derive similarly
+  \[
+    z_y=-\frac{F_y}{F_z},
+  \]
+  with every partial derivative evaluated at $(x,y,z(x,y))$.
+
+  \item \nameditem{NZCI}{Non-Zero Condition Interpretation}
+  Explain why division by $F_z$ requires the stated non-zero condition.
+  Give an example of a differentiable $F\colon\R^2\to\R$ and a level set
+  $F(x,z)=c$ that cannot be represented as a differentiable graph
+  $z=z(x)$ near a point where $F_z=0$.
+\end{subquestions}}
+
+\subpart{C. --- Differentiation under an integral sign}
+
+\admitted{CII}{Continuous Integral Interchange}{Let
+$a,b,c_0,c_1\in\R$ satisfy $a<b$ and $c_0<c_1$.  If
+$f\colon[a,b]\times[c_0,c_1]\to\R$ and its partial derivative $f_c$ are
+continuous, then the function $I\colon[c_0,c_1]\to\R$ defined by
+$I(c)=\int_a^b f(y,c)\,\d y$ is differentiable on $(c_0,c_1)$ and
+\[
+ I'(c)=\int_a^b f_c(y,c)\,\d y
+ \qquad(c\in(c_0,c_1)),
+\]
+with the corresponding one-sided derivatives at the endpoints.}
+
+\examquestion{\label{q:leibniz-integral}
+Let $J\subseteq\R$ be an open interval, let
+$a,b,c\colon J\to\R$ be differentiable, and suppose $a(x)<b(x)$ for every
+$x\in J$.  Let $W\subseteq\R^2$ be an open set containing every
+$(y,c(x))$ with $x\in J$ and $a(x)\leq y\leq b(x)$, and let
+$f\colon W\to\R$ have continuous partial derivatives.
+\begin{subquestions}
+  \item \nameditem{FPDI}{Fixed-limit Parameter Differentiation under Integration}
+  For fixed real numbers $\alpha<\beta$, define
+  $K(c)=\int_\alpha^\beta f(y,c)\,\d y$ whenever the segment of
+  integration lies in $W$.  State the derivative $K'(c)$ supplied by CII
+  and explain why continuity is sufficient for the admitted interchange.
+
+  \item \nameditem{CULR}{Changing Upper Limit Rule}
+  Fix $x_0\in J$.  By continuity, choose $d\in\R$ and a neighbourhood of
+  $x_0$ on which $a(x)<d<b(x)$.  Define, for arguments near the values in
+  question,
+  $H(u,v)=\int_d^u f(y,v)\,\d y$.  Compute $H_u$ and $H_v$, and apply the
+  multivariable chain rule to $H(b(x),c(x))-H(a(x),c(x))$.
+
+  \item \nameditem{GLE}{General Leibniz Expression}
+  Deduce the Leibniz integral rule
+  \[
+  \begin{aligned}
+  \frac{\d}{\d x}\int_{a(x)}^{b(x)}f(y,c(x))\,\d y
+  ={}&f(b(x),c(x))b'(x)-f(a(x),c(x))a'(x)\\
+     &+c'(x)\int_{a(x)}^{b(x)}f_c(y,c(x))\,\d y.
+  \end{aligned}
+  \]
+
+  \item \nameditem{PGIE}{Parameterized Gaussian Integral Examples}
+  For every $\lambda\in(0,\infty)$, define
+  \[
+    I(\lambda)=\int_0^1 e^{-\lambda y^2}\,\d y,
+    \qquad
+    J(\lambda)=\int_0^\lambda e^{-\lambda y^2}\,\d y.
+  \]
+  Use the Leibniz rule to prove
+  \[
+    I'(\lambda)=-\int_0^1 y^2e^{-\lambda y^2}\,\d y,
+    \qquad
+    J'(\lambda)=e^{-\lambda^3}
+      -\int_0^\lambda y^2e^{-\lambda y^2}\,\d y.
+  \]
+\end{subquestions}}
+
+\hfill\emph{End of Part II}
+
+\exampart{III}{First-order linear differential equations}
+
+This part explains the special role of exponentials, introduces the precise
+classification of first-order equations, and develops homogeneous,
+inhomogeneous, and variable-coefficient solution methods.
+
+\subpart{A. --- Exponentials as eigenfunctions}
+
+\concept{Real exponential and logarithm}
+For each real number $a>0$, the \emph{exponential function with base $a$}
+is the function $E_a\colon\R\to(0,\infty)$ defined by $E_a(x)=a^x$.
+The \emph{natural exponential} is the unique differentiable function
+$\exp\colon\R\to(0,\infty)$ satisfying
+\[
+  \exp'(x)=\exp(x)\quad(x\in\R),
+  \qquad \exp(0)=1.
+\]
+Write $e=\exp(1)$ and $e^x=\exp(x)$.  The natural exponential is strictly
+increasing and maps $\R$ onto $(0,\infty)$; its inverse is the
+\emph{natural logarithm} $\log\colon(0,\infty)\to\R$, also written $\ln$.
+These existence and inverse-function facts belong to the elementary
+calculus background of the original notes.
+
+\examquestion{\label{q:exponential-bases}
+Let $a\in(0,\infty)$.
+\begin{subquestions}
+  \item \nameditem{BPDP}{Base Power Derivative Proportionality}
+  Starting from the derivative definition and the identity
+  $a^{x+h}=a^xa^h$, prove that
+  \[
+    E_a'(x)=\lambda_a E_a(x),
+    \qquad
+    \lambda_a=\lim_{h\to0}\frac{a^h-1}{h},
+  \]
+  for every $x\in\R$.  Explain why $\lambda_a$ depends on $a$ but not on
+  $x$.
+
+  \item \nameditem{NECL}{Natural Exponential Characterizing Limit}
+  Apply part (a) with $a=e$ and use $\exp'(0)=1$ to prove
+  $\lambda_e=1$.
+
+  \item \nameditem{GENE}{General Exponential through Natural Exponentiation}
+  From $a=e^{\log a}$, derive
+  \[
+    a^x=e^{x\log a}\qquad(x\in\R),
+  \]
+  and use the chain rule to prove $\lambda_a=\log a$.
+\end{subquestions}}
+
+\concept{Complex-valued differentiation and eigenfunctions}
+Let $I\subseteq\R$ be an open interval.  A function
+$f\colon I\to\C$ is differentiable at $x\in I$ when the difference
+quotient has a limit in $\C$; equivalently, its real and imaginary parts are
+differentiable there.  For $\lambda=u+iv\in\C$, where $u,v\in\R$, and
+$x\in\R$, define
+\[
+  e^{\lambda x}=e^{ux}\bigl(\cos(vx)+i\sin(vx)\bigr).
+\]
+A non-zero differentiable function $f\colon I\to\C$ is an
+\emph{eigenfunction of the differential operator} with
+\emph{eigenvalue} $\lambda\in\C$ when $f'(x)=\lambda f(x)$ for every
+$x\in I$.  Here non-zero means not identically zero.
+
+\examquestion{\label{q:derivative-eigenfunctions}
+Let $I\subseteq\R$ be a non-empty open interval and let
+$\lambda\in\C$.
+\begin{subquestions}
+  \item \nameditem{CEDE}{Complex Exponential Derivative Eigenvalue}
+  Differentiate the displayed real-and-imaginary-part definition to prove
+  \[
+    \frac{\d}{\d x}e^{\lambda x}=\lambda e^{\lambda x}
+    \qquad(x\in\R).
+  \]
+
+  \item \nameditem{OECG}{Only Exponential Candidates are General}
+  Let $f\colon I\to\C$ be differentiable and satisfy $f'=\lambda f$.
+  Define $g(x)=f(x)e^{-\lambda x}$, prove $g'(x)=0$, and deduce that
+  \[
+    f(x)=Ce^{\lambda x}\qquad(x\in I)
+  \]
+  for some $C\in\C$.  Include the zero solution by allowing $C=0$.
+
+  \item \nameditem{ICVS}{Initial Condition Value Selection}
+  Given $x_0\in I$ and $y_0\in\C$, determine the unique solution of
+  $f'=\lambda f$ on $I$ satisfying $f(x_0)=y_0$.
+\end{subquestions}}
+
+\subpart{B. --- Homogeneous equations and two limiting constructions}
+
+\concept{Classification of first-order linear equations}
+Let $I\subseteq\R$ be an interval and let $a,b,c\colon I\to\R$.  An
+equation for an unknown differentiable function $y\colon I\to\R$ is
+\emph{first-order linear} if it has the form
+\[
+  a(x)y'(x)+b(x)y(x)=c(x)\qquad(x\in I).
+\]
+It is \emph{homogeneous} if $c(x)=0$ for every $x\in I$ and
+\emph{inhomogeneous}, or \emph{forced}, otherwise; $c$ is then the
+\emph{forcing term}.  It has \emph{constant coefficients} if $a$ and $b$
+are constant.  An \emph{initial condition} specifies a value
+$y(x_0)=y_0$ for some $x_0\in I$ and $y_0\in\R$.  The same algebraic
+condition imposed at an endpoint is also called a boundary condition in the
+original notes.
+
+\examquestion{\label{q:first-homogeneous}
+Assume in this question that $p\colon I\to\R$ is nonconstant and that
+$f\colon I\to\R$ is not identically zero.
+\begin{subquestions}
+  \item \nameditem{LHC}{Linear Homogeneous Classification}
+  Classify each equation
+  \[
+    y'+p(x)y=0,\qquad y'+p(x)y=f(x),\qquad
+    5y'-3y=0,\qquad yy'=1
+  \]
+  as linear or nonlinear, homogeneous or inhomogeneous, and
+  constant-coefficient or variable-coefficient whenever those terms apply.
+  The functions $p$ and $f$ are the prescribed functions above.
+
+  \item \nameditem{CAER}{Characteristic Ansatz Equation Reduction}
+  For the equation $5y'-3y=0$ on $\R$, substitute the ansatz
+  $y(x)=e^{mx}$ with $m\in\R$ and derive the algebraic equation
+  $5m-3=0$.
+
+  \item \nameditem{GSHS}{General Solution of a Homogeneous Scalar equation}
+  Rewrite the equation as $y'=(3/5)y$ and apply
+  Question~\ref{q:derivative-eigenfunctions} to prove that every real-valued
+  solution is
+  \[
+    y(x)=Ae^{3x/5}\qquad(x\in\R)
+  \]
+  for a unique $A\in\R$.
+
+  \item \nameditem{ICUS}{Initial Condition Uniquely Selects}
+  Let $x_0,y_0\in\R$.  Find the value of $A$ for which the solution in
+  part (c) satisfies $y(x_0)=y_0$.
+\end{subquestions}}
+
+\admitted{ELC}{Euler Limit Characterization}{For every $z\in\R$,
+\[
+  \lim_{n\to\infty}\left(1+\frac zn\right)^n=e^z,
+\]
+where the expression is considered for all sufficiently large positive
+integers $n$ so that $1+z/n>0$.}
+
+\examquestion{\label{q:euler-discretization}
+Let $y_{\mathrm{in}}\in\R$ and let $h\in(0,\infty)$.  Put $x_n=nh$ for
+every $n\in\N_0$, and let $(y_n)_{n\in\N_0}$ be a real sequence with
+$y_0=y_{\mathrm{in}}$.  Approximate the equation $5y'-3y=0$ at $x_n$ by
+replacing $y'(x_n)$ with $(y_{n+1}-y_n)/h$.
+\begin{subquestions}
+  \item \nameditem{FED}{Forward Euler Discretization}
+  Derive the recurrence
+  \[
+    y_{n+1}=\left(1+\frac{3h}{5}\right)y_n
+    \qquad(n\in\N_0).
+  \]
+
+  \item \nameditem{RPF}{Recurrence Product Formula}
+  Prove by induction that the unique sequence with initial value
+  $y_{\mathrm{in}}$ is
+  \[
+    y_n=\left(1+\frac{3h}{5}\right)^ny_{\mathrm{in}}
+    \qquad(n\in\N_0).
+  \]
+
+  \item \nameditem{CEL}{Continuous Exponential Limit}
+  Fix $x\in(0,\infty)$.  For every $N\in\N$, put $h_N=x/N$ and let
+  $(y_j^{(N)})_{j\in\N_0}$ be the sequence from parts (a) and (b) with
+  step $h_N$ and initial value $y_0^{(N)}=y_{\mathrm{in}}$.  Prove that its
+  value at the endpoint $x_N=Nh_N=x$ is
+  \[
+    y_N^{(N)}=y_{\mathrm{in}}
+      \left(1+\frac{3x}{5N}\right)^N,
+  \]
+  and use ELC to show that $y_N^{(N)}\to y_{\mathrm{in}}e^{3x/5}$ as
+  $N\to\infty$.
+\end{subquestions}}
+
+\concept{A formal power-series method}
+For the next question, a \emph{formal power series} is an expression
+$\sum_{n=0}^{\infty}a_nx^n$ manipulated by its coefficients; convergence is
+not asserted.  Define its formal derivative by
+\[
+  \left(\sum_{n=0}^{\infty}a_nx^n\right)'
+  =\sum_{n=0}^{\infty}(n+1)a_{n+1}x^n.
+\]
+Two formal power series are equal precisely when their coefficients of every
+power $x^n$, $n\in\N_0$, are equal.
+
+\admitted{EPSI}{Exponential Power Series Identity}{For every $z\in\R$, the
+real series
+\[
+  \sum_{n=0}^{\infty}\frac{z^n}{n!}
+\]
+converges and has sum $e^z$.}
+
+\examquestion{\label{q:first-power-series}
+Seek a formal solution $y=\sum_{n=0}^{\infty}a_nx^n$ of
+$5y'-3y=0$, where $(a_n)_{n\in\N_0}$ is a sequence in $\R$.
+\begin{subquestions}
+  \item \nameditem{VPSC}{Vanishing Power Series Coefficients}
+  Substitute the series and show that equality to the zero series is
+  equivalent to
+  \[
+    5(n+1)a_{n+1}-3a_n=0\qquad(n\in\N_0).
+  \]
+
+  \item \nameditem{CRC}{Coefficient Recurrence Computation}
+  Prove by induction that
+  \[
+    a_n=\frac1{n!}\left(\frac35\right)^na_0
+    \qquad(n\in\N_0),
+  \]
+  using $0!=1$ and $(n+1)!=(n+1)n!$.
+
+  \item \nameditem{EPSR}{Exponential Power Series Recovery}
+  Using EPSI, recover the actual solution
+  $y(x)=a_0e^{3x/5}$ for every $x\in\R$.
+\end{subquestions}}
+
+\subpart{C. --- Forcing, superposition, and integrating factors}
+
+\concept{Particular solutions and complementary functions}
+Let $I\subseteq\R$ be an interval and let $L$ be a linear differential
+operator on differentiable functions $I\to\R$, meaning that
+\[
+ L[\alpha u+\beta v]=\alpha L[u]+\beta L[v]
+\]
+for all differentiable $u,v\colon I\to\R$ and all $\alpha,\beta\in\R$.
+For $L[y]=f$, a \emph{particular solution} or \emph{particular integral}
+is one specific solution $y_p$; the \emph{complementary function} $y_c$ is
+the general solution of $L[y_c]=0$.
+
+\examquestion{\label{q:superposition}
+Let $f\colon I\to\R$ and suppose $y_p\colon I\to\R$ satisfies
+$L[y_p]=f$.
+\begin{subquestions}
+  \item \nameditem{LODS}{Linear Operator Distribution over Sums}
+  If $y_c\colon I\to\R$ satisfies $L[y_c]=0$, use linearity to prove
+  $L[y_p+y_c]=f$.
+
+  \item \nameditem{DHS}{Difference is a Homogeneous Solution}
+  If $y\colon I\to\R$ is any solution of $L[y]=f$, prove that
+  $L[y-y_p]=0$.
+
+  \item \nameditem{GSFS}{General Solution Follows Superposition}
+  Deduce that the complete solution set of $L[y]=f$ is
+  \[
+    \{y_p+y_c:L[y_c]=0\}.
+  \]
+\end{subquestions}}
+
+\examquestion{\label{q:constant-forcing}
+Consider the equation $5y'-3y=10$ on $\R$.
+\begin{subquestions}
+  \item \nameditem{CEP}{Constant Equilibrium Particular solution}
+  Seek a constant particular solution and prove that $y_p=-10/3$ is the
+  unique constant solution.
+
+  \item \nameditem{FCGS}{Forced Constant General Solution}
+  Use Questions~\ref{q:first-homogeneous} and \ref{q:superposition} to
+  prove that every solution is
+  \[
+    y(x)=-\frac{10}{3}+Ae^{3x/5}\qquad(x\in\R)
+  \]
+  for a unique $A\in\R$.
+
+  \item \nameditem{BCAF}{Boundary Condition Applied to the Full solution}
+  Let $x_0,y_0\in\R$.  Determine $A$ from $y(x_0)=y_0$ and explain why
+  imposing the condition only on the complementary term gives an incorrect
+  answer in general.
+\end{subquestions}}
+
+\examquestion{\label{q:radioactive-chain}
+Let time satisfy $t\in[0,\infty)$.  Let $a,b\colon[0,\infty)\to\R$ be
+differentiable abundance functions, let $a_0\in[0,\infty)$, and let
+$k_a,k_b\in(0,\infty)$ satisfy $k_a\ne k_b$.  Suppose
+\[
+ a'=-k_aa,\qquad b'=k_aa-k_bb,
+ \qquad a(0)=a_0,\qquad b(0)=0.
+\]
+\begin{subquestions}
+  \item \nameditem{PADS}{Parent Abundance Decay Solution}
+  Solve the first initial-value problem and obtain
+  $a(t)=a_0e^{-k_at}$ for every $t\geq0$.
+
+  \item \nameditem{DFES}{Daughter Forced Exponential Solution}
+  Substitute part (a) into the equation for $b$, seek a particular solution
+  $Ce^{-k_at}$, and determine $C$.
+
+  \item \nameditem{ICFR}{Initial Condition Fixes the Response}
+  Add the complementary solution $De^{-k_bt}$, impose $b(0)=0$, and prove
+  \[
+    b(t)=\frac{k_aa_0}{k_b-k_a}
+      \left(e^{-k_at}-e^{-k_bt}\right)
+    \qquad(t\geq0).
+  \]
+
+  \item \nameditem{IRFC}{Isotope Ratio Formula for Chronology}
+  Assuming $a_0>0$, calculate $b(t)/a(t)$ and explain how a measured ratio,
+  together with known $k_a$ and $k_b$, gives an equation for the age $t$.
+\end{subquestions}}
+
+\concept{Standard form and integrating factor}
+Let $I\subseteq\R$ be an open interval and let
+$a,b,c\colon I\to\R$ be continuous, with $a(x)\ne0$ for every $x\in I$.
+Dividing
+$a(x)y'+b(x)y=c(x)$ by $a(x)$ gives the \emph{standard form}
+\[
+  y'+p(x)y=f(x),\qquad p=\frac ba,\quad f=\frac ca.
+\]
+Fix $x_0\in I$.  The positive function
+\[
+  \mu(x)=\exp\left(\int_{x_0}^x p(s)\,\d s\right)
+  \qquad(x\in I)
+\]
+is called an \emph{integrating factor}.
+
+\examquestion{\label{q:integrating-factor}
+\begin{subquestions}
+  \item \nameditem{IFDE}{Integrating Factor Differential Equation}
+  Use Question~\ref{q:fundamental-calculus} and the chain rule to prove
+  $\mu'(x)=p(x)\mu(x)$ for every $x\in I$.
+
+  \item \nameditem{PEDF}{Product Exact Derivative Form}
+  Multiply the standard equation by $\mu$ and use the product rule to prove
+  \[
+    (\mu y)'=\mu f.
+  \]
+
+  \item \nameditem{GIFF}{General Integrating Factor Formula}
+  Integrate between $x_0$ and $x\in I$ and prove that every solution is
+  \[
+    y(x)=\mu(x)^{-1}
+      \left(C+\int_{x_0}^x\mu(s)f(s)\,\d s\right)
+  \]
+  for a unique $C\in\R$.  Prove the converse by differentiation.
+\end{subquestions}}
+
+\examquestion{\label{q:integrating-example}
+Consider
+\[
+  xy'(x)+(1-x)y(x)=1
+\]
+on an interval not containing $0$.
+\begin{subquestions}
+  \item \nameditem{SFDD}{Standard Form Domain Decision}
+  Divide by $x$ and identify $p(x)=1/x-1$ and $f(x)=1/x$.  Explain why
+  the intervals $(0,\infty)$ and $(-\infty,0)$ must be treated separately.
+
+  \item \nameditem{IFC}{Integrating Factor Computation}
+  On $(0,\infty)$, compute an integrating factor $\mu(x)=xe^{-x}$.
+
+  \item \nameditem{GSBE}{General Solution Before the Endpoint}
+  Apply Question~\ref{q:integrating-factor} to prove that every solution on
+  $(0,\infty)$ has the form
+  \[
+    y(x)=\frac{Ce^x-1}{x}
+  \]
+  for some $C\in\R$.
+
+  \item \nameditem{FBC}{Finite Boundary Condition}
+  Determine the unique $C\in\R$ for which $y(x)$ has a finite limit as
+  $x\to0^+$, and use Question~\ref{q:local-lhopital} to compute that
+  limit.  Explain why this is a boundary regularity condition rather than an
+  initial condition imposed within $(0,\infty)$.
+\end{subquestions}}
+
+\hfill\emph{End of Part III}
+
+\exampart{IV}{Nonlinear first-order equations and discrete dynamics}
+
+This part develops two solvable nonlinear classes and then studies evolution
+geometrically.  Every explicit formula is accompanied by its domain
+conditions, since division during separation can otherwise discard or add
+solutions.
+
+\subpart{A. --- Separable and exact equations}
+
+\concept{Differential form and separation}
+Let $I,J\subseteq\R$ be intervals, let $D\subseteq\R^2$ be open, and let
+$P,Q\colon D\to\R$ be continuous.
+For a differentiable function $y\colon I\to\R$ whose graph lies in $D$,
+the notation
+\[
+  P(x,y)\,\d x+Q(x,y)\,\d y=0
+\]
+means $P(x,y(x))+Q(x,y(x))y'(x)=0$ for every $x\in I$.  The equation is
+\emph{separable} on a region if it can be written
+$q(y)\,\d y=p(x)\,\d x$ for functions of one variable
+$q\colon J\to\R$ and $p\colon I\to\R$.
+
+\examquestion{\label{q:separable-equations}
+Let $I,J\subseteq\R$ be open intervals, let $p\colon I\to\R$ and
+$q\colon J\to\R$ be continuous, and let $P_0\colon I\to\R$ and
+$Q_0\colon J\to\R$ be antiderivatives of $p$ and $q$, respectively.
+\begin{subquestions}
+  \item \nameditem{SDF}{Separable Differential Form}
+  Prove that a differentiable function $y\colon I\to J$ satisfies
+  $q(y(x))y'(x)=p(x)$ for every $x\in I$ if and only if
+  \[
+    \frac{\d}{\d x}\bigl(Q_0(y(x))-P_0(x)\bigr)=0
+    \qquad(x\in I).
+  \]
+
+  \item \nameditem{IISC}{Implicit Integral Solution Criterion}
+  Deduce that every solution satisfies
+  \[
+    Q_0(y(x))=P_0(x)+C\qquad(x\in I)
+  \]
+  for some $C\in\R$, and prove conversely that every differentiable
+  $y\colon I\to J$ satisfying this identity solves the equation.
+
+  \item \nameditem{NSE}{Nonlinear Separation Example}
+  Let $I\subseteq\R$ be an open interval on which $x^2\ne3$, and suppose
+  $y\colon I\to\R$ is differentiable and satisfies
+  \[
+    (x^2y-3y)y'-2xy^2=4x.
+  \]
+  Rearrange without dividing by $y$ to obtain
+  \[
+    \frac{y y'}{2+y^2}=\frac{2x}{x^2-3},
+  \]
+  and derive
+  \[
+    \frac12\log(2+y(x)^2)=\log|x^2-3|+C.
+  \]
+
+  \item \nameditem{DRC}{Domain Restriction Check}
+  Exponentiate the preceding relation to obtain
+  $\sqrt{2+y(x)^2}=A|x^2-3|$ for some $A>0$.  Differentiate this relation
+  to check the original equation.  Explain why $x^2\ne3$ is required and
+  why no restriction $y\ne0$ is needed, since $2+y^2>0$.
+\end{subquestions}}
+
+\concept{Exact equations and simple connectivity}
+Here a \emph{domain} is a non-empty open connected subset
+$D\subseteq\R^2$.  Let $P,Q\colon D\to\R$.  The differential form
+$P\,\d x+Q\,\d y$ is
+\emph{exact} on $D$ if there
+is a differentiable function $\Phi\colon D\to\R$ satisfying
+$\Phi_x=P$ and $\Phi_y=Q$ throughout $D$; $\Phi$ is called a potential.
+A domain $D\subseteq\R^2$ is \emph{simply connected} if every continuous
+closed curve in $D$ can be continuously contracted to
+a point through curves lying in $D$.  A disc is simply connected, whereas
+an annulus is not.  In three dimensions a sphere is simply connected,
+whereas a torus is not.
+
+\examquestion{\label{q:exactness-necessity}
+Assume $P,Q\colon D\to\R$ have continuous first partial derivatives.
+\begin{subquestions}
+  \item \nameditem{EDC}{Exact Differential Components}
+  Suppose $P\,\d x+Q\,\d y=\d\Phi$ for a function
+  $\Phi\colon D\to\R$ having continuous second partial derivatives.
+  Identify $P$ and $Q$ with partial derivatives of $\Phi$.
+
+  \item \nameditem{MEC}{Mixed Equality Condition}
+  Apply SCECP to prove the necessary condition
+  \[
+    P_y(x,y)=Q_x(x,y)\qquad((x,y)\in D).
+  \]
+
+  \item \nameditem{HDO}{Holed Domain Obstruction}
+  On $D=\R^2\setminus\{(0,0)\}$, define
+  \[
+    P(x,y)=-\frac{y}{x^2+y^2},\qquad
+    Q(x,y)=\frac{x}{x^2+y^2}.
+  \]
+  Verify $P_y=Q_x$.  Parameterize the unit circle by
+  $(x(t),y(t))=(\cos t,\sin t)$ for $t\in[0,2\pi]$ and show that a
+  potential would have to increase by $2\pi$ around this closed curve.
+  Deduce that equality of mixed derivatives is not sufficient on every
+  domain.
+\end{subquestions}}
+
+\admitted{SCES}{Simply-Connected Exactness Sufficiency}{Let
+$D\subseteq\R^2$ be an open simply-connected domain, and let
+$P,Q\colon D\to\R$ have continuous first partial derivatives.  If
+$P_y=Q_x$ throughout $D$, then there exists a single-valued differentiable
+function $\Phi\colon D\to\R$ satisfying $\Phi_x=P$ and $\Phi_y=Q$.}
+
+\examquestion{\label{q:exact-equation-example}
+On $\R^2$, put $P(x,y)=2x-3y^2$ and
+$Q(x,y)=6y^2-6xy$.
+\begin{subquestions}
+  \item \nameditem{EVC}{Exactness Verification Calculation}
+  Compute $P_y$ and $Q_x$, and use SCES to establish exactness.
+
+  \item \nameditem{PRF}{Potential Reconstruction Function}
+  Integrate $\Phi_x=P$ with respect to $x$ and write
+  $\Phi(x,y)=x^2-3xy^2+h(y)$.  Use $\Phi_y=Q$ to determine $h$ up to an
+  additive constant.
+
+  \item \nameditem{ILS}{Implicit Level Solutions}
+  Prove that the solution curves of
+  \[
+    6y(y-x)y'+2x-3y^2=0
+  \]
+  lie on the level sets
+  \[
+    x^2-3xy^2+2y^3=C,
+  \]
+  where $C\in\R$, and verify the statement by differentiating along a
+  differentiable branch $y=y(x)$.
+\end{subquestions}}
+
+\subpart{B. --- Trajectories, isoclines, and stability}
+
+\concept{Solution curves and isoclines}
+Let $I\subseteq\R$ be an interval, let $D\subseteq\R^2$, and let
+$f\colon D\to\R$.  A differentiable function $y\colon I\to\R$ whose graph
+lies in $D$ and which solves $y'=f(t,y)$ determines a \emph{solution curve}, or
+\emph{trajectory}, $t\mapsto(t,y(t))$.  For $d\in\R$, an
+\emph{isocline of slope $d$} is the set of points $(t,y)\in D$ satisfying
+$f(t,y)=d$.
+
+\examquestion{\label{q:trajectory-example}
+Let $I\subseteq\R$ be an interval and let $y\colon I\to\R$ be a
+differentiable solution of $y'=t(1-y^2)$.
+\begin{subquestions}
+  \item \nameditem{EFSC}{Explicit Family of Solution Curves}
+  On any subinterval where $|y|\ne1$, separate variables and use
+  \[
+    \frac1{1-y^2}=\frac12\left(\frac1{1+y}+\frac1{1-y}\right)
+  \]
+  to derive
+  \[
+    \frac12\log\left|\frac{1+y}{1-y}\right|=\frac{t^2}{2}+C.
+  \]
+  Show how this gives
+  $y(t)=(A-e^{-t^2})/(A+e^{-t^2})$ for some
+  $A\in\R\setminus\{0\}$, wherever the denominator is non-zero.
+
+  \item \nameditem{MSS}{Missing Stationary Solutions}
+  Determine the constant solutions lost when dividing by $1-y^2$ and check
+  them directly in the differential equation.
+
+  \item \nameditem{QSP}{Qualitative Slope Partition}
+  For $t>0$, determine the sign of $y'$ in each of the regions
+  $y<-1$, $-1<y<1$, and $y>1$.  Show also that every solution has a
+  horizontal tangent at $t=0$ when $0\in I$.
+
+  \item \nameditem{ICD}{Isocline Curve Derivation}
+  For $d\in\R$, derive the isocline equation
+  $y^2=1-d/t$ when $t\ne0$, and state the condition under which its right
+  side is non-negative.  Treat $t=0$ separately.  Explain how several such
+  curves give a slope field from which trajectories can be sketched.
+\end{subquestions}}
+
+\concept{Equilibria and the meaning of stability}
+For $y'=f(t,y)$, an \emph{equilibrium} or \emph{fixed point} is a real
+number $a$ such that $f(t,a)=0$ for every allowed $t$; then $y(t)=a$ is a
+constant solution.  Assume here that the solutions under discussion are
+defined for every $t\geq0$.  The equilibrium is \emph{stable} if, for every
+$\epsilon>0$, there exists $\delta>0$ such that
+$|y(0)-a|<\delta$ implies $|y(t)-a|<\epsilon$ for every $t\geq0$.  It is
+\emph{attracting} if there exists $\delta>0$ such that
+$|y(0)-a|<\delta$ implies $y(t)\to a$ as $t\to\infty$, and
+\emph{asymptotically stable} if both properties hold.  It is
+\emph{unstable} if it is not stable.  A \emph{linearisation} keeps only
+terms linear in a small perturbation.
+
+\examquestion{\label{q:linearized-stability}
+Let $f\colon\R^2\to\R$ have a continuous second partial derivative with
+respect to $y$, and suppose $f(t,a)=0$ for every $t\geq0$.
+\begin{subquestions}
+  \item \nameditem{EPE}{Equilibrium Perturbation Expansion}
+  Let $y\colon[0,\infty)\to\R$ be a differentiable solution and define
+  $\varepsilon\colon[0,\infty)\to\R$ by $y(t)=a+\varepsilon(t)$.  For each
+  fixed $t\geq0$, first use Taylor expansion in the scalar increment
+  $\eta\to0$ to prove
+  \[
+    f(t,a+\eta)=f_y(t,a)\eta+O(\eta^2).
+  \]
+  Substitute $\eta=\varepsilon(t)$ whenever the perturbation is small and
+  deduce
+  \[
+    \varepsilon'(t)=f_y(t,a)\varepsilon(t)+O(\varepsilon(t)^2)
+  \]
+  with the remainder understood in this local sense.
+
+  \item \nameditem{LEM}{Linearized Evolution Model}
+  Explain that neglecting the quadratic remainder gives the linearised
+  equation $\varepsilon'=f_y(t,a)\varepsilon$.
+
+  \item \nameditem{CSULE}{Contrasting Stability of Upper and Lower Equilibria}
+  Apply this procedure to $f(t,y)=t(1-y^2)$.  At $a=1$ and $a=-1$ solve
+  the two linearised equations and obtain respectively
+  $\varepsilon(t)=\varepsilon(0)e^{-t^2}$ and
+  $\varepsilon(t)=\varepsilon(0)e^{t^2}$.  Use the explicit family and
+  slope information in Question~\ref{q:trajectory-example} to confirm that
+  $1$ is asymptotically stable and $-1$ is unstable.
+
+  \item \nameditem{VALE}{Validity Area of the Linearized Estimate}
+  Explain why growth of the linearised perturbation predicts local
+  instability but, without the exact argument in part (c), would not by
+  itself prove it or justify following the approximation after
+  $|\varepsilon|$ ceases to be small.
+\end{subquestions}}
+
+\concept{Autonomous scalar equations}
+An equation $y'=f(y)$ is \emph{autonomous} because its right-hand side has
+no explicit dependence on time.
+
+\admitted{SAUS}{Scalar Autonomous Uniqueness for Solutions}{Let
+$J\subseteq\R$ be an open interval and let $f\colon J\to\R$ be continuously
+differentiable.  If two differentiable functions on the same time interval
+solve $y'=f(y)$ and have the same value at one time, then they agree
+throughout that time interval.}
+
+\examquestion{\label{q:autonomous-stability}
+Let $J\subseteq\R$ be an open interval, let $f\colon J\to\R$ be twice
+continuously differentiable, and let $a\in J$ satisfy $f(a)=0$.
+\begin{subquestions}
+  \item \nameditem{ASDC}{Autonomous Stability Derivative Criterion}
+  Show that the linearised perturbation equation is
+  $\varepsilon'=f'(a)\varepsilon$ and solve it.  Use continuity of $f'$ to
+  determine the sign of $(y-a)f(y)$ near $a$, and use SAUS to show that a
+  nonconstant solution cannot cross $a$.  Deduce asymptotic stability when
+  $f'(a)<0$ and instability when $f'(a)>0$.
+
+  \item \nameditem{NDC}{Non-hyperbolic Derivative Caveat}
+  Explain why $f'(a)=0$ makes the linearised equation inconclusive.  Compare
+  $y'=-y^3$ and $y'=y^3$ near the common equilibrium $a=0$ by inspecting
+  their signs.
+\end{subquestions}}
+\indication{For part (a), continuity of $f'$ gives a punctured interval on
+which $f(y)$ points towards $a$ when $f'(a)<0$ and away from $a$ when
+$f'(a)>0$.  Use SAUS to prevent crossing.  A bounded monotone solution has
+a limit; if that limit were a nearby point different from $a$, continuity
+would make its derivative stay bounded away from zero.}
+
+\examquestion{\label{q:neutralisation}
+Let $a_0,b_0,\lambda\in(0,\infty)$ satisfy $a_0<b_0$.  In a dilute
+solution, let $a,b,c\colon[0,\infty)\to[0,\infty)$ be continuous and
+differentiable for $t>0$, denoting the amounts of NaOH, HCl, and each
+reaction product.  Suppose $a(0)=a_0$, $b(0)=b_0$, and $c(0)=0$.  Assume
+the reaction rate is $\lambda a(t)b(t)$ for $t>0$.
+\begin{subquestions}
+  \item \nameditem{MBM}{Mass Balance Model}
+  Use the reaction stoichiometry to obtain
+  $a=a_0-c$, $b=b_0-c$, and
+  \[
+    c'=\lambda(a_0-c)(b_0-c).
+  \]
+
+  \item \nameditem{ECSA}{Equilibria and Chemical Stability Analysis}
+  Find the equilibria $c=a_0$ and $c=b_0$.  Use the sign of the right-hand
+  side, or Question~\ref{q:autonomous-stability}, to classify them.
+
+  \item \nameditem{SCNF}{Separable Chemical Neutralization Formula}
+  Separate variables, use partial fractions, impose $c(0)=0$, and derive
+  \[
+    c(t)=\frac{a_0b_0
+      \left(1-e^{-(b_0-a_0)\lambda t}\right)}
+      {b_0-a_0e^{-(b_0-a_0)\lambda t}}
+    \qquad(t\geq0).
+  \]
+
+  \item \nameditem{PDR}{Physical Domain Restriction}
+  Prove that $0\leq c(t)<a_0$ for every finite $t\geq0$ and that
+  $c(t)\to a_0$ as $t\to\infty$.  Explain why branches with $c>a_0$ do
+  not describe non-negative reactant amounts.
+\end{subquestions}}
+
+\subpart{C. --- Continuous and discrete logistic growth}
+
+\concept{Logistic equation}
+Let $r,Y\in(0,\infty)$.  The \emph{logistic equation} for a population
+$y\colon[0,\infty)\to[0,\infty)$ is
+\[
+  y'=ry\left(1-\frac yY\right),
+\]
+where $r$ is the net low-density growth rate and $Y$ is the
+\emph{carrying capacity}.  In the model of the notes,
+$r=\alpha-\beta>0$ for per-capita birth and death rates
+$\alpha,
+\beta\in[0,\infty)$, and competition adds a death term $\gamma y^2$ with
+$\gamma>0$, giving $Y=r/\gamma$.
+
+\examquestion{\label{q:continuous-logistic}
+\begin{subquestions}
+  \item \nameditem{ELG}{Exponential Low-density Growth}
+  Let $\rho\in\R$ and $y_0\in[0,\infty)$.  Omit competition and solve
+  $y'=\rho y$ with $y(0)=y_0$.  Explain why this predicts exponential growth when
+  $\rho>0$ and exponential decay when $\rho<0$.
+
+  \item \nameditem{CPC}{Competition Produces Carrying capacity}
+  Starting from $(\alpha-\beta)y-\gamma y^2$, factor the right-hand side
+  into logistic form and identify $Y$.
+
+  \item \nameditem{LESC}{Logistic Equilibria and Stability Classification}
+  Find the equilibria $0$ and $Y$, compute the derivative of
+  $f(y)=ry(1-y/Y)$ at each, and classify them using
+  Question~\ref{q:autonomous-stability}.
+
+  \item \nameditem{LES}{Logistic Explicit Solution}
+  For $y_0\in(0,\infty)$, separate variables and prove
+  \[
+    y(t)=\frac{Y}{1+(Y/y_0-1)e^{-rt}}
+    \qquad(t\geq0).
+  \]
+  Verify its low-density approximation and its limit as $t\to\infty$.
+\end{subquestions}}
+
+\concept{Discrete dynamical systems}
+Let $S\subseteq\R$ and let $F\colon S\to S$.  A \emph{difference
+equation}, or \emph{discrete dynamical system}, is a sequence
+$(x_n)_{n\in\N_0}$ satisfying $x_{n+1}=F(x_n)$ for every $n\in\N_0$.
+A \emph{fixed point} is $x^*\in S$ with $F(x^*)=x^*$.
+It is \emph{stable} if, for every $\epsilon>0$, there exists $\delta>0$
+such that $|x_0-x^*|<\delta$ implies $|x_n-x^*|<\epsilon$ for every
+$n\in\N_0$; it is \emph{locally attracting} if all sufficiently close
+initial values produce $x_n\to x^*$ as $n\to\infty$, and it is
+\emph{unstable} if it is not stable.
+For $\lambda>0$, the \emph{logistic map} is the function
+$F_\lambda\colon\R\to\R$ defined by
+\[
+  F_\lambda(x)=\lambda x(1-x),
+  \qquad x_{n+1}=F_\lambda(x_n).
+\]
+A \emph{cobweb diagram} alternates vertical segments to the graph of
+$F_\lambda$ and horizontal segments to the diagonal $x_{n+1}=x_n$, thereby
+displaying successive iterates.
+
+\examquestion{\label{q:logistic-map}
+\begin{subquestions}
+  \item \nameditem{FELM}{Forward Euler Logistic Map}
+  Let $\Delta t>0$ and $y_0\in[0,\infty)$.  Apply a forward difference of
+  step $\Delta t$ to the continuous logistic equation to obtain a recurrence
+  for a real sequence $(y_n)_{n\in\N_0}$ with initial value $y_0$.  With
+  \[
+    \lambda=1+r\Delta t,\qquad
+    x_n=\frac{r\Delta t}{1+r\Delta t}\frac{y_n}{Y},
+  \]
+  derive $x_{n+1}=\lambda x_n(1-x_n)$.
+
+  \item \nameditem{DFP}{Discrete Fixed Points}
+  Solve $F_\lambda(x)=x$ and obtain $x=0$ and, when $\lambda\ne0$,
+  $x=1-1/\lambda$.
+
+  \item \nameditem{DLSC}{Discrete Linear Stability Criterion}
+  Let $J\subseteq\R$ be an open interval, let $F\colon J\to J$ be twice
+  differentiable near a fixed point $x^*\in J$.  Put
+  $x_n=x^*+\varepsilon_n$ and show
+  $\varepsilon_{n+1}=F'(x^*)\varepsilon_n+O(\varepsilon_n^2)$.
+  Deduce local attraction when $|F'(x^*)|<1$ and instability when
+  $|F'(x^*)|>1$.
+
+  \item \nameditem{PRC}{Parameter Regime Classification}
+  Compute $F_\lambda'$ at both fixed points.  Show that $0$ is attracting
+  for $0<\lambda<1$, while $1-1/\lambda$ is attracting for
+  $1<\lambda<3$.  Explain from the sign of $2-\lambda$ why convergence is
+  locally monotone for $1<\lambda<2$ and alternating for
+  $2<\lambda<3$.
+
+  \item \nameditem{CWI}{Cobweb Walk Interpretation}
+  Describe the cobweb construction from an initial value $x_0$.  Relate
+  its inward straight or alternating steps to each of the three attracting
+  regimes in part (d).
+\end{subquestions}}
+\indication{For part (c), when $|F'(x^*)|<1$, use continuity of $F'$ and
+the mean-value theorem to find a neighbourhood on which $F$ contracts
+distances from $x^*$.  When $|F'(x^*)|>1$, find a neighbourhood on which
+each non-zero displacement expands until it leaves that neighbourhood.}
+
+\concept{Periodic orbits}
+Retain a set $S\subseteq\R$ and a function $F\colon S\to S$.  A
+\emph{periodic orbit of least period
+$k\in\N$} is a list of distinct points $x_0,\ldots,x_{k-1}\in S$ such
+that $F(x_j)=x_{j+1}$ for every $j\in\N_0$ with $0\leq j<k-1$,
+$F(x_{k-1})=x_0$, and no smaller
+positive period has this property.  It is also called a limit cycle in the
+terminology of the original notes.
+
+\examquestion{\label{q:logistic-two-cycle}
+Let $F_\lambda(x)=\lambda x(1-x)$ with $\lambda>0$.
+\begin{subquestions}
+  \item \nameditem{TPE}{Two-cycle Polynomial Extraction}
+  Compute $F_\lambda(F_\lambda(x))-x$, divide out the factors corresponding
+  to the two fixed points, and show that the remaining quadratic has two
+  distinct real roots precisely when $\lambda>3$.
+  \indication{After removing $x$ and
+  $x-(1-1/\lambda)$, the quadratic may be written
+  $\lambda^2x^2-\lambda(\lambda+1)x+(\lambda+1)=0$.}
+
+  \item \nameditem{TCS}{Two-Cycle Stability}
+  If $x_1,x_2$ are the two roots from part (a), show that the derivative of
+  the second iterate at either point is
+  $F_\lambda'(x_1)F_\lambda'(x_2)$.  Compute its absolute value and prove
+  that the two-cycle is attracting exactly when
+  $3<\lambda<1+\sqrt6$.
+\end{subquestions}}
+
+\admitted{LMPDB}{Logistic Map Period-Doubling Behaviour}{As $\lambda$
+increases beyond $1+\sqrt6$, the logistic map's attracting two-cycle loses
+stability and an attracting four-cycle appears.  Further increases produce
+a cascade of period doublings, including cycles of periods $8,16,\ldots$,
+followed by parameter ranges with chaotic dynamics.  The earlier fixed point
+and periodic orbits continue to exist after losing stability.}
+
+\hfill\emph{End of Part IV}
+
+\exampart{V}{Homogeneous second-order equations and phase space}
+
+Second-order equations arise when a model contains acceleration.  This part
+classifies constant-coefficient homogeneous solutions and gives a geometric
+meaning to the two initial data required by an equation of order two.
+
+\concept{Second-order linear equations}
+Let $I\subseteq\R$ be an interval, let $a,b,c\in\R$ with $a\ne0$, and let
+$f\colon I\to\R$.  A \emph{second-order linear ordinary differential
+equation with constant coefficients} has the form
+\[
+  ay''(x)+by'(x)+cy(x)=f(x)\qquad(x\in I),
+\]
+for an unknown twice differentiable function $y\colon I\to\R$.  It is
+\emph{homogeneous} when $f$ is the zero function.  For an inhomogeneous
+equation, linearity gives the same two-step strategy as in Part III: find the
+general complementary function $y_c$ and one particular integral $y_p$, then
+write $y=y_c+y_p$, where $y_c,y_p\colon I\to\R$.
+
+\admitted{LIVPEU}{Linear Initial-Value Problem Existence and Uniqueness}{Let
+$I\subseteq\R$ be an open interval, let $p,q,r\colon I\to\R$ be
+continuous, let $x_0\in I$, and let $u_0,v_0\in\R$.  There exists a unique
+twice continuously differentiable function $y\colon I\to\R$ satisfying
+\[
+  y''+p(x)y'+q(x)y=r(x)\quad(x\in I),
+  \qquad y(x_0)=u_0,\quad y'(x_0)=v_0.
+\]
+More generally, let $n\in\N$, let $I\subseteq\R$ be an open interval, let
+$a_0,\ldots,a_n,r\colon I\to\R$ be continuous, and suppose
+$a_n(x)\ne0$ for every $x\in I$.  For every $x_0\in I$ and every
+$(u_0,\ldots,u_{n-1})\in\R^n$, there exists a unique $n$-times continuously
+differentiable function $y\colon I\to\R$ satisfying
+\[
+  \sum_{j=0}^{n}a_j(x)y^{(j)}(x)=r(x)\quad(x\in I),
+  \qquad
+  y^{(j)}(x_0)=u_j\quad(j\in\N_0,\ 0\leq j<n).
+\]}
+
+\subpart{A. --- Characteristic roots}
+
+\examquestion{\label{q:second-characteristic}
+Let $a,b,c\in\R$ with $a\ne0$ and seek complex-valued solutions of
+$ay''+by'+cy=0$ on $\R$.
+\begin{subquestions}
+  \item \nameditem{CEFE}{Characteristic Equation From an Exponential}
+  Substitute $y(x)=e^{\lambda x}$ with $\lambda\in\C$ and prove that it
+  is a solution if and only if
+  \[
+    a\lambda^2+b\lambda+c=0.
+  \]
+  This polynomial equation is called the \emph{characteristic equation}.
+
+  \item \nameditem{LIDS}{Linear Independence for Distinct Solutions}
+  Let $\lambda_1,\lambda_2\in\C$ be distinct characteristic roots.  If
+  $A,B\in\C$ satisfy
+  $Ae^{\lambda_1x}+Be^{\lambda_2x}=0$ for every $x\in\R$, evaluate
+  the identity and its derivative at $x=0$ and prove $A=B=0$.
+
+  \item \nameditem{DRGS}{Distinct-Root General Solution}
+  For arbitrary complex initial data $y(0)=u_0$ and $y'(0)=v_0$, solve
+  uniquely for $A,B\in\C$ in
+  $y=Ae^{\lambda_1x}+Be^{\lambda_2x}$.  Use LIVPEU, applied to real and
+  imaginary parts, to deduce that this is the general complex-valued
+  solution.
+
+  \item \nameditem{DRWE}{Distinct Real-root Worked Example}
+  Solve $y''-5y'+6y=0$ on $\R$ and obtain
+  $y=Ae^{2x}+Be^{3x}$, where $A,B\in\R$ for real-valued solutions.
+\end{subquestions}}
+
+\examquestion{\label{q:complex-and-repeated-roots}
+\begin{subquestions}
+  \item \nameditem{CSHM}{Complex Solutions of Harmonic Motion}
+  Solve the characteristic equation for $y''+4y=0$ and obtain the complex
+  basis $e^{2ix},e^{-2ix}$.
+
+  \item \nameditem{RBCT}{Real Basis through Complex Transformation}
+  Use $e^{i\theta}=\cos\theta+i\sin\theta$ to show that every real-valued
+  solution can be written uniquely as
+  \[
+    y(x)=\alpha\cos(2x)+\beta\sin(2x)
+  \]
+  with $\alpha,\beta\in\R$.  Relate these constants to the complex
+  coefficients $A,B\in\C$ under the condition that $y$ is real.
+
+  \item \nameditem{DRSS}{Detuning Reveals a Second Solution}
+  For $\varepsilon\in\R\setminus\{0\}$, solve
+  \[
+    y''-4y'+(4-\varepsilon^2)y=0.
+  \]
+  Expand $e^{\pm\varepsilon x}$ at $\varepsilon=0$ and show how the two
+  combinations
+  \[
+    \frac{e^{(2+\varepsilon)x}+e^{(2-\varepsilon)x}}2,
+    \qquad
+    \frac{e^{(2+\varepsilon)x}-e^{(2-\varepsilon)x}}{2\varepsilon}
+  \]
+  tend respectively to $e^{2x}$ and $xe^{2x}$.
+
+  \item \nameditem{RRGS}{Repeated-Root General Solution}
+  Let $a\lambda^2+b\lambda+c$ have a repeated root $\lambda_0\in\R$.
+  Verify directly that $e^{\lambda_0x}$ and $xe^{\lambda_0x}$ solve the
+  equation and have arbitrary independent initial data at $x=0$.  Use
+  LIVPEU to prove that the general real solution is
+  \[
+    y(x)=(A+Bx)e^{\lambda_0x},
+    \qquad A,B\in\R.
+  \]
+\end{subquestions}}
+
+\concept{Reduction of order}
+Given one non-zero solution $y_1\colon I\to\R$ of a homogeneous
+second-order linear equation, \emph{reduction of order} seeks another
+solution in the form $y_2=v y_1$, where $v\colon I\to\R$ is an unknown
+twice differentiable function.
+
+\examquestion{\label{q:reduction-order}
+For $y''-4y'+4y=0$ on $\R$, take $y_1(x)=e^{2x}$, let
+$v\colon\R\to\R$ be twice differentiable, and set
+$y_2(x)=v(x)e^{2x}$ for every $x\in\R$.
+\begin{subquestions}
+  \item \nameditem{ROA}{Reduction of Order Ansatz}
+  Compute $y_2'$ and $y_2''$ in terms of $v,v'$, and $v''$.
+
+  \item \nameditem{REEC}{Repeated Equation Exact Cancellation}
+  Substitute these expressions and prove that every term except
+  $v''(x)e^{2x}$ cancels.
+
+  \item \nameditem{SVLV}{Second solution Via a Linear Variation}
+  Solve $v''=0$, discard the component proportional to $y_1$, and recover
+  the second solution $y_2(x)=xe^{2x}$.  Explain how this confirms the
+  repeated-root formula without a detuning limit.
+\end{subquestions}}
+
+\subpart{B. --- Phase space and the Wronskian}
+
+\concept{State vectors and phase space}
+For a positive integer $n\in\N$, let $I\subseteq\R$ be an interval and
+consider
+\[
+ a_n(x)y^{(n)}+a_{n-1}(x)y^{(n-1)}+\cdots+a_1(x)y'+a_0(x)y=f(x),
+\]
+where $a_0,\ldots,a_n,f\colon I\to\R$ and $a_n(x)\ne0$ for every
+$x\in I$, for an unknown $n$-times differentiable function
+$y\colon I\to\R$.  Its \emph{state vector} or \emph{solution vector} is
+\[
+  \mathbf Y(x)=\bigl(y(x),y'(x),\ldots,y^{(n-1)}(x)\bigr)\in\R^n.
+\]
+The ambient space $\R^n$ of possible states is the \emph{phase space}; a
+solution traces a phase-space trajectory.
+
+\examquestion{\label{q:phase-space}
+\begin{subquestions}
+  \item \nameditem{SFOS}{State First-Order System}
+  Solve the displayed differential equation algebraically for $y^{(n)}$
+  and show that it determines the derivative of every component of
+  $\mathbf Y$ from $x$ and $\mathbf Y(x)$.
+
+  \item \nameditem{PID}{Phase Initial Data}
+  Assume that $I$ is open and that $a_0,\ldots,a_n$ and $f$ are continuous
+  on $I$, and let $x_0\in I$.  Explain why an initial state
+  $\mathbf Y(x_0)=(u_0,\ldots,u_{n-1})\in\R^n$ prescribes exactly
+  $y(x_0),\ldots,y^{(n-1)}(x_0)$.  State the uniqueness conclusion supplied
+  by LIVPEU.
+
+  \item \nameditem{SHPT}{Simple Harmonic Phase Trajectory}
+  For $y''+4y=0$ with $y(0)=1$ and $y'(0)=0$, find $y$ and prove that
+  \[
+    \mathbf Y(x)=(\cos2x,-2\sin2x)
+  \]
+  traces the ellipse $y^2+(y'/2)^2=1$ clockwise as $x$ increases from $0$.
+
+  \item \nameditem{SIBT}{Second Independent Basis Trajectory}
+  Repeat part (c) for $y(0)=0$ and $y'(0)=2$.  Show that the two initial
+  state vectors $(1,0)$ and $(0,2)$ form a basis of $\R^2$ and that the
+  corresponding state vectors remain independent for every $x\in\R$.
+\end{subquestions}}
+
+\concept{Wronskian}
+Let $I\subseteq\R$ be an interval.  For differentiable functions
+$y_1,y_2\colon I\to\R$, their
+\emph{Wronskian} is
+\[
+  W(x)=\begin{vmatrix}y_1(x)&y_2(x)\\y_1'(x)&y_2'(x)\end{vmatrix}
+      =y_1(x)y_2'(x)-y_2(x)y_1'(x).
+\]
+The functions are \emph{linearly independent} if the identity
+$A y_1+B y_2=0$ on $I$, for constants $A,B\in\R$, implies $A=B=0$.
+
+\examquestion{\label{q:wronskian-independence}
+Let $I\subseteq\R$ be an open interval, let $p,q\colon I\to\R$ be
+continuous, and let $y_1,y_2\colon I\to\R$ solve
+$y''+p(x)y'+q(x)y=0$ on $I$.
+\begin{subquestions}
+  \item \nameditem{WIC}{Wronskian Independence Certificate}
+  Prove that $W(x_0)\ne0$ at some $x_0\in I$ implies linear independence.
+  Conversely, if $W(x_0)=0$, choose constants $A,B$, not both zero, so that
+  $Ay_1+By_2$ and its derivative vanish at $x_0$, and use LIVPEU to prove
+  dependence.
+
+  \item \nameditem{WSH}{Wronskian for Simple Harmonics}
+  Compute the Wronskian of $\cos2x$ and $\sin2x$ and obtain $W(x)=2$ for
+  every $x\in\R$.
+
+  \item \nameditem{WRR}{Wronskian for a Repeated Root}
+  Compute the Wronskian of $e^{2x}$ and $xe^{2x}$ and obtain
+  $W(x)=e^{4x}$ for every $x\in\R$.
+\end{subquestions}}
+
+\examquestion{\label{q:abel-theorem}
+Let $I\subseteq\R$ be an open interval, let $p,q\colon I\to\R$ be
+continuous, and let $y_1,y_2\colon I\to\R$ solve
+$y''+p(x)y'+q(x)y=0$ on $I$.
+\begin{subquestions}
+  \item \nameditem{SWI}{Subtracted Wronskian Identity}
+  Multiply the equation for $y_1$ by $y_2$, multiply that for $y_2$ by
+  $y_1$, subtract, and identify the result in terms of $W$ and $W'$.
+
+  \item \nameditem{AWE}{Abel Wronskian Equation}
+  Prove $W'+pW=0$ and apply Question~\ref{q:integrating-factor} to obtain
+  \[
+    W(x)=W(x_0)\exp\left(-\int_{x_0}^x p(s)\,\d s\right)
+  \]
+  for all $x,x_0\in I$.
+
+  \item \nameditem{ZONZ}{Zero Or Never Zero}
+  Deduce Abel's theorem: the Wronskian is either zero throughout $I$ or
+  non-zero at every point of $I$.  Combine this with
+  Question~\ref{q:wronskian-independence} to explain why independence at
+  one point persists along the whole trajectory.
+\end{subquestions}}
+
+Part IX will define the coefficient matrix, its trace, and the higher-order
+Wronskian before formulating the corresponding determinant identity for
+systems of first-order equations.
+
+\hfill\emph{End of Part V}
+
+\exampart{VI}{Forcing, scaling, recurrences, damping, and impulses}
+
+This part completes the constant-coefficient theory and compares differential
+equations with two related structures: equidimensional equations and linear
+recurrences.  It ends with physical forcing over long and very short time
+scales.
+
+\subpart{A. --- Particular integrals and resonance}
+
+\concept{Undetermined coefficients}
+For constants $a,b,c\in\R$ with $a\ne0$, write
+$L[y]=ay''+by'+cy$.  The \emph{method of undetermined coefficients}
+chooses a trial particular integral whose algebraic form resembles a simple
+forcing term and determines its coefficients by substitution.  Linearity
+allows separate particular integrals to be added.
+
+\examquestion{\label{q:undetermined-coefficients}
+\begin{subquestions}
+  \item \nameditem{TSL}{Trial Shape List}
+  Explain why useful trial spaces for forcing terms $e^{mx}$,
+  $\sin(kx)$ or $\cos(kx)$, and a polynomial of degree $n\in\N_0$ are,
+  respectively,
+  \[
+    Ae^{mx},\qquad A\sin(kx)+B\cos(kx),\qquad
+    A_nx^n+\cdots+A_1x+A_0,
+  \]
+  provided none of the trial functions already belongs to the complementary
+  solution space.
+
+  \item \nameditem{PEFC}{Polynomial and Exponential Forcing Computation}
+  For
+  \[
+    y''-5y'+6y=2x+e^{4x},
+  \]
+  use $y_p=ax+b+ce^{4x}$ and prove
+  $a=1/3$, $b=5/18$, and $c=1/2$.
+
+  \item \nameditem{CSFS}{Complementary Superposition Forms the Solution}
+  Determine the complementary function and prove that the general solution
+  is
+  \[
+    y(x)=Ae^{2x}+Be^{3x}+\frac13x+\frac5{18}+\frac12e^{4x},
+    \qquad A,B\in\R.
+  \]
+  Explain where initial or boundary conditions must be applied.
+\end{subquestions}}
+
+\concept{Resonance and beating}
+For a linear equation $L[y]=f$, \emph{resonance} occurs when the forcing
+$f$ is itself a complementary solution, so the usual same-form trial is
+annihilated by $L$.  \emph{Beating} is slow amplitude modulation caused by
+forcing at a frequency close to the natural frequency.
+
+\examquestion{\label{q:resonance}
+Let $\omega_0\in(0,\infty)$.
+\begin{subquestions}
+  \item \nameditem{SGRF}{Standard Guess Resonance Failure}
+  For $y''+\omega_0^2y=\sin(\omega_0t)$, prove that every trial
+  $C\sin(\omega_0t)+D\cos(\omega_0t)$ is annihilated by the left-hand
+  operator and hence cannot be a particular integral.
+
+  \item \nameditem{DNPI}{Detuned Nonresonant Particular Integral}
+  Let $\omega\in(0,\infty)\setminus\{\omega_0\}$.  Verify that
+  \[
+    y_p(t)=\frac{\sin(\omega t)-\sin(\omega_0t)}
+                 {\omega_0^2-\omega^2}
+  \]
+  solves $y''+\omega_0^2y=\sin(\omega t)$; explain why subtracting the
+  complementary term does not change the forcing.
+
+  \item \nameditem{BLS}{Beating Length Scales}
+  Put $\Delta\omega=\omega_0-\omega$ and use a product-to-sum identity to
+  express $y_p$ as a fast cosine times a slow sine envelope.  Identify the
+  respective time scales $O(1/\omega_0)$ and
+  $O(1/|\Delta\omega|)$ when $|\Delta\omega|\ll\omega_0$.
+
+  \item \nameditem{RPL}{Resonant Particular Limit}
+  Take $\omega\to\omega_0$, using
+  $\sin z/z\to1$, and prove
+  \[
+    y_p(t)\longrightarrow-\frac{t}{2\omega_0}\cos(\omega_0t).
+  \]
+  Verify this limiting function directly in the resonant equation and
+  explain why its linearly growing amplitude is the signature of resonance.
+
+  \item \nameditem{GRM}{General Resonance Multiplier}
+  Verify by substitution that when $e^{\lambda x}$ is a simple
+  complementary function for a constant-coefficient operator and also the
+  forcing, a trial $Axe^{\lambda x}$ replaces $Ae^{\lambda x}$.  State the
+  analogous sine-cosine trial multiplied by $x$.
+\end{subquestions}}
+
+\concept{Variation of parameters}
+Let $I\subseteq\R$ be an open interval, let $p,q,f\colon I\to\R$ be
+continuous, and let $y_1,y_2\colon I\to\R$ be linearly independent
+solutions of $y''+py'+qy=0$.  Their Wronskian $W$ never vanishes by
+Question~\ref{q:abel-theorem}.  Variation of parameters seeks a particular
+solution of $y''+py'+qy=f$ in the form $y_p=uy_1+vy_2$.
+
+\examquestion{\label{q:variation-parameters}
+\begin{subquestions}
+  \item \nameditem{VPA}{Variation Parameter Ansatz}
+  Differentiate $y_p=uy_1+vy_2$ and impose the auxiliary condition
+  $u'y_1+v'y_2=0$ to obtain $y_p'=uy_1'+vy_2'$.
+
+  \item \nameditem{ADC}{Auxiliary Derivative Constraint}
+  Differentiate once more, substitute into the inhomogeneous equation, and
+  use the two homogeneous equations to prove
+  $u'y_1'+v'y_2'=f$.
+
+  \item \nameditem{WLS}{Wronskian Linear System}
+  Write the two equations for $(u',v')$ as
+  \[
+  \begin{pmatrix}y_1&y_2\\y_1'&y_2'\end{pmatrix}
+  \begin{pmatrix}u'\\v'\end{pmatrix}
+  =\begin{pmatrix}0\\f\end{pmatrix}
+  \]
+  and solve them to obtain
+  $u'=-y_2f/W$ and $v'=y_1f/W$.
+
+  \item \nameditem{VPIF}{Variation Parameters Integral Formula}
+  Fix $x_0\in I$, integrate the preceding derivatives, and prove that
+  \[
+    y_p(x)=-y_1(x)\int_{x_0}^x\frac{y_2(s)f(s)}{W(s)}\,\d s
+           +y_2(x)\int_{x_0}^x\frac{y_1(s)f(s)}{W(s)}\,\d s
+  \]
+  is a particular solution.  Explain why changing either integration
+  constant only adds a complementary solution.
+\end{subquestions}}
+
+\examquestion{\label{q:variation-example}
+For $y''+4y=\sin(2x)$, take $y_1(x)=\sin(2x)$ and
+$y_2(x)=\cos(2x)$.
+\begin{subquestions}
+  \item \nameditem{WSEC}{Wronskian Sign and Elementary Coefficients}
+  Compute $W=-2$ and derive
+  \[
+    u'=\frac14\sin(4x),
+    \qquad v'=\frac14(\cos(4x)-1).
+  \]
+
+  \item \nameditem{VPIE}{Variation Parameter Integration Example}
+  Integrate, substitute in $uy_1+vy_2$, and simplify to a particular
+  integral differing from $-(x/4)\cos(2x)$ by at most a complementary
+  function.
+
+  \item \nameditem{DVA}{Detuning and Variation Agree}
+  Compare with Question~\ref{q:resonance} and verify directly that
+  $-(x/4)\cos(2x)$ gives the required forcing.
+\end{subquestions}}
+
+\subpart{B. --- Equidimensional equations and recurrences}
+
+\concept{Equidimensional equation}
+On $(0,\infty)$, a second-order \emph{equidimensional}, \emph{Euler}, or
+\emph{Cauchy--Euler} equation has the form
+\[
+  ax^2y''+bxy'+cy=f(x),
+\]
+where $a,b,c\in\R$, $a\ne0$, and $f\colon(0,\infty)\to\R$ is
+continuous.  The powers of $x$ make every term have the dimensions of $y$:
+if $[x]=T$ and $[y]=L$, then
+$[x^2y'']=[xy']=[y]=L$.
+
+\examquestion{\label{q:equidimensional}
+\begin{subquestions}
+  \item \nameditem{IEPP}{Indicial Equation from a Power Profile}
+  Substitute $y=x^k$ with $k\in\R$ in the homogeneous equation and derive
+  the \emph{indicial equation}
+  \[
+    ak(k-1)+bk+c=0.
+  \]
+
+  \item \nameditem{DRCF}{Distinct-Root Complementary Form}
+  If the indicial roots $k_1,k_2\in\R$ are distinct, verify that
+  $Ax^{k_1}+Bx^{k_2}$ is a solution for all $A,B\in\R$.
+
+  \item \nameditem{LTCC}{Logarithmic Transformation to Constant Coefficients}
+  Put $z=\log x$ and $Y(z)=y(e^z)$.  Prove
+  \[
+    xy'=Y_z,\qquad x^2y''=Y_{zz}-Y_z,
+  \]
+  and transform the equation into
+  \[
+    aY_{zz}+(b-a)Y_z+cY=f(e^z).
+  \]
+  Use LIVPEU to justify that the two functions in part (b) span the
+  homogeneous solution space.
+
+  \item \nameditem{RRL}{Repeated Root Logarithm}
+  If the indicial equation has a repeated real root $k$, use the transformed
+  constant-coefficient equation to prove
+  \[
+    y_c(x)=(A+B\log x)x^k.
+  \]
+
+  \item \nameditem{RFR}{Resonant Forcing Response}
+  Suppose $k_1$ is a simple indicial root and $f(x)$ is proportional to
+  $x^{k_1}$.  Transform to $z$ and explain why a particular trial
+  $Cx^{k_1}\log x$ is appropriate.  State the extra factor required when
+  the indicial root is repeated.
+\end{subquestions}}
+
+\concept{Second-order linear recurrences}
+Let $a,b,c\in\R$ with $a\ne0$, and let
+$f\colon\N_0\to\R$.  A second-order linear difference equation is
+\[
+  ay_{n+2}+by_{n+1}+cy_n=f_n\qquad(n\in\N_0)
+\]
+for an unknown sequence $y\colon\N_0\to\R$.  It is homogeneous when
+$f_n=0$ for every $n\in\N_0$.  The \emph{shift operator} is
+$S[y]_n=y_{n+1}$.
+
+\examquestion{\label{q:linear-recurrences}
+\begin{subquestions}
+  \item \nameditem{SEGP}{Shift Eigenfunction as a Geometric Progression}
+  For $k\in\R$, define $g_n=k^n$, using $0^0=1$.  Show that
+  $S[g]_n=kg_n$ whenever either $k\ne0$ or $n\geq1$.
+
+  \item \nameditem{DCEC}{Difference Characteristic Equation Calculation}
+  Substitute $y_n=k^n$ and derive $ak^2+bk+c=0$.  If its two roots
+  $k_1,k_2$ are distinct and non-zero, prove that
+  $y_n=Ak_1^n+Bk_2^n$ realizes arbitrary initial data $y_0,y_1$ and hence
+  is the general homogeneous solution.
+
+  \item \nameditem{RRCF}{Repeated root Recurrence Complementary Form}
+  If the characteristic polynomial has a repeated non-zero root $k$, verify
+  directly that $k^n$ and $nk^n$ are solutions and deduce
+  $y_n=(A+Bn)k^n$.
+
+  \item \nameditem{DZRH}{Degenerate Zero-Root Handling}
+  If $c=0$, factor the recurrence operator and discuss separately the zero
+  characteristic root.  Show in particular why the formula in part (c)
+  requires $k\ne0$ when the zero root is repeated.
+
+  \item \nameditem{PIG}{Particular Inspection Guesses}
+  Give suitable non-resonant trial forms for forcing $r^n$ and for a
+  polynomial in $n$ of degree $p\in\N_0$.  Explain why a resonant geometric
+  trial is multiplied by $n$, in parallel with Question~\ref{q:resonance}.
+\end{subquestions}}
+
+\examquestion{\label{q:fibonacci-formula}
+Let $(F_n)_{n\in\N_0}$ satisfy
+$F_{n+2}=F_{n+1}+F_n$ for every $n\in\N_0$, with $F_0=F_1=1$.
+Put $\varphi_1=(1+\sqrt5)/2$ and $\varphi_2=(1-\sqrt5)/2$.
+\begin{subquestions}
+  \item \nameditem{FCR}{Fibonacci Characteristic Roots}
+  Derive the characteristic equation $k^2-k-1=0$ and its two roots
+  $\varphi_1,\varphi_2$.
+
+  \item \nameditem{BIC}{Binet Initial Coefficients}
+  Determine $A,B\in\R$ in $F_n=A\varphi_1^n+B\varphi_2^n$ and prove
+  \[
+    F_n=\frac{\varphi_1^{n+1}-\varphi_2^{n+1}}{\sqrt5}
+    \qquad(n\in\N_0).
+  \]
+  Use $\varphi_1\varphi_2=-1$ to recover the alternative form in the
+  original notes.
+\end{subquestions}}
+
+\subpart{C. --- Damping and sustained forcing}
+
+\concept{Damped oscillator model}
+Let $M,k\in(0,\infty)$ be a mass and spring constant, let
+$l\in[0,\infty)$ be a damping coefficient, let
+$F\colon[0,\infty)\to\R$ be an applied force, and let
+$x\colon[0,\infty)\to\R$ be vertical displacement.  The restoring and
+damping forces are $-kx$ and $-l\dot x$.
+
+\examquestion{\label{q:damping-model}
+\begin{subquestions}
+  \item \nameditem{NFM}{Newton Force Model}
+  Apply Newton's second law to obtain
+  \[
+    M\ddot x+l\dot x+kx=F(t).
+  \]
+
+  \item \nameditem{NDS}{Nondimensional Derivative Scaling}
+  Define
+  \[
+    \tau=t\sqrt{k/M},\qquad
+    \kappa=\frac{l}{2\sqrt{kM}},\qquad
+    f(\tau)=\frac{F(t)}k.
+  \]
+  Transform derivatives carefully and derive
+  $x_{\tau\tau}+2\kappa x_\tau+x=f(\tau)$.  State that dots from this
+  point in the question denote differentiation with respect to $\tau$.
+
+  \item \nameditem{FRC}{Free Response Characteristic equation}
+  For $f=0$, derive the roots
+  $-\kappa\pm\sqrt{\kappa^2-1}$.
+\end{subquestions}}
+
+\examquestion{\label{q:damping-regimes}
+Assume $\kappa>0$.
+\begin{subquestions}
+  \item \nameditem{UOD}{Underdamped Oscillatory Decay}
+  If $0<\kappa<1$, prove
+  \[
+    x(\tau)=e^{-\kappa\tau}
+    \left(A\sin(\sqrt{1-\kappa^2}\,\tau)
+          +B\cos(\sqrt{1-\kappa^2}\,\tau)\right).
+  \]
+  Identify the oscillation period and envelope decay time.
+
+  \item \nameditem{CDR}{Critically Damped Response}
+  If $\kappa=1$, derive
+  $x(\tau)=(A+B\tau)e^{-\tau}$ and identify its dimensionless and
+  dimensional decay scales.
+
+  \item \nameditem{ODTS}{Overdamped Dual Time Scales}
+  If $\kappa>1$, put
+  $\lambda_1=\kappa-\sqrt{\kappa^2-1}$ and
+  $\lambda_2=\kappa+\sqrt{\kappa^2-1}$.  Prove
+  $x=Ae^{-\lambda_1\tau}+Be^{-\lambda_2\tau}$ and identify the slow decay
+  and fast rise scales.
+
+  \item \nameditem{TGPD}{Transient Growth Precedes Decay}
+  Give choices of $A,B$ in either the critical or overdamped case for which
+  $|x|$ initially increases even though $x(\tau)\to0$ as
+  $\tau\to\infty$.
+\end{subquestions}}
+
+\examquestion{\label{q:forced-damping}
+Let $\kappa\in(0,\infty)$ and consider
+$\ddot x+2\kappa\dot x+x=\sin\tau$.
+\begin{subquestions}
+  \item \nameditem{SFPI}{Sinusoidal Forcing Particular Integral}
+  Substitute $x_p=C\sin\tau+D\cos\tau$ and prove
+  $x_p=-(2\kappa)^{-1}\cos\tau$.
+
+  \item \nameditem{TAA}{Transient Approaches Asymptotic response}
+  Add the appropriate complementary function from
+  Question~\ref{q:damping-regimes}.  Prove that it tends to zero and hence
+  \[
+    x(\tau)\sim-\frac1{2\kappa}\cos\tau
+    \qquad(\tau\to\infty).
+  \]
+  Describe the phase relation between forcing and long-time response.
+\end{subquestions}}
+
+\subpart{D. --- Impulses and step inputs}
+
+\concept{Impulse and nascent delta families}
+The \emph{impulse} of a force $F$ acting near time $T$ is its time integral.
+A \emph{nascent delta family} is a family
+$D_\varepsilon\colon\R\to[0,\infty)$, indexed by
+$\varepsilon>0$, such that $D_\varepsilon(t)\to0$ for every $t\ne0$ and
+$\int_{-\infty}^{\infty}D_\varepsilon(t)\,\d t\to1$ as
+$\varepsilon\to0^+$.
+
+\admitted{GIN}{Gaussian Integral Normalization}{The improper integral
+\[
+  \int_{-\infty}^{\infty}e^{-u^2}\,\d u
+\]
+exists and equals $\sqrt\pi$.}
+
+\examquestion{\label{q:nascent-delta}
+\begin{subquestions}
+  \item \nameditem{MJI}{Momentum Jump from an Impulse}
+  Let a ball of mass $m>0$ satisfy
+  $m\ddot x=F(t)-mg$ during $[T-\varepsilon,T+\varepsilon]$, where
+  $g>0$.  Integrate and prove
+  \[
+    m\dot x(T+\varepsilon)-m\dot x(T-\varepsilon)
+    =I_\varepsilon-2\varepsilon mg,
+  \]
+  where $I_\varepsilon=\int_{T-\varepsilon}^{T+\varepsilon}F(t)\,\d t$.
+
+  \item \nameditem{GND}{Gaussian Nascent Delta}
+  For $\varepsilon>0$, define
+  \[
+    D_\varepsilon(t)=\frac1{\varepsilon\sqrt\pi}
+       e^{-t^2/\varepsilon^2}.
+  \]
+  Using the substitution $u=t/\varepsilon$ and GIN, prove that
+  its integral is $1$, its width is $O(\varepsilon)$, its height is
+  $O(1/\varepsilon)$, and it tends pointwise to $0$ away from the origin.
+\end{subquestions}}
+
+\admitted{DSP}{Dirac Sifting Property}{The Dirac delta $\delta$ is the
+generalized object defined by its action under integration.  If
+$a,b,c\in\R$ satisfy $a<b$ and $g\colon[a,b]\to\R$ is continuous, then
+\[
+ \int_a^b g(x)\delta(x-c)\,\d x=
+ \begin{cases}g(c),&c\in(a,b),\\0,&c\notin[a,b].\end{cases}
+\]
+Endpoint conventions require a separately specified regularization.  The
+identity represents the corresponding limit against a standard nascent
+delta family and is used only inside integrals.}
+
+\examquestion{\label{q:delta-boundary-problem}
+Consider, in the generalized sense specified by DSP,
+\[
+  y''-y=3\delta(x-\pi/2),
+  \qquad y(0)=y(\pi)=0,
+\]
+and require $y$ to be continuous on $[0,\pi]$ and twice differentiable away
+from $x=\pi/2$.
+\begin{subquestions}
+  \item \nameditem{PRHS}{Piecewise Regional Homogeneous Solutions}
+  Solve the homogeneous equation on each side and use the endpoint
+  conditions to write
+  \[
+    y(x)=A\sinh x\quad(0\leq x<\pi/2),
+    \qquad
+    y(x)=C\sinh(\pi-x)\quad(\pi/2<x\leq\pi).
+  \]
+
+  \item \nameditem{CCJ}{Continuity Condition and Jump}
+  Use continuity to prove $A=C$.  Integrate the equation across
+  $[\pi/2-\eta,\pi/2+\eta]$, let $\eta\to0^+$, and prove
+  \[
+    y'(\pi/2^+)-y'(\pi/2^-)=3.
+  \]
+
+  \item \nameditem{BVDC}{Boundary Values Determine the Constants}
+  Deduce
+  \[
+    A=C=-\frac{3}{2\cosh(\pi/2)},
+  \]
+  and state the resulting piecewise solution, including its common value at
+  $x=\pi/2$.
+
+  \item \nameditem{RDHS}{Regularity Drop at the Highest-order Source}
+  Explain why $y$ is continuous while $y'$ jumps, and why allowing $y$
+  itself to jump would introduce a more singular derivative than the
+  prescribed delta forcing.
+\end{subquestions}}
+
+\concept{Heaviside step}
+The \emph{Heaviside step function} is
+\[
+  H(x)=\begin{cases}0,&x<0,\\1,&x>0,\end{cases}
+\]
+with its value at $0$ left unspecified.  It represents an input switched on
+at the origin.
+
+\examquestion{\label{q:heaviside}
+\begin{subquestions}
+  \item \nameditem{HSD}{Heaviside Step Definition}
+  Use DSP formally to justify
+  $H(x)=\int_{-\infty}^x\delta(t)\,\d t$ for $x\ne0$.
+
+  \item \nameditem{DDH}{Delta Derivative of Heaviside}
+  Let $a,b\in\R$ satisfy $a<0<b$, and let
+  $g\colon[a,b]\to\R$ be continuously differentiable with
+  $g(a)=g(b)=0$.  Prove by integration by parts on $[a,0)$ and $(0,b]$ that
+  \[
+    -\int_a^b H(x)g'(x)\,\d x=g(0).
+  \]
+  Compare with DSP and explain the generalized identity $H'=\delta$.
+\end{subquestions}}
+
+\hfill\emph{End of Part VI}
+
+\exampart{VII}{Series solutions near ordinary and singular points}
+
+This part makes the formal power-series method systematic.  The convergence
+and existence theorems stated in the original notes remain admitted results;
+the coefficient calculations themselves are developed in the questions.
+
+\subpart{A. --- Classification of expansion points}
+
+\concept{Analytic functions and singular points}
+Let $x_0\in\R$.  A real-valued function is \emph{analytic at $x_0$} if it
+equals a convergent power series $\sum_{n=0}^{\infty}a_n(x-x_0)^n$ on some
+open interval containing $x_0$.  Consider
+\[
+  p(x)y''+q(x)y'+r(x)y=0
+\]
+near $x_0$, where $p,q,r$ are real-valued functions.  The point $x_0$ is an
+\emph{ordinary point} if $q/p$ and $r/p$ are analytic there.  Otherwise it
+is a \emph{singular point}.  A singular point is \emph{regular singular}
+if $(x-x_0)q(x)/p(x)$ and $(x-x_0)^2r(x)/p(x)$ extend analytically to
+$x_0$; otherwise it is \emph{irregular singular}.  This is equivalent to
+the $P(x)(x-x_0)^2y''+Q(x)(x-x_0)y'+R(x)y=0$ form used in the source.
+
+\examquestion{\label{q:series-point-classification}
+\begin{subquestions}
+  \item \nameditem{OSPD}{Ordinary and Singular Point Definition}
+  Explain why a zero of $p$ is a candidate singular point but why the
+  analyticity of the two quotients, rather than $p(x_0)\ne0$ alone, is the
+  definition.
+
+  \item \nameditem{RSPT}{Regular Singularity through Pole Tests}
+  Show that a singular point is regular singular precisely when $q/p$ has
+  at most a simple pole and $r/p$ has at most a double pole there, with the
+  pole language interpreted through analytic extension.
+
+  \item \nameditem{CPE}{Classification of Principal Examples}
+  Classify all real points for each equation:
+  \[
+  \begin{aligned}
+   &(1-x^2)y''-2xy'+2y=0,\\
+   &(\sin x)y''+(\cos x)y'+2y=0,\\
+   &(1+\sqrt{x})y''-2xy'+2y=0\quad(x\geq0).
+  \end{aligned}
+  \]
+  In particular, prove that $0$ is ordinary and $\pm1$ are regular singular
+  in the first equation; every $n\pi$, $n\in\mathbb Z$, is regular singular
+  in the second; and $0$ is irregular singular in the third because the
+  required coefficients are not analytic there.
+\end{subquestions}}
+
+\admitted{OPSB}{Ordinary-Point Series Basis}{If $x_0$ is an ordinary point
+of a second-order homogeneous linear equation with analytic normalized
+coefficients, then there are two linearly independent solutions represented
+by convergent power series
+$\sum_{n=0}^{\infty}a_n(x-x_0)^n$ in some neighbourhood of $x_0$.  The two
+free leading data correspond to the values of $y(x_0)$ and $y'(x_0)$.}
+
+\admitted{FRSE}{Frobenius Regular-Singularity Existence}{If $x_0$ is a
+regular singular point of a second-order homogeneous linear equation, then on
+at least one side of $x_0$ there is at least one non-zero solution
+\[
+ y(x)=(x-x_0)^\sigma\sum_{n=0}^{\infty}a_n(x-x_0)^n,
+ \qquad a_0\ne0,
+\]
+for an index $\sigma$ determined by the indicial equation.  The power series
+factor converges in some punctured neighbourhood of $x_0$.}
+
+\subpart{B. --- Ordinary-point recurrences}
+
+\examquestion{\label{q:legendre-series}
+Seek a power-series solution about $0$ of
+\[
+  (1-x^2)y''-2xy'+2y=0
+\]
+in the form $y=\sum_{n=0}^{\infty}a_nx^n$.
+\begin{subquestions}
+  \item \nameditem{OPSS}{Ordinary-Point Series Substitution}
+  Write series for $y'$ and $y''$, align their powers of $x$, and prove that
+  the coefficient of $x^n$ vanishes precisely when
+  \[
+    (n+2)(n+1)a_{n+2}+\bigl(2-n(n+1)\bigr)a_n=0
+    \qquad(n\in\N_0).
+  \]
+
+  \item \nameditem{LCR}{Legendre Coefficient Recurrence}
+  Deduce
+  $a_{n+2}=(n-1)a_n/(n+1)$.  Treat $n=0$ and $n=1$ before making any
+  division, and explain why $a_0$ and $a_1$ are free.
+
+  \item \nameditem{EOA}{Even and Odd Alternatives}
+  Prove that the odd branch terminates at $a_1x$, while
+  \[
+    a_{2k}=-\frac{a_0}{2k-1}\quad(k\in\N).
+  \]
+  Hence obtain
+  \[
+    y=a_0\left(1-x^2-\frac{x^4}{3}-\frac{x^6}{5}-\cdots\right)+a_1x.
+  \]
+
+  \item \nameditem{LSF}{Logarithmic Summation Form}
+  For $|x|<1$, use
+  \[
+    \log\left(\frac{1+x}{1-x}\right)
+      =2\sum_{k=0}^{\infty}\frac{x^{2k+1}}{2k+1}
+  \]
+  to sum the even branch and prove
+  \[
+    y=a_0\left[1-\frac{x}{2}\log\left(\frac{1+x}{1-x}\right)\right]+a_1x.
+  \]
+  Relate the logarithmic singularities to the regular singular points
+  $x=\pm1$.
+\end{subquestions}}
+
+\subpart{C. --- Frobenius indices and resonance}
+
+\concept{Frobenius series and indicial equation}
+At a regular singular point $x_0$, the \emph{Frobenius method} substitutes
+\[
+  y=\sum_{n=0}^{\infty}a_n(x-x_0)^{n+\sigma},
+  \qquad a_0\ne0.
+\]
+The lowest-power coefficient gives the \emph{indicial equation} for the
+\emph{index} $\sigma$.
+
+\examquestion{\label{q:frobenius-half-index}
+Consider
+\[
+  4xy''+2(1-x^2)y'-xy=0
+\]
+on $(0,\infty)$ near $0$.
+\begin{subquestions}
+  \item \nameditem{RSC}{Regular Singularity Check}
+  Multiply by $x$ and show that the normalized coefficients required in the
+  regular-singular definition are $(1-x^2)/2$ and $-x^2/4$.
+
+  \item \nameditem{GFR}{General Frobenius Recurrence}
+  Substitute $y=\sum_{n=0}^{\infty}a_nx^{n+\sigma}$, using
+  $a_{-2}=a_{-1}=0$, and derive
+  \[
+  2(n+\sigma)(2n+2\sigma-1)a_n
+   =(2n+2\sigma-3)a_{n-2}
+  \quad(n\in\N_0).
+  \]
+
+  \item \nameditem{IRI}{Indicial Roots Identification}
+  Set $n=0$ before dividing and prove that
+  $2\sigma(2\sigma-1)a_0=0$, so $\sigma=0$ or $\sigma=1/2$.
+
+  \item \nameditem{ASB}{Analytic Series Branch}
+  For $\sigma=0$, prove $a_1=0$ and
+  \[
+    a_n=\frac{2n-3}{2n(2n-1)}a_{n-2}\qquad(n\geq2).
+  \]
+  Calculate the coefficients of $x^2$ and $x^4$ and recover the analytic
+  branch printed in the original notes.
+
+  \item \nameditem{HIB}{Half-Integer Branch}
+  For $\sigma=1/2$, prove $a_1=0$ and
+  \[
+    a_n=\frac{n-1}{n(2n+1)}a_{n-2}\qquad(n\geq2).
+  \]
+  Calculate the first two non-constant coefficients and obtain the branch
+  $x^{1/2}(1+x^2/10+x^4/120+\cdots)$ up to an arbitrary non-zero factor.
+\end{subquestions}}
+
+\admitted{FSRD}{Frobenius Solutions by Root Difference}{Let
+$\sigma_1,\sigma_2\in\C$ be the roots of the indicial equation at a
+regular singular point, ordered so that
+$\operatorname{Re}\sigma_1\leq\operatorname{Re}\sigma_2$.  If
+$\sigma_2-\sigma_1$ is not an integer, two linearly independent Frobenius
+series arise from the two roots.  If the difference is an integer, including
+zero, a Frobenius series exists for the larger root and a second independent
+solution generally has the form
+\[
+ y_2=C\log(x-x_0)y_1
+ +(x-x_0)^{\sigma_1}\sum_{n=0}^{\infty}b_n(x-x_0)^n.
+\]
+The constant $C$ can vanish, in which case two log-free Frobenius solutions
+may exist even though the root difference is an integer.}
+
+\examquestion{\label{q:frobenius-resonance}
+Consider $x^2y''-xy=0$ on $(0,\infty)$ near $0$.
+\begin{subquestions}
+  \item \nameditem{RFRE}{Resonant Frobenius Recurrence Equation}
+  Substitute $y=\sum_{n=0}^{\infty}a_nx^{n+\sigma}$, with
+  $a_{-1}=0$, and derive
+  \[
+    (n+\sigma)(n+\sigma-1)a_n=a_{n-1}
+    \qquad(n\in\N_0).
+  \]
+  Obtain the indicial roots $0$ and $1$.
+
+  \item \nameditem{URB}{Upper Root Branch}
+  For $\sigma=1$, prove
+  $a_n=a_0/((n+1)(n!)^2)$ and hence
+  \[
+    y_1=a_0x\left(1+\frac x2+\frac{x^2}{12}
+      +\frac{x^3}{144}+\cdots\right).
+  \]
+
+  \item \nameditem{LRF}{Lower Root Failure}
+  For $\sigma=0$, inspect the recurrence first at $n=0$ and then at $n=1$.
+  Prove that it would require $0\cdot a_1=a_0$, contradicting $a_0\ne0$.
+  Explain why setting $a_0=0$ merely reproduces the upper-root solution.
+
+  \item \nameditem{LSS}{Logarithmic Second Solution}
+  Apply FSRD to state the permitted form
+  \[
+    y_2=y_1\log x+\sum_{n=0}^{\infty}b_nx^n.
+  \]
+  Explain how substitution would determine the coefficients $b_n$ and why
+  the logarithm represents resonance between the two indices.
+\end{subquestions}}
+
+\hfill\emph{End of Part VII}
+
+\exampart{VIII}{Gradients, Taylor forms, and stationary points}
+
+This part returns to functions of several variables.  It extracts directional
+information from the total differential and uses the second-order term to
+classify non-degenerate stationary points.
+
+\subpart{A. --- Gradients and directional derivatives}
+
+\concept{Euclidean vectors and the gradient}
+For a positive integer $n\in\N$ and vectors
+$u=(u_1,\ldots,u_n),v=(v_1,\ldots,v_n)\in\R^n$, define
+$u\cdot v=\sum_{j=1}^n u_jv_j$ and
+$|u|=\sqrt{u\cdot u}$.  A vector $s\in\R^n$ is a unit vector if
+$|s|=1$.  Let $U\subseteq\R^n$ be open and let $f\colon U\to\R$ have
+first partial derivatives.  Its \emph{gradient} is
+\[
+  \nabla f(x)=\left(\frac{\partial f}{\partial x_1}(x),\ldots,
+  \frac{\partial f}{\partial x_n}(x)\right)\in\R^n.
+\]
+For $x_0\in U$ and a unit vector $s\in\R^n$, the \emph{directional
+derivative} is
+\[
+  D_sf(x_0)=\lim_{h\to0}\frac{f(x_0+hs)-f(x_0)}h,
+\]
+provided the limit exists.
+
+\examquestion{\label{q:gradient-direction}
+Let $f\colon U\to\R$ be differentiable at $x_0\in U$.
+\begin{subquestions}
+  \item \nameditem{TDGGV}{Total Differential Gives the Gradient Vector}
+  For an infinitesimal displacement
+  $\d s=(\d x_1,\ldots,\d x_n)$, rewrite the total differential as
+  \[
+    \d f=\d s\cdot\nabla f(x_0).
+  \]
+
+  \item \nameditem{DDGL}{Directional Derivative as a Gradient Limit}
+  Substitute the displacement $hs$ in the linear approximation and prove
+  \[
+    D_sf(x_0)=s\cdot\nabla f(x_0).
+  \]
+
+  \item \nameditem{MRG}{Maximum Rate from the Gradient}
+  Use the Cauchy--Schwarz inequality to prove
+  $|D_sf(x_0)|\leq|\nabla f(x_0)|$ for every unit vector $s$.  If the
+  gradient is non-zero, determine the directions of maximum increase and
+  maximum decrease.
+
+  \item \nameditem{GOLC}{Gradient Orthogonality to Level Curves}
+  Let $\gamma\colon I\to U$ be differentiable and satisfy
+  $f(\gamma(t))=c$ for every $t\in I$, where $c\in\R$.  Differentiate
+  along the path and prove
+  $\gamma'(t)\cdot\nabla f(\gamma(t))=0$.  Interpret this as orthogonality
+  between the gradient and every regular tangent to a contour.
+\end{subquestions}}
+
+\concept{Stationary points and saddles}
+A point $x_0\in U$ is a \emph{stationary point}, or \emph{critical point},
+if $\nabla f(x_0)=0$.  It is a \emph{local minimum} if
+$f(x)\geq f(x_0)$ near $x_0$, a \emph{local maximum} if the reverse
+inequality holds, and a \emph{saddle point} if it is stationary but neither
+a local minimum nor a local maximum.
+
+\examquestion{\label{q:stationary-directions}
+\begin{subquestions}
+  \item \nameditem{AVSD}{All Vanishing Stationary Directions}
+  Prove that every directional derivative of a differentiable function
+  vanishes at a stationary point.
+
+  \item \nameditem{SDD}{Saddle Direction Demonstration}
+  For $f\colon\R^2\to\R$ defined by $f(x,y)=x^2-y^2$, prove that
+  $(0,0)$ is stationary and exhibit directions along which $f$ increases
+  and decreases.  Describe the two crossing lines of the zero contour.
+\end{subquestions}}
+
+\subpart{B. --- The Hessian and multivariable Taylor expansion}
+
+\concept{Hessian matrix}
+Let $U\subseteq\R^n$ be open and let $f\colon U\to\R$ have continuous
+second partial derivatives.  Its \emph{Hessian matrix} at $x\in U$ is
+\[
+  H_f(x)=\left(\frac{\partial^2f}{\partial x_i\partial x_j}(x)
+       \right)_{1\leq i,j\leq n}.
+\]
+By SCECP it is a real symmetric matrix.
+
+\examquestion{\label{q:multivariable-taylor}
+Let $x_0\in U$ and $h\in\R^n$ be sufficiently small that
+$x_0+th\in U$ for every $t\in[0,1]$.  Define
+$g\colon[0,1]\to\R$ by $g(t)=f(x_0+th)$.
+\begin{subquestions}
+  \item \nameditem{LPR}{Line Parameter Restriction}
+  Apply the multivariable chain rule to prove
+  $g'(t)=h\cdot\nabla f(x_0+th)$.
+
+  \item \nameditem{FOTC}{First-Order Term Components}
+  Differentiate once more and prove
+  \[
+    g''(t)=h^{\mathsf T}H_f(x_0+th)h
+      =\sum_{i=1}^n\sum_{j=1}^n
+         h_i h_j\frac{\partial^2f}{\partial x_i\partial x_j}(x_0+th).
+  \]
+
+  \item \nameditem{SOTQ}{Second-Order Term as a Quadratic form}
+  In dimension two, with $h=(\delta x,\delta y)$, expand
+  $h^{\mathsf T}H_f(x_0)h$ as
+  \[
+    f_{xx}(\delta x)^2+2f_{xy}\delta x\delta y
+       +f_{yy}(\delta y)^2,
+  \]
+  where all derivatives are evaluated at $x_0$.
+
+  \item \nameditem{MTE}{Multivariable Taylor Expansion}
+  Apply the one-variable Taylor theorem TTPR to $g$ at $0$ and deduce
+  \[
+  f(x_0+h)=f(x_0)+h\cdot\nabla f(x_0)
+   +\frac12h^{\mathsf T}H_f(x_0)h+o(|h|^2)
+  \]
+  as $h\to0$, assuming the regularity required for the Peano remainder.
+\end{subquestions}}
+
+\subpart{C. --- Classification and contours}
+
+\concept{Definiteness}
+For a real symmetric $n\times n$ matrix $H$, its quadratic form is
+$Q_H(h)=h^{\mathsf T}Hh$.  It is \emph{positive definite} if
+$Q_H(h)>0$ for every $h\ne0$, \emph{negative definite} if
+$Q_H(h)<0$ for every $h\ne0$, and \emph{indefinite} if it takes both
+positive and negative values.
+
+\admitted{SSTD}{Symmetric Spectral Theorem and Diagonalization}{For every
+real symmetric $n\times n$ matrix $H$, there is an orthonormal basis of
+$\R^n$ consisting of eigenvectors of $H$.  In the corresponding coordinates,
+$H$ is diagonal with real eigenvalues $\lambda_1,\ldots,\lambda_n$, and
+\[
+  h^{\mathsf T}Hh=\sum_{j=1}^n\lambda_jX_j^2,
+\]
+where $X_1,\ldots,X_n$ are the coordinates of $h$ in that basis.}
+
+\examquestion{\label{q:hessian-classification}
+Let $x_0$ be a stationary point of a function
+$f\colon U\to\R$ having the Taylor expansion from
+Question~\ref{q:multivariable-taylor}.
+\begin{subquestions}
+  \item \nameditem{QFDC}{Quadratic Form Definiteness Cases}
+  Use the remainder definition to prove that a positive-definite Hessian
+  gives a strict local minimum and a negative-definite Hessian gives a
+  strict local maximum.
+
+  \item \nameditem{SEM}{Spectral Eigenvalue Method}
+  Apply SSTD to prove that the Hessian is positive definite exactly when all
+  its eigenvalues are positive, negative definite exactly when they are all
+  negative, and indefinite when it has eigenvalues of both signs.
+
+  \item \nameditem{ISPC}{Indefinite Sign Produces a Crossing}
+  If the Hessian is indefinite, use two eigenvector directions and the
+  Taylor expansion to prove that $x_0$ is a saddle point.
+
+  \item \nameditem{ZEC}{Zero Eigenvalue Caveat}
+  Explain why a zero eigenvalue makes the quadratic test inconclusive.
+  Illustrate this with the one-variable functions $x\mapsto x^4$,
+  $x\mapsto-x^4$, and $x\mapsto x^3$ at $0$.
+\end{subquestions}}
+
+\concept{Leading principal minors}
+For a real symmetric $n\times n$ matrix $H$, the $k$th \emph{leading
+principal minor} $\Delta_k$ is the determinant of its upper-left
+$k\times k$ submatrix, for $1\leq k\leq n$.
+
+\admitted{SCFD}{Sylvester Conditions For Definiteness}{Let $H$ be a real
+symmetric $n\times n$ matrix with leading principal minors
+$\Delta_1,\ldots,\Delta_n$.  The matrix is positive definite if and only if
+$\Delta_k>0$ for every $1\leq k\leq n$.  It is negative definite if and
+only if $(-1)^k\Delta_k>0$ for every $1\leq k\leq n$.  Failure of both
+tests need not imply indefiniteness when zero eigenvalues are present.}
+
+\examquestion{\label{q:sylvester-and-contours}
+\begin{subquestions}
+  \item \nameditem{LPMD}{Leading Principal Minor Determinants}
+  For $H=\begin{pmatrix}a&b\\b&c\end{pmatrix}$, identify
+  $\Delta_1=a$ and $\Delta_2=ac-b^2$.
+
+  \item \nameditem{SCPA}{Sylvester Criterion Positive Application}
+  Use SCFD to prove that $H$ is positive definite precisely when
+  $a>0$ and $ac-b^2>0$.
+
+  \item \nameditem{SNA}{Sylvester Negative Application}
+  Prove the corresponding negative-definite conditions
+  $a<0$ and $ac-b^2>0$.
+
+  \item \nameditem{ITD}{Indefiniteness in Two Dimensions}
+  Prove that $ac-b^2<0$ makes $H$ indefinite.  Explain why equality to zero
+  requires higher-order information in a stationary-point problem.
+\end{subquestions}}
+
+\examquestion{\label{q:stationary-example}
+Define $f\colon\R^2\to\R$ by
+\[
+  f(x,y)=4x^3-12xy+y^2+10y.
+\]
+\begin{subquestions}
+  \item \nameditem{SPS}{Solving Polynomial Stationarity}
+  Compute the gradient and prove that the stationary points are exactly
+  $(1,1)$ and $(5,25)$.
+
+  \item \nameditem{HCPE}{Hessian Computation at Principal Examples}
+  Prove
+  \[
+    H_f(x,y)=\begin{pmatrix}24x&-12\\-12&2\end{pmatrix}.
+  \]
+  At $(1,1)$ compute a negative determinant and classify a saddle.  At
+  $(5,25)$ compute leading principal minors $120$ and $96$ and classify a
+  strict local minimum.
+
+  \item \nameditem{QCC}{Quadratic Contour Classification}
+  In coordinates aligned with the Hessian eigenvectors, show that the
+  quadratic-level curves near a non-degenerate minimum or maximum are
+  ellipses, while those near a saddle are hyperbolas.  Explain the crossing
+  of the saddle's quadratic zero contour at the stationary point.
+\end{subquestions}}
+
+\hfill\emph{End of Part VIII}
+
+\exampart{IX}{Differential systems and phase portraits}
+
+This part packages interacting first-order equations in vector form.  It
+connects eigenvalues with phase portraits and then applies the linear theory
+locally to nonlinear population dynamics.
+
+
+
+\subpart{A. --- Linear systems and eigenmodes}
+
+\concept{Matrix form}
+For a positive integer $n\in\N$, let $M=(m_{ij})_{1\leq i,j\leq n}$ be a
+real $n\times n$ matrix and let $Y=(y_1,\ldots,y_n)^{\mathsf T}\in\R^n$.
+Define $(MY)_i=\sum_{j=1}^n m_{ij}y_j$.  The trace is
+$\operatorname{tr}M=\sum_{i=1}^n m_{ii}$.  A vector
+$v\in\C^n\setminus\{0\}$ is an eigenvector with eigenvalue
+$\lambda\in\C$ if $Mv=\lambda v$; the eigenvalues satisfy
+$\det(M-\lambda I)=0$.
+
+For the two-dimensional system, let $a,b,c,d\in\R$, let
+$f_1,f_2\colon I\to\R$, and write
+\[
+ \dot Y=MY+F(t),\qquad
+ Y=\begin{pmatrix}y_1\\y_2\end{pmatrix},\quad
+ M=\begin{pmatrix}a&b\\c&d\end{pmatrix},\quad
+ F=\begin{pmatrix}f_1\\f_2\end{pmatrix}.
+\]
+The dot denotes differentiation with respect to $t\in I$.
+
+\examquestion{\label{q:system-conversion}
+\begin{subquestions}
+  \item \nameditem{ESOE}{Elimination gives a Second-Order Equation}
+  Assume $f_1$ is differentiable.  Differentiate
+  $\dot y_1=ay_1+by_2+f_1$, substitute both system equations, and prove
+  \[
+    \ddot y_1-(a+d)\dot y_1+(ad-bc)y_1
+      =bf_2-df_1+\dot f_1.
+  \]
+  Do not divide by $b$, so the identity remains valid when $b=0$.
+
+  \item \nameditem{SOFS}{Second Order as a First-order System}
+  Let $\alpha,\beta\in\R$ and let $f\colon I\to\R$.  By setting
+  $y_1=y$ and $y_2=\dot y$, transform
+  $\ddot y+\alpha\dot y+\beta y=f$ into
+  \[
+  \dot Y=
+  \begin{pmatrix}0&1\\-\beta&-\alpha\end{pmatrix}Y
+  +\begin{pmatrix}0\\f\end{pmatrix}.
+  \]
+
+  \item \nameditem{SMN}{System Matrix Notation}
+  Expand the vector equation component by component and verify that it is
+  exactly equivalent to the original pair of scalar equations.
+\end{subquestions}}
+
+\admitted{LSIVPEU}{Linear System Initial-Value Problem Existence and Uniqueness}{Let
+$I\subseteq\R$ be an open interval, let
+$A\colon I\to\R^{n\times n}$ and $F\colon I\to\R^n$ be continuous,
+let $t_0\in I$, and let $Y_0\in\R^n$.  There exists a unique
+continuously differentiable function $Y\colon I\to\R^n$ satisfying
+$\dot Y(t)=A(t)Y(t)+F(t)$ for every $t\in I$ and $Y(t_0)=Y_0$.}
+
+\examquestion{\label{q:system-eigenmodes}
+Let $M$ be a constant real $n\times n$ matrix.
+\begin{subquestions}
+  \item \nameditem{EAS}{Eigenvector Ansatz for a System}
+  Substitute $Y(t)=ve^{\lambda t}$ in $\dot Y=MY$ and prove that it is a
+  non-zero solution precisely when $Mv=\lambda v$.
+
+  \item \nameditem{DES}{Distinct Eigenvalue Solutions}
+  Suppose $M$ has $n$ distinct complex eigenvalues
+  $\lambda_1,\ldots,\lambda_n$ with eigenvectors
+  $v_1,\ldots,v_n$.  Use the linear-independence theorem for eigenvectors
+  with distinct eigenvalues to show that
+  \[
+    Y(t)=\sum_{j=1}^n A_jv_je^{\lambda_jt}
+  \]
+  realizes arbitrary complex initial data.  Apply LSIVPEU to the real and imaginary parts to conclude that
+  this is the general complex solution.
+
+  \item \nameditem{RCMC}{Real Combinations from Matched Conjugates}
+  When $M$ is real and a non-real eigenpair is
+  $(\lambda,v)$, prove that $(\overline\lambda,\overline v)$ is also an
+  eigenpair and explain how real and imaginary parts of
+  $ve^{\lambda t}$ give real solutions.
+\end{subquestions}}
+
+\examquestion{\label{q:coupled-forced-system}
+Let
+\[
+ M=\begin{pmatrix}-4&24\\1&-2\end{pmatrix},
+ \qquad g=\begin{pmatrix}4\\1\end{pmatrix},
+\]
+and consider $\dot Y=MY+ge^t$ on $\R$.
+\begin{subquestions}
+  \item \nameditem{CEC}{Coupled Eigenvalue Calculation}
+  Compute $\det(M-\lambda I)$ and obtain the eigenvalues $2$ and $-8$.
+
+  \item \nameditem{CED}{Coupled Eigenvector Directions}
+  Find corresponding eigenvectors
+  $v_1=(4,1)^{\mathsf T}$ and $v_2=(-6,1)^{\mathsf T}$.
+
+  \item \nameditem{EFPI}{Exponential Forcing Particular Integral}
+  Seek $Y_p=ue^t$, solve $(I-M)u=g$, and prove
+  $u=(-4,-1)^{\mathsf T}$.
+
+  \item \nameditem{CGS}{Complete General Solution}
+  Deduce
+  \[
+   Y(t)=Av_1e^{2t}+Bv_2e^{-8t}
+        -\begin{pmatrix}4\\1\end{pmatrix}e^t,
+   \qquad A,B\in\R.
+  \]
+
+  \item \nameditem{SSP}{Saddle State Portrait}
+  For the homogeneous system, explain why trajectories on the $v_2$ line
+  approach the origin, trajectories on the $v_1$ line recede, and general
+  trajectories have the saddle geometry described by these eigendirections.
+\end{subquestions}}
+
+\admitted{MDFE}{Matrix Determinant Flow Equation}{Let $I\subseteq\R$ be an
+open interval, let $A\colon I\to\R^{n\times n}$ be continuous, and let
+$\Phi\colon I\to\R^{n\times n}$ be differentiable and satisfy
+$\Phi'=A\Phi$.  Then $W=\det\Phi$ satisfies
+$W'=(\operatorname{tr}A)W$.  Consequently, for $t,t_0\in I$,
+\[
+  W(t)=W(t_0)\exp\left(\int_{t_0}^t\operatorname{tr}A(s)\,\d s\right).
+\]
+In particular, $W$ is either identically zero or nowhere zero.}
+
+\examquestion{\label{q:matrix-abel}
+\begin{subquestions}
+  \item \nameditem{TAFC}{Trace Abel Formula Connection}
+  Apply MDFE to the first-order form of a second-order scalar equation
+  $y''+p(x)y'+q(x)y=0$ and recover the Abel formula from
+  Question~\ref{q:abel-theorem}.
+
+  \item \nameditem{IBFS}{Independence of a Basis of Fundamental Solutions}
+  Let the columns of $\Phi$ be $n$ solutions of $Y'=A(t)Y$.  Prove that if
+  they form a basis at one time $t_0$, they form a basis at every $t\in I$.
+\end{subquestions}}
+
+\subpart{B. --- Classification of linear phase portraits}
+
+\examquestion{\label{q:phase-portrait-types}
+Let $M$ be a real $2\times2$ matrix with two distinct eigenvalues, and
+consider $\dot Y=MY$.
+\begin{subquestions}
+  \item \nameditem{ROSS}{Real Opposite Signs give a Saddle}
+  Suppose the eigenvalues are real and satisfy $\lambda_1>0>\lambda_2$.
+  Use the eigenmode solution to prove that the origin is a saddle, attracting
+  along the $\lambda_2$ eigendirection and repelling along the
+  $\lambda_1$ eigendirection.
+
+  \item \nameditem{RSSN}{Real Same Signs give a Node}
+  Suppose the eigenvalues are real and have the same sign.  Show that the
+  origin is a stable node when both are negative and an unstable node when
+  both are positive.  Determine which eigendirection dominates as
+  $t\to\infty$.
+
+  \item \nameditem{CCSP}{Complex Conjugates give a Spiral Portrait}
+  Suppose the eigenvalues are $\alpha\pm i\beta$ with
+  $\beta\ne0$.  Use Question~\ref{q:system-eigenmodes} to show that real
+  trajectories combine a rotation of angular frequency $|\beta|$ with the
+  factor $e^{\alpha t}$.  Classify inward and outward spirals by the sign of
+  $\alpha$.
+
+  \item \nameditem{ZRCC}{Zero Real Component gives a Centre}
+  If $\alpha=0$ and the matrix is diagonalizable over $\C$, show that
+  non-zero trajectories are closed curves surrounding the origin; after a
+  real linear coordinate change they are ellipses.  This case is called a
+  centre.
+
+  \item \nameditem{SOC}{Spiral Orientation Check}
+  Explain how the direction of $MY$ at one point on the positive horizontal
+  axis determines whether a spiral is clockwise or counter-clockwise.
+\end{subquestions}}
+
+\subpart{C. --- Nonlinear autonomous systems}
+
+\concept{Equilibria and the Jacobian}
+Let $D\subseteq\R^2$ be open and let $f,g\colon D\to\R$ have continuous
+first partial derivatives.  The \emph{autonomous system}
+\[
+  \dot x=f(x,y),\qquad \dot y=g(x,y)
+\]
+has an \emph{equilibrium}, or \emph{fixed point}, at
+$(x_0,y_0)\in D$ when $f(x_0,y_0)=g(x_0,y_0)=0$.  Its
+\emph{Jacobian matrix} there is
+\[
+ J(x_0,y_0)=
+ \begin{pmatrix}f_x&f_y\\g_x&g_y\end{pmatrix}_{(x_0,y_0)}.
+\]
+
+\examquestion{\label{q:system-linearization}
+Let $(x_0,y_0)$ be an equilibrium and put
+$x=x_0+\xi$, $y=y_0+\eta$.
+\begin{subquestions}
+  \item \nameditem{PTE}{Perturbation Taylor Expansion}
+  Apply the first-order multivariable expansion to prove
+  \[
+  \begin{pmatrix}\dot\xi\\\dot\eta\end{pmatrix}
+  =J(x_0,y_0)\begin{pmatrix}\xi\\\eta\end{pmatrix}
+   +o\left(\sqrt{\xi^2+\eta^2}\right)
+  \]
+  as $(\xi,\eta)\to(0,0)$.
+
+  \item \nameditem{JLM}{Jacobian Linear Model}
+  Define the \emph{linearised system} by discarding the smaller-order
+  remainder.  Explain why its eigenvalues are the candidates controlling
+  local stability.
+\end{subquestions}}
+
+\admitted{HLP}{Hyperbolic Linearization Principle}{Let $D\subseteq\R^n$
+be open, let $F\colon D\to\R^n$ be continuously differentiable, and let
+$x_0\in D$ satisfy $F(x_0)=0$.  If no eigenvalue of the Jacobian $DF(x_0)$
+has zero real part, then in a sufficiently small neighbourhood the nonlinear
+system $\dot x=F(x)$ has the same qualitative equilibrium type and stability
+as its linearisation: sinks are attracting, sources are repelling, and
+saddles retain stable and unstable directions.  If an eigenvalue has zero
+real part, this conclusion is not guaranteed and nonlinear terms must be
+examined.}
+
+\examquestion{\label{q:predator-prey}
+Let $x(t),y(t)\in[0,\infty)$ denote prey and predator populations.  For
+parameters $\alpha,\beta,\gamma,\varepsilon,\delta>0$, the model
+\[
+  \dot x=\alpha x-\beta x^2-\gamma xy,\qquad
+  \dot y=\varepsilon xy-\delta y
+\]
+combines prey growth, prey competition, predation, predator reproduction,
+and predator death.  Consider the particular system
+\[
+  \dot x=8x-2x^2-2xy,\qquad \dot y=xy-y.
+\]
+\begin{subquestions}
+  \item \nameditem{PPM}{Predator-Prey Modelling terms}
+  Identify the sign and biological role of every term in the general model.
+
+  \item \nameditem{EEP}{Ecological Equilibrium Points}
+  Factor the two right-hand sides of the particular system and prove that
+  its equilibria in $[0,\infty)^2$ are exactly
+  $(0,0)$, $(4,0)$, and $(1,3)$.
+
+  \item \nameditem{OJS}{Origin Jacobian Saddle}
+  Compute $J(0,0)$, find its eigenvalues $8$ and $-1$, and classify the
+  origin using HLP.
+
+  \item \nameditem{BJS}{Boundary Jacobian Saddle}
+  Compute
+  $J(4,0)=\begin{pmatrix}-8&-8\\0&3\end{pmatrix}$, find eigenvectors
+  $(1,0)^{\mathsf T}$ and $(8,-11)^{\mathsf T}$, and classify the point.
+
+  \item \nameditem{IJS}{Interior Jacobian Spiral}
+  Compute
+  $J(1,3)=\begin{pmatrix}-2&-2\\3&0\end{pmatrix}$ and prove that its
+  eigenvalues are $-1\pm i\sqrt5$.  Deduce that $(1,3)$ is a stable spiral.
+
+  \item \nameditem{SOD}{Spiral Orientation Direction}
+  At a perturbation $(\xi,\eta)=(\xi,0)$ with $\xi>0$, compute the
+  linearised velocity $(-2\xi,3\xi)$.  Deduce that the stable spiral is
+  counter-clockwise.
+\end{subquestions}}
+
+\hfill\emph{End of Part IX}
+
+\exampart{X}{Characteristics, waves, and diffusion}
+
+This final part extends the evolution viewpoint to functions of two
+independent variables.  It first follows information along characteristic
+curves, then separates left- and right-travelling waves, and finally derives a
+similarity profile for heat diffusion.
+
+\concept{Partial differential equations}
+A \emph{partial differential equation}, or \emph{PDE}, is an equation
+involving partial derivatives of an unknown function of at least two
+independent variables.  In this part, $x\in\R$ denotes position and
+$t\in[0,\infty)$ denotes time.  The first-order wave equation is also called
+the advection equation; the second-order wave equation is the prototype of a
+hyperbolic PDE; and the diffusion equation is the prototype of a parabolic
+PDE.
+
+\subpart{A. --- First-order waves and characteristics}
+
+\concept{First-order wave equation}
+Let $c\in\R$ and let $y\colon\R\times[0,\infty)\to\R$ have continuous
+first partial derivatives.  The \emph{first-order wave equation} in the sign
+convention of the original notes is
+\[
+  y_t-cy_x=0.
+\]
+A \emph{characteristic} is a curve in the $(x,t)$-plane along which the PDE
+reduces to an ordinary differential equation.
+
+\examquestion{\label{q:first-wave-characteristics}
+\begin{subquestions}
+  \item \nameditem{PCD}{Path Chain-rule Derivative}
+  Let $x\colon[0,\infty)\to\R$ be differentiable.  Apply the chain rule
+  to prove
+  \[
+    \frac{\d}{\d t}y(x(t),t)=y_x(x(t),t)x'(t)+y_t(x(t),t).
+  \]
+
+  \item \nameditem{CLCC}{Characteristic Lines Carry Constants}
+  Use the PDE and choose $x'(t)=-c$.  Prove that $x(t)+ct$ and
+  $y(x(t),t)$ are both constant along the resulting straight
+  characteristics.
+
+  \item \nameditem{GSA}{General Solution of Advection}
+  Deduce that every continuously differentiable solution has the form
+  \[
+    y(x,t)=f(x+ct)
+  \]
+  for a differentiable function $f\colon\R\to\R$.  Prove the converse by
+  direct differentiation and interpret the sign and speed of translation.
+\end{subquestions}}
+
+\examquestion{\label{q:forced-characteristics}
+\begin{subquestions}
+  \item \nameditem{TIPA}{Translated Initial Profile under Advection}
+  Impose $y(x,0)=x^2-3$ for every $x\in\R$ in the preceding equation and
+  obtain $y(x,t)=(x+ct)^2-3$.
+
+  \item \nameditem{FCO}{Forced Characteristic Ordinary equation}
+  For
+  \[
+    y_t+5y_x=e^{-t},\qquad y(x,0)=e^{-x^2},
+  \]
+  derive the characteristics $x(t)=x_0+5t$ and the ordinary equation
+  $\d y/\d t=e^{-t}$ along each one.
+
+  \item \nameditem{FIVP}{Forced Initial-Value Profile}
+  Integrate the characteristic equation, determine its constant from the
+  initial profile, and prove
+  \[
+    y(x,t)=1+e^{-(x-5t)^2}-e^{-t}.
+  \]
+  Verify the PDE and initial condition directly.
+\end{subquestions}}
+
+\subpart{B. --- The second-order wave equation}
+
+\concept{Wave equation and its string model}
+Let $c\in(0,\infty)$ and let
+$y\colon\R\times[0,\infty)\to\R$ have continuous second partial
+derivatives.  The \emph{wave equation} is
+\[
+  y_{tt}=c^2y_{xx}.
+\]
+For a vibrating string, $y(x,t)$ is transverse displacement and a positive
+mass density $\rho(x)$ converts acceleration into force per unit length.
+
+\examquestion{\label{q:string-motivation}
+\begin{subquestions}
+  \item \nameditem{STI}{String Translation Invariance}
+  Explain why a restoring law for a uniform string cannot depend on the
+  absolute value of $y$: translating the whole string vertically cannot
+  create a force.
+
+  \item \nameditem{USBF}{Uniform Slope gives Balanced Forces}
+  Explain why a constant slope $y_x$ also gives no net transverse force on
+  an interior string element.
+
+  \item \nameditem{RFC}{Restoring Force from Curvature}
+  Deduce why the first local spatial derivative capable of producing a net
+  restoring force is the curvature $y_{xx}$.  With constant proportionality,
+  recover the wave equation and identify $c^2$ as the force-to-density ratio.
+\end{subquestions}}
+
+\examquestion{\label{q:dalembert}
+\begin{subquestions}
+  \item \nameditem{OFD}{Operator Factorization by Difference}
+  Prove the commuting-operator identity
+  \[
+    \partial_t^2-c^2\partial_x^2
+      =(\partial_t+c\partial_x)(\partial_t-c\partial_x).
+  \]
+
+  \item \nameditem{WNC}{Wave Nullspace Components}
+  Verify that $f(x+ct)$ is annihilated by
+  $\partial_t-c\partial_x$ and $g(x-ct)$ by
+  $\partial_t+c\partial_x$, for twice differentiable
+  $f,g\colon\R\to\R$.
+
+  \item \nameditem{CCT}{Characteristic Coordinate Transformation}
+  Define $\xi=x+ct$ and $\eta=x-ct$.  Use the chain rule to prove
+  \[
+    y_{tt}-c^2y_{xx}=-4c^2y_{\xi\eta}.
+  \]
+
+  \item \nameditem{WDAS}{Wave Decomposition into Advancing Signals}
+  Integrate $y_{\xi\eta}=0$ first with respect to one variable and then the
+  other to prove the general form
+  \[
+    y(x,t)=f(x+ct)+g(x-ct).
+  \]
+  Identify the left- and right-travelling components.
+\end{subquestions}}
+
+\concept{Data for a wave equation}
+On the whole real line, prescribe an initial displacement
+$\phi\colon\R\to\R$ and initial velocity $\psi\colon\R\to\R$.  On a
+bounded spatial interval, the second spatial derivative additionally calls
+for two boundary conditions, one at each end, while the second time
+derivative calls for the two initial functions.
+
+\examquestion{\label{q:wave-initial-data}
+Assume $\phi$ is twice continuously differentiable and $\psi$ is
+continuously differentiable.
+\begin{subquestions}
+  \item \nameditem{IDR}{Initial Data Relations}
+  Substitute $t=0$ in the two-wave representation and prove
+  $f+g=\phi$ and $c(f'-g')=\psi$.
+
+  \item \nameditem{DIF}{Dual-wave Initial Formula}
+  Solve these relations, allowing an irrelevant opposite additive constant
+  in $f$ and $g$, and derive
+  \[
+  y(x,t)=\frac{\phi(x+ct)+\phi(x-ct)}2
+   +\frac1{2c}\int_{x-ct}^{x+ct}\psi(s)\,\d s.
+  \]
+
+  \item \nameditem{SZV}{Symmetric Zero-Velocity waves}
+  When $\psi$ is the zero function, explain why the initial profile splits
+  into two equal waves travelling in opposite directions.
+
+  \item \nameditem{TLP}{Travelling Lorentzian Pulses}
+  Apply part (c) to $\phi(x)=1/(1+x^2)$ and prove
+  \[
+    y(x,t)=\frac12\left[
+      \frac1{1+(x+ct)^2}+\frac1{1+(x-ct)^2}\right].
+  \]
+  Check that $y(x,t)\to0$ as $x\to\pm\infty$ for each fixed $t\geq0$.
+\end{subquestions}}
+
+\subpart{C. --- Diffusion and similarity}
+
+\concept{Diffusion equation and error functions}
+Let $\kappa\in(0,\infty)$ be the thermal diffusivity.  For a temperature
+$T\colon[0,\infty)\times(0,\infty)\to\R$, the \emph{diffusion equation},
+or \emph{heat equation}, is
+\[
+  T_t=\kappa T_{xx}.
+\]
+Unlike the wave equation, it relates rate of change directly to curvature,
+so temperature irregularities smooth rather than propagate unchanged.
+For $\eta\in\R$, define
+\[
+ \operatorname{erf}(\eta)=\frac2{\sqrt\pi}\int_0^\eta e^{-u^2}\,\d u,
+ \qquad
+ \operatorname{erfc}(\eta)=1-\operatorname{erf}(\eta).
+\]
+The Gaussian integral used in Question~\ref{q:nascent-delta} gives
+$\operatorname{erf}(\eta)\to1$ as $\eta\to\infty$.
+
+\examquestion{\label{q:diffusion-similarity}
+Consider a semi-infinite bar satisfying, for $x>0$ and $t>0$,
+\[
+ \begin{gathered}
+ T_t=\kappa T_{xx},\qquad T(0,t)=1,\\
+ T(x,t)\longrightarrow0\quad(t\to0^+,\ x>0),\qquad
+ T(x,t)\longrightarrow0\quad(x\to\infty).
+ \end{gathered}
+\]
+\begin{subquestions}
+  \item \nameditem{DLS}{Diffusive Length Scale}
+  Use dimensions $[\kappa]=L^2T^{-1}$ to show that
+  $\sqrt{\kappa t}$ is the natural penetration length.  Define
+  \[
+    \eta=\frac{x}{2\sqrt{\kappa t}},\qquad T(x,t)=\theta(\eta).
+  \]
+
+  \item \nameditem{SVD}{Similarity Variable Derivatives}
+  Compute $\eta_x$ and $\eta_t$, then prove
+  \[
+   T_{xx}=\frac1{4\kappa t}\theta''(\eta),
+   \qquad
+   T_t=-\frac{\eta}{2t}\theta'(\eta).
+  \]
+
+  \item \nameditem{RSO}{Reduced Similarity Ordinary equation}
+  Substitute in the heat equation and obtain
+  $\theta''+2\eta\theta'=0$.
+
+  \item \nameditem{EFS}{Error Function Solution}
+  Treat $\theta'$ as the unknown in a first-order equation.  Use the
+  integrating factor $e^{\eta^2}$ and prove
+  $\theta(\eta)=A\operatorname{erf}(\eta)+B$ for constants
+  $A,B\in\R$.
+
+  \item \nameditem{BCSS}{Boundary Conditions Select the Similarity solution}
+  Translate the boundary condition at $x=0$, the far-field condition, and
+  the one-sided initial condition for fixed $x>0$ into conditions at
+  $\eta=0$ and
+  $\eta=\infty$.  Deduce
+  \[
+    T(x,t)=\operatorname{erfc}
+       \left(\frac{x}{2\sqrt{\kappa t}}\right).
+  \]
+
+  \item \nameditem{PDS}{Penetration Distance Scaling}
+  Show that a fixed temperature level penetrates a distance
+  $O(\sqrt{\kappa t})$.  If a bar has length $L>0$, derive the
+  semi-infinite validity condition $t\ll L^2/\kappa$.
+\end{subquestions}}
+
+\hfill\emph{End of Part X and of the problem}
 
 \end{document}

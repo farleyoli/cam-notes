@@ -99,11 +99,6 @@
             "letter": "c",
             "code": "EFC",
             "phrase": "Empty-Factor Counterexample"
-          },
-          {
-            "letter": "d",
-            "code": "FGC",
-            "phrase": "Function Graph Characterization"
           }
         ],
         "q:image-preimage": [

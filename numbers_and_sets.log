@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.3)  10 SEP 2026 01:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.3)  10 SEP 2026 20:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1622,9 +1622,9 @@ Package rerunfilecheck Info: File `numbers_and_sets.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 56010 strings out of 469515
- 1297333 string characters out of 5470808
- 1873560 words of memory out of 5000000
+ 56009 strings out of 469515
+ 1297325 string characters out of 5470808
+ 1872561 words of memory out of 5000000
  82889 multiletter control sequences out of 15000+600000
  645913 words of font info for 230 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -1645,10 +1645,10 @@ fonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9
 .pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></us
 r/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/t
 exmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on numbers_and_sets.pdf (43 pages, 448787 bytes).
+Output written on numbers_and_sets.pdf (43 pages, 448677 bytes).
 PDF statistics:
- 987 PDF objects out of 1000 (max. 8388607)
- 871 compressed objects within 9 object streams
- 500 named destinations out of 1000 (max. 500000)
+ 986 PDF objects out of 1000 (max. 8388607)
+ 870 compressed objects within 9 object streams
+ 499 named destinations out of 1000 (max. 500000)
  32925 words of extra memory for PDF output out of 35830 (max. 10000000)
 
