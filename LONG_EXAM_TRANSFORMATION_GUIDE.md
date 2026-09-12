@@ -152,9 +152,19 @@ dependencies.
 Avoid placing all definitions in a preliminary glossary.  Introduce a
 definition in the paragraph immediately before the first group of questions
 that needs it, or in the opening sentence of that group.  Several definitions
-may be introduced together when they form one natural object.  The requirement
-is logical clarity and local availability, rather than mechanical placement
-one line before every occurrence.
+may be introduced together only when they form one natural object that cannot
+be separated without repetition.  The requirement is logical clarity and local
+availability, rather than mechanical placement one line before every
+occurrence.
+
+Keep each concept block small and single-purpose.  A concept should introduce
+one definition, or at most a small family of definitions that are meaningless
+in isolation.  Do not bundle distinct instruments, properties, constructions
+or classifications under one heading; split them into separate concepts even
+when each is short.  For example, a heading such as "Spreads, straddles and
+related structures" must be split into separate concepts for spreads,
+straddles, strangles, risk reversals, butterflies, condors and calendar
+spreads.
 
 Each part should have a mathematical purpose.  A short opening paragraph may
 tell the reader what will be constructed or proved, but it must not give away
@@ -230,9 +240,18 @@ integration convention at the level used by the original notes.
 ## 6. Turn exposition and proofs into exam questions
 
 Use alphabetically labelled subquestions for the successive mathematical
-steps.  Each subquestion should have a concrete verb: define, compute, prove,
-deduce, construct, compare, or give a counterexample.  The result of one item
+steps.  Each subquestion should have a concrete verb: compute, prove, deduce,
+construct, compare, verify, or give a counterexample.  The result of one item
 should create a useful tool for the next.
+
+Never ask the reader to define anything.  A definition is expository material,
+not a task, and it belongs in the running text immediately before the questions
+that use it.  Do not phrase a subquestion as “define”, “give the definition
+of”, “state the definition of”, or “state what it means for”.  Axioms and
+conventions are definitions in this sense and must likewise be stated in the
+exposition.  Every lettered task must ask the reader to do something with the
+defined objects, such as prove a property, compute an example, or verify an
+equivalence.
 
 For a proof of ordinary difficulty, two or three subquestions may be enough:
 
@@ -825,6 +844,8 @@ A conversion is complete only when all of these statements are true:
 - every original definition and substantive result is covered;
 - the target assumes no mathematical background beyond the original;
 - definitions and notation appear near their first need;
+- no question asks the reader to define, state the definition of, or state what
+  something means; definitions and axioms are given only in the exposition;
 - every variable, function, family, index, and parameter is properly scoped;
 - hard in-scope proofs are divided into attainable, non-circular steps;
 - every out-of-scope result used by the paper is completely stated and visibly
