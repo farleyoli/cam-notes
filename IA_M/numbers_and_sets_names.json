@@ -9,21 +9,16 @@
         "q:logic": [
           {
             "letter": "a",
-            "code": "ITT",
-            "phrase": "Implication Truth Table"
-          },
-          {
-            "letter": "b",
             "code": "TTLE",
             "phrase": "Truth Table Logical Equivalences"
           },
           {
-            "letter": "c",
+            "letter": "b",
             "code": "NQN",
             "phrase": "Nested Quantifier Negation"
           },
           {
-            "letter": "d",
+            "letter": "c",
             "code": "IMPQF",
             "phrase": "Infinitely Many Primes in Quantifier Form"
           }

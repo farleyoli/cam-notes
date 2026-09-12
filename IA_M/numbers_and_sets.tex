@@ -186,7 +186,23 @@ $Q$'', and ``not $P$''.  Here ``or'' is inclusive.  The implication
 $P\Rightarrow Q$ is false only when $P$ is true and $Q$ is false.
 A \emph{truth table} lists the truth value of a compound statement for each
 possible assignment of $\mathrm T$ or $\mathrm F$ to its component
-statements.
+statements.  The truth tables of these operations are
+\[
+  \begin{array}{c|c}
+    P & \neg P\\ \hline
+    \mathrm T & \mathrm F\\
+    \mathrm F & \mathrm T
+  \end{array}
+  \qquad
+  \begin{array}{cc|c|c|c|c}
+    P & Q & P\wedge Q & P\vee Q & P\Rightarrow Q
+      & P\Longleftrightarrow Q\\ \hline
+    \mathrm T & \mathrm T & \mathrm T & \mathrm T & \mathrm T & \mathrm T\\
+    \mathrm T & \mathrm F & \mathrm F & \mathrm T & \mathrm F & \mathrm F\\
+    \mathrm F & \mathrm T & \mathrm F & \mathrm T & \mathrm T & \mathrm F\\
+    \mathrm F & \mathrm F & \mathrm F & \mathrm F & \mathrm T & \mathrm T
+  \end{array}
+\]
 
 \concept{Sets and quantifiers}
 A \emph{set} is a collection of objects, called its \emph{elements}, in
@@ -214,8 +230,6 @@ every $n\in\N$, there is a prime $p\in\N$ with $p>n$.
 Let $A,B,C$ be sets, let $P,Q$ be statements, and suppose that $R(a,b,c)$
 is a statement for every $a\in A$, $b\in B$, and $c\in C$.
 \begin{subquestions}
-  \item \nameditem{ITT}{Implication Truth Table}
-  Write the truth table for $P\Rightarrow Q$.
   \item \nameditem{TTLE}{Truth Table Logical Equivalences}
   Prove, using truth tables, that
   \[
