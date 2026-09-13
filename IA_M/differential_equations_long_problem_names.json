@@ -688,6 +688,10 @@
       },
       "admitted_results": [
         {
+          "code": "MVT",
+          "phrase": "Mean Value Theorem"
+        },
+        {
           "code": "TTPR",
           "phrase": "Taylor Theorem with Peano Remainder"
         },
@@ -711,7 +715,10 @@
           "Defined linear and nonlinear second-order equations before the first use of nonlinear.",
           "Defined the positive integers before the first use of the symbol N.",
           "Scoped the function used to define repeated derivatives and the two functions shared by every Leibniz subquestion.",
-          "Gave the sine and quotient comparison functions, the chain-rule increment, and the Taylor-series polynomial explicit domains and codomains."
+          "Gave the sine and quotient comparison functions, the chain-rule increment, and the Taylor-series polynomial explicit domains and codomains.",
+          "Stated the mean-value theorem as admitted result MVT before its first use.",
+          "Defined the derivative function on an interval before its first use.",
+          "Merged the repeated find-and-prove request in PADE into a single solution-characterization statement."
         ]
       }
     },
@@ -936,7 +943,9 @@
           "Declared the function used in the rectangle interpretation of the uniform partition.",
           "Defined differentiability for scalar functions of three variables before the implicit-differentiation argument uses its linear approximation.",
           "Repaired an unbalanced parenthesis in the local and total rectangle-error orders.",
-          "Gave the parameter-differentiation auxiliary functions K and H explicit domains."
+          "Gave the parameter-differentiation auxiliary functions K and H explicit domains.",
+          "Defined open subsets of R^n before the first use of openness for R^2 and R^3.",
+          "Defined interior points of an interval before the antiderivative definition that uses them."
         ]
       }
     },

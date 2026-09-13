@@ -163,6 +163,13 @@ usual elementary functions and their derivatives, the mean-value theorem,
 and mathematical induction.  The definitions and results emphasized by the
 course are nevertheless stated and developed here.
 
+\admitted{MVT}{Mean Value Theorem}{Let $a,b\in\R$ satisfy $a<b$, and let
+$f\colon[a,b]\to\R$ be continuous on $[a,b]$ and differentiable on
+$(a,b)$.  Then there exists $c\in(a,b)$ such that
+\[
+  f'(c)=\frac{f(b)-f(a)}{b-a}.
+\]}
+
 \subpart{A. --- Derivatives and equations of evolution}
 
 \concept{Derivative and differentiability}
@@ -173,7 +180,10 @@ $x_0\in I$.  The \emph{derivative} of $f$ at $x_0$ is
 \]
 provided this real limit exists.  In that case, $f$ is
 \emph{differentiable at $x_0$}.  It is differentiable on $I$ if it is
-differentiable at every $x_0\in I$.  The right-hand and left-hand derivatives
+differentiable at every $x_0\in I$.  When $f$ is differentiable on $I$, its
+\emph{derivative function} is the function $f'\colon I\to\R$ whose value at
+each $x\in I$ is the derivative of $f$ at $x$.  The right-hand and left-hand
+derivatives
 are defined by replacing $h\to0$ with $h\to0^+$ and $h\to0^-$,
 respectively.  Thus $f$ is differentiable at $x_0$ precisely when both
 one-sided derivatives exist and are equal.
@@ -237,13 +247,12 @@ function $F_x\colon\R\to\R$ defined by
 \]
 \begin{subquestions}
   \item \nameditem{PADE}{Prescribed Acceleration Differential Equation}
-  Suppose that $F_x(t)=t^2-1$ for every $t\in\R$.  Find all possible
-  position functions, or equivalently all twice differentiable functions
-  $x\colon\R\to\R$ satisfying
+  Suppose that $F_x(t)=t^2-1$ for every $t\in\R$.  Prove that the twice
+  differentiable functions $x\colon\R\to\R$ satisfying
   \[
-    m\ddot x(t)=t^2-1\qquad(t\in\R).
+    m\ddot x(t)=t^2-1\qquad(t\in\R)
   \]
-  Prove that they are exactly the functions
+  are exactly the functions
   \[
     x(t)=\frac{t^4}{12m}-\frac{t^2}{2m}+c_1t+c_0
     \qquad(t\in\R),
@@ -839,7 +848,10 @@ $x+h\in[a,b]$.
 
 \concept{Variable limits and antiderivatives}
 Let $I\subseteq\R$ be an interval and let $f\colon I\to\R$ be continuous.
-An \emph{antiderivative} of $f$ on $I$ is a differentiable function
+Call $x\in I$ an \emph{interior point} of $I$ if some open interval
+containing $x$ is contained in $I$; thus the interior points are exactly
+the points of $I$ that are not endpoints.  An \emph{antiderivative} of $f$
+on $I$ is a differentiable function
 $A\colon I\to\R$ such that $A'(x)=f(x)$ for every interior point $x\in I$,
 with one-sided derivatives at any included endpoint.  The notation
 $\int f(x)\,\d x=A(x)+C$ denotes the family of all antiderivatives, where
@@ -941,6 +953,17 @@ continuously differentiable.
 \end{subquestions}}
 
 \subpart{B. --- Partial and total differentiation}
+
+\concept{Open sets}
+Let $n\in\N$.  A set $U\subseteq\R^n$ is \emph{open} if, for every
+$x=(x_1,\ldots,x_n)\in U$, there is $\varepsilon>0$ such that every
+$y=(y_1,\ldots,y_n)\in\R^n$ satisfying
+\[
+  (y_1-x_1)^2+\cdots+(y_n-x_n)^2<\varepsilon^2
+\]
+belongs to $U$.  Thus an open set contains, with each of its points, all
+points sufficiently close to it.  In particular, every open interval is an
+open subset of $\R$.
 
 \concept{Partial derivatives}
 Let $U\subseteq\R^2$ be open, let $f\colon U\to\R$, and let
