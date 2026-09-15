@@ -75,9 +75,12 @@ notes.
    substantive example, and exercise from the original source.  It may become
    a question, a sequence of questions, a definition followed by a question,
    or an admitted result.
-3. Assume exactly the mathematical background that the original source
-   assumes.  Do not silently require an extra theorem, notation, definition,
-   or technical convention.
+3. Assume no background that has not been declared explicitly in the target
+   paper.  The original source determines the maximum mathematical background
+   that may be declared, but its unexplained use of a technical word is not
+   permission to repeat that word without explanation.  Do not silently
+   require an extra theorem, notation, definition, technical convention, or
+   familiarity with specialist vocabulary.
 4. A new auxiliary concept introduced only to organize the problem must be
    defined before it is mathematically used.
 5. If the original develops a result within the course, the new paper should
@@ -126,7 +129,95 @@ paper must define it too.  If the source assumes ordinary algebraic
 manipulation, the paper need not rebuild arithmetic from axioms.
 
 Do not infer that a concept is background merely because it is familiar.  The
-original source is the authority for the reader model.
+original source is the authority for the maximum reader model.  When the
+evidence is ambiguous, choose the more conservative boundary and explain or
+define the concept.  An explicit user instruction that the paper assume less
+background than the source always takes precedence.
+
+### Mandatory reader-boundary firewall
+
+Background controls which results the reader may use without proof; it does
+not license unexplained terminology.  Before drafting, put a prerequisite
+sentence on the instructions page and record the same boundary in the JSON
+catalogue.  State positively what is assumed, for example “elementary algebra
+and single-variable calculus,” and state important exclusions, for example
+“no prior probability or stochastic-process course is assumed.”  Never make
+the reader infer the boundary from the first difficult paragraph.
+
+For every domain-specific noun, adjective, symbol, and convention at its first
+use, do exactly one of the following:
+
+1. point to an explicit item in the declared background;
+2. give a usable definition in the exposition immediately before the use; or
+3. if the complete definition or existence theory is too technical for the
+   reader model, say that explicitly, give the best elementary interpretation,
+   and state every property the reader may use.
+
+Option 3 is not a waiver of precision.  A technical-definition paragraph must
+contain all of the following:
+
+- the name of the technical object and the notation used for it;
+- a concrete or intuitive interpretation at the reader's level;
+- the exact conditions under which it is used in the paper;
+- a closed list of operational properties available to the reader; and
+- a complete named admitted result for any existence, uniqueness, or other
+  theorem that the paper relies on without proof.
+
+Do not write a circular explanation such as “adapted means determined by the
+available information” unless “available information” has already been
+explained.  Build the chain from elementary notions upward.  For probability
+and stochastic calculus, a typical safe order is:
+
+1. random experiment, event, probability and random variable;
+2. distribution, expectation, integrability, variance and independence;
+3. stochastic process and sample path;
+4. observed record, information, filtration and adaptation;
+5. conditional expectation and its usable rules;
+6. Brownian motion/Wiener process and its defining properties;
+7. the precise convergence and admissibility conditions for stochastic
+   integrals; and
+8. stochastic differential notation as shorthand for an integral equation.
+
+The following are hard failures unless they have already been resolved by the
+declared background or nearby exposition:
+
+- “integrable process” without specifying whether it means
+  $E[|Y_t|]<\infty$ for each $t$, $E[\int |Y_t|\,dt]<\infty$,
+  $E[\int |Y_t|^2\,dt]<\infty$, or another exact condition;
+- “information $\mathcal F_t$,” “filtration,” or “adapted” without first
+  explaining the observation-record interpretation and its no-future-data
+  consequence;
+- “Wiener process” without saying that it is another name for standard
+  Brownian motion and listing the defining properties that may be used;
+- “almost surely,” “in distribution,” “in probability,” or “in mean square”
+  without defining the mode of convergence or probabilistic qualification;
+- “density,” “distribution function,” “correlation,” “self-financing,” or a
+  comparable specialist term without a usable meaning;
+- “sufficiently smooth,” “sufficiently regular,” or “sufficiently integrable”
+  when the argument actually needs identifiable derivatives, bounds,
+  continuity, measurability, or moment conditions; and
+- “standard result” or “it is well known” in place of a proof or a complete
+  admitted result.
+
+Synonyms must be connected explicitly at first use.  If the source alternates
+between “Wiener process” and “Brownian motion,” or between another pair of
+names, say whether they are identical, special cases, or merely related.
+Likewise, distinguish overloaded words: integrability of one random variable,
+integrability of a process over time, and existence of a stochastic integral
+are not interchangeable.
+
+Before completing each part, reread it from the stated starting point and make
+a first-use ledger with one row per technical term:
+
+| First use | Term or notation | Background, defined, or technical | Reader-facing explanation | Usable properties | Status |
+|---|---|---|---|---|---|
+| section/line | exact term | one category | nearby paragraph | exact finite list or cited result | pending/checked |
+
+This ledger may be temporary, but every row must be checked.  For probability,
+analysis, topology, geometry, physics, finance, or another specialist subject,
+search the finished draft for technical adjectives as well as symbols.  A
+symbol audit alone will not catch an undefined phrase such as “integrable
+process” or “available information.”
 
 ## 4. Build the mathematical dependency structure
 
@@ -157,14 +248,31 @@ be separated without repetition.  The requirement is logical clarity and local
 availability, rather than mechanical placement one line before every
 occurrence.
 
-Keep each concept block small and single-purpose.  A concept should introduce
-one definition, or at most a small family of definitions that are meaningless
-in isolation.  Do not bundle distinct instruments, properties, constructions
-or classifications under one heading; split them into separate concepts even
-when each is short.  For example, a heading such as "Spreads, straddles and
-related structures" must be split into separate concepts for spreads,
-straddles, strangles, risk reversals, butterflies, condors and calendar
-spreads.
+Keep each concept block small and single-purpose.  The working rule is one
+definition per `\concept` block: every mathematical object receives its own
+heading as soon as it can be stated without repeating an earlier block.  Do
+not bundle distinct instruments, properties, constructions or classifications
+under one heading; split them into separate concepts even when each is short.
+For example, a heading such as "Spreads, straddles and related structures"
+must be split into separate concepts for spreads, straddles, strangles, risk
+reversals, butterflies, condors and calendar spreads.
+
+Apply the rule to every kind of list, not only to instruments.  A sentence
+such as "The pair $(\Omega,\mathcal F)$ is called a measurable space; a
+probability measure is a function ...; the triple
+$(\Omega,\mathcal F,\mathbb P)$ is called a probability space" becomes three
+concepts, one for the measurable space, one for the probability measure and
+one for the probability space.  Likewise, "Bernoulli, binomial and Poisson
+distributions" becomes three concepts, "gamma and beta functions" becomes
+two, and "joint, marginal and conditional densities" becomes three.  A
+concept may introduce more than one object only when the objects are
+meaningless in isolation, for instance the clauses of a single recursive
+definition.  When in doubt, split: a short concept block is never a defect,
+whereas a bundled one is.
+
+Whenever a split creates a concept whose noun phrase is not yet listed in the
+JSON `reader_boundary.defined_in_paper` array, add that phrase to the array in
+the same pass, so the declared reader boundary stays synchronized.
 
 Each part should have a mathematical purpose.  A short opening paragraph may
 tell the reader what will be constructed or proved, but it must not give away
@@ -177,13 +285,15 @@ strictly one part at a time.  For each part, perform this complete cycle:
 
 1. write or revise that part in the new sibling TeX file;
 2. update its entries in the JSON catalogue at the same time;
-3. run the name-catalogue and basic source checks for the material written so
-   far;
+3. run the name-catalogue, source, and reader-boundary first-use checks for the
+   material written so far; in particular, reject any technical term that is
+   neither declared background nor defined or explicitly explained;
 4. compile the cumulative paper to PDF twice, so the PDF contains every
    completed part through the current one and its references and final-page
    count resolve;
-5. inspect the new part in the PDF and fix mathematical, typographical, and
-   layout problems before starting the next part.
+5. inspect the new part in the PDF as a reader with only the declared
+   prerequisites, and fix prerequisite leakage, mathematical, typographical,
+   and layout problems before starting the next part.
 
 Thus, complete and compile Part I before editing Part II, complete and compile
 Part II before editing Part III, and continue in the same way through the
@@ -240,9 +350,13 @@ integration convention at the level used by the original notes.
 ## 6. Turn exposition and proofs into exam questions
 
 Use alphabetically labelled subquestions for the successive mathematical
-steps.  Each subquestion should have a concrete verb: compute, prove, deduce,
-construct, compare, verify, or give a counterexample.  The result of one item
-should create a useful tool for the next.
+steps.  Each subquestion must require a concrete mathematical action: compute,
+prove, deduce, construct an explicit object, derive an equation, solve a
+problem, verify a stated identity or inequality, or give a counterexample.
+A request to compare is acceptable only when it specifies a mathematical
+quantity, equality, inequality, inclusion, limit, or other formal relation
+that the reader must establish.  The result of one item should create a useful
+tool for the next.
 
 Never ask the reader to define anything.  A definition is expository material,
 not a task, and it belongs in the running text immediately before the questions
@@ -252,6 +366,33 @@ conventions are definitions in this sense and must likewise be stated in the
 exposition.  Every lettered task must ask the reader to do something with the
 defined objects, such as prove a property, compute an example, or verify an
 equivalence.
+
+### Mandatory mathematical-task-only rule
+
+No lettered item may be a recall, vocabulary, orientation, or prose-description
+question.  In particular, do not ask the reader to state meanings or
+assumptions, identify roles or named components, classify terminology,
+describe a graph or analogy, explain a sign or modelling choice in words,
+interpret a result, contrast methods, discuss limitations, or list facts from
+the preceding exposition.  A descriptive clause does not become acceptable
+merely because it is appended to a calculation or proof; remove that clause or
+replace it with a precise mathematical claim to establish.
+
+Definitions, modelling interpretations, assumptions, terminology, historical
+context, method comparisons, warnings, and technical limitations may still be
+essential source content.  Preserve them as declarative exposition immediately
+before the mathematics that uses them.  If such material has no honest
+mathematical exercise at the declared reader level, do not invent one: retain
+the material in exposition and omit the lettered item.  Never turn a factual
+description into a pseudo-mathematical task by asking the reader merely to copy
+a displayed formula, attach labels to its terms, or repeat a supplied sentence.
+
+For every proposed lettered item, apply this test: after deleting all requests
+for prose commentary, does the item still require the reader to produce a
+mathematical object or establish a mathematical proposition?  If not, move its
+content to exposition and remove the item.  Acceptable outputs include a
+number, formula, table of calculated values, constructed example, derivation,
+solution of an equation, proof, counterexample, or verified formal relation.
 
 For a proof of ordinary difficulty, two or three subquestions may be enough:
 
@@ -409,6 +550,34 @@ Use this schema:
   "source": "IA_L/probability_long_problem.tex",
   "uniqueness_scope": "source",
   "acronym_rule": "Read the phrase from left to right and concatenate the initial of each capitalized word or capitalized hyphen component. Lowercase words do not contribute.",
+  "reader_boundary": {
+    "background": [
+      "elementary algebra",
+      "single-variable differentiation and integration"
+    ],
+    "explicitly_not_assumed": [
+      "prior measure theory",
+      "prior stochastic-process terminology"
+    ],
+    "defined_in_paper": [
+      "random variables, expectation and integrability",
+      "information records, filtrations and adaptation"
+    ],
+    "technical_but_explained": [
+      {
+        "concept": "conditional expectation",
+        "reader_facing_explanation": "probability-weighted prediction using the observed record",
+        "usable_properties": [
+          "linearity",
+          "known quantities remain unchanged",
+          "an independent future quantity keeps its unconditional expectation"
+        ]
+      }
+    ],
+    "external_admitted_results": [
+      "Conditional Expectation Existence and Uniqueness"
+    ]
+  },
   "parts": {
     "I": {
       "status": "in_progress",
@@ -436,6 +605,15 @@ Use the actual TeX question label as the key in `questions`.  Set a part's
 status to `complete` only after all its lettered items and admitted results
 appear in both files and pass validation.  Parts with no admitted result must
 still contain an empty `admitted_results` array.
+
+The `reader_boundary` object is mandatory.  Its wording may be adapted to the
+subject, but it must distinguish declared background, important exclusions,
+concepts defined in the paper, technical concepts given a reader-facing
+explanation, the exact properties permitted for those concepts, and external
+admitted results.  Do not put a term under `defined_in_paper` merely because
+the TeX names it; the TeX must actually provide a usable definition.  Keep
+the JSON boundary synchronized whenever drafting introduces a new technical
+notion.
 
 If the TeX is changed in several passes, the JSON remains the source-specific
 registry throughout every pass.  Check it before inventing the next name.  A
@@ -567,7 +745,8 @@ the paper or proved in an earlier question.
 \exampart{I}{First part title}
 
 \concept{First locally needed concept}
-Give its complete definition here.
+Give its complete definition here.  Give every further definition its own
+\concept block; do not collect several definitions under one heading.
 
 \examquestion{\label{q:first-question}
 Let $n\in\mathbb N$.
@@ -785,6 +964,8 @@ Visually inspect at least:
 
 - the title page;
 - the instructions page and dependency diagram, if present;
+- every page that declares prerequisites or explains a technical reader
+  boundary;
 - the first page of every part;
 - pages containing long displays, tables, figures, or admitted results;
 - every transition where a question nearly reaches the page foot;
@@ -819,11 +1000,62 @@ original source.  At every line ask:
 5. Does an indication provide enough direction for the hardest step while
    leaving meaningful work?
 6. Does the question state the result fully enough to be used later?
+7. Can a reader using only the declared prerequisites paraphrase every
+   technical noun and adjective at its first use?
+8. If a complete definition is too technical, does the paper say so, give an
+   elementary interpretation, and list the exact properties available for
+   use?
+9. Is every occurrence of “integrable,” “regular,” “smooth,” “information,”
+   “independent,” or another overloaded qualifier tied to a precise meaning
+   in this context?
+10. Are synonyms explicitly identified, rather than presented as if they were
+    unrelated objects?
+11. Does each existence or uniqueness assertion that depends on theory beyond
+    the reader model appear as a complete named admitted result?
+12. Does the prerequisite statement in the PDF agree with the
+    `reader_boundary` object in the JSON catalogue?
+13. Does every lettered item require a mathematical calculation,
+    construction, derivation, solution, verification, proof, or
+    counterexample, with no appended request for verbal description or
+    interpretation?
+14. Does every `\concept` block introduce a single definition?  List the
+    headings and inspect every block:
+    ```bash
+    rg -n '\\concept\{' IA_L/probability_long_problem.tex
+    ```
+    A heading that names several objects, such as "Expectation, variance and
+    moment generating function" or "Joint, marginal and conditional
+    densities", is a defect even when the definitions themselves are correct;
+    split it into one concept per object, update `defined_in_paper`, and
+    recompile.
+
+Perform a separate task-type pass over every `\nameditem`.  Search at least for
+the following prompt verbs inside lettered items and inspect every match:
+
+```bash
+rg -n -i '\b(define|state|identify|classify|describe|explain|interpret|contrast|discuss|list|compare)\b' \
+  IA_L/probability_long_problem.tex
+```
+
+The search will also find exposition and mathematical uses such as comparing
+two explicitly given payoffs, so it is an audit aid rather than an automatic
+validator.  Every occurrence in an actual task must either be removed or be
+rewritten as a precise mathematical action under the rule in Section 6.
 
 Then compare against the original source using the coverage ledger.  Check
 definitions word by word where qualifiers matter.  Check both directions of
 equivalences, all cases of classifications, existence and uniqueness clauses,
 boundary cases, and hypotheses hidden in surrounding prose.
+
+Perform a dedicated vocabulary pass separately from the symbol pass.  Search
+for specialist words and phrases, then inspect their first occurrence in the
+PDF.  In a probability or stochastic-calculus paper, the pass must include at
+least `random variable`, `distribution`, `integrable`, `independent`,
+`process`, `sample path`, `information`, `filtration`, `adapted`, `conditional
+expectation`, `almost surely`, `Brownian`, `Wiener`, `mean square`, `stochastic
+integral`, and `self-financing` whenever they occur.  Use the analogous
+subject vocabulary in other courses.  Marking the vocabulary pass complete
+without inspecting the rendered first-use paragraph is a failed audit.
 
 For every admitted result, verify all of the following:
 
@@ -842,10 +1074,28 @@ A conversion is complete only when all of these statements are true:
 - the original `.tex` file is unchanged;
 - the new sibling `.tex`, source-specific JSON, and compiled PDF exist;
 - every original definition and substantive result is covered;
-- the target assumes no mathematical background beyond the original;
+- the target declares its prerequisites explicitly and assumes no
+  mathematical background beyond that declaration or beyond the original;
+- the JSON contains a synchronized `reader_boundary` object with declared
+  background, important exclusions, defined concepts, technical explanations
+  and usable properties, and external admitted results;
+- every specialist term is defined or explained at first use, even when the
+  source uses it without comment;
+- every definition judged too technical is identified as such and paired with
+  a reader-level interpretation and an exact list of usable properties;
+- vague placeholders such as “sufficiently regular” or “integrable process”
+  have been replaced by the actual conditions needed;
+- synonyms and overloaded terms are explicitly disambiguated;
 - definitions and notation appear near their first need;
+- every concept block introduces a single definition, with multi-object
+  headings split into one concept per object and the new phrases recorded in
+  `defined_in_paper`;
 - no question asks the reader to define, state the definition of, or state what
   something means; definitions and axioms are given only in the exposition;
+- no question asks for a non-mathematical description, explanation,
+  interpretation, classification, comparison of approaches, or recitation of
+  assumptions; every lettered item still contains a substantive mathematical
+  task after all prose-commentary requests are removed;
 - every variable, function, family, index, and parameter is properly scoped;
 - hard in-scope proofs are divided into attainable, non-circular steps;
 - every out-of-scope result used by the paper is completely stated and visibly

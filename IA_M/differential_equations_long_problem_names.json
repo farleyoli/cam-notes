@@ -3,6 +3,225 @@
   "source": "IA_M/differential_equations_long_problem.tex",
   "uniqueness_scope": "source",
   "acronym_rule": "Read the phrase from left to right and concatenate the initial of each capitalized word or capitalized hyphen component. Lowercase words do not contribute.",
+  "reader_boundary": {
+    "background": [
+      "elementary algebra and real arithmetic",
+      "real limits and their algebra",
+      "continuity of real functions",
+      "the usual elementary functions and their derivatives",
+      "the mean-value theorem",
+      "mathematical induction",
+      "elementary integration of continuous functions",
+      "complex numbers, their real and imaginary parts and conjugates",
+      "convergence of real series and power series",
+      "monotone convergence for bounded monotone sequences",
+      "elementary matrix notation, matrix-vector products, determinants, and linear independence and bases in R^n"
+    ],
+    "explicitly_not_assumed": [
+      "a prior course on differential equations",
+      "multivariable calculus or partial differentiation beyond what Part II defines",
+      "power-series methods for differential equations beyond Part VII",
+      "partial differential equations beyond Part X",
+      "generalized-function theory beyond the named admitted results on the Dirac delta",
+      "Riemann integration theory beyond the continuous case"
+    ],
+    "defined_in_paper": [
+      "Derivative",
+      "Differential equations",
+      "Initial conditions",
+      "Linear equations",
+      "Nonlinear equations",
+      "Real sequences",
+      "Difference equations",
+      "Deleted neighbourhoods",
+      "Neighbourhoods",
+      "Small order",
+      "Bounded order",
+      "Repeated derivatives",
+      "Factorials",
+      "Binomial coefficients",
+      "Taylor polynomial",
+      "Taylor series",
+      "Uniform partitions",
+      "Left Riemann sums",
+      "Definite integrals",
+      "Accumulation functions",
+      "Interior points",
+      "Antiderivatives",
+      "Open sets",
+      "Neighbourhoods in several variables",
+      "Partial derivatives",
+      "Differentiability in two variables",
+      "Total differential",
+      "Differentiability in three variables",
+      "Implicit differentiation",
+      "Exponential functions with base",
+      "Natural exponential",
+      "Natural logarithm",
+      "Complex-valued differentiation",
+      "Complex exponential",
+      "Eigenfunctions of the derivative operator",
+      "First-order linear equations",
+      "Homogeneous equations",
+      "Forced equations",
+      "Constant coefficients",
+      "Initial conditions for first-order equations",
+      "Boundary conditions",
+      "Formal power series",
+      "Formal derivative",
+      "Linear differential operators",
+      "Particular solutions",
+      "Complementary functions",
+      "Standard form",
+      "Integrating factor",
+      "Differential forms",
+      "Separable equations",
+      "Domains",
+      "Exact differential forms",
+      "Simple connectivity",
+      "Solution curves",
+      "Isoclines",
+      "Equilibria",
+      "Stability",
+      "Attraction",
+      "Asymptotic stability",
+      "Linearisation",
+      "Autonomous scalar equations",
+      "Logistic equation",
+      "Discrete dynamical systems",
+      "Fixed points of maps",
+      "Stable fixed points",
+      "Locally attracting fixed points",
+      "The logistic map",
+      "Cobweb diagrams",
+      "Periodic orbits",
+      "Second-order linear equations",
+      "Homogeneous second-order equations",
+      "Reduction of order",
+      "Higher-order linear equations",
+      "State vectors",
+      "Phase space",
+      "Wronskian",
+      "Linear independence of functions",
+      "Undetermined coefficients",
+      "Resonance",
+      "Beating",
+      "Variation of parameters",
+      "Equidimensional equation",
+      "Second-order linear difference equations",
+      "Shift operator",
+      "Damped oscillator model",
+      "Impulse",
+      "Nascent delta families",
+      "Heaviside step",
+      "Analytic functions",
+      "Second-order equations at a point",
+      "Ordinary points",
+      "Singular points",
+      "Regular singular points",
+      "Irregular singular points",
+      "Frobenius series",
+      "Indicial equation",
+      "Euclidean dot product",
+      "Euclidean norm",
+      "Unit vectors",
+      "Gradient",
+      "Directional derivatives",
+      "Stationary points",
+      "Local extrema",
+      "Saddle points",
+      "Hessian matrix",
+      "Eigenvectors and eigenvalues",
+      "Non-degenerate stationary points",
+      "Quadratic forms",
+      "Positive definite quadratic forms",
+      "Negative definite quadratic forms",
+      "Indefinite quadratic forms",
+      "Leading principal minors",
+      "Matrix-vector products",
+      "Trace",
+      "Two-dimensional linear systems",
+      "Eigendirections",
+      "Saddles",
+      "Nodes",
+      "Spirals",
+      "Centres",
+      "Autonomous systems",
+      "Equilibria of autonomous systems",
+      "Jacobian matrix",
+      "Linearised systems",
+      "Partial differential equations",
+      "Prototype equations",
+      "First-order wave equation",
+      "Characteristics",
+      "Wave equation",
+      "String model",
+      "Partial-differentiation operators",
+      "Data for a wave equation",
+      "Diffusion equation",
+      "Error function",
+      "Complementary error function"
+    ],
+    "technical_but_explained": [
+      {
+        "concept": "Dirac delta",
+        "reader_facing_explanation": "a generalized object defined by its action under integration against continuous functions, used only inside integrals",
+        "usable_properties": [
+          "the sifting property DSP: the integral of g(x) delta(x-c) over [a,b] is g(c) when c is interior and 0 when c is outside [a,b]",
+          "an impulse produces a jump in the highest derivative appearing in the equation, as in Question q:delta-boundary-problem",
+          "integration by parts against the Heaviside step gives the generalized identity H' = delta"
+        ]
+      },
+      {
+        "concept": "simple connectivity",
+        "reader_facing_explanation": "a domain in which every continuous closed curve can be contracted to a point through curves lying in the domain",
+        "usable_properties": [
+          "a disc is simply connected and an annulus is not",
+          "on a simply-connected domain, P_y = Q_x implies exactness, by admitted result SCES"
+        ]
+      },
+      {
+        "concept": "chaotic dynamics",
+        "reader_facing_explanation": "parameter ranges in which the long-term behaviour of the logistic map is not eventually periodic and depends sensitively on the initial value",
+        "usable_properties": [
+          "the qualitative description supplied by admitted result LMPDB; no further property is used"
+        ]
+      },
+      {
+        "concept": "thermal diffusivity",
+        "reader_facing_explanation": "a positive constant with dimensions of length squared per unit time measuring how fast temperature variations spread",
+        "usable_properties": [
+          "the diffusion equation T_t = kappa T_xx",
+          "the penetration length scale sqrt(kappa t)"
+        ]
+      }
+    ],
+    "external_admitted_results": [
+      "Mean Value Theorem (MVT)",
+      "Taylor Theorem with Peano Remainder (TTPR)",
+      "General Derivative Quotient Limit Rule (GDQLR)",
+      "Basic Riemann Integral Properties (BRIP)",
+      "Schwarz Commutation for Existing Continuous Partials (SCECP)",
+      "Continuous Integral Interchange (CII)",
+      "Euler Limit Characterization (ELC)",
+      "Exponential Power Series Identity (EPSI)",
+      "Simply-Connected Exactness Sufficiency (SCES)",
+      "Scalar Autonomous Uniqueness for Solutions (SAUS)",
+      "Logistic Map Period-Doubling Behaviour (LMPDB)",
+      "Linear Initial-Value Problem Existence and Uniqueness (LIVPEU)",
+      "Gaussian Integral Normalization (GIN)",
+      "Dirac Sifting Property (DSP)",
+      "Ordinary-Point Series Basis (OPSB)",
+      "Frobenius Regular-Singularity Existence (FRSE)",
+      "Frobenius Solutions by Root Difference (FSRD)",
+      "Cauchy--Schwarz Inequality (CSI)",
+      "Symmetric Spectral Theorem and Diagonalization (SSTD)",
+      "Sylvester Conditions For Definiteness (SCFD)",
+      "Linear System Initial-Value Problem Existence and Uniqueness (LSIVPEU)",
+      "Matrix Determinant Flow Equation (MDFE)",
+      "Hyperbolic Linearization Principle (HLP)"
+    ]
+  },
   "outline": [
     {
       "part": "I",
@@ -414,6 +633,34 @@
       "status": "checked"
     }
   ],
+  "audit": {
+    "status": "audited",
+    "date": "2026-09-15",
+    "checks": [
+      "source coverage and dependency order",
+      "definitions, hypotheses, domains, and bound variables",
+      "mathematical correctness and question solvability",
+      "admitted-result placement and naming",
+      "acronym catalogue correspondence",
+      "reader-boundary and first-use vocabulary pass",
+      "concept-block single-definition pass",
+      "mathematical-task-only pass",
+      "compiled layout"
+    ],
+    "corrections": [
+      "Added the prerequisite statement to the instructions page and the reader_boundary object to the catalogue.",
+      "Removed the prose-only lettered items ONCRF, LNAL, FSD, VALE, CWI, TSL, RDHS, PPM, JLM, STI, USBF, and RFC, moving their content to exposition or replacing it with mathematical tasks.",
+      "Split every bundled concept block into one definition per block and recorded the new concepts in reader_boundary.defined_in_paper.",
+      "Rewrote the remaining lettered items that appended prose requests, so that every item now requires a mathematical action.",
+      "Replaced the undefined pole language in the regular-singularity test with an exact analytic-extension statement.",
+      "Replaced the references to formulas in the original notes by explicit displayed formulas.",
+      "Corrected the Part VI title to agree with the instructions page and the catalogue.",
+      "Declared the remaining background used without definition: complex numbers, series convergence, monotone convergence, and elementary matrix notation, determinants and bases.",
+      "Defined eigenvectors and eigenvalues before their first use in Part VIII and moved the definition out of Part IX.",
+      "Added reader-facing definitions for curves and simple connectivity, phase-portrait types and eigendirections, the natural frequency, and the thermal diffusivity.",
+      "Removed the undefined pole, Riemann-integrable and regularization vocabulary."
+    ]
+  },
   "parts": {
     "I": {
       "title": "Differentiation, asymptotics, and local approximation",
@@ -495,11 +742,6 @@
             "letter": "e",
             "code": "VRGBR",
             "phrase": "Vanishing Ratio Gives a Bounded Ratio"
-          },
-          {
-            "letter": "f",
-            "code": "ONCRF",
-            "phrase": "Order Notation denotes a Class Rather than a Function"
           }
         ],
         "q:asymptotic-algebra": [
@@ -620,11 +862,6 @@
           },
           {
             "letter": "c",
-            "code": "LNAL",
-            "phrase": "Local Nature and Analytic Limitation"
-          },
-          {
-            "letter": "d",
             "code": "CTE",
             "phrase": "Cubic Taylor Expansion"
           }
@@ -637,11 +874,6 @@
           },
           {
             "letter": "b",
-            "code": "FSD",
-            "phrase": "Formal Series Distinction"
-          },
-          {
-            "letter": "c",
             "code": "MTRF",
             "phrase": "Maclaurin Terms for a Rational Function"
           }
@@ -702,7 +934,7 @@
       ],
       "audit": {
         "status": "audited",
-        "date": "2026-09-11",
+        "date": "2026-09-15",
         "checks": [
           "source coverage and dependency order",
           "definitions, hypotheses, domains, and bound variables",
@@ -718,7 +950,8 @@
           "Gave the sine and quotient comparison functions, the chain-rule increment, and the Taylor-series polynomial explicit domains and codomains.",
           "Stated the mean-value theorem as admitted result MVT before its first use.",
           "Defined the derivative function on an interval before its first use.",
-          "Merged the repeated find-and-prove request in PADE into a single solution-characterization statement."
+          "Merged the repeated find-and-prove request in PADE into a single solution-characterization statement.",
+          "Defined neighbourhoods and the phrase defined near before their first use."
         ]
       }
     },
@@ -923,7 +1156,7 @@
       ],
       "audit": {
         "status": "audited",
-        "date": "2026-09-11",
+        "date": "2026-09-15",
         "checks": [
           "source coverage and dependency order",
           "definitions, hypotheses, domains, and bound variables",
@@ -945,7 +1178,8 @@
           "Repaired an unbalanced parenthesis in the local and total rectangle-error orders.",
           "Gave the parameter-differentiation auxiliary functions K and H explicit domains.",
           "Defined open subsets of R^n before the first use of openness for R^2 and R^3.",
-          "Defined interior points of an interval before the antiderivative definition that uses them."
+          "Defined interior points of an interval before the antiderivative definition that uses them.",
+          "Extended neighbourhoods and the phrase defined near to points of R^n."
         ]
       }
     },
@@ -1151,7 +1385,7 @@
       ],
       "audit": {
         "status": "audited",
-        "date": "2026-09-11",
+        "date": "2026-09-15",
         "checks": [
           "source coverage and dependency order",
           "definitions, hypotheses, domains, and bound variables",
@@ -1168,7 +1402,8 @@
           "Named the differential operator d/dx in the eigenfunction definition.",
           "Restored the first-power/not-multiplied clause of the linear-equation definition.",
           "Added the equivalent y=0-solution characterization of homogeneity.",
-          "Declared the eigenfunction auxiliary function g and the integrating factor mu with domains and codomains."
+          "Declared the eigenfunction auxiliary function g and the integrating factor mu with domains and codomains.",
+          "Defined annihilation for an operator before its first use."
         ]
       }
     },
@@ -1269,11 +1504,6 @@
             "letter": "c",
             "code": "CSULE",
             "phrase": "Contrasting Stability of Upper and Lower Equilibria"
-          },
-          {
-            "letter": "d",
-            "code": "VALE",
-            "phrase": "Validity Area of the Linearized Estimate"
           }
         ],
         "q:autonomous-stability": [
@@ -1352,11 +1582,6 @@
             "letter": "d",
             "code": "PRC",
             "phrase": "Parameter Regime Classification"
-          },
-          {
-            "letter": "e",
-            "code": "CWI",
-            "phrase": "Cobweb Walk Interpretation"
           }
         ],
         "q:logistic-two-cycle": [
@@ -1388,7 +1613,7 @@
       ],
       "audit": {
         "status": "audited",
-        "date": "2026-09-11",
+        "date": "2026-09-15",
         "checks": [
           "source coverage and dependency order",
           "definitions, hypotheses, domains, and bound variables",
@@ -1551,7 +1776,7 @@
       ],
       "audit": {
         "status": "audited",
-        "date": "2026-09-11",
+        "date": "2026-09-15",
         "checks": [
           "source coverage and dependency order",
           "definitions, hypotheses, domains, and bound variables",
@@ -1580,16 +1805,11 @@
         "q:undetermined-coefficients": [
           {
             "letter": "a",
-            "code": "TSL",
-            "phrase": "Trial Shape List"
-          },
-          {
-            "letter": "b",
             "code": "PEFC",
             "phrase": "Polynomial and Exponential Forcing Computation"
           },
           {
-            "letter": "c",
+            "letter": "b",
             "code": "CSFS",
             "phrase": "Complementary Superposition Forms the Solution"
           }
@@ -1804,11 +2024,6 @@
             "letter": "c",
             "code": "BVDC",
             "phrase": "Boundary Values Determine the Constants"
-          },
-          {
-            "letter": "d",
-            "code": "RDHS",
-            "phrase": "Regularity Drop at the Highest-order Source"
           }
         ],
         "q:heaviside": [
@@ -1836,7 +2051,7 @@
       ],
       "audit": {
         "status": "audited",
-        "date": "2026-09-11",
+        "date": "2026-09-15",
         "checks": [
           "source coverage and dependency order",
           "definitions, hypotheses, domains, and bound variables",
@@ -1866,8 +2081,8 @@
         "q:series-point-classification": [
           {
             "letter": "a",
-            "code": "OSPD",
-            "phrase": "Ordinary and Singular Point Definition"
+            "code": "OPVC",
+            "phrase": "Ordinary Point with a Vanishing Coefficient"
           },
           {
             "letter": "b",
@@ -1968,7 +2183,7 @@
       ],
       "audit": {
         "status": "audited",
-        "date": "2026-09-11",
+        "date": "2026-09-15",
         "checks": [
           "source coverage and dependency order",
           "definitions, hypotheses, domains, and bound variables",
@@ -2124,7 +2339,7 @@
       ],
       "audit": {
         "status": "audited",
-        "date": "2026-09-11",
+        "date": "2026-09-15",
         "checks": [
           "source coverage and dependency order",
           "definitions, hypotheses, domains, and bound variables",
@@ -2256,41 +2471,31 @@
             "letter": "a",
             "code": "PTE",
             "phrase": "Perturbation Taylor Expansion"
-          },
-          {
-            "letter": "b",
-            "code": "JLM",
-            "phrase": "Jacobian Linear Model"
           }
         ],
         "q:predator-prey": [
           {
             "letter": "a",
-            "code": "PPM",
-            "phrase": "Predator-Prey Modelling terms"
-          },
-          {
-            "letter": "b",
             "code": "EEP",
             "phrase": "Ecological Equilibrium Points"
           },
           {
-            "letter": "c",
+            "letter": "b",
             "code": "OJS",
             "phrase": "Origin Jacobian Saddle"
           },
           {
-            "letter": "d",
+            "letter": "c",
             "code": "BJS",
             "phrase": "Boundary Jacobian Saddle"
           },
           {
-            "letter": "e",
+            "letter": "d",
             "code": "IJS",
             "phrase": "Interior Jacobian Spiral"
           },
           {
-            "letter": "f",
+            "letter": "e",
             "code": "SOD",
             "phrase": "Spiral Orientation Direction"
           }
@@ -2312,7 +2517,7 @@
       ],
       "audit": {
         "status": "audited",
-        "date": "2026-09-11",
+        "date": "2026-09-15",
         "checks": [
           "source coverage and dependency order",
           "definitions, hypotheses, domains, and bound variables",
@@ -2375,18 +2580,13 @@
         "q:string-motivation": [
           {
             "letter": "a",
-            "code": "STI",
-            "phrase": "String Translation Invariance"
+            "code": "AIFCD",
+            "phrase": "Affine Invariance Forces Curvature Dependence"
           },
           {
             "letter": "b",
-            "code": "USBF",
-            "phrase": "Uniform Slope gives Balanced Forces"
-          },
-          {
-            "letter": "c",
-            "code": "RFC",
-            "phrase": "Restoring Force from Curvature"
+            "code": "WESM",
+            "phrase": "Wave Equation from String Model"
           }
         ],
         "q:dalembert": [
@@ -2469,7 +2669,7 @@
       "admitted_results": [],
       "audit": {
         "status": "audited",
-        "date": "2026-09-11",
+        "date": "2026-09-15",
         "checks": [
           "source coverage and dependency order",
           "definitions, hypotheses, domains, and bound variables",
@@ -2485,7 +2685,8 @@
           "Declared the heat-equation regularity and restored the source's switched-boundary interpretation through the Heaviside input.",
           "Qualified both diffusion limits by their fixed variables and quantified the temperature level used in penetration scaling.",
           "Restored the source's Laplace-equation example in the PDE overview.",
-          "Declared erf, erfc, and the similarity profile theta with domains and codomains."
+          "Declared erf, erfc, and the similarity profile theta with domains and codomains.",
+          "Defined the partial-differentiation operators before OFD and WNC use them."
         ]
       }
     }
